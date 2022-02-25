@@ -10,10 +10,11 @@
 	// En-tête du document.
 	$head_html = $twig->render("1_head.twig",
 	[
-		"head_language" => $language,
-		"head_description" => "Description succinte du site...",
-		"head_keywords" => "word1, word2, word3, ...",
-		"head_title" => $title
+		"file" => $page,
+		"title" => $title,
+		"language" => $language,
+		"keywords" => "word1, word2, word3, ...",
+		"description" => "Description succinte du site..."
 	]);
 
 	// En-tête de la page.
