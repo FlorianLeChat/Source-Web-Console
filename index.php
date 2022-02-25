@@ -3,10 +3,11 @@
 	require("includes/init_twig.php");
 
 	// Variables fixes.
-	$language = "FR";
+	$page = "index";
 	$title = "Source Web Console";
+	$language = "FR";
 
-	// En-tête de la page.
+	// En-tête du document.
 	$head_html = $twig->render("1_head.twig",
 	[
 		"head_language" => $language,
@@ -15,26 +16,33 @@
 		"head_title" => $title
 	]);
 
+	// En-tête de la page.
+	$header_html = $twig->render("2_header.twig");
+
+	// Barre de navigation.
+	$navigation_html = $twig->render("3_navigation.twig");
+
 	// Formulaires.
-	$signup_html = $twig->render("2_signup.twig");
-	$signin_html = $twig->render("3_signin.twig");
-	$contact_html = $twig->render("4_contact.twig");
+	$signup_html = $twig->render("4_signup.twig");
+	$signin_html = $twig->render("5_signin.twig");
+	$contact_html = $twig->render("6_contact.twig");
 
 	// Pied-de-page.
-	$footer_html = $twig->render("5_footer.twig");
+	$footer_html = $twig->render("7_footer.twig");
 
 	// Page entière.
-	$main_html = $twig->render("index.twig",
+	$main_html = $twig->render("$page.twig",
 	[
-		"head_language" => "FR",
-		"head_title" => "Source Web Console",
+		"title" => "Source Web Console",
+		"language" => "FR",
+
 		"head_html" => $head_html,
-
-		"body_signup" => $signup_html,
-		"body_signin" => $signin_html,
-		"body_contact" => $contact_html,
-
-		"footer_options" => $footer_html
+		"header_html" => $header_html,
+		"navigation_html" => $navigation_html,
+		"signup_html" => $signup_html,
+		"signin_html" => $signin_html,
+		"contact_html" => $contact_html,
+		"footer_html" => $footer_html
 	]);
 
 	echo($main_html);
