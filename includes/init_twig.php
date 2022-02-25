@@ -9,4 +9,4 @@ require_once __DIR__ . '/../vendor/autoload.php';
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../templates');
 // $twig = objet qui represente le moteur du template Twig
 //$twig = new Twig_Environment($loader);
-$twig = new \Twig\Environment($loader);
+$twig = new \Twig\Environment($loader, ["debug" => true, "autoescape" => false]);
