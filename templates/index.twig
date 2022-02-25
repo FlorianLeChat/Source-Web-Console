@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ head_language }}">
+<html lang="{{ language }}">
 	{{ head_html }}
 
 	<body>
@@ -30,7 +30,7 @@
 				<img src="path" alt="Logo du site" />
 
 				<!-- Titre du site -->
-				<h1>{{ head_title }}</h1>
+				<h1>{{ title }}</h1>
 
 				<!-- Paragraphe de description principal -->
 				<p>
@@ -68,17 +68,17 @@
 
 			<!-- Formulaire d'inscription -->
 			<section id="signup">
-				{{ body_signup }}
+				{{ signup_html }}
 			</section>
 
 			<!-- Formulaire de connexion -->
 			<section id="signin">
-				{{ body_signin }}
+				{{ signin_html }}
 			</section>
 
 			<!-- Formulaire de contact -->
 			<section id="contact">
-				{{ body_contact }}
+				{{ contact_html }}
 			</section>
 
 			<!-- Bouton vers une info-bulle -->
@@ -88,7 +88,7 @@
 
 		<!-- Pied-de-page du site -->
 		<footer>
-			{{ footer_options }}
+			{{ footer_html }}
 		</footer>
 	</body>
 </html>
