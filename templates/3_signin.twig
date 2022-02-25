@@ -1,0 +1,31 @@
+<!-- Titre du formulaire -->
+<h2>Connexion</h2>
+
+<!-- Description du formulaire -->
+<p>
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+	Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+</p>
+
+<!-- Champs du formulaire -->
+<form action="dashboard.php" method="POST">
+	<!-- Nom d'utilisateur -->
+	<label for="username">Saisissez votre nom d'utilisateur<span>*</span></label>
+	<input type="text" id="username" name="username" placeholder="Nom d'utilisateur" required />
+
+	<!-- Mot de passe -->
+	<label for="password">Saisissez votre mot de passe<span>*</span></label>
+	<input type="password" id="password" name="password" placeholder="Mot de passe" required />
+
+	<!-- Bouton d'affichage du mot de passe -->
+	<label for="clear">Afficher le mot de passe</label>
+	<input type="checkbox" id="clear" /><br /><br />
+
+	<!-- Validation/annulation -->
+	<input type="cancel" value="Annuler" />
+	<input type="submit" value="Valider" />
+</form>
+
+<!-- Bouton vers une info-bulle -->
+<button>?</button>
+<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
