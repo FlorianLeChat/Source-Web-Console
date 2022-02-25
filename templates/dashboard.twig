@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="{{ language }}">
+	{{ head_html }}
+
+	<body>
+		<noscript>Votre navigateur ne supporte pas ou refuse de charger le JavaScript.</noscript>
+
+		<!-- En-tête de la page -->
+		<header>
+			{{ header_html }}
+		</header>
+
+		<main>
+			<!-- Barre de navigation -->
+			{{ navigation_html }}
+
+			<!-- Description de la page -->
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+				Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</p>
+
+			<!-- Sélection des serveurs -->
+			<section id="servers">
+				<!-- Liste des serveurs -->
+				<h2>Liste des serveurs</h2>
+
+				<ul>
+					<li>
+						<!-- Premier serveur -->
+						<span>Nom du premier serveur</span>
+						<span>XX.XX.XX.XX / XX</span>
+						<img src="path" alt="Icône pour éditer les propriétés du serveur" />
+						<img src="path" alt="Icône pour se connecter au serveur" />
+					</li>
+
+					<li>
+						<!-- Deuxième serveur -->
+						<span>Nom du second serveur</span>
+						<span>XX.XX.XX.XX / XX</span>
+						<img src="path" alt="Icône pour éditer les propriétés du serveur" />
+						<img src="path" alt="Icône pour se connecter au serveur" />
+					</li>
+
+					<li>
+						<!-- Troisième serveur -->
+						<span>Nom du troisième serveur</span>
+						<span>XX.XX.XX.XX / XX</span>
+						<img src="path" alt="Icône pour éditer les propriétés du serveur" />
+						<img src="path" alt="Icône pour se connecter au serveur" />
+					</li>
+				</ul>
+
+				<!-- Sélecteurs de tous les serveurs enregistrés -->
+				<img src="path" alt="Flèche partant vers la gauche" />
+				<span>1 / 3</span>
+				<img src="path" alt="Flèche partant vers la droite" />
+			</section>
+
+			<!-- Aperçu de l'état -->
+			<section id="overview">
+				<!-- État général -->
+				<article id="state">
+					<h3>État général</h3>
+
+					<ul>
+						<li>
+							<!-- Première information -->
+							<div class="circle"></div>
+							<h4>Lorem ipsum</h4>
+							<span>Lorem ipsum dolor sit amet</span>
+						</li>
+
+						<li>
+							<!-- Deuxième information -->
+							<div class="circle"></div>
+							<h4>Lorem ipsum</h4>
+							<span>Lorem ipsum dolor sit amet</span>
+						</li>
+
+						<li>
+							<!-- Troisième information -->
+							<div class="circle"></div>
+							<h4>Lorem ipsum</h4>
+							<span>Lorem ipsum dolor sit amet</span>
+						</li>
+					</ul>
+				</article>
+
+				<!-- Actions rapides -->
+				<article id="actions">
+					<h3>Actions rapides</h3>
+
+					<ul>
+						<li>
+							<!-- Arrêter le serveur -->
+							Arrêter
+							<span>Maintenez pour forcer l'arrêt</span>
+						</li>
+
+						<li>
+							<!-- Redémarrer le serveur -->
+							Redémarrer
+						</li>
+
+						<li>
+							<!-- Mettre à jour le serveur -->
+							Mettre à jour
+						</li>
+
+						<li>
+							<!-- Passer en mode de maintenance -->
+							Maintenance
+						</li>
+					</ul>
+				</article>
+			</section>
+
+			<!-- Dernière action réalisée -->
+			<section id="last">
+				<h3>Dernière action</h3>
+
+				<!-- Nom de la dernière tâche -->
+				<div class="block"></div>
+				<span>Lorem ipsum dolor sit amet</span>
+
+				<!-- Heure d'exécution de la dernière tâche -->
+				<img src="path" alt="Icône de l'état de la dernière tâche" />
+				<span>XXhXX</span>
+			</section>
+
+			<!-- Statistiques importantes -->
+			<section id="stats">
+				<h3>Statistiques</h3>
+
+				<p>Lorem ipsum dolor sit amet</p>
+
+				<div class="chart"></div>
+
+				<ul>
+					<li><div id="circle"></div></li>
+					<li><div id="circle"></div></li>
+					<li><div id="circle"></div></li>
+				</ul>
+			</section>
+
+			<!-- Bouton vers une info-bulle -->
+			<button>?</button>
+			<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+		</main>
+
+		<!-- Pied-de-page du site -->
+		<footer>
+			{{ footer_html }}
+		</footer>
+	</body>
+</html>
