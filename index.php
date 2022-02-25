@@ -17,7 +17,10 @@
 	]);
 
 	// En-tête de la page.
-	$header_html = $twig->render("2_header.twig");
+	$header_html = $twig->render("2_header.twig",
+	[
+		"title" => "Source Web Console"
+	]);
 
 	// Barre de navigation.
 	$navigation_html = $twig->render("3_navigation.twig");
