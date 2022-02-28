@@ -3,15 +3,24 @@
 	require("includes/init_twig.php");
 
 	// Variables fixes.
-	$page = "index";
-	$title = "Source Web Console";
+	$page = "configuration";
+	$title = "Administration";
+	$subtitle = "";
 	$language = "FR";
+
+	$titles = [
+		"dashboard" => "Tableau de bord",
+		"statistics" => "Statistiques",
+		"configuration" => "Configuration",
+		"actions" => "Actions et commandes",
+		"console" => "Console interactive",
+		"tasks" => "Tâches planifiées"
+	];
 
 	// En-tête du document.
 	$head_html = $twig->render("1_head.twig",
 	[
 		"file" => $page,
-		"title" => $title,
 		"language" => $language,
 		"keywords" => "word1, word2, word3, ...",
 		"description" => "Description succinte du site..."
@@ -20,7 +29,8 @@
 	// En-tête de la page.
 	$header_html = $twig->render("2_header.twig",
 	[
-		"title" => "Source Web Console"
+		"title" => $title,
+		"subtitle" => $titles[$page] ?? $title
 	]);
 
 	// Barre de navigation.
@@ -37,9 +47,7 @@
 	// Page entière.
 	$main_html = $twig->render("$page.twig",
 	[
-		"title" => "Source Web Console",
-		"language" => "FR",
-
+		"language" => $language,
 		"head_html" => $head_html,
 		"header_html" => $header_html,
 		"navigation_html" => $navigation_html,
