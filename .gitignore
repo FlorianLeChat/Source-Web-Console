@@ -1,2 +1,6 @@
+# Generated CSS files
+*.css
+
+# Composer files
 composer.phar
 /vendor/
