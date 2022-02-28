@@ -3,7 +3,7 @@
 	require("includes/init_twig.php");
 
 	// Variables fixes.
-	$page = "configuration";
+	$page = "index";
 	$title = "Administration";
 	$subtitle = "";
 	$language = "FR";
