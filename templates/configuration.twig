@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="{{ language }}">
+	{{ head_html }}
+
+	<body>
+		<noscript>Votre navigateur ne supporte pas ou refuse de charger le JavaScript.</noscript>
+
+		<!-- En-tête de la page -->
+		<header>
+			{{ header_html }}
+		</header>
+
+		<main>
+			<!-- Barre de navigation -->
+			{{ navigation_html }}
+
+			<!-- Description de la page -->
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+				Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</p>
+
+			<!-- Informations de connexion FTP -->
+			<section id="stockage">
+				<!-- Titre du formulaire -->
+				<h2>Informations du serveur</h2>
+
+				<!-- Spécifications juridiques -->
+				<img src="path" alt="Icône d'avertissement" />
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+				<!-- Champs du formulaire -->
+				<form method="POST">
+					<!-- Adresse IP -->
+					<input type="text" id="address" name="address" placeholder="XX.XX.XX.XX" />
+
+					<!-- Port de communication -->
+					<input type="text" id="port" name="port" placeholder="XX" />
+
+					<!-- Type de protocole -->
+					<select id="protocol" name="protocol">
+						<option value="ftp">FTP</option>
+						<option value="sftp">SFTP</option>
+					</select>
+
+					<!-- Nom d'utilisateur -->
+					<input type="text" id="username" name="username" placeholder="Nom d'utilisateur" />
+
+					<!-- Mot de passe -->
+					<input type="password" id="password" name="password" placeholder="Mot de passe" />
+
+					<!-- Validation/annulation -->
+					<input type="cancel" value="Annuler" />
+					<input type="submit" value="Valider" />
+				</form>
+			</section>
+
+			<!-- Paramètres disponibles pour modification -->
+			<section id="parameters">
+				<ul>
+					<li>
+						<!-- Premier paramètre -->
+						<h3>Nom du paramètre</h3>
+						<p>Description du paramètre</p>
+						<input type="text" id="parameter_1" name="parameter_1" placeholder="Valeur actuellement définie" />
+					</li>
+
+					<li>
+						<!-- Deuxième paramètre -->
+						<h3>Nom du paramètre</h3>
+						<p>Description du paramètre</p>
+						<input type="text" id="parameter_2" name="parameter_2" placeholder="Valeur actuellement définie" />
+					</li>
+
+					<li>
+						<!-- Troisième paramètre -->
+						<h3>Nom du paramètre</h3>
+						<p>Description du paramètre</p>
+						<input type="text" id="parameter_3" name="parameter_3" placeholder="Valeur actuellement définie" />
+					</li>
+				</ul>
+			</section>
+		</main>
+
+		<!-- Pied-de-page du site -->
+		<footer>
+			{{ footer_html }}
+		</footer>
+	</body>
+</html>
