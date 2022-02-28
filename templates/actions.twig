@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="{{ language }}">
+	{{ head_html }}
+
+	<body>
+		<noscript>Votre navigateur ne supporte pas ou refuse de charger le JavaScript.</noscript>
+
+		<!-- En-tête de la page -->
+		<header>
+			{{ header_html }}
+		</header>
+
+		<main>
+			<!-- Barre de navigation -->
+			{{ navigation_html }}
+
+			<!-- Description de la page -->
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+				Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</p>
+
+			<!-- Actions -->
+			<section id="actions">
+				<!-- Titre de la section -->
+				<h2>Paramètres</h2>
+
+				<!-- Actions de la section -->
+				<ul>
+					<li>
+						<!-- Arrêter le serveur -->
+						Arrêter
+						<span>Maintenez pour forcer l'arrêt</span>
+					</li>
+
+					<li>
+						<!-- Redémarrer le serveur -->
+						Redémarrer
+					</li>
+
+					<li>
+						<!-- Mettre à jour le serveur -->
+						Mettre à jour
+					</li>
+
+					<li>
+						<!-- Passer en mode de maintenance -->
+						Maintenance
+					</li>
+
+					<li>
+						<!-- Ajouter une nouvelle action personnalisée -->
+						Ajouter une action
+					</li>
+				</ul>
+
+				<hr />
+
+				<!-- Actionneurs de la section -->
+				<ul>
+					<li>
+						<span>Paramètre avec actionneur 1</span>
+						<button class="slider"></button>
+					</li>
+
+					<li>
+						<span>Paramètre avec actionneur 2</span>
+						<button class="slider"></button>
+					</li>
+
+					<li>
+						<span>Paramètre avec actionneur 3</span>
+						<button class="slider"></button>
+					</li>
+				</ul>
+			</section>
+
+			<!-- Commandes -->
+			<section id="commands">
+				<!-- Titre de la section -->
+				<h2>Commandes</h2>
+
+				<!-- Commandes de la section -->
+				<ul>
+					<li>
+						<span>Nom de la commande 1</span>
+						<img src="path" alt="Icône pour supprimer la commande" />
+					</li>
+
+					<li>
+						<span>Nom de la commande 2</span>
+						<img src="path" alt="Icône pour supprimer la commande" />
+					</li>
+
+					<li>
+						<span>Nom de la commande 3</span>
+						<img src="path" alt="Icône pour supprimer la commande" />
+					</li>
+				</ul>
+
+				<!-- Bouton avec icône pour ajouter une commande -->
+				<div data-image="path"></div>
+			</section>
+		</main>
+
+		<!-- Pied-de-page du site -->
+		<footer>
+			{{ footer_html }}
+		</footer>
+	</body>
+</html>
