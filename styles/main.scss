@@ -37,6 +37,13 @@ ul, ol
 	@include reset-list-style
 }
 
+a
+{
+	// Liens d'ancrage.
+	color: currentColor;
+	text-decoration: none;
+}
+
 noscript
 {
 	// Avertissement page sans JavaScript.
@@ -48,8 +55,8 @@ noscript
 	z-index: 10;
 	position: fixed;
 
-	color: white;
-	background-color: red;
+	color: $background-color;
+	background-color: $error-color;
 }
 
 ::selection
