@@ -28,7 +28,7 @@
 		<input type="checkbox" id="generation" /><br /><br />
 
 		<!-- Validation/annulation -->
-		<input type="cancel" value="Annuler" />
+		<input type="button" value="Annuler" />
 		<input type="submit" value="Valider" />
 	</form>
 
@@ -63,17 +63,17 @@
 		<!-- Informations client (adresse IP & port) -->
 		<label>Saisissez les informations client<span>*</span></label>
 
-		<input type="text" id="address" name="address" placeholder="XX.XX.XX.XX" required />
-		<input type="text" id="port" name="port" placeholder="XX" required />
+		<input type="text" id="server_address" name="server_address" placeholder="XX.XX.XX.XX" required />
+		<input type="text" id="server_port" name="server_port" placeholder="XX" required />
 
 		<p>Description brève des informations demandées.</p>
 
 		<!-- Informations administrateur (adresse IP, port & mot de passe) -->
 		<label>Saisissez les informations administrateur</label>
 
-		<input type="text" id="address" name="address" placeholder="XX.XX.XX.XX" required />
-		<input type="text" id="port" name="port" placeholder="XX" required />
-		<input type="text" id="password" name="password" placeholder="Mot de passe" required />
+		<input type="text" id="admin_address" name="admin_address" placeholder="XX.XX.XX.XX" required />
+		<input type="text" id="admin_port" name="admin_port" placeholder="XX" required />
+		<input type="text" id="admin_password" name="admin_password" placeholder="Mot de passe" required />
 
 		<p>Description brève des informations demandées.</p>
 
@@ -85,7 +85,7 @@
 		<input type="checkbox" id="auto_connect" /><br /><br />
 
 		<!-- Validation/annulation -->
-		<input type="cancel" value="Annuler" />
+		<input type="button" value="Annuler" />
 		<input type="submit" value="Valider" />
 	</form>
 

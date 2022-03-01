@@ -10,19 +10,19 @@
 <!-- Champs du formulaire -->
 <form action="dashboard.php" method="POST">
 	<!-- Nom d'utilisateur -->
-	<label for="username">Saisissez votre nom d'utilisateur<span>*</span></label>
-	<input type="text" id="username" name="username" placeholder="Nom d'utilisateur" required />
+	<label for="user_name">Saisissez votre nom d'utilisateur<span>*</span></label>
+	<input type="text" id="user_name" name="user_username" placeholder="Nom d'utilisateur" required />
 
 	<!-- Mot de passe -->
-	<label for="password">Saisissez votre mot de passe<span>*</span></label>
-	<input type="password" id="password" name="password" placeholder="Mot de passe" required />
+	<label for="user_password">Saisissez votre mot de passe<span>*</span></label>
+	<input type="text" id="user_password" name="user_password" placeholder="Mot de passe" required />
 
 	<!-- Bouton d'affichage du mot de passe -->
 	<label for="clear">Afficher le mot de passe</label>
 	<input type="checkbox" id="clear" /><br /><br />
 
 	<!-- Validation/annulation -->
-	<input type="cancel" value="Annuler" />
+	<input type="button" value="Annuler" />
 	<input type="submit" value="Valider" />
 </form>
 
