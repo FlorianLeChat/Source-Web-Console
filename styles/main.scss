@@ -91,3 +91,146 @@ noscript
 	// Couleur de la barre lors d'une sélection.
 	background-color: $text-color;
 }
+
+// ------------ //
+// Pied-de-page //
+// ------------ //
+footer
+{
+	// Disposition et apparence.
+	color: $text-color;
+	width: calc(100% - 2rem);
+	bottom: 0;
+	padding: 1rem;
+	position: fixed;
+	background-color: $box-color;
+
+	ul li
+	{
+		// Liste des options.
+		display: inline-block;
+		position: relative;
+		font-size: 1.5rem;
+		margin-right: 2rem;
+
+		a
+		{
+			// Lien vers les pages.
+			color: $background-color;
+
+			&:hover
+			{
+				// Effet de sélection.
+				color: $box-color;
+				font-weight: bold;
+				background-color: $text-color;
+			}
+
+			&::after
+			{
+				// Amélioration de la zone de détection.
+				@include larger-touch-zone;
+			}
+		}
+
+		img
+		{
+			// Espacement des images.
+			margin-right: 0.25rem;
+		}
+
+		&:last-of-type
+		{
+			// Bouton de sélection de la langue.
+			float: right;
+			margin-right: 0;
+
+			ul
+			{
+				// Liste des langues disponibles.
+				left: -3.5rem;
+				bottom: 3rem;
+				display: none;
+				position: absolute;
+
+				li
+				{
+					margin: 0.5rem 0 0;
+
+					button
+					{
+						// Bouton pour changer vers la langue sélectionnée.
+						color: $box-color;
+						padding: 0.5rem;
+						border-radius: 0.5rem;
+						background-color: $text-color;
+
+						img
+						{
+							// Drapeau représentant la langue.
+							width: 2rem;
+							margin-right: 0;
+						}
+
+						span
+						{
+							// Nom de la langue.
+							font-size: 1.25rem;
+							font-weight: bold;
+						}
+
+						&:hover
+						{
+							// Sélection du bouton.
+							color: $text-color;
+							background-color: $box-color;
+						}
+
+						// Réinitialisation des valeurs par défaut.
+						@include reset-button-style;
+					}
+
+					&:last-of-type
+					{
+						// Petite astuce pour pouvoir garder le menu ouvert
+						// 	lorsque l'utilisateur déplace sa souris vers un
+						//	des boutons du menu.
+						position: relative;
+
+						&::after
+						{
+							bottom: -3rem;
+							content: "";
+							z-index: -1;
+							position: absolute;
+						}
+					}
+				}
+			}
+
+			&::after
+			{
+				// Amélioration de la zone de détection.
+				@include larger-touch-zone;
+			}
+
+			&:hover
+			{
+				// Sélection de l'icône des langues.
+				cursor: pointer;
+
+				ul
+				{
+					// Affichage des langues disponibles.
+					display: block;
+				}
+
+				i
+				{
+					// Changement de la couleur de l'icône.
+					color: $background-color;
+				}
+			}
+		}
+	}
+}
