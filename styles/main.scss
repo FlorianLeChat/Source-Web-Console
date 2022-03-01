@@ -1,0 +1,86 @@
+// ------------------ //
+// Variables globales //
+// ------------------ //
+@import "variables";
+@import "mixins";
+
+// --------------- //
+// Document entier //
+// --------------- //
+html
+{
+	// Traitement des textes.
+	color: $box-color;
+	font-family: "Roboto", sans-serif;
+	text-rendering: optimizeSpeed;
+
+	// Disposition et affichage.
+	min-width: $html-min-width;
+	scroll-behavior: smooth;
+}
+
+h1
+{
+	// Titres principaux.
+	font-family: "Source Sans Pro", sans-serif;
+}
+
+h2, h3, h4, h5, h6
+{
+	// Sous-titres.
+	font-family: "Source Code Pro", serif;
+}
+
+ul, ol
+{
+	// Listes (non-)ordonnées.
+	@include reset-list-style
+}
+
+noscript
+{
+	// Avertissement page sans JavaScript.
+	top: 1rem;
+	right: 1rem;
+	padding: 0.5rem;
+	margin-left: 6rem;
+
+	z-index: 10;
+	position: fixed;
+
+	color: white;
+	background-color: red;
+}
+
+::selection
+{
+	// Sélection des textes.
+	color: $text-color;
+	background-color: $box-color;
+}
+
+// Personnalisation de la barre de défilement.
+//	(Navigateurs WebKit uniquement : https://caniuse.com/css-scrollbar).
+::-webkit-scrollbar
+{
+	// Taille de la barre.
+	width: 0.75rem;
+}
+
+::-webkit-scrollbar-track
+{
+	// Fond de la barre.
+	background-color: $background-color;
+}
+
+::-webkit-scrollbar-thumb
+{
+	// Couleur classique de la barre.
+	background-color: $box-color;
+}
+
+::-webkit-scrollbar-thumb:hover
+{
+	// Couleur de la barre lors d'une sélection.
+	background-color: $text-color;
+}
