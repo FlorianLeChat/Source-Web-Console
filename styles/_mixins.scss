@@ -1,0 +1,30 @@
+// Permet de réinitialiser les règles initiales d'un
+// 	bouton afin de le personnaliser par la suite.
+@mixin reset-button-style()
+{
+	border: none;
+	cursor: pointer;
+	outline: none;
+	position: relative;
+}
+
+// Permet de réinitialiser les règles initiales d'une
+// 	liste ordonnée ou non-ordonnée.
+@mixin reset-list-style
+{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+// Permet d'élargir la zone de détection lors d'un clic
+// 	de l'utilisateur (utile sur terminaux mobiles).
+@mixin larger-touch-zone()
+{
+	top: -0.5rem;
+	left: -0.5rem;
+	right: -0.5rem;
+	bottom: -0.5rem;
+	content: "";
+	position: absolute;
+}
