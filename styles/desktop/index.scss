@@ -26,11 +26,12 @@ header ul
 		text-transform: uppercase;
 		background-color: $box-color;
 
+		// Réinitialisation des valeurs par défaut.
 		@include reset-button-style;
 
-		// Sélection utilisateur.
 		&::before
 		{
+			// Amélioration de la zone de détection.
 			@include larger-touch-zone;
 		}
 	}
