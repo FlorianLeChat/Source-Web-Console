@@ -29,9 +29,16 @@ header ul
 		// Réinitialisation des valeurs par défaut.
 		@include reset-button-style;
 
+		&:hover
+		{
+			// Effet de sélection.
+			color: $box-color;
+			background-color: $text-color;
+		}
+
 		&::before
 		{
-			// Amélioration de la zone de détection.
+			// Amélioration de la zone de sélection.
 			@include larger-touch-zone;
 		}
 	}
