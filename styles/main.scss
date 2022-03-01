@@ -92,6 +92,62 @@ noscript
 	background-color: $text-color;
 }
 
+// ------------------ //
+// Bouton des astuces //
+// ------------------ //
+main >
+{
+	span
+	{
+		// Texte de l'astuce caché par défaut.
+		display: none;
+	}
+
+	button
+	{
+		// Réinitialisation des valeurs par défaut.
+		@include reset-button-style;
+
+		// Disposition et affichage.
+		color: $text-color;
+		width: 3rem;
+		right: 0.5rem;
+		height: 3rem;
+		bottom: 4.25rem;
+		position: absolute;
+		font-size: 1.5rem;
+		font-weight: bold;
+		background-color: $box-color;
+		border-radius: 50%;
+
+		&:hover
+		{
+			// Effet de sélection.
+			color: $box-color;
+			background-color: $text-color;
+
+			+ span
+			{
+				// Affichage du texte de l'astuce lorsque l'icône
+				// 	est sélectionné par l'utilisateur.
+				color: $text-color;
+				right: 4rem;
+				bottom: 4.6rem;
+				padding: 0.5rem;
+				display: inline-block;
+				position: absolute;
+				background-color: $box-color;
+			}
+		}
+
+		&::after
+		{
+			// Amélioration de la zone de sélection.
+			@include larger-touch-zone;
+		}
+	}
+}
+
 // ------------ //
 // Pied-de-page //
 // ------------ //
@@ -128,7 +184,7 @@ footer
 
 			&::after
 			{
-				// Amélioration de la zone de détection.
+				// Amélioration de la zone de sélection.
 				@include larger-touch-zone;
 			}
 		}
@@ -190,27 +246,22 @@ footer
 						@include reset-button-style;
 					}
 
-					&:last-of-type
+					&:last-of-type::after
 					{
 						// Petite astuce pour pouvoir garder le menu ouvert
 						// 	lorsque l'utilisateur déplace sa souris vers un
 						//	des boutons du menu.
-						position: relative;
-
-						&::after
-						{
-							bottom: -3rem;
-							content: "";
-							z-index: -1;
-							position: absolute;
-						}
+						bottom: -4rem;
+						content: "";
+						z-index: -1;
+						position: absolute;
 					}
 				}
 			}
 
 			&::after
 			{
-				// Amélioration de la zone de détection.
+				// Amélioration de la zone de sélection.
 				@include larger-touch-zone;
 			}
 
