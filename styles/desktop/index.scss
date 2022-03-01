@@ -2,3 +2,36 @@
 // Variables globales //
 // ------------------ //
 @import "../main";
+
+// ------- //
+// En-tête //
+// ------- //
+header ul
+{
+	// Présentation des boutons.
+	float: right;
+	margin: 1rem;
+
+	button
+	{
+		// Disposition et affichage.
+		color: $text-color;
+		float: right;
+		width: 150px;
+		height: 44px;
+		padding: 0.5rem 1.5rem;
+		font-weight: bold;
+		border-radius: 0.5rem;
+		margin-bottom: 0.5rem;
+		text-transform: uppercase;
+		background-color: $box-color;
+
+		@include reset-button-style;
+
+		// Sélection utilisateur.
+		&::before
+		{
+			@include larger-touch-zone;
+		}
+	}
+}
