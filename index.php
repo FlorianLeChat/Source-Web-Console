@@ -47,6 +47,7 @@
 	// Page entière.
 	$main_html = $twig->render("$page.twig",
 	[
+		"title" => "Source Web Console",
 		"language" => $language,
 		"head_html" => $head_html,
 		"header_html" => $header_html,
