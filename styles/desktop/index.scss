@@ -44,26 +44,67 @@ header ul
 	}
 }
 
+// ---------------------------- //
+// Section : carrousel d'images //
+// ---------------------------- //
+#carousel
+{
+	// Disposition et affichage.
+	top: 25%;
+	margin: 0 55% 0 10%;
+	position: absolute;
+
+	ul li
+	{
+		// Liste de toutes les images.
+		display: none;
+
+		img
+		{
+			// Image du projet.
+			width: 50vh;
+			filter: blur(0.75px) grayscale(1);
+			border-radius: 1rem;
+
+			&:hover
+			{
+				// Effet de sélection.
+				filter: blur(0) grayscale(0);
+			}
+		}
+
+		&:first-of-type
+		{
+			// Affichage de la première image.
+			display: block;
+		}
+	}
+}
+
 // -------------------------------- //
 // Section : informations générales //
 // -------------------------------- //
 #informations
 {
-	float: right;
+	// Disposition et affichage.
+	top: 25%;
 	color: $box-color;
-	margin: 0 1rem 0 50%;
+	margin: 0 10% 0 55%;
 	padding: 1rem;
+	position: absolute;
 	text-align: center;
 	border-radius: 0.5rem;
 
 	h1
 	{
+		// Titre du site.
 		font-size: 3rem;
 		text-shadow: 1px 1px 1px $text-color;
 	}
 
 	p
 	{
+		// Paragraphe de description principal.
 		margin: 2rem 0 2rem;
 		line-height: 1.25rem;
 		font-weight: bold;
