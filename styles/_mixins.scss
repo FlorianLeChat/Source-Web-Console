@@ -3,7 +3,6 @@
 @mixin reset-button-style()
 {
 	border: none;
-	cursor: pointer;
 	outline: none;
 	position: relative;
 }
@@ -27,4 +26,46 @@
 	bottom: -0.5rem;
 	content: "";
 	position: absolute;
+}
+
+// Permet d'appliquer automatiquement les modifications
+// 	de personnalisation aux boutons d'annulation.
+@mixin cancel-button-layout
+{
+	// Disposition et affichage.
+	color: $background-color;
+	cursor: pointer;
+	padding: 0.5rem 1rem;
+	font-size: 1.25rem;
+	margin-right: 0.25rem;
+	border-radius: 0.25rem;
+	background-color: $error-color;
+
+	&:hover
+	{
+		// Effet de sélection.
+		color: $error-color;
+		font-weight: bold;
+		background-color: $background-color;
+	}
+}
+
+@mixin submit-button-layout
+{
+	// Disposition et affichage.
+	color: $background-color;
+	cursor: pointer;
+	padding: 0.5rem 1rem;
+	font-size: 1.25rem;
+	margin-left: 0.25rem;
+	border-radius: 0.25rem;
+	background-color: $validate-color;
+
+	&:hover
+	{
+		// Effet de sélection.
+		color: $validate-color;
+		font-weight: bold;
+		background-color: $background-color;
+	}
 }
