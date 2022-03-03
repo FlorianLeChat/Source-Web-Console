@@ -186,7 +186,7 @@ footer
 	// Disposition et apparence.
 	color: $text-color;
 	width: calc(100% - 2rem);
-	bottom: 0;
+	bottom: -1px;
 	padding: 1rem;
 	z-index: 5;
 	position: fixed;
