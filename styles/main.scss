@@ -37,6 +37,12 @@ ul, ol
 	@include reset-list-style
 }
 
+p
+{
+	// Paragraphes et textes.
+	line-height: 1.25rem;
+}
+
 a
 {
 	// Liens d'ancrage.
@@ -58,7 +64,9 @@ video
 
 button
 {
-	// Boutons de sélection .
+	// Boutons de sélection.
+	@include reset-button-style;
+	cursor: pointer;
 	box-shadow: 0.25rem 0.25rem 0.25rem $border-color;
 }
 
@@ -73,6 +81,15 @@ noscript
 	position: fixed;
 	margin-left: 6rem;
 	background-color: $error-color;
+}
+
+input, textarea, select
+{
+	// Actionneurs, champs de saisies et listes déroulantes.
+	@include reset-button-style;
+	resize: vertical;
+	line-height: 1; // Correction étrange pour le normalisateur CSS.
+	border-radius: 0.5rem;
 }
 
 ::selection
@@ -121,9 +138,6 @@ main >
 
 	button
 	{
-		// Réinitialisation des valeurs par défaut.
-		@include reset-button-style;
-
 		// Disposition et affichage.
 		color: $text-color;
 		width: 3rem;
@@ -174,6 +188,7 @@ footer
 	width: calc(100% - 2rem);
 	bottom: 0;
 	padding: 1rem;
+	z-index: 5;
 	position: fixed;
 	background-color: $box-color;
 
@@ -257,9 +272,6 @@ footer
 							color: $text-color;
 							background-color: $box-color;
 						}
-
-						// Réinitialisation des valeurs par défaut.
-						@include reset-button-style;
 					}
 
 					&:last-of-type::after

@@ -8,13 +8,13 @@
 </p>
 
 <!-- Spécifications juridiques -->
-<img src="path" alt="Icône d'avertissement" />
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+<i class="bi bi-exclamation-triangle-fill"></i>
+<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
 
 <form method="POST">
 	<!-- Adresse email -->
 	<label for="email">Saisissez votre adresse électronique<span>*</span></label>
-	<input type="email" id="email" name="email" placeholder="address@domain.extension" required />
+	<input type="email" autocomplete="email" spellcheck="false" id="email" name="email" placeholder="address@domain.extension" minlength="10" maxlength="40" required />
 
 	<!-- Sujet de la prise de contact -->
 	<label for="subject">Sélectionnez le sujet de contact<span>*</span></label>
@@ -26,13 +26,9 @@
 
 	<!-- Contenu du message -->
 	<label for="content">Indiquez le contenu de votre message<span>*</span></label>
-	<textarea id="content" name="content" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit." required></textarea>
+	<textarea id="content" name="content" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit." minlength="20" maxlength="4000" required></textarea>
 
 	<!-- Validation/annulation -->
 	<input type="button" value="Annuler" />
 	<input type="submit" value="Valider" />
 </form>
-
-<!-- Bouton vers une info-bulle -->
-<button>?</button>
-<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>

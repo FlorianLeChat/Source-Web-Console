@@ -26,9 +26,6 @@ header ul
 		text-transform: uppercase;
 		background-color: $box-color;
 
-		// Réinitialisation des valeurs par défaut.
-		@include reset-button-style;
-
 		&:hover
 		{
 			// Effet de sélection.
@@ -106,15 +103,11 @@ header ul
 	{
 		// Paragraphe de description principal.
 		margin: 2rem 0 2rem;
-		line-height: 1.25rem;
 		font-weight: bold;
 	}
 
 	button
 	{
-		// Réinitialisation des valeurs par défaut.
-		@include reset-button-style;
-
 		// Disposition et affichage.
 		color: $box-color;
 		font-size: 2rem;
@@ -163,5 +156,94 @@ header ul
 // ----------------- //
 #contact
 {
-	display: none;
+	// Disposition et affichage.
+	width: 50%;
+	border: 1px solid $box-color;
+	margin: 2rem auto 6rem auto;
+	padding: 2rem;
+	z-index: 1;
+	position: relative;
+	text-align: center;
+	background-color: $background-color;
+
+	h2
+	{
+		// Titre du formulaire.
+		font-size: 2rem;
+		margin-top: 0;
+	}
+
+	i
+	{
+		// Spécifications juridiques.
+		left: 1rem;
+		float: left;
+		color: $error-color;
+		position: relative;
+		font-size: 2rem;
+		margin-right: 1rem;
+	}
+
+	p
+	{
+		// Description du formulaire.
+		margin: 0 5% 1rem 5%;
+	}
+
+	form
+	{
+		// Formulaire.
+		padding: 1rem;
+		margin-top: 1.5rem;
+		border-radius: 0.5rem;
+		background-color: $box-color;
+
+		label
+		{
+			// Libellé du champ.
+			color: $text-color;
+		}
+
+		input[type *= e], textarea, select
+		{
+			// Champs et zones de saisies.
+			width: calc(100% - 2rem);
+			margin: 0.5rem 0 1rem 0;
+			padding: 0.5rem;
+			box-sizing: border-box;
+		}
+
+		select
+		{
+			// Sélection des sujets.
+			cursor: pointer;
+		}
+
+		textarea
+		{
+			// Zone de saisie principale.
+			height: 200px;
+			margin-bottom: 0;
+		}
+
+		input[type = button]
+		{
+			// Application de l'apparence personnalisée.
+			margin-top: 0.5rem;
+			@include cancel-button-layout;
+		}
+
+		input[type = submit]
+		{
+			// Application de l'apparence personnalisée.
+			margin-top: 0.5rem;
+			@include submit-button-layout;
+		}
+
+		span
+		{
+			// Champs requis.
+			color: $error-color;
+		}
+	}
 }
