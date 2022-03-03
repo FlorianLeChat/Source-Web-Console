@@ -135,34 +135,24 @@ header ul
 	display: none;
 }
 
-// --------------------- //
-// Section : inscription //
-// --------------------- //
-#signup
-{
-	display: none;
-}
-
-// -------------------------- //
-// Section : authentification //
-// -------------------------- //
-#signin
-{
-	display: none;
-}
-
-// ----------------- //
-// Section : contact //
-// ----------------- //
-#contact
+// -------------------------------------------- //
+// Sections : inscription, connexion et contact //
+// -------------------------------------------- //
+#signup article, #signin, #contact
 {
 	// Disposition et affichage.
+	top: 45vh;
+	left: 50%;
 	width: 50%;
-	border: 1px solid $box-color;
+	border: 1px solid $text-color;
 	margin: 2rem auto 6rem auto;
 	padding: 2rem;
 	z-index: 1;
-	position: relative;
+	display: none;
+	position: fixed;
+	transform: translate(-50%, -50%);
+	overflow-y: scroll;
+	max-height: 75vh;
 	text-align: center;
 	background-color: $background-color;
 
@@ -198,19 +188,69 @@ header ul
 		border-radius: 0.5rem;
 		background-color: $box-color;
 
+		p
+		{
+			// Description brève des informations demandées.
+			color: $background-color;
+			text-align: justify;
+			font-style: italic;
+
+			&:last-of-type
+			{
+				margin-bottom: 2rem;
+			}
+		}
+
+		hr
+		{
+			// Séparateur entre les articles.
+			margin: 1.5rem 0 2rem;
+			border-color: $background-color;
+		}
+
 		label
 		{
 			// Libellé du champ.
 			color: $text-color;
+
+			> span
+			{
+				// Champs requis.
+				color: $error-color;
+			}
 		}
 
-		input[type *= e], textarea, select
+		input[type = text], input[type = email], input[type = password], textarea, select
 		{
 			// Champs et zones de saisies.
 			width: calc(100% - 2rem);
 			margin: 0.5rem 0 1rem 0;
-			padding: 0.5rem;
+			padding: 1rem;
 			box-sizing: border-box;
+
+			+ span
+			{
+				// Icône d'état des vérifications.
+				position: relative;
+
+				&::before
+				{
+					top: -2.5px;
+					left: -1.75rem;
+					position: absolute;
+				}
+			}
+		}
+
+		input[type = checkbox]
+		{
+			// Boites à cocher.
+			margin-left: 0.5rem;
+
+			&:checked
+			{
+				box-shadow: 0 0 0 3px $text-color;
+			}
 		}
 
 		select
@@ -224,6 +264,13 @@ header ul
 			// Zone de saisie principale.
 			height: 200px;
 			margin-bottom: 0;
+
+			+ span::before
+			{
+				// Positionnement de l'icône des vérifications.
+				top: -1.25rem;
+				left: -2rem;
+			}
 		}
 
 		input[type = button]
@@ -240,10 +287,26 @@ header ul
 			@include submit-button-layout;
 		}
 
-		span
+		input:valid + span::before, textarea:valid + span::before
 		{
-			// Champs requis.
+			// Champ considéré comme valide.
+			color: $validate-color;
+			content: "✓";
+			font-size: 1.5rem;
+		}
+
+		input:invalid + span::before, textarea:invalid + span::before
+		{
+			// Champ considéré comme invalide.
 			color: $error-color;
+			content: "✖";
+			font-size: 1.5rem;
+		}
+
+		input:focus:invalid, textarea:focus:invalid
+		{
+			// Contour d'un champ/zone invalide.
+			box-shadow: inset 0 0 0 3px red;
 		}
 	}
 }
