@@ -10,18 +10,20 @@
 	</p>
 
 	<!-- Spécifications juridiques -->
-	<img src="path" alt="Icône d'avertissement" />
-	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+	<i class="bi bi-exclamation-triangle-fill"></i>
+	<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
 
 	<!-- Champs du formulaire -->
 	<form>
 		<!-- Nom d'utilisateur -->
 		<label for="username">Choisissez un nom d'utilisateur<span>*</span></label>
-		<input type="text" id="username" name="username" placeholder="Nom d'utilisateur" required />
+		<input type="text"autocomplete="username" spellcheck="false" id="username" name="username" placeholder="Nom d'utilisateur" minlength="10" maxlength="50" required />
+		<span></span>
 
 		<!-- Mot de passe -->
 		<label for="password">Choisissez un mot de passe<span>*</span></label>
-		<input type="password" id="password" name="password" placeholder="Mot de passe" required />
+		<input type="password" autocomplete="current-password" spellcheck="false" id="password" name="password" placeholder="Mot de passe" minlength="10" maxlength="60" required />
+		<span></span>
 
 		<!-- Génération d'un mot de passe sécurisé -->
 		<label for="generation">Générer un mot de passe sécurisé</label>
@@ -55,25 +57,30 @@
 	</p>
 
 	<!-- Spécifications juridiques -->
-	<img src="path" alt="Icône d'avertissement" />
-	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+	<i class="bi bi-exclamation-triangle-fill"></i>
+	<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
 
 	<!-- Champs du formulaire -->
 	<form>
 		<!-- Informations client (adresse IP & port) -->
 		<label>Saisissez les informations client<span>*</span></label>
 
-		<input type="text" id="server_address" name="server_address" placeholder="XX.XX.XX.XX" required />
-		<input type="text" id="server_port" name="server_port" placeholder="XX" required />
+		<input type="text" id="server_address" name="server_address" placeholder="XX.XX.XX.XX" minlength="10" maxlength="15" required />
+		<span></span>
+
+		<input type="text" id="server_port" name="server_port" placeholder="XXXXX" minlength="5" maxlength="5" required />
+		<span></span>
 
 		<p>Description brève des informations demandées.</p>
+
+		<hr />
 
 		<!-- Informations administrateur (adresse IP, port & mot de passe) -->
 		<label>Saisissez les informations administrateur</label>
 
-		<input type="text" id="admin_address" name="admin_address" placeholder="XX.XX.XX.XX" required />
-		<input type="text" id="admin_port" name="admin_port" placeholder="XX" required />
-		<input type="text" id="admin_password" name="admin_password" placeholder="Mot de passe" required />
+		<input type="text" id="admin_address" name="admin_address" placeholder="XX.XX.XX.XX" />
+		<input type="text" id="admin_port" name="admin_port" placeholder="XX" />
+		<input type="text" id="admin_password" name="admin_password" placeholder="Mot de passe" />
 
 		<p>Description brève des informations demandées.</p>
 
@@ -94,8 +101,4 @@
 		<li>1</li>
 		<li><strong>2</strong></li>
 	</ul>
-
-	<!-- Bouton vers une info-bulle -->
-	<button>?</button>
-	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 </article>

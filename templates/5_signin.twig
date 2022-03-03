@@ -11,11 +11,13 @@
 <form action="dashboard.php" method="POST">
 	<!-- Nom d'utilisateur -->
 	<label for="user_name">Saisissez votre nom d'utilisateur<span>*</span></label>
-	<input type="text" id="user_name" name="user_username" placeholder="Nom d'utilisateur" required />
+	<input type="text" autocomplete="username" spellcheck="false" id="user_name" name="user_username" placeholder="Nom d'utilisateur" minlength="10" maxlength="50" required />
+	<span></span>
 
 	<!-- Mot de passe -->
 	<label for="user_password">Saisissez votre mot de passe<span>*</span></label>
-	<input type="text" id="user_password" name="user_password" placeholder="Mot de passe" required />
+	<input type="password" autocomplete="current-password" spellcheck="false" id="user_password" name="user_password" placeholder="Mot de passe" minlength="10" maxlength="60" required />
+	<span></span>
 
 	<!-- Bouton d'affichage du mot de passe -->
 	<label for="clear">Afficher le mot de passe</label>
@@ -25,7 +27,3 @@
 	<input type="button" value="Annuler" />
 	<input type="submit" value="Valider" />
 </form>
-
-<!-- Bouton vers une info-bulle -->
-<button>?</button>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
