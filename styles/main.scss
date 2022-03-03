@@ -50,7 +50,7 @@ video
 	right: 0;
 	bottom: 0;
 	z-index: -1;
-	opacity: 0.1;
+	opacity: 0.15;
 	position: fixed;
 	min-width: 100%;
 	min-height: 100%;
@@ -130,7 +130,7 @@ main >
 		right: 0.5rem;
 		height: 3rem;
 		bottom: 4.25rem;
-		position: absolute;
+		position: fixed;
 		font-size: 1.5rem;
 		font-weight: bold;
 		background-color: $box-color;
@@ -151,7 +151,7 @@ main >
 				bottom: 4.6rem;
 				padding: 0.5rem;
 				display: inline-block;
-				position: absolute;
+				position: fixed;
 				background-color: $box-color;
 			}
 		}
