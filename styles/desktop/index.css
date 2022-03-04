@@ -1,4 +1,55 @@
 @charset "UTF-8";
+input, textarea, select, button {
+  border: none;
+  outline: none;
+  position: relative;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+header ul button::before, footer ul li:last-of-type::after, footer ul li a::after, main > button::after {
+  top: -0.5rem;
+  left: -0.5rem;
+  right: -0.5rem;
+  bottom: -0.5rem;
+  content: "";
+  position: absolute;
+}
+
+#signup article form input[type=button], #signin form input[type=button], #contact form input[type=button] {
+  color: #f2f2f2;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  margin-right: 0.25rem;
+  border-radius: 0.25rem;
+  background-color: #ed431d;
+}
+#signup article form input[type=button]:hover, #signin form input[type=button]:hover, #contact form input[type=button]:hover {
+  color: #ed431d;
+  font-weight: bold;
+  background-color: #f2f2f2;
+}
+
+#signup article form input[type=submit], #signin form input[type=submit], #contact form input[type=submit] {
+  color: #f2f2f2;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  margin-left: 0.25rem;
+  border-radius: 0.25rem;
+  background-color: #558c03;
+}
+#signup article form input[type=submit]:hover, #signin form input[type=submit]:hover, #contact form input[type=submit]:hover {
+  color: #558c03;
+  font-weight: bold;
+  background-color: #f2f2f2;
+}
+
 html {
   color: #333333;
   font-family: "Roboto", sans-serif;
@@ -13,12 +64,6 @@ h1 {
 
 h2, h3, h4, h5, h6 {
   font-family: "Source Code Pro", serif;
-}
-
-ul, ol {
-  margin: 0;
-  padding: 0;
-  list-style: none;
 }
 
 p {
@@ -41,9 +86,6 @@ video {
 }
 
 button {
-  border: none;
-  outline: none;
-  position: relative;
   cursor: pointer;
   box-shadow: 0.25rem 0.25rem 0.25rem #797979;
 }
@@ -60,9 +102,6 @@ noscript {
 }
 
 input, textarea, select {
-  border: none;
-  outline: none;
-  position: relative;
   resize: vertical;
   line-height: 1;
   border-radius: 0.5rem;
@@ -122,15 +161,6 @@ main > button:hover + span {
   position: fixed;
   background-color: #333333;
 }
-main > button::after {
-  top: -0.5rem;
-  left: -0.5rem;
-  right: -0.5rem;
-  bottom: -0.5rem;
-  content: "";
-  position: absolute;
-}
-
 footer {
   color: #f59a23;
   width: calc(100% - 2rem);
@@ -153,14 +183,6 @@ footer ul li a:hover {
   color: #333333;
   font-weight: bold;
   background-color: #f59a23;
-}
-footer ul li a::after {
-  top: -0.5rem;
-  left: -0.5rem;
-  right: -0.5rem;
-  bottom: -0.5rem;
-  content: "";
-  position: absolute;
 }
 footer ul li img {
   margin-right: 0.25rem;
@@ -200,14 +222,6 @@ footer ul li:last-of-type ul li:last-of-type::after {
   bottom: -4rem;
   content: "";
   z-index: -1;
-  position: absolute;
-}
-footer ul li:last-of-type::after {
-  top: -0.5rem;
-  left: -0.5rem;
-  right: -0.5rem;
-  bottom: -0.5rem;
-  content: "";
   position: absolute;
 }
 footer ul li:last-of-type:hover {
@@ -391,33 +405,9 @@ header ul button::before {
 }
 #signup article form input[type=button], #signin form input[type=button], #contact form input[type=button] {
   margin-top: 0.5rem;
-  color: #f2f2f2;
-  cursor: pointer;
-  padding: 0.5rem 1rem;
-  font-size: 1.25rem;
-  margin-right: 0.25rem;
-  border-radius: 0.25rem;
-  background-color: #ed431d;
-}
-#signup article form input[type=button]:hover, #signin form input[type=button]:hover, #contact form input[type=button]:hover {
-  color: #ed431d;
-  font-weight: bold;
-  background-color: #f2f2f2;
 }
 #signup article form input[type=submit], #signin form input[type=submit], #contact form input[type=submit] {
   margin-top: 0.5rem;
-  color: #f2f2f2;
-  cursor: pointer;
-  padding: 0.5rem 1rem;
-  font-size: 1.25rem;
-  margin-left: 0.25rem;
-  border-radius: 0.25rem;
-  background-color: #558c03;
-}
-#signup article form input[type=submit]:hover, #signin form input[type=submit]:hover, #contact form input[type=submit]:hover {
-  color: #558c03;
-  font-weight: bold;
-  background-color: #f2f2f2;
 }
 #signup article form input:valid + span::before, #signup article form textarea:valid + span::before, #signin form input:valid + span::before, #signin form textarea:valid + span::before, #contact form input:valid + span::before, #contact form textarea:valid + span::before {
   color: #558c03;
