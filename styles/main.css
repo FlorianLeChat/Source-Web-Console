@@ -1,3 +1,24 @@
+input, textarea, select, button {
+  border: none;
+  outline: none;
+  position: relative;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+footer ul li:last-of-type::after, footer ul li a::after, main > button::after {
+  top: -0.5rem;
+  left: -0.5rem;
+  right: -0.5rem;
+  bottom: -0.5rem;
+  content: "";
+  position: absolute;
+}
+
 html {
   color: #333333;
   font-family: "Roboto", sans-serif;
@@ -12,12 +33,6 @@ h1 {
 
 h2, h3, h4, h5, h6 {
   font-family: "Source Code Pro", serif;
-}
-
-ul, ol {
-  margin: 0;
-  padding: 0;
-  list-style: none;
 }
 
 p {
@@ -40,9 +55,6 @@ video {
 }
 
 button {
-  border: none;
-  outline: none;
-  position: relative;
   cursor: pointer;
   box-shadow: 0.25rem 0.25rem 0.25rem #797979;
 }
@@ -59,9 +71,6 @@ noscript {
 }
 
 input, textarea, select {
-  border: none;
-  outline: none;
-  position: relative;
   resize: vertical;
   line-height: 1;
   border-radius: 0.5rem;
@@ -121,15 +130,6 @@ main > button:hover + span {
   position: fixed;
   background-color: #333333;
 }
-main > button::after {
-  top: -0.5rem;
-  left: -0.5rem;
-  right: -0.5rem;
-  bottom: -0.5rem;
-  content: "";
-  position: absolute;
-}
-
 footer {
   color: #f59a23;
   width: calc(100% - 2rem);
@@ -152,14 +152,6 @@ footer ul li a:hover {
   color: #333333;
   font-weight: bold;
   background-color: #f59a23;
-}
-footer ul li a::after {
-  top: -0.5rem;
-  left: -0.5rem;
-  right: -0.5rem;
-  bottom: -0.5rem;
-  content: "";
-  position: absolute;
 }
 footer ul li img {
   margin-right: 0.25rem;
@@ -199,14 +191,6 @@ footer ul li:last-of-type ul li:last-of-type::after {
   bottom: -4rem;
   content: "";
   z-index: -1;
-  position: absolute;
-}
-footer ul li:last-of-type::after {
-  top: -0.5rem;
-  left: -0.5rem;
-  right: -0.5rem;
-  bottom: -0.5rem;
-  content: "";
   position: absolute;
 }
 footer ul li:last-of-type:hover {
