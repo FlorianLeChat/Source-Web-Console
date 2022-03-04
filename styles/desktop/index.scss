@@ -41,19 +41,23 @@ header ul
 	}
 }
 
-// ---------------------------- //
-// Section : carrousel d'images //
-// ---------------------------- //
-#carousel
+// -------------------------------- //
+// Section : informations générales //
+// -------------------------------- //
+#informations
 {
-	// Disposition et affichage.
-	top: 25%;
-	margin: 0 55% 0 10%;
-	position: absolute;
+	top: 25vh;
+	gap: 10vw;
+	width: 80%;
+	margin: 0 10% 0 10%;
+	display: flex;
+	position: relative;
+	align-items: center;
+	justify-content: center;
 
 	ul li
 	{
-		// Liste de toutes les images.
+		// Carrousel de images.
 		display: none;
 
 		img
@@ -76,54 +80,47 @@ header ul
 			display: block;
 		}
 	}
-}
 
-// -------------------------------- //
-// Section : informations générales //
-// -------------------------------- //
-#informations
-{
-	// Disposition et affichage.
-	top: 25%;
-	color: $box-color;
-	margin: 0 10% 0 55%;
-	padding: 1rem;
-	position: absolute;
-	text-align: center;
-	border-radius: 0.5rem;
-
-	h1
+	article
 	{
-		// Titre du site.
-		font-size: 3rem;
-		text-shadow: 1px 1px 1px $text-color;
-	}
-
-	p
-	{
-		// Paragraphe de description principal.
-		margin: 2rem 0 2rem;
-		font-weight: bold;
-	}
-
-	button
-	{
-		// Disposition et affichage.
+		// Présentation des fonctionnalités.
 		color: $box-color;
-		font-size: 2rem;
-		box-shadow: none;
-		background-color: transparent;
+		text-align: center;
+		border-radius: 0.5rem;
 
-		&:hover
+		h1
 		{
-			// Effet de sélection.
-			color: $text-color;
+			// Titre du site.
+			font-size: 3rem;
+			text-shadow: 1px 1px 1px $text-color;
 		}
-	}
 
-	ul
-	{
-		display: none;
+		p
+		{
+			// Paragraphe de description principal.
+			margin: 2rem 0 2rem;
+			font-weight: bold;
+		}
+
+		button
+		{
+			// Disposition et affichage.
+			color: $box-color;
+			font-size: 2rem;
+			box-shadow: none;
+			background-color: transparent;
+
+			&:hover
+			{
+				// Effet de sélection.
+				color: $text-color;
+			}
+		}
+
+		ul
+		{
+			display: none;
+		}
 	}
 }
 

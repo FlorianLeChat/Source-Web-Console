@@ -254,62 +254,53 @@ header ul button:hover {
   color: #333333;
   background-color: #f59a23;
 }
-header ul button::before {
-  top: -0.5rem;
-  left: -0.5rem;
-  right: -0.5rem;
-  bottom: -0.5rem;
-  content: "";
-  position: absolute;
+#informations {
+  top: 25vh;
+  gap: 10vw;
+  width: 80%;
+  margin: 0 10% 0 10%;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
 }
-
-#carousel {
-  top: 25%;
-  margin: 0 55% 0 10%;
-  position: absolute;
-}
-#carousel ul li {
+#informations ul li {
   display: none;
 }
-#carousel ul li img {
+#informations ul li img {
   width: 50vh;
   filter: blur(0.75px) grayscale(1);
   border-radius: 1rem;
 }
-#carousel ul li img:hover {
+#informations ul li img:hover {
   filter: blur(0) grayscale(0);
 }
-#carousel ul li:first-of-type {
+#informations ul li:first-of-type {
   display: block;
 }
-
-#informations {
-  top: 25%;
+#informations article {
   color: #333333;
-  margin: 0 10% 0 55%;
-  padding: 1rem;
-  position: absolute;
   text-align: center;
   border-radius: 0.5rem;
 }
-#informations h1 {
+#informations article h1 {
   font-size: 3rem;
   text-shadow: 1px 1px 1px #f59a23;
 }
-#informations p {
+#informations article p {
   margin: 2rem 0 2rem;
   font-weight: bold;
 }
-#informations button {
+#informations article button {
   color: #333333;
   font-size: 2rem;
   box-shadow: none;
   background-color: transparent;
 }
-#informations button:hover {
+#informations article button:hover {
   color: #f59a23;
 }
-#informations ul {
+#informations article ul {
   display: none;
 }
 
