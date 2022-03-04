@@ -1,6 +1,6 @@
 // Permet de réinitialiser les règles initiales d'un
 // 	bouton afin de le personnaliser par la suite.
-@mixin reset-button-style()
+%reset-button-style
 {
 	border: none;
 	outline: none;
@@ -9,7 +9,7 @@
 
 // Permet de réinitialiser les règles initiales d'une
 // 	liste ordonnée ou non-ordonnée.
-@mixin reset-list-style
+%reset-list-style
 {
 	margin: 0;
 	padding: 0;
@@ -18,7 +18,7 @@
 
 // Permet d'élargir la zone de détection lors d'un clic
 // 	de l'utilisateur (utile sur terminaux mobiles).
-@mixin larger-touch-zone()
+%larger-touch-zone
 {
 	top: -0.5rem;
 	left: -0.5rem;
@@ -30,7 +30,7 @@
 
 // Permet d'appliquer automatiquement les modifications
 // 	de personnalisation aux boutons d'annulation.
-@mixin cancel-button-layout
+%cancel-button-layout
 {
 	// Disposition et affichage.
 	color: $background-color;
@@ -50,7 +50,9 @@
 	}
 }
 
-@mixin submit-button-layout
+// Permet d'appliquer automatiquement les modifications
+// 	de personnalisation aux boutons de validation.
+%submit-button-layout
 {
 	// Disposition et affichage.
 	color: $background-color;

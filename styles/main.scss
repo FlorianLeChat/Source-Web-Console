@@ -34,7 +34,7 @@ h2, h3, h4, h5, h6
 ul, ol
 {
 	// Listes ordonnées/non-ordonnées.
-	@include reset-list-style
+	@extend %reset-list-style
 }
 
 p
@@ -65,7 +65,7 @@ video
 button
 {
 	// Boutons de sélection.
-	@include reset-button-style;
+	@extend %reset-button-style;
 	cursor: pointer;
 	box-shadow: 0.25rem 0.25rem 0.25rem $border-color;
 }
@@ -86,9 +86,9 @@ noscript
 input, textarea, select
 {
 	// Actionneurs, champs de saisies et listes déroulantes.
-	@include reset-button-style;
+	@extend %reset-button-style;
 	resize: vertical;
-	line-height: 1; // Correction étrange pour le normalisateur CSS.
+	line-height: 1;
 	border-radius: 0.5rem;
 }
 
@@ -173,7 +173,7 @@ main >
 		&::after
 		{
 			// Amélioration de la zone de sélection.
-			@include larger-touch-zone;
+			@extend %larger-touch-zone;
 		}
 	}
 }
@@ -216,7 +216,7 @@ footer
 			&::after
 			{
 				// Amélioration de la zone de sélection.
-				@include larger-touch-zone;
+				@extend %larger-touch-zone;
 			}
 		}
 
@@ -290,7 +290,7 @@ footer
 			&::after
 			{
 				// Amélioration de la zone de sélection.
-				@include larger-touch-zone;
+				@extend %larger-touch-zone;
 			}
 
 			&:hover

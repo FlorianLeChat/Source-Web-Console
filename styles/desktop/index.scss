@@ -36,7 +36,7 @@ header ul
 		&::before
 		{
 			// Amélioration de la zone de sélection.
-			@include larger-touch-zone;
+			@extend %larger-touch-zone;
 		}
 	}
 }
@@ -277,14 +277,14 @@ header ul
 		{
 			// Application de l'apparence personnalisée.
 			margin-top: 0.5rem;
-			@include cancel-button-layout;
+			@extend %cancel-button-layout;
 		}
 
 		input[type = submit]
 		{
 			// Application de l'apparence personnalisée.
 			margin-top: 0.5rem;
-			@include submit-button-layout;
+			@extend %submit-button-layout;
 		}
 
 		input:valid + span::before, textarea:valid + span::before
