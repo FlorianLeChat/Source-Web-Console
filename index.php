@@ -20,6 +20,7 @@
 	// En-tête du document.
 	$head_html = $twig->render("1_head.twig",
 	[
+		"url" => $_SERVER["SERVER_NAME"],
 		"file" => $page,
 		"language" => $language,
 		"keywords" => "word1, word2, word3, ...",
