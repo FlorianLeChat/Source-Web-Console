@@ -1,0 +1,434 @@
+@charset "UTF-8";
+html {
+  color: #333333;
+  font-family: "Roboto", sans-serif;
+  text-rendering: optimizeSpeed;
+  min-width: 360px;
+  scroll-behavior: smooth;
+}
+
+h1 {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+h2, h3, h4, h5, h6 {
+  font-family: "Source Code Pro", serif;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+p {
+  line-height: 1.25rem;
+}
+
+a {
+  color: currentColor;
+  text-decoration: none;
+}
+
+video {
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  opacity: 0.15;
+  position: fixed;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+button {
+  border: none;
+  outline: none;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0.25rem 0.25rem 0.25rem #797979;
+}
+
+noscript {
+  top: 1rem;
+  right: 1rem;
+  color: #f2f2f2;
+  padding: 0.5rem;
+  z-index: 10;
+  position: fixed;
+  margin-left: 6rem;
+  background-color: #ed431d;
+}
+
+input, textarea, select {
+  border: none;
+  outline: none;
+  position: relative;
+  resize: vertical;
+  line-height: 1;
+  border-radius: 0.5rem;
+}
+
+::-moz-selection {
+  color: #f59a23;
+  background-color: #333333;
+}
+
+::selection {
+  color: #f59a23;
+  background-color: #333333;
+}
+
+::-webkit-scrollbar {
+  width: 0.75rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f2f2f2;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #333333;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #f59a23;
+}
+
+main > span {
+  display: none;
+}
+main > button {
+  color: #f59a23;
+  width: 3rem;
+  right: 0.5rem;
+  height: 3rem;
+  bottom: 4.25rem;
+  position: fixed;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background-color: #333333;
+  border-radius: 50%;
+}
+main > button:hover {
+  color: #333333;
+  background-color: #f59a23;
+}
+main > button:hover + span {
+  color: #f59a23;
+  right: 4rem;
+  bottom: 4.6rem;
+  padding: 0.5rem;
+  display: inline-block;
+  position: fixed;
+  background-color: #333333;
+}
+main > button::after {
+  top: -0.5rem;
+  left: -0.5rem;
+  right: -0.5rem;
+  bottom: -0.5rem;
+  content: "";
+  position: absolute;
+}
+
+footer {
+  color: #f59a23;
+  width: calc(100% - 2rem);
+  bottom: -1px;
+  padding: 1rem;
+  z-index: 5;
+  position: fixed;
+  background-color: #333333;
+}
+footer ul li {
+  display: inline-block;
+  position: relative;
+  font-size: 1.5rem;
+  margin-right: 2rem;
+}
+footer ul li a {
+  color: #f2f2f2;
+}
+footer ul li a:hover {
+  color: #333333;
+  font-weight: bold;
+  background-color: #f59a23;
+}
+footer ul li a::after {
+  top: -0.5rem;
+  left: -0.5rem;
+  right: -0.5rem;
+  bottom: -0.5rem;
+  content: "";
+  position: absolute;
+}
+footer ul li img {
+  margin-right: 0.25rem;
+}
+footer ul li:last-of-type {
+  float: right;
+  margin-right: 0;
+}
+footer ul li:last-of-type ul {
+  left: -3.5rem;
+  bottom: 3rem;
+  display: none;
+  position: absolute;
+}
+footer ul li:last-of-type ul li {
+  margin: 0.5rem 0 0;
+}
+footer ul li:last-of-type ul li button {
+  color: #333333;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: #f59a23;
+}
+footer ul li:last-of-type ul li button img {
+  width: 2rem;
+  margin-right: 0;
+}
+footer ul li:last-of-type ul li button span {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+footer ul li:last-of-type ul li button:hover {
+  color: #f59a23;
+  background-color: #333333;
+}
+footer ul li:last-of-type ul li:last-of-type::after {
+  bottom: -4rem;
+  content: "";
+  z-index: -1;
+  position: absolute;
+}
+footer ul li:last-of-type::after {
+  top: -0.5rem;
+  left: -0.5rem;
+  right: -0.5rem;
+  bottom: -0.5rem;
+  content: "";
+  position: absolute;
+}
+footer ul li:last-of-type:hover {
+  cursor: pointer;
+}
+footer ul li:last-of-type:hover ul {
+  display: block;
+}
+footer ul li:last-of-type:hover i {
+  color: #f2f2f2;
+}
+
+header ul {
+  float: right;
+  margin: 1rem;
+}
+header ul button {
+  color: #f59a23;
+  float: right;
+  width: 150px;
+  height: 44px;
+  padding: 0.5rem 1.5rem;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  background-color: #333333;
+}
+header ul button:hover {
+  color: #333333;
+  background-color: #f59a23;
+}
+header ul button::before {
+  top: -0.5rem;
+  left: -0.5rem;
+  right: -0.5rem;
+  bottom: -0.5rem;
+  content: "";
+  position: absolute;
+}
+
+#carousel {
+  top: 25%;
+  margin: 0 55% 0 10%;
+  position: absolute;
+}
+#carousel ul li {
+  display: none;
+}
+#carousel ul li img {
+  width: 50vh;
+  filter: blur(0.75px) grayscale(1);
+  border-radius: 1rem;
+}
+#carousel ul li img:hover {
+  filter: blur(0) grayscale(0);
+}
+#carousel ul li:first-of-type {
+  display: block;
+}
+
+#informations {
+  top: 25%;
+  color: #333333;
+  margin: 0 10% 0 55%;
+  padding: 1rem;
+  position: absolute;
+  text-align: center;
+  border-radius: 0.5rem;
+}
+#informations h1 {
+  font-size: 3rem;
+  text-shadow: 1px 1px 1px #f59a23;
+}
+#informations p {
+  margin: 2rem 0 2rem;
+  font-weight: bold;
+}
+#informations button {
+  color: #333333;
+  font-size: 2rem;
+  box-shadow: none;
+  background-color: transparent;
+}
+#informations button:hover {
+  color: #f59a23;
+}
+#informations ul {
+  display: none;
+}
+
+#aboutus {
+  display: none;
+}
+
+#signup article, #signin, #contact {
+  top: 45vh;
+  left: 50%;
+  width: 50%;
+  border: 1px solid #f59a23;
+  margin: 2rem auto 6rem auto;
+  padding: 2rem;
+  z-index: 1;
+  display: none;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  overflow-y: scroll;
+  max-height: 75vh;
+  text-align: center;
+  background-color: #f2f2f2;
+}
+#signup article h2, #signin h2, #contact h2 {
+  font-size: 2rem;
+  margin-top: 0;
+}
+#signup article i, #signin i, #contact i {
+  left: 1rem;
+  float: left;
+  color: #ed431d;
+  position: relative;
+  font-size: 2rem;
+  margin-right: 1rem;
+}
+#signup article p, #signin p, #contact p {
+  margin: 0 5% 1rem 5%;
+}
+#signup article form, #signin form, #contact form {
+  padding: 1rem;
+  margin-top: 1.5rem;
+  border-radius: 0.5rem;
+  background-color: #333333;
+}
+#signup article form p, #signin form p, #contact form p {
+  color: #f2f2f2;
+  text-align: justify;
+  font-style: italic;
+}
+#signup article form p:last-of-type, #signin form p:last-of-type, #contact form p:last-of-type {
+  margin-bottom: 2rem;
+}
+#signup article form hr, #signin form hr, #contact form hr {
+  margin: 1.5rem 0 2rem;
+  border-color: #f2f2f2;
+}
+#signup article form label, #signin form label, #contact form label {
+  color: #f59a23;
+}
+#signup article form label > span, #signin form label > span, #contact form label > span {
+  color: #ed431d;
+}
+#signup article form input[type=text], #signup article form input[type=email], #signup article form input[type=password], #signup article form textarea, #signup article form select, #signin form input[type=text], #signin form input[type=email], #signin form input[type=password], #signin form textarea, #signin form select, #contact form input[type=text], #contact form input[type=email], #contact form input[type=password], #contact form textarea, #contact form select {
+  width: calc(100% - 2rem);
+  margin: 0.5rem 0 1rem 0;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+#signup article form input[type=text] + span, #signup article form input[type=email] + span, #signup article form input[type=password] + span, #signup article form textarea + span, #signup article form select + span, #signin form input[type=text] + span, #signin form input[type=email] + span, #signin form input[type=password] + span, #signin form textarea + span, #signin form select + span, #contact form input[type=text] + span, #contact form input[type=email] + span, #contact form input[type=password] + span, #contact form textarea + span, #contact form select + span {
+  position: relative;
+}
+#signup article form input[type=text] + span::before, #signup article form input[type=email] + span::before, #signup article form input[type=password] + span::before, #signup article form textarea + span::before, #signup article form select + span::before, #signin form input[type=text] + span::before, #signin form input[type=email] + span::before, #signin form input[type=password] + span::before, #signin form textarea + span::before, #signin form select + span::before, #contact form input[type=text] + span::before, #contact form input[type=email] + span::before, #contact form input[type=password] + span::before, #contact form textarea + span::before, #contact form select + span::before {
+  top: -2.5px;
+  left: -1.75rem;
+  position: absolute;
+}
+#signup article form input[type=checkbox], #signin form input[type=checkbox], #contact form input[type=checkbox] {
+  margin-left: 0.5rem;
+}
+#signup article form input[type=checkbox]:checked, #signin form input[type=checkbox]:checked, #contact form input[type=checkbox]:checked {
+  box-shadow: 0 0 0 3px #f59a23;
+}
+#signup article form select, #signin form select, #contact form select {
+  cursor: pointer;
+}
+#signup article form textarea, #signin form textarea, #contact form textarea {
+  height: 200px;
+  margin-bottom: 0;
+}
+#signup article form textarea + span::before, #signin form textarea + span::before, #contact form textarea + span::before {
+  top: -1.25rem;
+  left: -2rem;
+}
+#signup article form input[type=button], #signin form input[type=button], #contact form input[type=button] {
+  margin-top: 0.5rem;
+  color: #f2f2f2;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  margin-right: 0.25rem;
+  border-radius: 0.25rem;
+  background-color: #ed431d;
+}
+#signup article form input[type=button]:hover, #signin form input[type=button]:hover, #contact form input[type=button]:hover {
+  color: #ed431d;
+  font-weight: bold;
+  background-color: #f2f2f2;
+}
+#signup article form input[type=submit], #signin form input[type=submit], #contact form input[type=submit] {
+  margin-top: 0.5rem;
+  color: #f2f2f2;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  margin-left: 0.25rem;
+  border-radius: 0.25rem;
+  background-color: #558c03;
+}
+#signup article form input[type=submit]:hover, #signin form input[type=submit]:hover, #contact form input[type=submit]:hover {
+  color: #558c03;
+  font-weight: bold;
+  background-color: #f2f2f2;
+}
+#signup article form input:valid + span::before, #signup article form textarea:valid + span::before, #signin form input:valid + span::before, #signin form textarea:valid + span::before, #contact form input:valid + span::before, #contact form textarea:valid + span::before {
+  color: #558c03;
+  content: "✓";
+  font-size: 1.5rem;
+}
+#signup article form input:invalid + span::before, #signup article form textarea:invalid + span::before, #signin form input:invalid + span::before, #signin form textarea:invalid + span::before, #contact form input:invalid + span::before, #contact form textarea:invalid + span::before {
+  color: #ed431d;
+  content: "✖";
+  font-size: 1.5rem;
+}
+#signup article form input:focus:invalid, #signup article form textarea:focus:invalid, #signin form input:focus:invalid, #signin form textarea:focus:invalid, #contact form input:focus:invalid, #contact form textarea:focus:invalid {
+  box-shadow: inset 0 0 0 3px red;
+}
