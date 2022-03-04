@@ -134,6 +134,7 @@ main >
 	{
 		// Texte de l'astuce caché par défaut.
 		display: none;
+		margin-left: 1rem;
 	}
 
 	button
@@ -200,7 +201,7 @@ footer
 		font-size: 1.5rem;
 		margin-right: 2rem;
 
-		a
+		a span
 		{
 			// Lien vers les pages.
 			color: $background-color;
