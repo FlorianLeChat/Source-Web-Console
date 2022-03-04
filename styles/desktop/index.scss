@@ -9,14 +9,14 @@
 header ul
 {
 	// Présentation des boutons.
-	float: right;
+	right: 0;
 	margin: 1rem;
+	position: absolute;
 
 	button
 	{
 		// Disposition et affichage.
 		color: $text-color;
-		float: right;
 		width: 150px;
 		height: 44px;
 		padding: 0.5rem 1.5rem;

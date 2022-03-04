@@ -1,0 +1,65 @@
+// --------------- //
+// Base de travail //
+// --------------- //
+@import "../desktop/index";
+
+// ------- //
+// En-tête //
+// ------- //
+header ul
+{
+	// Centrage des boutons.
+	width: 320px;
+	position: initial;
+	margin-left: auto;
+	margin-right: auto;
+
+	// Suppression du positionnement.
+	right: initial;
+
+	li
+	{
+		// Disposition en ligne.
+		display: inline;
+
+		&:first-of-type
+		{
+			margin-right: 1rem;
+		}
+	}
+}
+
+// -------------------------------- //
+// Section : informations générales //
+// -------------------------------- //
+#informations
+{
+	// Modification de la disposition flex.
+	top: 12.5vh;
+	gap: 5vw;
+	flex-direction: column;
+
+	ul img
+	{
+		// Suppression de l'image de présentation.
+		display: none;
+	}
+}
+
+// ------------ //
+// Pied-de-page //
+// ------------ //
+footer ul
+{
+	i:hover
+	{
+		// Effet de sélection des icônes.
+		color: $background-color;
+	}
+
+	a span
+	{
+		// Suppression des libellés.
+		display: none;
+	}
+}

@@ -414,3 +414,11 @@ header ul button:hover {
 #signup article form input:focus:invalid, #signup article form textarea:focus:invalid, #signin form input:focus:invalid, #signin form textarea:focus:invalid, #contact form input:focus:invalid, #contact form textarea:focus:invalid {
   box-shadow: inset 0 0 0 3px red;
 }
+
+#informations {
+  gap: 5vw;
+  flex-direction: column;
+}
+#informations ul img {
+  display: none;
+}

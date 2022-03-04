@@ -1,0 +1,20 @@
+// --------------- //
+// Base de travail //
+// --------------- //
+@import "../desktop/index";
+
+// -------------------------------- //
+// Section : informations générales //
+// -------------------------------- //
+#informations
+{
+	// Modification de la disposition flex.
+	gap: 5vw;
+	flex-direction: column;
+
+	ul img
+	{
+		// Suppression de l'image de présentation.
+		display: none;
+	}
+}
