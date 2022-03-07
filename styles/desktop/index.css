@@ -218,7 +218,8 @@ footer {
   bottom: -1px;
   padding: 1rem;
   z-index: 5;
-  position: fixed;
+  position: -webkit-sticky;
+  position: sticky;
   background-color: #333333;
 }
 footer ul li {
