@@ -180,10 +180,20 @@ footer ul li {
 footer ul li a span {
   color: #f2f2f2;
 }
+@media screen and (max-width: 768px) {
+  footer ul li a span {
+    display: none;
+  }
+}
 footer ul li a span:hover {
   color: #333333;
   font-weight: bold;
   background-color: #f59a23;
+}
+@media screen and (max-width: 768px) {
+  footer ul li a i:hover {
+    color: #f2f2f2;
+  }
 }
 footer ul li img {
   margin-right: 0.25rem;

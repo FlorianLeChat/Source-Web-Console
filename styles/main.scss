@@ -201,23 +201,41 @@ footer
 		font-size: 1.5rem;
 		margin-right: 2rem;
 
-		a span
+		a
 		{
-			// Lien vers les pages.
-			color: $background-color;
-
-			&:hover
+			span
 			{
-				// Effet de sélection.
-				color: $box-color;
-				font-weight: bold;
-				background-color: $text-color;
+				// Lien vers les pages.
+				color: $background-color;
+
+				@media screen and (max-width: 768px)
+				{
+					// Suppression des libellés sur les téléphones
+					display: none;
+				}
+
+				&:hover
+				{
+					// Effet de sélection.
+					color: $box-color;
+					font-weight: bold;
+					background-color: $text-color;
+				}
+
+				&::after
+				{
+					// Amélioration de la zone de sélection.
+					@extend %larger-touch-zone;
+				}
 			}
 
-			&::after
+			@media screen and (max-width: 768px)
 			{
-				// Amélioration de la zone de sélection.
-				@extend %larger-touch-zone;
+				// Effet de sélection des icônes sur les téléphones.
+				i:hover
+				{
+					color: $background-color;
+				}
 			}
 		}
 
