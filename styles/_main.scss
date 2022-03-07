@@ -125,6 +125,90 @@ input, textarea, select
 	background-color: $text-color;
 }
 
+// ------- //
+// En-tête //
+// ------- //
+header
+{
+	color: $text-color;
+	height: 6.25rem;
+	padding: 0.5rem;
+	background-color: $box-color;
+
+	img
+	{
+		// Logo du site.
+		width: 8rem;
+	}
+
+	h1
+	{
+		// Titre du site.
+		left: 1.5rem;
+		bottom: 3.5rem;
+		display: inline-block;
+		position: relative;
+	}
+
+	h2
+	{
+		// Sous-titre du site.
+		right: 12rem;
+		bottom: 1.25rem;
+		display: inline-block;
+		position: relative;
+		font-size: 1.25rem;
+		font-style: italic;
+	}
+
+	form i
+	{
+		// Icône de la barre de recherche.
+		top: 1.5rem;
+		right: 19.5rem;
+		position: absolute;
+		font-size: 1.25rem;
+
+		+ span
+		{
+			// Intitulé du champ de saisie.
+			top: 1.75rem;
+			right: 12rem;
+			color: $background-color;
+			position: absolute;
+
+			+ input
+			{
+				// Champ de saisie de la barre de recherche.
+				top: 3.5rem;
+				right: 10rem;
+				height: 1.5rem;
+				padding: 0.25rem;
+				position: absolute;
+			}
+		}
+	}
+
+	a i
+	{
+		// Icône de l'état de connexion.
+		top: 1rem;
+		right: 3rem;
+		position: absolute;
+		font-size: 2rem;
+
+		+ span
+		{
+			// Identifiants du compte actuellement connecté.
+			top: 3.75rem;
+			right: 1rem;
+			color: $background-color;
+			position: absolute;
+			text-align: center;
+		}
+	}
+}
+
 // ------------------ //
 // Bouton des astuces //
 // ------------------ //
@@ -190,7 +274,7 @@ footer
 	bottom: -1px;
 	padding: 1rem;
 	z-index: 5;
-	position: fixed;
+	position: sticky;
 	background-color: $box-color;
 
 	ul li
