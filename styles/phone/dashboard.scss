@@ -1,0 +1,46 @@
+// ------------------ //
+// Variables globales //
+// ------------------ //
+@import "../main";
+
+// ------- //
+// En-tête //
+// ------- //
+header
+{
+	color: $text-color;
+	height: 6.25rem;
+	padding: 0.5rem;
+	background-color: $box-color;
+
+	img
+	{
+		// Disparition du logo.
+		display: none;
+	}
+
+	h1
+	{
+		// Ajustement du titre de la page.
+		top: 0;
+		left: 1.5rem;
+		bottom: unset;
+		position: absolute;
+	}
+
+	h2
+	{
+		// Ajustement du sous-titre de la page.
+		top: 3rem;
+		left: 1.5rem;
+		width: 300px;
+		bottom: unset;
+		position: absolute;
+	}
+
+	form
+	{
+		// Disparition de la barre de recherche.
+		display: none;
+	}
+}
