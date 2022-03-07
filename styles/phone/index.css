@@ -133,6 +133,56 @@ input, textarea, select {
   background-color: #f59a23;
 }
 
+header {
+  color: #f59a23;
+  height: 6.25rem;
+  padding: 0.5rem;
+  background-color: #333333;
+}
+header img {
+  width: 8rem;
+}
+header h1 {
+  left: 1.5rem;
+  bottom: 3.5rem;
+  display: inline-block;
+  position: relative;
+}
+header h2 {
+  right: 12rem;
+  bottom: 1rem;
+  display: inline-block;
+  position: relative;
+  font-size: 1.25rem;
+  font-style: italic;
+}
+header form i {
+  top: 2.75rem;
+  right: 23.75rem;
+  position: absolute;
+  font-size: 1.5rem;
+}
+header form i + input {
+  top: 2.5rem;
+  right: 11rem;
+  height: 1.5rem;
+  padding: 0.25rem;
+  position: absolute;
+}
+header a i {
+  top: 1rem;
+  right: 4rem;
+  position: absolute;
+  font-size: 2rem;
+}
+header a i + span {
+  top: 3.75rem;
+  right: 2rem;
+  color: #f2f2f2;
+  position: absolute;
+  text-align: center;
+}
+
 main > span {
   display: none;
   margin-left: 1rem;
@@ -245,6 +295,11 @@ footer ul li:last-of-type:hover i {
   color: #f2f2f2;
 }
 
+header {
+  width: inherit;
+  height: 0;
+  padding: 0;
+}
 header ul {
   right: 0;
   margin: 1rem;
