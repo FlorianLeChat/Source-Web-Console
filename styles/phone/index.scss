@@ -45,21 +45,3 @@ header ul
 		display: none;
 	}
 }
-
-// ------------ //
-// Pied-de-page //
-// ------------ //
-footer ul
-{
-	i:hover
-	{
-		// Effet de sélection des icônes.
-		color: $background-color;
-	}
-
-	a span
-	{
-		// Suppression des libellés.
-		display: none;
-	}
-}
