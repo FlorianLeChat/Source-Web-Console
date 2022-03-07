@@ -1,0 +1,298 @@
+input, textarea, select, button {
+  border: none;
+  outline: none;
+  position: relative;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+footer ul li:last-of-type::after, footer ul li a span::after, main > button::after {
+  top: -0.5rem;
+  left: -0.5rem;
+  right: -0.5rem;
+  bottom: -0.5rem;
+  content: "";
+  position: absolute;
+}
+
+html {
+  color: #333333;
+  font-family: "Roboto", sans-serif;
+  text-rendering: optimizeSpeed;
+  min-width: 360px;
+  scroll-behavior: smooth;
+}
+
+h1 {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+h2, h3, h4, h5, h6 {
+  font-family: "Source Code Pro", serif;
+}
+
+p {
+  line-height: 1.25rem;
+}
+
+a {
+  color: currentColor;
+  text-decoration: none;
+}
+
+video {
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  opacity: 0.15;
+  position: fixed;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+button {
+  cursor: pointer;
+  box-shadow: 0.25rem 0.25rem 0.25rem #797979;
+}
+
+noscript {
+  top: 1rem;
+  right: 1rem;
+  color: #f2f2f2;
+  padding: 0.5rem;
+  z-index: 10;
+  position: fixed;
+  margin-left: 6rem;
+  background-color: #ed431d;
+}
+
+input, textarea, select {
+  resize: vertical;
+  line-height: 1;
+  border-radius: 0.5rem;
+}
+
+::-moz-selection {
+  color: #f59a23;
+  background-color: #333333;
+}
+
+::selection {
+  color: #f59a23;
+  background-color: #333333;
+}
+
+::-webkit-scrollbar {
+  width: 0.75rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f2f2f2;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #333333;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #f59a23;
+}
+
+header {
+  color: #f59a23;
+  height: 6.25rem;
+  padding: 0.5rem;
+  background-color: #333333;
+}
+header img {
+  width: 8rem;
+}
+header h1 {
+  left: 1.5rem;
+  bottom: 3.5rem;
+  display: inline-block;
+  position: relative;
+}
+header h2 {
+  right: 12rem;
+  bottom: 1.25rem;
+  display: inline-block;
+  position: relative;
+  font-size: 1.25rem;
+  font-style: italic;
+}
+header form i {
+  top: 1.5rem;
+  right: 19.5rem;
+  position: absolute;
+  font-size: 1.25rem;
+}
+header form i + span {
+  top: 1.75rem;
+  right: 12rem;
+  color: #f2f2f2;
+  position: absolute;
+}
+header form i + span + input {
+  top: 3.5rem;
+  right: 10rem;
+  height: 1.5rem;
+  padding: 0.25rem;
+  position: absolute;
+}
+header a i {
+  top: 1rem;
+  right: 3rem;
+  position: absolute;
+  font-size: 2rem;
+}
+header a i + span {
+  top: 3.75rem;
+  right: 1rem;
+  color: #f2f2f2;
+  position: absolute;
+  text-align: center;
+}
+
+main > span {
+  display: none;
+  margin-left: 1rem;
+}
+main > button {
+  color: #f59a23;
+  width: 3rem;
+  right: 0.5rem;
+  height: 3rem;
+  bottom: 4.25rem;
+  position: fixed;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background-color: #333333;
+  border-radius: 50%;
+}
+main > button:hover {
+  color: #333333;
+  background-color: #f59a23;
+}
+main > button:hover + span {
+  color: #f59a23;
+  right: 4rem;
+  bottom: 4.6rem;
+  padding: 0.5rem;
+  display: inline-block;
+  position: fixed;
+  background-color: #333333;
+}
+footer {
+  color: #f59a23;
+  width: calc(100% - 2rem);
+  bottom: -1px;
+  padding: 1rem;
+  z-index: 5;
+  position: -webkit-sticky;
+  position: sticky;
+  background-color: #333333;
+}
+footer ul li {
+  display: inline-block;
+  position: relative;
+  font-size: 1.5rem;
+  margin-right: 2rem;
+}
+footer ul li a span {
+  color: #f2f2f2;
+}
+@media screen and (max-width: 768px) {
+  footer ul li a span {
+    display: none;
+  }
+}
+footer ul li a span:hover {
+  color: #333333;
+  font-weight: bold;
+  background-color: #f59a23;
+}
+@media screen and (max-width: 768px) {
+  footer ul li a i:hover {
+    color: #f2f2f2;
+  }
+}
+footer ul li img {
+  margin-right: 0.25rem;
+}
+footer ul li:last-of-type {
+  float: right;
+  margin-right: 0;
+}
+footer ul li:last-of-type ul {
+  left: -3.5rem;
+  bottom: 3rem;
+  display: none;
+  position: absolute;
+}
+footer ul li:last-of-type ul li {
+  margin: 0.5rem 0 0;
+}
+footer ul li:last-of-type ul li button {
+  color: #333333;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: #f59a23;
+}
+footer ul li:last-of-type ul li button img {
+  width: 2rem;
+  margin-right: 0;
+}
+footer ul li:last-of-type ul li button span {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+footer ul li:last-of-type ul li button:hover {
+  color: #f59a23;
+  background-color: #333333;
+}
+footer ul li:last-of-type ul li:last-of-type::after {
+  bottom: -4rem;
+  content: "";
+  z-index: -1;
+  position: absolute;
+}
+footer ul li:last-of-type:hover {
+  cursor: pointer;
+}
+footer ul li:last-of-type:hover ul {
+  display: block;
+}
+footer ul li:last-of-type:hover i {
+  color: #f2f2f2;
+}
+
+header {
+  color: #f59a23;
+  height: 6.25rem;
+  padding: 0.5rem;
+  background-color: #333333;
+}
+header img {
+  display: none;
+}
+header h1 {
+  top: 0;
+  left: 1.5rem;
+  bottom: unset;
+  position: absolute;
+}
+header h2 {
+  top: 3rem;
+  left: 1.5rem;
+  width: 300px;
+  bottom: unset;
+  position: absolute;
+}
+header form {
+  display: none;
+}

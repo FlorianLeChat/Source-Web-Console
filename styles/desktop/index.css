@@ -150,34 +150,40 @@ header h1 {
 }
 header h2 {
   right: 12rem;
-  bottom: 1rem;
+  bottom: 1.25rem;
   display: inline-block;
   position: relative;
   font-size: 1.25rem;
   font-style: italic;
 }
 header form i {
-  top: 2.75rem;
-  right: 23.75rem;
+  top: 1.5rem;
+  right: 19.5rem;
   position: absolute;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
-header form i + input {
-  top: 2.5rem;
-  right: 11rem;
+header form i + span {
+  top: 1.75rem;
+  right: 12rem;
+  color: #f2f2f2;
+  position: absolute;
+}
+header form i + span + input {
+  top: 3.5rem;
+  right: 10rem;
   height: 1.5rem;
   padding: 0.25rem;
   position: absolute;
 }
 header a i {
   top: 1rem;
-  right: 4rem;
+  right: 3rem;
   position: absolute;
   font-size: 2rem;
 }
 header a i + span {
   top: 3.75rem;
-  right: 2rem;
+  right: 1rem;
   color: #f2f2f2;
   position: absolute;
   text-align: center;

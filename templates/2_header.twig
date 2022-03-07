@@ -1,5 +1,5 @@
 <!-- Logo du site -->
-<img src="path" alt="Logo du site" />
+<img src="assets/images/placeholder.svg" alt="Logo du site" />
 
 <!-- Titre du site -->
 <h1>{{ title }}</h1>
@@ -8,9 +8,14 @@
 <h2>{{ subtitle }}</h2>
 
 <!-- Barre de recherche -->
-<img src="path" alt="Icône de la barre de recherche" />
-<input type="text" id="search" name="search" placeholder="recherche..." />
+<form method="POST">
+	<i class="bi bi-search"></i>
+	<span>Actions rapides</span>
+	<input type="text" id="search" name="search" placeholder="recherche..." maxlength="20" required />
+</form>
 
 <!-- État de connexion -->
-<img src="path" alt="Icône de l'état utilisateur" />
-<span>Connecté sous ...</span>
+<a href="index.php">
+	<i class="bi bi-person-circle"></i>
+	<span>Connecté sous<br />username</span>
+</a>
