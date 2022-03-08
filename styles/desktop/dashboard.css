@@ -10,7 +10,7 @@ ul, ol {
   list-style: none;
 }
 
-footer ul li:last-of-type::after, footer ul li a span::after, main > button::after {
+main nav ul li a span::after, footer ul li:last-of-type::after, footer ul li a span::after, main > button::after {
   top: -0.5rem;
   left: -0.5rem;
   right: -0.5rem;
@@ -193,8 +193,8 @@ footer {
   bottom: -1px;
   padding: 1rem;
   z-index: 5;
-  position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
+  min-width: 360px;
   background-color: #333333;
 }
 footer ul li {
@@ -202,6 +202,11 @@ footer ul li {
   position: relative;
   font-size: 1.5rem;
   margin-right: 2rem;
+}
+@media screen and (max-width: 768px) {
+  footer ul li a i:hover {
+    color: #f2f2f2;
+  }
 }
 footer ul li a span {
   color: #f2f2f2;
@@ -215,11 +220,6 @@ footer ul li a span:hover {
   color: #333333;
   font-weight: bold;
   background-color: #f59a23;
-}
-@media screen and (max-width: 768px) {
-  footer ul li a i:hover {
-    color: #f2f2f2;
-  }
 }
 footer ul li img {
   margin-right: 0.25rem;
