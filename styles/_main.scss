@@ -274,7 +274,8 @@ footer
 	bottom: -1px;
 	padding: 1rem;
 	z-index: 5;
-	position: sticky;
+	position: fixed;
+	min-width: $html-min-width;
 	background-color: $box-color;
 
 	ul li
@@ -287,6 +288,15 @@ footer
 
 		a
 		{
+			@media screen and (max-width: 768px)
+			{
+				// Effet de sélection des icônes sur les téléphones.
+				i:hover
+				{
+					color: $background-color;
+				}
+			}
+
 			span
 			{
 				// Lien vers les pages.
@@ -310,15 +320,6 @@ footer
 				{
 					// Amélioration de la zone de sélection.
 					@extend %larger-touch-zone;
-				}
-			}
-
-			@media screen and (max-width: 768px)
-			{
-				// Effet de sélection des icônes sur les téléphones.
-				i:hover
-				{
-					color: $background-color;
 				}
 			}
 		}
