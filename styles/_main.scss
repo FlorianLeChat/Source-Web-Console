@@ -83,6 +83,12 @@ noscript
 	background-color: $error-color;
 }
 
+nav, section, article
+{
+	// Sections, articles et barre de navigation.
+	box-shadow: 0.5rem 0.5rem 0.5rem $border-color;
+}
+
 input, textarea, select
 {
 	// Actionneurs, champs de saisies et listes déroulantes.

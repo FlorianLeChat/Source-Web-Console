@@ -101,6 +101,10 @@ noscript {
   background-color: #ed431d;
 }
 
+nav, section, article {
+  box-shadow: 0.5rem 0.5rem 0.5rem #797979;
+}
+
 input, textarea, select {
   resize: vertical;
   line-height: 1;
