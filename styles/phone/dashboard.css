@@ -129,24 +129,44 @@ header h2 {
   font-size: 1.25rem;
   font-style: italic;
 }
-header form i {
+header div i {
   top: 1.5rem;
   right: 19.5rem;
   position: absolute;
   font-size: 1.25rem;
 }
-header form i + span {
+header div span {
   top: 1.75rem;
   right: 12rem;
   color: #f2f2f2;
   position: absolute;
 }
-header form i + span + input {
+header div input {
   top: 3.5rem;
   right: 10rem;
   height: 1.5rem;
   padding: 0.25rem;
   position: absolute;
+}
+header div ul {
+  top: 6rem;
+  right: 10rem;
+  width: 185px;
+  border: 1px solid #797979;
+  position: absolute;
+  background-color: #333333;
+}
+header div ul li {
+  padding: 0.5rem;
+  border-bottom: 1px solid #f2f2f2;
+}
+header div ul li:last-of-type {
+  border-bottom: none;
+}
+header div ul li:hover {
+  color: #333333;
+  cursor: pointer;
+  background-color: #f2f2f2;
 }
 header a i {
   top: 1rem;
@@ -154,7 +174,7 @@ header a i {
   position: absolute;
   font-size: 2rem;
 }
-header a i + span {
+header a span {
   top: 3.75rem;
   right: 1rem;
   color: #f2f2f2;
@@ -297,6 +317,6 @@ header h2 {
   bottom: unset;
   position: absolute;
 }
-header form {
+header div {
   display: none;
 }

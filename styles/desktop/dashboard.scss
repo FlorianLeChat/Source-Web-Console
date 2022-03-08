@@ -2,3 +2,404 @@
 // Variables globales //
 // ------------------ //
 @import "../main";
+
+// ------- //
+// En-tête //
+// ------- //
+header
+{
+	h1
+	{
+		// Ajustement de la taille du titre.
+		font-size: 2.5rem;
+	}
+
+	h2
+	{
+		// Ajustement de la taille du sous-titre.
+		right: 15.5rem;
+		bottom: 1rem;
+		font-size: 1.5rem;
+	}
+}
+
+// ---------------- //
+// Corps de la page //
+// ---------------- //
+main
+{
+	display: grid;
+	padding: 2rem;
+	text-align: center;
+	align-items: baseline;
+	grid-row-gap: 1rem;
+	margin-bottom: 4rem;
+	justify-items: center;
+	grid-column-gap: 2rem;
+	grid-template-rows: 0.3fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+
+	p
+	{
+		// Description de la page.
+		margin: 0 15% 0 15%;
+		grid-area: 1 / 1 / 2 / 5;
+		text-align: center;
+	}
+
+	nav
+	{
+		// Barre de navigation.
+		border: 1px solid $border-color;
+		padding: 1rem;
+		grid-area: 2 / 1 / 4 / 2;
+		border-radius: 0.5rem;
+		background-color: rgba($border-color, 0.5);
+
+		h2
+		{
+			// Titre de la barre.
+			color: $box-color;
+			margin: 1rem 0.5rem 2rem 0.5rem;
+			font-size: 1.75rem;
+		}
+
+		ul li
+		{
+			// Liste des catégories.
+			color: $text-color;
+			cursor: pointer;
+			padding: 0.75rem;
+			font-size: 1.25rem;
+			box-shadow: 0.25rem 0.25rem 0.25rem $border-color;
+			font-weight: bold;
+			border-radius: 0.5rem;
+			margin-bottom: 0.5rem;
+			background-color: $box-color;
+
+			a i
+			{
+				// Icône de la catégorie.
+				margin-right: 0.5rem;
+
+				+ span
+				{
+					// Titre de la catégorie.
+					position: relative;
+
+					&::after
+					{
+						// Amélioration de la zone de sélection.
+						@extend %larger-touch-zone;
+					}
+				}
+			}
+
+			&:hover
+			{
+				// Effet de sélection.
+				background-color: $text-color;
+
+				i, span
+				{
+					color: $box-color;
+				}
+			}
+		}
+	}
+
+	#servers
+	{
+		// Liste des serveurs.
+		color: $text-color;
+		padding: 0.75rem;
+		grid-area: 2 / 2 / 4 / 3;
+		border-radius: 0.5rem;
+		background-color: $box-color;
+
+		h2
+		{
+			// Titre de la catégorie.
+			margin: 1rem 0.5rem 2rem 0.5rem;
+		}
+
+		ul li
+		{
+			// Liste des serveurs.
+			border: 1px solid $text-color;
+			height: 5rem;
+			padding: 1rem;
+			position: relative;
+			text-align: center;
+			margin-bottom: 0.5rem;
+
+			span
+			{
+				// Intitulés des serveurs.
+				display: inline-block;
+				position: relative;
+				font-weight: bold;
+
+				&:first-of-type
+				{
+					// Nom du serveur.
+					font-size: 1.25rem;
+					margin-bottom: 0.25rem;
+				}
+
+				&:last-of-type
+				{
+					// Adresse IP & port de communication.
+					font-size: 0.75rem;
+				}
+			}
+
+			button
+			{
+				// Bouton d'actions.
+				color: $text-color;
+				position: absolute;
+				font-size: 1.75rem;
+				background: none;
+				box-shadow: none;
+
+				&:first-of-type
+				{
+					// Édition des propriétés du serveur.
+					left: 0;
+					bottom: 0.25rem;
+				}
+
+				&:last-of-type
+				{
+					// Connexion directe au serveur.
+					right: -0.25rem;
+					bottom: 0.25rem;
+				}
+
+				&:hover
+				{
+					// Effet de sélection.
+					color: $background-color;
+				}
+
+				&::after
+				{
+					// Amélioration de la zone de sélection.
+					@extend %larger-touch-zone;
+				}
+			}
+
+			&::before
+			{
+				// Image d'arrière plan.
+				// Note : on place cette image dans le sélecteur "before"
+				//	afin de pouvoir appliquer un filtre uniquement à l'image
+				// 	et non pas conteneur entier.
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				filter: blur(0.75px) grayscale(1);
+				content: "";
+				position: absolute;
+				background-size: cover;
+				background-color: $box-color;
+				background-image: url("../../assets/images/placeholder.svg");
+				background-repeat: no-repeat;
+				background-position: center;
+			}
+
+			&:hover
+			{
+				// Effet de sélection.
+				color: transparent;
+				border: 1px solid $background-color;
+
+				&::before
+				{
+					filter: blur(0) grayscale(0);
+				}
+			}
+		}
+
+		button[name = servers_list]
+		{
+			// Bouton de page précédente/suivante.
+			color: $text-color;
+			font-size: 1.25rem;
+			background: none;
+			box-shadow: none;
+
+			&:hover
+			{
+				// Effet de sélection.
+				color: $background-color;
+			}
+		}
+
+		> span
+		{
+			// Indicateur du nombre de pages.
+			margin: 0.5rem 0 0.5rem;
+			display: inline-block;
+			font-size: 1.25rem;
+			font-weight: bold;
+		}
+	}
+
+	#overview
+	{
+		// État général.
+		grid-area: 2 / 3 / 4 / 4;
+		box-shadow: none;
+
+		#state
+		{
+			// Aperçu de l'état.
+			color: $text-color;
+			padding: 0.75rem;
+			border-radius: 0.5rem;
+			background-color: $box-color;
+
+			h3
+			{
+				// Titre de l'article.
+				margin: 1rem 0.5rem 2rem 0.5rem;
+				font-size: 1.5rem;
+			}
+
+			ul li
+			{
+				// Liste des indicateurs.
+				.circle
+				{
+					// Couleur de l'état.
+					top: 2px;
+					width: 1rem;
+					height: 1rem;
+					display: inline-block;
+					position: relative;
+					border-radius: 50%;
+					background-color: $validate-color;
+				}
+
+				h4
+				{
+					// Titre de l'indicateur.
+					margin: 0 0 0.5rem 0.5rem;
+					display: inline-block;
+					text-transform: uppercase;
+				}
+
+				span
+				{
+					// Information de l'état.
+					display: block;
+					font-style: italic;
+					margin-bottom: 1.5rem;
+				}
+			}
+		}
+
+		#actions
+		{
+			// Actions rapides.
+			padding: 0.75rem;
+			margin-top: 1rem;
+			border-radius: 0.5rem;
+			background-color: $box-color;
+
+			h3
+			{
+				// Titre de l'article.
+				color: $text-color;
+				margin: 1rem 0.5rem 2rem 0.5rem;
+				font-size: 1.5rem;
+			}
+
+			ul li
+			{
+				// Liste des actions.
+				color: $background-color;
+				padding: 0.5rem 1.5rem;
+				font-weight: bold;
+				border-radius: 0.5rem;
+				margin-bottom: 0.5rem;
+				text-transform: uppercase;
+
+				span
+				{
+					// Intitulé de l'action.
+					display: block;
+					font-size: 0.75rem;
+					font-style: italic;
+					font-weight: normal;
+				}
+
+				&:first-of-type
+				{
+					// Arrêt du serveur.
+					background-color: $error-color;
+
+					&:hover
+					{
+						color: $error-color;
+					}
+				}
+
+				&:nth-of-type(2)
+				{
+					// Redémarrage du serveur.
+					background-color: $validate-color;
+
+					&:hover
+					{
+						color: $error-color;
+					}
+				}
+
+				&:nth-of-type(3)
+				{
+					// Mise à jour du serveur.
+					background-color: $info-color;
+
+					&:hover
+					{
+						color: $error-color;
+					}
+				}
+
+				&:last-of-type
+				{
+					// Maintenance du serveur.
+					background-color: $special-color;
+
+					&:hover
+					{
+						color: $error-color;
+					}
+				}
+
+				&:hover
+				{
+					// Effet de sélection.
+					cursor: pointer;
+					background-color: $background-color;
+				}
+			}
+		}
+	}
+
+	#last
+	{
+		// Dernière action réalisée.
+		grid-area: 2 / 4 / 3 / 5;
+	}
+
+	#stats
+	{
+		// Statistiques importantes.
+		grid-area: 3 / 4 / 4 / 5;
+	}
+}
