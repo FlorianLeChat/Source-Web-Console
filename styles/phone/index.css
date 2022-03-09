@@ -415,7 +415,6 @@ header ul button:hover {
   margin: 2rem auto 6rem auto;
   padding: 2rem;
   z-index: 1;
-  display: none;
   position: fixed;
   transform: translate(-50%, -50%);
   overflow-y: scroll;

@@ -156,6 +156,7 @@ header
 	margin: 2rem auto 6rem auto;
 	padding: 2rem;
 	z-index: 1;
+	display: none;
 	position: fixed;
 	transform: translate(-50%, -50%);
 	overflow-y: scroll;
@@ -195,6 +196,26 @@ header
 		border-radius: 0.5rem;
 		background-color: $box-color;
 
+		p.error, p.success
+		{
+			// Message d'erreur.
+			color: $error-color;
+			border: 2px solid $error-color;
+			padding: 0.5rem;
+			font-style: normal;
+			text-align: center;
+			font-weight: bold;
+			text-transform: uppercase;
+		}
+
+		p.success
+		{
+			// Message de succès.
+			color: $validate-color;
+			border: 2px solid $validate-color;
+			text-transform: none;
+		}
+
 		p
 		{
 			// Description brève des informations demandées.
@@ -202,9 +223,23 @@ header
 			text-align: justify;
 			font-style: italic;
 
-			&:last-of-type
+			&:last-of-type[class = ""]
 			{
 				margin-bottom: 2rem;
+			}
+		}
+
+		a
+		{
+			// Liens vers l'inscription/connexion unique.
+			color: $text-color;
+			text-decoration: underline;
+
+			&:hover
+			{
+				color: $box-color;
+				font-weight: bold;
+				background-color: $text-color;
 			}
 		}
 
@@ -283,14 +318,14 @@ header
 		input[type = button]
 		{
 			// Application de l'apparence personnalisée.
-			margin-top: 0.5rem;
+			margin-top: 0.75rem;
 			@extend %cancel-button-layout;
 		}
 
 		input[type = submit]
 		{
 			// Application de l'apparence personnalisée.
-			margin-top: 0.5rem;
+			margin-top: 0.75rem;
 			@extend %submit-button-layout;
 		}
 
