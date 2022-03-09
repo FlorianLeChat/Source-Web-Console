@@ -148,25 +148,29 @@ header div input {
   padding: 0.25rem;
   position: absolute;
 }
-header div ul {
+header div input:focus + ul {
   top: 6rem;
   right: 10rem;
   width: 185px;
   border: 1px solid #797979;
+  display: block;
   position: absolute;
   background-color: #333333;
 }
-header div ul li {
+header div input:focus + ul li {
   padding: 0.5rem;
   border-bottom: 1px solid #f2f2f2;
 }
-header div ul li:last-of-type {
+header div input:focus + ul li:last-of-type {
   border-bottom: none;
 }
-header div ul li:hover {
+header div input:focus + ul li:hover {
   color: #333333;
   cursor: pointer;
   background-color: #f2f2f2;
+}
+header div input + ul {
+  display: none;
 }
 header a i {
   top: 1rem;
