@@ -44,6 +44,7 @@ main
 		// Description de la page.
 		margin: 0 15% 0 15%;
 		grid-area: 1 / 1 / 2 / 5;
+		align-self: center;
 		text-align: center;
 	}
 
@@ -53,6 +54,7 @@ main
 		border: 1px solid $border-color;
 		padding: 1rem;
 		grid-area: 2 / 1 / 4 / 2;
+		align-self: start;
 		border-radius: 0.5rem;
 		background-color: rgba($border-color, 0.5);
 
@@ -284,6 +286,12 @@ main
 					background-color: $validate-color;
 				}
 
+				&:nth-of-type(2) .circle
+				{
+					// État de démonstration (doit être supprimé à l'avenir).
+					background-color: $error-color;
+				}
+
 				h4
 				{
 					// Titre de l'indicateur.
@@ -295,6 +303,7 @@ main
 				em
 				{
 					// Information de l'état.
+					color: $background-color;
 					display: block;
 					margin-bottom: 1.5rem;
 				}
@@ -343,6 +352,12 @@ main
 					&:hover
 					{
 						color: $error-color;
+
+						em
+						{
+							// Intitulé de l'action.
+							font-weight: bold;
+						}
 					}
 				}
 
@@ -353,7 +368,7 @@ main
 
 					&:hover
 					{
-						color: $error-color;
+						color: $validate-color;
 					}
 				}
 
@@ -364,7 +379,7 @@ main
 
 					&:hover
 					{
-						color: $error-color;
+						color: $info-color;
 					}
 				}
 
@@ -375,7 +390,7 @@ main
 
 					&:hover
 					{
-						color: $error-color;
+						color: $special-color;
 					}
 				}
 
@@ -392,12 +407,76 @@ main
 	#last
 	{
 		// Dernière action réalisée.
+		color: $text-color;
+		padding: 0.75rem;
 		grid-area: 2 / 4 / 3 / 5;
+		border-radius: 0.5rem;
+		background-color: $box-color;
+
+		h3
+		{
+			// Titre de la section.
+			color: $text-color;
+			margin: 1rem 0.5rem 2rem 0.5rem;
+			font-size: 1.5rem;
+		}
+
+		ul li
+		{
+			// Liste des dernières actions.
+			font-size: 1.25rem;
+
+			i
+			{
+				// Icône d'état de la dernière action.
+				color: $validate-color;
+			}
+
+			&:nth-of-type(2) i
+			{
+				// État de démonstration (doit être supprimé à l'avenir).
+				color: $error-color;
+			}
+
+			&:nth-of-type(3) i
+			{
+				// Voir dernier commentaire juste au-dessus.
+				color: $info-color;
+			}
+
+			span
+			{
+				// Heure de déclenchement de l'action.
+				margin: 0 0 0.25rem 0.25rem;
+				display: inline-block;
+			}
+
+			em
+			{
+				// Intitulé de l'action.
+				color: $background-color;
+				display: block;
+				font-size: initial;
+				margin-bottom: 1.5rem;
+			}
+		}
 	}
 
 	#stats
 	{
 		// Statistiques importantes.
+		color: $text-color;
+		padding: 0.75rem;
 		grid-area: 3 / 4 / 4 / 5;
+		border-radius: 0.5rem;
+		background-color: $box-color;
+
+		h3
+		{
+			// Titre de l'article.
+			color: $text-color;
+			margin: 1rem 0.5rem 2rem 0.5rem;
+			font-size: 1.5rem;
+		}
 	}
 }
