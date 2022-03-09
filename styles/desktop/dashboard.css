@@ -472,9 +472,8 @@ main #overview #state ul li h4 {
   display: inline-block;
   text-transform: uppercase;
 }
-main #overview #state ul li span {
+main #overview #state ul li em {
   display: block;
-  font-style: italic;
   margin-bottom: 1.5rem;
 }
 main #overview #actions {
@@ -496,10 +495,9 @@ main #overview #actions ul li {
   margin-bottom: 0.5rem;
   text-transform: uppercase;
 }
-main #overview #actions ul li span {
+main #overview #actions ul li em {
   display: block;
   font-size: 0.75rem;
-  font-style: italic;
   font-weight: normal;
 }
 main #overview #actions ul li:first-of-type {

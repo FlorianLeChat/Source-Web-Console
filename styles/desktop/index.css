@@ -439,7 +439,7 @@ header ul button:hover {
   font-size: 2rem;
   margin-right: 1rem;
 }
-#signup article p, #signin p, #contact p {
+#signup article p, #signup article em, #signin p, #signin em, #contact p, #contact em {
   margin: 0 5% 1rem 5%;
 }
 #signup article form, #signin form, #contact form {
@@ -465,13 +465,11 @@ header ul button:hover {
   border: 2px solid #558c03;
   text-transform: none;
 }
-#signup article form p, #signin form p, #contact form p {
+#signup article form em, #signin form em, #contact form em {
   color: #f2f2f2;
+  display: block;
   text-align: justify;
-  font-style: italic;
-}
-#signup article form p:last-of-type[class=""], #signin form p:last-of-type[class=""], #contact form p:last-of-type[class=""] {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 #signup article form a, #signin form a, #contact form a {
   color: #f59a23;

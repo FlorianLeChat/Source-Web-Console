@@ -292,11 +292,10 @@ main
 					text-transform: uppercase;
 				}
 
-				span
+				em
 				{
 					// Information de l'état.
 					display: block;
-					font-style: italic;
 					margin-bottom: 1.5rem;
 				}
 			}
@@ -328,12 +327,11 @@ main
 				margin-bottom: 0.5rem;
 				text-transform: uppercase;
 
-				span
+				em
 				{
 					// Intitulé de l'action.
 					display: block;
 					font-size: 0.75rem;
-					font-style: italic;
 					font-weight: normal;
 				}
 
