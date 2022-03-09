@@ -182,9 +182,9 @@ header
 		margin-right: 1rem;
 	}
 
-	p
+	p, em
 	{
-		// Description du formulaire.
+		// Descriptions du formulaire.
 		margin: 0 5% 1rem 5%;
 	}
 
@@ -222,17 +222,13 @@ header
 			text-transform: none;
 		}
 
-		p
+		em
 		{
 			// Description brève des informations demandées.
 			color: $background-color;
+			display: block;
 			text-align: justify;
-			font-style: italic;
-
-			&:last-of-type[class = ""]
-			{
-				margin-bottom: 2rem;
-			}
+			margin-bottom: 1.5rem;
 		}
 
 		a
