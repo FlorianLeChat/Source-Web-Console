@@ -167,43 +167,88 @@ header
 		font-style: italic;
 	}
 
-	form i
+	div
 	{
-		// Icône de la barre de recherche.
-		top: 1.5rem;
-		right: 19.5rem;
-		position: absolute;
-		font-size: 1.25rem;
+		i
+		{
+			// Icône de la barre de recherche.
+			top: 1.5rem;
+			right: 19.5rem;
+			position: absolute;
+			font-size: 1.25rem;
+		}
 
-		+ span
+		span
 		{
 			// Intitulé du champ de saisie.
 			top: 1.75rem;
 			right: 12rem;
 			color: $background-color;
 			position: absolute;
+		}
 
-			+ input
+		input
+		{
+			// Champ de saisie de la barre de recherche.
+			top: 3.5rem;
+			right: 10rem;
+			height: 1.5rem;
+			padding: 0.25rem;
+			position: absolute;
+
+			&:focus + ul
 			{
-				// Champ de saisie de la barre de recherche.
-				top: 3.5rem;
+				// Résultats de la barre de recherche.
+				top: 6rem;
 				right: 10rem;
-				height: 1.5rem;
-				padding: 0.25rem;
+				width: 185px;
+				border: 1px solid $border-color;
+				display: block;
 				position: absolute;
+				background-color: $box-color;
+
+				li
+				{
+					// Résultat quelconque.
+					padding: 0.5rem;
+					border-bottom: 1px solid $background-color;
+
+					&:last-of-type
+					{
+						// Dernier résultat.
+						border-bottom: none;
+					}
+
+					&:hover
+					{
+						// Effet de sélection.
+						color: $box-color;
+						cursor: pointer;
+						background-color: $background-color;
+					}
+				}
+			}
+
+			+ ul
+			{
+				// État initial des résultats.
+				display: none;
 			}
 		}
 	}
 
-	a i
+	a
 	{
-		// Icône de l'état de connexion.
-		top: 1rem;
-		right: 3rem;
-		position: absolute;
-		font-size: 2rem;
+		i
+		{
+			// Icône de l'état de connexion.
+			top: 1rem;
+			right: 3rem;
+			position: absolute;
+			font-size: 2rem;
+		}
 
-		+ span
+		span
 		{
 			// Identifiants du compte actuellement connecté.
 			top: 3.75rem;
