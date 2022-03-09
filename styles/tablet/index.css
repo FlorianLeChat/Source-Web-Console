@@ -457,6 +457,9 @@ header ul button:hover {
   font-weight: bold;
   text-transform: uppercase;
 }
+#signup article form p.error span, #signup article form p.success span, #signin form p.error span, #signin form p.success span, #contact form p.error span, #contact form p.success span {
+  text-decoration: underline;
+}
 #signup article form p.success, #signin form p.success, #contact form p.success {
   color: #558c03;
   border: 2px solid #558c03;
