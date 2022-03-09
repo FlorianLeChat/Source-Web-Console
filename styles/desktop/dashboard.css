@@ -323,12 +323,14 @@ main {
 main p {
   margin: 0 15% 0 15%;
   grid-area: 1/1/2/5;
+  align-self: center;
   text-align: center;
 }
 main nav {
   border: 1px solid #797979;
   padding: 1rem;
   grid-area: 2/1/4/2;
+  align-self: start;
   border-radius: 0.5rem;
   background-color: rgba(121, 121, 121, 0.5);
 }
@@ -467,12 +469,16 @@ main #overview #state ul li .circle {
   border-radius: 50%;
   background-color: #558c03;
 }
+main #overview #state ul li:nth-of-type(2) .circle {
+  background-color: #ed431d;
+}
 main #overview #state ul li h4 {
   margin: 0 0 0.5rem 0.5rem;
   display: inline-block;
   text-transform: uppercase;
 }
 main #overview #state ul li em {
+  color: #f2f2f2;
   display: block;
   margin-bottom: 1.5rem;
 }
@@ -506,31 +512,74 @@ main #overview #actions ul li:first-of-type {
 main #overview #actions ul li:first-of-type:hover {
   color: #ed431d;
 }
+main #overview #actions ul li:first-of-type:hover em {
+  font-weight: bold;
+}
 main #overview #actions ul li:nth-of-type(2) {
   background-color: #558c03;
 }
 main #overview #actions ul li:nth-of-type(2):hover {
-  color: #ed431d;
+  color: #558c03;
 }
 main #overview #actions ul li:nth-of-type(3) {
   background-color: #016fa0;
 }
 main #overview #actions ul li:nth-of-type(3):hover {
-  color: #ed431d;
+  color: #016fa0;
 }
 main #overview #actions ul li:last-of-type {
   background-color: #4a237a;
 }
 main #overview #actions ul li:last-of-type:hover {
-  color: #ed431d;
+  color: #4a237a;
 }
 main #overview #actions ul li:hover {
   cursor: pointer;
   background-color: #f2f2f2;
 }
 main #last {
+  color: #f59a23;
+  padding: 0.75rem;
   grid-area: 2/4/3/5;
+  border-radius: 0.5rem;
+  background-color: #333333;
+}
+main #last h3 {
+  color: #f59a23;
+  margin: 1rem 0.5rem 2rem 0.5rem;
+  font-size: 1.5rem;
+}
+main #last ul li {
+  font-size: 1.25rem;
+}
+main #last ul li i {
+  color: #558c03;
+}
+main #last ul li:nth-of-type(2) i {
+  color: #ed431d;
+}
+main #last ul li:nth-of-type(3) i {
+  color: #016fa0;
+}
+main #last ul li span {
+  margin: 0 0 0.25rem 0.25rem;
+  display: inline-block;
+}
+main #last ul li em {
+  color: #f2f2f2;
+  display: block;
+  font-size: initial;
+  margin-bottom: 1.5rem;
 }
 main #stats {
+  color: #f59a23;
+  padding: 0.75rem;
   grid-area: 3/4/4/5;
+  border-radius: 0.5rem;
+  background-color: #333333;
+}
+main #stats h3 {
+  color: #f59a23;
+  margin: 1rem 0.5rem 2rem 0.5rem;
+  font-size: 1.5rem;
 }
