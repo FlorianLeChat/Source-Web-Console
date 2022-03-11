@@ -1,0 +1,45 @@
+// ------------------ //
+// Variables globales //
+// ------------------ //
+@import "../main";
+
+// ---------------- //
+// Corps de la page //
+// ---------------- //
+main
+{
+	display: grid;
+	padding: 2rem;
+	text-align: center;
+	align-items: baseline;
+	grid-row-gap: 1rem;
+	margin-bottom: 4rem;
+	justify-items: center;
+	grid-column-gap: 2rem;
+	grid-template-rows: 0.3fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr;
+
+	p
+	{
+		// Description de la page.
+		grid-area: 1 / 1 / 2 / 4;
+		@include header-paragraph;
+	}
+
+	nav
+	{
+		// Barre de navigation.
+		grid-area: 2 / 1 / 3 / 2;
+		@include navigation-bar;
+	}
+
+	#stockage
+	{
+		grid-area: 2 / 2 / 3 / 3;
+	}
+
+	#parameters
+	{
+		grid-area: 2 / 3 / 3 / 4;
+	}
+}
