@@ -321,16 +321,16 @@ main {
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 main p {
-  margin: 0 15% 0 15%;
   grid-area: 1/1/2/5;
-  align-self: center;
+  text-align: center;
+  margin: 0 15% 0 15%;
   text-align: center;
 }
 main nav {
-  border: 1px solid #797979;
-  padding: 1rem;
   grid-area: 2/1/4/2;
   align-self: start;
+  border: 1px solid #797979;
+  padding: 1rem;
   border-radius: 0.5rem;
   background-color: rgba(121, 121, 121, 0.5);
 }
