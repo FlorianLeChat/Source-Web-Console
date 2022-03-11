@@ -261,6 +261,7 @@ main
 			// Aperçu de l'état.
 			color: $text-color;
 			padding: 0.75rem;
+			grid-area: 2 / 3 / 3 / 4;
 			border-radius: 0.5rem;
 			background-color: $box-color;
 
@@ -314,6 +315,7 @@ main
 		{
 			// Actions rapides.
 			padding: 0.75rem;
+			grid-area: 3 / 3 / 4 / 4;
 			margin-top: 1rem;
 			border-radius: 0.5rem;
 			background-color: $box-color;

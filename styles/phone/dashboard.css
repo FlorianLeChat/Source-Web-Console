@@ -10,7 +10,7 @@ ul, ol {
   list-style: none;
 }
 
-footer ul li:last-of-type::after, footer ul li a span::after, main > button::after {
+main nav ul li::after, main #servers ul li button::after, main nav ul li a i + span::after, footer ul li:last-of-type::after, footer ul li a span::after, main > button::after {
   top: -0.5rem;
   left: -0.5rem;
   right: -0.5rem;
@@ -299,6 +299,293 @@ footer ul li:last-of-type:hover i {
   color: #f2f2f2;
 }
 
+header h1 {
+  font-size: 2.5rem;
+}
+header h2 {
+  right: 15.5rem;
+  bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+main {
+  display: grid;
+  padding: 2rem;
+  text-align: center;
+  align-items: baseline;
+  grid-row-gap: 1rem;
+  margin-bottom: 4rem;
+  justify-items: center;
+  grid-column-gap: 2rem;
+  grid-template-rows: 0.3fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+main p {
+  margin: 0 15% 0 15%;
+  grid-area: 1/1/2/5;
+  align-self: center;
+  text-align: center;
+}
+main nav {
+  border: 1px solid #797979;
+  padding: 1rem;
+  grid-area: 2/1/4/2;
+  align-self: start;
+  border-radius: 0.5rem;
+  background-color: rgba(121, 121, 121, 0.5);
+}
+main nav h2 {
+  color: #333333;
+  margin: 1rem 0.5rem 2rem 0.5rem;
+  font-size: 1.75rem;
+}
+main nav ul li {
+  color: #f59a23;
+  cursor: pointer;
+  padding: 0.75rem;
+  font-size: 1.25rem;
+  box-shadow: 0.25rem 0.25rem 0.25rem #797979;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+  background-color: #333333;
+}
+main nav ul li a i {
+  margin-right: 0.5rem;
+}
+main nav ul li a i + span {
+  position: relative;
+}
+main nav ul li:hover {
+  background-color: #f59a23;
+}
+main nav ul li:hover i, main nav ul li:hover span {
+  color: #333333;
+}
+main #servers {
+  color: #f59a23;
+  padding: 0.75rem;
+  grid-area: 2/2/4/3;
+  border-radius: 0.5rem;
+  background-color: #333333;
+}
+main #servers h2 {
+  margin: 1rem 0.5rem 2rem 0.5rem;
+}
+main #servers ul li {
+  border: 1px solid #f59a23;
+  height: 5rem;
+  padding: 1rem;
+  position: relative;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+main #servers ul li span {
+  display: inline-block;
+  position: relative;
+  font-weight: bold;
+}
+main #servers ul li span:first-of-type {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+main #servers ul li span:last-of-type {
+  font-size: 0.75rem;
+}
+main #servers ul li button {
+  color: #f59a23;
+  position: absolute;
+  font-size: 1.75rem;
+  background: none;
+  box-shadow: none;
+}
+main #servers ul li button:first-of-type {
+  left: 0;
+  bottom: 0.25rem;
+}
+main #servers ul li button:last-of-type {
+  right: -0.25rem;
+  bottom: 0.25rem;
+}
+main #servers ul li button:hover {
+  color: #f2f2f2;
+}
+main #servers ul li::before {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  filter: blur(0.75px) grayscale(1);
+  content: "";
+  position: absolute;
+  background-size: cover;
+  background-color: #333333;
+  background-image: url("../../assets/images/placeholder.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+main #servers ul li:hover {
+  color: transparent;
+  border: 1px solid #f2f2f2;
+}
+main #servers ul li:hover::before {
+  filter: blur(0) grayscale(0);
+}
+main #servers button[name=servers_list] {
+  color: #f59a23;
+  font-size: 1.25rem;
+  background: none;
+  box-shadow: none;
+}
+main #servers button[name=servers_list]:hover {
+  color: #f2f2f2;
+}
+main #servers > span {
+  margin: 0.5rem 0 0.5rem;
+  display: inline-block;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+main #overview {
+  grid-area: 2/3/4/4;
+  box-shadow: none;
+}
+main #overview #state {
+  color: #f59a23;
+  padding: 0.75rem;
+  grid-area: 2/3/3/4;
+  border-radius: 0.5rem;
+  background-color: #333333;
+}
+main #overview #state h3 {
+  margin: 1rem 0.5rem 2rem 0.5rem;
+  font-size: 1.5rem;
+}
+main #overview #state ul li .circle {
+  top: 2px;
+  width: 1rem;
+  height: 1rem;
+  display: inline-block;
+  position: relative;
+  border-radius: 50%;
+  background-color: #558c03;
+}
+main #overview #state ul li:nth-of-type(2) .circle {
+  background-color: #ed431d;
+}
+main #overview #state ul li h4 {
+  margin: 0 0 0.5rem 0.5rem;
+  display: inline-block;
+  text-transform: uppercase;
+}
+main #overview #state ul li em {
+  color: #f2f2f2;
+  display: block;
+  margin-bottom: 1.5rem;
+}
+main #overview #actions {
+  padding: 0.75rem;
+  grid-area: 3/3/4/4;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  background-color: #333333;
+}
+main #overview #actions h3 {
+  color: #f59a23;
+  margin: 1rem 0.5rem 2rem 0.5rem;
+  font-size: 1.5rem;
+}
+main #overview #actions ul li {
+  color: #f2f2f2;
+  padding: 0.5rem 1.5rem;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+main #overview #actions ul li em {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: normal;
+}
+main #overview #actions ul li:first-of-type {
+  background-color: #ed431d;
+}
+main #overview #actions ul li:first-of-type:hover {
+  color: #ed431d;
+}
+main #overview #actions ul li:first-of-type:hover em {
+  font-weight: bold;
+}
+main #overview #actions ul li:nth-of-type(2) {
+  background-color: #558c03;
+}
+main #overview #actions ul li:nth-of-type(2):hover {
+  color: #558c03;
+}
+main #overview #actions ul li:nth-of-type(3) {
+  background-color: #016fa0;
+}
+main #overview #actions ul li:nth-of-type(3):hover {
+  color: #016fa0;
+}
+main #overview #actions ul li:last-of-type {
+  background-color: #4a237a;
+}
+main #overview #actions ul li:last-of-type:hover {
+  color: #4a237a;
+}
+main #overview #actions ul li:hover {
+  cursor: pointer;
+  background-color: #f2f2f2;
+}
+main #last {
+  color: #f59a23;
+  padding: 0.75rem;
+  grid-area: 2/4/3/5;
+  border-radius: 0.5rem;
+  background-color: #333333;
+}
+main #last h3 {
+  color: #f59a23;
+  margin: 1rem 0.5rem 2rem 0.5rem;
+  font-size: 1.5rem;
+}
+main #last ul li {
+  font-size: 1.25rem;
+}
+main #last ul li i {
+  color: #558c03;
+}
+main #last ul li:nth-of-type(2) i {
+  color: #ed431d;
+}
+main #last ul li:nth-of-type(3) i {
+  color: #016fa0;
+}
+main #last ul li span {
+  margin: 0 0 0.25rem 0.25rem;
+  display: inline-block;
+}
+main #last ul li em {
+  color: #f2f2f2;
+  display: block;
+  font-size: initial;
+  margin-bottom: 1.5rem;
+}
+main #stats {
+  color: #f59a23;
+  padding: 0.75rem;
+  grid-area: 3/4/4/5;
+  border-radius: 0.5rem;
+  background-color: #333333;
+}
+main #stats h3 {
+  color: #f59a23;
+  margin: 1rem 0.5rem 2rem 0.5rem;
+  font-size: 1.5rem;
+}
+
 header {
   color: #f59a23;
   height: 6.25rem;
@@ -313,6 +600,7 @@ header h1 {
   left: 1.5rem;
   bottom: unset;
   position: absolute;
+  font-size: revert;
 }
 header h2 {
   top: 3rem;
@@ -320,7 +608,47 @@ header h2 {
   width: 300px;
   bottom: unset;
   position: absolute;
+  font-size: revert;
 }
 header div {
   display: none;
+}
+
+main {
+  grid-template-rows: 0.5fr;
+  grid-template-columns: 1fr;
+}
+main section, main article, main nav {
+  width: 100%;
+  max-width: 350px;
+  box-sizing: border-box;
+}
+main p {
+  margin: 0 5% 0 5%;
+  grid-area: 1/1/2/2;
+}
+main nav {
+  grid-area: 2/1/3/2;
+}
+main nav ul li {
+  display: inline-block;
+  position: relative;
+}
+main nav ul li a i {
+  margin-right: 0;
+}
+main nav ul li a i + span {
+  display: none;
+}
+main #servers {
+  grid-area: 7/1/8/2;
+}
+main #overview {
+  grid-area: 3/1/5/2;
+}
+main #last {
+  grid-area: 5/1/6/2;
+}
+main #stats {
+  grid-area: 6/1/7/2;
 }
