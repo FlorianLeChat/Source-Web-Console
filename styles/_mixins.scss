@@ -71,3 +71,72 @@
 		background-color: $background-color;
 	}
 }
+
+// Permet de générer les règles nécessaires à la création
+// 	du paragraphe principal présent dans l'en-tête de la page.
+@mixin header-paragraph($margin-left: 15%, $margin-right: 15%)
+{
+	margin: 0 $margin-left 0 $margin-right;
+	text-align: center;
+}
+
+// Permet de générer la présentation ainsi que la disposition
+//	nécessaire pour créer la barre de navigation du site.
+@mixin navigation-bar($border: $border-color, $text: $text-color, $box: $box-color)
+{
+	border: 1px solid $border;
+	padding: 1rem;
+	border-radius: 0.5rem;
+	background-color: rgba($border, 0.5);
+
+	h2
+	{
+		// Titre de la barre.
+		color: $box;
+		margin: 1rem 0.5rem 2rem 0.5rem;
+		font-size: 1.75rem;
+	}
+
+	ul li
+	{
+		// Liste des catégories.
+		color: $text;
+		cursor: pointer;
+		padding: 0.75rem;
+		font-size: 1.25rem;
+		box-shadow: 0.25rem 0.25rem 0.25rem $border;
+		font-weight: bold;
+		border-radius: 0.5rem;
+		margin-bottom: 0.5rem;
+		background-color: $box;
+
+		a i
+		{
+			// Icône de la catégorie.
+			margin-right: 0.5rem;
+
+			+ span
+			{
+				// Titre de la catégorie.
+				position: relative;
+
+				&::after
+				{
+					// Amélioration de la zone de sélection.
+					@extend %larger-touch-zone;
+				}
+			}
+		}
+
+		&:hover
+		{
+			// Effet de sélection.
+			background-color: $text;
+
+			i, span
+			{
+				color: $box;
+			}
+		}
+	}
+}
