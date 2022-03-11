@@ -453,6 +453,7 @@ main #overview {
 main #overview #state {
   color: #f59a23;
   padding: 0.75rem;
+  grid-area: 2/3/3/4;
   border-radius: 0.5rem;
   background-color: #333333;
 }
@@ -484,6 +485,7 @@ main #overview #state ul li em {
 }
 main #overview #actions {
   padding: 0.75rem;
+  grid-area: 3/3/4/4;
   margin-top: 1rem;
   border-radius: 0.5rem;
   background-color: #333333;

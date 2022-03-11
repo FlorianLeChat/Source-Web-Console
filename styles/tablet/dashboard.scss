@@ -1,4 +1,67 @@
 // ------------------ //
 // Variables globales //
 // ------------------ //
-@import "../main";
+@import "../desktop/dashboard";
+
+// ---------------- //
+// Corps de la page //
+// ---------------- //
+main
+{
+	// Modification du nombre de lignes/colonnes.
+	grid-template-rows: 0.3fr 0.7fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr;
+
+	p
+	{
+		// Modification des marges et de la disposition.
+		margin: 0 5% 0 5%;
+		grid-area: 1 / 1 / 2 / 4;
+	}
+
+	nav
+	{
+		// Modification de la grille.
+		grid-area: 2 / 1 / 3 / 4;
+
+		ul li
+		{
+			// Modification de l'affichage.
+			display: inline-block;
+		}
+	}
+
+	#servers
+	{
+		// Modification de la grille.
+		grid-area: 3 / 1 / 5 / 2;
+	}
+
+	#overview
+	{
+		// Modification des grilles.
+		grid-area: 3 / 2 / 5 / 3;
+
+		#state
+		{
+			grid-area: 3 / 2 / 4 / 3;
+		}
+
+		#actions
+		{
+			grid-area: 4 / 2 / 5 / 3;
+		}
+	}
+
+	#last
+	{
+		// Modification de la grille.
+		grid-area: 3 / 3 / 4 / 4;
+	}
+
+	#stats
+	{
+		// Modification de la grille.
+		grid-area: 4 / 3 / 5 / 4;
+	}
+}
