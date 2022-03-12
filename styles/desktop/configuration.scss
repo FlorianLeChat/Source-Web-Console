@@ -34,9 +34,9 @@ main
 
 	#stockage
 	{
-		// Informations de connexion FTP
+		// Informations de connexion FTP.
 		color: $text-color;
-		padding: 0.75rem;
+		padding: 1rem;
 		max-width: 500px;
 		grid-area: 2 / 2 / 3 / 3;
 		border-radius: 0.5rem;
@@ -132,7 +132,7 @@ main
 	{
 		// Paramètres disponibles pour modification.
 		color: $text-color;
-		padding: 0.75rem;
+		padding: 1rem;
 		max-width: 500px;
 		grid-area: 2 / 3 / 3 / 4;
 		border-radius: 0.5rem;
