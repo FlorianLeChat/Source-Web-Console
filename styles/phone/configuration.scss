@@ -1,7 +1,7 @@
 // --------------- //
 // Base de travail //
 // --------------- //
-@import "../desktop/dashboard";
+@import "../desktop/configuration";
 
 // ------- //
 // En-tête //
@@ -66,27 +66,15 @@ main
 		}
 	}
 
-	#servers
+	#stockage
 	{
 		// Modification de la grille.
-		grid-area: 7 / 1 / 8 / 2;
+		grid-area: 3 / 1 / 4 / 2;
 	}
 
-	#overview
+	#parameters
 	{
 		// Modification de la grille.
-		grid-area: 3 / 1 / 5 / 2;
-	}
-
-	#last
-	{
-		// Modification de la grille.
-		grid-area: 5 / 1 / 6 / 2;
-	}
-
-	#stats
-	{
-		// Modification de la grille.
-		grid-area: 6 / 1 / 7 / 2;
+		grid-area: 4 / 1 / 5 / 2;
 	}
 }

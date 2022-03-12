@@ -140,3 +140,46 @@
 		}
 	}
 }
+
+// Permet d'adapter la présentation de l'en-tête commun pour
+// 	toutes les pages sur les terminaux mobiles.
+@mixin responsive-header-adaptation($text: $text-color, $box: $box-color)
+{
+	color: $text;
+	height: 6.25rem;
+	padding: 0.5rem;
+	background-color: $box;
+
+	img
+	{
+		// Disparition du logo du site.
+		display: none;
+	}
+
+	h1
+	{
+		// Ajustement du titre de la page.
+		top: 0;
+		left: 1.5rem;
+		bottom: unset;
+		position: absolute;
+		font-size: revert;
+	}
+
+	h2
+	{
+		// Ajustement du sous-titre de la page.
+		top: 3rem;
+		left: 1.5rem;
+		width: 300px;
+		bottom: unset;
+		position: absolute;
+		font-size: revert;
+	}
+
+	div
+	{
+		// Disparition de la barre de recherche.
+		display: none;
+	}
+}

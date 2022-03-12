@@ -199,8 +199,8 @@ main > button {
   position: fixed;
   font-size: 1.5rem;
   font-weight: bold;
-  background-color: #333333;
   border-radius: 50%;
+  background-color: #333333;
 }
 main > button:hover {
   color: #333333;
@@ -210,6 +210,7 @@ main > button:hover + span {
   color: #f59a23;
   right: 4rem;
   bottom: 4.6rem;
+  border: 1px solid #797979;
   padding: 0.5rem;
   display: inline-block;
   position: fixed;
