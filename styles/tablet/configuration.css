@@ -10,13 +10,28 @@ ul, ol {
   list-style: none;
 }
 
-main #servers ul li button::after, main nav ul li a i + span::after, footer ul li:last-of-type::after, footer ul li a span::after, main > button::after {
+main #parameters ul li button::after, main nav ul li a i + span::after, footer ul li:last-of-type::after, footer ul li a span::after, main > button::after {
   top: -0.5rem;
   left: -0.5rem;
   right: -0.5rem;
   bottom: -0.5rem;
   content: "";
   position: absolute;
+}
+
+main #stockage form input[type=submit] {
+  color: #f2f2f2;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  margin-left: 0.25rem;
+  border-radius: 0.25rem;
+  background-color: #558c03;
+}
+main #stockage form input[type=submit]:hover {
+  color: #558c03;
+  font-weight: bold;
+  background-color: #f2f2f2;
 }
 
 html {
@@ -300,36 +315,24 @@ footer ul li:last-of-type:hover i {
   color: #f2f2f2;
 }
 
-header h1 {
-  font-size: 2.5rem;
-}
-header h2 {
-  right: 15.5rem;
-  bottom: 1rem;
-  font-size: 1.5rem;
-}
-
 main {
   display: grid;
   padding: 2rem;
   text-align: center;
-  align-items: baseline;
+  align-items: start;
   grid-row-gap: 1rem;
   margin-bottom: 4rem;
   justify-items: center;
   grid-column-gap: 2rem;
-  grid-template-rows: 0.3fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr 0.9fr 0.85fr;
+  grid-template-columns: 0.6fr 1fr 1fr;
 }
 main p {
-  grid-area: 1/1/2/5;
-  text-align: center;
+  grid-area: 1/1/2/4;
   margin: 0 15% 0 15%;
   text-align: center;
 }
 main nav {
-  grid-area: 2/1/4/2;
-  align-self: start;
+  grid-area: 2/1/3/2;
   border: 1px solid #797979;
   padding: 1rem;
   border-radius: 0.5rem;
@@ -363,259 +366,115 @@ main nav ul li:hover {
 main nav ul li:hover i, main nav ul li:hover span {
   color: #333333;
 }
-main #servers {
+main #stockage {
   color: #f59a23;
-  padding: 0.75rem;
-  grid-area: 2/2/4/3;
+  padding: 1rem;
+  max-width: 500px;
+  grid-area: 2/2/3/3;
   border-radius: 0.5rem;
   background-color: #333333;
 }
-main #servers h2 {
+main #stockage h2 {
   margin: 1rem 0.5rem 2rem 0.5rem;
 }
-main #servers ul li {
-  border: 1px solid #f59a23;
-  height: 5rem;
+main #stockage i {
+  left: 1rem;
+  float: left;
+  color: #ed431d;
+  position: relative;
+  font-size: 2rem;
+  margin-right: 1rem;
+}
+main #stockage form {
   padding: 1rem;
-  position: relative;
-  text-align: center;
-  margin-bottom: 0.5rem;
-}
-main #servers ul li span {
-  display: inline-block;
-  position: relative;
-  font-weight: bold;
-}
-main #servers ul li span:first-of-type {
-  font-size: 1.25rem;
-  margin-bottom: 0.25rem;
-}
-main #servers ul li span:last-of-type {
-  font-size: 0.75rem;
-}
-main #servers ul li button {
-  color: #f59a23;
-  position: absolute;
-  font-size: 1.75rem;
-  background: none;
-  box-shadow: none;
-}
-main #servers ul li button:first-of-type {
-  left: 0;
-  bottom: 0.25rem;
-}
-main #servers ul li button:last-of-type {
-  right: -0.25rem;
-  bottom: 0.25rem;
-}
-main #servers ul li button:hover {
-  color: #f2f2f2;
-}
-main #servers ul li::before {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  filter: blur(0.75px) grayscale(1);
-  content: "";
-  position: absolute;
-  background-size: cover;
+  margin-top: 0.5rem;
+  border-radius: 0.5rem;
   background-color: #333333;
-  background-image: url("../../assets/images/placeholder.svg");
-  background-repeat: no-repeat;
-  background-position: center;
 }
-main #servers ul li:hover {
-  color: transparent;
-  border: 1px solid #f2f2f2;
-}
-main #servers ul li:hover::before {
-  filter: blur(0) grayscale(0);
-}
-main #servers button[name=servers_list] {
+main #stockage form label {
   color: #f59a23;
-  font-size: 1.25rem;
-  background: none;
-  box-shadow: none;
+  display: block;
 }
-main #servers button[name=servers_list]:hover {
-  color: #f2f2f2;
+main #stockage form label > span {
+  color: #ed431d;
 }
-main #servers > span {
-  margin: 0.5rem 0 0.5rem;
-  display: inline-block;
-  font-size: 1.25rem;
-  font-weight: bold;
+main #stockage form input[type=text], main #stockage form input[type=password], main #stockage form select {
+  width: calc(100% - 2rem);
+  margin: 0.5rem 0 1rem 0;
+  padding: 1rem;
+  box-sizing: border-box;
 }
-main #overview {
-  grid-area: 2/3/4/4;
-  box-shadow: none;
+main #stockage form input[type=text][name=ftp_address], main #stockage form input[type=password][name=ftp_address], main #stockage form select[name=ftp_address] {
+  width: calc(70% - 1rem);
 }
-main #overview #state {
+main #stockage form input[type=text][name=ftp_port], main #stockage form input[type=password][name=ftp_port], main #stockage form select[name=ftp_port] {
+  width: calc(30% - 1rem);
+}
+main #stockage form input[type=text] + span, main #stockage form input[type=password] + span, main #stockage form select + span {
+  position: relative;
+}
+main #stockage form input[type=text] + span::before, main #stockage form input[type=password] + span::before, main #stockage form select + span::before {
+  top: -2.5px;
+  left: -1.75rem;
+  position: absolute;
+}
+main #stockage form select {
+  cursor: pointer;
+}
+main #parameters {
   color: #f59a23;
-  padding: 0.75rem;
+  padding: 1rem;
+  max-width: 500px;
   grid-area: 2/3/3/4;
   border-radius: 0.5rem;
   background-color: #333333;
 }
-main #overview #state h3 {
-  margin: 1rem 0.5rem 2rem 0.5rem;
-  font-size: 1.5rem;
+main #parameters h2 {
+  margin: 1rem 0.5rem 1rem 0.5rem;
 }
-main #overview #state ul li .circle {
-  top: 2px;
-  width: 1rem;
-  height: 1rem;
-  display: inline-block;
-  position: relative;
-  border-radius: 50%;
-  background-color: #558c03;
+main #parameters ul li:last-of-type {
+  margin-bottom: 1rem;
 }
-main #overview #state ul li:nth-of-type(2) .circle {
-  background-color: #ed431d;
-}
-main #overview #state ul li h4 {
-  margin: 0 0 0.5rem 0.5rem;
-  display: inline-block;
-  text-transform: uppercase;
-}
-main #overview #state ul li em {
-  color: #f2f2f2;
-  display: block;
-  margin-bottom: 1.5rem;
-}
-main #overview #actions {
-  padding: 0.75rem;
-  grid-area: 3/3/4/4;
-  margin-top: 1rem;
-  border-radius: 0.5rem;
-  background-color: #333333;
-}
-main #overview #actions h3 {
-  color: #f59a23;
-  margin: 1rem 0.5rem 2rem 0.5rem;
-  font-size: 1.5rem;
-}
-main #overview #actions ul li {
-  color: #f2f2f2;
-  padding: 0.5rem 1.5rem;
-  font-weight: bold;
-  border-radius: 0.5rem;
-  margin-bottom: 0.5rem;
-  text-transform: uppercase;
-}
-main #overview #actions ul li em {
-  display: block;
-  font-size: 0.75rem;
-  font-weight: normal;
-}
-main #overview #actions ul li:first-of-type {
-  background-color: #ed431d;
-}
-main #overview #actions ul li:first-of-type:hover {
-  color: #ed431d;
-}
-main #overview #actions ul li:first-of-type:hover em {
-  font-weight: bold;
-}
-main #overview #actions ul li:nth-of-type(2) {
-  background-color: #558c03;
-}
-main #overview #actions ul li:nth-of-type(2):hover {
-  color: #558c03;
-}
-main #overview #actions ul li:nth-of-type(3) {
-  background-color: #016fa0;
-}
-main #overview #actions ul li:nth-of-type(3):hover {
-  color: #016fa0;
-}
-main #overview #actions ul li:last-of-type {
-  background-color: #4a237a;
-}
-main #overview #actions ul li:last-of-type:hover {
-  color: #4a237a;
-}
-main #overview #actions ul li:hover {
-  cursor: pointer;
-  background-color: #f2f2f2;
-}
-main #last {
-  color: #f59a23;
-  padding: 0.75rem;
-  grid-area: 2/4/3/5;
-  border-radius: 0.5rem;
-  background-color: #333333;
-}
-main #last h3 {
-  color: #f59a23;
-  margin: 1rem 0.5rem 2rem 0.5rem;
-  font-size: 1.5rem;
-}
-main #last ul li {
+main #parameters ul li h3 {
   font-size: 1.25rem;
+  margin-bottom: 0.25rem;
 }
-main #last ul li i {
-  color: #558c03;
-}
-main #last ul li:nth-of-type(2) i {
-  color: #ed431d;
-}
-main #last ul li:nth-of-type(3) i {
-  color: #016fa0;
-}
-main #last ul li span {
-  margin: 0 0 0.25rem 0.25rem;
-  display: inline-block;
-}
-main #last ul li em {
+main #parameters ul li p {
   color: #f2f2f2;
-  display: block;
-  font-size: initial;
-  margin-bottom: 1.5rem;
+  margin: 0 0 0.25rem 0;
 }
-main #stats {
+main #parameters ul li input {
+  width: 50%;
+  padding: 0.5rem;
+}
+main #parameters ul li button {
+  top: 0.5rem;
   color: #f59a23;
-  padding: 0.75rem;
-  grid-area: 3/4/4/5;
-  border-radius: 0.5rem;
-  background-color: #333333;
+  position: relative;
+  font-size: 1.75rem;
+  background: none;
+  box-shadow: none;
 }
-main #stats h3 {
-  color: #f59a23;
-  margin: 1rem 0.5rem 2rem 0.5rem;
-  font-size: 1.5rem;
+main #parameters ul li button:hover {
+  color: #f2f2f2;
 }
-
 main {
-  grid-template-rows: 0.3fr 0.7fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 0.2fr 0.5fr;
+  grid-template-columns: 1fr 1fr;
 }
 main p {
   margin: 0 5% 0 5%;
-  grid-area: 1/1/2/4;
+  grid-area: 1/1/2/3;
 }
 main nav {
-  grid-area: 2/1/3/4;
+  grid-area: 2/1/3/3;
 }
 main nav ul li {
   display: inline-block;
 }
-main #servers {
-  grid-area: 3/1/5/2;
+main #stockage {
+  grid-area: 3/1/4/2;
 }
-main #overview {
-  grid-area: 3/2/5/3;
-}
-main #overview #state {
+main #parameters {
   grid-area: 3/2/4/3;
-}
-main #overview #actions {
-  grid-area: 4/2/5/3;
-}
-main #last {
-  grid-area: 3/3/4/4;
-}
-main #stats {
-  grid-area: 4/3/5/4;
 }

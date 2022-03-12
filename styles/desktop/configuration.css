@@ -214,8 +214,8 @@ main > button {
   position: fixed;
   font-size: 1.5rem;
   font-weight: bold;
-  background-color: #333333;
   border-radius: 50%;
+  background-color: #333333;
 }
 main > button:hover {
   color: #333333;
@@ -225,6 +225,7 @@ main > button:hover + span {
   color: #f59a23;
   right: 4rem;
   bottom: 4.6rem;
+  border: 1px solid #797979;
   padding: 0.5rem;
   display: inline-block;
   position: fixed;
@@ -367,7 +368,7 @@ main nav ul li:hover i, main nav ul li:hover span {
 }
 main #stockage {
   color: #f59a23;
-  padding: 0.75rem;
+  padding: 1rem;
   max-width: 500px;
   grid-area: 2/2/3/3;
   border-radius: 0.5rem;
@@ -422,7 +423,7 @@ main #stockage form select {
 }
 main #parameters {
   color: #f59a23;
-  padding: 0.75rem;
+  padding: 1rem;
   max-width: 500px;
   grid-area: 2/3/3/4;
   border-radius: 0.5rem;
