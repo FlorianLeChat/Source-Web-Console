@@ -28,31 +28,34 @@
 				<h2>Stockage distant</h2>
 
 				<!-- Spécifications juridiques -->
-				<img src="path" alt="Icône d'avertissement" />
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				<i class="bi bi-exclamation-triangle-fill"></i>
+				<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
 
 				<!-- Champs du formulaire -->
 				<form method="POST">
 					<!-- Adresse IP -->
-					<input type="text" id="address" name="address" placeholder="XX.XX.XX.XX" />
+					<label for="ftp_address">Adresse IP & Port<span>*</span></label>
+					<input type="text" spellcheck="false" id="ftp_address" name="ftp_address" placeholder="XX.XX.XX.XX" minlength="7" maxlength="15" required />
 
 					<!-- Port de communication -->
-					<input type="text" id="port" name="port" placeholder="XX" />
+					<input type="text" spellcheck="false" id="ftp_port" name="ftp_port" placeholder="XX" minlength="5" maxlength="5" required />
 
 					<!-- Type de protocole -->
-					<select id="protocol" name="protocol">
+					<label for="ftp_protocol">Type de protocole<span>*</span></label>
+					<select id="ftp_protocol" name="ftp_protocol">
 						<option value="ftp">FTP</option>
 						<option value="sftp">SFTP</option>
 					</select>
 
 					<!-- Nom d'utilisateur -->
-					<input type="text" id="username" name="username" placeholder="Nom d'utilisateur" />
+					<label for="ftp_user">Nom d'utilisateur<span>*</span></label>
+					<input type="text" autocomplete="username" spellcheck="false" id="ftp_user" name="ftp_user" placeholder="Nom d'utilisateur" required />
 
 					<!-- Mot de passe -->
-					<input type="password" id="password" name="password" placeholder="Mot de passe" />
+					<label for="ftp_password">Mot de passe<span>*</span></label>
+					<input type="password" autocomplete="current-password" spellcheck="false" id="ftp_password" name="ftp_password" placeholder="Mot de passe" required />
 
-					<!-- Validation/annulation -->
-					<input type="button" value="Annuler" />
+					<!-- Validation -->
 					<input type="submit" value="Valider" />
 				</form>
 			</section>
@@ -65,24 +68,51 @@
 				<!-- Paramètres de la section -->
 				<ul>
 					<li>
-						<!-- Premier paramètre -->
+						<!-- Nom du premier paramètre -->
 						<h3>Nom du paramètre</h3>
-						<p>Description du paramètre</p>
-						<input type="text" id="parameter_1" name="parameter_1" placeholder="Valeur actuellement définie" />
+
+						<!-- Description du premier paramètre -->
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+						<!-- Champ de saisie du premier paramètre -->
+						<input type="text" id="parameter_1" name="parameter_1" placeholder="Valeur définie" />
+
+						<!-- Bouton de mise à jour -->
+						<button type="button" name="value_update" value="parameter_1">
+							<i class="bi bi-cloud-upload-fill"></i>
+						</button>
 					</li>
 
 					<li>
-						<!-- Deuxième paramètre -->
+						<!-- Nom du deuxième paramètre -->
 						<h3>Nom du paramètre</h3>
-						<p>Description du paramètre</p>
-						<input type="text" id="parameter_2" name="parameter_2" placeholder="Valeur actuellement définie" />
+
+						<!-- Description du deuxième paramètre -->
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+						<!-- Champ de saisie du deuxième paramètre -->
+						<input type="text" id="parameter_2" name="parameter_2" placeholder="Valeur définie" />
+
+						<!-- Bouton de mise à jour -->
+						<button type="button" name="value_update" value="parameter_2">
+							<i class="bi bi-cloud-upload-fill"></i>
+						</button>
 					</li>
 
 					<li>
-						<!-- Troisième paramètre -->
+						<!-- Nom du troisième paramètre -->
 						<h3>Nom du paramètre</h3>
-						<p>Description du paramètre</p>
-						<input type="text" id="parameter_3" name="parameter_3" placeholder="Valeur actuellement définie" />
+
+						<!-- Description du troisième paramètre -->
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+						<!-- Champ de saisie du troisième paramètre -->
+						<input type="text" id="parameter_3" name="parameter_3" placeholder="Valeur définie" />
+
+						<!-- Bouton de mise à jour -->
+						<button type="button" name="value_update" value="parameter_3">
+							<i class="bi bi-cloud-upload-fill"></i>
+						</button>
 					</li>
 				</ul>
 			</section>

@@ -10,13 +10,28 @@ ul, ol {
   list-style: none;
 }
 
-main nav ul li a i + span::after, footer ul li:last-of-type::after, footer ul li a span::after, main > button::after {
+main #parameters ul li button::after, main nav ul li a i + span::after, footer ul li:last-of-type::after, footer ul li a span::after, main > button::after {
   top: -0.5rem;
   left: -0.5rem;
   right: -0.5rem;
   bottom: -0.5rem;
   content: "";
   position: absolute;
+}
+
+main #stockage form input[type=submit] {
+  color: #f2f2f2;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  margin-left: 0.25rem;
+  border-radius: 0.25rem;
+  background-color: #558c03;
+}
+main #stockage form input[type=submit]:hover {
+  color: #558c03;
+  font-weight: bold;
+  background-color: #f2f2f2;
 }
 
 html {
@@ -303,13 +318,12 @@ main {
   display: grid;
   padding: 2rem;
   text-align: center;
-  align-items: baseline;
+  align-items: start;
   grid-row-gap: 1rem;
   margin-bottom: 4rem;
   justify-items: center;
   grid-column-gap: 2rem;
-  grid-template-rows: 0.3fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 0.6fr 1fr 1fr;
 }
 main p {
   grid-area: 1/1/2/4;
@@ -352,8 +366,94 @@ main nav ul li:hover i, main nav ul li:hover span {
   color: #333333;
 }
 main #stockage {
+  color: #f59a23;
+  padding: 0.75rem;
+  max-width: 500px;
   grid-area: 2/2/3/3;
+  border-radius: 0.5rem;
+  background-color: #333333;
+}
+main #stockage h2 {
+  margin: 1rem 0.5rem 2rem 0.5rem;
+}
+main #stockage i {
+  left: 1rem;
+  float: left;
+  color: #ed431d;
+  position: relative;
+  font-size: 2rem;
+  margin-right: 1rem;
+}
+main #stockage form {
+  padding: 1rem;
+  margin-top: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: #333333;
+}
+main #stockage form label {
+  color: #f59a23;
+  display: block;
+}
+main #stockage form label > span {
+  color: #ed431d;
+}
+main #stockage form input[type=text], main #stockage form input[type=password], main #stockage form select {
+  width: calc(100% - 2rem);
+  margin: 0.5rem 0 1rem 0;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+main #stockage form input[type=text][name=ftp_address], main #stockage form input[type=password][name=ftp_address], main #stockage form select[name=ftp_address] {
+  width: calc(70% - 1rem);
+}
+main #stockage form input[type=text][name=ftp_port], main #stockage form input[type=password][name=ftp_port], main #stockage form select[name=ftp_port] {
+  width: calc(30% - 1rem);
+}
+main #stockage form input[type=text] + span, main #stockage form input[type=password] + span, main #stockage form select + span {
+  position: relative;
+}
+main #stockage form input[type=text] + span::before, main #stockage form input[type=password] + span::before, main #stockage form select + span::before {
+  top: -2.5px;
+  left: -1.75rem;
+  position: absolute;
+}
+main #stockage form select {
+  cursor: pointer;
 }
 main #parameters {
+  color: #f59a23;
+  padding: 0.75rem;
+  max-width: 500px;
   grid-area: 2/3/3/4;
+  border-radius: 0.5rem;
+  background-color: #333333;
+}
+main #parameters h2 {
+  margin: 1rem 0.5rem 1rem 0.5rem;
+}
+main #parameters ul li:last-of-type {
+  margin-bottom: 1rem;
+}
+main #parameters ul li h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+main #parameters ul li p {
+  color: #f2f2f2;
+  margin: 0 0 0.25rem 0;
+}
+main #parameters ul li input {
+  width: 50%;
+  padding: 0.5rem;
+}
+main #parameters ul li button {
+  top: 0.5rem;
+  color: #f59a23;
+  position: relative;
+  font-size: 1.75rem;
+  background: none;
+  box-shadow: none;
+}
+main #parameters ul li button:hover {
+  color: #f2f2f2;
 }

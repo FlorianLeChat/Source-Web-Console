@@ -11,13 +11,12 @@ main
 	display: grid;
 	padding: 2rem;
 	text-align: center;
-	align-items: baseline;
+	align-items: start;
 	grid-row-gap: 1rem;
 	margin-bottom: 4rem;
 	justify-items: center;
 	grid-column-gap: 2rem;
-	grid-template-rows: 0.3fr 1fr;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: 0.6fr 1fr 1fr;
 
 	p
 	{
@@ -35,11 +34,167 @@ main
 
 	#stockage
 	{
+		// Informations de connexion FTP
+		color: $text-color;
+		padding: 0.75rem;
+		max-width: 500px;
 		grid-area: 2 / 2 / 3 / 3;
+		border-radius: 0.5rem;
+		background-color: $box-color;
+
+		h2
+		{
+			// Titre de la catégorie.
+			margin: 1rem 0.5rem 2rem 0.5rem;
+		}
+
+		i
+		{
+			// Spécifications juridiques.
+			left: 1rem;
+			float: left;
+			color: $error-color;
+			position: relative;
+			font-size: 2rem;
+			margin-right: 1rem;
+		}
+
+		form
+		{
+			// Formulaire.
+			padding: 1rem;
+			margin-top: 0.5rem;
+			border-radius: 0.5rem;
+			background-color: $box-color;
+
+			label
+			{
+				// Libellé du champ.
+				color: $text-color;
+				display: block;
+
+				> span
+				{
+					// Champs requis.
+					color: $error-color;
+				}
+			}
+
+			input[type = text], input[type = password], select
+			{
+				// Champs et zones de saisies.
+				width: calc(100% - 2rem);
+				margin: 0.5rem 0 1rem 0;
+				padding: 1rem;
+				box-sizing: border-box;
+
+				&[name = ftp_address]
+				{
+					// Champ de l'adresse IP.
+					width: calc(70% - 1rem);
+				}
+
+				&[name = ftp_port]
+				{
+					// Champ du port de communication.
+					width: calc(30% - 1rem);
+				}
+
+				+ span
+				{
+					// Icône d'état des vérifications.
+					position: relative;
+
+					&::before
+					{
+						top: -2.5px;
+						left: -1.75rem;
+						position: absolute;
+					}
+				}
+			}
+
+			select
+			{
+				// Sélection du type de protocole.
+				cursor: pointer;
+			}
+
+			input[type = submit]
+			{
+				// Application de l'apparence personnalisée.
+				@extend %submit-button-layout;
+			}
+		}
 	}
 
 	#parameters
 	{
+		// Paramètres disponibles pour modification.
+		color: $text-color;
+		padding: 0.75rem;
+		max-width: 500px;
 		grid-area: 2 / 3 / 3 / 4;
+		border-radius: 0.5rem;
+		background-color: $box-color;
+
+		h2
+		{
+			// Titre de la catégorie.
+			margin: 1rem 0.5rem 1rem 0.5rem;
+		}
+
+		ul li
+		{
+			// Liste des paramètres.
+			&:last-of-type
+			{
+				margin-bottom: 1rem;
+			}
+
+			h3
+			{
+				// Nom du paramètre.
+				font-size: 1.25rem;
+				margin-bottom: 0.25rem;
+			}
+
+			p
+			{
+				// Description du paramètre.
+				color: $background-color;
+				margin: 0 0 0.25rem 0;
+			}
+
+			input
+			{
+				// Champ de saisie du paramètre.
+				width: 50%;
+				padding: 0.5rem;
+			}
+
+			button
+			{
+				// Bouton de mise à jour.
+				top: 0.5rem;
+				color: $text-color;
+				position: relative;
+				font-size: 1.75rem;
+				background: none;
+				box-shadow: none;
+
+				&:hover
+				{
+					// Effet de sélection.
+					color: $background-color;
+				}
+
+				&::after
+				{
+					// Amélioration de la zone de sélection.
+					@extend %larger-touch-zone;
+				}
+			}
+		}
 	}
 }
