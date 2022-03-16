@@ -316,10 +316,10 @@ main {
   align-items: baseline;
   grid-row-gap: 1rem;
   margin-bottom: 4rem;
-  justify-items: center;
+  justify-items: stretch;
   grid-column-gap: 2rem;
   grid-template-rows: 0.3fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr 0.9fr 0.85fr;
+  grid-template-columns: 20rem 1fr 0.9fr 0.9fr;
 }
 main p {
   grid-area: 1/1/2/5;
@@ -387,6 +387,7 @@ main #servers ul li span {
   font-weight: bold;
 }
 main #servers ul li span:first-of-type {
+  display: block;
   font-size: 1.25rem;
   margin-bottom: 0.25rem;
 }
