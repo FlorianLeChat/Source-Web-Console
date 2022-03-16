@@ -148,6 +148,21 @@ header div input {
   padding: 0.25rem;
   position: absolute;
 }
+header div input::-moz-placeholder {
+  left: 0.25rem;
+  position: relative;
+}
+header div input:-ms-input-placeholder {
+  left: 0.25rem;
+  position: relative;
+}
+header div input::placeholder {
+  left: 0.25rem;
+  position: relative;
+}
+header div input:focus {
+  box-shadow: inset 0 0 0 3px #f59a23;
+}
 header div input:focus + ul {
   top: 6rem;
   right: 10rem;
@@ -319,7 +334,7 @@ main {
   justify-items: stretch;
   grid-column-gap: 2rem;
   grid-template-rows: 0.3fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr 0.9fr 0.85fr;
+  grid-template-columns: clamp(15rem, 17.5vw, 25rem) 1fr 0.9fr 0.9fr;
 }
 main p {
   grid-area: 1/1/2/5;
@@ -387,7 +402,9 @@ main #servers ul li span {
   font-weight: bold;
 }
 main #servers ul li span:first-of-type {
+  display: block;
   font-size: 1.25rem;
+  word-break: break-all;
   margin-bottom: 0.25rem;
 }
 main #servers ul li span:last-of-type {
