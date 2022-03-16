@@ -12,11 +12,11 @@ main
 	padding: 2rem;
 	text-align: center;
 	align-items: start;
-	grid-row-gap: 1rem;
+	grid-row-gap: 1.5rem;
 	margin-bottom: 4rem;
 	justify-items: stretch;
 	grid-column-gap: 2rem;
-	grid-template-columns: 20rem 1fr 1fr;
+	grid-template-columns: clamp(15rem, 17.5vw, 25rem) 1fr 1fr;
 
 	p
 	{
@@ -45,6 +45,7 @@ main
 		{
 			// Titre de la catégorie.
 			margin: 1rem 0.5rem 2rem 0.5rem;
+			font-size: 1.75rem;
 		}
 
 		i
@@ -139,7 +140,8 @@ main
 		h2
 		{
 			// Titre de la catégorie.
-			margin: 1rem 0.5rem 1rem 0.5rem;
+			margin: 1rem 0.5rem 2rem 0.5rem;
+			font-size: 1.75rem;
 		}
 
 		ul li

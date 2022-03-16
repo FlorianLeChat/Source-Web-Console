@@ -179,6 +179,21 @@ header div input {
   padding: 0.25rem;
   position: absolute;
 }
+header div input::-moz-placeholder {
+  left: 0.25rem;
+  position: relative;
+}
+header div input:-ms-input-placeholder {
+  left: 0.25rem;
+  position: relative;
+}
+header div input::placeholder {
+  left: 0.25rem;
+  position: relative;
+}
+header div input:focus {
+  box-shadow: inset 0 0 0 3px #f59a23;
+}
 header div input:focus + ul {
   top: 6rem;
   right: 10rem;
