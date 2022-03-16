@@ -59,7 +59,7 @@ main
 	{
 		// Liste des serveurs.
 		color: $text-color;
-		padding: 0.75rem;
+		padding: 1rem;
 		grid-area: 2 / 2 / 4 / 3;
 		border-radius: 0.5rem;
 		background-color: $box-color;
@@ -205,7 +205,7 @@ main
 		{
 			// Aperçu de l'état.
 			color: $text-color;
-			padding: 0.75rem;
+			padding: 1rem;
 			grid-area: 2 / 3 / 3 / 4;
 			border-radius: 0.5rem;
 			background-color: $box-color;
@@ -259,7 +259,7 @@ main
 		#actions
 		{
 			// Actions rapides.
-			padding: 0.75rem;
+			padding: 1rem;
 			grid-area: 3 / 3 / 4 / 4;
 			margin-top: 1rem;
 			border-radius: 0.5rem;
@@ -277,7 +277,9 @@ main
 			{
 				// Liste des actions.
 				color: $background-color;
+				border: 1px solid $background-color;
 				padding: 0.5rem 1.5rem;
+				position: relative;
 				font-weight: bold;
 				border-radius: 0.5rem;
 				margin-bottom: 0.5rem;
@@ -347,6 +349,12 @@ main
 					cursor: pointer;
 					background-color: $background-color;
 				}
+
+				&::after
+				{
+					// Amélioration de la zone de sélection.
+					@extend %larger-touch-zone;
+				}
 			}
 		}
 	}
@@ -355,7 +363,7 @@ main
 	{
 		// Dernière action réalisée.
 		color: $text-color;
-		padding: 0.75rem;
+		padding: 1rem;
 		grid-area: 2 / 4 / 3 / 5;
 		border-radius: 0.5rem;
 		background-color: $box-color;
@@ -413,7 +421,7 @@ main
 	{
 		// Statistiques importantes.
 		color: $text-color;
-		padding: 0.75rem;
+		padding: 1rem;
 		grid-area: 3 / 4 / 4 / 5;
 		border-radius: 0.5rem;
 		background-color: $box-color;
