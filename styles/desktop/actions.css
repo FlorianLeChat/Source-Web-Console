@@ -10,7 +10,7 @@ ul, ol {
   list-style: none;
 }
 
-main nav ul li a i + span::after, footer ul li:last-of-type::after, footer ul li a span::after, main > button::after {
+main #actions ul:last-of-type li label.switch::after, main #actions ul:first-of-type li::after, main nav ul li a i + span::after, footer ul li:last-of-type::after, footer ul li a span::after, main > button::after {
   top: -0.5rem;
   left: -0.5rem;
   right: -0.5rem;
@@ -307,9 +307,9 @@ main {
   align-items: start;
   grid-row-gap: 1rem;
   margin-bottom: 4rem;
-  justify-items: center;
+  justify-items: stretch;
   grid-column-gap: 2rem;
-  grid-template-columns: 0.7fr 1fr 1fr;
+  grid-template-columns: 20rem 1fr 1fr;
 }
 main p {
   grid-area: 1/1/2/4;
@@ -345,9 +345,160 @@ main nav ul li a i {
 main nav ul li a i + span {
   position: relative;
 }
-main nav ul li:hover {
+main nav ul li.active, main nav ul li:hover {
   background-color: #f59a23;
 }
-main nav ul li:hover i, main nav ul li:hover span {
+main nav ul li.active i, main nav ul li.active span, main nav ul li:hover i, main nav ul li:hover span {
   color: #333333;
+}
+main #actions {
+  color: #f59a23;
+  padding: 1rem;
+  grid-area: 2/2/3/3;
+  border-radius: 0.5rem;
+  background-color: #333333;
+}
+main #actions h2 {
+  margin: 1rem 0.5rem 2rem 0.5rem;
+}
+main #actions ul:first-of-type {
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+main #actions ul:first-of-type li {
+  width: 25%;
+  color: #f2f2f2;
+  margin: 0 0.25rem 0.5rem;
+  border: 1px solid #f2f2f2;
+  height: 2.75rem;
+  display: flex;
+  padding: 0.5rem 1.5rem;
+  position: relative;
+  flex-grow: 1;
+  font-weight: bold;
+  align-items: center;
+  border-radius: 0.5rem;
+  text-transform: uppercase;
+  flex-direction: column;
+  justify-content: center;
+}
+main #actions ul:first-of-type li em {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: normal;
+}
+main #actions ul:first-of-type li:first-of-type {
+  background-color: #ed431d;
+}
+main #actions ul:first-of-type li:first-of-type:hover {
+  color: #ed431d;
+}
+main #actions ul:first-of-type li:first-of-type:hover em {
+  font-weight: bold;
+}
+main #actions ul:first-of-type li:nth-of-type(2) {
+  background-color: #558c03;
+}
+main #actions ul:first-of-type li:nth-of-type(2):hover {
+  color: #558c03;
+}
+main #actions ul:first-of-type li:nth-of-type(3) {
+  background-color: #016fa0;
+}
+main #actions ul:first-of-type li:nth-of-type(3):hover {
+  color: #016fa0;
+}
+main #actions ul:first-of-type li:nth-of-type(4) {
+  background-color: #4a237a;
+}
+main #actions ul:first-of-type li:nth-of-type(4):hover {
+  color: #4a237a;
+}
+main #actions ul:first-of-type li:last-of-type {
+  color: #f59a23;
+  border: 1px solid #f59a23;
+}
+main #actions ul:first-of-type li:last-of-type:hover {
+  color: #333333;
+  border: 1px solid #333333;
+  background-color: #f59a23;
+}
+main #actions ul:first-of-type li:hover {
+  cursor: pointer;
+  background-color: #f2f2f2;
+}
+main #actions hr {
+  margin: 1rem 0 1rem;
+  border-color: #797979;
+}
+main #actions ul:last-of-type li {
+  border: 1px solid #f2f2f2;
+  height: 2rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  text-align: left;
+  margin-bottom: 0.5rem;
+}
+main #actions ul:last-of-type li > span {
+  top: 0.25rem;
+  position: relative;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+main #actions ul:last-of-type li label.switch {
+  float: right;
+  width: 60px;
+  height: 34px;
+  cursor: pointer;
+  position: relative;
+}
+main #actions ul:last-of-type li label.switch input {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+main #actions ul:last-of-type li label.switch input:checked + span {
+  background-color: #f59a23;
+}
+main #actions ul:last-of-type li label.switch input:focus + span {
+  box-shadow: 0 0 1px #f59a23;
+}
+main #actions ul:last-of-type li label.switch input:checked + span:before {
+  transform: translateX(26px);
+}
+main #actions ul:last-of-type li label.switch span {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+  position: absolute;
+  transition: 400ms;
+  border-radius: 34px;
+  background-color: #797979;
+}
+main #actions ul:last-of-type li label.switch span:before {
+  left: 4px;
+  width: 26px;
+  height: 26px;
+  bottom: 4px;
+  content: "";
+  position: absolute;
+  transition: 400ms;
+  border-radius: 50%;
+  background-color: white;
+}
+main #actions ul:last-of-type li:last-of-type {
+  margin-bottom: 0;
+}
+main #commands {
+  color: #f59a23;
+  padding: 1rem;
+  grid-area: 2/3/3/4;
+  border-radius: 0.5rem;
+  background-color: #333333;
+}
+main #commands h2 {
+  margin: 1rem 0.5rem 2rem 0.5rem;
 }

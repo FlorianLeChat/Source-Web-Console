@@ -17,6 +17,7 @@ header
 main
 {
 	// Modification du nombre de lignes/colonnes.
+	justify-items: center;
 	grid-template-rows: 0.5fr;
 	grid-template-columns: 1fr;
 
