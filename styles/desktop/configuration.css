@@ -360,10 +360,10 @@ main nav ul li a i {
 main nav ul li a i + span {
   position: relative;
 }
-main nav ul li:hover {
+main nav ul li.active, main nav ul li:hover {
   background-color: #f59a23;
 }
-main nav ul li:hover i, main nav ul li:hover span {
+main nav ul li.active i, main nav ul li.active span, main nav ul li:hover i, main nav ul li:hover span {
   color: #333333;
 }
 main #stockage {

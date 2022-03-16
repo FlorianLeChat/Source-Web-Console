@@ -128,7 +128,7 @@
 			}
 		}
 
-		&:hover
+		&.active, &:hover
 		{
 			// Effet de sélection.
 			background-color: $text;

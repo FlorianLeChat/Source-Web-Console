@@ -10,7 +10,7 @@ ul, ol {
   list-style: none;
 }
 
-main nav ul li::after, main #servers ul li button::after, main nav ul li a i + span::after, footer ul li:last-of-type::after, footer ul li a span::after, main > button::after {
+main nav ul li::after, main #overview #actions ul li::after, main #servers ul li button::after, main nav ul li a i + span::after, footer ul li:last-of-type::after, footer ul li a span::after, main > button::after {
   top: -0.5rem;
   left: -0.5rem;
   right: -0.5rem;
@@ -357,15 +357,15 @@ main nav ul li a i {
 main nav ul li a i + span {
   position: relative;
 }
-main nav ul li:hover {
+main nav ul li.active, main nav ul li:hover {
   background-color: #f59a23;
 }
-main nav ul li:hover i, main nav ul li:hover span {
+main nav ul li.active i, main nav ul li.active span, main nav ul li:hover i, main nav ul li:hover span {
   color: #333333;
 }
 main #servers {
   color: #f59a23;
-  padding: 0.75rem;
+  padding: 1rem;
   grid-area: 2/2/4/3;
   border-radius: 0.5rem;
   background-color: #333333;
@@ -453,7 +453,7 @@ main #overview {
 }
 main #overview #state {
   color: #f59a23;
-  padding: 0.75rem;
+  padding: 1rem;
   grid-area: 2/3/3/4;
   border-radius: 0.5rem;
   background-color: #333333;
@@ -485,7 +485,7 @@ main #overview #state ul li em {
   margin-bottom: 1.5rem;
 }
 main #overview #actions {
-  padding: 0.75rem;
+  padding: 1rem;
   grid-area: 3/3/4/4;
   margin-top: 1rem;
   border-radius: 0.5rem;
@@ -498,7 +498,9 @@ main #overview #actions h3 {
 }
 main #overview #actions ul li {
   color: #f2f2f2;
+  border: 1px solid #f2f2f2;
   padding: 0.5rem 1.5rem;
+  position: relative;
   font-weight: bold;
   border-radius: 0.5rem;
   margin-bottom: 0.5rem;
@@ -542,7 +544,7 @@ main #overview #actions ul li:hover {
 }
 main #last {
   color: #f59a23;
-  padding: 0.75rem;
+  padding: 1rem;
   grid-area: 2/4/3/5;
   border-radius: 0.5rem;
   background-color: #333333;
@@ -576,7 +578,7 @@ main #last ul li em {
 }
 main #stats {
   color: #f59a23;
-  padding: 0.75rem;
+  padding: 1rem;
   grid-area: 3/4/4/5;
   border-radius: 0.5rem;
   background-color: #333333;
