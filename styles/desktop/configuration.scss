@@ -14,9 +14,9 @@ main
 	align-items: start;
 	grid-row-gap: 1rem;
 	margin-bottom: 4rem;
-	justify-items: center;
+	justify-items: stretch;
 	grid-column-gap: 2rem;
-	grid-template-columns: 0.7fr 1fr 1fr;
+	grid-template-columns: 20rem 1fr 1fr;
 
 	p
 	{
@@ -37,7 +37,6 @@ main
 		// Informations de connexion FTP.
 		color: $text-color;
 		padding: 1rem;
-		max-width: 500px;
 		grid-area: 2 / 2 / 3 / 3;
 		border-radius: 0.5rem;
 		background-color: $box-color;
@@ -133,7 +132,6 @@ main
 		// Paramètres disponibles pour modification.
 		color: $text-color;
 		padding: 1rem;
-		max-width: 500px;
 		grid-area: 2 / 3 / 3 / 4;
 		border-radius: 0.5rem;
 		background-color: $box-color;

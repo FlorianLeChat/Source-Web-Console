@@ -322,9 +322,9 @@ main {
   align-items: start;
   grid-row-gap: 1rem;
   margin-bottom: 4rem;
-  justify-items: center;
+  justify-items: stretch;
   grid-column-gap: 2rem;
-  grid-template-columns: 0.7fr 1fr 1fr;
+  grid-template-columns: 20rem 1fr 1fr;
 }
 main p {
   grid-area: 1/1/2/4;
@@ -369,7 +369,6 @@ main nav ul li.active i, main nav ul li.active span, main nav ul li:hover i, mai
 main #stockage {
   color: #f59a23;
   padding: 1rem;
-  max-width: 500px;
   grid-area: 2/2/3/3;
   border-radius: 0.5rem;
   background-color: #333333;
@@ -424,7 +423,6 @@ main #stockage form select {
 main #parameters {
   color: #f59a23;
   padding: 1rem;
-  max-width: 500px;
   grid-area: 2/3/3/4;
   border-radius: 0.5rem;
   background-color: #333333;
