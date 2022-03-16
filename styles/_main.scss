@@ -91,7 +91,7 @@ nav, section, article
 
 input, textarea, select
 {
-	// Actionneurs, champs de saisies et listes déroulantes.
+	// Interrupteurs, champs de saisies et listes déroulantes.
 	@extend %reset-button-style;
 	resize: vertical;
 	line-height: 1;
