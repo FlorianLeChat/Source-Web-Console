@@ -11,13 +11,15 @@ ul, ol {
   list-style: none;
 }
 
-header ul button::before, footer ul li:last-of-type::after, footer ul li a span::after, main > button::after {
-  top: -0.5rem;
-  left: -0.5rem;
-  right: -0.5rem;
-  bottom: -0.5rem;
-  content: "";
-  position: absolute;
+@media screen and (max-width: 1024px) {
+  header ul button::before, footer ul li:last-of-type::after, footer ul li a span::after, main > button::after {
+    top: -0.5rem;
+    left: -0.5rem;
+    right: -0.5rem;
+    bottom: -0.5rem;
+    content: "";
+    position: absolute;
+  }
 }
 
 #signup article form input[type=button], #signin form input[type=button], #contact form input[type=button] {
