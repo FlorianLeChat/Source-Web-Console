@@ -10,13 +10,15 @@ ul, ol {
   list-style: none;
 }
 
-main nav ul li::after, main #parameters ul li button::after, main nav ul li a i + span::after, footer ul li:last-of-type::after, footer ul li a span::after, main > button::after {
-  top: -0.5rem;
-  left: -0.5rem;
-  right: -0.5rem;
-  bottom: -0.5rem;
-  content: "";
-  position: absolute;
+@media screen and (max-width: 1024px) {
+  main nav ul li::after, main #parameters ul li button::after, main nav ul li a i + span::after, footer ul li:last-of-type::after, footer ul li a span::after, main > button::after {
+    top: -0.5rem;
+    left: -0.5rem;
+    right: -0.5rem;
+    bottom: -0.5rem;
+    content: "";
+    position: absolute;
+  }
 }
 
 main #stockage form input[type=submit] {
