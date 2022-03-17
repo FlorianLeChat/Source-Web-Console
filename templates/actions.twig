@@ -53,7 +53,7 @@
 					<li>
 						<!-- Ajouter une nouvelle action personnalisée -->
 						Ajouter une action...
-						<em>2 action(s) restante(s)</em>
+						<em>2 restante(s)</em>
 					</li>
 				</ul>
 
@@ -67,29 +67,29 @@
 
 						<!-- Bouton de l'interrupteur -->
 						<label class="switch">
-							<input type="checkbox" />
+							<input type="checkbox" id="switch_1" name="switch_1" checked />
 							<span></span>
 						</label>
 					</li>
 
 					<li>
 						<!-- Intitulé de l'interrupteur -->
-						<span>Interrupteur 2</span>
+						<span class="inactive">Interrupteur 2</span>
 
 						<!-- Bouton de l'interrupteur -->
 						<label class="switch">
-							<input type="checkbox" />
+							<input type="checkbox" id="switch_2" name="switch_2" />
 							<span></span>
 						</label>
 					</li>
 
 					<li>
 						<!-- Intitulé de l'interrupteur -->
-						<span>Interrupteur 3</span>
+						<span class="inactive">Interrupteur 3</span>
 
 						<!-- Bouton de l'interrupteur -->
 						<label class="switch">
-							<input type="checkbox" />
+							<input type="checkbox" id="switch_3" name="switch_3" />
 							<span></span>
 						</label>
 					</li>
@@ -105,22 +105,63 @@
 				<ul>
 					<li>
 						<span>Nom de la commande 1</span>
-						<img src="path" alt="Icône pour supprimer la commande" />
+
+						<!-- Supprimer la commande -->
+						<button type="button" name="remove_command" value="uuid_1">Supprimer</button>
+
+						<!-- Exécuter la commande -->
+						<button type="button" name="execute_command" value="uuid_1">Exécuter</button>
 					</li>
 
 					<li>
 						<span>Nom de la commande 2</span>
-						<img src="path" alt="Icône pour supprimer la commande" />
+
+						<!-- Supprimer la commande -->
+						<button type="button" name="remove_command" value="uuid_2">Supprimer</button>
+
+						<!-- Exécuter la commande -->
+						<button type="button" name="execute_command" value="uuid_2">Exécuter</button>
 					</li>
 
 					<li>
 						<span>Nom de la commande 3</span>
-						<img src="path" alt="Icône pour supprimer la commande" />
+
+						<!-- Supprimer la commande -->
+						<button type="button" name="remove_command" value="uuid_3">Supprimer</button>
+
+						<!-- Exécuter la commande -->
+						<button type="button" name="execute_command" value="uuid_3">Exécuter</button>
 					</li>
 
 					<li>
 						<span>Nom de la commande 4</span>
-						<img src="path" alt="Icône pour supprimer la commande" />
+
+						<!-- Supprimer la commande -->
+						<button type="button" name="remove_command" value="uuid_4">Supprimer</button>
+
+						<!-- Exécuter la commande -->
+						<button type="button" name="execute_command" value="uuid_4">Exécuter</button>
+					</li>
+
+					<li>
+						<span>Nom de la commande 5</span>
+
+						<!-- Supprimer la commande -->
+						<button type="button" name="remove_command" value="uuid_5">Supprimer</button>
+
+						<!-- Exécuter la commande -->
+						<button type="button" name="execute_command" value="uuid_5">Exécuter</button>
+					</li>
+
+					<li>
+						<span>Ajouter une commande...</span>
+
+						<em>2 restante(s)</em>
+
+						<!-- Ajouter une commande -->
+						<button type="button" name="add_command" value="uuid_new">
+							<i class="bi bi-plus-circle-fill"></i>
+						</button>
 					</li>
 				</ul>
 

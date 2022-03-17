@@ -80,7 +80,6 @@ main
 					// Intitulé de l'action.
 					display: block;
 					font-size: 0.75rem;
-					font-weight: normal;
 				}
 
 				&:first-of-type
@@ -91,12 +90,6 @@ main
 					&:hover
 					{
 						color: $error-color;
-
-						em
-						{
-							// Intitulé de l'action.
-							font-weight: bold;
-						}
 					}
 				}
 
@@ -186,6 +179,12 @@ main
 				font-size: 1.25rem;
 				font-weight: bold;
 				margin-right: 0.5rem;
+
+				&.inactive
+				{
+					// État inactif de l'interrupteur.
+					color: rgba($text-color, 0.5);
+				}
 			}
 
 			label.switch
@@ -233,7 +232,9 @@ main
 					bottom: 0;
 					cursor: pointer;
 					position: absolute;
-					transition: 400ms;
+					transition-duration: 400ms;
+					transition-property: background-color, transform;
+					// transition: 400ms;
 					border-radius: 34px;
 					background-color: $border-color;
 
@@ -246,9 +247,11 @@ main
 						bottom: 4px;
 						content: "";
 						position: absolute;
-						transition: 400ms;
+						// transition: 400ms;
+						transition-duration: 400ms;
+						transition-property: background-color, transform;
 						border-radius: 50%;
-						background-color: white;
+						background-color: $background-color;
 					}
 				}
 
@@ -281,6 +284,77 @@ main
 			// Titre de la catégorie.
 			margin: 1rem 0.5rem 2rem 0.5rem;
 			font-size: 1.75rem;
+		}
+
+		ul
+		{
+			// Liste des commandes.
+			display: flex;
+			flex-wrap: wrap;
+			box-sizing: border-box;
+
+			li
+			{
+				// Corps d'une commande.
+				width: 12rem;
+				margin: 0 0.25rem 0.5rem;
+				border: 1px solid $background-color;
+				height: 3rem;
+				padding: 0.5rem 1rem;
+				position: relative;
+				flex-grow: 1;
+				word-break: break-word;
+				font-weight: bold;
+				border-radius: 0.5rem;
+				text-transform: uppercase;
+
+				span
+				{
+					// Nom de la commande.
+					display: block;
+				}
+
+				button
+				{
+					// Bouton de commande.
+					color: $background-color;
+					box-shadow: none;
+
+					&:first-of-type
+					{
+						// Suppression de la commande.
+						background-color: $error-color;
+
+						&:hover
+						{
+							color: $error-color;
+						}
+					}
+
+					&:last-of-type
+					{
+						// Exécution de la commande.
+						background-color: $validate-color;
+
+						&:hover
+						{
+							color: $validate-color;
+						}
+					}
+
+					&:hover
+					{
+						// Effet de sélection.
+						background-color: $background-color;
+					}
+
+					&::after
+					{
+						// Amélioration de la zone de sélection.
+						@extend %larger-touch-zone;
+					}
+				}
+			}
 		}
 	}
 }
