@@ -392,6 +392,7 @@ main #stockage {
 }
 main #stockage h2 {
   margin: 1rem 0.5rem 2rem 0.5rem;
+  font-size: 1.75rem;
 }
 main #stockage i {
   left: 1rem;
@@ -445,7 +446,8 @@ main #parameters {
   background-color: #333333;
 }
 main #parameters h2 {
-  margin: 1rem 0.5rem 1rem 0.5rem;
+  margin: 1rem 0.5rem 2rem 0.5rem;
+  font-size: 1.75rem;
 }
 main #parameters ul li:last-of-type {
   margin-bottom: 1rem;

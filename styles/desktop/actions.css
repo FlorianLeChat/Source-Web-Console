@@ -405,16 +405,12 @@ main #actions ul:first-of-type li {
 main #actions ul:first-of-type li em {
   display: block;
   font-size: 0.75rem;
-  font-weight: normal;
 }
 main #actions ul:first-of-type li:first-of-type {
   background-color: #ed431d;
 }
 main #actions ul:first-of-type li:first-of-type:hover {
   color: #ed431d;
-}
-main #actions ul:first-of-type li:first-of-type:hover em {
-  font-weight: bold;
 }
 main #actions ul:first-of-type li:nth-of-type(2) {
   background-color: #558c03;
@@ -465,6 +461,9 @@ main #actions ul:last-of-type li > span {
   font-weight: bold;
   margin-right: 0.5rem;
 }
+main #actions ul:last-of-type li > span.inactive {
+  color: rgba(245, 154, 35, 0.5);
+}
 main #actions ul:last-of-type li label.switch {
   top: 0.2rem;
   float: right;
@@ -494,7 +493,8 @@ main #actions ul:last-of-type li label.switch span {
   bottom: 0;
   cursor: pointer;
   position: absolute;
-  transition: 400ms;
+  transition-duration: 400ms;
+  transition-property: background-color, transform;
   border-radius: 34px;
   background-color: #797979;
 }
@@ -505,9 +505,10 @@ main #actions ul:last-of-type li label.switch span:before {
   bottom: 4px;
   content: "";
   position: absolute;
-  transition: 400ms;
+  transition-duration: 400ms;
+  transition-property: background-color, transform;
   border-radius: 50%;
-  background-color: white;
+  background-color: #f2f2f2;
 }
 main #actions ul:last-of-type li:last-of-type {
   margin-bottom: 0;
@@ -522,4 +523,44 @@ main #commands {
 main #commands h2 {
   margin: 1rem 0.5rem 2rem 0.5rem;
   font-size: 1.75rem;
+}
+main #commands ul {
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+main #commands ul li {
+  width: 12rem;
+  margin: 0 0.25rem 0.5rem;
+  border: 1px solid #f2f2f2;
+  height: 3rem;
+  padding: 0.5rem 1rem;
+  position: relative;
+  flex-grow: 1;
+  word-break: break-word;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  text-transform: uppercase;
+}
+main #commands ul li span {
+  display: block;
+}
+main #commands ul li button {
+  color: #f2f2f2;
+  box-shadow: none;
+}
+main #commands ul li button:first-of-type {
+  background-color: #ed431d;
+}
+main #commands ul li button:first-of-type:hover {
+  color: #ed431d;
+}
+main #commands ul li button:last-of-type {
+  background-color: #558c03;
+}
+main #commands ul li button:last-of-type:hover {
+  color: #558c03;
+}
+main #commands ul li button:hover {
+  background-color: #f2f2f2;
 }
