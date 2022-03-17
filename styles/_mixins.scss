@@ -17,15 +17,18 @@
 }
 
 // Permet d'élargir la zone de détection lors d'un clic
-// 	de l'utilisateur (utile sur terminaux mobiles).
+// 	de l'utilisateur (utile sur les terminaux mobiles).
 %larger-touch-zone
 {
-	top: -0.5rem;
-	left: -0.5rem;
-	right: -0.5rem;
-	bottom: -0.5rem;
-	content: "";
-	position: absolute;
+	@media screen and (max-width: 1024px)
+	{
+		top: -0.5rem;
+		left: -0.5rem;
+		right: -0.5rem;
+		bottom: -0.5rem;
+		content: "";
+		position: absolute;
+	}
 }
 
 // Permet d'appliquer automatiquement les modifications

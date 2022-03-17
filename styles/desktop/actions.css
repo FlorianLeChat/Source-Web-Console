@@ -10,13 +10,15 @@ ul, ol {
   list-style: none;
 }
 
-main #actions ul:last-of-type li label.switch::after, main #actions ul:first-of-type li::after, main nav ul li a i + span::after, footer ul li:last-of-type::after, footer ul li a span::after, main > button::after {
-  top: -0.5rem;
-  left: -0.5rem;
-  right: -0.5rem;
-  bottom: -0.5rem;
-  content: "";
-  position: absolute;
+@media screen and (max-width: 1024px) {
+  main #commands ul li button::after, main #actions ul:last-of-type li label.switch::after, main #actions ul:first-of-type li::after, main nav ul li a i + span::after, footer ul li:last-of-type::after, footer ul li a span::after, main > button::after {
+    top: -0.5rem;
+    left: -0.5rem;
+    right: -0.5rem;
+    bottom: -0.5rem;
+    content: "";
+    position: absolute;
+  }
 }
 
 html {
