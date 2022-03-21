@@ -458,8 +458,14 @@ footer
 
 			&::after
 			{
-				// Amélioration de la zone de sélection.
-				@extend %larger-touch-zone;
+				// Astuce pour faire afficher le menu sans utiliser de
+				// 	de code JavaScript (voir commentaire précédent).
+				top: -0.5rem;
+				left: -0.5rem;
+				right: -0.5rem;
+				bottom: -0.5rem;
+				content: "";
+				position: absolute;
 			}
 
 			&:hover
