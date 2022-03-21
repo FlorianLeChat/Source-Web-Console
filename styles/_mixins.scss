@@ -17,7 +17,7 @@
 }
 
 // Permet d'élargir la zone de détection lors d'un clic
-// 	de l'utilisateur (utile sur les terminaux mobiles).
+// 	de l'utilisateur (uniquement sur les terminaux mobiles).
 %larger-touch-zone
 {
 	@media screen and (max-width: 1024px)
