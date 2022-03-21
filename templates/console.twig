@@ -22,38 +22,48 @@
 				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 			</p>
 
-			<!-- Aperçu de l'état -->
-			<section id="overview">
+			<!-- Contrôleur principal -->
+			<section id="controller">
 				<!-- Titre de la section -->
-				<h2>État du serveur</h2>
+				<h2>Contrôleur principal</h2>
 
+				<!-- Champ de saisie -->
+				<input type="text" name="command" placeholder="Écrivez quelque chose..." required />
+
+				<!-- Bouton d'exécution -->
+				<button type="button" name="execute" value="bash">
+					<i class="bi bi-send-fill"></i>
+				</button>
+
+				<!-- Historique des commandes -->
 				<ul>
-					<li>
-						<!-- Première information -->
-						<div class="circle"></div>
-						<h3>Lorem ipsum</h3>
-						<span>Lorem ipsum dolor sit amet</span>
-					</li>
+					<!-- Première commande -->
+					<li>command_name value</li>
 
-					<li>
-						<!-- Deuxième information -->
-						<div class="circle"></div>
-						<h3>Lorem ipsum</h3>
-						<span>Lorem ipsum dolor sit amet</span>
-					</li>
+					<!-- Deuxième commande -->
+					<li>command_name value</li>
 
-					<li>
-						<!-- Troisième information -->
-						<div class="circle"></div>
-						<h3>Lorem ipsum</h3>
-						<span>Lorem ipsum dolor sit amet</span>
-					</li>
+					<!-- Troisième commande -->
+					<li>command_name value</li>
 				</ul>
 			</section>
 
 			<!-- Terminal de la console -->
 			<section id="terminal">
-				<div class="terminal"></div>
+				<!-- Titre de la section -->
+				<h2>Terminal d'observation</h2>
+
+				<!-- Liste des événements -->
+				<ul>
+					<!-- Première ligne -->
+					<li>Lorem ipsum</li>
+
+					<!-- Deuxième ligne -->
+					<li>Lorem ipsum</li>
+
+					<!-- Troisième ligne -->
+					<li>Lorem ipsum</li>
+				</ul>
 			</section>
 
 			<!-- Bouton vers une info-bulle -->
