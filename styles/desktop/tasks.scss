@@ -1,0 +1,105 @@
+// --------------- //
+// Base de travail //
+// --------------- //
+@import "../main";
+
+// ---------------- //
+// Corps de la page //
+// ---------------- //
+main
+{
+	display: grid;
+	padding: 2rem;
+	text-align: center;
+	align-items: start;
+	grid-row-gap: 1.5rem;
+	margin-bottom: 4rem;
+	justify-items: stretch;
+	grid-column-gap: 2rem;
+	grid-template-columns: clamp(15rem, 17.5vw, 25rem) 1fr;
+
+	p
+	{
+		// Description de la page.
+		grid-area: 1 / 1 / 2 / 3;
+		@include header-paragraph;
+	}
+
+	nav
+	{
+		// Barre de navigation.
+		grid-area: 2 / 1 / 3 / 2;
+		@include navigation-bar;
+	}
+
+	#tasks
+	{
+		// Tâches planifiées.
+		color: $text-color;
+		padding: 1rem;
+		grid-area: 2 / 2 / 3 / 3;
+		border-radius: 0.5rem;
+		background-color: $box-color;
+
+		h2
+		{
+			// Titre de la catégorie.
+			margin: 1rem 0.5rem 2rem 0.5rem;
+			font-size: 1.75rem;
+		}
+
+		table
+		{
+			// Conteneur du tableau.
+			width: 100%;
+			border: 1px solid $border-color;
+			table-layout: fixed;
+
+			thead
+			{
+				// En-tête du tableau.
+				color: $box-color;
+				height: 2rem;
+				font-size: 1.25rem;
+				background-color: $text-color;
+			}
+
+			tbody
+			{
+				// Corps du tableau.
+				word-break: break-all;
+
+				tr
+				{
+					// En-tête de la cellule.
+					height: 3rem;
+
+					em
+					{
+						// Adresse IP du serveur.
+						display: block;
+					}
+
+					&.passed
+					{
+						// Date de déclenchement passée.
+						color: $background-color;
+						background-color: $error-color;
+					}
+				}
+
+				td
+				{
+					// Corps de la cellule.
+					border: 1px solid $border-color;
+
+					&:last-of-type
+					{
+						// Action effectuée.
+						text-transform: uppercase;
+					}
+				}
+			}
+		}
+	}
+}
