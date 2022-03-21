@@ -11,7 +11,7 @@ ul, ol {
 }
 
 @media screen and (max-width: 1024px) {
-  main #commands ul li:last-of-type::after, main #commands ul li button::after, main #actions ul:last-of-type li label.switch::after, main #actions ul:first-of-type li::after, main nav ul li a i + span::after, footer ul li:last-of-type::after, footer ul li a span::after, main > button::after {
+  main nav ul li::after, main #commands ul li:last-of-type::after, main #commands ul li button::after, main #actions ul:last-of-type li label.switch::after, main #actions ul:first-of-type li::after, main nav ul li a i + span::after, footer ul li:last-of-type::after, footer ul li a span::after, main > button::after {
     top: -0.5rem;
     left: -0.5rem;
     right: -0.5rem;
@@ -582,4 +582,65 @@ main #commands ul li:last-of-type:hover {
   color: #333333;
   border-color: transparent;
   background-color: #f59a23;
+}
+header {
+  color: #f59a23;
+  height: 6.25rem;
+  padding: 0.5rem;
+  background-color: #333333;
+}
+header img {
+  display: none;
+}
+header h1 {
+  top: 0;
+  left: 1.5rem;
+  bottom: unset;
+  position: absolute;
+  font-size: revert;
+}
+header h2 {
+  top: 3rem;
+  left: 1.5rem;
+  width: 300px;
+  bottom: unset;
+  position: absolute;
+  font-size: revert;
+}
+header div {
+  display: none;
+}
+
+main {
+  justify-items: center;
+  grid-template-rows: 0.5fr;
+  grid-template-columns: 1fr;
+}
+main section, main article, main nav {
+  width: 100%;
+  max-width: 350px;
+  box-sizing: border-box;
+}
+main p {
+  margin: 0 5% 0 5%;
+  grid-area: 1/1/2/2;
+}
+main nav {
+  grid-area: 2/1/3/2;
+}
+main nav ul li {
+  display: inline-block;
+  position: relative;
+}
+main nav ul li a i {
+  margin-right: 0;
+}
+main nav ul li a i + span {
+  display: none;
+}
+main #actions {
+  grid-area: 3/1/4/2;
+}
+main #commands {
+  grid-area: 4/1/5/2;
 }
