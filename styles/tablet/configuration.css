@@ -11,7 +11,7 @@ ul, ol {
 }
 
 @media screen and (max-width: 1024px) {
-  main #parameters ul li button::after, main nav ul li a i + span::after, footer ul li:last-of-type::after, footer ul li a span::after, main > button::after {
+  main #parameters ul li button::after, main nav ul li a i + span::after, footer ul li a span::after, main > button::after {
     top: -0.5rem;
     left: -0.5rem;
     right: -0.5rem;
@@ -320,6 +320,14 @@ footer ul li:last-of-type ul li:last-of-type::after {
   bottom: -4rem;
   content: "";
   z-index: -1;
+  position: absolute;
+}
+footer ul li:last-of-type::after {
+  top: -0.5rem;
+  left: -0.5rem;
+  right: -0.5rem;
+  bottom: -0.5rem;
+  content: "";
   position: absolute;
 }
 footer ul li:last-of-type:hover {
