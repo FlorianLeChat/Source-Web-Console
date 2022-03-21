@@ -54,6 +54,9 @@ ul, ol {
 
 html {
   color: #333333;
+  -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+          hyphens: auto;
   font-family: "Roboto", sans-serif;
   text-rendering: optimizeSpeed;
   min-width: 360px;
