@@ -11,7 +11,7 @@ ul, ol {
 }
 
 @media screen and (max-width: 1024px) {
-  main nav ul li::after, main #parameters ul li button::after, main nav ul li a i + span::after, footer ul li a span::after, main > button::after {
+  main nav ul li::after, main nav ul li a i + span::after, footer ul li a span::after, main > button::after {
     top: -0.5rem;
     left: -0.5rem;
     right: -0.5rem;
@@ -19,21 +19,6 @@ ul, ol {
     content: "";
     position: absolute;
   }
-}
-
-main #stockage form input[type=submit] {
-  color: #f2f2f2;
-  cursor: pointer;
-  padding: 0.5rem 1rem;
-  font-size: 1.25rem;
-  margin-left: 0.25rem;
-  border-radius: 0.25rem;
-  background-color: #558c03;
-}
-main #stockage form input[type=submit]:hover {
-  color: #558c03;
-  font-weight: bold;
-  background-color: #f2f2f2;
 }
 
 html {
@@ -352,10 +337,10 @@ main {
   margin-bottom: 4rem;
   justify-items: stretch;
   grid-column-gap: 2rem;
-  grid-template-columns: clamp(15rem, 17.5vw, 25rem) 1fr 1fr;
+  grid-template-columns: clamp(15rem, 17.5vw, 25rem) 1fr;
 }
 main p {
-  grid-area: 1/1/2/4;
+  grid-area: 1/1/2/3;
   margin: 0 15% 0 15%;
   text-align: center;
 }
@@ -394,98 +379,48 @@ main nav ul li.active, main nav ul li:hover {
 main nav ul li.active i, main nav ul li.active span, main nav ul li:hover i, main nav ul li:hover span {
   color: #333333;
 }
-main #stockage {
+main #tasks {
   color: #f59a23;
   padding: 1rem;
   grid-area: 2/2/3/3;
   border-radius: 0.5rem;
   background-color: #333333;
 }
-main #stockage h2 {
+main #tasks h2 {
   margin: 1rem 0.5rem 2rem 0.5rem;
   font-size: 1.75rem;
 }
-main #stockage i {
-  left: 1rem;
-  float: left;
-  color: #ed431d;
-  position: relative;
-  font-size: 2rem;
-  margin-right: 1rem;
+main #tasks table {
+  width: 100%;
+  border: 1px solid #797979;
+  table-layout: fixed;
 }
-main #stockage form {
-  padding: 1rem;
-  margin-top: 0.5rem;
-  border-radius: 0.5rem;
-  background-color: #333333;
+main #tasks table thead {
+  color: #333333;
+  height: 2rem;
+  font-size: 1.25rem;
+  background-color: #f59a23;
 }
-main #stockage form label {
-  color: #f59a23;
+main #tasks table tbody {
+  word-break: break-all;
+}
+main #tasks table tbody tr {
+  height: 3rem;
+}
+main #tasks table tbody tr em {
   display: block;
 }
-main #stockage form label > span {
-  color: #ed431d;
-}
-main #stockage form input[type=text], main #stockage form input[type=password], main #stockage form select {
-  width: calc(100% - 2rem);
-  margin: 0.5rem 0 1rem 0;
-  padding: 1rem;
-  box-sizing: border-box;
-}
-main #stockage form input[type=text][name=ftp_address], main #stockage form input[type=password][name=ftp_address], main #stockage form select[name=ftp_address] {
-  width: calc(70% - 1rem);
-}
-main #stockage form input[type=text][name=ftp_port], main #stockage form input[type=password][name=ftp_port], main #stockage form select[name=ftp_port] {
-  width: calc(30% - 1rem);
-}
-main #stockage form input[type=text] + span, main #stockage form input[type=password] + span, main #stockage form select + span {
-  position: relative;
-}
-main #stockage form input[type=text] + span::before, main #stockage form input[type=password] + span::before, main #stockage form select + span::before {
-  top: -2.5px;
-  left: -1.75rem;
-  position: absolute;
-}
-main #stockage form select {
-  cursor: pointer;
-}
-main #parameters {
-  color: #f59a23;
-  padding: 1rem;
-  grid-area: 2/3/3/4;
-  border-radius: 0.5rem;
-  background-color: #333333;
-}
-main #parameters h2 {
-  margin: 1rem 0.5rem 2rem 0.5rem;
-  font-size: 1.75rem;
-}
-main #parameters ul li:last-of-type {
-  margin-bottom: 1rem;
-}
-main #parameters ul li h3 {
-  font-size: 1.25rem;
-  margin-bottom: 0.25rem;
-}
-main #parameters ul li p {
+main #tasks table tbody tr.passed {
   color: #f2f2f2;
-  margin: 0 0 0.25rem 0;
+  background-color: #ed431d;
 }
-main #parameters ul li input {
-  width: 50%;
-  padding: 0.5rem;
+main #tasks table tbody td {
+  border: 1px solid #797979;
 }
-main #parameters ul li button {
-  top: 0.5rem;
-  color: #f59a23;
-  position: relative;
-  font-size: 1.75rem;
-  background: none;
-  box-shadow: none;
+main #tasks table tbody td:last-of-type {
+  text-transform: uppercase;
 }
-main #parameters ul li button:hover {
-  color: #f2f2f2;
-}
+
 header {
   color: #f59a23;
   height: 6.25rem;
@@ -541,9 +476,6 @@ main nav ul li a i {
 main nav ul li a i + span {
   display: none;
 }
-main #stockage {
+main #tasks {
   grid-area: 3/1/4/2;
-}
-main #parameters {
-  grid-area: 4/1/5/2;
 }
