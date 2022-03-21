@@ -232,10 +232,9 @@ main
 					bottom: 0;
 					cursor: pointer;
 					position: absolute;
+					border-radius: 34px;
 					transition-duration: 400ms;
 					transition-property: background-color, transform;
-					// transition: 400ms;
-					border-radius: 34px;
 					background-color: $border-color;
 
 					&:before
@@ -247,10 +246,9 @@ main
 						bottom: 4px;
 						content: "";
 						position: absolute;
-						// transition: 400ms;
+						border-radius: 50%;
 						transition-duration: 400ms;
 						transition-property: background-color, transform;
-						border-radius: 50%;
 						background-color: $background-color;
 					}
 				}
@@ -311,13 +309,26 @@ main
 				span
 				{
 					// Nom de la commande.
+					top: 0.25rem;
 					display: block;
+					position: relative;
+				}
+
+				em
+				{
+					// Places restantes.
+					top: 0.5rem;
+					display: block;
+					position: relative;
+					font-size: 0.75rem;
 				}
 
 				button
 				{
 					// Bouton de commande.
+					top: 0.25rem;
 					color: $background-color;
+					position: relative;
 					box-shadow: none;
 
 					&:first-of-type
@@ -346,6 +357,26 @@ main
 					{
 						// Effet de sélection.
 						background-color: $background-color;
+					}
+
+					&::after
+					{
+						// Amélioration de la zone de sélection.
+						@extend %larger-touch-zone;
+					}
+				}
+
+				&:last-of-type
+				{
+					// Ajout d'une nouvelle commande.
+					cursor: pointer;
+					position: relative;
+
+					&:hover
+					{
+						color: $box-color;
+						border-color: transparent;
+						background-color: $text-color;
 					}
 
 					&::after
