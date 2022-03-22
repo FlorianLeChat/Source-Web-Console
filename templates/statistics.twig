@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="{{ language }}">
+	{{ head_html }}
+
+	<body>
+		<noscript>Votre navigateur ne supporte pas ou refuse de charger le JavaScript.</noscript>
+
+		<!-- En-tête de la page -->
+		<header>
+			{{ header_html }}
+		</header>
+
+		<main>
+			<!-- Barre de navigation -->
+			{{ navigation_html }}
+
+			<!-- Description de la page -->
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+				Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</p>
+
+			<!-- Liste des graphiques -->
+			<section id="charts">
+				<!-- Titre de la section -->
+				<h2>Statistiques</h2>
+
+				<!-- Graphique du nombre de joueurs -->
+				<canvas id="player_count"></canvas>
+
+				<!-- Graphique des performances CPU -->
+				<canvas id="cpu_usage"></canvas>
+
+				<!-- Graphique des performances mémoire -->
+				<canvas id="memory_usage"></canvas>
+			</section>
+		</main>
+
+		<!-- Pied-de-page du site -->
+		<footer>
+			{{ footer_html }}
+		</footer>
+	</body>
+</html>
