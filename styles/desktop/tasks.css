@@ -416,6 +416,7 @@ main #tasks table tbody tr.passed {
 }
 main #tasks table tbody td {
   border: 1px solid #797979;
+  padding: 0.25rem;
 }
 main #tasks table tbody td:last-of-type {
   text-transform: uppercase;
