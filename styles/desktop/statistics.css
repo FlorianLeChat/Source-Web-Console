@@ -391,6 +391,7 @@ main #charts h2 {
   font-size: 1.75rem;
 }
 main #charts canvas {
-  border: 1px solid #ed431d;
+  border: 1px solid #f59a23;
+  padding: 1rem;
   margin-bottom: 2rem;
 }
