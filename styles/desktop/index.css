@@ -22,7 +22,7 @@ ul, ol {
   }
 }
 
-#signup article form input[type=button], #signin form input[type=button], #contact form input[type=button] {
+#signup article form input[type=reset], #signin form input[type=reset], #contact form input[type=reset] {
   color: #f2f2f2;
   cursor: pointer;
   padding: 0.5rem 1rem;
@@ -31,7 +31,7 @@ ul, ol {
   border-radius: 0.25rem;
   background-color: #ed431d;
 }
-#signup article form input[type=button]:hover, #signin form input[type=button]:hover, #contact form input[type=button]:hover {
+#signup article form input[type=reset]:hover, #signin form input[type=reset]:hover, #contact form input[type=reset]:hover {
   color: #ed431d;
   font-weight: bold;
   background-color: #f2f2f2;
@@ -550,7 +550,7 @@ header ul button:hover {
   top: -1.25rem;
   left: -2rem;
 }
-#signup article form input[type=button], #signin form input[type=button], #contact form input[type=button] {
+#signup article form input[type=reset], #signin form input[type=reset], #contact form input[type=reset] {
   margin-top: 0.75rem;
 }
 #signup article form input[type=submit], #signin form input[type=submit], #contact form input[type=submit] {
