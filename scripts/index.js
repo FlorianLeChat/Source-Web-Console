@@ -1,6 +1,6 @@
 //
 // Permet de gérer les ouvertures/fermetures de certains
-//	formulaire de la page d'accueil.
+//	formulaires de la page d'accueil.
 //
 const header = $( "header li" );
 const signup = $( "#signup article" );
