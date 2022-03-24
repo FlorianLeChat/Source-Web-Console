@@ -107,3 +107,23 @@ links.last().click( function ()
 	signin.hide();
 	signup.last().show();
 } );
+
+//
+// Permet de contrôler le mécanisme de présentation des fonctionnalités
+//	principales du site.
+//
+const informations = $( "#informations ul" );
+const images = informations.first();
+const texts = informations.last();
+
+let indice = 0;
+
+for ( const image of images.children() )
+{
+	console.log( $( image ).children().attr( "src" ) );
+}
+
+for ( const text of texts.children() )
+{
+	console.log( $( text ).text() );
+}
