@@ -14,7 +14,7 @@
 	<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
 
 	<!-- Champs du formulaire -->
-	<form>
+	<form novalidate>
 		<!-- Nom d'utilisateur -->
 		<label for="username">Choisissez un nom d'utilisateur<span>*</span></label>
 		<input type="text" autocomplete="username" spellcheck="false" id="username" name="username" placeholder="Nom d'utilisateur" minlength="10" maxlength="50" required />
@@ -30,7 +30,7 @@
 		<input type="checkbox" id="generation" /><br /><br />
 
 		<!-- Validation/annulation -->
-		<input type="button" value="Annuler" />
+		<input type="reset" value="Annuler" />
 		<input type="submit" value="Valider" />
 	</form>
 
@@ -61,7 +61,7 @@
 	<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
 
 	<!-- Champs du formulaire -->
-	<form>
+	<form action="dashboard.php" method="POST" novalidate>
 		<!-- Informations client (adresse IP & port) -->
 		<label>Saisissez les informations client<span>*</span></label>
 
@@ -92,7 +92,7 @@
 		<input type="checkbox" id="auto_connect" /><br /><br />
 
 		<!-- Validation/annulation -->
-		<input type="button" value="Annuler" />
+		<input type="reset" value="Annuler" />
 		<input type="submit" value="Valider" />
 	</form>
 

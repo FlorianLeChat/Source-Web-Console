@@ -8,7 +8,7 @@
 </p>
 
 <!-- Champs du formulaire -->
-<form action="dashboard.php" method="POST">
+<form action="dashboard.php" method="POST" novalidate>
 	<!-- Message d'erreur -->
 	<p class="error">Une erreur s'est produite dans bla bla bla bla. Veuillez réessayez. <a href="javascript:void(0);">Mot de passe oublié ?</a></p>
 
@@ -34,6 +34,6 @@
 	<input type="checkbox" id="remember_me" name="remember_me" /><br /><br />
 
 	<!-- Validation/annulation -->
-	<input type="button" value="Annuler" />
+	<input type="reset" value="Annuler" />
 	<input type="submit" value="Valider" />
 </form>
