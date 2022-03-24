@@ -36,6 +36,7 @@ main
 	{
 		// Statistiques graphiques.
 		color: $text-color;
+		width: 96%; // Correctif stupide pour supporter le responsive de ChartJS.
 		padding: 1rem;
 		grid-area: 2 / 2 / 3 / 3;
 		border-radius: 0.5rem;
@@ -53,7 +54,12 @@ main
 			// Graphique.
 			border: 1px solid $text-color;
 			padding: 1rem;
-			margin-bottom: 2rem;
+
+			&:first-of-type
+			{
+				// Marge appliquée seulement au premier.
+				margin-bottom: 1.5rem;
+			}
 		}
 	}
 }
