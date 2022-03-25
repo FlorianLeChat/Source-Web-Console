@@ -29,6 +29,16 @@ footer.find( "a[href = \"javascript:void(0);\"]" ).click( function ()
 } );
 
 //
+// Permet de désactiver le mécanisme de glissement des liens.
+//
+const links = $( "a" );
+
+links.mousedown( function ( event )
+{
+	event.preventDefault();
+} );
+
+//
 // Permet de bloquer le renvoie des formulaires lors du rafraîchissement
 //	de la page par l'utilisateur.
 // 	Source : https://stackoverflow.com/a/45656609
