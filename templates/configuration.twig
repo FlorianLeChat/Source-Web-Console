@@ -1,135 +1,108 @@
-<!DOCTYPE html>
-<html lang="{{ language }}" prefix="og: https://ogp.me/ns#">
-	{{ head_html }}
+{# Modèle de base #}
+{% extends "0_base.twig" %}
 
-	<body>
-		<noscript>Votre navigateur ne supporte pas ou refuse de charger le JavaScript.</noscript>
+{# Contenu de la page demandé #}
+{% block content_html %}
+	{# Description de la page #}
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+		Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+		Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+		Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	</p>
 
-		<!-- En-tête de la page -->
-		<header>
-			{{ header_html }}
-		</header>
+	{# Informations de connexion FTP #}
+	<section id="stockage">
+		{# Titre du formulaire #}
+		<h2>Stockage distant</h2>
 
-		<main>
-			<!-- Barre de navigation -->
-			{{ navigation_html }}
+		{# Spécifications juridiques #}
+		<i class="bi bi-exclamation-triangle-fill"></i>
+		<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
 
-			<!-- Description de la page -->
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-				Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-				Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-			</p>
+		{# Champs du formulaire #}
+		<form method="POST">
+			{# Adresse IP #}
+			<label for="ftp_address">Adresse IP & Port<span>*</span></label>
+			<input type="text" spellcheck="false" id="ftp_address" name="ftp_address" placeholder="XX.XX.XX.XX" minlength="7" maxlength="15" required />
 
-			<!-- Informations de connexion FTP -->
-			<section id="stockage">
-				<!-- Titre du formulaire -->
-				<h2>Stockage distant</h2>
+			{# Port de communication #}
+			<input type="text" spellcheck="false" id="ftp_port" name="ftp_port" placeholder="XX" minlength="5" maxlength="5" required />
 
-				<!-- Spécifications juridiques -->
-				<i class="bi bi-exclamation-triangle-fill"></i>
-				<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+			{# Type de protocole #}
+			<label for="ftp_protocol">Type de protocole<span>*</span></label>
+			<select id="ftp_protocol" name="ftp_protocol">
+				<option value="ftp">FTP</option>
+				<option value="sftp">SFTP</option>
+			</select>
 
-				<!-- Champs du formulaire -->
-				<form method="POST">
-					<!-- Adresse IP -->
-					<label for="ftp_address">Adresse IP & Port<span>*</span></label>
-					<input type="text" spellcheck="false" id="ftp_address" name="ftp_address" placeholder="XX.XX.XX.XX" minlength="7" maxlength="15" required />
+			{# Nom d'utilisateur #}
+			<label for="ftp_user">Nom d'utilisateur<span>*</span></label>
+			<input type="text" autocomplete="username" spellcheck="false" id="ftp_user" name="ftp_user" placeholder="Nom d'utilisateur" required />
 
-					<!-- Port de communication -->
-					<input type="text" spellcheck="false" id="ftp_port" name="ftp_port" placeholder="XX" minlength="5" maxlength="5" required />
+			{# Mot de passe #}
+			<label for="ftp_password">Mot de passe<span>*</span></label>
+			<input type="password" autocomplete="current-password" spellcheck="false" id="ftp_password" name="ftp_password" placeholder="Mot de passe" required />
 
-					<!-- Type de protocole -->
-					<label for="ftp_protocol">Type de protocole<span>*</span></label>
-					<select id="ftp_protocol" name="ftp_protocol">
-						<option value="ftp">FTP</option>
-						<option value="sftp">SFTP</option>
-					</select>
+			{# Validation #}
+			<input type="submit" value="Valider" />
+		</form>
+	</section>
 
-					<!-- Nom d'utilisateur -->
-					<label for="ftp_user">Nom d'utilisateur<span>*</span></label>
-					<input type="text" autocomplete="username" spellcheck="false" id="ftp_user" name="ftp_user" placeholder="Nom d'utilisateur" required />
+	{# Paramètres disponibles pour modification #}
+	<section id="parameters">
+		{# Titre de la section #}
+		<h2>Paramètres</h2>
 
-					<!-- Mot de passe -->
-					<label for="ftp_password">Mot de passe<span>*</span></label>
-					<input type="password" autocomplete="current-password" spellcheck="false" id="ftp_password" name="ftp_password" placeholder="Mot de passe" required />
+		{# Paramètres de la section #}
+		<ul>
+			<li>
+				{# Nom du premier paramètre #}
+				<h3>Nom du paramètre</h3>
 
-					<!-- Validation -->
-					<input type="submit" value="Valider" />
-				</form>
-			</section>
+				{# Description du premier paramètre #}
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
-			<!-- Paramètres disponibles pour modification -->
-			<section id="parameters">
-				<!-- Titre de la section -->
-				<h2>Paramètres</h2>
+				{# Champ de saisie du premier paramètre #}
+				<input type="text" id="parameter_1" name="parameter_1" placeholder="Valeur définie" />
 
-				<!-- Paramètres de la section -->
-				<ul>
-					<li>
-						<!-- Nom du premier paramètre -->
-						<h3>Nom du paramètre</h3>
+				{# Bouton de mise à jour #}
+				<button type="button" name="value_update" value="parameter_1">
+					<i class="bi bi-cloud-upload-fill"></i>
+				</button>
+			</li>
 
-						<!-- Description du premier paramètre -->
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+			<li>
+				{# Nom du deuxième paramètre #}
+				<h3>Nom du paramètre</h3>
 
-						<!-- Champ de saisie du premier paramètre -->
-						<input type="text" id="parameter_1" name="parameter_1" placeholder="Valeur définie" />
+				{# Description du deuxième paramètre #}
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
-						<!-- Bouton de mise à jour -->
-						<button type="button" name="value_update" value="parameter_1">
-							<i class="bi bi-cloud-upload-fill"></i>
-						</button>
-					</li>
+				{# Champ de saisie du deuxième paramètre #}
+				<input type="text" id="parameter_2" name="parameter_2" placeholder="Valeur définie" />
 
-					<li>
-						<!-- Nom du deuxième paramètre -->
-						<h3>Nom du paramètre</h3>
+				{# Bouton de mise à jour #}
+				<button type="button" name="value_update" value="parameter_2">
+					<i class="bi bi-cloud-upload-fill"></i>
+				</button>
+			</li>
 
-						<!-- Description du deuxième paramètre -->
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+			<li>
+				{# Nom du troisième paramètre #}
+				<h3>Nom du paramètre</h3>
 
-						<!-- Champ de saisie du deuxième paramètre -->
-						<input type="text" id="parameter_2" name="parameter_2" placeholder="Valeur définie" />
+				{# Description du troisième paramètre #}
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
-						<!-- Bouton de mise à jour -->
-						<button type="button" name="value_update" value="parameter_2">
-							<i class="bi bi-cloud-upload-fill"></i>
-						</button>
-					</li>
+				{# Champ de saisie du troisième paramètre #}
+				<input type="text" id="parameter_3" name="parameter_3" placeholder="Valeur définie" />
 
-					<li>
-						<!-- Nom du troisième paramètre -->
-						<h3>Nom du paramètre</h3>
-
-						<!-- Description du troisième paramètre -->
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-
-						<!-- Champ de saisie du troisième paramètre -->
-						<input type="text" id="parameter_3" name="parameter_3" placeholder="Valeur définie" />
-
-						<!-- Bouton de mise à jour -->
-						<button type="button" name="value_update" value="parameter_3">
-							<i class="bi bi-cloud-upload-fill"></i>
-						</button>
-					</li>
-				</ul>
-			</section>
-
-			<!-- Formulaire de contact -->
-			<section id="contact">
-				{{ contact_html }}
-			</section>
-
-			<!-- Bouton vers une info-bulle -->
-			<button type="button">?</button>
-			<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-		</main>
-
-		<!-- Pied-de-page du site -->
-		<footer>
-			{{ footer_html }}
-		</footer>
-	</body>
-</html>
+				{# Bouton de mise à jour #}
+				<button type="button" name="value_update" value="parameter_3">
+					<i class="bi bi-cloud-upload-fill"></i>
+				</button>
+			</li>
+		</ul>
+	</section>
+{% endblock %}

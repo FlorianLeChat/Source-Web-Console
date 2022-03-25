@@ -1,48 +1,25 @@
-<!DOCTYPE html>
-<html lang="{{ language }}" prefix="og: https://ogp.me/ns#">
-	{{ head_html }}
+{# Modèle de base #}
+{% extends "0_base.twig" %}
 
-	<body>
-		<noscript>Votre navigateur ne supporte pas ou refuse de charger le JavaScript.</noscript>
+{# Contenu de la page demandé #}
+{% block content_html %}
+	{# Description de la page #}
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+		Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+		Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+		Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	</p>
 
-		<!-- En-tête de la page -->
-		<header>
-			{{ header_html }}
-		</header>
+	{# Liste des graphiques #}
+	<section id="charts">
+		{# Titre de la section #}
+		<h2>Statistiques</h2>
 
-		<main>
-			<!-- Barre de navigation -->
-			{{ navigation_html }}
+		{# Graphique du nombre de joueurs #}
+		<canvas id="player_count"></canvas>
 
-			<!-- Description de la page -->
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-				Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-				Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-			</p>
-
-			<!-- Liste des graphiques -->
-			<section id="charts">
-				<!-- Titre de la section -->
-				<h2>Statistiques</h2>
-
-				<!-- Graphique du nombre de joueurs -->
-				<canvas id="player_count"></canvas>
-
-				<!-- Graphique d'utilisation des performances -->
-				<canvas id="server_usage"></canvas>
-			</section>
-
-			<!-- Formulaire de contact -->
-			<section id="contact">
-				{{ contact_html }}
-			</section>
-		</main>
-
-		<!-- Pied-de-page du site -->
-		<footer>
-			{{ footer_html }}
-		</footer>
-	</body>
-</html>
+		{# Graphique d'utilisation des performances #}
+		<canvas id="server_usage"></canvas>
+	</section>
+{% endblock %}
