@@ -55,39 +55,46 @@ header
 // -------------------------------- //
 #informations
 {
-	top: 25vh;
+	top: calc(50% - $footer-height);
 	gap: 10vw;
+	left: 50%;
 	width: 80%;
-	margin: 0 10% 0 10%;
+	margin: auto;
 	display: flex;
-	position: relative;
+	position: absolute;
+	transform: translate(-50%, -50%);
 	box-shadow: none;
 	align-items: center;
 	justify-content: center;
 
-	ul li
+	ul
 	{
 		// Carrousel de images.
-		display: none;
+		width: 50%;
 
-		img
+		li
 		{
-			// Image du projet.
-			width: 50vh;
-			filter: blur(0.75px) grayscale(1);
-			border-radius: 1rem;
+			// Image du carrousel.
+			display: none;
 
-			&:hover
+			img
 			{
-				// Effet de sélection.
-				filter: blur(0) grayscale(0);
-			}
-		}
+				// Image du projet.
+				filter: blur(0.75px) grayscale(1);
+				border-radius: 1rem;
 
-		&:first-of-type
-		{
-			// Affichage de la première image.
-			display: block;
+				&:hover
+				{
+					// Effet de sélection.
+					filter: blur(0) grayscale(0);
+				}
+			}
+
+			&:first-of-type
+			{
+				// Affichage de la première image.
+				display: block;
+			}
 		}
 	}
 
@@ -95,6 +102,7 @@ header
 	{
 		// Présentation des fonctionnalités.
 		color: $box-color;
+		width: 50%;
 		text-align: center;
 		box-shadow: none;
 		border-radius: 0.5rem;
