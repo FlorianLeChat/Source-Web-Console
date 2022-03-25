@@ -35,13 +35,18 @@ header ul
 #informations
 {
 	// Modification de la disposition flex.
-	top: 12.5vh;
-	gap: 5vw;
+	gap: 0;
 	flex-direction: column;
 
 	ul img
 	{
 		// Suppression de l'image de présentation.
 		display: none;
+	}
+
+	article
+	{
+		// Agrandissement du texte de présentation.
+		width: auto;
 	}
 }
