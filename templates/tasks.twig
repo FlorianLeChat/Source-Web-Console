@@ -1,90 +1,63 @@
-<!DOCTYPE html>
-<html lang="{{ language }}" prefix="og: https://ogp.me/ns#">
-	{{ head_html }}
+{# Modèle de base #}
+{% extends "0_base.twig" %}
 
-	<body>
-		<noscript>Votre navigateur ne supporte pas ou refuse de charger le JavaScript.</noscript>
+{# Contenu de la page demandé #}
+{% block content_html %}
+	{# Description de la page #}
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+		Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+		Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+		Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	</p>
 
-		<!-- En-tête de la page -->
-		<header>
-			{{ header_html }}
-		</header>
+	{# Tableau des tâches planifiées #}
+	<section id="tasks">
+		{# Titre de la section #}
+		<h2>Tâches planifiées</h2>
 
-		<main>
-			<!-- Barre de navigation -->
-			{{ navigation_html }}
+		<table>
+			{# En-tête de la tableau #}
+			<thead>
+				<tr>
+					<th>Serveur</th>
+					<th>Date de déclenchement</th>
+					<th>Action</th>
+				</tr>
+			</thead>
 
-			<!-- Description de la page -->
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-				Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-				Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-			</p>
+			{# Corps de la tableau #}
+			<tbody>
+				<tr class="passed">
+					{# Événément avec date de déclenchement passée #}
+					<td>
+						Nom du premier serveur
+						<em>XX.XX.XX.XX</em>
+					</td>
+					<td>13/03/2022 à 23h30</td>
+					<td>Redémarrage</td>
+				</tr>
 
-			<!-- Tableau des tâches planifiées -->
-			<section id="tasks">
-				<!-- Titre de la section -->
-				<h2>Tâches planifiées</h2>
+				<tr>
+					{# Premier événément avec date de déclenchement prochaine #}
+					<td>
+						Nom du deuxième serveur
+						<em>XX.XX.XX.XX</em>
+					</td>
+					<td>13/03/2022 à 00h30</td>
+					<td>Mise à jour</td>
+				</tr>
 
-				<table>
-					<!-- En-tête de la tableau -->
-					<thead>
-						<tr>
-							<th>Serveur</th>
-							<th>Date de déclenchement</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-
-					<!-- Corps de la tableau -->
-					<tbody>
-						<tr class="passed">
-							<!-- Événément avec date de déclenchement passée -->
-							<td>
-								Nom du premier serveur
-								<em>XX.XX.XX.XX</em>
-							</td>
-							<td>13/03/2022 à 23h30</td>
-							<td>Redémarrage</td>
-						</tr>
-
-						<tr>
-							<!-- Premier événément avec date de déclenchement prochaine -->
-							<td>
-								Nom du deuxième serveur
-								<em>XX.XX.XX.XX</em>
-							</td>
-							<td>13/03/2022 à 00h30</td>
-							<td>Mise à jour</td>
-						</tr>
-
-						<tr>
-							<!-- Deuxième événément avec date de déclenchement prochaine -->
-							<td>
-								Nom du troisième serveur
-								<em>XX.XX.XX.XX</em>
-							</td>
-							<td>14/03/2022 à 00h30</td>
-							<td>Maintenance</td>
-						</tr>
-					</tbody>
-				</table>
-			</section>
-
-			<!-- Formulaire de contact -->
-			<section id="contact">
-				{{ contact_html }}
-			</section>
-
-			<!-- Bouton vers une info-bulle -->
-			<button type="button">?</button>
-			<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-		</main>
-
-		<!-- Pied-de-page du site -->
-		<footer>
-			{{ footer_html }}
-		</footer>
-	</body>
-</html>
+				<tr>
+					{# Deuxième événément avec date de déclenchement prochaine #}
+					<td>
+						Nom du troisième serveur
+						<em>XX.XX.XX.XX</em>
+					</td>
+					<td>14/03/2022 à 00h30</td>
+					<td>Maintenance</td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+{% endblock %}
