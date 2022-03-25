@@ -1,3 +1,4 @@
+@charset "UTF-8";
 input, textarea, select, button {
   border: none;
   outline: none;
@@ -11,7 +12,7 @@ ul, ol {
 }
 
 @media screen and (max-width: 1024px) {
-  main nav ul li::after, main #overview #actions ul li::after, main #servers ul li button::after, main nav ul li a i + span::after, footer ul li a span::after, main > button::after {
+  main nav ul li a::after, main #overview #actions ul li::after, main #servers ul li button::after, main nav ul li a i + span::after, footer ul li a span::after, main > button::after {
     top: -0.5rem;
     left: -0.5rem;
     right: -0.5rem;
@@ -19,6 +20,36 @@ ul, ol {
     content: "";
     position: absolute;
   }
+}
+
+#signup article form input[type=reset], #signin form input[type=reset], #contact form input[type=reset] {
+  color: #f2f2f2;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  margin-right: 0.25rem;
+  border-radius: 0.25rem;
+  background-color: #ed431d;
+}
+#signup article form input[type=reset]:hover, #signin form input[type=reset]:hover, #contact form input[type=reset]:hover {
+  color: #ed431d;
+  font-weight: bold;
+  background-color: #f2f2f2;
+}
+
+#signup article form input[type=submit], #signin form input[type=submit], #contact form input[type=submit] {
+  color: #f2f2f2;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  margin-left: 0.25rem;
+  border-radius: 0.25rem;
+  background-color: #558c03;
+}
+#signup article form input[type=submit]:hover, #signin form input[type=submit]:hover, #contact form input[type=submit]:hover {
+  color: #558c03;
+  font-weight: bold;
+  background-color: #f2f2f2;
 }
 
 html {
@@ -115,6 +146,10 @@ header {
   color: #f59a23;
   height: 6.25rem;
   padding: 0.5rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   background-color: #333333;
 }
 header img {
@@ -194,7 +229,7 @@ header div input + ul {
 }
 header a i {
   top: 1rem;
-  right: 3rem;
+  right: 3.25rem;
   position: absolute;
   font-size: 2rem;
 }
@@ -204,6 +239,139 @@ header a span {
   color: #f2f2f2;
   position: absolute;
   text-align: center;
+}
+header a:hover i {
+  color: #f2f2f2;
+}
+
+#signup article, #signin, #contact {
+  top: 45vh;
+  left: 50%;
+  width: 50%;
+  border: 1px solid #f59a23;
+  margin: 2rem auto 6rem auto;
+  padding: 2rem;
+  z-index: 1;
+  display: none;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  overflow-y: scroll;
+  max-height: 75vh;
+  text-align: center;
+  background-color: #f2f2f2;
+}
+#signup article h2, #signin h2, #contact h2 {
+  font-size: 2rem;
+  margin-top: 0;
+}
+#signup article i, #signin i, #contact i {
+  left: 1rem;
+  float: left;
+  color: #ed431d;
+  position: relative;
+  font-size: 2rem;
+  margin-right: 1rem;
+}
+#signup article p, #signup article em, #signin p, #signin em, #contact p, #contact em {
+  margin: 0 5% 1rem 5%;
+}
+#signup article form, #signin form, #contact form {
+  padding: 1rem;
+  margin-top: 1.5rem;
+  border-radius: 0.5rem;
+  background-color: #333333;
+}
+#signup article form p.error, #signup article form p.success, #signin form p.error, #signin form p.success, #contact form p.error, #contact form p.success {
+  color: #ed431d;
+  border: 2px solid #ed431d;
+  padding: 0.5rem;
+  font-style: normal;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+#signup article form p.error span, #signup article form p.success span, #signin form p.error span, #signin form p.success span, #contact form p.error span, #contact form p.success span {
+  text-decoration: underline;
+}
+#signup article form p.success, #signin form p.success, #contact form p.success {
+  color: #558c03;
+  border: 2px solid #558c03;
+  text-transform: none;
+}
+#signup article form em, #signin form em, #contact form em {
+  color: #f2f2f2;
+  display: block;
+  text-align: justify;
+  margin-bottom: 1.5rem;
+}
+#signup article form a, #signin form a, #contact form a {
+  color: #f59a23;
+  text-decoration: underline;
+}
+#signup article form a:hover, #signin form a:hover, #contact form a:hover {
+  color: #333333;
+  font-weight: bold;
+  background-color: #f59a23;
+}
+#signup article form hr, #signin form hr, #contact form hr {
+  margin: 1.5rem 0 2rem;
+  border-color: #f2f2f2;
+}
+#signup article form label, #signin form label, #contact form label {
+  color: #f59a23;
+}
+#signup article form label > span, #signin form label > span, #contact form label > span {
+  color: #ed431d;
+}
+#signup article form input[type=text], #signup article form input[type=email], #signup article form input[type=password], #signup article form textarea, #signup article form select, #signin form input[type=text], #signin form input[type=email], #signin form input[type=password], #signin form textarea, #signin form select, #contact form input[type=text], #contact form input[type=email], #contact form input[type=password], #contact form textarea, #contact form select {
+  width: calc(100% - 2rem);
+  margin: 0.5rem 0 1rem 0;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+#signup article form input[type=text] + span, #signup article form input[type=email] + span, #signup article form input[type=password] + span, #signup article form textarea + span, #signup article form select + span, #signin form input[type=text] + span, #signin form input[type=email] + span, #signin form input[type=password] + span, #signin form textarea + span, #signin form select + span, #contact form input[type=text] + span, #contact form input[type=email] + span, #contact form input[type=password] + span, #contact form textarea + span, #contact form select + span {
+  position: relative;
+}
+#signup article form input[type=text] + span::before, #signup article form input[type=email] + span::before, #signup article form input[type=password] + span::before, #signup article form textarea + span::before, #signup article form select + span::before, #signin form input[type=text] + span::before, #signin form input[type=email] + span::before, #signin form input[type=password] + span::before, #signin form textarea + span::before, #signin form select + span::before, #contact form input[type=text] + span::before, #contact form input[type=email] + span::before, #contact form input[type=password] + span::before, #contact form textarea + span::before, #contact form select + span::before {
+  top: -2.5px;
+  left: -1.75rem;
+  position: absolute;
+}
+#signup article form input[type=checkbox], #signin form input[type=checkbox], #contact form input[type=checkbox] {
+  margin-left: 0.5rem;
+}
+#signup article form input[type=checkbox]:checked, #signin form input[type=checkbox]:checked, #contact form input[type=checkbox]:checked {
+  box-shadow: 0 0 0 3px #f59a23;
+}
+#signup article form select, #signin form select, #contact form select {
+  cursor: pointer;
+}
+#signup article form textarea, #signin form textarea, #contact form textarea {
+  height: 200px;
+  margin-bottom: 0;
+}
+#signup article form textarea + span::before, #signin form textarea + span::before, #contact form textarea + span::before {
+  top: -1.25rem;
+  left: -2rem;
+}
+#signup article form input[type=reset], #signin form input[type=reset], #contact form input[type=reset] {
+  margin-top: 0.75rem;
+}
+#signup article form input[type=submit], #signin form input[type=submit], #contact form input[type=submit] {
+  margin-top: 0.75rem;
+}
+#signup article form input:valid + span::before, #signup article form textarea:valid + span::before, #signin form input:valid + span::before, #signin form textarea:valid + span::before, #contact form input:valid + span::before, #contact form textarea:valid + span::before {
+  color: #558c03;
+  content: "✓";
+  font-size: 1.5rem;
+}
+#signup article form input:invalid + span::before, #signup article form textarea:invalid + span::before, #signin form input:invalid + span::before, #signin form textarea:invalid + span::before, #contact form input:invalid + span::before, #contact form textarea:invalid + span::before {
+  color: #ed431d;
+  content: "✖";
+  font-size: 1.5rem;
+}
+#signup article form input:focus:invalid, #signup article form textarea:focus:invalid, #signin form input:focus:invalid, #signin form textarea:focus:invalid, #contact form input:focus:invalid, #contact form textarea:focus:invalid {
+  box-shadow: inset 0 0 0 3px red;
 }
 
 main > span {
@@ -244,6 +412,10 @@ footer {
   z-index: 5;
   position: fixed;
   min-width: 360px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   background-color: #333333;
 }
 footer ul li {
@@ -374,6 +546,10 @@ main nav ul li {
   padding: 0.75rem;
   font-size: 1.25rem;
   box-shadow: 0.25rem 0.25rem 0.25rem #797979;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   font-weight: bold;
   border-radius: 0.5rem;
   margin-bottom: 0.5rem;
@@ -666,6 +842,8 @@ main nav {
 }
 main nav ul li {
   display: inline-block;
+}
+main nav ul li a {
   position: relative;
 }
 main nav ul li a i {
