@@ -71,8 +71,8 @@ h2, h3, h4, h5, h6 {
   font-family: "Source Code Pro", serif;
 }
 
-p {
-  line-height: 1.25rem;
+p, em {
+  line-height: 1.375rem;
 }
 
 a {
@@ -245,20 +245,24 @@ header a:hover i {
 }
 
 #signup article, #signin, #contact {
-  top: 45vh;
+  top: calc(50% - 1.75rem);
   left: 50%;
   width: 50%;
   border: 1px solid #f59a23;
-  margin: 2rem auto 6rem auto;
-  padding: 2rem;
   z-index: 1;
+  padding: 2rem;
   display: none;
-  position: fixed;
+  position: absolute;
   transform: translate(-50%, -50%);
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: 75vh;
   text-align: center;
   background-color: #f2f2f2;
+}
+@media screen and (max-width: 1023px) {
+  #signup article, #signin, #contact {
+    width: 75%;
+  }
 }
 #signup article h2, #signin h2, #contact h2 {
   font-size: 2rem;
@@ -407,6 +411,7 @@ main > button:hover + span {
 footer {
   color: #f59a23;
   width: calc(100% - 2rem);
+  height: 1.75rem;
   bottom: -1px;
   padding: 1rem;
   z-index: 5;
@@ -526,21 +531,25 @@ header ul button:hover {
   background-color: #f59a23;
 }
 #informations {
-  top: 25vh;
+  top: calc(50% - 1.75rem);
   gap: 10vw;
+  left: 50%;
   width: 80%;
-  margin: 0 10% 0 10%;
+  margin: auto;
   display: flex;
-  position: relative;
+  position: absolute;
+  transform: translate(-50%, -50%);
   box-shadow: none;
   align-items: center;
   justify-content: center;
+}
+#informations ul {
+  width: 50%;
 }
 #informations ul li {
   display: none;
 }
 #informations ul li img {
-  width: 50vh;
   filter: blur(0.75px) grayscale(1);
   border-radius: 1rem;
 }
@@ -552,6 +561,7 @@ header ul button:hover {
 }
 #informations article {
   color: #333333;
+  width: 50%;
   text-align: center;
   box-shadow: none;
   border-radius: 0.5rem;
@@ -596,10 +606,12 @@ header ul li:first-of-type {
 }
 
 #informations {
-  top: 12.5vh;
-  gap: 5vw;
+  gap: 0;
   flex-direction: column;
 }
 #informations ul img {
   display: none;
+}
+#informations article {
+  width: auto;
 }
