@@ -29,6 +29,24 @@ footer.find( "a[href = \"javascript:void(0);\"]" ).click( function ()
 } );
 
 //
+// Permet d'ajuster l'agrandissement des éléments par rapport au zoom
+// 	du navigateur (fonctionne seulement pour l'amoindrissement).
+//
+function adjustZoom()
+{
+	const zoom = 100 / Math.round( window.devicePixelRatio * 100 );
+
+	if ( zoom >= 1 )
+	{
+		$( "body" ).css( "zoom", zoom );
+	}
+}
+
+adjustZoom();
+
+$( window ).resize( adjustZoom );
+
+//
 // Permet de désactiver le mécanisme de glissement des liens.
 //
 const links = $( "a" );
