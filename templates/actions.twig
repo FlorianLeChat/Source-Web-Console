@@ -1,182 +1,155 @@
-<!DOCTYPE html>
-<html lang="{{ language }}" prefix="og: https://ogp.me/ns#">
-	{{ head_html }}
+{# Modèle de base #}
+{% extends "0_base.twig" %}
 
-	<body>
-		<noscript>Votre navigateur ne supporte pas ou refuse de charger le JavaScript.</noscript>
+{# Contenu de la page demandé #}
+{% block content_html %}
+	{# Description de la page #}
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+		Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+		Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+		Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	</p>
 
-		<!-- En-tête de la page -->
-		<header>
-			{{ header_html }}
-		</header>
+	{# Actions #}
+	<section id="actions">
+		{# Titre de la section #}
+		<h2>Actions</h2>
 
-		<main>
-			<!-- Barre de navigation -->
-			{{ navigation_html }}
+		{# Actions de la section #}
+		<ul>
+			<li>
+				{# Arrêter le serveur #}
+				Arrêter
+				<em>Maintenez pour forcer l'arrêt</em>
+			</li>
 
-			<!-- Description de la page -->
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-				Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-				Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-			</p>
+			<li>
+				{# Redémarrer le serveur #}
+				Redémarrer
+			</li>
 
-			<!-- Actions -->
-			<section id="actions">
-				<!-- Titre de la section -->
-				<h2>Actions</h2>
+			<li>
+				{# Mettre à jour le serveur #}
+				Mettre à jour
+			</li>
 
-				<!-- Actions de la section -->
-				<ul>
-					<li>
-						<!-- Arrêter le serveur -->
-						Arrêter
-						<em>Maintenez pour forcer l'arrêt</em>
-					</li>
+			<li>
+				{# Passer en mode de maintenance #}
+				Maintenance
+			</li>
 
-					<li>
-						<!-- Redémarrer le serveur -->
-						Redémarrer
-					</li>
+			<li>
+				{# Ajouter une nouvelle action personnalisée #}
+				Ajouter une action...
+				<em>2 restante(s)</em>
+			</li>
+		</ul>
 
-					<li>
-						<!-- Mettre à jour le serveur -->
-						Mettre à jour
-					</li>
+		<hr />
 
-					<li>
-						<!-- Passer en mode de maintenance -->
-						Maintenance
-					</li>
+		{# Interrupteurs de la section #}
+		<ul>
+			<li>
+				{# Intitulé de l'interrupteur #}
+				<span>Interrupteur 1</span>
 
-					<li>
-						<!-- Ajouter une nouvelle action personnalisée -->
-						Ajouter une action...
-						<em>2 restante(s)</em>
-					</li>
-				</ul>
+				{# Bouton de l'interrupteur #}
+				<label class="switch">
+					<input type="checkbox" id="switch_1" name="switch_1" checked />
+					<span></span>
+				</label>
+			</li>
 
-				<hr />
+			<li>
+				{# Intitulé de l'interrupteur #}
+				<span class="inactive">Interrupteur 2</span>
 
-				<!-- Interrupteurs de la section -->
-				<ul>
-					<li>
-						<!-- Intitulé de l'interrupteur -->
-						<span>Interrupteur 1</span>
+				{# Bouton de l'interrupteur #}
+				<label class="switch">
+					<input type="checkbox" id="switch_2" name="switch_2" />
+					<span></span>
+				</label>
+			</li>
 
-						<!-- Bouton de l'interrupteur -->
-						<label class="switch">
-							<input type="checkbox" id="switch_1" name="switch_1" checked />
-							<span></span>
-						</label>
-					</li>
+			<li>
+				{# Intitulé de l'interrupteur #}
+				<span class="inactive">Interrupteur 3</span>
 
-					<li>
-						<!-- Intitulé de l'interrupteur -->
-						<span class="inactive">Interrupteur 2</span>
+				{# Bouton de l'interrupteur #}
+				<label class="switch">
+					<input type="checkbox" id="switch_3" name="switch_3" />
+					<span></span>
+				</label>
+			</li>
+		</ul>
+	</section>
 
-						<!-- Bouton de l'interrupteur -->
-						<label class="switch">
-							<input type="checkbox" id="switch_2" name="switch_2" />
-							<span></span>
-						</label>
-					</li>
+	{# Commandes #}
+	<section id="commands">
+		{# Titre de la section #}
+		<h2>Commandes</h2>
 
-					<li>
-						<!-- Intitulé de l'interrupteur -->
-						<span class="inactive">Interrupteur 3</span>
+		{# Commandes de la section #}
+		<ul>
+			<li>
+				<span>Nom de la commande 1</span>
 
-						<!-- Bouton de l'interrupteur -->
-						<label class="switch">
-							<input type="checkbox" id="switch_3" name="switch_3" />
-							<span></span>
-						</label>
-					</li>
-				</ul>
-			</section>
+				{# Supprimer la commande #}
+				<button type="button" name="remove_command" value="uuid_1">Supprimer</button>
 
-			<!-- Commandes -->
-			<section id="commands">
-				<!-- Titre de la section -->
-				<h2>Commandes</h2>
+				{# Exécuter la commande #}
+				<button type="button" name="execute_command" value="uuid_1">Exécuter</button>
+			</li>
 
-				<!-- Commandes de la section -->
-				<ul>
-					<li>
-						<span>Nom de la commande 1</span>
+			<li>
+				<span>Nom de la commande 2</span>
 
-						<!-- Supprimer la commande -->
-						<button type="button" name="remove_command" value="uuid_1">Supprimer</button>
+				{# Supprimer la commande #}
+				<button type="button" name="remove_command" value="uuid_2">Supprimer</button>
 
-						<!-- Exécuter la commande -->
-						<button type="button" name="execute_command" value="uuid_1">Exécuter</button>
-					</li>
+				{# Exécuter la commande #}
+				<button type="button" name="execute_command" value="uuid_2">Exécuter</button>
+			</li>
 
-					<li>
-						<span>Nom de la commande 2</span>
+			<li>
+				<span>Nom de la commande 3</span>
 
-						<!-- Supprimer la commande -->
-						<button type="button" name="remove_command" value="uuid_2">Supprimer</button>
+				{# Supprimer la commande #}
+				<button type="button" name="remove_command" value="uuid_3">Supprimer</button>
 
-						<!-- Exécuter la commande -->
-						<button type="button" name="execute_command" value="uuid_2">Exécuter</button>
-					</li>
+				{# Exécuter la commande #}
+				<button type="button" name="execute_command" value="uuid_3">Exécuter</button>
+			</li>
 
-					<li>
-						<span>Nom de la commande 3</span>
+			<li>
+				<span>Nom de la commande 4</span>
 
-						<!-- Supprimer la commande -->
-						<button type="button" name="remove_command" value="uuid_3">Supprimer</button>
+				{# Supprimer la commande #}
+				<button type="button" name="remove_command" value="uuid_4">Supprimer</button>
 
-						<!-- Exécuter la commande -->
-						<button type="button" name="execute_command" value="uuid_3">Exécuter</button>
-					</li>
+				{# Exécuter la commande #}
+				<button type="button" name="execute_command" value="uuid_4">Exécuter</button>
+			</li>
 
-					<li>
-						<span>Nom de la commande 4</span>
+			<li>
+				<span>Nom de la commande 5</span>
 
-						<!-- Supprimer la commande -->
-						<button type="button" name="remove_command" value="uuid_4">Supprimer</button>
+				{# Supprimer la commande #}
+				<button type="button" name="remove_command" value="uuid_5">Supprimer</button>
 
-						<!-- Exécuter la commande -->
-						<button type="button" name="execute_command" value="uuid_4">Exécuter</button>
-					</li>
+				{# Exécuter la commande #}
+				<button type="button" name="execute_command" value="uuid_5">Exécuter</button>
+			</li>
 
-					<li>
-						<span>Nom de la commande 5</span>
+			<li>
+				<span>Ajouter une commande...</span>
 
-						<!-- Supprimer la commande -->
-						<button type="button" name="remove_command" value="uuid_5">Supprimer</button>
+				<em>2 restante(s)</em>
+			</li>
+		</ul>
 
-						<!-- Exécuter la commande -->
-						<button type="button" name="execute_command" value="uuid_5">Exécuter</button>
-					</li>
-
-					<li>
-						<span>Ajouter une commande...</span>
-
-						<em>2 restante(s)</em>
-					</li>
-				</ul>
-
-				<!-- Bouton avec icône pour ajouter une commande -->
-				<div data-image="path"></div>
-			</section>
-
-			<!-- Formulaire de contact -->
-			<section id="contact">
-				{{ contact_html }}
-			</section>
-
-			<!-- Bouton vers une info-bulle -->
-			<button type="button">?</button>
-			<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-		</main>
-
-		<!-- Pied-de-page du site -->
-		<footer>
-			{{ footer_html }}
-		</footer>
-	</body>
-</html>
+		{# Bouton avec icône pour ajouter une commande #}
+		<div data-image="path"></div>
+	</section>
+{% endblock %}

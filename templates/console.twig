@@ -1,84 +1,57 @@
-<!DOCTYPE html>
-<html lang="{{ language }}" prefix="og: https://ogp.me/ns#">
-	{{ head_html }}
+{# Modèle de base #}
+{% extends "0_base.twig" %}
 
-	<body>
-		<noscript>Votre navigateur ne supporte pas ou refuse de charger le JavaScript.</noscript>
+{# Contenu de la page demandé #}
+{% block content_html %}
+	{# Description de la page #}
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+		Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+		Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+		Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	</p>
 
-		<!-- En-tête de la page -->
-		<header>
-			{{ header_html }}
-		</header>
+	{# Contrôleur principal #}
+	<section id="controller">
+		{# Titre de la section #}
+		<h2>Contrôleur principal</h2>
 
-		<main>
-			<!-- Barre de navigation -->
-			{{ navigation_html }}
+		{# Champ de saisie #}
+		<input type="text" name="command" placeholder="Écrivez quelque chose..." required />
 
-			<!-- Description de la page -->
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-				Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-				Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-			</p>
+		{# Bouton d'exécution #}
+		<button type="button" name="execute" value="bash">
+			<i class="bi bi-send-fill"></i>
+		</button>
 
-			<!-- Contrôleur principal -->
-			<section id="controller">
-				<!-- Titre de la section -->
-				<h2>Contrôleur principal</h2>
+		{# Historique des commandes #}
+		<ul>
+			{# Première commande #}
+			<li>command_name value</li>
 
-				<!-- Champ de saisie -->
-				<input type="text" name="command" placeholder="Écrivez quelque chose..." required />
+			{# Deuxième commande #}
+			<li>command_name value</li>
 
-				<!-- Bouton d'exécution -->
-				<button type="button" name="execute" value="bash">
-					<i class="bi bi-send-fill"></i>
-				</button>
+			{# Troisième commande #}
+			<li>command_name value</li>
+		</ul>
+	</section>
 
-				<!-- Historique des commandes -->
-				<ul>
-					<!-- Première commande -->
-					<li>command_name value</li>
+	{# Terminal de la console #}
+	<section id="terminal">
+		{# Titre de la section #}
+		<h2>Terminal d'observation</h2>
 
-					<!-- Deuxième commande -->
-					<li>command_name value</li>
+		{# Liste des événements #}
+		<ul>
+			{# Première ligne #}
+			<li>Lorem ipsum</li>
 
-					<!-- Troisième commande -->
-					<li>command_name value</li>
-				</ul>
-			</section>
+			{# Deuxième ligne #}
+			<li>Lorem ipsum</li>
 
-			<!-- Terminal de la console -->
-			<section id="terminal">
-				<!-- Titre de la section -->
-				<h2>Terminal d'observation</h2>
-
-				<!-- Liste des événements -->
-				<ul>
-					<!-- Première ligne -->
-					<li>Lorem ipsum</li>
-
-					<!-- Deuxième ligne -->
-					<li>Lorem ipsum</li>
-
-					<!-- Troisième ligne -->
-					<li>Lorem ipsum</li>
-				</ul>
-			</section>
-
-			<!-- Formulaire de contact -->
-			<section id="contact">
-				{{ contact_html }}
-			</section>
-
-			<!-- Bouton vers une info-bulle -->
-			<button type="button">?</button>
-			<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-		</main>
-
-		<!-- Pied-de-page du site -->
-		<footer>
-			{{ footer_html }}
-		</footer>
-	</body>
-</html>
+			{# Troisième ligne #}
+			<li>Lorem ipsum</li>
+		</ul>
+	</section>
+{% endblock %}

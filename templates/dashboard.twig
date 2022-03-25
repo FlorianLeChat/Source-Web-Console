@@ -1,215 +1,188 @@
-<!DOCTYPE html>
-<html lang="{{ language }}" prefix="og: https://ogp.me/ns#">
-	{{ head_html }}
+{# Modèle de base #}
+{% extends "0_base.twig" %}
 
-	<body>
-		<noscript>Votre navigateur ne supporte pas ou refuse de charger le JavaScript.</noscript>
+{# Contenu de la page demandé #}
+{% block content_html %}
+	{# Description de la page #}
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+		Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+		Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+		Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	</p>
 
-		<!-- En-tête de la page -->
-		<header>
-			{{ header_html }}
-		</header>
+	{# Sélection des serveurs #}
+	<section id="servers">
+		{# Titre de la section #}
+		<h2>Liste des serveurs</h2>
 
-		<main>
-			<!-- Barre de navigation -->
-			{{ navigation_html }}
+		<ul>
+			<li>
+				{# Premier serveur #}
+				<span>Nom du premier serveur</span>
+				<span>XX.XX.XX.XX / XX</span>
 
-			<!-- Description de la page -->
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-				Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-				Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-			</p>
-
-			<!-- Sélection des serveurs -->
-			<section id="servers">
-				<!-- Titre de la section -->
-				<h2>Liste des serveurs</h2>
-
-				<ul>
-					<li>
-						<!-- Premier serveur -->
-						<span>Nom du premier serveur</span>
-						<span>XX.XX.XX.XX / XX</span>
-
-						<button type="button" name="server_edit" value="uuid_1">
-							<!-- Édition des propriétés du serveur -->
-							<i class="bi bi-pencil-square"></i>
-						</button>
-
-						<button type="button" name="server_connect" value="uuid_1">
-							<!-- Connexion directe au serveur -->
-							<i class="bi bi-plug"></i>
-						</button>
-					</li>
-
-					<li>
-						<!-- Deuxième serveur -->
-						<span>Nom du second serveur</span>
-						<span>XX.XX.XX.XX / XX</span>
-
-						<button type="button" name="server_edit" value="uuid_2">
-							<!-- Édition des propriétés du serveur -->
-							<i class="bi bi-pencil-square"></i>
-						</button>
-
-						<button type="button" name="server_connect" value="uuid_2">
-							<!-- Connexion directe au serveur -->
-							<i class="bi bi-plug"></i>
-						</button>
-					</li>
-
-					<li>
-						<!-- Troisième serveur -->
-						<span>Nom du troisième serveur</span>
-						<span>XX.XX.XX.XX / XX</span>
-
-						<button type="button" name="server_edit" value="uuid_3">
-							<!-- Édition des propriétés du serveur -->
-							<i class="bi bi-pencil-square"></i>
-						</button>
-
-						<button type="button" name="server_connect" value="uuid_3">
-							<!-- Connexion directe au serveur -->
-							<i class="bi bi-plug"></i>
-						</button>
-					</li>
-				</ul>
-
-				<button type="button" name="servers_list" value="0">
-					<!-- Serveurs précédents -->
-					<i class="bi bi-chevron-left"></i>
+				<button type="button" name="server_edit" value="uuid_1">
+					{# Édition des propriétés du serveur #}
+					<i class="bi bi-pencil-square"></i>
 				</button>
 
-				<span>1 / 3</span>
-
-				<button type="button" name="servers_list" value="2">
-					<!-- Serveurs suivants -->
-					<i class="bi bi-chevron-right"></i>
+				<button type="button" name="server_connect" value="uuid_1">
+					{# Connexion directe au serveur #}
+					<i class="bi bi-plug"></i>
 				</button>
-			</section>
+			</li>
 
-			<!-- Aperçu de l'état -->
-			<section id="overview">
-				<!-- État général -->
-				<article id="state">
-					<h3>État général</h3>
+			<li>
+				{# Deuxième serveur #}
+				<span>Nom du second serveur</span>
+				<span>XX.XX.XX.XX / XX</span>
 
-					<ul>
-						<li>
-							<!-- Première information -->
-							<div class="circle"></div>
-							<h4>Lorem ipsum</h4>
-							<em>Lorem ipsum dolor sit amet</em>
-						</li>
+				<button type="button" name="server_edit" value="uuid_2">
+					{# Édition des propriétés du serveur #}
+					<i class="bi bi-pencil-square"></i>
+				</button>
 
-						<li>
-							<!-- Deuxième information -->
-							<div class="circle"></div>
-							<h4>Lorem ipsum</h4>
-							<em>Lorem ipsum dolor sit amet</em>
-						</li>
+				<button type="button" name="server_connect" value="uuid_2">
+					{# Connexion directe au serveur #}
+					<i class="bi bi-plug"></i>
+				</button>
+			</li>
 
-						<li>
-							<!-- Troisième information -->
-							<div class="circle"></div>
-							<h4>Lorem ipsum</h4>
-							<em>Lorem ipsum dolor sit amet</em>
-						</li>
-					</ul>
-				</article>
+			<li>
+				{# Troisième serveur #}
+				<span>Nom du troisième serveur</span>
+				<span>XX.XX.XX.XX / XX</span>
 
-				<!-- Actions rapides -->
-				<article id="actions">
-					<h3>Actions rapides</h3>
+				<button type="button" name="server_edit" value="uuid_3">
+					{# Édition des propriétés du serveur #}
+					<i class="bi bi-pencil-square"></i>
+				</button>
 
-					<ul>
-						<li>
-							<!-- Arrêter le serveur -->
-							Arrêter
-							<em>Maintenez pour forcer l'arrêt</em>
-						</li>
+				<button type="button" name="server_connect" value="uuid_3">
+					{# Connexion directe au serveur #}
+					<i class="bi bi-plug"></i>
+				</button>
+			</li>
+		</ul>
 
-						<li>
-							<!-- Redémarrer le serveur -->
-							Redémarrer
-						</li>
+		<button type="button" name="servers_list" value="0">
+			{# Serveurs précédents #}
+			<i class="bi bi-chevron-left"></i>
+		</button>
 
-						<li>
-							<!-- Mettre à jour le serveur -->
-							Mettre à jour
-						</li>
+		<span>1 / 3</span>
 
-						<li>
-							<!-- Passer en mode de maintenance -->
-							Maintenance
-						</li>
-					</ul>
-				</article>
-			</section>
+		<button type="button" name="servers_list" value="2">
+			{# Serveurs suivants #}
+			<i class="bi bi-chevron-right"></i>
+		</button>
+	</section>
 
-			<!-- Dernière action réalisée -->
-			<section id="last">
-				<!-- Titre de la section -->
-				<h3>Dernière action</h3>
+	{# Aperçu de l'état #}
+	<section id="overview">
+		{# État général #}
+		<article id="state">
+			<h3>État général</h3>
 
-				<!-- Nom des dernières tâches (descendantes) -->
-				<ul>
-					<li>
-						<!-- Dernière tâche effectuée -->
-						<i class="bi bi-check-square-fill"></i>
-						<span>XXhXX</span>
-						<em>Lorem ipsum dolor sit amet</em>
-					</li>
+			<ul>
+				<li>
+					{# Première information #}
+					<div class="circle"></div>
+					<h4>Lorem ipsum</h4>
+					<em>Lorem ipsum dolor sit amet</em>
+				</li>
 
-					<li>
-						<!-- Avant-dernière tâche effectuée -->
-						<i class="bi bi-x-square-fill"></i>
-						<span>XXhXX</span>
-						<em>Lorem ipsum dolor sit amet</em>
-					</li>
+				<li>
+					{# Deuxième information #}
+					<div class="circle"></div>
+					<h4>Lorem ipsum</h4>
+					<em>Lorem ipsum dolor sit amet</em>
+				</li>
 
-					<li>
-						<!-- Tâche la plus anciennne effectuée -->
-						<i class="bi bi-cloud-check-fill"></i>
-						<span>XXhXX</span>
-						<em>Lorem ipsum dolor sit amet</em>
-					</li>
-				</ul>
-			</section>
+				<li>
+					{# Troisième information #}
+					<div class="circle"></div>
+					<h4>Lorem ipsum</h4>
+					<em>Lorem ipsum dolor sit amet</em>
+				</li>
+			</ul>
+		</article>
 
-			<!-- Statistiques importantes -->
-			<section id="stats">
-				<!-- Titre de la section -->
-				<h3>Statistiques</h3>
+		{# Actions rapides #}
+		<article id="actions">
+			<h3>Actions rapides</h3>
 
-				<!-- Description de la section -->
-				<p>Lorem ipsum dolor sit amet</p>
+			<ul>
+				<li>
+					{# Arrêter le serveur #}
+					Arrêter
+					<em>Maintenez pour forcer l'arrêt</em>
+				</li>
 
-				<!-- Graphiques simplifiées -->
-				<div class="chart"></div>
+				<li>
+					{# Redémarrer le serveur #}
+					Redémarrer
+				</li>
 
-				<ul>
-					<li class="circle"></li>
-					<li class="circle"></li>
-					<li class="circle"></li>
-				</ul>
-			</section>
+				<li>
+					{# Mettre à jour le serveur #}
+					Mettre à jour
+				</li>
 
-			<!-- Formulaire de contact -->
-			<section id="contact">
-				{{ contact_html }}
-			</section>
+				<li>
+					{# Passer en mode de maintenance #}
+					Maintenance
+				</li>
+			</ul>
+		</article>
+	</section>
 
-			<!-- Bouton vers une info-bulle -->
-			<button type="button">?</button>
-			<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-		</main>
+	{# Dernière action réalisée #}
+	<section id="last">
+		{# Titre de la section #}
+		<h3>Dernière action</h3>
 
-		<!-- Pied-de-page du site -->
-		<footer>
-			{{ footer_html }}
-		</footer>
-	</body>
-</html>
+		{# Nom des dernières tâches (descendantes) #}
+		<ul>
+			<li>
+				{# Dernière tâche effectuée #}
+				<i class="bi bi-check-square-fill"></i>
+				<span>XXhXX</span>
+				<em>Lorem ipsum dolor sit amet</em>
+			</li>
+
+			<li>
+				{# Avant-dernière tâche effectuée #}
+				<i class="bi bi-x-square-fill"></i>
+				<span>XXhXX</span>
+				<em>Lorem ipsum dolor sit amet</em>
+			</li>
+
+			<li>
+				{# Tâche la plus anciennne effectuée #}
+				<i class="bi bi-cloud-check-fill"></i>
+				<span>XXhXX</span>
+				<em>Lorem ipsum dolor sit amet</em>
+			</li>
+		</ul>
+	</section>
+
+	{# Statistiques importantes #}
+	<section id="stats">
+		{# Titre de la section #}
+		<h3>Statistiques</h3>
+
+		{# Description de la section #}
+		<p>Lorem ipsum dolor sit amet</p>
+
+		{# Graphiques simplifiées #}
+		<div class="chart"></div>
+
+		<ul>
+			<li class="circle"></li>
+			<li class="circle"></li>
+			<li class="circle"></li>
+		</ul>
+	</section>
+{% endblock %}

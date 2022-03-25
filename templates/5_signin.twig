@@ -1,39 +1,39 @@
-<!-- Titre du formulaire -->
+{# Titre du formulaire #}
 <h2>Connexion</h2>
 
-<!-- Description du formulaire -->
+{# Description du formulaire #}
 <p>
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 	Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 </p>
 
-<!-- Champs du formulaire -->
+{# Champs du formulaire #}
 <form action="dashboard.php" method="POST" novalidate>
-	<!-- Message d'erreur -->
+	{# Message d'erreur #}
 	<p class="error">Une erreur s'est produite dans bla bla bla bla. Veuillez réessayez. <a href="javascript:void(0);">Mot de passe oublié ?</a></p>
 
-	<!-- Nom d'utilisateur -->
+	{# Nom d'utilisateur #}
 	<label for="user_name">Saisissez votre nom d'utilisateur<span>*</span></label>
 	<input type="text" autocomplete="username" spellcheck="false" id="user_name" name="user_name" placeholder="Nom d'utilisateur" minlength="10" maxlength="50" required />
 	<span></span>
 
-	<!-- Mot de passe -->
+	{# Mot de passe #}
 	<label for="user_password">Saisissez votre mot de passe<span>*</span></label>
 	<input type="password" autocomplete="current-password" spellcheck="false" id="user_password" name="user_password" placeholder="Mot de passe" minlength="10" maxlength="60" required />
 	<span></span>
 
-	<!-- Indicateur d'inscription/connexion unique -->
+	{# Indicateur d'inscription/connexion unique #}
 	<em>Pas de compte ? <a href="javascript:void(0);">Inscrivez-vous</a> ou passez à une <a href="javascript:void(0);">connexion unique</a>.</em>
 
-	<!-- Bouton d'affichage du mot de passe -->
+	{# Bouton d'affichage du mot de passe #}
 	<label for="clear">Afficher le mot de passe</label>
 	<input type="checkbox" id="clear" /><br /><br />
 
-	<!-- Se souvenir de la connexion -->
+	{# Se souvenir de la connexion #}
 	<label for="remember_me">Se souvenir de moi</label>
 	<input type="checkbox" id="remember_me" name="remember_me" /><br /><br />
 
-	<!-- Validation/annulation -->
+	{# Validation/annulation #}
 	<input type="reset" value="Annuler" />
 	<input type="submit" value="Valider" />
 </form>

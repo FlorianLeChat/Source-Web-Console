@@ -1,29 +1,29 @@
-<!-- Titre du formulaire -->
+{# Titre du formulaire #}
 <h2>Contact</h2>
 
-<!-- Description du formulaire -->
+{# Description du formulaire #}
 <p>
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 	Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 </p>
 
-<!-- Spécifications juridiques -->
+{# Spécifications juridiques #}
 <i class="bi bi-exclamation-triangle-fill"></i>
 <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
 
 <form novalidate>
-	<!-- Message d'erreur -->
+	{# Message d'erreur #}
 	<p class="error">Une erreur s'est produite dans bla bla bla bla. Veuillez réessayez.</p>
 
-	<!-- Message de succès -->
+	{# Message de succès #}
 	<p class="success">Votre message a bien été envoyé. Vous receverez une réponse d'ici peu.</p>
 
-	<!-- Adresse email -->
+	{# Adresse email #}
 	<label for="email">Saisissez votre adresse électronique<span>*</span></label>
 	<input type="email" autocomplete="email" spellcheck="false" id="email" name="email" placeholder="address@domain.extension" minlength="10" maxlength="40" required />
 	<span></span>
 
-	<!-- Sujet de la prise de contact -->
+	{# Sujet de la prise de contact #}
 	<label for="subject">Sélectionnez le sujet de contact<span>*</span></label>
 	<select id="subject" name="subject">
 		<option value="subject_1">Sujet 1</option>
@@ -31,12 +31,12 @@
 		<option value="subject_3">Sujet 3</option>
 	</select>
 
-	<!-- Contenu du message -->
+	{# Contenu du message #}
 	<label for="content">Indiquez le contenu de votre message<span>*</span></label>
 	<textarea id="content" name="content" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit." minlength="50" maxlength="4000" required></textarea>
 	<span></span>
 
-	<!-- Validation/annulation -->
+	{# Validation/annulation #}
 	<input type="reset" value="Annuler" />
 	<input type="submit" value="Valider" />
 </form>

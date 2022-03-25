@@ -1,109 +1,93 @@
-<!DOCTYPE html>
-<html lang="{{ language }}" prefix="og: https://ogp.me/ns#">
-	{{ head_html }}
+{# Modèle de base #}
+{% extends "0_base.twig" %}
 
-	<body>
-		<noscript>Votre navigateur ne supporte pas ou refuse de charger le JavaScript.</noscript>
+{# En-tête de la page #}
+{% block header_html %}
+	<ul>
+		{# Formulaire d'inscription #}
+		<li><button type="button">Inscription</button></li>
 
-		<!-- En-tête de la page -->
-		<header>
+		{# Formulaire de connexion #}
+		<li><button type="button">Connexion</button></li>
+	</ul>
+{% endblock %}
+
+{# Barre de navigation #}
+{% block navigation_html %} {% endblock %}
+
+{# Contenu de la page demandé #}
+{% block content_html %}
+	{# Vidéo en arrière-plan #}
+	<video autoplay muted loop>
+		<source src="assets/videos/landing.mp4" type="video/mp4" />
+	</video>
+
+	{# Informations générales du site #}
+	<section id="informations">
+		{# Carrousel des images #}
+		<ul>
+			<li><img src="assets/images/placeholder.svg" alt="Première image" /></li>
+			<li><img src="assets/images/placeholder.svg" alt="Deuxième image" /></li>
+			<li><img src="assets/images/placeholder.svg" alt="Troisième image" /></li>
+		</ul>
+
+		{# Présentation des fonctionnalités #}
+		<article>
+			{# Logo du site #}
+			<img src="path" alt="Logo du site" />
+
+			{# Titre du site #}
+			<h1>{{ page_title }}</h1>
+
+			{# Paragraphe de description principal #}
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+				Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</p>
+
+			{# Bouton de défilement #}
+			<button type="button">
+				<i class="bi bi-caret-down-fill"></i>
+			</button>
+
+			{# Paragraphe pour chaque image #}
 			<ul>
-				<!-- Formulaire d'inscription -->
-				<li><button type="button">Inscription</button></li>
-
-				<!-- Formulaire de connexion -->
-				<li><button type="button">Connexion</button></li>
+				<li>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+					Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+					Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</li>
+				<li>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+					Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+					Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</li>
+				<li>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+					Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+					Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</li>
 			</ul>
-		</header>
+		</article>
+	</section>
 
-		<main>
-			<!-- Vidéo en arrière-plan -->
-			<video autoplay muted loop>
-				<source src="assets/videos/landing.mp4" type="video/mp4" />
-			</video>
+	{# À propos de nous #}
+	<section id="aboutus">
 
-			<!-- Informations générales du site -->
-			<section id="informations">
-				<!-- Carrousel des images -->
-				<ul>
-					<li><img src="assets/images/placeholder.svg" alt="Première image" /></li>
-					<li><img src="assets/images/placeholder.svg" alt="Deuxième image" /></li>
-					<li><img src="assets/images/placeholder.svg" alt="Troisième image" /></li>
-				</ul>
+	</section>
 
-				<!-- Présentation des fonctionnalités -->
-				<article>
-					<!-- Logo du site -->
-					<img src="path" alt="Logo du site" />
+	{# Formulaire d'inscription #}
+	<section id="signup">
+		{% include("4_signup.twig") %}
+	</section>
 
-					<!-- Titre du site -->
-					<h1>{{ title }}</h1>
-
-					<!-- Paragraphe de description principal -->
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-						Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-						Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-						Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-					</p>
-
-					<!-- Bouton de défilement -->
-					<button type="button">
-						<i class="bi bi-caret-down-fill"></i>
-					</button>
-
-					<!-- Paragraphe pour chaque image -->
-					<ul>
-						<li>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-							Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-							Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-							Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						</li>
-						<li>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-							Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-							Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-							Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						</li>
-						<li>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-							Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-							Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-							Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						</li>
-					</ul>
-				</article>
-			</section>
-
-			<!-- À propos de nous -->
-			<section id="aboutus">
-				{{ aboutus_html }}
-			</section>
-
-			<!-- Formulaire d'inscription -->
-			<section id="signup">
-				{{ signup_html }}
-			</section>
-
-			<!-- Formulaire de connexion -->
-			<section id="signin">
-				{{ signin_html }}
-			</section>
-
-			<!-- Formulaire de contact -->
-			<section id="contact">
-				{{ contact_html }}
-			</section>
-
-			<!-- Bouton vers une info-bulle -->
-			<button type="button">?</button>
-			<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-		</main>
-
-		<!-- Pied-de-page du site -->
-		<footer>
-			{{ footer_html }}
-		</footer>
-	</body>
-</html>
+	{# Formulaire de connexion #}
+	<section id="signin">
+		{% include("5_signin.twig") %}
+	</section>
+{% endblock %}

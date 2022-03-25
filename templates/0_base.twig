@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="{{ page_language }}" prefix="og: https://ogp.me/ns#">
+	{# En-tête du site #}
+	{% include("1_head.twig") %}
+
+	<body>
+		{# Avertissement page sans JavaScript #}
+		<noscript>Votre navigateur ne supporte pas ou refuse de charger le JavaScript.</noscript>
+
+		{# En-tête de la page #}
+		<header>
+			{% block header_html %} {% include("2_header.twig") %} {% endblock %}
+		</header>
+
+		<main>
+			{# Barre de navigation #}
+			{% block navigation_html %} {% include("3_navigation.twig") %} {% endblock %}
+
+			{# Contenu de la page demandé #}
+			{% block content_html %} {% endblock %}
+
+			{# Formulaire de contact #}
+			<section id="contact">
+				{% include("6_contact.twig") %}
+			</section>
+
+			{# Bouton vers une info-bulle #}
+			<button type="button">?</button>
+			<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+		</main>
+
+		{# Pied-de-page du site #}
+		{% block footer_html %} {% include("7_footer.twig") %} {% endblock %}
+	</body>
+</html>
