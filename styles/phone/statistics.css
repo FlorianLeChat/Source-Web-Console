@@ -661,18 +661,15 @@ main #orientation {
   }
 }
 main #orientation article {
-  max-width: 100%;
-  box-shadow: none;
-}
-main #orientation article:first-of-type {
   width: 100px;
   height: 50px;
   border: 3px solid #f59a23;
   -webkit-animation: rotate 1.5s ease-in-out infinite alternate;
           animation: rotate 1.5s ease-in-out infinite alternate;
+  box-shadow: none;
   border-radius: 10px;
 }
-main #orientation article:last-of-type {
+main #orientation p {
   color: #f59a23;
   font-size: 1.75rem;
   margin-top: 3rem;
