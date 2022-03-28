@@ -98,28 +98,22 @@ main
 
 		article
 		{
-			// Conteneurs généraux.
-			max-width: 100%;
+			// Animation du téléphone.
+			width: 100px;
+			height: 50px;
+			border: 3px solid $text-color;
+			animation: rotate 1.5s ease-in-out infinite alternate;
 			box-shadow: none;
+			border-radius: 10px;
+		}
 
-			&:first-of-type
-			{
-				// Animation du téléphone.
-				width: 100px;
-				height: 50px;
-				border: 3px solid $text-color;
-				animation: rotate 1.5s ease-in-out infinite alternate;
-				border-radius: 10px;
-			}
-
-			&:last-of-type
-			{
-				// Message d'information.
-				color: $text-color;
-				font-size: 1.75rem;
-				margin-top: 3rem;
-				font-weight: bold;
-			}
+		p
+		{
+			// Message d'information.
+			color: $text-color;
+			font-size: 1.75rem;
+			margin-top: 3rem;
+			font-weight: bold;
 		}
 
 		@keyframes rotate
