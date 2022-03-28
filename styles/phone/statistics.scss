@@ -3,26 +3,6 @@
 // --------------- //
 @import "../desktop/statistics";
 
-// --------------- //
-// Document entier //
-// --------------- //
-@media screen and (orientation: portrait)
-{
-	// On indique à l'utilisateur que son appareil doit être
-	// 	retourné en mode paysage pour voir correctement les graphiques.
-	// Source : https://css-tricks.com/snippets/css/orientation-lock/
-	html
-	{
-		top: 100%;
-		left: 0;
-		width: 100vh;
-		position: absolute;
-		transform: rotate(-90deg);
-		overflow-x: hidden;
-		transform-origin: left top;
-	}
-}
-
 // ------- //
 // En-tête //
 // ------- //
@@ -92,5 +72,62 @@ main
 		// Modification de la grille.
 		width: auto;
 		grid-area: 3 / 1 / 4 / 2;
+	}
+
+	#orientation
+	{
+		// Overlay d'orientation de l'appareil.
+		// Source : https://codepen.io/fabiowallner/pen/YOyJbJ
+		top: 0;
+		left: 0;
+		height: 100%;
+		display: flex;
+		z-index: 1000;
+		position: fixed;
+		max-width: 100%;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+		background-color: $box-color;
+
+		@media screen and (orientation: landscape)
+		{
+			// Disparition de l'overlay en mode paysage.
+			display: none;
+		}
+
+		article
+		{
+			// Conteneurs généraux.
+			max-width: 100%;
+			box-shadow: none;
+
+			&:first-of-type
+			{
+				// Animation du téléphone.
+				width: 100px;
+				height: 50px;
+				border: 3px solid $text-color;
+				animation: rotate 1.5s ease-in-out infinite alternate;
+				border-radius: 10px;
+			}
+
+			&:last-of-type
+			{
+				// Message d'information.
+				color: $text-color;
+				font-size: 1.75rem;
+				margin-top: 3rem;
+				font-weight: bold;
+			}
+		}
+
+		@keyframes rotate
+		{
+			// Animation du téléphone.
+			0% { transform: rotate(0) }
+			50% { transform: rotate(-90deg) }
+			100% { transform: rotate(-90deg) }
+		}
 	}
 }

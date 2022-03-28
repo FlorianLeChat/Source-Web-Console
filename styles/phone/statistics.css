@@ -579,18 +579,10 @@ main #charts canvas {
 main #charts canvas:first-of-type {
   margin-bottom: 1.5rem;
 }
-
-@media screen and (orientation: portrait) {
-  html {
-    top: 100%;
-    left: 0;
-    width: 100vh;
-    position: absolute;
-    transform: rotate(-90deg);
-    overflow-x: hidden;
-    transform-origin: left top;
-  }
+main #orientation {
+  display: none;
 }
+
 header {
   color: #f59a23;
   height: 6.25rem;
@@ -649,4 +641,62 @@ main nav ul li a i + span {
 main #charts {
   width: auto;
   grid-area: 3/1/4/2;
+}
+main #orientation {
+  top: 0;
+  left: 0;
+  height: 100%;
+  display: flex;
+  z-index: 1000;
+  position: fixed;
+  max-width: 100%;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #333333;
+}
+@media screen and (orientation: landscape) {
+  main #orientation {
+    display: none;
+  }
+}
+main #orientation article {
+  max-width: 100%;
+  box-shadow: none;
+}
+main #orientation article:first-of-type {
+  width: 100px;
+  height: 50px;
+  border: 3px solid #f59a23;
+  -webkit-animation: rotate 1.5s ease-in-out infinite alternate;
+          animation: rotate 1.5s ease-in-out infinite alternate;
+  border-radius: 10px;
+}
+main #orientation article:last-of-type {
+  color: #f59a23;
+  font-size: 1.75rem;
+  margin-top: 3rem;
+  font-weight: bold;
+}
+@-webkit-keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(-90deg);
+  }
+  100% {
+    transform: rotate(-90deg);
+  }
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(-90deg);
+  }
+  100% {
+    transform: rotate(-90deg);
+  }
 }
