@@ -86,22 +86,22 @@ signin.find( "input[type = reset]" ).click( function ()
 // Permet de gérer les liens de redirection présents dans le
 //	formulaire de connexion.
 //
-const redirections = signin.find( "a[href = \"javascript:void(0);\"]" );
+const links = signin.find( "a[href = \"javascript:void(0);\"]" );
 
-redirections.first().click( function ()
+links.first().click( function ()
 {
 	// Mot de passe oublié.
 	alert( "Implémentation nécessaire." );
 } );
 
-redirections.eq( 1 ).click( function ()
+links.eq( 1 ).click( function ()
 {
 	// Redirection vers l'inscription.
 	signin.hide();
 	signup.first().show();
 } );
 
-redirections.last().click( function ()
+links.last().click( function ()
 {
 	// Redirection vers la connexion unique.
 	signin.hide();
