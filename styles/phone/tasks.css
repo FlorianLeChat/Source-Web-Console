@@ -302,6 +302,11 @@ header a:hover i {
   border: 2px solid #558c03;
   text-transform: none;
 }
+#signup article form p.capslock, #signin form p.capslock, #contact form p.capslock {
+  color: #ed431d;
+  font-weight: bold;
+  text-transform: uppercase;
+}
 #signup article form em, #signin form em, #contact form em {
   color: #f2f2f2;
   display: block;

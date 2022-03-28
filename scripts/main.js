@@ -36,6 +36,26 @@ $( "a" ).mousedown( function ( event )
 } );
 
 //
+// Permet d'afficher des messages d'avertissement lorsqu'un utilisateur
+//	entre un mot de passe avec les majuscules activées.
+// 	Source : https://www.w3schools.com/howto/howto_js_detect_capslock.asp
+//
+$( "input[type = password]" ).keyup( function ( event )
+{
+	if ( event.originalEvent.getModifierState( "CapsLock" ) )
+	{
+		// Si les majuscules sont activées, on insère dynamiquement
+		//	un nouvel élément HTML après le champ de saisie.
+		$( this ).next().after( "<p class=\"capslock\">Les majuscules sont activées.</p>" );
+	}
+	else
+	{
+		// Dans le cas contraire, on le supprime.
+		$( "p[class = capslock" ).remove();
+	}
+} );
+
+//
 // Permet d'ajuster l'agrandissement des éléments par rapport au zoom
 // 	du navigateur (fonctionne seulement pour l'amoindrissement).
 //

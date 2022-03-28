@@ -365,6 +365,15 @@ header
 			text-transform: none;
 		}
 
+		p.capslock
+		{
+			// Message d'avertissement des majuscules.
+			// 	Note : se contrôle via une action JavaScript.
+			color: $error-color;
+			font-weight: bold;
+			text-transform: uppercase;
+		}
+
 		em
 		{
 			// Description brève des informations demandées.
@@ -382,6 +391,7 @@ header
 
 			&:hover
 			{
+				// Effet de sélection.
 				color: $box-color;
 				font-weight: bold;
 				background-color: $text-color;
