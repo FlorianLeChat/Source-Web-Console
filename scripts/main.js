@@ -21,11 +21,18 @@ contact.find( "input[type = reset]" ).click( function ()
 //
 // Permet d'ouvrir le formulaire de contact via le pied de page.
 //
-const footer = $( "footer" );
-
-footer.find( "a[href = \"javascript:void(0);\"]" ).click( function ()
+$( "footer" ).find( "a[href = \"javascript:void(0);\"]" ).click( function ()
 {
 	contact.show();
+} );
+
+
+//
+// Permet de désactiver le mécanisme de glissement des liens.
+//
+$( "a" ).mousedown( function ( event )
+{
+	event.preventDefault();
 } );
 
 //
@@ -47,13 +54,22 @@ adjustZoom();
 $( window ).resize( adjustZoom );
 
 //
-// Permet de désactiver le mécanisme de glissement des liens.
+// Permet d'indiquer la position de défilement actuelle de l'utilisateur.
+// 	Source : https://www.w3schools.com/howto/howto_js_scroll_indicator.asp
 //
-const links = $( "a" );
-
-links.mousedown( function ( event )
+$( window ).scroll( function ()
 {
-	event.preventDefault();
+	// Récupération de la racine du document.
+	const root = $( document.documentElement );
+
+	// Calcul de la position actuelle du défilement.
+	const position = $( window ).scrollTop() || $( "body" ).scrollTop();
+	const height = root.prop( "scrollHeight" ) - root.prop( "clientHeight" );
+
+	// Calcul du pourcentage du décalage avant affichage.
+	const offset = ( position / height ) * 100;
+
+	$( "footer div" ).css( "width", offset + "%" );
 } );
 
 //
