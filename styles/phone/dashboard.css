@@ -289,6 +289,7 @@ header a:hover i {
   color: #ed431d;
   border: 2px solid #ed431d;
   padding: 0.5rem;
+  display: none;
   font-style: normal;
   text-align: center;
   font-weight: bold;
