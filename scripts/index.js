@@ -110,7 +110,7 @@ links.last().click( function ()
 
 //
 // Permet d'afficher en clair les mots de passe entrés dans les champs
-//	de saisi dédiés dans les différents formulaire.
+//	de saisies dédiés dans les différents formulaire.
 //
 $( "input[id *= clear]" ).click( function ()
 {
@@ -130,6 +130,47 @@ $( "input[id *= clear]" ).click( function ()
 		input.attr( "type", "password" );
 	}
 } );
+
+//
+// Permet de générer un mot de passe pseudo-sécurisé pour l'utilisateur.
+// 	Source : https://dev.to/code_mystery/random-password-generator-using-javascript-6a
+//
+const characters = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let old_password = "";
+
+$( "#generation" ).click( function ()
+{
+	// On récupère le champ de saisie associé au formulaire.
+	const input = $( this ).parent().find( "input[id *= password]" );
+
+	// On vérifie alors si la boite est cochée ou non.
+	if ( $( this ).is( ":checked" ) )
+	{
+		// Si elle est coché, on génère aléatoirement un mot de passe
+		//	grâce à une série de caractèrs.
+		let new_password = "";
+
+		for ( let indice = 0; indice <= 15; indice++ )
+		{
+			// On choisit un caractère aléatoirement dans la liste disponibles.
+			const random = Math.floor( Math.random() * characters.length );
+
+			// On l'ajoute ensuite dans le nouveau mot de passe généré.
+			new_password += characters.substring( random, random + 1 );
+		}
+
+		// On enregistre enfin l'ancien mot de passe en mémoire avant de
+		//	définir le mot de passe sécurisé dans le champ approprié.
+		old_password = input.val();
+
+		input.val( new_password );
+	}
+	else
+	{
+		// Dans le cas contraire, on restore l'ancien mot de passe.
+		input.val( old_password );
+	}
+} )
 
 //
 // Permet de contrôler le mécanisme de présentation des fonctionnalités
