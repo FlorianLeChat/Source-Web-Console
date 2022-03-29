@@ -41,7 +41,7 @@ ul, ol
 p, em
 {
 	// Paragraphes et textes.
-	line-height: 1.5;
+	line-height: 1.375;
 }
 
 a
@@ -370,6 +370,7 @@ header
 			// Message d'avertissement des majuscules.
 			// 	Note : se contrôle via une action JavaScript.
 			color: $error-color;
+			font-size: 110%;
 			font-weight: bold;
 			text-transform: uppercase;
 		}
@@ -504,6 +505,32 @@ header
 		{
 			// Contour d'un champ/zone invalide.
 			box-shadow: inset 0 0 0 3px red;
+		}
+	}
+
+	ul
+	{
+		// Liste des étapes actuelles.
+		float: right;
+		margin: 0.75rem 0 -0.5rem 0;
+		font-size: 1.25rem;
+		font-weight: bold;
+
+		li
+		{
+			// Étape actuelle.
+			color: $text-color;
+			display: inline;
+			padding: 0.25rem 0.5rem;
+			margin-right: 0.25rem;
+			background-color: $box-color;
+
+			&.active
+			{
+				// Étape active.
+				color: $box-color;
+				background-color: $text-color;
+			}
 		}
 	}
 }
