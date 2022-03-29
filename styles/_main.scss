@@ -349,12 +349,6 @@ header
 			text-align: center;
 			font-weight: bold;
 			text-transform: uppercase;
-
-			span
-			{
-				// Champ « mot de passe oublié ? ».
-				text-decoration: underline;
-			}
 		}
 
 		p.success
@@ -381,12 +375,14 @@ header
 			color: $background-color;
 			display: block;
 			text-align: justify;
+			line-height: 2;
 			margin-bottom: 1.5rem;
 		}
 
 		a
 		{
-			// Liens vers l'inscription/connexion unique.
+			// Liens vers l'inscription, connexion unique ou
+			//	la récupération de mot de passe.
 			color: $text-color;
 			text-decoration: underline;
 
