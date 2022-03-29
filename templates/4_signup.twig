@@ -15,6 +15,9 @@
 
 	{# Champs du formulaire #}
 	<form novalidate>
+		{# Message d'erreur #}
+		<p class="error"></p>
+
 		{# Nom d'utilisateur #}
 		<label for="username">Choisissez un nom d'utilisateur<span>*</span></label>
 		<input type="text" autocomplete="username" spellcheck="false" id="username" name="username" placeholder="Nom d'utilisateur" minlength="10" maxlength="50" required />
@@ -62,6 +65,9 @@
 
 	{# Champs du formulaire #}
 	<form action="dashboard.php" method="POST" novalidate>
+		{# Message d'erreur #}
+		<p class="error">Le champ « $1 » doit avoir une taille comprise entre $2 et $3 caractères.</p>
+
 		{# Informations client (adresse IP & port) #}
 		<label>Saisissez les informations client<span>*</span></label>
 

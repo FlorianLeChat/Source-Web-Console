@@ -42,6 +42,17 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@2.0.0/dist/chartjs-adapter-date-fns.bundle.min.js" crossorigin="anonymous"></script>
 
+	<script>
+		// Message d'échec si les vérifications côté client échouent.
+		const client_check_failed = "Le champ « $1 » doit avoir une taille comprise entre $2 et $3 caractères."
+
+		// Message d'échec si les vérifications côté serveur échouent.
+		const server_check_failed = "Les données renseignées n'ont pas permis de réaliser cette requête.";
+
+		// Message signalant à l'utilisateur que les majuscules sont activées.
+		const capslock_enabled = "Les majuscules sont activées.";
+	</script>
+
 	<script src="scripts/main.js" defer></script>
 	<script src="scripts/{{ page_file }}.js" defer></script>
 
