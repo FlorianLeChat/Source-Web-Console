@@ -24,10 +24,10 @@ header.last().find( "button" ).click( function ()
 const first_step = signup.first();
 const last_step = signup.last();
 
-signup.find( "input[type = submit]" ).click( function ( event )
+signup.find( "form" ).submit( function ( event )
 {
-	// On vérifie si l'utilisateur se trouve à la première ou à la
-	//	dernière étape de la phase d'inscription.
+	// On vérifie si l'utilisateur se trouve à la première étape
+	//	ou non de la phase d'inscription.
 	if ( first_step.is( ":visible" ) )
 	{
 		// À la première étape, on casse le mécanisme de soumission
@@ -38,15 +38,6 @@ signup.find( "input[type = submit]" ).click( function ( event )
 		} );
 
 		event.preventDefault();
-	}
-	else
-	{
-		// Dans le cas de la deuxième étape, on réalise les vérifications
-		//	avant de soumettre le formulaire au serveur.
-		if ( true )
-		{
-			event.preventDefault();
-		}
 	}
 } );
 
@@ -62,20 +53,11 @@ signup.find( "input[type = reset]" ).click( function ()
 } );
 
 //
-// Permet de gérer les mécanismes du formulaire de connexion.
+// Permet de cacher le formulaire de contact à la demande
+//	de l'utilisateur.
 //
-signin.find( "input[type = submit]" ).click( function ( event )
-{
-	if ( true )
-	{
-		// On réalise les vérifications avant de soumettre le formulaire.
-		event.preventDefault();
-	}
-} );
-
 signin.find( "input[type = reset]" ).click( function ()
 {
-	// On cache le formulaire à la demande de l'utilisateur.
 	signin.fadeOut( 150 );
 } );
 
@@ -85,22 +67,20 @@ signin.find( "input[type = reset]" ).click( function ()
 //
 const links = signin.find( "a[href = \"javascript:void(0);\"]" );
 
-console.log( links )
-
 links.first().click( function ()
 {
-	// Redirection vers l'inscription.
 	signin.fadeOut( 150, function ()
 	{
+		// Redirection vers l'inscription.
 		signup.first().fadeIn( 150 );
 	} );
 } );
 
 links.eq( 1 ).click( function ()
 {
-	// Redirection vers la connexion unique.
 	signin.fadeOut( 150, function ()
 	{
+		// Redirection vers la connexion unique.
 		signup.last().fadeIn( 150 );
 	} );
 } );
