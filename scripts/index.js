@@ -85,13 +85,9 @@ signin.find( "input[type = reset]" ).click( function ()
 //
 const links = signin.find( "a[href = \"javascript:void(0);\"]" );
 
-links.first().click( function ()
-{
-	// Mot de passe oublié.
-	alert( "Implémentation nécessaire." );
-} );
+console.log( links )
 
-links.eq( 1 ).click( function ()
+links.first().click( function ()
 {
 	// Redirection vers l'inscription.
 	signin.fadeOut( 150, function ()
@@ -100,13 +96,19 @@ links.eq( 1 ).click( function ()
 	} );
 } );
 
-links.last().click( function ()
+links.eq( 1 ).click( function ()
 {
 	// Redirection vers la connexion unique.
 	signin.fadeOut( 150, function ()
 	{
 		signup.last().fadeIn( 150 );
 	} );
+} );
+
+links.last().click( function ()
+{
+	// Mot de passe oublié.
+	alert( "Implémentation nécessaire." );
 } );
 
 //

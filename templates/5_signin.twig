@@ -22,8 +22,12 @@
 	<input type="password" autocomplete="current-password" spellcheck="false" id="user_password" name="user_password" placeholder="Mot de passe" minlength="10" maxlength="60" required />
 	<span></span>
 
-	{# Indicateur d'inscription/connexion unique #}
-	<em>Pas de compte ? <a href="javascript:void(0);">Inscrivez-vous</a> ou passez à une <a href="javascript:void(0);">connexion unique</a>.</em>
+	{# Liens vers l'inscription, connexion unique ou la récupération de mot de passe. #}
+	<em>
+		Pas de compte ? <a href="javascript:void(0);">Inscrivez-vous</a> ou passez à une <a href="javascript:void(0);">connexion unique</a>.
+		<br />
+		Sinon, vous avez peut-être <a href="javascript:void(0);">perdu votre mot de passe</a> ?
+	</em>
 
 	{# Bouton d'affichage du mot de passe #}
 	<label for="signin_clear">Afficher le mot de passe</label>
