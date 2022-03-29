@@ -109,6 +109,29 @@ links.last().click( function ()
 } );
 
 //
+// Permet d'afficher en clair les mots de passe entrés dans les champs
+//	de saisi dédiés dans les différents formulaire.
+//
+$( "input[id *= clear]" ).click( function ()
+{
+	// On recherche le champ de saisie des mots de passe.
+	const input = $( this ).parent().find( "input[id *= password]" );
+
+	// On vérifie ensuite son état actuel.
+	if ( input.attr( "type" ) == "password" )
+	{
+		// Alors on définit le type du champ en texte pour afficher
+		//	le contenu en clair sans les pointillés habituels.
+		input.attr( "type", "text" );
+	}
+	else
+	{
+		// Dans le cas contraire, on remet son état initial.
+		input.attr( "type", "password" );
+	}
+} );
+
+//
 // Permet de contrôler le mécanisme de présentation des fonctionnalités
 //	principales du site.
 //
