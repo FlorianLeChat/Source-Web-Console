@@ -72,7 +72,7 @@ h2, h3, h4, h5, h6 {
 }
 
 p, em {
-  line-height: 1.5;
+  line-height: 1.375;
 }
 
 a {
@@ -304,6 +304,7 @@ header a:hover i {
 }
 #signup article form p.capslock, #signin form p.capslock, #contact form p.capslock {
   color: #ed431d;
+  font-size: 110%;
   font-weight: bold;
   text-transform: uppercase;
 }
@@ -381,6 +382,23 @@ header a:hover i {
 }
 #signup article form input:focus:invalid, #signup article form textarea:focus:invalid, #signin form input:focus:invalid, #signin form textarea:focus:invalid, #contact form input:focus:invalid, #contact form textarea:focus:invalid {
   box-shadow: inset 0 0 0 3px red;
+}
+#signup article ul, #signin ul, #contact ul {
+  float: right;
+  margin: 0.75rem 0 -0.5rem 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+#signup article ul li, #signin ul li, #contact ul li {
+  color: #f59a23;
+  display: inline;
+  padding: 0.25rem 0.5rem;
+  margin-right: 0.25rem;
+  background-color: #333333;
+}
+#signup article ul li.active, #signin ul li.active, #contact ul li.active {
+  color: #333333;
+  background-color: #f59a23;
 }
 
 main > span {
