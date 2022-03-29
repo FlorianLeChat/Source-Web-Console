@@ -9,13 +9,13 @@ const signin = $( "#signin" );
 header.first().find( "button" ).click( function ()
 {
 	// Inscription (première partie).
-	signup.first().show();
+	signup.first().fadeIn( 150 );
 } );
 
 header.last().find( "button" ).click( function ()
 {
 	// Connexion.
-	signin.show();
+	signin.fadeIn( 150 );
 } );
 
 //
@@ -30,17 +30,14 @@ signup.find( "input[type = submit]" ).click( function ( event )
 	//	dernière étape de la phase d'inscription.
 	if ( first_step.is( ":visible" ) )
 	{
-		// S'il est à la première étape, alors on réalise des vérifications.
-		if ( false )
+		// À la première étape, on casse le mécanisme de soumission
+		//	et on passe au suivant.
+		first_step.fadeOut( 150, function ()
 		{
-			return;
-		}
+			last_step.fadeIn( 150 );
+		} );
 
 		event.preventDefault();
-
-		// Une fois terminé, on cache la première étape pour passer à la suivante.
-		first_step.hide();
-		last_step.show();
 	}
 	else
 	{
@@ -56,8 +53,8 @@ signup.find( "input[type = submit]" ).click( function ( event )
 signup.find( "input[type = reset]" ).click( function ()
 {
 	// On cache le formulaire si l'utilisateur a demandé l'annulation de l'inscription.
-	first_step.hide();
-	last_step.hide();
+	first_step.fadeOut( 150 );
+	last_step.fadeOut( 150 );
 
 	// On en profte également pour réinitialiser les valeurs de tout le formulaire.
 	first_step.find( "form" )[ 0 ].reset();
@@ -79,7 +76,7 @@ signin.find( "input[type = submit]" ).click( function ( event )
 signin.find( "input[type = reset]" ).click( function ()
 {
 	// On cache le formulaire à la demande de l'utilisateur.
-	signin.hide();
+	signin.fadeOut( 150 );
 } );
 
 //
@@ -97,15 +94,19 @@ links.first().click( function ()
 links.eq( 1 ).click( function ()
 {
 	// Redirection vers l'inscription.
-	signin.hide();
-	signup.first().show();
+	signin.fadeOut( 150, function ()
+	{
+		signup.first().fadeIn( 150 );
+	} );
 } );
 
 links.last().click( function ()
 {
 	// Redirection vers la connexion unique.
-	signin.hide();
-	signup.last().show();
+	signin.fadeOut( 150, function ()
+	{
+		signup.last().fadeIn( 150 );
+	} );
 } );
 
 //
@@ -207,42 +208,43 @@ function updateInformation( forward )
 		// On vérifie si l'image est actuellement visible.
 		if ( element.is( ":visible" ) )
 		{
-			// Dans ce cas, on cache l'image actuelle.
-			element.hide();
-
-			// On vérifie ensuite si l'utilisateur demander d'avancer
-			//	ou de reculer dans les positions des images.
-			if ( forward )
+			// Dans ce cas, on cache progressement l'image actuelle.
+			element.fadeOut( 200, function ()
 			{
-				// Pour avancer, on vérifie si on atteint pas le dépassement
-				//	du nombre d'images disponibles.
-				if ( indice >= length )
+				// On vérifie ensuite si l'utilisateur demander d'avancer
+				//	ou de reculer dans les positions des images.
+				if ( forward )
 				{
-					// Dans ce cas, on affiche la première image de la liste.
-					images.first().show();
+					// Pour avancer, on vérifie si on atteint pas le dépassement
+					//	du nombre d'images disponibles.
+					if ( indice >= length )
+					{
+						// Dans ce cas, on affiche la première image de la liste.
+						images.first().fadeIn( 150 );
+					}
+					else
+					{
+						// Dans le cas contraire, on affiche la suivante.
+						element.next().fadeIn( 150 );
+					}
 				}
 				else
 				{
-					// Dans le cas contraire, on affiche la suivante.
-					element.next().show();
+					// En cas de reculement, on vérifie la position actuelle
+					//	dans la liste.
+					if ( indice == 0 )
+					{
+						// Si on atteint le début de la liste, on affiche la dernière
+						//	image disponible.
+						images.last().fadeIn( 150 );
+					}
+					else
+					{
+						// Dans le cas contraire, on affiche la précédente.
+						element.prev().fadeIn( 150 );
+					}
 				}
-			}
-			else
-			{
-				// En cas de reculement, on vérifie la position actuelle
-				//	dans la liste.
-				if ( indice == 0 )
-				{
-					// Si on atteint le début de la liste, on affiche la dernière
-					//	image disponible.
-					images.last().show();
-				}
-				else
-				{
-					// Dans le cas contraire, on affiche la précédente.
-					element.prev().show();
-				}
-			}
+			} );
 
 			break;
 		}
@@ -256,36 +258,37 @@ function updateInformation( forward )
 		// Vérification de la visilité de l'élement.
 		if ( element.is( ":visible" ) )
 		{
-			element.hide();
-
-			// Mécanisme de précédent/suivant.
-			if ( forward )
+			element.fadeOut( 200, function ()
 			{
-				// Texte suivant.
-				if ( indice >= length )
+				// Mécanisme de précédent/suivant.
+				if ( forward )
 				{
-					texts.first().show();
+					// Texte suivant.
+					if ( indice >= length )
+					{
+						texts.first().fadeIn( 150 );
+					}
+					else
+					{
+						element.next().fadeIn( 150 );
+					}
 				}
 				else
 				{
-					element.next().show();
+					// Texte précédent.
+					if ( indice == 0 )
+					{
+						texts.last().fadeIn( 150 );
+					}
+					else
+					{
+						element.prev().fadeIn( 150 );
+					}
 				}
-			}
-			else
-			{
-				// Texte précédent.
-				if ( indice == 0 )
-				{
-					texts.last().show();
-				}
-				else
-				{
-					element.prev().show();
-				}
-			}
 
-			// Mise à jour des éléments de présentation.
-			displayInitialElements();
+				// Mise à jour des éléments de présentation.
+				displayInitialElements();
+			} );
 
 			break;
 		}
