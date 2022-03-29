@@ -23,9 +23,8 @@ contact.find( "input[type = reset]" ).click( function ()
 //
 $( "footer" ).find( "a[href = \"javascript:void(0);\"]" ).click( function ()
 {
-	contact.show();
+	contact.fadeIn( 150 );
 } );
-
 
 //
 // Permet de désactiver le mécanisme de glissement des liens.
