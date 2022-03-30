@@ -160,13 +160,14 @@ header h1 {
   bottom: 3.5rem;
   display: inline-block;
   position: relative;
+  font-size: 2.5rem;
 }
 header h2 {
-  right: 12rem;
-  bottom: 1.25rem;
+  right: 15.5rem;
+  bottom: 1rem;
   display: inline-block;
   position: relative;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-style: italic;
 }
 header div i {
@@ -548,13 +549,13 @@ footer article div {
 
 main {
   display: grid;
-  padding: 2rem;
+  padding: 2rem 5%;
   text-align: center;
   align-items: start;
-  grid-row-gap: 1.5rem;
+  grid-row-gap: 2rem;
   margin-bottom: 4rem;
   justify-items: stretch;
-  grid-column-gap: 2rem;
+  grid-column-gap: 5%;
   grid-template-columns: clamp(15rem, 17.5vw, 25rem) 1fr;
 }
 main p {
