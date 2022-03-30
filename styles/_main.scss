@@ -171,6 +171,7 @@ header
 
 	div
 	{
+		// Barre de recherche.
 		i
 		{
 			// Icône de la barre de recherche.
@@ -254,6 +255,7 @@ header
 
 	a
 	{
+		// Compte utilisateur.
 		i
 		{
 			// Icône de l'état de connexion.
@@ -296,6 +298,7 @@ header
 	display: none;
 	position: absolute;
 	transform: translate(-50%, -50%);
+	max-width: 600px;
 	overflow-y: auto;
 	max-height: 75vh;
 	text-align: center;
@@ -552,6 +555,7 @@ main >
 		right: 0.5rem;
 		height: 3rem;
 		bottom: 4.25rem;
+		border: 1px solid $border-color;
 		position: fixed;
 		font-size: 1.5rem;
 		font-weight: bold;

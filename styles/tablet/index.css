@@ -254,6 +254,7 @@ header a:hover i {
   display: none;
   position: absolute;
   transform: translate(-50%, -50%);
+  max-width: 600px;
   overflow-y: auto;
   max-height: 75vh;
   text-align: center;
@@ -410,6 +411,7 @@ main > button {
   right: 0.5rem;
   height: 3rem;
   bottom: 4.25rem;
+  border: 1px solid #797979;
   position: fixed;
   font-size: 1.5rem;
   font-weight: bold;
@@ -629,10 +631,6 @@ header ul button:hover {
   font-weight: bold;
 }
 #informations article ul li:not(:first-of-type) {
-  display: none;
-}
-
-#aboutus {
   display: none;
 }
 
