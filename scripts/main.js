@@ -171,3 +171,17 @@ if ( window.history.replaceState && window.location.hostname != "localhost" )
 {
 	window.history.replaceState( null, null, window.location.href );
 }
+
+//
+// Permet d'ajouter le mécanisme de fonctionnement de Google Analytics.
+// 	Source : https://analytics.google.com/analytics/web/#/
+//
+window.dataLayer = window.dataLayer || [];
+
+function gtag()
+{
+	dataLayer.push( arguments );
+}
+
+gtag( "js", new Date() );
+gtag( "config", "G-56KCE1D8JG" );
