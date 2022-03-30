@@ -12,7 +12,8 @@
 		"configuration" => "Configuration",
 		"actions" => "Actions et commandes",
 		"console" => "Console interactive",
-		"tasks" => "Tâches planifiées"
+		"tasks" => "Tâches planifiées",
+		"help" => "Assistance utilisateur"
 	];
 
 	$html = $twig->render("$page.twig",
