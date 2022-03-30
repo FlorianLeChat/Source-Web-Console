@@ -1,0 +1,83 @@
+{# Modèle de base #}
+{% extends "0_base.twig" %}
+
+{# Contenu de la page demandé #}
+{% block content_html %}
+	{# Description de la page #}
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+		Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+		Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+		Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	</p>
+
+	{# Statistiques de comptage #}
+	<section id="counter">
+		{# Titre de la section #}
+		<h2>Statistiques</h2>
+
+		{# Liste des statistiques #}
+		<ul>
+			<li>
+				{# Nombre de donateurs #}
+				<i class="bi bi-cash"></i>
+				<h3>11+</h3>
+				<h4>Donateurs</h4>
+			</li>
+
+			<li>
+				{# Nombre de serveurs #}
+				<i class="bi bi-hdd-stack-fill"></i>
+				<h3>55+</h3>
+				<h4>Serveurs</h4>
+			</li>
+
+			<li>
+				{# Nombre d'utilisateurs #}
+				<i class="bi bi-person-fill"></i>
+				<h3>100+</h3>
+				<h4>Utilisateurs</h4>
+			</li>
+
+			<li>
+				{# Nombre d'actionnements #}
+				<i class="bi bi-lightning-fill"></i>
+				<h3>100+</h3>
+				<h4>Requêtes</h4>
+			</li>
+		</ul>
+	</section>
+
+	{# Foire aux questions #}
+	<section id="faq">
+		{# Titre de la section #}
+		<h2>Foire aux questions</h2>
+
+		{# Première question/réponse #}
+		<button type="button">Question numéro 1</button>
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+			Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+			Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+			Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		</p>
+
+		{# Deuxième question/réponse #}
+		<button type="button">Question numéro 2</button>
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+			Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+			Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+			Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		</p>
+
+		{# Troisième question/réponse #}
+		<button type="button">Question numéro 3</button>
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+			Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+			Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+			Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		</p>
+	</section>
+{% endblock %}
