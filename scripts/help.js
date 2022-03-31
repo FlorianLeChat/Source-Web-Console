@@ -1,6 +1,7 @@
 //
 // Permet de contrôler le mécanisme de basculement de la section
 //	des questions/réponses de la page.
+//	Source : https://www.w3schools.com/howto/howto_js_collapsible.asp
 //
 $( "#faq button" ).click( function ()
 {
