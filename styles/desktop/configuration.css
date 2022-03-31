@@ -12,7 +12,7 @@ ul, ol {
 }
 
 @media screen and (max-width: 1024px) {
-  main #parameters ul li button::after, main nav ul li a i + span::after, footer ul li a span::after, main > button::after {
+  main #parameters ul li button::after, main nav ul li a i + span::after, footer ul li a span::after, #tips button::after {
     top: -0.5rem;
     left: -0.5rem;
     right: -0.5rem;
@@ -170,41 +170,41 @@ header h2 {
   font-size: 1.5rem;
   font-style: italic;
 }
-header div i {
+header #search i {
   top: 1.5rem;
   right: 19.5rem;
   position: absolute;
   font-size: 1.25rem;
 }
-header div span {
+header #search span {
   top: 1.75rem;
   right: 12rem;
   color: #f2f2f2;
   position: absolute;
 }
-header div input {
+header #search input {
   top: 3.5rem;
   right: 10rem;
   height: 1.5rem;
   padding: 0.25rem;
   position: absolute;
 }
-header div input::-moz-placeholder {
+header #search input::-moz-placeholder {
   left: 0.25rem;
   position: relative;
 }
-header div input:-ms-input-placeholder {
+header #search input:-ms-input-placeholder {
   left: 0.25rem;
   position: relative;
 }
-header div input::placeholder {
+header #search input::placeholder {
   left: 0.25rem;
   position: relative;
 }
-header div input:focus {
+header #search input:focus {
   box-shadow: inset 0 0 0 3px #f59a23;
 }
-header div input:focus + ul {
+header #search input:focus + ul {
   top: 6rem;
   right: 10rem;
   width: 185px;
@@ -213,19 +213,19 @@ header div input:focus + ul {
   position: absolute;
   background-color: #333333;
 }
-header div input:focus + ul li {
+header #search input:focus + ul li {
   padding: 0.5rem;
   border-bottom: 1px solid #f2f2f2;
 }
-header div input:focus + ul li:last-of-type {
+header #search input:focus + ul li:last-of-type {
   border-bottom: none;
 }
-header div input:focus + ul li:hover {
+header #search input:focus + ul li:hover {
   color: #333333;
   cursor: pointer;
   background-color: #f2f2f2;
 }
-header div input + ul {
+header #search input + ul {
   display: none;
 }
 header a i {
@@ -402,11 +402,90 @@ header a:hover i {
   background-color: #f59a23;
 }
 
-main > span {
+#notifications {
+  left: 50%;
+  color: #f2f2f2;
+  bottom: 4.375rem;
+  border: 3px solid #797979;
+  display: none;
+  padding: 1rem;
+  position: fixed;
+  min-width: 100px;
+  max-width: 360px;
+  transform: translateX(-50%);
+  visibility: hidden;
+  font-weight: bold;
+  border-radius: 0.5rem;
+}
+#notifications i {
+  font-size: 1.5rem;
+}
+#notifications.error {
+  background-color: #ed431d;
+}
+#notifications.success {
+  background-color: #558c03;
+}
+#notifications.info {
+  background-color: #016fa0;
+}
+#notifications.show {
+  gap: 0.75rem;
+  display: flex;
+  -webkit-animation: fadeIn 500ms, fadeOut 500ms 4.75s;
+          animation: fadeIn 500ms, fadeOut 500ms 4.75s;
+  visibility: visible;
+  align-items: center;
+}
+@-webkit-keyframes fadeIn {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 4.375rem;
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 4.375rem;
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeOut {
+  from {
+    bottom: 4.375rem;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+@keyframes fadeOut {
+  from {
+    bottom: 4.375rem;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+#tips {
+  position: fixed;
+}
+#tips span {
   display: none;
   margin-left: 1rem;
 }
-main > button {
+#tips button {
   color: #f59a23;
   width: 3rem;
   right: 0.5rem;
@@ -419,11 +498,11 @@ main > button {
   border-radius: 50%;
   background-color: #333333;
 }
-main > button:hover {
+#tips button:hover {
   color: #333333;
   background-color: #f59a23;
 }
-main > button:hover + span {
+#tips button:hover + span {
   color: #f59a23;
   right: 4rem;
   bottom: 4.6rem;
