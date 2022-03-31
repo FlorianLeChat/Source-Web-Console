@@ -1,8 +1,8 @@
 {# Modèle de base #}
-{% extends "0_base.twig" %}
+{% extends "_main.twig" %}
 
 {# En-tête de la page #}
-{% block header_html %}
+{% block header %}
 	<ul>
 		{# Formulaire d'inscription #}
 		<li><button type="button">Inscription</button></li>
@@ -13,10 +13,10 @@
 {% endblock %}
 
 {# Barre de navigation #}
-{% block navigation_html %} {% endblock %}
+{% block navigation %} {% endblock %}
 
 {# Contenu de la page demandé #}
-{% block content_html %}
+{% block content %}
 	{# Vidéo en arrière-plan #}
 	<video autoplay muted loop>
 		<source src="assets/videos/landing.mp4" type="video/mp4" />
@@ -82,11 +82,11 @@
 
 	{# Formulaire d'inscription #}
 	<section id="signup">
-		{% include("4_signup.twig") %}
+		{% include("form_signup.twig") %}
 	</section>
 
 	{# Formulaire de connexion #}
 	<section id="signin">
-		{% include("5_signin.twig") %}
+		{% include("form_signin.twig") %}
 	</section>
 {% endblock %}
