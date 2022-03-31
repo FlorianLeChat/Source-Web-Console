@@ -86,7 +86,7 @@
 				<h2>{{ header_subtitle }}</h2>
 
 				{# Barre de recherche #}
-				<div>
+				<div id="search">
 					<i class="bi bi-search"></i>
 
 					<span>Actions rapides</span>
@@ -176,9 +176,17 @@
 				{% include("form_contact.twig") %}
 			</section>
 
-			{# Bouton vers une info-bulle #}
-			<button type="button">?</button>
-			<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+			{# Notifications textuelles #}
+			<div id="notifications">
+				<i class="bi"></i>
+				<span></span>
+			</div>
+
+			{# Conteneur du bouton des astuces #}
+			<div id="tips">
+				<button type="button">?</button>
+				<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+			</div>
 		</main>
 
 		{# Pied-de-page du site #}

@@ -163,6 +163,97 @@ adjustZoom();
 $( window ).resize( adjustZoom );
 
 //
+// Permet d'afficher des notifications textuelles après une action.
+// 	Source : https://www.w3schools.com/howto/howto_js_snackbar.asp
+//
+const notification = $( "#notifications" );
+let messages_queue = {};
+let counter = 1;
+
+function addQueuedNotification( text, type )
+{
+	// On ajoute la notification dans une file d'attente
+	//	afin d'être traitée les uns après les autres.
+	messages_queue[ counter ] = [ text, type ];
+	counter++;
+}
+
+function processNotification( text, type )
+{
+	// On vérifie tout d'abord si une notification est déjà
+	//	actuellement visible.
+	if ( notification.is( ":visible" ) )
+	{
+		return false;
+	}
+
+	// On apparaître ensuite le bloc avant de définir
+	//	le texte passé en paramètre de la fonction.
+	notification.find( "span" ).html( text );
+	notification.addClass( "show" );
+
+	// On récupère après l'icône associé au conteneur.
+	const icon = notification.find( "i" );
+
+	// On vérifie alors le type de notification.
+	if ( type == 1 )
+	{
+		// Cette notification est une erreur.
+		notification.addClass( "error" );
+		icon.addClass( "bi-exclamation-octagon-fill" );
+	}
+	else if ( type == 2 )
+	{
+		// Cette notification est une validation.
+		notification.addClass( "success" );
+		icon.addClass( "bi-check-square-fill" );
+	}
+	else if ( type == 3 )
+	{
+		// Cette notification est une information.
+		notification.addClass( "info" );
+		icon.addClass( "bi-info-square-fill" );
+	}
+
+	setTimeout( function ()
+	{
+		// Après 5 secondes d'affichage, on supprime toutes
+		//	les classes associées aux élements pour les faire
+		//	disparaître progressivement.
+		icon.removeAttr( "class" );
+		notification.removeAttr( "class" );
+	}, 5000 );
+
+	// On retourne cette variable pour signifier à la file
+	//	d'attente que la notification a été créée avec succès.
+	return true;
+}
+
+setInterval( function ()
+{
+	// On récupère d'abord toutes les clés disponibles dans
+	//	la file d'attente des notifications.
+	const keys = Object.keys( messages_queue );
+
+	// On vérifie alors si la file n'est pas vide avant de
+	//	continuer son traitement.
+	if ( keys.length > 0 )
+	{
+		// On récupère ensuite les données associées à la première
+		//	notification de la file afin de la traiter.
+		const notification = messages_queue[ keys[ 0 ] ];
+		const state = processNotification( notification[ 0 ], notification[ 1 ] );
+
+		if ( state )
+		{
+			// Si la notification a été créée, alors on supprime les
+			//	données de la file d'attente pour la prochaine.
+			delete messages_queue[ keys[ 0 ] ];
+		}
+	}
+}, 500 )
+
+//
 // Permet de bloquer le renvoie des formulaires lors du rafraîchissement
 //	de la page par l'utilisateur.
 // 	Source : https://stackoverflow.com/a/45656609

@@ -170,7 +170,7 @@ header
 		font-style: italic;
 	}
 
-	div
+	#search
 	{
 		// Barre de recherche.
 		i
@@ -536,11 +536,86 @@ header
 	}
 }
 
-// ------------------ //
-// Bouton des astuces //
-// ------------------ //
-main >
+// ------------------------------------ //
+// Conteneur : notifications textuelles //
+// ------------------------------------ //
+#notifications
 {
+	// Calcul de la position Y du conteneur.
+	$positionY: $footer-height * 2.5;
+
+	// Personnalisation du conteneur.
+	left: 50%;
+	color: $background-color;
+	bottom: $positionY;
+	border: 3px solid $border-color;
+	display: none;
+	padding: 1rem;
+	position: fixed;
+	min-width: 100px;
+	max-width: $html-min-width;
+	transform: translateX(-50%);
+	visibility: hidden;
+	font-weight: bold;
+	border-radius: 0.5rem;
+
+	i
+	{
+		// Icône de notification.
+		font-size: 1.5rem;
+	}
+
+	&.error
+	{
+		// Couleur de fond lors des erreurs.
+		background-color: $error-color;
+	}
+
+	&.success
+	{
+		// Couleur de fond lors d'une validation.
+		background-color: $validate-color;
+	}
+
+	&.info
+	{
+		// Couleur de fond pour une information.
+		background-color: $info-color;
+	}
+
+	&.show
+	{
+		// Apparition/disparition de l'élement
+		//	avec des transitions.
+		gap: 0.75rem;
+		display: flex;
+		animation: fadeIn 500ms, fadeOut 500ms 4.75s;
+		visibility: visible;
+		align-items: center;
+	}
+
+	@keyframes fadeIn
+	{
+		// Apparition du bas vers le haut.
+		from { bottom: 0; opacity: 0 }
+		to { bottom: $positionY; opacity: 1; }
+	}
+
+	@keyframes fadeOut
+	{
+		// Disparition du haut vers le bas.
+		from { bottom: $positionY; opacity: 1; }
+		to { bottom: 0; opacity: 0; }
+	}
+}
+
+// ------------------------------ //
+// Conteneur : bouton des astuces //
+// ------------------------------ //
+#tips
+{
+	position: fixed;
+
 	span
 	{
 		// Texte de l'astuce caché par défaut.
