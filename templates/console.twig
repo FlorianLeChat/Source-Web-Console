@@ -17,12 +17,13 @@
 		<h2>Contrôleur principal</h2>
 
 		{# Champ de saisie #}
-		<input type="text" name="command" placeholder="Écrivez quelque chose..." required />
+		<div>
+			<input type="text" name="command" placeholder="Écrivez quelque chose..." required />
 
-		{# Bouton d'exécution #}
-		<button type="button" name="execute" value="bash">
-			<i class="bi bi-send-fill"></i>
-		</button>
+			<button type="button" name="execute" value="bash">
+				<i class="bi bi-send-fill"></i>
+			</button>
+		</div>
 
 		{# Historique des commandes #}
 		<ul>

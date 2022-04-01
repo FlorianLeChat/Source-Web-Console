@@ -683,9 +683,13 @@ main nav ul li.active i, main nav ul li.active span, main nav ul li:hover i, mai
 }
 main #actions {
   color: #f59a23;
+  height: 60vh;
+  display: flex;
   padding: 1rem;
   grid-area: 2/2/3/3;
   border-radius: 0.5rem;
+  flex-direction: column;
+  justify-content: space-evenly;
   background-color: #333333;
 }
 main #actions h2 {
@@ -828,9 +832,13 @@ main #actions ul:last-of-type li:last-of-type {
 }
 main #commands {
   color: #f59a23;
+  height: 60vh;
   padding: 1rem;
+  display: flex;
   grid-area: 2/3/3/4;
   border-radius: 0.5rem;
+  flex-direction: column;
+  justify-content: space-evenly;
   background-color: #333333;
 }
 main #commands h2 {
