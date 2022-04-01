@@ -11,12 +11,12 @@ main
 	display: grid;
 	padding: 2rem 5%;
 	text-align: center;
-	align-items: start;
+	align-items: stretch;
 	grid-row-gap: 2rem;
 	margin-bottom: 4rem;
 	justify-items: stretch;
 	grid-column-gap: 5%;
-	grid-template-rows: 0.3fr 1fr 1fr;
+	grid-template-rows: 0.2fr 1fr 1fr;
 	grid-template-columns: clamp(15rem, 17.5vw, 25rem) 1fr 0.9fr 0.9fr;
 
 	p
@@ -177,166 +177,176 @@ main
 		}
 	}
 
-	#overview
+	#state
 	{
-		// État général.
-		grid-area: 2 / 3 / 4 / 4;
-		box-shadow: none;
+		// Aperçu de l'état.
+		color: $text-color;
+		padding: 1rem;
+		grid-area: 2 / 3 / 3 / 4;
+		border-radius: 0.5rem;
+		background-color: $box-color;
 
-		#state
+		h3
 		{
-			// Aperçu de l'état.
-			color: $text-color;
-			padding: 1rem;
-			grid-area: 2 / 3 / 3 / 4;
-			border-radius: 0.5rem;
-			background-color: $box-color;
-
-			h3
-			{
-				// Titre de l'article.
-				margin: 1rem 0.5rem 2rem 0.5rem;
-				font-size: 1.5rem;
-			}
-
-			ul li
-			{
-				// Liste des indicateurs.
-				.circle
-				{
-					// Couleur de l'état.
-					top: 2px;
-					width: 1rem;
-					height: 1rem;
-					display: inline-block;
-					position: relative;
-					border-radius: 50%;
-					background-color: $validate-color;
-				}
-
-				&:nth-of-type(2) .circle
-				{
-					// État de démonstration (doit être supprimé à l'avenir).
-					background-color: $error-color;
-				}
-
-				h4
-				{
-					// Titre de l'indicateur.
-					margin: 0 0 0.5rem 0.5rem;
-					display: inline-block;
-					text-transform: uppercase;
-				}
-
-				em
-				{
-					// Information de l'état.
-					color: $background-color;
-					display: block;
-					margin-bottom: 1.5rem;
-				}
-			}
+			// Titre de l'article.
+			margin: 1rem 0.5rem 2rem 0.5rem;
+			font-size: 1.5rem;
 		}
 
-		#actions
+		ul li
 		{
-			// Actions rapides.
-			padding: 1rem;
-			grid-area: 3 / 3 / 4 / 4;
-			margin-top: 1rem;
-			border-radius: 0.5rem;
-			background-color: $box-color;
-
-			h3
+			// Liste des indicateurs.
+			.circle
 			{
-				// Titre de l'article.
-				color: $text-color;
-				margin: 1rem 0.5rem 2rem 0.5rem;
-				font-size: 1.5rem;
+				// Couleur de l'état.
+				top: 2px;
+				width: 1rem;
+				height: 1rem;
+				display: inline-block;
+				position: relative;
+				border-radius: 50%;
+				background-color: $validate-color;
 			}
 
-			ul li
+			&:nth-of-type(2) .circle
 			{
-				// Liste des actions.
-				color: $background-color;
-				border: 1px solid $background-color;
-				padding: 0.5rem 1.5rem;
-				position: relative;
-				font-weight: bold;
-				border-radius: 0.5rem;
-				margin-bottom: 0.5rem;
+				// État de démonstration (doit être supprimé à l'avenir).
+				background-color: $error-color;
+			}
+
+			h4
+			{
+				// Titre de l'indicateur.
+				margin: 0 0 0.5rem 0.5rem;
+				display: inline-block;
 				text-transform: uppercase;
+			}
 
-				em
-				{
-					// Intitulé de l'action.
-					display: block;
-					font-size: 0.75rem;
-					font-weight: normal;
-				}
+			em
+			{
+				// Information de l'état.
+				color: $background-color;
+				display: block;
+				margin-bottom: 1.5rem;
+			}
+		}
+	}
 
-				&:first-of-type
-				{
-					// Arrêt du serveur.
-					background-color: $error-color;
+	#stats
+	{
+		// Statistiques importantes.
+		color: $text-color;
+		padding: 1rem;
+		grid-area: 3 / 3 / 4 / 4;
+		border-radius: 0.5rem;
+		background-color: $box-color;
 
-					&:hover
-					{
-						color: $error-color;
+		h3
+		{
+			// Titre de l'article.
+			color: $text-color;
+			margin: 1rem 0.5rem 2rem 0.5rem;
+			font-size: 1.5rem;
+		}
+	}
 
-						em
-						{
-							// Intitulé de l'action.
-							font-weight: bold;
-						}
-					}
-				}
+	#actions
+	{
+		// Actions rapides.
+		padding: 1rem;
+		grid-area: 2 / 4 / 3 / 5;
+		border-radius: 0.5rem;
+		background-color: $box-color;
 
-				&:nth-of-type(2)
-				{
-					// Redémarrage du serveur.
-					background-color: $validate-color;
+		h3
+		{
+			// Titre de l'article.
+			color: $text-color;
+			margin: 1rem 0.5rem 2rem 0.5rem;
+			font-size: 1.5rem;
+		}
 
-					&:hover
-					{
-						color: $validate-color;
-					}
-				}
+		ul li
+		{
+			// Liste des actions.
+			color: $background-color;
+			border: 1px solid $background-color;
+			padding: 0.5rem 1.5rem;
+			position: relative;
+			font-weight: bold;
+			border-radius: 0.5rem;
+			margin-bottom: 0.5rem;
+			text-transform: uppercase;
 
-				&:nth-of-type(3)
-				{
-					// Mise à jour du serveur.
-					background-color: $info-color;
+			em
+			{
+				// Intitulé de l'action.
+				display: block;
+				font-size: 0.75rem;
+				font-weight: normal;
+			}
 
-					&:hover
-					{
-						color: $info-color;
-					}
-				}
-
-				&:last-of-type
-				{
-					// Maintenance du serveur.
-					background-color: $special-color;
-
-					&:hover
-					{
-						color: $special-color;
-					}
-				}
+			&:first-of-type
+			{
+				// Arrêt du serveur.
+				background-color: $error-color;
 
 				&:hover
 				{
-					// Effet de sélection.
-					cursor: pointer;
-					background-color: $background-color;
-				}
+					color: $error-color;
 
-				&::after
-				{
-					// Amélioration de la zone de sélection.
-					@extend %larger-touch-zone;
+					em
+					{
+						// Intitulé de l'action.
+						font-weight: bold;
+					}
 				}
+			}
+
+			&:nth-of-type(2)
+			{
+				// Redémarrage du serveur.
+				background-color: $validate-color;
+
+				&:hover
+				{
+					color: $validate-color;
+				}
+			}
+
+			&:nth-of-type(3)
+			{
+				// Mise à jour du serveur.
+				background-color: $info-color;
+
+				&:hover
+				{
+					color: $info-color;
+				}
+			}
+
+			&:last-of-type
+			{
+				// Maintenance du serveur.
+				background-color: $special-color;
+
+				&:hover
+				{
+					color: $special-color;
+				}
+			}
+
+			&:hover
+			{
+				// Effet de sélection.
+				cursor: pointer;
+				background-color: $background-color;
+			}
+
+			&::after
+			{
+				// Amélioration de la zone de sélection.
+				@extend %larger-touch-zone;
 			}
 		}
 	}
@@ -346,7 +356,7 @@ main
 		// Dernière action réalisée.
 		color: $text-color;
 		padding: 1rem;
-		grid-area: 2 / 4 / 3 / 5;
+		grid-area: 3 / 4 / 4 / 5;
 		border-radius: 0.5rem;
 		background-color: $box-color;
 
@@ -396,24 +406,6 @@ main
 				font-size: initial;
 				margin-bottom: 1.5rem;
 			}
-		}
-	}
-
-	#stats
-	{
-		// Statistiques importantes.
-		color: $text-color;
-		padding: 1rem;
-		grid-area: 3 / 4 / 4 / 5;
-		border-radius: 0.5rem;
-		background-color: $box-color;
-
-		h3
-		{
-			// Titre de l'article.
-			color: $text-color;
-			margin: 1rem 0.5rem 2rem 0.5rem;
-			font-size: 1.5rem;
 		}
 	}
 }

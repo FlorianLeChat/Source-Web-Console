@@ -683,9 +683,12 @@ main nav ul li.active i, main nav ul li.active span, main nav ul li:hover i, mai
 }
 main #controller {
   color: #f59a23;
+  height: 60vh;
   padding: 1rem;
+  display: flex;
   grid-area: 2/2/3/3;
   border-radius: 0.5rem;
+  flex-direction: column;
   background-color: #333333;
 }
 main #controller h2 {
@@ -710,8 +713,8 @@ main #controller button:hover {
 }
 main #controller ul {
   color: #f2f2f2;
-  height: 35vh;
   margin: 1.25rem 0.25rem 0 0.25rem;
+  overflow-y: auto;
   text-align: left;
 }
 main #controller ul li {
@@ -727,9 +730,12 @@ main #controller ul li:hover {
 }
 main #terminal {
   color: #f59a23;
+  height: 60vh;
   padding: 1rem;
+  display: flex;
   grid-area: 2/3/3/4;
   border-radius: 0.5rem;
+  flex-direction: column;
   background-color: #333333;
 }
 main #terminal h2 {
@@ -737,7 +743,6 @@ main #terminal h2 {
   font-size: 1.75rem;
 }
 main #terminal ul {
-  height: 40vh;
   padding: 0.25rem;
   overflow: auto;
   background-color: black;

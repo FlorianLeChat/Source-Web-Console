@@ -12,7 +12,7 @@ ul, ol {
 }
 
 @media screen and (max-width: 1024px) {
-  main #overview #actions ul li::after, main #servers ul li button::after, main nav ul li a i + span::after, footer ul li a span::after, #tips button::after {
+  main #actions ul li::after, main #servers ul li button::after, main nav ul li a i + span::after, footer ul li a span::after, #tips button::after {
     top: -0.5rem;
     left: -0.5rem;
     right: -0.5rem;
@@ -630,12 +630,12 @@ main {
   display: grid;
   padding: 2rem 5%;
   text-align: center;
-  align-items: start;
+  align-items: stretch;
   grid-row-gap: 2rem;
   margin-bottom: 4rem;
   justify-items: stretch;
   grid-column-gap: 5%;
-  grid-template-rows: 0.3fr 1fr 1fr;
+  grid-template-rows: 0.2fr 1fr 1fr;
   grid-template-columns: clamp(15rem, 17.5vw, 25rem) 1fr 0.9fr 0.9fr;
 }
 main p {
@@ -770,22 +770,18 @@ main #servers > span {
   font-size: 1.25rem;
   font-weight: bold;
 }
-main #overview {
-  grid-area: 2/3/4/4;
-  box-shadow: none;
-}
-main #overview #state {
+main #state {
   color: #f59a23;
   padding: 1rem;
   grid-area: 2/3/3/4;
   border-radius: 0.5rem;
   background-color: #333333;
 }
-main #overview #state h3 {
+main #state h3 {
   margin: 1rem 0.5rem 2rem 0.5rem;
   font-size: 1.5rem;
 }
-main #overview #state ul li .circle {
+main #state ul li .circle {
   top: 2px;
   width: 1rem;
   height: 1rem;
@@ -794,32 +790,43 @@ main #overview #state ul li .circle {
   border-radius: 50%;
   background-color: #558c03;
 }
-main #overview #state ul li:nth-of-type(2) .circle {
+main #state ul li:nth-of-type(2) .circle {
   background-color: #ed431d;
 }
-main #overview #state ul li h4 {
+main #state ul li h4 {
   margin: 0 0 0.5rem 0.5rem;
   display: inline-block;
   text-transform: uppercase;
 }
-main #overview #state ul li em {
+main #state ul li em {
   color: #f2f2f2;
   display: block;
   margin-bottom: 1.5rem;
 }
-main #overview #actions {
+main #stats {
+  color: #f59a23;
   padding: 1rem;
   grid-area: 3/3/4/4;
-  margin-top: 1rem;
   border-radius: 0.5rem;
   background-color: #333333;
 }
-main #overview #actions h3 {
+main #stats h3 {
   color: #f59a23;
   margin: 1rem 0.5rem 2rem 0.5rem;
   font-size: 1.5rem;
 }
-main #overview #actions ul li {
+main #actions {
+  padding: 1rem;
+  grid-area: 2/4/3/5;
+  border-radius: 0.5rem;
+  background-color: #333333;
+}
+main #actions h3 {
+  color: #f59a23;
+  margin: 1rem 0.5rem 2rem 0.5rem;
+  font-size: 1.5rem;
+}
+main #actions ul li {
   color: #f2f2f2;
   border: 1px solid #f2f2f2;
   padding: 0.5rem 1.5rem;
@@ -829,46 +836,46 @@ main #overview #actions ul li {
   margin-bottom: 0.5rem;
   text-transform: uppercase;
 }
-main #overview #actions ul li em {
+main #actions ul li em {
   display: block;
   font-size: 0.75rem;
   font-weight: normal;
 }
-main #overview #actions ul li:first-of-type {
+main #actions ul li:first-of-type {
   background-color: #ed431d;
 }
-main #overview #actions ul li:first-of-type:hover {
+main #actions ul li:first-of-type:hover {
   color: #ed431d;
 }
-main #overview #actions ul li:first-of-type:hover em {
+main #actions ul li:first-of-type:hover em {
   font-weight: bold;
 }
-main #overview #actions ul li:nth-of-type(2) {
+main #actions ul li:nth-of-type(2) {
   background-color: #558c03;
 }
-main #overview #actions ul li:nth-of-type(2):hover {
+main #actions ul li:nth-of-type(2):hover {
   color: #558c03;
 }
-main #overview #actions ul li:nth-of-type(3) {
+main #actions ul li:nth-of-type(3) {
   background-color: #016fa0;
 }
-main #overview #actions ul li:nth-of-type(3):hover {
+main #actions ul li:nth-of-type(3):hover {
   color: #016fa0;
 }
-main #overview #actions ul li:last-of-type {
+main #actions ul li:last-of-type {
   background-color: #4a237a;
 }
-main #overview #actions ul li:last-of-type:hover {
+main #actions ul li:last-of-type:hover {
   color: #4a237a;
 }
-main #overview #actions ul li:hover {
+main #actions ul li:hover {
   cursor: pointer;
   background-color: #f2f2f2;
 }
 main #last {
   color: #f59a23;
   padding: 1rem;
-  grid-area: 2/4/3/5;
+  grid-area: 3/4/4/5;
   border-radius: 0.5rem;
   background-color: #333333;
 }
@@ -898,16 +905,4 @@ main #last ul li em {
   display: block;
   font-size: initial;
   margin-bottom: 1.5rem;
-}
-main #stats {
-  color: #f59a23;
-  padding: 1rem;
-  grid-area: 3/4/4/5;
-  border-radius: 0.5rem;
-  background-color: #333333;
-}
-main #stats h3 {
-  color: #f59a23;
-  margin: 1rem 0.5rem 2rem 0.5rem;
-  font-size: 1.5rem;
 }

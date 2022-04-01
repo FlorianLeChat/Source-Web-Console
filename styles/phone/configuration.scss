@@ -70,12 +70,16 @@ main
 	#stockage
 	{
 		// Modification de la grille.
+		height: auto;
+		display: revert;
 		grid-area: 3 / 1 / 4 / 2;
 	}
 
 	#parameters
 	{
 		// Modification de la grille.
+		height: auto;
+		display: revert;
 		grid-area: 4 / 1 / 5 / 2;
 	}
 }

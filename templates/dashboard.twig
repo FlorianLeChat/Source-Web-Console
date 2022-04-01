@@ -79,63 +79,80 @@
 		</button>
 	</section>
 
-	{# Aperçu de l'état #}
-	<section id="overview">
-		{# État général #}
-		<article id="state">
-			<h3>État général</h3>
+	{# État général #}
+	<section id="state">
+		{# Titre de la section #}
+		<h3>État général</h3>
 
-			<ul>
-				<li>
-					{# Première information #}
-					<div class="circle"></div>
-					<h4>Lorem ipsum</h4>
-					<em>Lorem ipsum dolor sit amet</em>
-				</li>
+		<ul>
+			<li>
+				{# Première information #}
+				<div class="circle"></div>
+				<h4>Lorem ipsum</h4>
+				<em>Lorem ipsum dolor sit amet</em>
+			</li>
 
-				<li>
-					{# Deuxième information #}
-					<div class="circle"></div>
-					<h4>Lorem ipsum</h4>
-					<em>Lorem ipsum dolor sit amet</em>
-				</li>
+			<li>
+				{# Deuxième information #}
+				<div class="circle"></div>
+				<h4>Lorem ipsum</h4>
+				<em>Lorem ipsum dolor sit amet</em>
+			</li>
 
-				<li>
-					{# Troisième information #}
-					<div class="circle"></div>
-					<h4>Lorem ipsum</h4>
-					<em>Lorem ipsum dolor sit amet</em>
-				</li>
-			</ul>
-		</article>
+			<li>
+				{# Troisième information #}
+				<div class="circle"></div>
+				<h4>Lorem ipsum</h4>
+				<em>Lorem ipsum dolor sit amet</em>
+			</li>
+		</ul>
+	</section>
 
-		{# Actions rapides #}
-		<article id="actions">
-			<h3>Actions rapides</h3>
+	{# Statistiques importantes #}
+	<section id="stats">
+		{# Titre de la section #}
+		<h3>Statistiques</h3>
 
-			<ul>
-				<li>
-					{# Arrêter le serveur #}
-					Arrêter
-					<em>Maintenez pour forcer l'arrêt</em>
-				</li>
+		{# Description de la section #}
+		<p>Lorem ipsum dolor sit amet</p>
 
-				<li>
-					{# Redémarrer le serveur #}
-					Redémarrer
-				</li>
+		{# Graphiques simplifiées #}
+		<div class="chart"></div>
 
-				<li>
-					{# Mettre à jour le serveur #}
-					Mettre à jour
-				</li>
+		<ul>
+			<li class="circle"></li>
+			<li class="circle"></li>
+			<li class="circle"></li>
+		</ul>
+	</section>
 
-				<li>
-					{# Passer en mode de maintenance #}
-					Maintenance
-				</li>
-			</ul>
-		</article>
+	{# Actions rapides #}
+	<section id="actions">
+		{# Titre de la section #}
+		<h3>Actions rapides</h3>
+
+		<ul>
+			<li>
+				{# Arrêter le serveur #}
+				Arrêter
+				<em>Maintenez pour forcer l'arrêt</em>
+			</li>
+
+			<li>
+				{# Redémarrer le serveur #}
+				Redémarrer
+			</li>
+
+			<li>
+				{# Mettre à jour le serveur #}
+				Mettre à jour
+			</li>
+
+			<li>
+				{# Passer en mode de maintenance #}
+				Maintenance
+			</li>
+		</ul>
 	</section>
 
 	{# Dernière action réalisée #}
@@ -165,24 +182,6 @@
 				<span>XXhXX</span>
 				<em>Lorem ipsum dolor sit amet</em>
 			</li>
-		</ul>
-	</section>
-
-	{# Statistiques importantes #}
-	<section id="stats">
-		{# Titre de la section #}
-		<h3>Statistiques</h3>
-
-		{# Description de la section #}
-		<p>Lorem ipsum dolor sit amet</p>
-
-		{# Graphiques simplifiées #}
-		<div class="chart"></div>
-
-		<ul>
-			<li class="circle"></li>
-			<li class="circle"></li>
-			<li class="circle"></li>
 		</ul>
 	</section>
 {% endblock %}
