@@ -37,29 +37,25 @@ main
 		grid-area: 3 / 1 / 5 / 2;
 	}
 
-	#overview
+	#state
 	{
-		// Modification des grilles.
-		grid-area: 3 / 2 / 5 / 3;
-
-		#state
-		{
-			grid-area: 3 / 2 / 4 / 3;
-		}
-
-		#actions
-		{
-			grid-area: 4 / 2 / 5 / 3;
-		}
+		// Modification de la grille.
+		grid-area: 3 / 2 / 4 / 3;
 	}
 
-	#last
+	#stats
+	{
+		// Modification de la grille.
+		grid-area: 4 / 2 / 5 / 3;
+	}
+
+	#actions
 	{
 		// Modification de la grille.
 		grid-area: 3 / 3 / 4 / 4;
 	}
 
-	#stats
+	#last
 	{
 		// Modification de la grille.
 		grid-area: 4 / 3 / 5 / 4;
