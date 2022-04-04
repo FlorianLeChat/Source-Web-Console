@@ -80,10 +80,11 @@ main
 						display: block;
 					}
 
-					&.passed
+					&.finished
 					{
 						// Date de déclenchement passée.
 						color: $background-color;
+						text-decoration: line-through $background-color;
 						background-color: $error-color;
 					}
 				}
