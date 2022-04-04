@@ -23,37 +23,37 @@ ul, ol {
 }
 
 #signup article form input[type=reset], #signin form input[type=reset], #contact form input[type=reset] {
-  color: #f2f2f2;
+  color: rgb(242, 242, 242);
   cursor: pointer;
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   margin-right: 0.25rem;
   border-radius: 0.25rem;
-  background-color: #ed431d;
+  background-color: rgb(237, 67, 29);
 }
 #signup article form input[type=reset]:hover, #signin form input[type=reset]:hover, #contact form input[type=reset]:hover {
-  color: #ed431d;
+  color: rgb(237, 67, 29);
   font-weight: bold;
-  background-color: #f2f2f2;
+  background-color: rgb(242, 242, 242);
 }
 
 #signup article form input[type=submit], #signin form input[type=submit], #contact form input[type=submit] {
-  color: #f2f2f2;
+  color: rgb(242, 242, 242);
   cursor: pointer;
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   margin-left: 0.25rem;
   border-radius: 0.25rem;
-  background-color: #558c03;
+  background-color: rgb(85, 140, 3);
 }
 #signup article form input[type=submit]:hover, #signin form input[type=submit]:hover, #contact form input[type=submit]:hover {
-  color: #558c03;
+  color: rgb(85, 140, 3);
   font-weight: bold;
-  background-color: #f2f2f2;
+  background-color: rgb(242, 242, 242);
 }
 
 html {
-  color: #333333;
+  color: rgb(51, 51, 51);
   -webkit-hyphens: auto;
       -ms-hyphens: auto;
           hyphens: auto;
@@ -92,22 +92,22 @@ video {
 
 button {
   cursor: pointer;
-  box-shadow: 0.25rem 0.25rem 0.25rem #797979;
+  box-shadow: 0.25rem 0.25rem 0.25rem rgb(121, 121, 121);
 }
 
 noscript {
   top: 1rem;
   right: 1rem;
-  color: #f2f2f2;
+  color: rgb(242, 242, 242);
   padding: 0.5rem;
   z-index: 10;
   position: fixed;
   margin-left: 6rem;
-  background-color: #ed431d;
+  background-color: rgb(237, 67, 29);
 }
 
 nav, section, article {
-  box-shadow: 0.5rem 0.5rem 0.5rem #797979;
+  box-shadow: 0.5rem 0.5rem 0.5rem rgb(121, 121, 121);
 }
 
 input, textarea, select {
@@ -117,13 +117,13 @@ input, textarea, select {
 }
 
 ::-moz-selection {
-  color: #f59a23;
-  background-color: #333333;
+  color: rgb(245, 154, 35);
+  background-color: rgb(51, 51, 51);
 }
 
 ::selection {
-  color: #f59a23;
-  background-color: #333333;
+  color: rgb(245, 154, 35);
+  background-color: rgb(51, 51, 51);
 }
 
 ::-webkit-scrollbar {
@@ -131,26 +131,26 @@ input, textarea, select {
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #f2f2f2;
+  background-color: rgb(242, 242, 242);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #333333;
+  background-color: rgb(51, 51, 51);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #f59a23;
+  background-color: rgb(245, 154, 35);
 }
 
 header {
-  color: #f59a23;
+  color: rgb(245, 154, 35);
   height: 6.25rem;
   padding: 0.5rem;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  background-color: #333333;
+  background-color: rgb(51, 51, 51);
 }
 header img {
   width: 8rem;
@@ -179,7 +179,7 @@ header #search i {
 header #search span {
   top: 1.75rem;
   right: 12rem;
-  color: #f2f2f2;
+  color: rgb(242, 242, 242);
   position: absolute;
 }
 header #search input {
@@ -202,28 +202,28 @@ header #search input::placeholder {
   position: relative;
 }
 header #search input:focus {
-  box-shadow: inset 0 0 0 3px #f59a23;
+  box-shadow: inset 0 0 0 3px rgb(245, 154, 35);
 }
 header #search input:focus + ul {
   top: 6rem;
   right: 10rem;
   width: 185px;
-  border: 1px solid #797979;
+  border: 1px solid rgb(121, 121, 121);
   display: block;
   position: absolute;
-  background-color: #333333;
+  background-color: rgb(51, 51, 51);
 }
 header #search input:focus + ul li {
   padding: 0.5rem;
-  border-bottom: 1px solid #f2f2f2;
+  border-bottom: 1px solid rgb(242, 242, 242);
 }
 header #search input:focus + ul li:last-of-type {
   border-bottom: none;
 }
 header #search input:focus + ul li:hover {
-  color: #333333;
+  color: rgb(51, 51, 51);
   cursor: pointer;
-  background-color: #f2f2f2;
+  background-color: rgb(242, 242, 242);
 }
 header #search input + ul {
   display: none;
@@ -237,19 +237,19 @@ header a i {
 header a span {
   top: 3.75rem;
   right: 1rem;
-  color: #f2f2f2;
+  color: rgb(242, 242, 242);
   position: absolute;
   text-align: center;
 }
 header a:hover i {
-  color: #f2f2f2;
+  color: rgb(242, 242, 242);
 }
 
 #signup article, #signin, #contact {
   top: calc(50% - 1.75rem);
   left: 50%;
   width: 50%;
-  border: 1px solid #f59a23;
+  border: 1px solid rgb(245, 154, 35);
   z-index: 1;
   padding: 2rem;
   display: none;
@@ -259,7 +259,7 @@ header a:hover i {
   overflow-y: auto;
   max-height: 75vh;
   text-align: center;
-  background-color: #f2f2f2;
+  background-color: rgb(242, 242, 242);
 }
 @media screen and (max-width: 1023px) {
   #signup article, #signin, #contact {
@@ -273,7 +273,7 @@ header a:hover i {
 #signup article i, #signin i, #contact i {
   left: 1rem;
   float: left;
-  color: #ed431d;
+  color: rgb(237, 67, 29);
   position: relative;
   font-size: 2rem;
   margin-right: 1rem;
@@ -285,11 +285,11 @@ header a:hover i {
   padding: 1rem;
   margin-top: 1.5rem;
   border-radius: 0.5rem;
-  background-color: #333333;
+  background-color: rgb(51, 51, 51);
 }
 #signup article form p.error, #signup article form p.success, #signin form p.error, #signin form p.success, #contact form p.error, #contact form p.success {
-  color: #ed431d;
-  border: 2px solid #ed431d;
+  color: rgb(237, 67, 29);
+  border: 2px solid rgb(237, 67, 29);
   padding: 0.5rem;
   display: none;
   font-style: normal;
@@ -298,41 +298,41 @@ header a:hover i {
   text-transform: uppercase;
 }
 #signup article form p.success, #signin form p.success, #contact form p.success {
-  color: #558c03;
-  border: 2px solid #558c03;
+  color: rgb(85, 140, 3);
+  border: 2px solid rgb(85, 140, 3);
   text-transform: none;
 }
 #signup article form p.capslock, #signin form p.capslock, #contact form p.capslock {
-  color: #ed431d;
+  color: rgb(237, 67, 29);
   font-size: 110%;
   font-weight: bold;
   text-transform: uppercase;
 }
 #signup article form em, #signin form em, #contact form em {
-  color: #f2f2f2;
+  color: rgb(242, 242, 242);
   display: block;
   text-align: justify;
   line-height: 2;
   margin-bottom: 1.5rem;
 }
 #signup article form a, #signin form a, #contact form a {
-  color: #f59a23;
+  color: rgb(245, 154, 35);
   text-decoration: underline;
 }
 #signup article form a:hover, #signin form a:hover, #contact form a:hover {
-  color: #333333;
+  color: rgb(51, 51, 51);
   font-weight: bold;
-  background-color: #f59a23;
+  background-color: rgb(245, 154, 35);
 }
 #signup article form hr, #signin form hr, #contact form hr {
   margin: 1.5rem 0 2rem;
-  border-color: #f2f2f2;
+  border-color: rgb(242, 242, 242);
 }
 #signup article form label, #signin form label, #contact form label {
-  color: #f59a23;
+  color: rgb(245, 154, 35);
 }
 #signup article form label > span, #signin form label > span, #contact form label > span {
-  color: #ed431d;
+  color: rgb(237, 67, 29);
 }
 #signup article form input[type=text], #signup article form input[type=email], #signup article form input[type=password], #signup article form textarea, #signup article form select, #signin form input[type=text], #signin form input[type=email], #signin form input[type=password], #signin form textarea, #signin form select, #contact form input[type=text], #contact form input[type=email], #contact form input[type=password], #contact form textarea, #contact form select {
   width: calc(100% - 2rem);
@@ -352,7 +352,7 @@ header a:hover i {
   margin-left: 0.5rem;
 }
 #signup article form input[type=checkbox]:checked, #signin form input[type=checkbox]:checked, #contact form input[type=checkbox]:checked {
-  box-shadow: 0 0 0 3px #f59a23;
+  box-shadow: 0 0 0 3px rgb(245, 154, 35);
 }
 #signup article form select, #signin form select, #contact form select {
   cursor: pointer;
@@ -372,12 +372,12 @@ header a:hover i {
   margin-top: 0.75rem;
 }
 #signup article form input:valid + span::before, #signup article form textarea:valid + span::before, #signin form input:valid + span::before, #signin form textarea:valid + span::before, #contact form input:valid + span::before, #contact form textarea:valid + span::before {
-  color: #558c03;
+  color: rgb(85, 140, 3);
   content: "✓";
   font-size: 1.5rem;
 }
 #signup article form input:invalid + span::before, #signup article form textarea:invalid + span::before, #signin form input:invalid + span::before, #signin form textarea:invalid + span::before, #contact form input:invalid + span::before, #contact form textarea:invalid + span::before {
-  color: #ed431d;
+  color: rgb(237, 67, 29);
   content: "✖";
   font-size: 1.5rem;
 }
@@ -391,22 +391,22 @@ header a:hover i {
   font-weight: bold;
 }
 #signup article ul li, #signin ul li, #contact ul li {
-  color: #f59a23;
+  color: rgb(245, 154, 35);
   display: inline;
   padding: 0.25rem 0.5rem;
   margin-right: 0.25rem;
-  background-color: #333333;
+  background-color: rgb(51, 51, 51);
 }
 #signup article ul li.active, #signin ul li.active, #contact ul li.active {
-  color: #333333;
-  background-color: #f59a23;
+  color: rgb(51, 51, 51);
+  background-color: rgb(245, 154, 35);
 }
 
 #notifications {
   left: 50%;
-  color: #f2f2f2;
+  color: rgb(242, 242, 242);
   bottom: 4.375rem;
-  border: 3px solid #797979;
+  border: 3px solid rgb(121, 121, 121);
   display: none;
   padding: 1rem;
   position: fixed;
@@ -421,13 +421,13 @@ header a:hover i {
   font-size: 1.5rem;
 }
 #notifications.error {
-  background-color: #ed431d;
+  background-color: rgb(237, 67, 29);
 }
 #notifications.success {
-  background-color: #558c03;
+  background-color: rgb(85, 140, 3);
 }
 #notifications.info {
-  background-color: #016fa0;
+  background-color: rgb(1, 111, 160);
 }
 #notifications.show {
   gap: 0.75rem;
@@ -486,34 +486,34 @@ header a:hover i {
   margin-left: 1rem;
 }
 #tips button {
-  color: #f59a23;
+  color: rgb(245, 154, 35);
   width: 3rem;
   right: 0.5rem;
   height: 3rem;
   bottom: 4.25rem;
-  border: 1px solid #797979;
+  border: 1px solid rgb(121, 121, 121);
   position: fixed;
   font-size: 1.5rem;
   font-weight: bold;
   border-radius: 50%;
-  background-color: #333333;
+  background-color: rgb(51, 51, 51);
 }
 #tips button:hover {
-  color: #333333;
-  background-color: #f59a23;
+  color: rgb(51, 51, 51);
+  background-color: rgb(245, 154, 35);
 }
 #tips button:hover + span {
-  color: #f59a23;
+  color: rgb(245, 154, 35);
   right: 4rem;
   bottom: 4.6rem;
-  border: 1px solid #797979;
+  border: 1px solid rgb(121, 121, 121);
   padding: 0.5rem;
   display: inline-block;
   position: fixed;
-  background-color: #333333;
+  background-color: rgb(51, 51, 51);
 }
 footer {
-  color: #f59a23;
+  color: rgb(245, 154, 35);
   width: calc(100% - 2rem);
   height: 1.75rem;
   bottom: -1px;
@@ -525,7 +525,7 @@ footer {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  background-color: #333333;
+  background-color: rgb(51, 51, 51);
 }
 footer ul li {
   display: inline-block;
@@ -535,11 +535,11 @@ footer ul li {
 }
 @media screen and (max-width: 768px) {
   footer ul li a i:hover {
-    color: #f2f2f2;
+    color: rgb(242, 242, 242);
   }
 }
 footer ul li a span {
-  color: #f2f2f2;
+  color: rgb(242, 242, 242);
 }
 @media screen and (max-width: 768px) {
   footer ul li a span {
@@ -547,9 +547,9 @@ footer ul li a span {
   }
 }
 footer ul li a span:hover {
-  color: #333333;
+  color: rgb(51, 51, 51);
   font-weight: bold;
-  background-color: #f59a23;
+  background-color: rgb(245, 154, 35);
 }
 footer ul li img {
   margin-right: 0.25rem;
@@ -568,10 +568,10 @@ footer ul li:last-of-type ul li {
   margin: 0.5rem 0 0;
 }
 footer ul li:last-of-type ul li button {
-  color: #333333;
+  color: rgb(51, 51, 51);
   padding: 0.5rem;
   border-radius: 0.5rem;
-  background-color: #f59a23;
+  background-color: rgb(245, 154, 35);
 }
 footer ul li:last-of-type ul li button img {
   width: 2rem;
@@ -582,8 +582,8 @@ footer ul li:last-of-type ul li button span {
   font-weight: bold;
 }
 footer ul li:last-of-type ul li button:hover {
-  color: #f59a23;
-  background-color: #333333;
+  color: rgb(245, 154, 35);
+  background-color: rgb(51, 51, 51);
 }
 footer ul li:last-of-type ul li:last-of-type::after {
   bottom: -4rem;
@@ -606,13 +606,13 @@ footer ul li:last-of-type:hover ul {
   display: block;
 }
 footer ul li:last-of-type:hover i {
-  color: #f2f2f2;
+  color: rgb(242, 242, 242);
 }
 footer article {
   top: 0.5rem;
   height: 0.25rem;
   position: relative;
-  background: #797979;
+  background: rgb(121, 121, 121);
   box-shadow: none;
 }
 @media screen and (min-width: 1024px) {
@@ -623,7 +623,7 @@ footer article {
 footer article div {
   width: 0;
   height: 0.25rem;
-  background: #f59a23;
+  background: rgb(245, 154, 35);
 }
 
 main {
@@ -644,22 +644,22 @@ main p {
 }
 main nav {
   grid-area: 2/1/3/2;
-  border: 1px solid #797979;
+  border: 1px solid rgb(121, 121, 121);
   padding: 1rem;
   border-radius: 0.5rem;
   background-color: rgba(121, 121, 121, 0.5);
 }
 main nav h2 {
-  color: #333333;
+  color: rgb(51, 51, 51);
   margin: 1rem 0.5rem 2rem 0.5rem;
   font-size: 1.75rem;
 }
 main nav ul li {
-  color: #f59a23;
+  color: rgb(245, 154, 35);
   cursor: pointer;
   padding: 0.75rem;
   font-size: 1.25rem;
-  box-shadow: 0.25rem 0.25rem 0.25rem #797979;
+  box-shadow: 0.25rem 0.25rem 0.25rem rgb(121, 121, 121);
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -667,7 +667,7 @@ main nav ul li {
   font-weight: bold;
   border-radius: 0.5rem;
   margin-bottom: 0.5rem;
-  background-color: #333333;
+  background-color: rgb(51, 51, 51);
 }
 main nav ul li a i {
   margin-right: 0.5rem;
@@ -676,20 +676,20 @@ main nav ul li a i + span {
   position: relative;
 }
 main nav ul li.active, main nav ul li:hover {
-  background-color: #f59a23;
+  background-color: rgb(245, 154, 35);
 }
 main nav ul li.active i, main nav ul li.active span, main nav ul li:hover i, main nav ul li:hover span {
-  color: #333333;
+  color: rgb(51, 51, 51);
 }
 main #controller {
-  color: #f59a23;
+  color: rgb(245, 154, 35);
   height: 60vh;
   padding: 1rem;
   display: flex;
   grid-area: 2/2/3/3;
   border-radius: 0.5rem;
   flex-direction: column;
-  background-color: #333333;
+  background-color: rgb(51, 51, 51);
 }
 main #controller h2 {
   margin: 1rem 0.5rem 2rem 0.5rem;
@@ -702,17 +702,17 @@ main #controller input {
 main #controller button {
   top: 0.25rem;
   left: 0.25rem;
-  color: #f59a23;
+  color: rgb(245, 154, 35);
   position: relative;
   font-size: 1.5rem;
   background: none;
   box-shadow: none;
 }
 main #controller button:hover {
-  color: #f2f2f2;
+  color: rgb(242, 242, 242);
 }
 main #controller ul {
-  color: #f2f2f2;
+  color: rgb(242, 242, 242);
   margin: 1.25rem 0.25rem 0 0.25rem;
   overflow-y: auto;
   text-align: left;
@@ -720,23 +720,23 @@ main #controller ul {
 main #controller ul li {
   padding: 0.25rem;
   margin-bottom: 0.25rem;
-  background-color: #797979;
+  background-color: rgb(121, 121, 121);
 }
 main #controller ul li:hover {
-  color: #333333;
+  color: rgb(51, 51, 51);
   cursor: pointer;
-  background: #f59a23;
+  background: rgb(245, 154, 35);
   font-weight: bold;
 }
 main #terminal {
-  color: #f59a23;
+  color: rgb(245, 154, 35);
   height: 60vh;
   padding: 1rem;
   display: flex;
   grid-area: 2/3/3/4;
   border-radius: 0.5rem;
   flex-direction: column;
-  background-color: #333333;
+  background-color: rgb(51, 51, 51);
 }
 main #terminal h2 {
   margin: 1rem 0.5rem 2rem 0.5rem;
@@ -748,13 +748,13 @@ main #terminal ul {
   background-color: black;
 }
 main #terminal ul li {
-  color: #f2f2f2;
+  color: rgb(242, 242, 242);
   text-align: left;
   margin-bottom: 0.25rem;
 }
 main #terminal ul li:hover {
   color: black;
-  background-color: #f2f2f2;
+  background-color: rgb(242, 242, 242);
 }
 
 main {

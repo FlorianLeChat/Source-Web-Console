@@ -11,7 +11,7 @@ main
 	display: grid;
 	padding: 2rem 5%;
 	text-align: center;
-	align-items: stretch;
+	align-items: start;
 	grid-row-gap: 2rem;
 	margin-bottom: 4rem;
 	justify-items: stretch;
@@ -181,8 +181,10 @@ main
 	{
 		// Aperçu de l'état.
 		color: $text-color;
+		height: 100%;
 		padding: 1rem;
 		grid-area: 2 / 3 / 3 / 4;
+		box-sizing: border-box;
 		border-radius: 0.5rem;
 		background-color: $box-color;
 
@@ -253,8 +255,10 @@ main
 	#actions
 	{
 		// Actions rapides.
+		height: 100%;
 		padding: 1rem;
 		grid-area: 2 / 4 / 3 / 5;
+		box-sizing: border-box;
 		border-radius: 0.5rem;
 		background-color: $box-color;
 
