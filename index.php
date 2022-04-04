@@ -1,12 +1,10 @@
 <?php
-	// Moteur TWIG.
-	require("includes/init_twig.php");
+	// Point d'entrée de l'environnement des scripts.
+	require_once("includes/controllers/_main.php");
 
-	// Variables fixes.
-	$page = $_GET["target"] ?? "index";
+	// Récupération des titres et sous-titres des pages.
 	$title = "Administration";
-	$language = "FR";
-	$titles = [
+	$subtitles = [
 		"dashboard" => "Tableau de bord",
 		"statistics" => "Statistiques",
 		"configuration" => "Configuration",
@@ -16,10 +14,11 @@
 		"help" => "Assistance utilisateur"
 	];
 
-	$html = $twig->render("$page.twig",
+	// Rendu final avec le moteur de modèles TWIG.
+	$html = $twig->render("$file.twig",
 	[
 		// Page entière.
-		"page_file" => $page,
+		"page_file" => $file,
 		"page_title" => "Source Web Console",
 		"page_language" => $language,
 
@@ -30,7 +29,7 @@
 
 		// En-tête de la page.
 		"header_title" => $title,
-		"header_subtitle" => $titles[$page] ?? $title
+		"header_subtitle" => $subtitles[$file] ?? $title
 	]);
 
 	echo($html);
