@@ -99,12 +99,13 @@ button {
 
 noscript {
   top: 1rem;
-  right: 1rem;
+  left: 1rem;
   color: rgb(242, 242, 242);
   padding: 0.5rem;
   z-index: 10;
   position: fixed;
-  margin-left: 6rem;
+  font-weight: bold;
+  margin-right: 1rem;
   background-color: rgb(237, 67, 29);
 }
 
