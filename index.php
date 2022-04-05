@@ -18,6 +18,7 @@
 		"header_phrases" => $translation->getPhrases("header"),
 
 		// Contenu de la page.
+		"form_phrases" => $translation->getPhrases("form"),
 		$file . "_phrases" => $translation->getPhrases($file),
 
 		// Sélecteur de langues.
