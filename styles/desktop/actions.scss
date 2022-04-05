@@ -71,6 +71,7 @@ main
 				padding: 0.5rem 1.5rem;
 				position: relative;
 				flex-grow: 1;
+				transition: background-color 250ms;
 				word-break: break-word;
 				font-weight: bold;
 				align-items: center;
@@ -339,6 +340,7 @@ main
 					color: $background-color;
 					position: relative;
 					box-shadow: none;
+					transition: background-color 250ms;
 
 					&:first-of-type
 					{
