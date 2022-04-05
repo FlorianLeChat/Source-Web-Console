@@ -5,24 +5,24 @@
 		{# Méta-données du document #}
 		<meta charset="utf-8" />
 		<meta name="Author" content="Florian Trayon" />
-		<meta name="description" content="{{ head_description }}" />
-		<meta name="keywords" lang="{{ page_language }}" content="{{ head_keywords }}" />
+		<meta name="description" content="{{ head_phrases["head_description"] }}" />
+		<meta name="keywords" lang="{{ page_language }}" content="console, source, webadmin, panel, custom, gmod, csgo, rust" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content="{{ head_url }}" />
-		<meta property="og:title" content="Source Web Console" />
-		<meta property="og:description" content="{{ head_description }}" />
+		<meta property="og:url" content="{{ global_url }}" />
+		<meta property="og:title" content="{{ head_phrases["head_title"] }}" />
+		<meta property="og:description" content="{{ head_phrases["head_description"] }}" />
 		<meta property="og:image" content="github_opengraph_url" />
 
 		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content="{{ head_url }}" />
-		<meta property="twitter:title" content="Source Web Console" />
-		<meta property="twitter:description" content="{{ head_description }}" />
+		<meta property="twitter:url" content="{{ global_url }}" />
+		<meta property="twitter:title" content="{{ head_phrases["head_title"] }}" />
+		<meta property="twitter:description" content="{{ head_phrases["head_description"] }}" />
 		<meta property="twitter:image" content="github_opengraph_url" />
 
 		{# Titre du document #}
-		<title>{{ page_title }}</title>
+		<title>{{ head_phrases["head_title"] }}</title>
 
 		{# Pré-connexion des ressources externes #}
 		<link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -37,9 +37,9 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css" crossorigin="anonymous" />
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" crossorigin="anonymous" />
 
-		<link rel="stylesheet" href="styles/phone/{{ page_file }}.css" media="screen and (max-width: 768px)" />
-		<link rel="stylesheet" href="styles/tablet/{{ page_file }}.css" media="screen and (min-width: 769px) and (max-width: 1023px)" />
-		<link rel="stylesheet" href="styles/desktop/{{ page_file }}.css" media="screen and (min-width: 1024px)"  />
+		<link rel="stylesheet" href="styles/phone/{{ global_file }}.css" media="screen and (max-width: 768px)" />
+		<link rel="stylesheet" href="styles/tablet/{{ global_file }}.css" media="screen and (min-width: 769px) and (max-width: 1023px)" />
+		<link rel="stylesheet" href="styles/desktop/{{ global_file }}.css" media="screen and (min-width: 1024px)"  />
 
 		{# Scripts JavaScript #}
 		<script src="https://www.googletagmanager.com/gtag/js?id=G-56KCE1D8JG" crossorigin="anonymous" defer></script>
@@ -63,7 +63,7 @@
 		<![endif]-->
 
 		<script src="scripts/main.js" defer></script>
-		<script src="scripts/{{ page_file }}.js" defer></script>
+		<script src="scripts/{{ global_file }}.js" defer></script>
 
 		{# Icône du document (16x16) #}
 		<link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
@@ -71,19 +71,19 @@
 
 	<body>
 		{# Avertissement page sans JavaScript #}
-		<noscript>Votre navigateur ne supporte pas ou refuse de charger le JavaScript.</noscript>
+		<noscript>{{ head_phrases["head_no_javascript"] }}</noscript>
 
 		{# En-tête de la page #}
 		<header>
 			{% block header %}
 				{# Logo du site #}
-				<img src="assets/images/placeholder.svg" alt="Logo du site" />
+				<img src="assets/images/placeholder.svg" alt="Logo" />
 
 				{# Titre du site #}
-				<h1>{{ header_title }}</h1>
+				<h1>{{ header_phrases["header_title"] }}</h1>
 
 				{# Sous-titre du site #}
-				<h2>{{ header_subtitle }}</h2>
+				<h2>{{ header_phrases["header_subtitle_" ~ global_file] }}</h2>
 
 				{# Barre de recherche #}
 				<div id="search">
@@ -185,7 +185,7 @@
 			{# Conteneur du bouton des astuces #}
 			<div id="tips">
 				<button type="button">?</button>
-				<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+				<span>{{ index_phrases["index_tips"] }}</span>
 			</div>
 		</main>
 
@@ -197,7 +197,7 @@
 					{# Bouton de retour à l'accueil #}
 					<a href="?target=index">
 						<i class="bi bi-house-door"></i>
-						<span>Accueil</span>
+						<span>{{ footer_phrases["footer_home"] }}</span>
 					</a>
 				</li>
 
@@ -205,7 +205,7 @@
 					{# Bouton du plan du site #}
 					<a href="index.php">
 						<i class="bi bi-geo-alt"></i>
-						<span>Plan du site</span>
+						<span>{{ footer_phrases["footer_sitemap"] }}</span>
 					</a>
 				</li>
 
@@ -213,7 +213,7 @@
 					{# Bouton du formulaire de contact #}
 					<a href="javascript:void(0);">
 						<i class="bi bi-envelope"></i>
-						<span>Contact</span>
+						<span>{{ footer_phrases["footer_contact"] }}</span>
 					</a>
 				</li>
 
@@ -221,7 +221,7 @@
 					{# Bouton de la page d'assistance #}
 					<a href="?target=help">
 						<i class="bi bi-question-circle"></i>
-						<span>Assistance</span>
+						<span>{{ footer_phrases["footer_support"] }}</span>
 					</a>
 				</li>
 
@@ -230,21 +230,25 @@
 					<i class="bi bi-translate"></i>
 					<form method="POST">
 						<ul>
-							<li>
-								{# Français #}
-								<button type="submit" name="language" value="FR">
-									<img src="assets/images/flags/fr.svg" alt="Drapeau français" />
-									<span>Français</span>
-								</button>
-							</li>
+							{% for code in language_codes %}
+								<li>
+									{# Récupération du nom de la langue #}
+									{% set name = language_phrases["language_" ~ code|lower ] %}
 
-							<li>
-								{# Anglais #}
-								<button type="submit" name="language" value="EN">
-									<img src="assets/images/flags/gb.svg" alt="Drapeau britannique" />
-									<span>Anglais</span>
-								</button>
-							</li>
+									{# Création du bouton avec les informations #}
+									<button type="submit" name="language" value="{{ code|upper }}">
+										{% if code == "EN" %}
+											{# Le drapeau britannique possède un code ISO différent #}
+											<img src="assets/images/flags/gb.svg" alt="{{ name }}" />
+										{% else %}
+											{# Dans le cas contraire, on utilise le comportement par défaut #}
+											<img src="assets/images/flags/{{ code|lower }}.svg" alt="{{ name }}" />
+										{% endif %}
+
+										<span>{{ name }}</span>
+									</button>
+								</li>
+							{% endfor %}
 						</ul>
 					</form>
 				</li>
