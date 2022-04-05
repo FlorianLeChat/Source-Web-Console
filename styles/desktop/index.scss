@@ -28,6 +28,7 @@ header
 			width: 150px;
 			height: 44px;
 			padding: 0.5rem 1.5rem;
+			transition: color 250ms, background-color 250ms;
 			font-weight: bold;
 			border-radius: 0.5rem;
 			margin-bottom: 0.5rem;
@@ -83,6 +84,7 @@ header
 				filter: blur(0.75px) grayscale(1);
 				max-width: 100%;
 				max-height: 100%;
+				transition: filter 300ms ease-in-out;
 				border-radius: 1rem;
 
 				&:hover
@@ -121,6 +123,7 @@ header
 			// Disposition et affichage.
 			color: $box-color;
 			font-size: 2rem;
+			transition: color 250ms;
 			box-shadow: none;
 			background-color: transparent;
 

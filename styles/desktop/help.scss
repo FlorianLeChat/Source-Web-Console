@@ -59,6 +59,7 @@ main
 			margin: 0.5rem 0.5rem 0 0;
 			padding: 1rem;
 			display: inline-block;
+			transition: color 250ms, background-color 250ms;
 			min-width: 8rem;
 			max-width: 12rem;
 			box-shadow: none;
@@ -117,6 +118,7 @@ main
 			width: 100%;
 			border: 1px solid $border-color;
 			padding: 1rem;
+			transition: color 250ms, background-color 250ms;
 			box-shadow: none;
 			text-align: left;
 			font-weight: bold;
