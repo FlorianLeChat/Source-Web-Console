@@ -1,35 +1,31 @@
 <?php
 	// Point d'entrée de l'environnement des scripts.
 	require_once("includes/controllers/_main.php");
-
-	// Récupération des titres et sous-titres des pages.
-	$title = "Administration";
-	$subtitles = [
-		"dashboard" => "Tableau de bord",
-		"statistics" => "Statistiques",
-		"configuration" => "Configuration",
-		"actions" => "Actions et commandes",
-		"console" => "Console interactive",
-		"tasks" => "Tâches planifiées",
-		"help" => "Assistance utilisateur"
-	];
+	require_once("includes/views/$file.php");
 
 	// Rendu final avec le moteur de modèles TWIG.
 	$html = $twig->render("$file.twig",
 	[
-		// Page entière.
-		"page_file" => $file,
-		"page_title" => "Source Web Console",
-		"page_language" => $language,
+		// Variables globales.
+		"global_url" => $_SERVER["SERVER_NAME"],
+		"global_file" => $file,
+		"global_language" => $language,
 
 		// En-tête du document.
-		"head_url" => $_SERVER["SERVER_NAME"],
-		"head_keywords" => "word1, word2, word3, ...",
-		"head_description" => "Description succinte du site...",
+		"head_phrases" => $translation->getPhrases("head"),
 
 		// En-tête de la page.
-		"header_title" => $title,
-		"header_subtitle" => $subtitles[$file] ?? $title
+		"header_phrases" => $translation->getPhrases("header"),
+
+		// Contenu de la page.
+		$file . "_phrases" => $translation->getPhrases($file),
+
+		// Sélecteur de langues.
+		"language_codes" => $translation->getLanguages(),
+		"language_phrases" => $translation->getPhrases("language"),
+
+		// Pied de page.
+		"footer_phrases" => $translation->getPhrases("footer")
 	]);
 
 	echo($html);
