@@ -27,6 +27,7 @@ ul, ol {
   cursor: pointer;
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
+  transition: color 250ms, background-color 250ms;
   margin-right: 0.25rem;
   border-radius: 0.25rem;
   background-color: rgb(237, 67, 29);
@@ -42,6 +43,7 @@ ul, ol {
   cursor: pointer;
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
+  transition: color 250ms, background-color 250ms;
   margin-left: 0.25rem;
   border-radius: 0.25rem;
   background-color: rgb(85, 140, 3);
@@ -188,6 +190,7 @@ header #search input {
   height: 1.5rem;
   padding: 0.25rem;
   position: absolute;
+  transition: box-shadow 250ms;
 }
 header #search input::-moz-placeholder {
   left: 0.25rem;
@@ -215,6 +218,7 @@ header #search input:focus + ul {
 }
 header #search input:focus + ul li {
   padding: 0.5rem;
+  transition: color 250ms, background-color 250ms;
   border-bottom: 1px solid rgb(242, 242, 242);
 }
 header #search input:focus + ul li:last-of-type {
@@ -223,6 +227,7 @@ header #search input:focus + ul li:last-of-type {
 header #search input:focus + ul li:hover {
   color: rgb(51, 51, 51);
   cursor: pointer;
+  font-weight: bold;
   background-color: rgb(242, 242, 242);
 }
 header #search input + ul {
@@ -233,6 +238,7 @@ header a i {
   right: 3.25rem;
   position: absolute;
   font-size: 2rem;
+  transition: color 250ms;
 }
 header a span {
   top: 3.75rem;
@@ -317,6 +323,7 @@ header a:hover i {
 }
 #signup article form a, #signin form a, #contact form a {
   color: rgb(245, 154, 35);
+  transition: color 250ms, background-color 250ms;
   text-decoration: underline;
 }
 #signup article form a:hover, #signin form a:hover, #contact form a:hover {
@@ -494,6 +501,7 @@ header a:hover i {
   border: 1px solid rgb(121, 121, 121);
   position: fixed;
   font-size: 1.5rem;
+  transition: color 250ms, background-color 250ms;
   font-weight: bold;
   border-radius: 50%;
   background-color: rgb(51, 51, 51);
@@ -536,10 +544,12 @@ footer ul li {
 @media screen and (max-width: 768px) {
   footer ul li a i:hover {
     color: rgb(242, 242, 242);
+    transition: color 250ms;
   }
 }
 footer ul li a span {
   color: rgb(242, 242, 242);
+  transition: color 150ms, background-color 150ms;
 }
 @media screen and (max-width: 768px) {
   footer ul li a span {
@@ -570,6 +580,7 @@ footer ul li:last-of-type ul li {
 footer ul li:last-of-type ul li button {
   color: rgb(51, 51, 51);
   padding: 0.5rem;
+  transition: color 250ms, background-color 250ms;
   border-radius: 0.5rem;
   background-color: rgb(245, 154, 35);
 }
@@ -607,6 +618,7 @@ footer ul li:last-of-type:hover ul {
 }
 footer ul li:last-of-type:hover i {
   color: rgb(242, 242, 242);
+  transition: color 250ms;
 }
 footer article {
   top: 0.5rem;
@@ -660,6 +672,7 @@ main nav ul li {
   padding: 0.75rem;
   font-size: 1.25rem;
   box-shadow: 0.25rem 0.25rem 0.25rem rgb(121, 121, 121);
+  transition: color 250ms, background-color 250ms;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;

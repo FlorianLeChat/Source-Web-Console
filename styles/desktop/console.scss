@@ -66,6 +66,7 @@ main
 			color: $text-color;
 			position: relative;
 			font-size: 1.5rem;
+			transition: color 250ms;
 			background: none;
 			box-shadow: none;
 
@@ -94,6 +95,7 @@ main
 			{
 				// Ligne de l'historique.
 				padding: 0.25rem;
+				transition: color 250ms, background-color 250ms;
 				margin-bottom: 0.25rem;
 				background-color: $border-color;
 
@@ -140,6 +142,7 @@ main
 				// Ligne d'un événement.
 				color: $background-color;
 				text-align: left;
+				transition: color 250ms, background-color 250ms;
 				margin-bottom: 0.25rem;
 
 				&:hover

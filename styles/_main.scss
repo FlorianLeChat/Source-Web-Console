@@ -199,6 +199,7 @@ header
 			height: 1.5rem;
 			padding: 0.25rem;
 			position: absolute;
+			transition: box-shadow 250ms;
 
 			&::placeholder
 			{
@@ -227,6 +228,7 @@ header
 					{
 						// Résultat quelconque.
 						padding: 0.5rem;
+						transition: color 250ms, background-color 250ms;
 						border-bottom: 1px solid $background-color;
 
 						&:last-of-type
@@ -240,6 +242,7 @@ header
 							// Effet de sélection.
 							color: $box-color;
 							cursor: pointer;
+							font-weight: bold;
 							background-color: $background-color;
 						}
 					}
@@ -264,6 +267,7 @@ header
 			right: 3.25rem;
 			position: absolute;
 			font-size: 2rem;
+			transition: color 250ms;
 		}
 
 		span
@@ -389,6 +393,7 @@ header
 			// Liens vers l'inscription, connexion unique ou
 			//	la récupération de mot de passe.
 			color: $text-color;
+			transition: color 250ms, background-color 250ms;
 			text-decoration: underline;
 
 			&:hover
@@ -634,6 +639,7 @@ header
 		border: 1px solid $border-color;
 		position: fixed;
 		font-size: 1.5rem;
+		transition: color 250ms, background-color 250ms;
 		font-weight: bold;
 		border-radius: 50%;
 		background-color: $box-color;
@@ -700,6 +706,7 @@ footer
 				i:hover
 				{
 					color: $background-color;
+					transition: color 250ms;
 				}
 			}
 
@@ -707,6 +714,7 @@ footer
 			{
 				// Lien vers les pages.
 				color: $background-color;
+				transition: color 150ms, background-color 150ms;
 
 				@media screen and (max-width: 768px)
 				{
@@ -759,6 +767,7 @@ footer
 						// Bouton pour changer vers la langue sélectionnée.
 						color: $box-color;
 						padding: 0.5rem;
+						transition: color 250ms, background-color 250ms;
 						border-radius: 0.5rem;
 						background-color: $text-color;
 
@@ -778,7 +787,7 @@ footer
 
 						&:hover
 						{
-							// Sélection du bouton.
+							// Effet de sélection.
 							color: $text-color;
 							background-color: $box-color;
 						}
@@ -824,6 +833,7 @@ footer
 				{
 					// Changement de la couleur de l'icône.
 					color: $background-color;
+					transition: color 250ms;
 				}
 			}
 		}

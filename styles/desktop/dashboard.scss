@@ -91,6 +91,7 @@ main
 				font-size: 1.75rem;
 				background: none;
 				box-shadow: none;
+				transition: color 250ms;
 
 				&:first-of-type
 				{
@@ -132,6 +133,7 @@ main
 				filter: blur(0.75px) grayscale(1);
 				content: "";
 				position: absolute;
+				transition: color 250ms, filter 300ms ease-in-out;;
 				background-size: cover;
 				background-color: $box-color;
 				background-image: url("../../assets/images/placeholder.svg");
@@ -157,6 +159,7 @@ main
 			// Bouton de page précédente/suivante.
 			color: $text-color;
 			font-size: 1.25rem;
+			transition: color 250ms;
 			background: none;
 			box-shadow: none;
 
@@ -277,6 +280,7 @@ main
 			border: 1px solid $background-color;
 			padding: 0.5rem 1.5rem;
 			position: relative;
+			transition: color 250ms, background-color 250ms;
 			font-weight: bold;
 			border-radius: 0.5rem;
 			margin-bottom: 0.5rem;
