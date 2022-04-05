@@ -318,8 +318,8 @@ header a:hover i {
 #signup article form em, #signin form em, #contact form em {
   color: rgb(242, 242, 242);
   display: block;
+  font-style: normal;
   text-align: justify;
-  line-height: 2;
   margin-bottom: 1.5rem;
 }
 #signup article form a, #signin form a, #contact form a {
