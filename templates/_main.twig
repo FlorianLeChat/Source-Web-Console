@@ -49,13 +49,13 @@
 
 		<script>
 			// Message d'échec si les vérifications côté client échouent.
-			const client_check_failed = "Le champ « $1 » doit avoir une taille comprise entre $2 et $3 caractères."
+			const client_check_failed = "{{ form_phrases["form_client_check_failed"]|escape }}";
 
 			// Message d'échec si les vérifications côté serveur échouent.
-			const server_check_failed = "Les données renseignées n'ont pas permis de réaliser cette requête.";
+			const server_check_failed = "{{ form_phrases["form_server_check_failed"]|escape }}";
 
 			// Message signalant à l'utilisateur que les majuscules sont activées.
-			const capslock_enabled = "Les majuscules sont activées.";
+			const capslock_enabled = "{{ form_phrases["form_capslock_warning"]|escape }}";
 		</script>
 
 		<!--[if lte IE 9]>
@@ -89,9 +89,9 @@
 				<div id="search">
 					<i class="bi bi-search"></i>
 
-					<span>Actions rapides</span>
+					<span>{{ header_phrases["header_search_title"] }}</span>
 
-					<input type="text" name="search" placeholder="Recherche..." maxlength="20" required />
+					<input type="text" name="search" placeholder="{{ header_phrases["header_search_placeholder"] }}" maxlength="20" required />
 
 					<ul>
 						<li>Résultat 1</li>
@@ -103,7 +103,7 @@
 				{# État de connexion #}
 				<a href="?target=user">
 					<i class="bi bi-person-circle"></i>
-					<span>Connecté sous<br />username</span>
+					<span>{{ header_phrases["header_user_status"]|format("username") }}</span>
 				</a>
 			{% endblock %}
 		</header>
@@ -121,7 +121,7 @@
 							{# Tableau de bord #}
 							<a href="?target=dashboard">
 								<i class="bi bi-kanban"></i>
-								<span>Tableau de bord</span>
+								<span>{{ header_phrases["header_subtitle_dashboard"] }}</span>
 							</a>
 						</li>
 
@@ -129,7 +129,7 @@
 							{# Statistiques #}
 							<a href="?target=statistics">
 								<i class="bi bi-graph-up"></i>
-								<span>Statistiques</span>
+								<span>{{ header_phrases["header_subtitle_statistics"] }}</span>
 							</a>
 						</li>
 
@@ -137,7 +137,7 @@
 							{# Configuration #}
 							<a href="?target=configuration">
 								<i class="bi bi-tools"></i>
-								<span>Configuration</span>
+								<span>{{ header_phrases["header_subtitle_configuration"] }}</span>
 							</a>
 						</li>
 
@@ -145,7 +145,7 @@
 							{# Actions et commandes #}
 							<a href="?target=actions">
 								<i class="bi bi-lightning"></i>
-								<span>Actions / Commandes</span>
+								<span>{{ header_phrases["header_subtitle_actions"] }}</span>
 							</a>
 						</li>
 
@@ -153,7 +153,7 @@
 							{# Console interactive #}
 							<a href="?target=console">
 								<i class="bi bi-code-slash"></i>
-								<span>Console interactive</span>
+								<span>{{ header_phrases["header_subtitle_console"] }}</span>
 							</a>
 						</li>
 
@@ -161,7 +161,7 @@
 							{# Tâches planifiées #}
 							<a href="?target=tasks">
 								<i class="bi bi-calendar3"></i>
-								<span>Tâches planifiées</span>
+								<span>{{ header_phrases["header_subtitle_tasks"] }}</span>
 							</a>
 						</li>
 					</ul>
