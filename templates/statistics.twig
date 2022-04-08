@@ -1,20 +1,35 @@
 {# Modèle de base #}
 {% extends "_main.twig" %}
 
+{# Injection de code JavaScript #}
+{% block javascript %}
+	<script>
+		// Texte d'affichage pour la tranche d'heures entre 0 et 24.
+		const utc_time = "Heure UTC";
+
+		// Texte pour l'affichage du nombre de joueurs/clients.
+		const player_count = "Nombre de joueurs";
+
+		// Texte pour le pourcentage d'utilisation du processeur.
+		const cpu_usage = "Processeur (en %)";
+
+		// Texte pour le pourcentage d'utilisateur de la mémoire.
+		const ram_usage = "Mémoire vive (en %)";
+
+		// Texte pour le pourcentage d'utilisation des ressources matérielles.
+		const usage_percent = "Pourcentage d'utilisation";
+	</script>
+{% endblock %}
+
 {# Contenu de la page demandé #}
 {% block content %}
 	{# Description de la page #}
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-		Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-		Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-		Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-	</p>
+	<p>{{ statistics_phrases["statistics_description"] }}</p>
 
 	{# Liste des graphiques #}
 	<section id="charts">
 		{# Titre de la section #}
-		<h2>Statistiques</h2>
+		<h2>{{ header_phrases["header_subtitle_statistics"] }}</h2>
 
 		{# Graphique du nombre de joueurs #}
 		<canvas id="player_count"></canvas>
@@ -29,6 +44,6 @@
 		<article></article>
 
 		{# Message d'information à l'utilisateur #}
-		<p>Veuillez tourner votre appareil.</p>
+		<p>{{ statistics_phrases["statistics_orientation"] }}</p>
 	</section>
 {% endblock %}

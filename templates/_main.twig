@@ -58,6 +58,9 @@
 			const capslock_enabled = "{{ form_phrases["form_capslock_warning"]|escape }}";
 		</script>
 
+		{# Injection de code #}
+		{% block javascript %} {% endblock %}
+
 		<!--[if lte IE 9]>
 			<script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
 		<![endif]-->
