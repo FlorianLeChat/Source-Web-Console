@@ -188,7 +188,7 @@
 			{# Conteneur du bouton des astuces #}
 			<div id="tips">
 				<button type="button">?</button>
-				<span>{{ index_phrases["index_tips"] }}</span>
+				<span>{{ attribute(attribute(_context, global_file ~ "_phrases"), global_file ~ "_tips") }}</span>
 			</div>
 		</main>
 
