@@ -4,45 +4,40 @@
 {# Contenu de la page demandé #}
 {% block content %}
 	{# Description de la page #}
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-		Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-		Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-		Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-	</p>
+	<p>{{ actions_phrases["actions_description"] }}</p>
 
 	{# Actions #}
 	<section id="actions">
 		{# Titre de la section #}
-		<h2>Actions</h2>
+		<h2>{{ actions_phrases["actions_actions_title"] }}</h2>
 
 		{# Actions de la section #}
 		<ul>
 			<li>
 				{# Arrêter le serveur #}
-				Arrêter
-				<em>Maintenez pour forcer l'arrêt</em>
+				{{ dashboard_phrases["dashboard_shutdown_title"] }}
+				<em>{{ dashboard_phrases["dashboard_shutdown_subtitle"] }}</em>
 			</li>
 
 			<li>
 				{# Redémarrer le serveur #}
-				Redémarrer
+				{{ dashboard_phrases["dashboard_restart_title"] }}
 			</li>
 
 			<li>
 				{# Mettre à jour le serveur #}
-				Mettre à jour
+				{{ dashboard_phrases["dashboard_update_title"] }}
 			</li>
 
 			<li>
 				{# Passer en mode de maintenance #}
-				Maintenance
+				{{ dashboard_phrases["dashboard_maintenance_title"] }}
 			</li>
 
 			<li>
 				{# Ajouter une nouvelle action personnalisée #}
-				Ajouter une action...
-				<em>2 restante(s)</em>
+				{{ actions_phrases["actions_add_action"] }}
+				{{ actions_phrases["actions_remaining"]|format(3) }}
 			</li>
 		</ul>
 
@@ -50,102 +45,44 @@
 
 		{# Interrupteurs de la section #}
 		<ul>
-			<li>
-				{# Intitulé de l'interrupteur #}
-				<span>Interrupteur 1</span>
+			{% for i in range(1, 3) %}
+				<li>
+					{# Intitulé de l'interrupteur #}
+					<span>Interrupteur {{ i }}</span>
 
-				{# Bouton de l'interrupteur #}
-				<label class="switch">
-					<input type="checkbox" id="switch_1" name="switch_1" checked />
-					<span></span>
-				</label>
-			</li>
-
-			<li>
-				{# Intitulé de l'interrupteur #}
-				<span class="inactive">Interrupteur 2</span>
-
-				{# Bouton de l'interrupteur #}
-				<label class="switch">
-					<input type="checkbox" id="switch_2" name="switch_2" />
-					<span></span>
-				</label>
-			</li>
-
-			<li>
-				{# Intitulé de l'interrupteur #}
-				<span class="inactive">Interrupteur 3</span>
-
-				{# Bouton de l'interrupteur #}
-				<label class="switch">
-					<input type="checkbox" id="switch_3" name="switch_3" />
-					<span></span>
-				</label>
-			</li>
+					{# Bouton de l'interrupteur #}
+					<label class="switch">
+						<input type="checkbox" id="{{ "switch_" ~ i }}" name={{ "switch_" ~ i }} checked />
+						<span></span>
+					</label>
+				</li>
+			{% endfor %}
 		</ul>
 	</section>
 
 	{# Commandes #}
 	<section id="commands">
 		{# Titre de la section #}
-		<h2>Commandes</h2>
+		<h2>{{ actions_phrases["actions_commands_title"] }}</h2>
 
 		{# Commandes de la section #}
 		<ul>
-			<li>
-				<span>Nom de la commande 1</span>
+			{% for i in range(1, 5) %}
+				<li>
+					<span>Nom de la commande {{ i }}</span>
 
-				{# Supprimer la commande #}
-				<button type="button" name="remove_command" value="uuid_1">Supprimer</button>
+					{# Supprimer la commande #}
+					<button type="button" name="remove_command" value={{ "uuid_" ~ i }}>{{ actions_phrases["actions_commands_remove"] }}</button>
 
-				{# Exécuter la commande #}
-				<button type="button" name="execute_command" value="uuid_1">Exécuter</button>
-			</li>
-
-			<li>
-				<span>Nom de la commande 2</span>
-
-				{# Supprimer la commande #}
-				<button type="button" name="remove_command" value="uuid_2">Supprimer</button>
-
-				{# Exécuter la commande #}
-				<button type="button" name="execute_command" value="uuid_2">Exécuter</button>
-			</li>
+					{# Exécuter la commande #}
+					<button type="button" name="execute_command" value={{ "uuid_" ~ i }}>{{ actions_phrases["actions_commands_execute"] }}</button>
+				</li>
+			{% endfor %}
 
 			<li>
-				<span>Nom de la commande 3</span>
+				<span>{{ actions_phrases["actions_add_command"] }}</span>
 
-				{# Supprimer la commande #}
-				<button type="button" name="remove_command" value="uuid_3">Supprimer</button>
-
-				{# Exécuter la commande #}
-				<button type="button" name="execute_command" value="uuid_3">Exécuter</button>
-			</li>
-
-			<li>
-				<span>Nom de la commande 4</span>
-
-				{# Supprimer la commande #}
-				<button type="button" name="remove_command" value="uuid_4">Supprimer</button>
-
-				{# Exécuter la commande #}
-				<button type="button" name="execute_command" value="uuid_4">Exécuter</button>
-			</li>
-
-			<li>
-				<span>Nom de la commande 5</span>
-
-				{# Supprimer la commande #}
-				<button type="button" name="remove_command" value="uuid_5">Supprimer</button>
-
-				{# Exécuter la commande #}
-				<button type="button" name="execute_command" value="uuid_5">Exécuter</button>
-			</li>
-
-			<li>
-				<span>Ajouter une commande...</span>
-
-				<em>2 restante(s)</em>
+				{{ actions_phrases["actions_remaining"]|format(2) }}
 			</li>
 		</ul>
 
