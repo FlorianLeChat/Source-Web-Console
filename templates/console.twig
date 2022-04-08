@@ -4,21 +4,16 @@
 {# Contenu de la page demandé #}
 {% block content %}
 	{# Description de la page #}
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-		Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-		Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-		Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-	</p>
+	<p>{{ console_phrases["console_description"] }}</p>
 
 	{# Contrôleur principal #}
 	<section id="controller">
 		{# Titre de la section #}
-		<h2>Contrôleur principal</h2>
+		<h2>{{ console_phrases["console_controller_title"] }}</h2>
 
 		{# Champ de saisie #}
 		<div>
-			<input type="text" name="command" placeholder="Écrivez quelque chose..." required />
+			<input type="text" name="command" placeholder="{{ console_phrases["console_controller_placeholder"] }}" required />
 
 			<button type="button" name="execute" value="bash">
 				<i class="bi bi-send-fill"></i>
@@ -41,7 +36,7 @@
 	{# Terminal de la console #}
 	<section id="terminal">
 		{# Titre de la section #}
-		<h2>Terminal d'observation</h2>
+		<h2>{{ console_phrases["console_terminal_title"] }}</h2>
 
 		{# Liste des événements #}
 		<ul>
