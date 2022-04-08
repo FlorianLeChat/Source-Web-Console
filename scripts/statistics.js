@@ -78,7 +78,7 @@ new Chart( player_chart,
 					},
 					title: {
 						display: true,
-						text: "Heure UTC",
+						text: utc_time,
 						color: "#f59a23",
 						font: {
 							size: 20,
@@ -105,7 +105,7 @@ new Chart( player_chart,
 					},
 					title: {
 						display: true,
-						text: "Nombre de joueurs",
+						text: player_count,
 						color: "#f59a23",
 						font: {
 							size: 20,
@@ -141,12 +141,12 @@ new Chart( server_usage,
 			datasets: [
 				// Données brutes transmises par la base de donnéees.
 				{
-					label: "Processeur (en %)",
+					label: cpu_usage,
 					backgroundColor: "#ed431d",
 					data: [ 12.4, 12.68, 25, 35, 24, 12, 10, 8, 6, 1, 36, 45, 75, 89, 100, 98, 64, 54, 62, 56, 68, 72, 41, 35, 43 ]
 				},
 				{
-					label: "Mémoire vive (en %)",
+					label: ram_usage,
 					backgroundColor: "#016fa0",
 					data: [ 25, 26, 27, 28, 26, 25, 24, 23, 26, 27, 30, 23, 27, 28, 35, 41, 38, 36, 33, 31, 25, 36, 26, 27, 30 ]
 				}
@@ -193,7 +193,7 @@ new Chart( server_usage,
 					},
 					title: {
 						display: true,
-						text: "Heure UTC",
+						text: utc_time,
 						color: "#f59a23",
 						font: {
 							size: 20,
@@ -220,7 +220,7 @@ new Chart( server_usage,
 					},
 					title: {
 						display: true,
-						text: "Pourcentage d'utilisation",
+						text: usage_percent,
 						color: "#f59a23",
 						font: {
 							size: 20,
