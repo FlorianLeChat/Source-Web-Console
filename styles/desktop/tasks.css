@@ -38,7 +38,7 @@ ul, ol {
   background-color: rgb(242, 242, 242);
 }
 
-#signup article form input[type=submit], #signin form input[type=submit], #contact form input[type=submit] {
+main #tasks form select[type=submit], main #tasks form input[type=submit], #signup article form input[type=submit], #signin form input[type=submit], #contact form input[type=submit] {
   color: rgb(242, 242, 242);
   cursor: pointer;
   padding: 0.5rem 1rem;
@@ -48,7 +48,7 @@ ul, ol {
   border-radius: 0.25rem;
   background-color: rgb(85, 140, 3);
 }
-#signup article form input[type=submit]:hover, #signin form input[type=submit]:hover, #contact form input[type=submit]:hover {
+main #tasks form select[type=submit]:hover, main #tasks form input[type=submit]:hover, #signup article form input[type=submit]:hover, #signin form input[type=submit]:hover, #contact form input[type=submit]:hover {
   color: rgb(85, 140, 3);
   font-weight: bold;
   background-color: rgb(242, 242, 242);
@@ -712,25 +712,36 @@ main #tasks table {
   table-layout: fixed;
 }
 main #tasks table thead {
-  color: rgb(51, 51, 51);
+  color: rgb(242, 242, 242);
   height: 2rem;
   font-size: 1.25rem;
-  background-color: rgb(245, 154, 35);
+  word-break: break-all;
+  background-size: 100px 100px;
+  background-image: linear-gradient(45deg, rgb(245, 154, 35) 12.5%, rgb(51, 51, 51) 12.5%, rgb(51, 51, 51) 37.5%, rgb(245, 154, 35) 37.5%, rgb(245, 154, 35) 62.5%, rgb(51, 51, 51) 62.5%, rgb(51, 51, 51) 87.5%, rgb(245, 154, 35) 87.5%);
+  background-position: 50px 50px;
 }
 main #tasks table tbody {
   word-break: break-all;
 }
 main #tasks table tbody tr {
   height: 3rem;
+  cursor: pointer;
+  transition: color 250ms, background-color 250ms;
 }
 main #tasks table tbody tr em {
   display: block;
 }
 main #tasks table tbody tr.finished {
   color: rgb(242, 242, 242);
+  cursor: not-allowed;
   -webkit-text-decoration: line-through rgb(242, 242, 242);
           text-decoration: line-through rgb(242, 242, 242);
   background-color: rgb(237, 67, 29);
+}
+main #tasks table tbody tr:not(.finished):hover {
+  color: rgb(51, 51, 51);
+  font-weight: bold;
+  background-color: rgb(245, 154, 35);
 }
 main #tasks table tbody td {
   border: 1px solid rgb(121, 121, 121);
@@ -738,4 +749,25 @@ main #tasks table tbody td {
 }
 main #tasks table tbody td:last-of-type {
   text-transform: uppercase;
+}
+main #tasks form {
+  gap: 2rem;
+  height: 5rem;
+  display: flex;
+  margin-top: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+  justify-content: center;
+}
+main #tasks form label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+main #tasks form select, main #tasks form input {
+  padding: 0.5rem;
+}
+main #tasks form select[type=submit], main #tasks form input[type=submit] {
+  bottom: 0.5rem;
+  position: relative;
+  align-self: end;
 }

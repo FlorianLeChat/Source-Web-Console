@@ -35,5 +35,17 @@ main
 	{
 		// Modification de la grille.
 		grid-area: 3 / 1 / 4 / 3;
+
+		form
+		{
+			// Suppression de la hauteur imposée.
+			height: auto;
+
+			input[type = submit]
+			{
+				// Suppression du positionnement relatif.
+				bottom: 0;
+			}
+		}
 	}
 }
