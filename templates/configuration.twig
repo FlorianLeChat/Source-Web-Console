@@ -4,47 +4,42 @@
 {# Contenu de la page demandé #}
 {% block content %}
 	{# Description de la page #}
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-		Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-		Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-		Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-	</p>
+	<p>{{ configuration_phrases["configuration_description"] }}</p>
 
 	{# Informations de connexion FTP #}
 	<section id="stockage">
 		{# Titre du formulaire #}
-		<h2>Stockage distant</h2>
+		<h2>{{ configuration_phrases["configuration_storage_title"] }}</h2>
 
 		{# Spécifications juridiques #}
 		<div>
 			<i class="bi bi-exclamation-triangle-fill"></i>
-			<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+			<span>{{ form_phrases["form_rgpd_warning"] }}</span>
 		</div>
 
 		{# Champs du formulaire #}
 		<form method="POST">
 			{# Adresse IP #}
-			<label for="ftp_address">Adresse IP & Port<span>*</span></label>
-			<input type="text" spellcheck="false" id="ftp_address" name="ftp_address" placeholder="XX.XX.XX.XX" minlength="7" maxlength="15" required />
+			<label for="ftp_address">{{ configuration_phrases["configuration_storage_address"] }}<span>*</span></label>
+			<input type="text" spellcheck="false" id="ftp_address" name="ftp_address" placeholder="147.56.210.47" minlength="7" maxlength="15" required />
 
 			{# Port de communication #}
-			<input type="text" spellcheck="false" id="ftp_port" name="ftp_port" placeholder="XX" minlength="5" maxlength="5" required />
+			<input type="text" spellcheck="false" id="ftp_port" name="ftp_port" placeholder="22" minlength="5" maxlength="5" required />
 
 			{# Type de protocole #}
-			<label for="ftp_protocol">Type de protocole<span>*</span></label>
+			<label for="ftp_protocol">{{ configuration_phrases["configuration_storage_protocol"] }}<span>*</span></label>
 			<select id="ftp_protocol" name="ftp_protocol">
-				<option value="ftp">FTP</option>
-				<option value="sftp">SFTP</option>
+				<option value="ftp">{{ configuration_phrases["configuration_storage_ftp"] }}</option>
+				<option value="sftp">{{ configuration_phrases["configuration_storage_sftp"] }}</option>
 			</select>
 
 			{# Nom d'utilisateur #}
-			<label for="ftp_user">Nom d'utilisateur<span>*</span></label>
-			<input type="text" autocomplete="username" spellcheck="false" id="ftp_user" name="ftp_user" placeholder="Nom d'utilisateur" required />
+			<label for="ftp_user">{{ configuration_phrases["configuration_storage_username"] }}<span>*</span></label>
+			<input type="text" autocomplete="username" spellcheck="false" id="ftp_user" name="ftp_user" placeholder="johndoe" required />
 
 			{# Mot de passe #}
-			<label for="ftp_password">Mot de passe<span>*</span></label>
-			<input type="password" autocomplete="current-password" spellcheck="false" id="ftp_password" name="ftp_password" placeholder="Mot de passe" required />
+			<label for="ftp_password">{{ configuration_phrases["configuration_storage_password"] }}<span>*</span></label>
+			<input type="password" autocomplete="current-password" spellcheck="false" id="ftp_password" name="ftp_password" placeholder="?JohnDoe2022!" required />
 
 			{# Validation #}
 			<input type="submit" value="Valider" />
@@ -54,7 +49,7 @@
 	{# Paramètres disponibles pour modification #}
 	<section id="parameters">
 		{# Titre de la section #}
-		<h2>Paramètres</h2>
+		<h2>{{ configuration_phrases["configuration_settings_title"] }}</h2>
 
 		{# Paramètres de la section #}
 		<ul>
