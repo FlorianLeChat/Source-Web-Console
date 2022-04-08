@@ -71,5 +71,34 @@ main
 	{
 		// Modification de la grille.
 		grid-area: 3 / 1 / 4 / 2;
+
+		form
+		{
+			// Modification de l'apparence du formulaire.
+			gap: 0.75rem;
+			height: auto;
+			flex-direction: column;
+
+			div
+			{
+				// Modification de la taille du conteneur.
+				width: calc(100% - 2rem);
+			}
+
+			select, input
+			{
+				// Modification de la taille des champs de saisies.
+				width: calc(100% - 2rem);
+
+				&[type = submit]
+				{
+					// Modification du positionnement du bouton.
+					top: 0.5rem;
+					width: auto;
+					bottom: 0;
+					align-self: initial;
+				}
+			}
+		}
 	}
 }

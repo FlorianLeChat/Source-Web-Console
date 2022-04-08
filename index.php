@@ -9,6 +9,7 @@
 		// Variables globales.
 		"global_url" => $_SERVER["SERVER_NAME"],
 		"global_file" => $file,
+		"global_phrases" => $translation->getPhrases("global"),
 		"global_language" => $language,
 
 		// En-tête du document.
