@@ -126,12 +126,23 @@ $( window ).scroll( function ()
 //
 const contact = $( "#contact" );
 
-contact.find( "form" ).submit( function ()
+contact.find( "form" ).submit( function ( event )
 {
-	// On réalise d'abord la requête AJAX.
-	alert( "Réalisation de la requête AJAX." );
+	// On cesse d'abord le comportement par défaut.
+	event.preventDefault();
 
-	// On réinitialise par la suite l'entièreté du formulaire.
+	// On réalise ensuite la requête AJAX.
+	$.post( "includes/views/index.php" )
+		.done( function ( data, success )
+		{
+			alert( "second success" );
+		} )
+		.fail( function ()
+		{
+			alert( "error" );
+		} );
+
+	// On réinitialise juste après l'entièreté du formulaire.
 	$( this ).reset();
 
 	// On affiche enfin une notification de confirmation.
