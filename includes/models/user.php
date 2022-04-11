@@ -1,76 +1,122 @@
 <?php
 	//
-	// Modèle des données représentatives d'un utilisateur.
+	// Contrôleur de gestion des données utilisateurs.
 	//
 	namespace Source\Models;
 
-	abstract class User
+	final class User extends Main
 	{
-		protected string $username = "";
-		protected string $password = "";
-		protected string $email = "";
-		protected string $token = "";
+		// Temps d'expiration du jeton d'authentification (en secondes).
+		public const EXPIRATION_TIME = 60 * 60 * 24 * 31;
 
-		// Nom d'utilisateur.
-		public function setUsername(string $username)
+		//
+		// Permet de traiter les demandes de création d'un nouveau mot de passe
+		// 	afin d'accéder à la page d'administration du site.
+		//
+		public function createNewPassword(string $email, string $password): void
 		{
-			$this->username = $username;
+			// On effectue une requête pour vérifier si l'adresse électronique
+			//	renseignée par l'utilisateur est présente dans la base de données.
+			$query = $this->connector->prepare("SELECT 1 FROM `users` WHERE `email` = ?;");
+			$query->execute([$email]);
 
-			if (isset($_SESSION))
+			$result = $query->fetch();
+
+			// On vérifie alors si l'adresse électronique est présente dans le
+			//	résultat de la requête SQL.
+			if (is_array($result) && count($result) > 0)
 			{
-				// Enregistrement dans la session active.
-				$_SESSION["username"] = $this->username;
+				// Si c'est le cas, on "hash" le nouveau mot de passe avant de l'insérer.
+				$query = $this->connector->prepare("UPDATE `users` SET `password` = ? WHERE `email` = ?;");
+				$query->execute([password_hash($password, PASSWORD_DEFAULT), $email]);
+
+				// On supprime le jeton d'authentification par la même occasion.
+				$this->storeToken("");
 			}
 		}
 
-		public function getUsername(): string
+		//
+		// Permet de comparer et de valider un jeton d'authentification
+		//	envoyé par un utilisateur connecté précédemment.
+		//
+		public function compareToken(string $token): bool
 		{
-			if (!empty($_SESSION["username"]))
+			// On exécute une requête SQL pour récupérer le jeton
+			//	d'authentification enregistré dans la base de données.
+			$query = $this->connector->prepare("SELECT `username` FROM `users` WHERE `access_token` = ?;");
+			$query->execute([$token]);
+
+			$result = $query->fetch();
+
+			// On vérifie alors le résultat de la requête.
+			if (is_array($result) && count($result) > 0 && strtotime($result["creation_time"]) + self::EXPIRATION_TIME > time())
 			{
-				// Récupération dans la session active.
-				$this->username = $_SESSION["username"];
+				// Si elle est valide, on met en mémoire le nom d'utilisateur.
+				$_SESSION["username"] = $result["username"];
+
+				return true;
 			}
 
-			return $this->username;
+			// Dans le cas contraire, on signale que le jeton est invalide.
+			return false;
 		}
 
-		// Mot de passe (hashé) de l'utilisateur.
-		public function setPassword(string $password)
+		//
+		// Permet d'enregistrer le jeton d'authentification de l'utilisateur
+		//	dans la base de données.
+		//
+		public function storeToken(string $token): void
 		{
-			$this->password = $password;
+			// On détermine si l'horodatage présent dans la base de données
+			// 	doit être actualisé ou non (uniquement lors d'une connexion).
+			$timestamp = $token == "" ? "`creation_time`" : "NULL";
+
+			// On effectue juste après la requête de mise à jour.
+			$query = $this->connector->prepare("UPDATE `users` SET `access_token` = ?, `creation_time` = $timestamp WHERE `username` = ?;");
+			$query->execute([$token, $_SESSION["username"]]);
 		}
 
-		public function getPassword(): string
+		//
+		// Permet d'authentifier un utilisateur au niveau de la	base de données.
+		//
+		public function authenticate(string $username, string $password): bool
 		{
-			return $this->password;
+			// On effectue d'abord une requête SQL pour vérifier
+			//	si un enregistrement est présent avec les identifiants
+			//	donnés lors de l'étape précédente.
+			$query = $this->connector->prepare("SELECT `password` FROM `users` WHERE `username` = ?;");
+			$query->execute([$username]);
+
+			$result = $query->fetch();
+
+			// On vérifie enfin le résultat de la requête SQL avant
+			//	de comparer le mot de passe hashé par l'entrée utilisateur.
+			if (is_array($result) && count($result) > 0 && password_verify($password, $result["password"]))
+			{
+				// L'authentification a réussie.
+				$_SESSION["username"] = $username;
+
+				return true;
+			}
+
+			// L'authentification a échouée.
+			return false;
 		}
 
-		// Adresse électronique.
-		public function setEmail(string $email)
+		//
+		// Permet de déconnecter l'utilisateur de l'interface.
+		//
+		public function destroy(): void
 		{
-			$this->email = $email;
-		}
+			// On supprime le jeton d'authentification de l'utilisateur
+			//	aussi bien côté client que dans la base de données.
+			$this->storeToken("");
 
-		public function getEmail(): string
-		{
-			return $this->email;
-		}
+			setcookie("generated_token", "", 1, "/portfolio/admin/", $_SERVER["HTTP_HOST"], true);
 
-		// Jeton d'authentification.
-		public function setToken(string $token)
-		{
-			$this->token = $token;
-		}
-
-		public function getToken(): string
-		{
-			return $this->token;
-		}
-
-		// État de la connexion.
-		public function isConnected(): bool
-		{
-			return !empty($this->getUsername());
+			// On supprime toutes les informations utilisateurs sauvegardées
+			// 	dans les sessions.
+			unset($_SESSION["username"]);
 		}
 	}
 ?>
