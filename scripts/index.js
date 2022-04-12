@@ -63,38 +63,39 @@ signup.find( "form" ).submit( function ( event )
 			auto_connect: last_step.find( "input[id = auto_connect]" ).is( ":checked" )
 
 		} )
-			.done( function ( data, _success )
+			.done( function ( data, _status, _self )
 			{
 				// Une fois terminée, on affiche la réponse JSON du
 				//	serveur sous forme d'une liste numérique.
 				const json = JSON.parse( data );
 
-				// On affiche alors un message de confirmation.
+				// On affiche un message de confirmation.
 				addQueuedNotification( json[ 0 ], json[ 1 ] );
 
-				// On réinitialise ensuite les deux formulaires avant
-				//	de fermer le second.
-				first_step.find( "form" )[ 0 ].reset();
-				last_step.find( "form" )[ 0 ].reset();
-
-				last_step.fadeOut( 150 );
-
-				// On effectue enfin la redirection de l'utilisateur
-				//	vers le tableau de bord si le message renvoyé par
-				//	le serveur est un message de succès.
+				// On effectue par la suite certaines actions si le message
+				//	renvoyé par le serveur est un message de succès.
 				if ( json[ 1 ] == 2 )
 				{
+					// On réinitialise ensuite les deux formulaires avant
+					//	de fermer le second.
+					first_step.find( "form" )[ 0 ].reset();
+					last_step.find( "form" )[ 0 ].reset();
+
+					last_step.fadeOut( 150 );
+
+					// On effectue enfin la redirection de l'utilisateur
+					//	vers le tableau de bord au bout de 5 secondes.
 					setTimeout( function ()
 					{
 						window.location.href = "?target=dashboard";
 					}, 5000 );
 				}
 			} )
-			.fail( function ()
+			.fail( function ( _self, _status, error )
 			{
 				// Dans le cas contraire, on affiche une notification
 				//	d'échec avec les informations à notre disposition.
-				addQueuedNotification( signup_form_failed, 1 );
+				addQueuedNotification( signup_form_failed.replace( "$1", error ), 1 );
 			} );
 	}
 } );

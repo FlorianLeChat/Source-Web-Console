@@ -144,7 +144,7 @@ contact.find( "form" ).submit( function ( event )
 		content: contact.find( "textarea" ).val()
 
 	} )
-		.done( function ( data, _success )
+		.done( function ( data, _status, _self )
 		{
 			// Une fois terminée, on affiche la réponse JSON du
 			//	serveur sous forme d'une liste numérique.
@@ -154,15 +154,19 @@ contact.find( "form" ).submit( function ( event )
 			addQueuedNotification( json[ 0 ], json[ 1 ] );
 
 			// On réinitialise enfin l'entièreté du formulaire
-			//	avant de le fermer.
-			contact.find( "form" )[ 0 ].reset();
-			contact.fadeOut( 150 );
+			//	avant de le fermer si le message renvoyé par
+			//	le serveur est un message de succès.
+			if ( json[ 1 ] == 2 )
+			{
+				contact.find( "form" )[ 0 ].reset();
+				contact.fadeOut( 150 );
+			}
 		} )
-		.fail( function ()
+		.fail( function ( _self, _status, error )
 		{
 			// Dans le cas contraire, on affiche une notification
 			//	d'échec avec les informations à notre disposition.
-			addQueuedNotification( contact_form_failed, 1 )
+			addQueuedNotification( contact_form_failed.replace( "$1", error ), 1 )
 		} );
 } );
 

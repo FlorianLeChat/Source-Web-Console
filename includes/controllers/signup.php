@@ -28,25 +28,18 @@
 
 		];
 
-		// On itére ensuite à travers toutes les clés de la requête POST
-		//	pour vérifier les données transmises.
-		foreach (array_keys($_POST) as $value)
+		// On itére ensuite à travers toutes les clés attendues de la
+		//	la requête POST pour vérifier les données transmises.
+		foreach (array_keys($form->length) as $key)
 		{
-			// On ignore les possibles champs relatifs aux informations
-			//	de connexion à l'administrateur.
-			if (str_starts_with($value, "admin_"))
-			{
-				continue;
-			}
-
-			// On rend alors propre et valide l'entrée utilisateur.
-			$value = $form->serializeInput($_POST, $value);
+			// On rend propre et valide l'entrée utilisateur.
+			$value = $form->serializeInput($_POST, $key);
 
 			if (!$value)
 			{
 				// Si la donnée est invalide, on casse la boucle et
 				//	on créé le message d'erreur approprié.
-				$message = [$form->formatMessage($value), 1];
+				$message = [$form->formatMessage($key), 1];
 				break;
 			}
 		}
