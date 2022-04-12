@@ -4,23 +4,26 @@
 	//
 	namespace Source\Models;
 
+	require_once(__DIR__ . "/../model.php");
+
 	// Classe permettant de gérer le formulaire de contact.
-	final class Contact extends Main
+	final class Form extends Main
 	{
-		// Message de validation/d'erreur.
-		public string $message = "";
+		// Limites de caractères par champ.
+		public array $length = [];
 
-		// Limites de caractères.
-		private array $length = [];
+		//
+		// Permet d'initialiser certains mécanismes lors de l'instanciation
+		//	de classe actuelle.
+		//
+		public function __construct()
+		{
+			// Exécution du constructeur parent.
+			parent::__construct();
 
-		// Champs du formulaire.
-		private const FIELDS = [
-			"firstname",
-			"lastname",
-			"email",
-			"subject",
-			"content"
-		];
+			// Initialisation du système des traductions.
+			$this->translation = new Language();
+		}
 
 		//
 		// Permet de vérifier les dimensions d'une chaîne de caractères.
@@ -63,15 +66,11 @@
 		// Permet de « rendre propre » des chaînes de caractères pour
 		//	détecter les entrées invalides ou malveillantes.
 		//
-		private function serializeInput(array $data, string $field) // : string|bool (nécessite PHP 8)
+		public function serializeInput(array $data, string $field): string|bool
 		{
-			// On récupère la valeur du champ depuis les données
-			//	récupérées du formulaire.
-			$input = $data[$field] ?? "";
-
-			// On convertit certains caractères spéciaux en balises
+			// On convertit d'abord caractères spéciaux en balises
 			//	HTML lisibles.
-			$input = htmlentities($input, ENT_QUOTES);
+			$input = htmlentities($data[$field], ENT_QUOTES);
 
 			// On supprime les espaces en trop en début et à la fin de
 			//	la chaîne de caractères.
@@ -84,7 +83,7 @@
 			//	Note : en plus de vérifier similairement au HTML la validité
 			//		du champ, on regarde si le nom de domaine de l'adresse
 			//		est connu pour sa validité.
-			if ($field == "email")
+			if ($field === "email")
 			{
 				// Séparation du nom d'utilisateur et du nom de domaine.
 				$domain = explode("@", $input)[1] ?? "invalid";
@@ -99,19 +98,7 @@
 			// Si la chaîne de caractères est vide, alors on retourne
 			//	"false", dans le cas contraire, on retourne la chaîne
 			//	modifiée précédemment.
-			return $input == "" ? false : $input;
-		}
-
-		//
-		// Permet de mettre en majuscule la première lettre d'une
-		//	entrée utilisateur.
-		//
-		private function capitalize(string $input): string
-		{
-			$first = mb_substr($input, 0, 1);	// Première lettre.
-			$rest = mb_substr($input, 1);		// Suite de la chaîne.
-
-			return mb_strtoupper($first) . $rest;
+			return $input === "" ? false : $input;
 		}
 
 		//
@@ -119,13 +106,13 @@
 		//	d'erreur qui doit être affiché à l'utilisateur si l'une
 		//	des vérifications du formulaire échoue.
 		//
-		private function formatMessage(string $field): string
+		public function formatMessage(string $field): string
 		{
 			// On récupère d'abord la taille minimale et maximale du champ.
 			$length = $this->length[$field];
 
 			// On récupère ensuite le message d'erreur depuis la base de données.
-			$message = $this->translation->getPhrase("contact_form_warning");
+			$message = $this->translation->getPhrase("form_client_check_failed");
 
 			// On remplace alors les trois parties du message par les données.
 			$message = str_replace("$1", $field, $message);			// Nom du champ.
@@ -137,64 +124,13 @@
 		}
 
 		//
-		// Permet de définir les limites de certains champs du formulaire.
-		// 	Note : ces limites sont définies arbitrairement.
+		// Permet d'ajouter un message reçu depuis le formulaire de contact
+		//	dans la base de données du site.
 		//
-		public function setLimits(array $limits)
+		public function insertMessage(string $email, string $subject, string $content): void
 		{
-			$this->length = $limits;
-		}
-
-		//
-		// Permet de vérifier chaque champ des données du formulaire qui ont
-		//	été envoyés par l'utilisateur.
-		//
-		public function validate(array $data): bool
-		{
-			// On itére à travers tous les champs connus pour
-			//	réaliser les vérifications.
-			foreach (self::FIELDS as $value)
-			{
-				// On rend propre l'entrée utilisateur avant
-				//	de la vérifier.
-				$field = $this->serializeInput($data, $value);
-
-				if (!$field)
-				{
-					// Si elle est invalide, on prépare alors le
-					//	message d'erreur qui doit être affiché.
-					$this->message = $this->formatMessage($value);
-
-					return false;
-				}
-				else
-				{
-					// Dans le cas contraire, on la place en mémoire
-					//	après avoir mis la première lettre en majuscule.
-					// 	(sauf l'adresse mail de la personne).
-					if ($value != "email")
-					{
-						$field = $this->capitalize($field);
-					}
-
-					$this->{"set" . $this->capitalize($value)}($field);	// Exemple : "setFirstName()"
-				}
-			}
-
-			// Arrivée à cette étape, les vérifications se sont déroulées avec succès.
-			$this->message = $this->translation->getPhrase("contact_form_success");
-
-			return true;
-		}
-
-		//
-		// Permet d'ajouter un message reçu depuis le formulaire dans la base
-		//	de données pour y accéder dans l'interface d'administration.
-		//
-		public function addFormMessage(array $data): void
-		{
-			//$query = $this->connector->prepare("INSERT INTO messages (`firstname`, `lastname`, `email`, `subject`, `content`) VALUES (?, ?, ?, ?, ?);");
-			//$query->execute([$data->getFirstname(), $data->getLastname(), $data->getEmail(), $data->getSubject(), $data->getContent()]);
+			$query = $this->connector->prepare("INSERT INTO contact (`email`, `subject`, `content`) VALUES (?, ?, ?);");
+			$query->execute([$email, $subject, $content]);
 		}
 	}
 ?>
