@@ -26,30 +26,99 @@ const last_step = signup.last();
 
 signup.find( "form" ).submit( function ( event )
 {
-	// On vérifie si l'utilisateur se trouve à la première étape
-	//	ou non de la phase d'inscription.
+	// On cesse d'abord le comportement par défaut.
+	event.preventDefault();
+
+	// On vérifie ensuite si l'utilisateur se trouve à la première
+	//	ou à la deuxième étape de la phase d'inscription.
 	if ( first_step.is( ":visible" ) )
 	{
-		// À la première étape, on casse le mécanisme de soumission
-		//	et on passe au suivant.
+		// Si c'est le cas, on passe à la seconde étape.
 		first_step.fadeOut( 150, function ()
 		{
 			last_step.fadeIn( 150 );
 		} );
+	}
+	else
+	{
+		// Dans le cas contraire, on réalise une requête AJAX pour
+		//	envoyer les informations au serveur.
+		$.post( "includes/controllers/signup.php", {
 
-		event.preventDefault();
+			// Nom d'utilisateur et mot de passe du compte utilisateur.
+			username: first_step.find( "input[name = username]" ).val(),
+			password: first_step.find( "input[name = password]" ).val(),
+
+			// Informations du client (obligatoires côté serveur).
+			server_address: last_step.find( "input[name = server_address]" ).val(),
+			server_port: last_step.find( "input[name = server_port]" ).val(),
+
+			// Informations administrateur (facultatives).
+			admin_address: last_step.find( "input[name = admin_address]" ).val(),
+			admin_port: last_step.find( "input[name = admin_port]" ).val(),
+			admin_password: last_step.find( "input[name = admin_password]" ).val(),
+
+			// Options de connexion.
+			secure_only: last_step.find( "input[id = secure_only]" ).is( ":checked" ),
+			auto_connect: last_step.find( "input[id = auto_connect]" ).is( ":checked" )
+
+		} )
+			.done( function ( data, _success )
+			{
+				// Une fois terminée, on affiche la réponse JSON du
+				//	serveur sous forme d'une liste numérique.
+				const json = JSON.parse( data );
+
+				// On affiche alors un message de confirmation.
+				addQueuedNotification( json[ 0 ], json[ 1 ] );
+
+				// On réinitialise ensuite les deux formulaires avant
+				//	de fermer le second.
+				first_step.find( "form" )[ 0 ].reset();
+				last_step.find( "form" )[ 0 ].reset();
+
+				last_step.fadeOut( 150 );
+
+				// On effectue enfin la redirection de l'utilisateur
+				//	vers le tableau de bord si le message renvoyé par
+				//	le serveur est un message de succès.
+				if ( json[ 1 ] == 2 )
+				{
+					setTimeout( function ()
+					{
+						window.location.href = "?target=dashboard";
+					}, 5000 );
+				}
+			} )
+			.fail( function ()
+			{
+				// Dans le cas contraire, on affiche une notification
+				//	d'échec avec les informations à notre disposition.
+				addQueuedNotification( signup_form_failed, 1 );
+			} );
 	}
 } );
 
 signup.find( "input[type = reset]" ).click( function ()
 {
-	// On cache le formulaire si l'utilisateur a demandé l'annulation de l'inscription.
-	first_step.fadeOut( 150 );
-	last_step.fadeOut( 150 );
+	// On vérifie d'abord si l'utilisateur se trouve ou non
+	//	à la première étape de l'inscription.
+	if ( first_step.is( ":visible" ) )
+	{
+		// Si c'est le cas, on cache le formulaire..
+		first_step.fadeOut( 150 );
 
-	// On en profte également pour réinitialiser les valeurs de tout le formulaire.
-	first_step.find( "form" )[ 0 ].reset();
-	last_step.find( "form" )[ 0 ].reset();
+		// ..avant de réinitialiser les informations des deux parties.
+		first_step.find( "form" )[ 0 ].reset();
+		last_step.find( "form" )[ 0 ].reset();
+	}
+	else
+	{
+		// Dans le cas contraire, on retourne juste en arrière
+		//	si l'utilisateur veut modifier certaines informations.
+		first_step.fadeIn( 150 );
+		last_step.fadeOut( 150 );
+	}
 } );
 
 //

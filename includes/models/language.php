@@ -76,7 +76,8 @@
 		{
 			// On prépare et on exécute la requête SQL.
 			$query = $this->connector->prepare("SELECT `translated_string`, `target_language` FROM $table WHERE `source_string` = ?;");
-			$query->execute([$name]);
+				$query->bindValue(1, $name);
+			$query->execute();
 
 			$result = $query->fetchAll();
 
@@ -107,7 +108,8 @@
 		{
 			// On prépare et on exécute la requête SQL.
 			$query = $this->connector->prepare("SELECT `translated_string`, `target_language`, `source_string` FROM $table WHERE `source_string` LIKE ?;");
-			$query->execute(["%$search%"]);
+				$query->bindValue(1, "%$search%");
+			$query->execute();
 
 			$result = $query->fetchAll();
 

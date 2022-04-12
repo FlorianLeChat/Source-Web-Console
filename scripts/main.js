@@ -150,7 +150,7 @@ contact.find( "form" ).submit( function ( event )
 			//	serveur sous forme d'une liste numérique.
 			const json = JSON.parse( data );
 
-			// On affiche alors un message de succès.
+			// On affiche alors un message de confirmation.
 			addQueuedNotification( json[ 0 ], json[ 1 ] );
 
 			// On réinitialise enfin l'entièreté du formulaire
