@@ -14,7 +14,7 @@
 
 		//
 		// Permet d'initialiser certains mécanismes lors de l'instanciation
-		//	de classe actuelle.
+		//	de la classe actuelle.
 		//
 		public function __construct()
 		{
@@ -23,6 +23,19 @@
 
 			// Initialisation du système des traductions.
 			$this->translation = new Language();
+		}
+
+		//
+		// Permet d'ajouter un message reçu depuis le formulaire de contact
+		//	dans la base de données du site.
+		//
+		public function insertMessage(string $email, string $subject, string $content): void
+		{
+			$query = $this->connector->prepare("INSERT INTO contact (`email`, `subject`, `content`) VALUES (?, ?, ?);");
+				$query->bindValue(1, $email);
+				$query->bindValue(2, $subject);
+				$query->bindValue(3, $content);
+			$query->execute();
 		}
 
 		//
@@ -76,29 +89,36 @@
 			//	la chaîne de caractères.
 			$input = trim($input);
 
-			// On vérifie les dimensions de chaîne de caractères.
+			// On vérifie les dimensions de la chaîne de caractères.
 			$input = $this->checkBounds($input, $field);
 
-			// On vérifie si le champ de l'adresse mail est valide.
-			//	Note : en plus de vérifier similairement au HTML la validité
-			//		du champ, on regarde si le nom de domaine de l'adresse
-			//		est connu pour sa validité.
-			if ($field === "email")
+			// On vérifie après si le champ contenant une adresse électronique
+			//	est considéré comme valide.
+			//	Note : on regarde également si le nom de domaine de l'adresse
+			//		est connu pour exister aux yeux du PHP.
+			if (str_contains($field, "email"))
 			{
 				// Séparation du nom d'utilisateur et du nom de domaine.
 				$domain = explode("@", $input)[1] ?? "invalid";
 
 				if (!filter_var($input, FILTER_VALIDATE_EMAIL) || !checkdnsrr($domain, "MX"))
 				{
-					// Si le champ est invalide, on retourne une chaîne vide.
+					// Si le champ est invalide, on assigne une chaîne vide.
 					$input = "";
 				}
 			}
 
-			// Si la chaîne de caractères est vide, alors on retourne
-			//	"false", dans le cas contraire, on retourne la chaîne
-			//	modifiée précédemment.
-			return $input === "" ? false : $input;
+			// On vérifie ensuite si le champ contenant une adresse IP de type 4
+			//	ou 6 est valide.
+			if (str_contains($field, "address") && !filter_var($input, FILTER_VALIDATE_IP))
+			{
+				// L'adresse IP est invalide, on assigne une chaîne vide.
+				$input = "";
+			}
+
+			// Si la chaîne de caractères est vide, alors on retourne "false",
+			//	dans le cas contraire, on retourne la chaîne modifiée précédemment.
+			return empty($input) ? false : $input;
 		}
 
 		//
@@ -121,16 +141,6 @@
 
 			// On retourne enfin le message modifié.
 			return $message;
-		}
-
-		//
-		// Permet d'ajouter un message reçu depuis le formulaire de contact
-		//	dans la base de données du site.
-		//
-		public function insertMessage(string $email, string $subject, string $content): void
-		{
-			$query = $this->connector->prepare("INSERT INTO contact (`email`, `subject`, `content`) VALUES (?, ?, ?);");
-			$query->execute([$email, $subject, $content]);
 		}
 	}
 ?>

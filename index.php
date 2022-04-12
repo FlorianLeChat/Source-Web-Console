@@ -48,7 +48,7 @@
 	// Récupération de la page demandée.
 	$file = htmlentities($_GET["target"] ?? "", ENT_QUOTES);
 
-	if (empty($file) || !file_exists("includes/controllers/$file.php"))
+	if (empty($file) || !file_exists("includes/views/$file.twig"))
 	{
 		// Si la variable est vide ou invalide, on cible la page par défaut.
 		$file = "index";

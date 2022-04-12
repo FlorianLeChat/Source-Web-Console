@@ -24,29 +24,29 @@
 
 		];
 
-		// On itére à travers toutes les clés de la requête POST pour
-		//	vérifier les données transmises.
-		foreach (array_keys($_POST) as $value)
+		// On itére ensuite à travers toutes les clés de la requête POST
+		//	pour vérifier les données transmises.
+		foreach (array_keys($_POST) as $key)
 		{
 			// On rend propre et valide l'entrée utilisateur.
-			$field = $form->serializeInput($_POST, $value);
+			$value = $form->serializeInput($_POST, $key);
 
-			if ($field)
+			if ($value)
 			{
-				// Si la donnée est invalide, alors on force la mise en
+				// Si la donnée est valide, alors on force la mise en
 				//	place d'une majuscule à l'entrée.
-				$_POST[$value] = $form->capitalize($field);
+				$_POST[$key] = $form->capitalize($value);
 			}
 			else
 			{
 				// Dans le cas contraire, on casse la boucle et on créé
-				//	le message d'erreur.
-				$message = [$form->formatMessage($value), 1];
+				//	le message d'erreur approprié.
+				$message = [$form->formatMessage($key), 1];
 				break;
 			}
 		}
 
-		// On réalise certaines actions si les vérifications ont réussies.
+		// On réalise après certaines actions si les vérifications ont réussies.
 		if (empty($message))
 		{
 			// Ajout du message de validation.
@@ -56,7 +56,7 @@
 			$form->insertMessage($_POST["email"], $_POST["subject"], $_POST["content"]);
 		}
 
-		// On affiche finalement le message final.
+		// On affiche enfin le message final.
 		echo(json_encode($message));
 		exit();
 	}

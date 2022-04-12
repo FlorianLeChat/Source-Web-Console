@@ -1,6 +1,14 @@
 {# Modèle de base #}
 {% extends "base.twig" %}
 
+{# Injection de code JavaScript #}
+{% block javascript %}
+	<script>
+		// Message d'erreur lorsqu'une erreur s'est produite lors de l'inscription.
+		const signup_form_failed = "{{ form_phrases["form_signup_failed"]|escape }}";
+	</script>
+{% endblock %}
+
 {# En-tête de la page #}
 {% block header %}
 	<ul>
