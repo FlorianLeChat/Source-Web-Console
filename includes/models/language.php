@@ -4,6 +4,8 @@
 	//
 	namespace Source\Models;
 
+	require_once(__DIR__ . "/../model.php");
+
 	final class Language extends Main
 	{
 		//
@@ -121,7 +123,7 @@
 				//	la langue actuellement sélectionnée.
 				$translations = array_filter($result, function($translation)
 				{
-					return $translation["target_language"] == $this->getLanguage();
+					return $translation["target_language"] === $this->getLanguage();
 				});
 
 				// On calcule alors le décalage entre le nombre de traductions que
@@ -136,7 +138,7 @@
 					//	comme « langue de secours ».
 					$result = array_filter($result, function($translation)
 					{
-						return $translation["target_language"] == "FR";
+						return $translation["target_language"] === "FR";
 					});
 
 					// On fusionne après la langue de secours et les résultats de la

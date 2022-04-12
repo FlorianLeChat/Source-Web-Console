@@ -4,6 +4,8 @@
 	//
 	namespace Source\Models;
 
+	require_once(__DIR__ . "/../model.php");
+
 	final class User extends Main
 	{
 		// Temps d'expiration du jeton d'authentification (en secondes).
@@ -69,7 +71,7 @@
 		{
 			// On détermine si l'horodatage présent dans la base de données
 			// 	doit être actualisé ou non (uniquement lors d'une connexion).
-			$timestamp = $token == "" ? "`creation_time`" : "NULL";
+			$timestamp = $token === "" ? "`creation_time`" : "NULL";
 
 			// On effectue juste après la requête de mise à jour.
 			$query = $this->connector->prepare("UPDATE `users` SET `access_token` = ?, `creation_time` = $timestamp WHERE `username` = ?;");
@@ -112,7 +114,7 @@
 			//	aussi bien côté client que dans la base de données.
 			$this->storeToken("");
 
-			setcookie("generated_token", "", 1, "/portfolio/admin/", $_SERVER["HTTP_HOST"], true);
+			setcookie("generated_token", "", 1, "/", $_SERVER["HTTP_HOST"], true);
 
 			// On supprime toutes les informations utilisateurs sauvegardées
 			// 	dans les sessions.

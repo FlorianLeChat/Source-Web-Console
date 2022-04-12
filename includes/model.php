@@ -4,6 +4,8 @@
 	//
 	namespace Source\Models;
 
+	require_once(__DIR__ . "/models/language.php");
+
 	use PDO;
 	use PDOException;
 
@@ -11,6 +13,25 @@
 	{
 		// Connecteur à la base de données.
 		protected PDO $connector;
+
+		// Outil de récupération des traductions.
+		public Language $translation;
+
+		//
+		// Permet d'initialiser certains mécanismes lors de l'instanciation
+		//	d'une des classes héritées du modèle principal.
+		//
+		public function __construct()
+		{
+			// Connexion automatique à la base de données SQL.
+			$this->getConnector();
+
+			// Initialisation du système des sessions PHP.
+			if (session_status() !== PHP_SESSION_ACTIVE)
+			{
+				session_start();
+			}
+		}
 
 		//
 		// Permet de définir et de récupérer la langue actuellement
@@ -27,13 +48,24 @@
 		}
 
 		//
+		// Permet de mettre en majuscule la première lettre d'une phrase.
+		//
+		public function capitalize(string $phrase): string
+		{
+			$first = mb_substr($phrase, 0, 1);	// Première lettre.
+			$rest = mb_substr($phrase, 1);		// Suite de la chaîne.
+
+			return mb_strtoupper($first) . $rest;
+		}
+
+		//
 		// Permet de créer et de mettre en mémoire la connexion à
 		//	la base de données SQL.
 		//
-		public function getConnector(): void
+		private function getConnector(): void
 		{
 			// On renseigne les informations de connexion.
-			$credentials = fgetcsv(fopen("config.csv", "r"));
+			$credentials = fgetcsv(fopen(__DIR__ . "/../config.csv", "r"));
 			$link = sprintf("mysql:host=%s;dbname=%s;charset=%s;port=%s", $credentials[0], $credentials[1], $credentials[4], $credentials[5]);
 
 			// On définit ensuite les options de connexion.

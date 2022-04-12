@@ -10,9 +10,6 @@
 
 	error_reporting(E_ALL);
 
-	// Initialisation du système des sessions PHP.
-	session_start();
-
 	// Initialisation du moteur de modèles TWIG.
 	require_once("vendor/autoload.php");
 
@@ -24,10 +21,8 @@
 	require_once("includes/controller.php");
 	require_once("includes/models/language.php");
 
-	$translation = new Source\Models\Language();
-	$translation->getConnector();
-
 	// Récupération de la langue demandée par l'utilisateur.
+	$translation = new Source\Models\Language();
 	$language = htmlentities($_POST["language"] ?? "", ENT_QUOTES);
 
 	if (empty($language))
@@ -53,7 +48,7 @@
 	// Récupération de la page demandée.
 	$file = htmlentities($_GET["target"] ?? "", ENT_QUOTES);
 
-	if (empty($file) || !file_exists("includes/views/$file.twig"))
+	if (empty($file) || !file_exists("includes/controllers/$file.php"))
 	{
 		// Si la variable est vide ou invalide, on cible la page par défaut.
 		$file = "index";
