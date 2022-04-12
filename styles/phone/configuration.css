@@ -417,6 +417,7 @@ header a:hover i {
   border: 3px solid rgb(121, 121, 121);
   display: none;
   padding: 1rem;
+  z-index: 2;
   position: fixed;
   min-width: 100px;
   max-width: 360px;
