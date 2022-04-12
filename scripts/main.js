@@ -132,21 +132,38 @@ contact.find( "form" ).submit( function ( event )
 	event.preventDefault();
 
 	// On réalise ensuite la requête AJAX.
-	$.post( "includes/views/index.php" )
-		.done( function ( data, success )
+	$.post( "includes/controllers/contact.php", {
+
+		// Adresse électronique.
+		email: contact.find( "input[name = email]" ).val(),
+
+		// Sujet du message.
+		subject: contact.find( "option:selected" ).text(),
+
+		// Contenu du message.
+		content: contact.find( "textarea" ).val()
+
+	} )
+		.done( function ( data, _success )
 		{
-			alert( "second success" );
+			// Une fois terminée, on affiche la réponse JSON du
+			//	serveur sous forme d'une liste numérique.
+			const json = JSON.parse( data );
+
+			// On affiche alors un message de succès.
+			addQueuedNotification( json[ 0 ], json[ 1 ] );
+
+			// On réinitialise enfin l'entièreté du formulaire
+			//	avant de le fermer.
+			contact.find( "form" )[ 0 ].reset();
+			contact.fadeOut( 150 );
 		} )
 		.fail( function ()
 		{
-			alert( "error" );
+			// Dans le cas contraire, on affiche une notification
+			//	d'échec avec les informations à notre disposition.
+			addQueuedNotification( contact_form_failed, 1 )
 		} );
-
-	// On réinitialise juste après l'entièreté du formulaire.
-	$( this ).reset();
-
-	// On affiche enfin une notification de confirmation.
-	alert( "Affichage d'une notification de confirmation." );
 } );
 
 contact.find( "input[type = reset]" ).click( function ()
