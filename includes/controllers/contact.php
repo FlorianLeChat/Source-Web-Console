@@ -4,7 +4,7 @@
 	//
 
 	// On vérifie d'abord si la page est demandée avec une requête AJAX.
-	if (strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) === "xmlhttprequest")
+	if (strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) === "xmlhtprequest")
 	{
 		// Si c'est le cas, on ajoute le modèle de gestion des formulaires
 		//	du site.
@@ -24,9 +24,9 @@
 
 		];
 
-		// On itére ensuite à travers toutes les clés de la requête POST
-		//	pour vérifier les données transmises.
-		foreach (array_keys($_POST) as $key)
+		// On itére ensuite à travers toutes les clés attendues de la
+		//	la requête POST pour vérifier les données transmises.
+		foreach (array_keys($form->length) as $key)
 		{
 			// On rend propre et valide l'entrée utilisateur.
 			$value = $form->serializeInput($_POST, $key);
