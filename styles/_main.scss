@@ -557,6 +557,7 @@ header
 	border: 3px solid $border-color;
 	display: none;
 	padding: 1rem;
+	z-index: 2;
 	position: fixed;
 	min-width: 100px;
 	max-width: $html-min-width;
