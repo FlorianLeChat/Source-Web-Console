@@ -36,7 +36,12 @@
 
 			// Taille des champs client (premier serveur).
 			"server_address" => [10, 15],
-			"server_port" => [5, 5]
+			"server_port" => [5, 5],
+
+			// Taille des champs administrateur (facultatif).
+			//	Note : le mot de passe n'a pas de restriction.
+			"admin_address" => [10, 15],
+			"admin_port" => [5, 5]
 
 		];
 
@@ -47,12 +52,25 @@
 			// On rend propre et valide l'entrée utilisateur.
 			$value = $form->serializeInput($_POST, $key);
 
-			if (!$value)
+			if ($value === false)
 			{
-				// Si la donnée est invalide, on casse la boucle et
-				//	on créé le message d'erreur approprié.
+				// Si la donnée est invalide, on regarde qu'il ne s'agit pas
+				//	d'une information administration, dans ce cas on vérifie
+				//	si l'entrée est vide ou non.
+				if (str_starts_with($key, "admin") && empty($_POST[$key]))
+				{
+					continue;
+				}
+
+				// On affiche tout simplement le message d'erreur approprié.
 				$message = [$form->formatMessage($key), 1];
 				break;
+			}
+			else
+			{
+				// Dans le cas contraire, on met à jour les données reçues par
+				//	la requête AJAX.
+				$_POST[$key] = $value;
 			}
 		}
 

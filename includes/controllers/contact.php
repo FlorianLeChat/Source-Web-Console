@@ -41,18 +41,19 @@
 			// On rend propre et valide l'entrée utilisateur.
 			$value = $form->serializeInput($_POST, $key);
 
-			if ($value)
+			if ($value === false)
 			{
-				// Si la donnée est valide, alors on force la mise en
-				//	place d'une majuscule à l'entrée.
-				$_POST[$key] = $form->capitalize($value);
-			}
-			else
-			{
-				// Dans le cas contraire, on casse la boucle et on créé
+				// Si la donnée est invalide, on casse la boucle et on créé
 				//	le message d'erreur approprié.
 				$message = [$form->formatMessage($key), 1];
 				break;
+			}
+			else
+			{
+				// Dans le cas contraire, alors on force la mise en place
+				//	d'une majuscule à la première lettre avant de mettre à
+				//	jour les données reçues par la requête AJAX.
+				$_POST[$key] = $form->capitalize($value);
 			}
 		}
 
