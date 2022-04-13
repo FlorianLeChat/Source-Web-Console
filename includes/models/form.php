@@ -41,7 +41,7 @@
 		//
 		// Permet de vérifier les dimensions d'une chaîne de caractères.
 		//
-		private function checkBounds(string $input, string $field): string
+		private function checkBounds(string $field, string $input): string
 		{
 			// On vérifie si le champ possède une limitation de caractères
 			//	ou non (typiquement le sujet n'a pas besoin d'être contrôlé).
@@ -79,18 +79,18 @@
 		// Permet de « rendre propre » des chaînes de caractères pour
 		//	détecter les entrées invalides ou malveillantes.
 		//
-		public function serializeInput(array $data, string $field): string|bool
+		public function serializeInput(string $field, string $input): string|bool
 		{
 			// On convertit d'abord caractères spéciaux en balises
 			//	HTML lisibles.
-			$input = htmlentities($data[$field], ENT_QUOTES);
+			$input = htmlentities($input, ENT_QUOTES);
 
 			// On supprime les espaces en trop en début et à la fin de
 			//	la chaîne de caractères.
 			$input = trim($input);
 
 			// On vérifie les dimensions de la chaîne de caractères.
-			$input = $this->checkBounds($input, $field);
+			$input = $this->checkBounds($field, $input);
 
 			// On vérifie après si le champ contenant une adresse électronique
 			//	est considéré comme valide.
