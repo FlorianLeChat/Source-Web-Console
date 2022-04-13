@@ -3,8 +3,18 @@
 	// Contrôleur de gestion des formulaires de contact.
 	//
 
-	// On vérifie d'abord si la page est demandée avec une requête AJAX.
-	if (strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) === "xmlhtprequest")
+	// On vérifie si l'utilisateur est actuellement dans la période
+	//	d'attente avant d'envoyer un nouveau message.
+	session_start();
+
+	if (isset($_SESSION["form_contact_cooldown"]))
+	{
+		http_response_code(429);
+		exit();
+	}
+
+	// On vérifie si la page est demandée avec une requête AJAX.
+	if (strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) === "xmlhttprequest")
 	{
 		// Si c'est le cas, on ajoute le modèle de gestion des formulaires
 		//	du site.
@@ -55,6 +65,9 @@
 			// Insertion du message dans la base de données.
 			$form->insertMessage($_POST["email"], $_POST["subject"], $_POST["content"]);
 		}
+
+		// On met en mémoire que l'utilisateur a effectué une inscription.
+		$_SESSION["form_contact_cooldown"] = true;
 
 		// On affiche enfin le message final.
 		echo(json_encode($message));
