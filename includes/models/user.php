@@ -136,7 +136,12 @@
 				$query->bindValue(2, password_hash($password, PASSWORD_DEFAULT));
 			$query->execute();
 
-			// On procède ensuite à la connexion automatique de l'utilisateur.
+			// On déconnecte après explicitement l'ancien compte utilisateur.
+			//	Note : cela est utile pour détruire le mécanisme de maintien de la
+			//		connexion à travers le temps.
+			$this->destroy();
+
+			// On procède également à la connexion automatique de l'utilisateur.
 			$this->authenticate($username, $password);
 
 			// On fait en sorte de garder l'utilisateur connecté sur le long terme
