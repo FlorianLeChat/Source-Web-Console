@@ -5,7 +5,10 @@
 {% block javascript %}
 	<script>
 		// Message d'erreur lorsqu'une erreur s'est produite lors de l'inscription.
-		const signup_form_failed = "{{ form_phrases["form_signup_failed"]|escape }}";
+		const form_signup_failed = "{{ form_phrases["form_signup_failed"]|escape }}";
+
+		// Message d'erreur lorsqu'une erreur s'est produite lors de la connexion.
+		const form_signin_failed = "{{ form_phrases["form_signin_failed"]|escape }}";
 	</script>
 {% endblock %}
 

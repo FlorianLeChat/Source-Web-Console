@@ -166,7 +166,7 @@ contact.find( "form" ).submit( function ( event )
 		{
 			// Dans le cas contraire, on affiche une notification
 			//	d'échec avec les informations à notre disposition.
-			addQueuedNotification( contact_form_failed.replace( "$1", error ), 1 )
+			addQueuedNotification( form_contact_failed.replace( "$1", error ), 1 )
 		} );
 } );
 
