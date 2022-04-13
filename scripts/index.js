@@ -77,7 +77,7 @@ signup.find( "form" ).submit( function ( event )
 				//	renvoyé par le serveur est un message de succès.
 				if ( json[ 1 ] == 2 )
 				{
-					// On réinitialise ensuite les deux formulaires avant
+					// On réinitialise alors les deux formulaires avant
 					//	de fermer le second.
 					first_step.find( "form" )[ 0 ].reset();
 					last_step.find( "form" )[ 0 ].reset();
@@ -96,7 +96,7 @@ signup.find( "form" ).submit( function ( event )
 			{
 				// Dans le cas contraire, on affiche une notification
 				//	d'échec avec les informations à notre disposition.
-				addQueuedNotification( signup_form_failed.replace( "$1", error ), 1 );
+				addQueuedNotification( form_signup_failed.replace( "$1", error ), 1 );
 			} );
 	}
 } );
@@ -124,12 +124,63 @@ signup.find( "input[type = reset]" ).click( function ()
 } );
 
 //
-// Permet de cacher le formulaire de contact à la demande
-//	de l'utilisateur.
+// Permet de gérer les mécanismes du formulaire de connexion.
 //
+signin.find( "input[type = submit]" ).click( function ( event )
+{
+	// On cesse d'abord le comportement par défaut.
+	event.preventDefault();
+
+	// On réalise ensuite la requête AJAX.
+	$.post( "includes/controllers/signin.php", {
+
+		// Nom d'utilisateur.
+		username: signin.find( "input[name = user_name]" ).val(),
+
+		// Mot de passe.
+		password: signin.find( "input[name = user_password]" ).val(),
+
+		// Option de maintien de connexion.
+		remember_me: signin.find( "input[id = remember_me]" ).is( ":checked" ) | 0,
+
+	} )
+		.done( function ( data, _status, _self )
+		{
+			// Une fois terminée, on affiche la réponse JSON du
+			//	serveur sous forme d'une liste numérique.
+			const json = JSON.parse( data );
+
+			// On affiche alors un message de confirmation.
+			addQueuedNotification( json[ 0 ], json[ 1 ] );
+
+			// On effectue par la suite certaines actions si le message
+			//	renvoyé par le serveur est un message de succès.
+			if ( json[ 1 ] == 2 )
+			{
+				// On réinitialise alors l'entièreté du formulaire.
+				signin.find( "form" )[ 0 ].reset();
+				signin.fadeOut( 150 );
+
+				// On effectue enfin la redirection de l'utilisateur
+				//	vers le tableau de bord au bout de 5 secondes.
+				setTimeout( function ()
+				{
+					window.location.href = "?target=dashboard";
+				}, 5000 );
+			}
+		} )
+		.fail( function ( _self, _status, error )
+		{
+			// Dans le cas contraire, on affiche une notification
+			//	d'échec avec les informations à notre disposition.
+			addQueuedNotification( form_signin_failed.replace( "$1", error ), 1 );
+		} );
+} );
+
 signin.find( "input[type = reset]" ).click( function ()
 {
-	signin.fadeOut( 150 );
+	// On cache le formulaire à la demande de l'utilisateur.
+	signin.hide();
 } );
 
 //
