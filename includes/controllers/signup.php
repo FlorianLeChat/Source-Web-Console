@@ -9,6 +9,8 @@
 
 	if (isset($_SESSION["form_signup_cooldown"]))
 	{
+		// Indication : « Too Many Requests ».
+		// 	Source : https://developer.mozilla.org/fr/docs/Web/HTTP/Status/429
 		http_response_code(429);
 		exit();
 	}
@@ -46,13 +48,13 @@
 		];
 
 		// On itére ensuite à travers toutes les clés attendues de la
-		//	la requête POST pour vérifier les données transmises.
+		//	la requête AJAX pour vérifier les données transmises.
 		foreach (array_keys($form->length) as $key)
 		{
 			// On rend propre et valide l'entrée utilisateur.
-			$value = $form->serializeInput($_POST, $key);
+			$input = $form->serializeInput($key, $_POST[$key]);
 
-			if ($value === false)
+			if ($input === false)
 			{
 				// Si la donnée est invalide, on regarde qu'il ne s'agit pas
 				//	d'une information administration, dans ce cas on vérifie
@@ -70,21 +72,21 @@
 			{
 				// Dans le cas contraire, on met à jour les données reçues par
 				//	la requête AJAX.
-				$_POST[$key] = $value;
+				$_POST[$key] = $input;
 			}
 		}
 
-		// On réalise après certaines actions si les vérifications ont réussies.
+		// On réalise après certaines actions si les vérifications réussissent.
 		if (empty($message))
 		{
 			// Tentative d'ajout du nouveau compte utilisateur.
 			if ($user->register($_POST["username"], $_POST["password"]))
 			{
-				// Si l'inscription réussie, on l'indique à l'utilisateue et
-				//	on enregistre le premier serveur dans la base de données.
+				// Si l'inscription réussie, on prépare le message de confirmation
+				//	dans un premier temps.
 				$message = [$form->translation->getPhrase("form_signup_success"), 2];
 
-				// On ajoute par la même occasion le serveur enregistré dans la
+				// Dans un second temps, on ajoute le serveur enregistré dans la
 				//	base de données du site.
 				$server->storePublicInstance($_SESSION["identifier"], $_POST["server_address"], $_POST["server_port"], $_POST["secure_only"], $_POST["auto_connect"]);
 
@@ -101,10 +103,10 @@
 				//	indiqué a déjà été utilisé par quelqu'un d'autre.
 				$message = [$form->translation->getPhrase("form_signup_duplication"), 1];
 			}
-		}
 
-		// On met en mémoire que l'utilisateur a envoyé un message de contact.
-		$_SESSION["form_signup_cooldown"] = true;
+			// Mise en mémoire d'une tentative d'inscription.
+			$_SESSION["form_signup_cooldown"] = true;
+		}
 
 		// On affiche enfin le message final.
 		echo(json_encode($message));
@@ -113,6 +115,7 @@
 
 	// Dans le cas contraire qu'il ne s'agit pas d'une requête AJAX,
 	//	on signale à l'utilisateur la méthode n'est pas autorisée.
+	// 	Source : https://developer.mozilla.org/fr/docs/Web/HTTP/Status/405
 	http_response_code(405);
 	exit();
 ?>
