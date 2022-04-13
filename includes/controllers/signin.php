@@ -3,19 +3,10 @@
 	// Contrôleur de gestion des authentifications utilisateurs.
 	//
 
-	// On vérifie si l'utilisateur est actuellement dans la période
-	//	d'attente avant de pouvoir se connecter de nouveau.
+	// On vérifie si l'utilisateur est actuellement déjà connecté
+	//	à un compte utilisateur.
 	session_start();
 
-	if (isset($_SESSION["form_signin_cooldown"]))
-	{
-		// Indication : « Too Many Requests ».
-		// 	Source : https://developer.mozilla.org/fr/docs/Web/HTTP/Status/429
-		http_response_code(429);
-		exit();
-	}
-
-	// On vérifie si l'utilisateur est déjà connecté.
 	if (isset($_SESSION["identifier"]))
 	{
 		// Indication : « Unauthorized. ».
@@ -92,9 +83,6 @@
 				//	de connexion sont invalides.
 				$message = [$form->translation->getPhrase("form_signin_invalid"), 1];
 			}
-
-			// Mise en mémoire d'une tentative de connexion.
-			$_SESSION["form_signin_cooldown"] = true;
 		}
 
 		// On affiche enfin le message final.
