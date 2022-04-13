@@ -3,6 +3,16 @@
 	// Contrôleur de gestion des inscriptions utilisateurs.
 	//
 
+	// On vérifie si l'utilisateur est actuellement dans la période
+	//	d'attente avant d'envoyer une nouvelle inscription.
+	session_start();
+
+	if (isset($_SESSION["form_signup_cooldown"]))
+	{
+		http_response_code(429);
+		exit();
+	}
+
 	// On vérifie d'abord si la page est demandée avec une requête AJAX.
 	if (strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) === "xmlhttprequest")
 	{
@@ -64,6 +74,9 @@
 				$message = [$form->translation->getPhrase("form_signup_duplication"), 1];
 			}
 		}
+
+		// On met en mémoire que l'utilisateur a envoyé un message de contact.
+		$_SESSION["form_signup_cooldown"] = true;
 
 		// On affiche enfin le message final.
 		echo(json_encode($message));
