@@ -12,7 +12,7 @@
 	abstract class Main
 	{
 		// Connecteur à la base de données.
-		protected PDO $connector;
+		public PDO $connector;
 
 		// Outil de récupération des traductions.
 		public Language $translation;
