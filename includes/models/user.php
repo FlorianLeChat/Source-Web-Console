@@ -155,7 +155,7 @@
 		{
 			// On effectue d'abord une requête SQL pour vérifier si un enregistrement
 			//	est présent avec les identifiants donnés lors de l'étape précédente.
-			$query = $this->connector->prepare("SELECT `password` FROM `users` WHERE `username` = ?;");
+			$query = $this->connector->prepare("SELECT `client_id`, `password` FROM `users` WHERE `username` = ?;");
 				$query->bindValue(1, $username);
 			$query->execute();
 
@@ -167,6 +167,7 @@
 			{
 				// On retourne enfin une valeur booléenne indiquant que
 				//	l'authentification a réussie.
+				$_SESSION["identifier"] = $result["client_id"];
 				$_SESSION["username"] = $username;
 
 				return true;
@@ -187,6 +188,7 @@
 
 			// On supprime toutes les informations utilisateurs sauvegardées
 			// 	dans les sessions.
+			unset($_SESSION["client_id"]);
 			unset($_SESSION["username"]);
 		}
 	}
