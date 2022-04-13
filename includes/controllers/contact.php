@@ -9,6 +9,8 @@
 
 	if (isset($_SESSION["form_contact_cooldown"]))
 	{
+		// Indication : « Too Many Requests ».
+		// 	Source : https://developer.mozilla.org/fr/docs/Web/HTTP/Status/429
 		http_response_code(429);
 		exit();
 	}
@@ -35,13 +37,13 @@
 		];
 
 		// On itére ensuite à travers toutes les clés attendues de la
-		//	la requête POST pour vérifier les données transmises.
+		//	la requête AJAX pour vérifier les données transmises.
 		foreach (array_keys($form->length) as $key)
 		{
 			// On rend propre et valide l'entrée utilisateur.
-			$value = $form->serializeInput($_POST, $key);
+			$input = $form->serializeInput($key, $_POST[$key]);
 
-			if ($value === false)
+			if ($input === false)
 			{
 				// Si la donnée est invalide, on casse la boucle et on créé
 				//	le message d'erreur approprié.
@@ -53,18 +55,18 @@
 				// Dans le cas contraire, alors on force la mise en place
 				//	d'une majuscule à la première lettre avant de mettre à
 				//	jour les données reçues par la requête AJAX.
-				$_POST[$key] = $form->capitalize($value);
+				$_POST[$key] = $form->capitalize($input);
 			}
 		}
 
-		// On réalise après certaines actions si les vérifications ont réussies.
+		// On réalise après certaines actions si les vérifications réussissent.
 		if (empty($message))
 		{
-			// Ajout du message de validation.
-			$message = [$form->translation->getPhrase("form_contact_success"), 2];
-
 			// Insertion du message dans la base de données.
 			$form->insertMessage($_POST["email"], $_POST["subject"], $_POST["content"]);
+
+			// Ajout du message de validation.
+			$message = [$form->translation->getPhrase("form_contact_success"), 2];
 		}
 
 		// On met en mémoire que l'utilisateur a effectué une inscription.
@@ -77,6 +79,7 @@
 
 	// Dans le cas contraire qu'il ne s'agit pas d'une requête AJAX,
 	//	on signale à l'utilisateur la méthode n'est pas autorisée.
+	// 	Source : https://developer.mozilla.org/fr/docs/Web/HTTP/Status/405
 	http_response_code(405);
 	exit();
 ?>
