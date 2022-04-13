@@ -141,7 +141,7 @@ signin.find( "input[type = submit]" ).click( function ( event )
 		password: signin.find( "input[name = user_password]" ).val(),
 
 		// Option de maintien de connexion.
-		remember_me: signin.find( "input[id = remember_me]" ).is( ":checked" ) | 0,
+		remember_me: signin.find( "input[id = remember_me]" ).is( ":checked" ) | 0
 
 	} )
 		.done( function ( data, _status, _self )
@@ -207,10 +207,39 @@ links.eq( 1 ).click( function ()
 	} );
 } );
 
-links.last().click( function ()
+links.last().click( function ( event )
 {
-	// Mot de passe oublié.
-	alert( "Implémentation nécessaire." );
+	// On cesse d'abord le comportement par défaut.
+	event.preventDefault();
+
+	// On réalise ensuite la requête AJAX.
+	$.post( "includes/controllers/signin.php", {
+
+		// Nom d'utilisateur.
+		username: prompt( recover_password_username ),
+
+		// Mot de passe.
+		password: prompt( recover_password_password ),
+
+		// Option de récupération.
+		backup: true
+
+	} )
+		.done( function ( data, _status, _self )
+		{
+			// Une fois terminée, on affiche la réponse JSON du
+			//	serveur sous forme d'une liste numérique.
+			const json = JSON.parse( data );
+
+			// On affiche enfin le message de confirmation.
+			addQueuedNotification( json[ 0 ], json[ 1 ] );
+		} )
+		.fail( function ( _self, _status, error )
+		{
+			// Dans le cas contraire, on affiche une notification
+			//	d'échec avec les informations à notre disposition.
+			addQueuedNotification( form_signin_failed.replace( "$1", error ), 1 );
+		} );
 } );
 
 //

@@ -4,6 +4,12 @@
 {# Injection de code JavaScript #}
 {% block javascript %}
 	<script>
+		// Libellé demendant le nom d'utilisateur pour une récupération de compte.
+		const recover_password_username = "{{ form_phrases["form_signin_username"] }}";
+
+		// Libellé demendant le nouveau mot de passe pour une récupération de compte.
+		const recover_password_password = "{{ form_phrases["form_signin_password"] }}";
+
 		// Message d'erreur lorsqu'une erreur s'est produite lors de l'inscription.
 		const form_signup_failed = "{{ form_phrases["form_signup_failed"]|escape }}";
 
