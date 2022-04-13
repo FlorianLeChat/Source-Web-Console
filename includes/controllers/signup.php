@@ -13,16 +13,18 @@
 		exit();
 	}
 
-	// On vérifie d'abord si la page est demandée avec une requête AJAX.
+	// On vérifie si la page est demandée avec une requête AJAX.
 	if (strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) === "xmlhttprequest")
 	{
 		// Si c'est le cas, on ajoute certains modèles pour la gestion des
-		//	formulaires de contact et des utilisateurs du site.
+		//	formulaires de contact, des utilisateurs et des serveurs enregistrés.
 		require_once(__DIR__ . "/../models/form.php");
 		require_once(__DIR__ . "/../models/user.php");
+		require_once(__DIR__ . "/../models/server.php");
 
 		$form = new Source\Models\Form();
 		$user = new Source\Models\User();
+		$server = new Source\Models\Server();
 
 		// On définit par la suite les limites de caractères pour chaque
 		//	champ du formulaire.
@@ -64,8 +66,16 @@
 				//	on enregistre le premier serveur dans la base de données.
 				$message = [$form->translation->getPhrase("form_signup_success"), 2];
 
-				// $server->add();
-				// check secureonly + auto_connect
+				// On ajoute par la même occasion le serveur enregistré dans la
+				//	base de données du site.
+				$server->storePublicInstance($_SESSION["identifier"], $_POST["server_address"], $_POST["server_port"], $_POST["secure_only"], $_POST["auto_connect"]);
+
+				if (!empty($_POST["admin_address"]))
+				{
+					// Les informations sont facultatives, donc on vérifie leur présence
+					//	avant de les ajouter eux aussi dans la base de données.
+					$server->storeAdminCredentials($server->connector->lastInsertId(), $_POST["admin_address"], $_POST["admin_port"], $_POST["admin_password"]);
+				}
 			}
 			else
 			{

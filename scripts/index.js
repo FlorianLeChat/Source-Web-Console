@@ -59,8 +59,9 @@ signup.find( "form" ).submit( function ( event )
 			admin_password: last_step.find( "input[name = admin_password]" ).val(),
 
 			// Options de connexion.
-			secure_only: last_step.find( "input[id = secure_only]" ).is( ":checked" ),
-			auto_connect: last_step.find( "input[id = auto_connect]" ).is( ":checked" )
+			//	Note : conversion explicite de la valeur booléenne en valeur entière.
+			secure_only: last_step.find( "input[id = secure_only]" ).is( ":checked" ) | 0,
+			auto_connect: last_step.find( "input[id = auto_connect]" ).is( ":checked" ) | 0
 
 		} )
 			.done( function ( data, _status, _self )
