@@ -60,6 +60,18 @@
 			}
 		}
 
+		// On détermine également si l'utilisateur tente de réaliser une demande
+		//	de récupération de son mot de passe.
+		if (isset($_POST["backup"]))
+		{
+			// Mise à jour du mot de passe.
+			$user->createNewPassword($_POST["username"], $_POST["password"]);
+
+			// Affichage du message final.
+			echo(json_encode([$form->translation->getPhrase("form_signin_recover"), 3]));
+			exit();
+		}
+
 		// On réalise après certaines actions si les vérifications réussissent.
 		if (empty($message))
 		{
