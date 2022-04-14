@@ -63,6 +63,10 @@
 		"global_phrases" => $translation->getPhrases("global"),
 		"global_language" => $language,
 
+		// Variables utilisateurs.
+		"user_connected" => isset($_SESSION["identifier"]),
+		"user_identifier" => $_SESSION["username"] ?? "",
+
 		// En-tête du document.
 		"head_phrases" => $translation->getPhrases("head"),
 
