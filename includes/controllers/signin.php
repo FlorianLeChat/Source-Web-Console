@@ -3,10 +3,11 @@
 	// Contrôleur de gestion des authentifications utilisateurs.
 	//
 
+	// On initialise le contrôleur principal des données.
+	require_once(__DIR__ . "/../controller.php");
+
 	// On vérifie si l'utilisateur est actuellement déjà connecté
 	//	à un compte utilisateur.
-	session_start();
-
 	if (isset($_SESSION["identifier"]))
 	{
 		// Indication : « Unauthorized. ».
@@ -20,9 +21,6 @@
 	{
 		// Si c'est le cas, on ajoute certains modèles pour la gestion des
 		//	formulaires de contact et des utilisateurs du site.
-		require_once(__DIR__ . "/../models/form.php");
-		require_once(__DIR__ . "/../models/user.php");
-
 		$form = new Source\Models\Form();
 		$user = new Source\Models\User();
 

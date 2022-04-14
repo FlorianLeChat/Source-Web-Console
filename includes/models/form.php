@@ -79,7 +79,7 @@
 		// Permet de « rendre propre » des chaînes de caractères pour
 		//	détecter les entrées invalides ou malveillantes.
 		//
-		public function serializeInput(string $field, string $input): string|bool
+		public function serializeInput(string $field, string $input): string|false
 		{
 			// On convertit d'abord caractères spéciaux en balises
 			//	HTML lisibles.

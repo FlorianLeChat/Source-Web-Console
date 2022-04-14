@@ -18,19 +18,13 @@
 		public Language $translation;
 
 		//
-		// Permet d'initialiser certains mécanismes lors de l'instanciation
-		//	d'une des classes héritées du modèle principal.
+		// Permet d'initialiser la connexion à la base de données
+		//	lors de l'instanciation d'une des classes héritées du
+		//	modèle principal.
 		//
 		public function __construct()
 		{
-			// Connexion automatique à la base de données SQL.
 			$this->getConnector();
-
-			// Initialisation du système des sessions PHP.
-			if (session_status() !== PHP_SESSION_ACTIVE)
-			{
-				session_start();
-			}
 		}
 
 		//
@@ -45,17 +39,6 @@
 		public function getLanguage(): string
 		{
 			return $_SESSION["language"];
-		}
-
-		//
-		// Permet de mettre en majuscule la première lettre d'une phrase.
-		//
-		public function capitalize(string $phrase): string
-		{
-			$first = mb_substr($phrase, 0, 1);	// Première lettre.
-			$rest = mb_substr($phrase, 1);		// Suite de la chaîne.
-
-			return mb_strtoupper($first) . $rest;
 		}
 
 		//

@@ -3,10 +3,11 @@
 	// Contrôleur de gestion des inscriptions utilisateurs.
 	//
 
+	// On initialise le contrôleur principal des données.
+	require_once(__DIR__ . "/../controller.php");
+
 	// On vérifie si l'utilisateur est actuellement dans la période
 	//	d'attente avant d'envoyer une nouvelle inscription.
-	session_start();
-
 	if (isset($_SESSION["form_signup_cooldown"]))
 	{
 		// Indication : « Too Many Requests ».
@@ -20,10 +21,6 @@
 	{
 		// Si c'est le cas, on ajoute certains modèles pour la gestion des
 		//	formulaires de contact, des utilisateurs et des serveurs enregistrés.
-		require_once(__DIR__ . "/../models/form.php");
-		require_once(__DIR__ . "/../models/user.php");
-		require_once(__DIR__ . "/../models/server.php");
-
 		$form = new Source\Models\Form();
 		$user = new Source\Models\User();
 		$server = new Source\Models\Server();

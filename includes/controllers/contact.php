@@ -3,10 +3,11 @@
 	// Contrôleur de gestion des formulaires de contact.
 	//
 
+	// On initialise le contrôleur principal des données.
+	require_once(__DIR__ . "/../controller.php");
+
 	// On vérifie si l'utilisateur est actuellement dans la période
 	//	d'attente avant d'envoyer un nouveau message.
-	session_start();
-
 	if (isset($_SESSION["form_contact_cooldown"]))
 	{
 		// Indication : « Too Many Requests ».
@@ -18,10 +19,8 @@
 	// On vérifie si la page est demandée avec une requête AJAX.
 	if (strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) === "xmlhttprequest")
 	{
-		// Si c'est le cas, on ajoute le modèle de gestion des formulaires
-		//	du site.
-		require_once(__DIR__ . "/../models/form.php");
-
+		// Si c'est le cas, on préapre le modèle de gestion de l'ensemble
+		//	des formulaires du site.
 		$form = new Source\Models\Form();
 		$form->length = [
 
@@ -55,7 +54,7 @@
 				// Dans le cas contraire, alors on force la mise en place
 				//	d'une majuscule à la première lettre avant de mettre à
 				//	jour les données reçues par la requête AJAX.
-				$_POST[$key] = $form->capitalize($input);
+				$_POST[$key] = capitalize($input);
 			}
 		}
 
