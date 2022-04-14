@@ -57,7 +57,7 @@
 		{
 			// On exécute une requête SQL pour récupérer le jeton
 			//	d'authentification enregistré dans la base de données.
-			$query = $this->connector->prepare("SELECT `username` FROM `users` WHERE `access_token` = ?;");
+			$query = $this->connector->prepare("SELECT `client_id`, `username` FROM `users` WHERE `access_token` = ?;");
 				$query->bindValue(1, $token);
 			$query->execute();
 
@@ -66,7 +66,10 @@
 			// On vérifie alors le résultat de la requête.
 			if (is_array($result) && count($result) > 0 && strtotime($result["creation_time"]) + self::EXPIRATION_TIME > time())
 			{
-				// Si elle est valide, on met en mémoire le nom d'utilisateur.
+				// Si elle est valide, on met en mémoire certaines
+				//	informations avant d'indiquer que l'authentification
+				//	avec le jeton a réussie.
+				$_SESSION["identifier"] = $result["client_id"];
 				$_SESSION["username"] = $result["username"];
 
 				return true;
