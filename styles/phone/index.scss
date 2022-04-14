@@ -9,23 +9,15 @@
 header ul
 {
 	// Centrage des boutons.
-	width: 320px;
+	gap: 1rem;
+	display: flex;
 	position: initial;
-	margin-left: auto;
-	margin-right: auto;
-
-	// Suppression du positionnement.
-	right: initial;
+	justify-content: center;
 
 	li
 	{
 		// Disposition en ligne.
 		display: inline;
-
-		&:first-of-type
-		{
-			margin-right: 1rem;
-		}
 	}
 }
 

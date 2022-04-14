@@ -48,6 +48,20 @@ header
 				@extend %larger-touch-zone;
 			}
 		}
+
+		a
+		{
+			// Utilisation des règles originales.
+			@extend button;
+
+			// Modification de l'apparence par défaut.
+			width: auto;
+			height: 1.75rem;
+			display: flex;
+			text-align: center;
+			align-items: center;
+			justify-content: center;
+		}
 	}
 }
 
