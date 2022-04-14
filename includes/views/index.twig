@@ -21,11 +21,18 @@
 {# En-tête de la page #}
 {% block header %}
 	<ul>
-		{# Formulaire d'inscription #}
-		<li><button type="button">{{ index_phrases["index_signup"] }}</button></li>
+		{# Les boutons présents dans l'en-tête peuvent variés si
+			un utilisateur est déjà connecté à son compte. #}
+		{% if user_connected %}
+			{# Accès au tableau de bord #}
+			<li><a href="?target=dashboard">{{ header_phrases["header_subtitle_dashboard"] }}</a></li>
+		{% else %}
+			{# Formulaire d'inscription #}
+			<li><button type="button">{{ index_phrases["index_signup"] }}</button></li>
 
-		{# Formulaire de connexion #}
-		<li><button type="button">{{ index_phrases["index_signin"] }}</button></li>
+			{# Formulaire de connexion #}
+			<li><button type="button">{{ index_phrases["index_signin"] }}</button></li>
+		{% endif %}
 	</ul>
 {% endblock %}
 

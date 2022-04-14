@@ -1,5 +1,5 @@
 @charset "UTF-8";
-input, textarea, select, button {
+input, textarea, select, button, header ul a {
   border: none;
   outline: none;
   position: relative;
@@ -12,7 +12,7 @@ ul, ol {
 }
 
 @media screen and (max-width: 1024px) {
-  header ul button::before, footer ul li a span::after, #tips button::after {
+  header ul button::before, header ul a::before, footer ul li a span::after, #tips button::after, #tips header ul a::after, header ul #tips a::after {
     top: -0.5rem;
     left: -0.5rem;
     right: -0.5rem;
@@ -92,7 +92,7 @@ video {
   min-height: 100%;
 }
 
-button {
+button, header ul a {
   cursor: pointer;
   box-shadow: 0.25rem 0.25rem 0.25rem rgb(121, 121, 121);
 }
@@ -494,7 +494,7 @@ header a:hover i {
   display: none;
   margin-left: 1rem;
 }
-#tips button {
+#tips button, #tips header ul a, header ul #tips a {
   color: rgb(245, 154, 35);
   width: 3rem;
   right: 0.5rem;
@@ -508,11 +508,11 @@ header a:hover i {
   border-radius: 50%;
   background-color: rgb(51, 51, 51);
 }
-#tips button:hover {
+#tips button:hover, #tips header ul a:hover, header ul #tips a:hover {
   color: rgb(51, 51, 51);
   background-color: rgb(245, 154, 35);
 }
-#tips button:hover + span {
+#tips button:hover + span, #tips header ul a:hover + span, header ul #tips a:hover + span {
   color: rgb(245, 154, 35);
   right: 4rem;
   bottom: 4.6rem;
@@ -579,22 +579,22 @@ footer ul li:last-of-type ul {
 footer ul li:last-of-type ul li {
   margin: 0.5rem 0 0;
 }
-footer ul li:last-of-type ul li button {
+footer ul li:last-of-type ul li button, footer header ul li:last-of-type ul li a, header footer ul li:last-of-type ul li a {
   color: rgb(51, 51, 51);
   padding: 0.5rem;
   transition: color 250ms, background-color 250ms;
   border-radius: 0.5rem;
   background-color: rgb(245, 154, 35);
 }
-footer ul li:last-of-type ul li button img {
+footer ul li:last-of-type ul li button img, footer header ul li:last-of-type ul li a img, header footer ul li:last-of-type ul li a img {
   width: 2rem;
   margin-right: 0;
 }
-footer ul li:last-of-type ul li button span {
+footer ul li:last-of-type ul li button span, footer header ul li:last-of-type ul li a span, header footer ul li:last-of-type ul li a span {
   font-size: 1.25rem;
   font-weight: bold;
 }
-footer ul li:last-of-type ul li button:hover {
+footer ul li:last-of-type ul li button:hover, footer header ul li:last-of-type ul li a:hover, header footer ul li:last-of-type ul li a:hover {
   color: rgb(245, 154, 35);
   background-color: rgb(51, 51, 51);
 }
@@ -650,7 +650,7 @@ header ul {
   margin: 1rem;
   position: absolute;
 }
-header ul button {
+header ul button, header ul a {
   color: rgb(245, 154, 35);
   width: 150px;
   height: 44px;
@@ -662,10 +662,19 @@ header ul button {
   text-transform: uppercase;
   background-color: rgb(51, 51, 51);
 }
-header ul button:hover {
+header ul button:hover, header ul a:hover {
   color: rgb(51, 51, 51);
   background-color: rgb(245, 154, 35);
 }
+header ul a {
+  width: auto;
+  height: 1.75rem;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
 #informations {
   top: calc(50% - 1.75rem);
   gap: 10vw;
@@ -709,17 +718,17 @@ header ul button:hover {
   font-size: 3rem;
   text-shadow: 1px 1px 1px rgb(245, 154, 35);
 }
-#informations article button {
+#informations article button, #informations article header ul a, header ul #informations article a {
   color: rgb(51, 51, 51);
   font-size: 2rem;
   transition: color 250ms;
   box-shadow: none;
   background-color: transparent;
 }
-#informations article button:first-of-type {
+#informations article button:first-of-type, #informations article header ul a:first-of-type, header ul #informations article a:first-of-type {
   display: none;
 }
-#informations article button:hover {
+#informations article button:hover, #informations article header ul a:hover, header ul #informations article a:hover {
   color: rgb(245, 154, 35);
 }
 #informations article ul li {
@@ -732,17 +741,13 @@ header ul button:hover {
 }
 
 header ul {
-  width: 320px;
+  gap: 1rem;
+  display: flex;
   position: initial;
-  margin-left: auto;
-  margin-right: auto;
-  right: initial;
+  justify-content: center;
 }
 header ul li {
   display: inline;
-}
-header ul li:first-of-type {
-  margin-right: 1rem;
 }
 
 #informations {
