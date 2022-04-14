@@ -4,8 +4,6 @@
 	//
 	namespace Source\Models;
 
-	require_once(__DIR__ . "/../model.php");
-
 	final class User extends Main
 	{
 		// Temps d'expiration du jeton d'authentification (en secondes).
@@ -57,7 +55,7 @@
 		{
 			// On exécute une requête SQL pour récupérer le jeton
 			//	d'authentification enregistré dans la base de données.
-			$query = $this->connector->prepare("SELECT `client_id`, `username` FROM `users` WHERE `access_token` = ?;");
+			$query = $this->connector->prepare("SELECT `client_id`, `username`, `creation_time` FROM `users` WHERE `access_token` = ?;");
 				$query->bindValue(1, $token);
 			$query->execute();
 
@@ -96,8 +94,13 @@
 			$query->execute();
 
 			// On définit enfin le cookie de mise à jour pour le client.
-			// 	Note : si le jeton est vide, alors le cookie doit être supprimé.
-			setcookie("generated_token", $token, empty($token) ? 1 : time() + self::EXPIRATION_TIME, "/", $_SERVER["HTTP_HOST"], true);
+			// 	Note : cette définition est faite uniquement lorsque le trafic
+			//		du site est entièrement sécurisé.
+			if (isset($_SERVER["HTTPS"]))
+			{
+				// Si le jeton est vide, alors le cookie doit être supprimé.
+				setcookie("generated_token", $token, empty($token) ? 1 : time() + self::EXPIRATION_TIME, "/", $_SERVER["HTTP_HOST"], true);
+			}
 		}
 
 		//

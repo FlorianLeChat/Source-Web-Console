@@ -19,9 +19,8 @@
 	// On vérifie si la page est demandée avec une requête AJAX.
 	if (strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) === "xmlhttprequest")
 	{
-		// Si c'est le cas, on préapre le modèle de gestion de l'ensemble
-		//	des formulaires du site.
-		$form = new Source\Models\Form();
+		// Si c'est le cas, on définit les limites de caractères pour chaque
+		//	champ du formulaire.
 		$form->length = [
 
 			// Taille de l'adresse électronique.

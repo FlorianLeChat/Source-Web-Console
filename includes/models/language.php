@@ -4,8 +4,6 @@
 	//
 	namespace Source\Models;
 
-	require_once(__DIR__ . "/../model.php");
-
 	final class Language extends Main
 	{
 		//

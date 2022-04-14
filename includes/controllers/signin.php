@@ -19,12 +19,7 @@
 	// On vérifie si la page est demandée avec une requête AJAX.
 	if (strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) === "xmlhttprequest")
 	{
-		// Si c'est le cas, on ajoute certains modèles pour la gestion des
-		//	formulaires de contact et des utilisateurs du site.
-		$form = new Source\Models\Form();
-		$user = new Source\Models\User();
-
-		// On définit par la suite les limites de caractères pour chaque
+		// Si c'est le cas, on définit les limites de caractères pour chaque
 		//	champ du formulaire.
 		$form->length = [
 

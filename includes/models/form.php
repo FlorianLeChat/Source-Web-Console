@@ -4,8 +4,6 @@
 	//
 	namespace Source\Models;
 
-	require_once(__DIR__ . "/../model.php");
-
 	// Classe permettant de gérer le formulaire de contact.
 	final class Form extends Main
 	{

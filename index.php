@@ -10,19 +10,16 @@
 
 	error_reporting(E_ALL);
 
+	// Initialisation du contrôleur principal.
+	require_once("includes/controller.php");
+
 	// Initialisation du moteur de modèles TWIG.
 	require_once("vendor/autoload.php");
 
 	$engine = new Twig\Loader\FilesystemLoader("includes/views");
 	$twig = new Twig\Environment($engine, ["debug" => true, "autoescape" => false]);
 
-	// Création des classes principales.
-	require_once("includes/model.php");
-	require_once("includes/controller.php");
-	require_once("includes/models/language.php");
-
 	// Récupération de la langue demandée par l'utilisateur.
-	$translation = new Source\Models\Language();
 	$language = htmlentities($_POST["language"] ?? "", ENT_QUOTES);
 
 	if (empty($language))
@@ -40,9 +37,14 @@
 	}
 	else
 	{
-		// Dans le cas contraire, on récupère la dernière
-		//	langue définie.
+		// Dans le cas contraire, on récupère la dernière langue définie.
 		$language = $translation->getLanguage();
+	}
+
+	// Tentative de connexion automatique avec un jeton d'authentification.
+	if (!empty($_COOKIE["generated_token"]))
+	{
+		$user->compareToken($_COOKIE["generated_token"]);
 	}
 
 	// Récupération de la page demandée.
