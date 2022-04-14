@@ -41,12 +41,6 @@
 		$language = $translation->getLanguage();
 	}
 
-	// Tentative de connexion automatique avec un jeton d'authentification.
-	if (!empty($_COOKIE["generated_token"]))
-	{
-		$user->compareToken($_COOKIE["generated_token"]);
-	}
-
 	// Récupération de la page demandée.
 	$file = htmlentities($_GET["target"] ?? "", ENT_QUOTES);
 
@@ -54,6 +48,30 @@
 	{
 		// Si la variable est vide ou invalide, on cible la page par défaut.
 		$file = "index";
+	}
+
+	// Vérification de l'état de connexion de l'utilisateur.
+	$connected = isset($_SESSION["identifier"]);
+
+	if (!$connected)
+	{
+		// Si l'utilisateur est déconnecté, on tente de le connnecter
+		//	automatiquement à son compte avec un jeton d'authentification
+		//	enregistré sur son navigateur.
+		if (!empty($_COOKIE["generated_token"]))
+		{
+			// Récupération de l'état de connexion après comparaison avec les
+			//	données présentes dans la base de données.
+			$connected = $user->compareToken($_COOKIE["generated_token"]);
+		}
+
+		// Si malgré la tentative de connexion automatique, l'utilisateur
+		//	est toujours déconnecté et qu'il veut accès à une page protégé
+		//	alors, on force l'affichage de la page d'accueil.
+		if (!$connected && $file != "index")
+		{
+			$file = "index";
+		}
 	}
 
 	// Rendu final avec le moteur de modèles TWIG.
@@ -66,7 +84,7 @@
 		"global_language" => $language,
 
 		// Variables utilisateurs.
-		"user_connected" => isset($_SESSION["identifier"]),
+		"user_connected" => $connected,
 		"user_identifier" => $_SESSION["username"] ?? "",
 
 		// En-tête du document.
