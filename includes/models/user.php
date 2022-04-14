@@ -36,7 +36,7 @@
 				$query->execute();
 
 				// On supprime le jeton d'authentification par la même occasion.
-				$this->storeToken();
+				$this->storeToken(username: $username);
 			}
 		}
 
@@ -80,7 +80,7 @@
 		// Permet d'enregistrer le jeton d'authentification de l'utilisateur
 		//	dans la base de données.
 		//
-		public function storeToken(string $token = ""): void
+		public function storeToken(string $token = "", string $username = null): void
 		{
 			// On détermine si l'horodatage présent dans la base de données
 			// 	doit être actualisé ou non (uniquement lors d'une connexion).
@@ -89,7 +89,7 @@
 			// On effectue juste après la requête de mise à jour.
 			$query = $this->connector->prepare("UPDATE `users` SET `access_token` = ?, `creation_time` = $timestamp WHERE `username` = ?;");
 				$query->bindValue(1, $token);
-				$query->bindValue(2, $_SESSION["username"]);
+				$query->bindValue(2, $username ?? $_SESSION["username"]);
 			$query->execute();
 
 			// On définit enfin le cookie de mise à jour pour le client.
