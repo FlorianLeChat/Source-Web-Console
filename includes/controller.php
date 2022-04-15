@@ -25,6 +25,7 @@
 	// Création de toutes les classes nécessaires.
 	$form = new Source\Models\Form();
 	$user = new Source\Models\User();
+	$mail = new Source\Models\Mail();
 	$server = new Source\Models\Server();
 	$translation = new Source\Models\Language();
 ?>
