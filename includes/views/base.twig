@@ -107,10 +107,13 @@
 				</div>
 
 				{# État de connexion #}
-				<a href="?target=user">
-					<i class="bi bi-person-circle"></i>
-					<span>{{ header_phrases["header_user_status"]|format("username") }}</span>
-				</a>
+				{# Note : apparaît seulement sur les comptes inscrits #}
+				{% if user_identifier is not empty %}
+					<a href="?target=user">
+						<i class="bi bi-person-circle"></i>
+						<span>{{ header_phrases["header_user_status"]|format(user_identifier|capitalize) }}</span>
+					</a>
+				{% endif %}
 			{% endblock %}
 		</header>
 
