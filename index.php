@@ -51,7 +51,7 @@
 	}
 
 	// Vérification de l'état de connexion de l'utilisateur.
-	$connected = isset($_SESSION["identifier"]);
+	$connected = isset($_SESSION["identifier"]) || isset($_SESSION["temporary_user"]);
 
 	if (!$connected)
 	{

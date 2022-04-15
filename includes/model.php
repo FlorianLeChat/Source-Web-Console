@@ -14,9 +14,6 @@
 		// Connecteur à la base de données.
 		public PDO $connector;
 
-		// Outil de récupération des traductions.
-		public Language $translation;
-
 		//
 		// Permet d'initialiser la connexion à la base de données
 		//	lors de l'instanciation d'une des classes héritées du
