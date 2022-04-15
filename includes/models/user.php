@@ -199,7 +199,7 @@
 
 			// On supprime toutes les informations utilisateurs sauvegardées
 			// 	dans les sessions.
-			unset($_SESSION["client_id"]);
+			unset($_SESSION["identifier"]);
 			unset($_SESSION["username"]);
 		}
 	}
