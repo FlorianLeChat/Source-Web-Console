@@ -14,14 +14,28 @@
 		// Connecteur à la base de données.
 		public PDO $connector;
 
+		// Configuration générale du site.
+		protected array $config;
+
 		//
-		// Permet d'initialiser la connexion à la base de données
-		//	lors de l'instanciation d'une des classes héritées du
-		//	modèle principal.
+		// Permet d'initialiser certains mécanismes	lors de l'instanciation
+		//	d'une des classes héritées du modèle principal.
 		//
 		public function __construct()
 		{
+			// Mise en mémoire de la configuration.
+			$this->config = json_decode(file_get_contents(__DIR__ . "/../config.json"), true);
+
+			// Connexion à la base de données.
 			$this->getConnector();
+		}
+
+		//
+		// Permet de récupérer une valeur de la configuration générale.
+		//
+		protected function getConfig(string $key): mixed
+		{
+			return $this->config[$key];
 		}
 
 		//
@@ -45,20 +59,20 @@
 		private function getConnector(): void
 		{
 			// On renseigne les informations de connexion.
-			$credentials = fgetcsv(fopen(__DIR__ . "/../config.csv", "r"));
-			$link = sprintf("mysql:host=%s;dbname=%s;charset=%s;port=%s", $credentials[0], $credentials[1], $credentials[4], $credentials[5]);
+			$link = sprintf("mysql:host=%s;dbname=%s;charset=%s;port=%s", $this->getConfig("sql_host"), $this->getConfig("sql_database"),
+																			$this->getConfig("sql_charset"), $this->getConfig("sql_port"));
 
 			// On définit ensuite les options de connexion.
 			$options = [
 				PDO::ATTR_ERRMODE			 	=> PDO::ERRMODE_EXCEPTION,
 				PDO::ATTR_DEFAULT_FETCH_MODE	=> PDO::FETCH_ASSOC,
-				PDO::ATTR_EMULATE_PREPARES 		=> false,
+				PDO::ATTR_EMULATE_PREPARES 		=> false
 			];
 
 			// On tente enfin de créer la connexion avec les informations précédentes.
 			try
 			{
-				$this->connector = new PDO($link, $credentials[2], $credentials[3], $options);
+				$this->connector = new PDO($link, $this->getConfig("sql_username"), $this->getConfig("sql_password"), $options);
 			}
 			catch (PDOException $error)
 			{

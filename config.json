@@ -1,0 +1,10 @@
+{
+	"sql_host": "host",
+	"sql_database": "database",
+	"sql_username": "username",
+	"sql_password": "password",
+	"sql_charset": "charset",
+	"sql_port": "port",
+	"openssl_phrase": "phrase",
+	"openssl_iv": "iv"
+}
