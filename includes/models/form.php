@@ -10,6 +10,9 @@
 		// Limites de caractères par champ.
 		public array $length = [];
 
+		// Outil de récupération des traductions.
+		public Language $translation;
+
 		//
 		// Permet d'initialiser certains mécanismes lors de l'instanciation
 		//	de la classe actuelle.
