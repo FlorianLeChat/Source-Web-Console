@@ -41,7 +41,7 @@
 		$language = $translation->getLanguage();
 	}
 
-	// Récupération de la page demandée.
+	// Récupération de la page demandée par l'utilisateur.
 	$file = htmlentities($_GET["target"] ?? "", ENT_QUOTES);
 
 	if (empty($file) || !file_exists("includes/views/$file.twig"))
@@ -74,9 +74,15 @@
 		}
 	}
 
-	// Rendu final avec le moteur de modèles TWIG.
-	$html = $twig->render("$file.twig",
-	[
+	// Exécution du script PHP pour le fichier spécifique.
+	require_once("includes/controllers/$file.php");
+
+	// Assemblage des paramètres du moteur TWIG.
+	// 	Note : dans cette partie, les paramètres dynamiques possiblement créés
+	//		dans le script PHP de la page actuel sont fusionnés avec ceux qui
+	//		ont été prédéfis par défaut.
+	$parameters = array_merge($parameters, [
+
 		// Variables globales.
 		"global_url" => $_SERVER["SERVER_NAME"],
 		"global_file" => $file,
@@ -103,7 +109,9 @@
 
 		// Pied de page.
 		"footer_phrases" => $translation->getPhrases("footer")
+
 	]);
 
-	echo($html);
+	// Rendu final avec le moteur TWIG.
+	echo($twig->render("$file.twig", $parameters));
 ?>
