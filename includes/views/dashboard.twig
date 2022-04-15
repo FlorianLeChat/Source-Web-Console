@@ -12,53 +12,23 @@
 		<h2>{{ dashboard_phrases["dashboard_servers"] }}</h2>
 
 		<ul>
-			<li>
-				{# Premier serveur #}
-				<span>Nom du premier serveur</span>
-				<span>XX.XX.XX.XX / XX</span>
+			{% for server in dashboard_instances %}
+				<li>
+					{# Premier serveur #}
+					<span>Nom du premier serveur</span>
+					<span>{{ server["client_address"] }}</span>
 
-				<button type="button" name="server_edit" value="uuid_1">
-					{# Édition des propriétés du serveur #}
-					<i class="bi bi-pencil-square"></i>
-				</button>
+					<button type="button" name="server_edit" value="uuid_1">
+						{# Édition des propriétés du serveur #}
+						<i class="bi bi-pencil-square"></i>
+					</button>
 
-				<button type="button" name="server_connect" value="uuid_1">
-					{# Connexion directe au serveur #}
-					<i class="bi bi-plug"></i>
-				</button>
+					<button type="button" name="server_connect" value="uuid_1">
+						{# Connexion directe au serveur #}
+						<i class="bi bi-plug"></i>
+					</button>
 			</li>
-
-			<li>
-				{# Deuxième serveur #}
-				<span>Nom du second serveur</span>
-				<span>XX.XX.XX.XX / XX</span>
-
-				<button type="button" name="server_edit" value="uuid_2">
-					{# Édition des propriétés du serveur #}
-					<i class="bi bi-pencil-square"></i>
-				</button>
-
-				<button type="button" name="server_connect" value="uuid_2">
-					{# Connexion directe au serveur #}
-					<i class="bi bi-plug"></i>
-				</button>
-			</li>
-
-			<li>
-				{# Troisième serveur #}
-				<span>Nom du troisième serveur</span>
-				<span>XX.XX.XX.XX / XX</span>
-
-				<button type="button" name="server_edit" value="uuid_3">
-					{# Édition des propriétés du serveur #}
-					<i class="bi bi-pencil-square"></i>
-				</button>
-
-				<button type="button" name="server_connect" value="uuid_3">
-					{# Connexion directe au serveur #}
-					<i class="bi bi-plug"></i>
-				</button>
-			</li>
+			{% endfor %}
 		</ul>
 
 		<button type="button" name="servers_list" value="0">
@@ -66,7 +36,7 @@
 			<i class="bi bi-chevron-left"></i>
 		</button>
 
-		<span>1 / 3</span>
+		<span>1 / {{ max(dashboard_instances|length // 3, 1) }}</span>
 
 		<button type="button" name="servers_list" value="2">
 			{# Serveurs suivants #}
