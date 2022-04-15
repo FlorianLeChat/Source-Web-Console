@@ -61,7 +61,7 @@
 			$user->createNewPassword($_POST["username"], $_POST["password"]);
 
 			// Affichage du message final.
-			echo(json_encode([$form->translation->getPhrase("form_signin_recover"), 3]));
+			echo(json_encode([$translation->getPhrase("form_signin_recover"), 3]));
 			exit();
 		}
 
@@ -73,7 +73,7 @@
 			{
 				// Si la connexion réussie, on prépare le message de confirmation
 				//	dans un premier temps.
-				$message = [$form->translation->getPhrase("form_signin_success"), 2];
+				$message = [$translation->getPhrase("form_signin_success"), 2];
 
 				// Dans un second temps, on vérifie si l'utilisateur a demandé de
 				//	maintenir sa connexion à travers le temps via les cookies.
@@ -86,7 +86,7 @@
 			{
 				// Dans le cas contraire, cela signifie que les informations de
 				//	de connexion sont invalides.
-				$message = [$form->translation->getPhrase("form_signin_invalid"), 1];
+				$message = [$translation->getPhrase("form_signin_invalid"), 1];
 			}
 		}
 

@@ -64,7 +64,7 @@
 			$form->insertMessage($_POST["email"], $_POST["subject"], $_POST["content"]);
 
 			// Ajout du message de validation.
-			$message = [$form->translation->getPhrase("form_contact_success"), 2];
+			$message = [$translation->getPhrase("form_contact_success"), 2];
 		}
 
 		// On met en mémoire que l'utilisateur a effectué une inscription.
