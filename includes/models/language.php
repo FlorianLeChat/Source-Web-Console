@@ -70,10 +70,10 @@
 		// Permet de récupérer une seule traduction dans une table donnée.
 		// 	Note : cette fonction retournera forcément une chaîne de caractère non-vide.
 		//
-		public function getPhrase(string $name, string $table = "translations"): string
+		public function getPhrase(string $name): string
 		{
 			// On prépare et on exécute la requête SQL.
-			$query = $this->connector->prepare("SELECT `translated_string`, `target_language` FROM $table WHERE `source_string` = ?;");
+			$query = $this->connector->prepare("SELECT `translated_string`, `target_language` FROM `translations` WHERE `source_string` = ?;");
 				$query->bindValue(1, $name);
 			$query->execute();
 
@@ -102,10 +102,10 @@
 		//	donnée et par une expression rationnelle (pattern).
 		// 	Note : cette fonction retournera forcément un tableau associatif non-vide.
 		//
-		public function getPhrases(string $search, string $table = "translations"): array
+		public function getPhrases(string $search): array
 		{
 			// On prépare et on exécute la requête SQL.
-			$query = $this->connector->prepare("SELECT `translated_string`, `target_language`, `source_string` FROM $table WHERE `source_string` LIKE ?;");
+			$query = $this->connector->prepare("SELECT `translated_string`, `target_language`, `source_string` FROM `translations` WHERE `source_string` LIKE ?;");
 				$query->bindValue(1, "%$search%");
 			$query->execute();
 
