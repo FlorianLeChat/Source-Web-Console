@@ -60,18 +60,23 @@
 			{# Logo du site #}
 			<img src="assets/images/logo.svg" alt="Logo du site" />
 
-			{# Titre du site #}
-			<h1>{{ head_phrases["head_title"] }}</h1>
-
 			{# Bouton de défilement (précédent) #}
 			<button type="button">
 				<i class="bi bi-caret-up-fill"></i>
 			</button>
 
-			{# Paragraphe pour chaque image #}
+			{# Détails de chaque image #}
 			<ul>
 				{% for i in range(1, 4) %}
-					<li>{{ index_phrases["index_feature_" ~ i] }}</li>
+					<li>
+						{# Titre #}
+						{% if i > 1 %}
+							<h1>{{ index_phrases["index_feature_title_" ~ i] }}</h1>
+						{% endif %}
+
+						{# Description #}
+						<p>{{ index_phrases["index_feature_description_" ~ i] }}</p>
+					</li>
 				{% endfor %}
 			</ul>
 

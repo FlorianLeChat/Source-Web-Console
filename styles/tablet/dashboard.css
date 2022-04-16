@@ -156,7 +156,8 @@ header {
   background-color: rgb(51, 51, 51);
 }
 header img {
-  width: 8rem;
+  width: 12rem;
+  height: 100%;
 }
 header h1 {
   left: 1.5rem;

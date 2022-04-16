@@ -324,10 +324,10 @@ function displayInitialElements()
 	const show = indice == 0 ? true : false;			// Détermination de son affichage ou non.
 
 	// Apparition/disparition des éléments de présentation.
-	header.slice( 0, 2 ).css( "display", show ? "revert" : "none" );
+	header.first().css( "display", show ? "revert" : "none" );
 
 	// Apparition/disparition du bouton pour revenir à un élément précédent.
-	header.eq( 2 ).css( "display", show ? "none" : "revert" );
+	header.slice( 1, 2 ).css( "display", show ? "none" : "revert" );
 }
 
 // Permet d'exécuter le mécanisme de défilement précédent/suivant.

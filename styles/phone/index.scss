@@ -40,5 +40,12 @@ header ul
 	{
 		// Agrandissement du texte de présentation.
 		width: auto;
+
+		img
+		{
+			// Dynamisation des dimensions du logo.
+			width: auto;
+			max-width: 26rem;
+		}
 	}
 }
