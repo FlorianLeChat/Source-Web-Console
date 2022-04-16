@@ -3,6 +3,12 @@
 	// Contrôleur principal de la gestion des données.
 	//
 
+	// Affichage de toutes les erreurs liées aux scripts PHP.
+	ini_set("display_errors", 1);
+	ini_set("display_startup_errors", 1);
+
+	error_reporting(E_ALL);
+
 	// Initialisation du système des sessions PHP.
 	if (session_status() !== PHP_SESSION_ACTIVE)
 	{

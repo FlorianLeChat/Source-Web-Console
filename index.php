@@ -4,12 +4,6 @@
 	//	d'exécution des scripts PHP et des modèles TWIG.
 	//
 
-	// Affichage de toutes les erreurs liées aux scripts PHP.
-	ini_set("display_errors", 1);
-	ini_set("display_startup_errors", 1);
-
-	error_reporting(E_ALL);
-
 	// Initialisation du contrôleur principal.
 	require_once("includes/controller.php");
 
