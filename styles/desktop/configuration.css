@@ -357,6 +357,11 @@ header a:hover i {
   left: -1.75rem;
   position: absolute;
 }
+@-moz-document url-prefix() {
+  #signup article form input[type=text] + span::before, #signup article form input[type=email] + span::before, #signup article form input[type=password] + span::before, #signup article form textarea + span::before, #signup article form select + span::before, #signin form input[type=text] + span::before, #signin form input[type=email] + span::before, #signin form input[type=password] + span::before, #signin form textarea + span::before, #signin form select + span::before, #contact form input[type=text] + span::before, #contact form input[type=email] + span::before, #contact form input[type=password] + span::before, #contact form textarea + span::before, #contact form select + span::before {
+    top: -1rem;
+  }
+}
 #signup article form input[type=checkbox], #signin form input[type=checkbox], #contact form input[type=checkbox] {
   margin-left: 0.5rem;
 }
@@ -373,6 +378,11 @@ header a:hover i {
 #signup article form textarea + span::before, #signin form textarea + span::before, #contact form textarea + span::before {
   top: -1.25rem;
   left: -2rem;
+}
+@-moz-document url-prefix() {
+  #signup article form textarea + span::before, #signin form textarea + span::before, #contact form textarea + span::before {
+    top: -2rem;
+  }
 }
 #signup article form input[type=reset], #signin form input[type=reset], #contact form input[type=reset] {
   margin-top: 0.75rem;
@@ -577,6 +587,11 @@ footer ul li:last-of-type ul {
   display: none;
   position: absolute;
 }
+@-moz-document url-prefix() {
+  footer ul li:last-of-type ul {
+    left: -3.75rem;
+  }
+}
 footer ul li:last-of-type ul li {
   margin: 0.5rem 0 0;
 }
@@ -589,7 +604,7 @@ footer ul li:last-of-type ul li button {
 }
 footer ul li:last-of-type ul li button img {
   width: 2rem;
-  margin-right: 0;
+  margin: 0 0 -0.25rem;
 }
 footer ul li:last-of-type ul li button span {
   font-size: 1.25rem;

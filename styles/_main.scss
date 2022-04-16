@@ -444,6 +444,13 @@ header
 					top: -2.5px;
 					left: -1.75rem;
 					position: absolute;
+
+					// Correction du positionnement de l'icône
+					//	sur les navigateurs Firefox.
+					@-moz-document url-prefix()
+					{
+						top: -1rem;
+					}
 				}
 			}
 		}
@@ -476,6 +483,13 @@ header
 				// Positionnement de l'icône des vérifications.
 				top: -1.25rem;
 				left: -2rem;
+
+				// Correction du positionnement de l'icône sur les
+				// 	navigateurs Firefox.
+				@-moz-document url-prefix()
+				{
+					top: -2rem;
+				}
 			}
 		}
 
@@ -761,6 +775,13 @@ footer
 				display: none;
 				position: absolute;
 
+				// Correction du positionnement à gauche sur
+				//	les navigateurs Firefox.
+				@-moz-document url-prefix()
+				{
+					left: -3.75rem;
+				}
+
 				li
 				{
 					margin: 0.5rem 0 0;
@@ -778,7 +799,7 @@ footer
 						{
 							// Drapeau représentant la langue.
 							width: 2rem;
-							margin-right: 0;
+							margin: 0 0 -0.25rem;
 						}
 
 						span
