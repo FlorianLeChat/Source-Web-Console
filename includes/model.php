@@ -49,7 +49,7 @@
 
 		public function getLanguage(): string
 		{
-			return $_SESSION["language"];
+			return $_SESSION["language"] ?? "FR";
 		}
 
 		//
