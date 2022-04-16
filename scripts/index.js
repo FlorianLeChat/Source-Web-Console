@@ -92,11 +92,11 @@ signup.find( "form" ).submit( function ( event )
 					}, 5000 );
 				}
 			} )
-			.fail( function ( _self, _status, error )
+			.fail( function ( self, _status, error )
 			{
 				// Dans le cas contraire, on affiche une notification
 				//	d'échec avec les informations à notre disposition.
-				addQueuedNotification( form_signup_failed.replace( "$1", error ), 1 );
+				addQueuedNotification( form_signup_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
 			} );
 	}
 } );
@@ -169,11 +169,11 @@ signin.find( "input[type = submit]" ).click( function ( event )
 				}, 5000 );
 			}
 		} )
-		.fail( function ( _self, _status, error )
+		.fail( function ( self, _status, error )
 		{
 			// Dans le cas contraire, on affiche une notification
 			//	d'échec avec les informations à notre disposition.
-			addQueuedNotification( form_signin_failed.replace( "$1", error ), 1 );
+			addQueuedNotification( form_signin_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 } );
 
@@ -234,11 +234,11 @@ links.last().click( function ( event )
 			// On affiche enfin le message de confirmation.
 			addQueuedNotification( json[ 0 ], json[ 1 ] );
 		} )
-		.fail( function ( _self, _status, error )
+		.fail( function ( self, _status, error )
 		{
 			// Dans le cas contraire, on affiche une notification
 			//	d'échec avec les informations à notre disposition.
-			addQueuedNotification( form_signin_failed.replace( "$1", error ), 1 );
+			addQueuedNotification( form_signin_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 } );
 
