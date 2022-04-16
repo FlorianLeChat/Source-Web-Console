@@ -81,7 +81,7 @@
 	// 	Note : dans cette partie, les paramètres dynamiques possiblement créés
 	//		dans le script PHP de la page actuel sont fusionnés avec ceux qui
 	//		ont été prédéfis par défaut.
-	$parameters = array_merge($parameters, [
+	$parameters = array_merge($parameters ?? [], [
 
 		// Variables globales.
 		"global_url" => $_SERVER["SERVER_NAME"],
