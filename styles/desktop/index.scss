@@ -125,11 +125,10 @@ header
 		box-shadow: none;
 		border-radius: 0.5rem;
 
-		h1
+		img
 		{
-			// Titre du site.
-			font-size: 3rem;
-			text-shadow: 1px 1px 1px $text-color;
+			// Logo du site.
+			width: 26rem;
 		}
 
 		button
@@ -157,15 +156,25 @@ header
 
 		ul li
 		{
-			// Paragraphes de présentation.
-			margin: 2rem 0 2rem;
-			line-height: 1.5;
-			font-weight: bold;
+			h1
+			{
+				// Titre de présentation.
+				font-size: 3rem;
+				text-shadow: 1px 1px 1px $text-color;
+			}
+
+			p
+			{
+				// Paragraphe de présentation.
+				margin: 2rem 0 2rem;
+				line-height: 1.5;
+				font-weight: bold;
+			}
 
 			&:not(:first-of-type)
 			{
-				// Disparition de tous les paragraphes sauf le premier.
-				//	Note : ils seront affichés par le JavaScript.
+				// Disparition de toutes les parties sauf la première.
+				//	Note : elles seront affichées par le JavaScript.
 				display: none;
 			}
 		}
