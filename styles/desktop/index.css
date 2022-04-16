@@ -156,7 +156,8 @@ header {
   background-color: rgb(51, 51, 51);
 }
 header img {
-  width: 8rem;
+  width: 12rem;
+  height: 100%;
 }
 header h1 {
   left: 1.5rem;
@@ -714,9 +715,8 @@ header ul a {
   box-shadow: none;
   border-radius: 0.5rem;
 }
-#informations article h1 {
-  font-size: 3rem;
-  text-shadow: 1px 1px 1px rgb(245, 154, 35);
+#informations article img {
+  width: 26rem;
 }
 #informations article button, #informations article header ul a, header ul #informations article a {
   color: rgb(51, 51, 51);
@@ -731,7 +731,11 @@ header ul a {
 #informations article button:hover, #informations article header ul a:hover, header ul #informations article a:hover {
   color: rgb(245, 154, 35);
 }
-#informations article ul li {
+#informations article ul li h1 {
+  font-size: 3rem;
+  text-shadow: 1px 1px 1px rgb(245, 154, 35);
+}
+#informations article ul li p {
   margin: 2rem 0 2rem;
   line-height: 1.5;
   font-weight: bold;
