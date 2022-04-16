@@ -1,5 +1,6 @@
 {
     "require": {
-        "twig/twig": "^3.0"
+        "twig/twig": "^3.0",
+        "xpaw/php-source-query-class": "^2.1"
     }
 }
