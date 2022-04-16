@@ -19,14 +19,14 @@
 		{
 			// On vérifie si l'adresse du serveur actuel correspond à la machine
 			//	de production chez l'hébergeur OVH.
-			if (str_contains($_SERVER["SERVER_NAME"], "console.florian-dev.fr"))
+			if ($_SERVER["SERVER_NAME"] !== "console.florian-dev.fr")
 			{
 				// On indique que l'email n'a pas pu être envoyé.
 				return false;
 			}
 
 			// Si c'est le cas, on envoie un email avec les informations renseignées.
-			mb_send_mail(
+			$state = mb_send_mail(
 				// Adresse électronique.
 				$address,
 
@@ -43,8 +43,8 @@
 				]
 			);
 
-			// On indique que l'email a été envoyé.
-			return true;
+			// On indique l'état d'envoi de l'email.
+			return $state;
 		}
 	}
 ?>
