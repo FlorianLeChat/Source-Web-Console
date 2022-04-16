@@ -50,10 +50,14 @@
 			}
 			else
 			{
-				// Dans le cas contraire, alors on force la mise en place
-				//	d'une majuscule à la première lettre avant de mettre à
+				// Dans le cas contraire, alors on force la mise en place de
+				//	majuscules sur chaque début de valeur avant de mettre à
 				//	jour les données reçues par la requête AJAX.
-				$_POST[$key] = capitalize($input);
+				//	Note : ne s'applique pas à l'adresse électronique.
+				if ($email !== "email")
+				{
+					$_POST[$key] = capitalize($input);
+				}
 			}
 		}
 
