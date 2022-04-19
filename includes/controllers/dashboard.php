@@ -2,9 +2,18 @@
 	//
 	$parameters = [
 
-		$file . "_instances" => $server->getInstances($_SESSION["identifier"])
+		"dashboard_instances" => $server->getInstances($_SESSION["identifier"])
 
 	];
+
+	//
+	$function = new \Twig\TwigFunction("getNameByGameID", function(int $identifier, string $fallback)
+	{
+		global $server;
+		return $server->getNameByGameID($identifier, $fallback);
+	});
+
+	$twig->addFunction($function);
 
 	//
 	try
@@ -21,7 +30,7 @@
 	catch (Exception $error)
 	{
 		//
-		echo $error->getMessage();
+		echo($error->getMessage());
 	}
 	finally
 	{
