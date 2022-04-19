@@ -94,12 +94,27 @@
 		//
 		public function storePublicInstance(int $identifier, string $address, string $port, bool $secure = false, bool $auto_connect = false): void
 		{
-			$query = $this->connector->prepare("INSERT INTO servers (`client_id`, `client_address`, `client_port`, `secure_only`, `auto_connect`) VALUES (?, ?, ?, ?, ?);");
+			$query = $this->connector->prepare("INSERT INTO servers (`client_id`, `client_address`, `client_port`, `game_platform`, `secure_only`, `auto_connect`) VALUES (?, ?, ?, ?, ?, ?);");
+
+				// Identifiant unique du client.
 				$query->bindValue(1, $identifier);
+
+				// Adresse IP du serveur.
 				$query->bindValue(2, $address);
+
+				// Port de communication du serveur.
 				$query->bindValue(3, $port);
-				$query->bindValue(4, intval($secure));
-				$query->bindValue(5, intval($auto_connect));
+
+				// Jeu utilisé sur la plate-forme Steam.
+				$query->bindValue(4, $this->getGameIDByAddress($address));
+
+				// Option de maintien de connexion sous trafic sécurisé (HTTPS).
+				$query->bindValue(5, intval($secure));
+
+				// Option de connexion automatique lors de l'arrivée sur le
+				//	tableau de bord.
+				$query->bindValue(6, intval($auto_connect));
+
 			$query->execute();
 		}
 
@@ -110,11 +125,96 @@
 		public function storeAdminCredentials(int $identifier, string $address, string $port, string $password): void
 		{
 			$query = $this->connector->prepare("UPDATE servers SET `admin_address` = ?, `admin_port` = ?, `admin_password` = ? WHERE `server_id` = ?");
+
+				// Adresse IP du module d'administration (RCON).
+				// 	Source : https://developer.valvesoftware.com/wiki/Source_RCON_Protocol#Requests_and_Responses
 				$query->bindValue(1, $address);
+
+				// Port de communication du module.
 				$query->bindValue(2, $port);
+
+				// Mot de passe chiffré pour l'accès au module.
 				$query->bindValue(3, $this->password_encrypt($password));
+
+				// Identifiant unique du serveur.
 				$query->bindValue(4, $identifier);
+
 			$query->execute();
+		}
+
+		//
+		// Permet de déterminer le nom complet du jeu utilisé par une instance à partir
+		//	de sa plate-forme ou son numéro d'identification unique.
+		//	Source : https://github.com/BrakeValve/dataflow/issues/5 (non officielle)
+		//
+		public function getNameByGameID(int $identifier, string $fallback = ""): string
+		{
+			// On fait une requête à l'API centrale Steam pour récupérer
+			//	les informations du magasin.
+			$response = file_get_contents("https://store.steampowered.com/api/appdetails?appids=$identifier");
+
+			// On transforme par la suite ce résultat sous format JSON en
+			//	tableau associatif pour la manipuler.
+			$response = json_decode($response, true);
+
+			if (is_array($response) && count($response) > 0)
+			{
+				// Si la réponse semble correcte, on vérifie si l'API indique
+				//	que la réponse est un succès et s'il existe les informations
+				// 	attendues initialement.
+				$response = $response[$identifier];
+
+				if ($response["success"] === false)
+				{
+					// Si ce n'est pas le cas, on renvoie juste la valeur
+					//	de secours.
+					return $fallback;
+				}
+
+				// Dans le cas contraire, on retourne le nom du jeu comme attendu.
+				return $response["data"]["name"];
+			}
+
+			// On retourne enfin le résultat par défaut si la demande a échouée.
+			return $fallback;
+		}
+
+		//
+		// Permet de récupérer l'identifiant unique du jeu actuellement monté sur le
+		//	serveur dédié de l'instance du client à partir de son adresse IP.
+		// 	Source : https://partner.steamgames.com/doc/webapi/ISteamApps#GetServersAtAddress
+		//
+		private function getGameIDByAddress(string $address): int
+		{
+			// On fait une requête à l'API centrale Steam pour récupérer
+			//	les informations de l'instance.
+			$response = file_get_contents("https://api.steampowered.com/ISteamApps/GetServersAtAddress/v1/?addr=$address");
+
+			// On transforme par la suite ce résultat sous format JSON en
+			//	tableau associatif pour la manipuler.
+			$response = json_decode($response, true);
+
+			if (is_array($response) && count($response) > 0)
+			{
+				// Si la réponse semble correcte, on vérifie si l'API indique
+				//	que la réponse est un succès et s'il existe une liste
+				//	d'informations comme attendu.
+				$response = $response["response"];
+
+				if ($response["success"] === false || count($response["servers"]) === 0)
+				{
+					// Si ce n'est pas le cas, on renvoie juste que le serveur
+					//	utilise un jeu qui n'est pas sur la plate-forme Steam.
+					return 0;
+				}
+
+				// Dans le cas contraire, on retourne l'identifiant du jeu comme attendu.
+				return $response["servers"][0]["appid"];
+			}
+
+			// On retourne enfin un résultat par défaut si la requête a échouée
+			//	quelque part (connexion Internet impossible, API hors service...).
+			return 0;
 		}
 
 		//
