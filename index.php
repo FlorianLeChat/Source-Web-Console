@@ -69,7 +69,10 @@
 	}
 
 	// Exécution du script PHP pour le fichier spécifique.
-	require_once("includes/controllers/$file.php");
+	if (file_exists("includes/controllers/$file.php"))
+	{
+		include_once("includes/controllers/$file.php");
+	}
 
 	// Assemblage des paramètres du moteur TWIG.
 	// 	Note : dans cette partie, les paramètres dynamiques possiblement créés
