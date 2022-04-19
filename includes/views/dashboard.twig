@@ -13,21 +13,24 @@
 
 		<ul>
 			{% for server in dashboard_instances %}
-				<li>
-					{# Premier serveur #}
-					<span>Nom du premier serveur</span>
-					<span>{{ server["client_address"] }}</span>
+				<li data-image="assets/images/games/{{ server["game_id"] }}_background.jpg">
+					{# Récupération du nom de la langue #}
+					{% set address = server["client_address"] ~ ":" ~ server["client_port"] %}
 
-					<button type="button" name="server_edit" value="uuid_1">
+					{# Informations générales #}
+					<span>{{ getNameByGameID(server["game_id"], address) }}</span>
+					<span>{{ address }}</span>
+
+					<button type="button" name="server_edit" value="{{ address }}">
 						{# Édition des propriétés du serveur #}
 						<i class="bi bi-pencil-square"></i>
 					</button>
 
-					<button type="button" name="server_connect" value="uuid_1">
+					<button type="button" name="server_connect" value="{{ address }}">
 						{# Connexion directe au serveur #}
 						<i class="bi bi-plug"></i>
 					</button>
-			</li>
+				</li>
 			{% endfor %}
 		</ul>
 
