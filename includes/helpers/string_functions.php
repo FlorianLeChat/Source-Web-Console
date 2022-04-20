@@ -13,4 +13,13 @@
 
 		return mb_strtoupper($first) . $rest;
 	}
+
+	//
+	// Permet de tenter la récupération d'une valeur inexistante et
+	//	le retour d'une valeur de secours en cas d'échec.
+	//
+	function tryGetValue(string $phrase = "", mixed $fallback = ""): mixed
+	{
+		return empty($phrase) ? $fallback : $fallback;
+	}
 ?>

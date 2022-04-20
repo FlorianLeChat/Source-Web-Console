@@ -50,7 +50,7 @@
 		//	de la bibliothèque de OpenSSL.
 		// 	Source : https://stackoverflow.com/a/60283328
 		//
-		private function password_encrypt(string $password): string
+		public function password_encrypt(string $password): string
 		{
 			// On chiffre d'abord la phrase unique de chiffrement.
 			$key = hash("sha256", $this->getConfig("openssl_phrase"));
@@ -72,7 +72,7 @@
 		//	de la bibliothèque de OpenSSL.
 		// 	Source : voir fonction précédente.
 		//
-		private function password_decrypt(string $password): bool
+		public function password_decrypt(string $password): bool
 		{
 			// On chiffre d'abord la phrase unique de chiffrement.
 			$key = hash("sha256", $this->getConfig("openssl_phrase"));
@@ -92,12 +92,12 @@
 		//
 		// Permet d'enregistrer une nouvelle instance dans la base de données.
 		//
-		public function storePublicInstance(int $identifier, string $address, string $port, bool $secure = false, bool $auto_connect = false): void
+		public function storePublicInstance(int $client, string $address, string $port, bool $secure = false, bool $auto_connect = false): void
 		{
 			$query = $this->connector->prepare("INSERT INTO servers (`client_id`, `client_address`, `client_port`, `game_platform`, `secure_only`, `auto_connect`) VALUES (?, ?, ?, ?, ?, ?);");
 
 				// Identifiant unique du client.
-				$query->bindValue(1, $identifier);
+				$query->bindValue(1, $client);
 
 				// Adresse IP du serveur.
 				$query->bindValue(2, $address);
@@ -119,12 +119,54 @@
 		}
 
 		//
+		// Permet de mettre à jour les informations d'une instances dans la
+		//	base de données.
+		//
+		public function updatePublicInstance(int $client_id, int $server_id, string $address, string $port)
+		{
+			$query = $this->connector->prepare("UPDATE servers SET `client_address` = ?, `client_port` = ? WHERE `client_id` = ? AND `server_id` = ?;");
+
+				// Adresse IP du serveur.
+				$query->bindValue(1, $address);
+
+				// Port de communication du serveur.
+				$query->bindValue(2, $port);
+
+				// Identifiant unique du client.
+				$query->bindValue(3, $client_id);
+
+				// Identifiant unique du serveur.
+				$query->bindValue(4, $server_id);
+
+			$query->execute();
+		}
+
+		//
+		// Permet de supprimer une instance dans la base de données.
+		//
+		public function deletePublicInstance(int $client_id, int $server_id): void
+		{
+			// La suppression nécessite que l'utilisateur possède le serveur sélectionnée
+			//	et que l'adresse IP corresponde à celle utilisée par les clients ou par
+			//	le module d'administration.
+			$query = $this->connector->prepare("DELETE FROM `servers` WHERE `client_id` = ? AND `server_id` = ?;");
+
+				// Identifiant unique du client.
+				$query->bindValue(1, $client_id);
+
+				// Identifiant unique du serveur.
+				$query->bindValue(2, $server_id);
+
+			$query->execute();
+		}
+
+		//
 		// Permet d'enregistrer les informations de connexion au système d'administration
 		//	dans la base de données.
 		//
-		public function storeAdminCredentials(int $identifier, string $address, string $port, string $password): void
+		public function storeAdminCredentials(int $client_id, int $server_id, ?string $address, ?string $port, ?string $password): void
 		{
-			$query = $this->connector->prepare("UPDATE servers SET `admin_address` = ?, `admin_port` = ?, `admin_password` = ? WHERE `server_id` = ?");
+			$query = $this->connector->prepare("UPDATE servers SET `admin_address` = ?, `admin_port` = ?, `admin_password` = ? WHERE `client_id` = ? AND `server_id` = ?");
 
 				// Adresse IP du module d'administration (RCON).
 				// 	Source : https://developer.valvesoftware.com/wiki/Source_RCON_Protocol#Requests_and_Responses
@@ -134,10 +176,13 @@
 				$query->bindValue(2, $port);
 
 				// Mot de passe chiffré pour l'accès au module.
-				$query->bindValue(3, $this->password_encrypt($password));
+				$query->bindValue(3, $password);
+
+				// Identifiant unique du client.
+				$query->bindValue(4, $client_id);
 
 				// Identifiant unique du serveur.
-				$query->bindValue(4, $identifier);
+				$query->bindValue(5, $server_id);
 
 			$query->execute();
 		}
