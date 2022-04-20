@@ -1,6 +1,20 @@
 {# Modèle de base #}
 {% extends "base.twig" %}
 
+{# Injection de code JavaScript #}
+{% block javascript %}
+	<script>
+		// Adresse IP de l'instance connectée.
+		let current_address = "{{ dashboard_current_server["admin_address"]|default(dashboard_current_server["client_address"]) }}";
+
+		// Port de communication de l'instance connectée.
+		let current_port = "{{ dashboard_current_server["admin_port"]|default(dashboard_current_server["client_port"]) }}";
+
+		// Mot de passe chiffré de l'instance connectée.
+		let current_password = "{{ dashboard_current_server["admin_password"] }}";
+	</script>
+{% endblock %}
+
 {# Contenu de la page demandé #}
 {% block content %}
 	{# Description de la page #}
@@ -14,22 +28,32 @@
 		<ul>
 			{% for server in dashboard_instances %}
 				<li data-image="assets/images/games/{{ server["game_id"] }}_background.jpg">
-					{# Récupération du nom de la langue #}
-					{% set address = server["client_address"] ~ ":" ~ server["client_port"] %}
+					{# Construction de l'adresse IP #}
+					{% set address = server["admin_address"]|default(server["client_address"]) ~ ":" ~ server["admin_port"]|default(server["client_port"]) %}
 
 					{# Informations générales #}
-					<span>{{ getNameByGameID(server["game_id"], address) }}</span>
+					<span>{{ getNameByGameID(server["game_id"], address) ~ " (" ~ loop.index ~ ")" }}</span>
 					<span>{{ address }}</span>
 
-					<button type="button" name="server_edit" value="{{ address }}">
-						{# Édition des propriétés du serveur #}
-						<i class="bi bi-pencil-square"></i>
-					</button>
+					{# Édition des propriétés du serveur #}
+					<form method="POST">
+						<input type="hidden" name="action" value="edit" />
+						<input type="hidden" name="address" value="{{ address }}" />
 
-					<button type="button" name="server_connect" value="{{ address }}">
-						{# Connexion directe au serveur #}
-						<i class="bi bi-plug"></i>
-					</button>
+						<button type="submit" name="server_edit">
+							<i class="bi bi-pencil-square"></i>
+						</button>
+					</form>
+
+					{# Connexion directe au serveur #}
+					<form method="POST">
+						<input type="hidden" name="action" value="connect" />
+						<input type="hidden" name="address" value="{{ address }}" />
+
+						<button type="submit" name="server_connect">
+							<i class="bi bi-plug"></i>
+						</button>
+					</form>
 				</li>
 			{% endfor %}
 		</ul>
@@ -54,44 +78,35 @@
 
 		<ul>
 			<li>
-				{# Première information #}
+				{# Informations d'état #}
 				<div class="circle"></div>
-				<h4>Lorem ipsum</h4>
-				<em>Lorem ipsum dolor sit amet</em>
+				<h4>{{ dashboard_phrases["dashboard_state_info"] }}</h4>
+				<em data-field="state">{{ dashboard_phrases["dashboard_state_nodata"] }}</em>
 			</li>
 
 			<li>
-				{# Deuxième information #}
+				{# Nom de la carte actuelle #}
 				<div class="circle"></div>
-				<h4>Lorem ipsum</h4>
-				<em>Lorem ipsum dolor sit amet</em>
+				<h4>{{ dashboard_phrases["dashboard_state_map"] }}</h4>
+				<em data-field="map">gm_source</em>
 			</li>
 
 			<li>
-				{# Troisième information #}
+				{# Nombre de joueurs (robots compris) #}
 				<div class="circle"></div>
-				<h4>Lorem ipsum</h4>
-				<em>Lorem ipsum dolor sit amet</em>
+				<h4>{{ dashboard_phrases["dashboard_state_players"] }}</h4>
+				<em data-field="players">0 / 0 [0]</em>
 			</li>
 		</ul>
 	</section>
 
-	{# Statistiques importantes #}
-	<section id="stats">
+	{# Liste des joueurs #}
+	<section id="players">
 		{# Titre de la section #}
-		<h3>{{ header_phrases["header_subtitle_statistics"] }}</h3>
+		<h3>{{ dashboard_phrases["dashboard_players"] }}</h3>
 
-		{# Description de la section #}
-		<p>Lorem ipsum dolor sit amet</p>
-
-		{# Graphiques simplifiées #}
-		<div class="chart"></div>
-
-		<ul>
-			<li class="circle"></li>
-			<li class="circle"></li>
-			<li class="circle"></li>
-		</ul>
+		{# Détails des joueurs #}
+		<ul></ul>
 	</section>
 
 	{# Actions rapides #}
@@ -100,23 +115,23 @@
 		<h3>{{ header_phrases["header_search_title"] }}</h3>
 
 		<ul>
-			<li>
+			<li data-action="shutdown">
 				{# Arrêter le serveur #}
 				{{ global_phrases["global_shutdown_title"] }}
 				<em>{{ global_phrases["global_shutdown_subtitle"] }}</em>
 			</li>
 
-			<li>
+			<li data-action="restart">
 				{# Redémarrer le serveur #}
 				{{ global_phrases["global_restart_title"] }}
 			</li>
 
-			<li>
+			<li data-action"update">
 				{# Mettre à jour le serveur #}
 				{{ global_phrases["global_update_title"] }}
 			</li>
 
-			<li>
+			<li data-action="maintenance">
 				{# Passer en mode de maintenance #}
 				{{ global_phrases["global_maintenance_title"] }}
 			</li>

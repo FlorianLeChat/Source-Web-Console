@@ -10,7 +10,7 @@
 	//	à un compte utilisateur.
 	if (isset($_SESSION["identifier"]))
 	{
-		// Indication : « Unauthorized. ».
+		// Indication : « Unauthorized ».
 		// 	Source : https://developer.mozilla.org/fr/docs/Web/HTTP/Status/401
 		http_response_code(401);
 		exit();
