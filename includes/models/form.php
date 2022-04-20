@@ -119,7 +119,7 @@
 
 			// Si la chaîne de caractères est vide, alors on retourne "false",
 			//	dans le cas contraire, on retourne la chaîne modifiée précédemment.
-			return empty($input) ? false : $input;
+			return tryGetValue($input, false);
 		}
 
 		//

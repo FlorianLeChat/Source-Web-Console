@@ -5,19 +5,19 @@
 {% block javascript %}
 	<script>
 		// Texte d'affichage pour la tranche d'heures entre 0 et 24.
-		const utc_time = "Heure UTC";
+		const utc_time = "{{ statistics_phrases["statistics_axis_utc"] }}";
 
 		// Texte pour l'affichage du nombre de joueurs/clients.
-		const player_count = "Nombre de joueurs";
+		const player_count = "{{ statistics_phrases["statistics_axis_players"] }}";
 
 		// Texte pour le pourcentage d'utilisation du processeur.
-		const cpu_usage = "Processeur (en %)";
+		const cpu_usage = "{{ statistics_phrases["statistics_axis_cpu"] }}";
 
 		// Texte pour le pourcentage d'utilisateur de la mémoire.
-		const ram_usage = "Mémoire vive (en %)";
+		const ram_usage = "{{ statistics_phrases["statistics_axis_ram"] }}";
 
 		// Texte pour le pourcentage d'utilisation des ressources matérielles.
-		const usage_percent = "Pourcentage d'utilisation";
+		const usage_percent = "{{ statistics_phrases["statistics_axis_usage"] }}";
 	</script>
 {% endblock %}
 
