@@ -93,14 +93,14 @@ main
 				box-shadow: none;
 				transition: color 250ms;
 
-				&:first-of-type
+				&[name = server_edit]
 				{
 					// Édition des propriétés du serveur.
 					left: 0;
 					bottom: 0.25rem;
 				}
 
-				&:last-of-type
+				&[name = server_connect]
 				{
 					// Connexion directe au serveur.
 					right: -0.25rem;
@@ -136,7 +136,7 @@ main
 				transition: color 250ms, filter 300ms ease-in-out;;
 				background-size: cover;
 				background-color: $box-color;
-				background-image: url("../../assets/images/games/source_background.jpg");
+				background-image: url("../../assets/images/games/0_background.jpg");
 				background-repeat: no-repeat;
 				background-position: center;
 			}
@@ -210,13 +210,7 @@ main
 				display: inline-block;
 				position: relative;
 				border-radius: 50%;
-				background-color: $validate-color;
-			}
-
-			&:nth-of-type(2) .circle
-			{
-				// État de démonstration (doit être supprimé à l'avenir).
-				background-color: $error-color;
+				background-color: currentColor;
 			}
 
 			h4
@@ -237,9 +231,9 @@ main
 		}
 	}
 
-	#stats
+	#players
 	{
-		// Statistiques importantes.
+		// Liste des joueurs.
 		color: $text-color;
 		padding: 1rem;
 		grid-area: 3 / 3 / 4 / 4;
@@ -252,6 +246,30 @@ main
 			color: $text-color;
 			margin: 1rem 0.5rem 2rem 0.5rem;
 			font-size: 1.5rem;
+		}
+
+		ul
+		{
+			// Liste détaillée
+			padding: 0.25rem;
+			overflow: auto;
+
+			li
+			{
+				// Nom du joueur.
+				color: $background-color;
+				padding: 0.25rem;
+				transition: color 250ms, background-color 250ms;
+				margin-bottom: 0.25rem;
+				background-color: black;
+
+				&:hover
+				{
+					// Effet de sélection.
+					color: black;
+					background-color: $background-color;
+				}
+			}
 		}
 	}
 

@@ -755,11 +755,11 @@ main #servers ul li button {
   box-shadow: none;
   transition: color 250ms;
 }
-main #servers ul li button:first-of-type {
+main #servers ul li button[name=server_edit] {
   left: 0;
   bottom: 0.25rem;
 }
-main #servers ul li button:last-of-type {
+main #servers ul li button[name=server_connect] {
   right: -0.25rem;
   bottom: 0.25rem;
 }
@@ -777,7 +777,7 @@ main #servers ul li::before {
   transition: color 250ms, filter 300ms ease-in-out;
   background-size: cover;
   background-color: rgb(51, 51, 51);
-  background-image: url("../../assets/images/games/source_background.jpg");
+  background-image: url("../../assets/images/games/0_background.jpg");
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -824,10 +824,7 @@ main #state ul li .circle {
   display: inline-block;
   position: relative;
   border-radius: 50%;
-  background-color: rgb(85, 140, 3);
-}
-main #state ul li:nth-of-type(2) .circle {
-  background-color: rgb(237, 67, 29);
+  background-color: currentColor;
 }
 main #state ul li h4 {
   margin: 0 0 0.5rem 0.5rem;
@@ -839,17 +836,32 @@ main #state ul li em {
   display: block;
   margin-bottom: 1.5rem;
 }
-main #stats {
+main #players {
   color: rgb(245, 154, 35);
   padding: 1rem;
   grid-area: 3/3/4/4;
   border-radius: 0.5rem;
   background-color: rgb(51, 51, 51);
 }
-main #stats h3 {
+main #players h3 {
   color: rgb(245, 154, 35);
   margin: 1rem 0.5rem 2rem 0.5rem;
   font-size: 1.5rem;
+}
+main #players ul {
+  padding: 0.25rem;
+  overflow: auto;
+}
+main #players ul li {
+  color: rgb(242, 242, 242);
+  padding: 0.25rem;
+  transition: color 250ms, background-color 250ms;
+  margin-bottom: 0.25rem;
+  background-color: black;
+}
+main #players ul li:hover {
+  color: black;
+  background-color: rgb(242, 242, 242);
 }
 main #actions {
   height: 100%;
