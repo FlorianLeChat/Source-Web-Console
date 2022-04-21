@@ -402,19 +402,27 @@ main
 			i
 			{
 				// Icône d'état de la dernière action.
-				color: $validate-color;
-			}
+				// 	Note : par défaut, on considère qu'il s'agit
+				// 		d'un actionneur personnalisé.
+				color: $text-color;
 
-			&:nth-of-type(2) i
-			{
-				// État de démonstration (doit être supprimé à l'avenir).
-				color: $error-color;
-			}
+				&[type = restart]
+				{
+					// Action de redémarrage.
+					color: $validate-color;
+				}
 
-			&:nth-of-type(3) i
-			{
-				// Voir dernier commentaire juste au-dessus.
-				color: $info-color;
+				&[type = update]
+				{
+					// Action de mise à jour.
+					color: $info-color;
+				}
+
+				&[type = force], &[type = shutdown]
+				{
+					// Action d'arrêt standard/forcé.
+					color: $error-color;
+				}
 			}
 
 			span

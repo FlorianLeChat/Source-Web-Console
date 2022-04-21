@@ -33,7 +33,7 @@ $( "[name = server_edit]" ).click( function ( event )
 
 	// On demande ensuite à l'utilisateur s'il veut supprimer ou non
 	//	le serveur.
-	if ( confirm( "Voulez-vous supprimer ce serveur ?" ) )
+	if ( confirm( edit_remove ) )
 	{
 		// Suppression de l'action par défaut.
 		$( "input[value = edit]" ).remove();
