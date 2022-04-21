@@ -43,7 +43,7 @@ signup.find( "form" ).submit( function ( event )
 	{
 		// Dans le cas contraire, on réalise une requête AJAX pour
 		//	envoyer les informations au serveur.
-		$.post( "includes/controllers/signup.php", {
+		$.post( "includes/controllers/user_signup.php", {
 
 			// Nom d'utilisateur et mot de passe du compte utilisateur.
 			username: first_step.find( "input[name = username]" ).val(),
@@ -132,7 +132,7 @@ signin.find( "input[type = submit]" ).click( function ( event )
 	event.preventDefault();
 
 	// On réalise ensuite la requête AJAX.
-	$.post( "includes/controllers/signin.php", {
+	$.post( "includes/controllers/user_signin.php", {
 
 		// Nom d'utilisateur.
 		username: signin.find( "input[name = user_name]" ).val(),
