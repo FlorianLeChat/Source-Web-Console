@@ -69,9 +69,9 @@
 	}
 
 	// Exécution du script PHP pour le fichier spécifique.
-	if (file_exists("includes/controllers/$file.php"))
+	if (file_exists("includes/controllers/page_$file.php"))
 	{
-		include_once("includes/controllers/$file.php");
+		include_once("includes/controllers/page_$file.php");
 	}
 
 	// Assemblage des paramètres du moteur TWIG.

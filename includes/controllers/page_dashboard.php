@@ -78,7 +78,7 @@
 		//	les informations visibles sur la page d'accueil.
 		if ($action !== "connect")
 		{
-			//header("Location: " . $_SERVER["REQUEST_URI"]);
+			header("Location: " . $_SERVER["REQUEST_URI"]);
 			exit();
 		}
 	}
