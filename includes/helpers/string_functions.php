@@ -20,6 +20,11 @@
 	//
 	function tryGetValue(string $phrase = "", mixed $fallback = ""): mixed
 	{
-		return empty($phrase) ? $fallback : $phrase;
+		if (empty($phrase) || $phrase === "null")
+		{
+			return $fallback;
+		}
+
+		return $phrase;
 	}
 ?>
