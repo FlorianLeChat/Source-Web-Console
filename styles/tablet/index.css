@@ -756,7 +756,7 @@ header ul a {
 #informations article button:hover, #informations article header ul a:hover, header ul #informations article a:hover {
   color: rgb(245, 154, 35);
 }
-#informations article ul li h1 {
+#informations article ul li h2 {
   font-size: 3rem;
   text-shadow: 1px 1px 1px rgb(245, 154, 35);
   text-transform: uppercase;
