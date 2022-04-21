@@ -77,6 +77,10 @@ p, em {
   line-height: 1.375;
 }
 
+strong {
+  font-size: 120%;
+}
+
 a {
   color: currentColor;
   text-decoration: none;
