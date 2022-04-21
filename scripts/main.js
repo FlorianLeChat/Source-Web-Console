@@ -118,7 +118,7 @@ $( window ).scroll( function ()
 	// Calcul du pourcentage du décalage avant affichage.
 	const offset = ( position / height ) * 100;
 
-	$( "footer div" ).css( "width", offset + "%" );
+	$( "footer div > div" ).css( "width", offset + "%" );
 } );
 
 //
