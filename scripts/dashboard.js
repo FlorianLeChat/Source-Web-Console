@@ -63,6 +63,8 @@ $( "[name = server_edit]" ).click( function ( event )
 //
 // Permet de faire la récupération des informations générales de l'instance.
 //
+let timer;
+
 function retrieveRemoteData()
 {
 	// On réalise d'abord la requête AJAX.
@@ -85,9 +87,11 @@ function retrieveRemoteData()
 			const json = JSON.parse( data );
 
 			// On vérifie ensuite s'il ne s'agit pas d'une erreur,
-			//	dans ce cas, on affiche une notification.
+			//	dans ce cas, on affiche une notification avant de
+			//	casser définitivement le minutor.
 			if ( json.hasOwnProperty( "error" ) )
 			{
+				clearInterval( timer );
 				addQueuedNotification( server_fatal_error.replace( "$1", json[ "error" ] ), 1 );
 				return;
 			}
@@ -130,34 +134,36 @@ function retrieveRemoteData()
 			}
 
 			// Affichage du nombre de joueurs/clients.
-			const players_field = $( "[data-field = players]" );
+			const count_field = $( "[data-field = players]" );
 
 			if ( json.hasOwnProperty( "players" ) && json.hasOwnProperty( "max_players" ) && json.hasOwnProperty( "bots" ) )
 			{
 				// Information du serveur.
-				players_field.html( `${ json[ "players" ] } / ${ json[ "max_players" ] } [${ json[ "bots" ] }]` );
+				count_field.html( `${ json[ "players" ] } / ${ json[ "max_players" ] } [${ json[ "bots" ] }]` );
 			}
 			else
 			{
 				// Information par défaut.
-				players_field.html( "0 / 0 [0]" );
+				count_field.html( "0 / 0 [0]" );
 			}
 
-			//
-			const list = $( "#players ul" );
-			const players = json[ "players_list" ];
+			// Affichage de la liste des joueurs.
+			const players_list = $( "#players ul" );
+			const players_field = json[ "players_list" ];
 
-			list.empty();
+			players_list.empty();
 
-			for ( const indice in players )
+			for ( const indice in players_field )
 			{
-				list.append( `<li>[${ indice }] ${ players[ indice ][ "Name" ] }</li>` );
+				players_list.append( `<li>[${ indice }] ${ players_field[ indice ][ "Name" ] }</li>` );
 			}
 		} )
 		.fail( function ( self, _status, error )
 		{
 			// Dans le cas contraire, on affiche une notification
-			//	d'échec avec les informations à notre disposition.
+			//	d'échec avec les informations à notre disposition
+			//	avant de casser définitivement le minuteur.
+			clearInterval( timer );
 			addQueuedNotification( server_fatal_error.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 }
@@ -166,7 +172,7 @@ function retrieveRemoteData()
 retrieveRemoteData();
 
 // Récupération des informations toutes les 5 secondes.
-setInterval( function ()
+timer = setInterval( function ()
 {
 	retrieveRemoteData();
 }, 5000 );
