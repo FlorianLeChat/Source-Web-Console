@@ -44,20 +44,13 @@ $( "[name = server_edit]" ).click( function ( event )
 	else
 	{
 		// Adresse IP et port de communication du serveur.
-		const client_address = prompt( "Saisissez l'adresse IP du serveur.\nLaissez vide pour aucun changement." );
-		const client_port = prompt( "Saisissez le port de communication du serveur.\nLaissez vide pour aucun changement." );
-
-		parent.append( `<input type=\"hidden\" name=\"client_address\" value=\"${ client_address }\" />` );
-		parent.append( `<input type=\"hidden\" name=\"client_port\" value=\"${ client_port }\" />` );
+		parent.append( `<input type=\"hidden\" name=\"client_address\" value=\"${ prompt( edit_client_address ) }\" />` );
+		parent.append( `<input type=\"hidden\" name=\"client_port\" value=\"${ prompt( edit_client_port ) }\" />` );
 
 		// Adresse IP, port et mot de passe administrateur.
-		const admin_address = prompt( "Saisissez l'adresse IP administrateur.\nLaissez vide pour aucun changement." );
-		const admin_port = prompt( "Saisissez le port de communication administrateur.\nLaissez vide pour aucun changement." );
-		const admin_password = prompt( "Saisissez le mot de passe administrateur.\nLaissez vide pour aucun changement." );
-
-		parent.append( `<input type=\"hidden\" name=\"admin_address\" value=\"${ admin_address }\" />` );
-		parent.append( `<input type=\"hidden\" name=\"admin_port\" value=\"${ admin_port }\" />` );
-		parent.append( `<input type=\"hidden\" name=\"admin_password\" value=\"${ admin_password }\" />` );
+		parent.append( `<input type=\"hidden\" name=\"admin_address\" value=\"${ prompt( edit_admin_address ) }\" />` );
+		parent.append( `<input type=\"hidden\" name=\"admin_port\" value=\"${ prompt( edit_admin_port ) }\" />` );
+		parent.append( `<input type=\"hidden\" name=\"admin_password\" value=\"${ prompt( edit_admin_password ) }\" />` );
 	}
 
 	// On force enfin la soumission du formulaire en indiquant
@@ -68,39 +61,87 @@ $( "[name = server_edit]" ).click( function ( event )
 } );
 
 //
-//
+// Permet de faire la récupération des informations générales de l'instance.
 //
 function retrieveRemoteData()
 {
-	//
+	// On réalise d'abord la requête AJAX.
 	$.post( "includes/controllers/server_overview.php", {
 
-		//
+		// Adresse IP du serveur.
 		server_address: current_address,
 
-		//
+		// Port de communication du serveur.
 		server_port: current_port,
 
-		//
+		// Mot de passe d'administration du serveur.
 		server_password: current_password
 
 	} )
 		.done( function ( data, _status, _self )
 		{
-			console.log( data );
-			//
+			// Une fois terminée, on affiche la réponse JSON du
+			//	serveur sous forme d'une liste numérique.
 			const json = JSON.parse( data );
 
-			// break timer on error et indiquer rafraîchir page
+			// On vérifie ensuite s'il ne s'agit pas d'une erreur,
+			//	dans ce cas, on affiche une notification.
+			if ( json.hasOwnProperty( "error" ) )
+			{
+				addQueuedNotification( server_fatal_error.replace( "$1", json[ "error" ] ), 1 );
+				return;
+			}
 
-			//
-			$( "[data-field = state]" ).html( `En fonctionnement<br />(${ json[ "gamemode" ] })` );
+			// Affichage de l'état de fonctionnement.
+			const state_field = $( "[data-field = state]" );
 
-			//
-			$( "[data-field = map]" ).html( json[ "maps" ] );
+			if ( json.hasOwnProperty( "gamemode" ) )
+			{
+				// Vérification de l'état (maintenance ou en fonctionnement).
+				if ( json[ "password" ] === true )
+				{
+					// Serveur sécurisé par mot de passe, maintenance ou mise à jour en cours.
+					state_field.html( server_service.replace( "$1", json[ "gamemode" ] ) );
+				}
+				else
+				{
+					// Serveur en fonctionnement standard.
+					state_field.html( server_running.replace( "$1", json[ "gamemode" ] ) );
+				}
+			}
+			else
+			{
+				// Information par défaut.
+				state_field.html( server_no_data );
+			}
 
-			//
-			$( "[data-field = players]" ).html( `${ json[ "players" ] } / ${ json[ "max_players" ] } [${ json[ "bots" ] }]` );
+			// Affichage de la carte actuelle.
+			const maps_field = $( "[data-field = map]" );
+
+			if ( json.hasOwnProperty( "maps" ) )
+			{
+				// Information du serveur.
+				maps_field.html( json[ "maps" ] );
+			}
+			else
+			{
+				// Information par défaut.
+				maps_field.html( "gm_source" );
+			}
+
+			// Affichage du nombre de joueurs/clients.
+			const players_field = $( "[data-field = players]" );
+
+			if ( json.hasOwnProperty( "players" ) && json.hasOwnProperty( "max_players" ) && json.hasOwnProperty( "bots" ) )
+			{
+				// Information du serveur.
+				players_field.html( `${ json[ "players" ] } / ${ json[ "max_players" ] } [${ json[ "bots" ] }]` );
+			}
+			else
+			{
+				// Information par défaut.
+				players_field.html( "0 / 0 [0]" );
+			}
 
 			//
 			const list = $( "#players ul" );
@@ -119,6 +160,10 @@ function retrieveRemoteData()
 		} );
 }
 
+// Récupération des informations au démarrage.
+retrieveRemoteData();
+
+// Récupération des informations toutes les 5 secondes.
 setInterval( function ()
 {
 	retrieveRemoteData();
