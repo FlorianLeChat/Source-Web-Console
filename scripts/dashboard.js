@@ -156,7 +156,9 @@ function retrieveRemoteData()
 		} )
 		.fail( function ( self, _status, error )
 		{
-			console.log( "fail" );
+			// Dans le cas contraire, on affiche une notification
+			//	d'échec avec les informations à notre disposition.
+			addQueuedNotification( server_fatal_error.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 }
 
