@@ -157,26 +157,13 @@
 
 		{# Nom des dernières tâches (descendantes) #}
 		<ul>
-			<li>
-				{# Dernière tâche effectuée #}
-				<i class="bi bi-check-square-fill"></i>
-				<span>XXhXX</span>
-				<em>Lorem ipsum dolor sit amet</em>
-			</li>
-
-			<li>
-				{# Avant-dernière tâche effectuée #}
-				<i class="bi bi-x-square-fill"></i>
-				<span>XXhXX</span>
-				<em>Lorem ipsum dolor sit amet</em>
-			</li>
-
-			<li>
-				{# Tâche la plus anciennne effectuée #}
-				<i class="bi bi-cloud-check-fill"></i>
-				<span>XXhXX</span>
-				<em>Lorem ipsum dolor sit amet</em>
-			</li>
+			{% for logs in dashboard_logs %}
+				<li>
+					<i class="bi bi-check-square-fill"></i>
+					<span>{{ logs["timestamp"]|date("H:m:s (d/m)") }}</span>
+					<em>{{ global_phrases["global_" ~ logs["action_type"] ~ "_title"] }}</em>
+				</li>
+			{% endfor %}
 		</ul>
 	</section>
 {% endblock %}

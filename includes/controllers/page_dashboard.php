@@ -105,6 +105,9 @@
 	//	finale de la page.
 	$parameters = [
 
+		// Récupération de l'historique des actions et commandes.
+		"dashboard_logs" => $server->getActionLogs($target_instance["server_id"]),
+
 		// Liste des instances depuis la base de données.
 		"dashboard_instances" => $instances,
 
