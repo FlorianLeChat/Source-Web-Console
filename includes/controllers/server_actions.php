@@ -99,6 +99,27 @@
 					$server->query->Rcon("sv_password \"password\"");
 					break;
 				}
+
+				case "flashlight":
+				{
+					// Utilisation de la lampe torche.
+					$server->query->Rcon("toggle mp_flashlight");
+					break;
+				}
+
+				case "cheats":
+				{
+					// Utilisation de logiciels de triche.
+					$server->query->Rcon("toggle sv_cheats");
+					break;
+				}
+
+				case "voice":
+				{
+					// Utilisation des communications vocales.
+					$server->query->Rcon("toggle sv_voiceenable");
+					break;
+				}
 			}
 
 			// On enregistre par la même occasion l'action en historique.
