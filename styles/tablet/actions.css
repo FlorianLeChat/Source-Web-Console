@@ -724,7 +724,7 @@ main nav ul li.active i, main nav ul li.active span, main nav ul li:hover i, mai
 }
 main #actions {
   color: rgb(245, 154, 35);
-  height: 60vh;
+  height: 50vh;
   display: flex;
   padding: 1rem;
   grid-area: 2/2/3/3;
@@ -783,20 +783,11 @@ main #actions ul:first-of-type li:nth-of-type(3) {
 main #actions ul:first-of-type li:nth-of-type(3):hover {
   color: rgb(1, 111, 160);
 }
-main #actions ul:first-of-type li:nth-of-type(4) {
+main #actions ul:first-of-type li:last-of-type {
   background-color: rgb(74, 35, 122);
 }
-main #actions ul:first-of-type li:nth-of-type(4):hover {
-  color: rgb(74, 35, 122);
-}
-main #actions ul:first-of-type li:last-of-type {
-  color: rgb(245, 154, 35);
-  border: 1px solid rgb(245, 154, 35);
-}
 main #actions ul:first-of-type li:last-of-type:hover {
-  color: rgb(51, 51, 51);
-  border: 1px solid rgb(51, 51, 51);
-  background-color: rgb(245, 154, 35);
+  color: rgb(74, 35, 122);
 }
 main #actions ul:first-of-type li:hover {
   cursor: pointer;
@@ -874,7 +865,7 @@ main #actions ul:last-of-type li:last-of-type {
 }
 main #commands {
   color: rgb(245, 154, 35);
-  height: 60vh;
+  height: 50vh;
   padding: 1rem;
   display: flex;
   grid-area: 2/3/3/4;

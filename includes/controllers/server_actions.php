@@ -126,7 +126,7 @@
 			$server->addActionLogs($remote["server_id"], $action);
 
 			// On affiche ensuite le message de validation.
-			echo($translation->getPhrase("dashboard_action_$action"));
+			echo($translation->getPhrase("global_action_success"));
 		}
 		catch (Exception $error)
 		{

@@ -36,7 +36,7 @@ main
 	{
 		// Panneau des actions.
 		color: $text-color;
-		height: 60vh;
+		height: 50vh;
 		display: flex;
 		padding: 1rem;
 		grid-area: 2 / 2 / 3 / 3;
@@ -120,7 +120,7 @@ main
 					}
 				}
 
-				&:nth-of-type(4)
+				&:last-of-type
 				{
 					// Maintenance du serveur.
 					background-color: $special-color;
@@ -128,20 +128,6 @@ main
 					&:hover
 					{
 						color: $special-color;
-					}
-				}
-
-				&:last-of-type
-				{
-					// Ajouter une action.
-					color: $text-color;
-					border: 1px solid $text-color;
-
-					&:hover
-					{
-						color: $box-color;
-						border: 1px solid $box-color;
-						background-color: $text-color;
 					}
 				}
 
@@ -278,7 +264,7 @@ main
 	{
 		// Panneau des commandes.
 		color: $text-color;
-		height: 60vh;
+		height: 50vh;
 		padding: 1rem;
 		display: flex;
 		grid-area: 2 / 3 / 3 / 4;
