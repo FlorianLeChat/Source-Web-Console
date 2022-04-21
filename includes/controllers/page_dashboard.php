@@ -42,17 +42,11 @@
 				//	Note : dans tous les cas, les valeurs sont actualisées avec
 				//		celles indiquées par l'utilisateur ou ceux actuellement
 				//		présentes dans la base de données.
-				$admin_password = tryGetValue($_POST["admin_password"], $target_instance["admin_password"]);
+				$admin_password = tryGetValue($server->password_encrypt($_POST["admin_password"]), $target_instance["admin_password"]);
 				$client_address = tryGetValue($_POST["client_address"], $target_instance["client_address"]);
 				$admin_address = tryGetValue($_POST["admin_address"], $target_instance["admin_address"]);
 				$client_port = tryGetValue($_POST["client_port"], $target_instance["client_port"]);
-				$admin_port = tryGetValue($server->password_encrypt($_POST["admin_port"]), $target_instance["admin_port"]);
-
-				var_dump($admin_password);
-				var_dump($client_address);
-				var_dump($admin_address);
-				var_dump($client_port);
-				var_dump($admin_port);
+				$admin_port = tryGetValue($_POST["admin_port"], $target_instance["admin_port"]);
 
 				$server->updatePublicInstance($client_id, $server_id, $client_address, $client_port);
 				$server->storeAdminCredentials($client_id, $server_id, $admin_address, $admin_port, $admin_password);
