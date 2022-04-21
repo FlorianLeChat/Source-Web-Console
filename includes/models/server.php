@@ -72,7 +72,7 @@
 		//	de la bibliothèque de OpenSSL.
 		// 	Source : voir fonction précédente.
 		//
-		public function password_decrypt(string $password): bool
+		public function password_decrypt(string $password): string
 		{
 			// On chiffre d'abord la phrase unique de chiffrement.
 			$key = hash("sha256", $this->getConfig("openssl_phrase"));
@@ -87,6 +87,48 @@
 
 			// On retourne enfin le mot de passe déchiffré.
 			return $password;
+		}
+
+
+		//
+		// Permet d'ajouter une nouvelle entrée dans l'historique des commandes
+		//	et des actions réalisées dans la base de données.
+		//
+		public function addActionLogs(int $server_id, string $action): void
+		{
+			$query = $this->connector->prepare("INSERT INTO logs (`server_id`, `action_type`) VALUES (?, ?);");
+
+				// Identifiant unique du serveur.
+				$query->bindValue(1, $server_id);
+
+				// Type de l'action effectuée.
+				$query->bindValue(2, $action);
+
+			$query->execute();
+		}
+
+		//
+		// Permet de récupérer toutes les entrées dans l'historique des actions
+		//	et des commandes réalisées par une instance.
+		//
+		public function getActionLogs(int $server_id, int $limit = 3): array
+		{
+			// On récupère d'abord tous les potentiels serveurs dans la base de données.
+			$query = $this->connector->prepare("SELECT * FROM logs WHERE `server_id` = ? ORDER BY `timestamp` DESC LIMIT $limit;");
+				$query->bindValue(1, $server_id);
+			$query->execute();
+
+			$result = $query->fetchAll();
+
+			// En fonction du résultat, on retourne alors les résultats.
+			if (is_array($result) && count($result) > 0)
+			{
+				// Résultats trouvés.
+				return $result;
+			}
+
+			// Aucun résultat.
+			return [];
 		}
 
 		//
