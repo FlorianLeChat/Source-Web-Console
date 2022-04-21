@@ -45,7 +45,7 @@
 	}
 
 	// Vérification de l'état de connexion de l'utilisateur.
-	$connected = isset($_SESSION["identifier"]) || isset($_SESSION["temporary_user"]);
+	$connected = isset($_SESSION["user_id"]) || isset($_SESSION["temporary_user"]);
 
 	if (!$connected)
 	{
@@ -88,7 +88,7 @@
 
 		// Variables utilisateurs.
 		"user_connected" => $connected,
-		"user_identifier" => $_SESSION["username"] ?? "",
+		"user_identifier" => $_SESSION["user_name"] ?? "",
 
 		// En-tête du document.
 		"head_phrases" => $translation->getPhrases("head"),

@@ -8,7 +8,7 @@
 
 	// On vérifie si l'utilisateur est actuellement déjà connecté
 	//	à un compte utilisateur.
-	if (isset($_SESSION["identifier"]))
+	if (isset($_SESSION["user_id"]))
 	{
 		// Indication : « Unauthorized ».
 		// 	Source : https://developer.mozilla.org/fr/docs/Web/HTTP/Status/401

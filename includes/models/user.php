@@ -67,8 +67,8 @@
 				// Si elle est valide, on met en mémoire certaines
 				//	informations avant d'indiquer que l'authentification
 				//	avec le jeton a réussie.
-				$_SESSION["identifier"] = $result["client_id"];
-				$_SESSION["username"] = $result["username"];
+				$_SESSION["user_id"] = $result["client_id"];
+				$_SESSION["user_name"] = $result["username"];
 
 				return true;
 			}
@@ -178,8 +178,8 @@
 			{
 				// On retourne enfin une valeur booléenne indiquant que
 				//	l'authentification a réussie.
-				$_SESSION["identifier"] = $result["client_id"];
-				$_SESSION["username"] = $username;
+				$_SESSION["user_id"] = $result["client_id"];
+				$_SESSION["user_name"] = $username;
 
 				return true;
 			}
@@ -199,8 +199,8 @@
 
 			// On supprime toutes les informations utilisateurs sauvegardées
 			// 	dans les sessions.
-			unset($_SESSION["identifier"]);
-			unset($_SESSION["username"]);
+			unset($_SESSION["user_id"]);
+			unset($_SESSION["user_name"]);
 		}
 	}
 ?>
