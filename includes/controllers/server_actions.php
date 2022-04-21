@@ -54,7 +54,7 @@
 		try
 		{
 			// On tente après d'établir une connexion avec l'instance.
-			$server->connectInstance($instance["admin_address"] ?? $instance["client_address"], $instance["admin_port"] ?? $instance["client_port"], $server->password_decrypt($instance["admin_password"] ?? ""));
+			$server->connectInstance($instance["admin_address"] ?? $instance["client_address"], $instance["admin_port"] ?? $instance["client_port"], $instance["admin_password"] ?? "");
 
 			// On envoie ensuite la requête correspondante à l'instance.
 			switch ($action)
@@ -64,7 +64,7 @@
 					// Requête d'arrêt classique
 					//	Note : l'instance peut automatiquement redémarrer après
 					//		un certain temps sur certains jeux.
-					$server->query->Rcon("shutdown");
+					$server->query->Rcon("exit");
 					break;
 				}
 
