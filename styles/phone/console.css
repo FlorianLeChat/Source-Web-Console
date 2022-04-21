@@ -648,7 +648,7 @@ footer ul li:last-of-type:hover i {
   color: rgb(242, 242, 242);
   transition: color 250ms;
 }
-footer div {
+footer > div {
   top: 0.5rem;
   height: 0.25rem;
   position: relative;
@@ -656,11 +656,11 @@ footer div {
   box-shadow: none;
 }
 @media screen and (min-width: 1024px) {
-  footer div {
+  footer > div {
     display: none;
   }
 }
-footer div div {
+footer > div div {
   width: 0;
   height: 0.25rem;
   background: rgb(245, 154, 35);
