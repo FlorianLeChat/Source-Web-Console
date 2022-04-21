@@ -3,34 +3,37 @@
 	// Contrôleur de gestion de la page du tableau de bord.
 	//
 
-	// On récupère d'abord l'identifiant unique de l'utilisateur et d'une
-	//	instance possiblement sélectionnée.
+	// On récupère d'abord l'identifiant unique de l'utilisateur et d'un
+	//	serveur possiblement sélectionné.
 	$client_id = $_SESSION["user_id"];
-	$server_id = $_POST["server_id"] ?? "";
+	$server_id = $_POST["server_id"] ?? $_SESSION["server_id"] ?? "";
 
-	// On récupère ensuite les instances liées au compte de l'utilisateur.
-	$instances = $server->getInstances($client_id);
+	// On récupère ensuite les serveurs liés au compte de l'utilisateur.
+	$remotes = $server->getServersData($client_id);
 
 	// On vérifie ensuite si la page a été demandée sous une requête de
 	//	type POST. Cela signifie que l'utilisateur tente d'effectuer une
-	//	action sur une instance bien précise.
+	//	action sur un serveur bien précis.
 	if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($server_id))
 	{
-		$target_instance = array_filter($instances, function(array $instance)
+		$target_remote = array_filter($remotes, function(array $remote)
 		{
 			global $server_id;
-			return $instance["server_id"] == $server_id;
+			return $remote["server_id"] == $server_id;
 		});
 
 		// Récupération de la première valeur.
-		$target_instance = array_shift($target_instance);
+		$target_remote = array_shift($target_remote);
+
+		// Sauvegarde de la valeur en session.
+		$_SESSION["server_id"] = $server_id;
 	}
 
 	// On vérifie après le résultat de la récupération effectuée lors de
 	//	l'étape précédente.
-	if (!empty($target_instance) && is_array($target_instance))
+	if (!empty($target_remote) && is_array($target_remote))
 	{
-		// Si on semble avoir les données d'une instance, on tente de déterminer
+		// Si on semble avoir les données d'un serveur, on tente de déterminer
 		//	le type d'action à réaliser.
 		$action = $_POST["server_action"] ?? "connect";
 
@@ -38,33 +41,33 @@
 		{
 			case "edit":
 			{
-				// Édition d'une instance.
+				// Édition d'un serveur.
 				//	Note : dans tous les cas, les valeurs sont actualisées avec
 				//		celles indiquées par l'utilisateur ou ceux actuellement
 				//		présentes dans la base de données.
-				$client_address = tryGetValue($_POST["client_address"], $target_instance["client_address"]);
-				$client_port = tryGetValue($_POST["client_port"], $target_instance["client_port"]);
+				$client_address = tryGetValue($_POST["client_address"], $target_remote["client_address"]);
+				$client_port = tryGetValue($_POST["client_port"], $target_remote["client_port"]);
 
-				$admin_address = tryGetValue($_POST["admin_address"], $target_instance["admin_address"]);
-				$admin_port = tryGetValue($_POST["admin_port"], $target_instance["admin_port"]);
-				$admin_password = tryGetValue($server->password_encrypt($_POST["admin_password"]), $target_instance["admin_password"]);
+				$admin_address = tryGetValue($_POST["admin_address"], $target_remote["admin_address"]);
+				$admin_port = tryGetValue($_POST["admin_port"], $target_remote["admin_port"]);
+				$admin_password = tryGetValue($server->password_encrypt($_POST["admin_password"]), $target_remote["admin_password"]);
 
-				$server->updatePublicInstance($client_id, $target_instance["server_id"], $client_address, $client_port);
-				$server->storeAdminCredentials($client_id, $target_instance["server_id"], $admin_address, $admin_port, $admin_password);
+				$server->updateServer($client_id, $target_remote["server_id"], $client_address, $client_port);
+				$server->storeAdminCredentials($client_id, $target_remote["server_id"], $admin_address, $admin_port, $admin_password);
 
 				break;
 			}
 
 			case "delete":
 			{
-				// Suppression d'une instance.
-				$server->deletePublicInstance($client_id, $target_instance["server_id"]);
+				// Suppression d'un serveur.
+				$server->deleteServer($client_id, $target_remote["server_id"]);
 				break;
 			}
 
 			default:
 			{
-				// Connexion à une instance, rien à faire.
+				// Connexion à un serveur, rien à faire.
 				break;
 			}
 		}
@@ -80,15 +83,15 @@
 	else
 	{
 		// Si ce n'est pas le cas, alors on fait la recherche habituelle pour
-		//	rechercher si l'une des instances doit se connecter automatiquement
+		//	rechercher si l'un des serveur doit se connecter automatiquement
 		//	lors de l'arrivée sur le tableau de bord.
-		$target_instance = array_filter($instances, function(array $instance)
+		$target_remote = array_filter($remotes, function(array $remote)
 		{
-			return $instance["auto_connect"] === 1;
+			return $remote["auto_connect"] === 1;
 		});
 
 		// On récupère la première valeur trouvée dans la liste.
-		$target_instance = array_shift($target_instance);
+		$target_remote = array_shift($target_remote);
 	}
 
 	// On implémente également une fonction TWIG afin de déterminer le
@@ -106,13 +109,10 @@
 	$parameters = [
 
 		// Récupération de l'historique des actions et commandes.
-		"dashboard_logs" => $server->getActionLogs($target_instance["server_id"]),
+		"dashboard_logs" => $server->getActionLogs($target_remote["server_id"]),
 
-		// Liste des instances depuis la base de données.
-		"dashboard_instances" => $instances,
-
-		// Récupération de l'instance qui doit se connecter automatiquement.
-		"dashboard_server_identifier" => $target_instance["server_id"]
+		// Liste des serveurs depuis la base de données.
+		"dashboard_servers" => $remotes
 
 	];
 ?>

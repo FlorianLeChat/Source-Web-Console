@@ -1,6 +1,6 @@
 <?php
 	//
-	// Contrôleur de gestion des actions et commandes de l'instance.
+	// Contrôleur de gestion des actions et commandes du serveur.
 	//
 
 	// On initialise le contrôleur principal des données.
@@ -38,12 +38,12 @@
 	// On vérifie si la page est demandée avec une requête AJAX.
 	if (strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) === "xmlhttprequest")
 	{
-		// Si c'est le cas, on tente de récupérer l'instance sélectionnée
-		// 	ainsi que la requête demandée  via les données transmises dans la requête.
+		// Si c'est le cas, on tente de récupérer le serveur sélectionné ainsi
+		// 	que la requête demandée via les données transmises dans la requête.
 		$action = $_POST["server_action"] ?? "";
-		$instance = $server->getInstance($_SESSION["user_id"], $_POST["server_id"] ?? 0);
+		$remote = $server->getServerData($_SESSION["user_id"], $_SESSION["server_id"] ?? 0);
 
-		if (empty($action) || empty($instance))
+		if (empty($action) || empty($remote))
 		{
 			// Indication : « Bad Request ».
 			// 	Source : https://developer.mozilla.org/fr/docs/Web/HTTP/Status/400
@@ -53,16 +53,16 @@
 
 		try
 		{
-			// On tente après d'établir une connexion avec l'instance.
-			$server->connectInstance($instance["admin_address"] ?? $instance["client_address"], $instance["admin_port"] ?? $instance["client_port"], $instance["admin_password"] ?? "");
+			// On tente après d'établir une connexion avec le serveur.
+			$server->connectServer($remote["admin_address"] ?? $remote["client_address"], $remote["admin_port"] ?? $remote["client_port"], $remote["admin_password"] ?? "");
 
-			// On envoie ensuite la requête correspondante à l'instance.
+			// On envoie ensuite la requête correspondante au serveur.
 			switch ($action)
 			{
 				case "shutdown":
 				{
 					// Requête d'arrêt classique
-					//	Note : l'instance peut automatiquement redémarrer après
+					//	Note : le serveur peut automatiquement redémarrer après
 					//		un certain temps sur certains jeux.
 					$server->query->Rcon("exit");
 					break;
@@ -71,7 +71,7 @@
 				case "force":
 				{
 					// Requête d'arrêt forcé
-					//	Note : doit être seulement utilisé lorsque l'instance ne
+					//	Note : doit être seulement utilisé lorsque le serveur ne
 					//		répond plus à cause des risques de pertes de données.
 					$server->query->Rcon("quit");
 					break;
@@ -95,14 +95,14 @@
 
 				case "service":
 				{
-					// Mise en maintenance : verouillage de l'instance.
+					// Mise en maintenance : verouillage du serveur.
 					$server->query->Rcon("sv_password \"password\"");
 					break;
 				}
 			}
 
 			// On enregistre par la même occasion l'action en historique.
-			$server->addActionLogs($instance["server_id"], $action);
+			$server->addActionLogs($remote["server_id"], $action);
 
 			// On affiche ensuite le message de validation.
 			echo($translation->getPhrase("dashboard_action_$action"));

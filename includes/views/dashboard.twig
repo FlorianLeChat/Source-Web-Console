@@ -21,9 +21,6 @@
 		// Message d'erreur lorsqu'une erreur fatale se produit dans la récupération des
 		//	information d'un ou plusieurs serveurs.
 		const server_fatal_error = "{{ dashboard_phrases["dashboard_state_fatal"] }}";
-
-		// Identifiant unique du serveur qui doit être surveillé.
-		const server_identifier = "{{ dashboard_server_identifier }}";
 	</script>
 {% endblock %}
 
@@ -38,7 +35,7 @@
 		<h2>{{ dashboard_phrases["dashboard_servers"] }}</h2>
 
 		<ul>
-			{% for server in dashboard_instances %}
+			{% for server in dashboard_servers %}
 				<li data-image="assets/images/games/{{ server["game_id"] }}_background.jpg">
 					{# Construction de l'adresse IP #}
 					{% set address = server["admin_address"]|default(server["client_address"]) ~ ":" ~ server["admin_port"]|default(server["client_port"]) %}
@@ -75,7 +72,7 @@
 			<i class="bi bi-chevron-left"></i>
 		</button>
 
-		<span>1 / {{ max(dashboard_instances|length // 3, 1) }}</span>
+		<span>1 / {{ max(dashboard_servers|length // 3, 1) }}</span>
 
 		<button type="button" name="servers_list" value="2">
 			{# Serveurs suivants #}
