@@ -641,8 +641,15 @@ header
 	span
 	{
 		// Texte de l'astuce caché par défaut.
+		width: 40%;
 		display: none;
 		margin-left: 1rem;
+
+		@media screen and (max-width: 768px)
+		{
+			// Dimensionnement pour les téléphones.
+			width: 100%;
+		}
 	}
 
 	button
@@ -673,7 +680,7 @@ header
 				// 	est sélectionné par l'utilisateur.
 				color: $text-color;
 				right: 4rem;
-				bottom: 4.6rem;
+				bottom: 4.1rem;
 				border: 1px solid $border-color;
 				padding: 0.5rem;
 				display: inline-block;
