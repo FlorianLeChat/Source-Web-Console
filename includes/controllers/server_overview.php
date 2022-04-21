@@ -55,7 +55,7 @@
 		try
 		{
 			// On tente après d'établir une connexion avec l'instance.
-			$server->connectInstance($instance["admin_address"] ?? $instance["client_address"], $instance["admin_port"] ?? $instance["client_port"], $server->password_decrypt($instance["admin_password"] ?? ""));
+			$server->connectInstance($instance["admin_address"] ?? $instance["client_address"], $instance["admin_port"] ?? $instance["client_port"]);
 
 			// En cas de réussite, on récupère toutes les informations
 			//	disponibles et fournies par le module d'administration.
