@@ -170,3 +170,45 @@ timer = setInterval( function ()
 {
 	retrieveRemoteData();
 }, 5000 );
+
+//
+// Permet d'envoyer les commandes et actions vers le serveur distant.
+//
+function sendRemoteAction( action )
+{
+	// On réalise d'abord la requête AJAX.
+	$.post( "includes/controllers/server_actions.php", {
+
+		// Identifiant unique du serveur.
+		server_id: server_identifier,
+
+		// Action qui doit être réalisée à distance.
+		server_action: action
+
+	} )
+		.done( function ( data, _status, _self )
+		{
+			// Une fois terminée, on affiche la notification d'information
+			//	à l'utilisateur pour lui indiquer si la requête a été envoyée
+			//	ou non avec succès au serveur distant.
+			addQueuedNotification( data, 3 );
+		} )
+		.fail( function ( self, _status, error )
+		{
+			// Dans le cas contraire, on affiche une notification
+			//	d'échec avec les informations à notre disposition.
+			addQueuedNotification( server_fatal_error.replace( "$1", getStatusText( error, self.status ) ), 1 );
+		} );
+}
+
+$( "#actions li" ).click( function ()
+{
+	// Requête classique en fonction du bouton.
+	sendRemoteAction( $( this ).attr( "data-action" ) );
+} );
+
+$( "#actions li:first-of-type" ).dblclick( function ()
+{
+	// Requête d'arrêt forcé.
+	sendRemoteAction( "force" );
+} );

@@ -1,6 +1,6 @@
 <?php
 	//
-	// Contrôleur de gestion des données de l'instance.
+	// Contrôleur de gestion des actions et commandes de l'instance.
 	//
 
 	// On initialise le contrôleur principal des données.
@@ -19,16 +19,14 @@
 
 	// On vérifie si l'utilisateur ne tente pas de dépasser
 	//	le temps d'attente nécessaire entre chaque requête
-	//	de rafraîchissement.
-	if (empty($_SESSION["overview_cooldown"]))
+	//	d'actions/commandes.
+	if (empty($_SESSION["actions_cooldown"]))
 	{
-		// Le temps d'attente est calé sur celui indiqué du
-		//	côté JavaScript.
-		$_SESSION["overview_cooldown"] = time() + 5;
+		$_SESSION["actions_cooldown"] = time() + 1;
 	}
 	else
 	{
-		if ($_SESSION["overview_cooldown"] > time())
+		if ($_SESSION["actions_cooldown"] > time())
 		{
 			// Indication : « Too Many Requests ».
 			// 	Source : https://developer.mozilla.org/fr/docs/Web/HTTP/Status/429
@@ -41,10 +39,11 @@
 	if (strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) === "xmlhttprequest")
 	{
 		// Si c'est le cas, on tente de récupérer l'instance sélectionnée
-		//	via les données transmises dans la requête.
+		// 	ainsi que la requête demandée  via les données transmises dans la requête.
+		$action = $_POST["server_action"] ?? "";
 		$instance = $server->getInstance($_SESSION["user_id"], $_POST["server_id"] ?? 0);
 
-		if (empty($instance))
+		if (empty($action) || empty($instance))
 		{
 			// Indication : « Bad Request ».
 			// 	Source : https://developer.mozilla.org/fr/docs/Web/HTTP/Status/400
@@ -57,46 +56,61 @@
 			// On tente après d'établir une connexion avec l'instance.
 			$server->connectInstance($instance["admin_address"] ?? $instance["client_address"], $instance["admin_port"] ?? $instance["client_port"], $server->password_decrypt($instance["admin_password"] ?? ""));
 
-			// En cas de réussite, on récupère toutes les informations
-			//	disponibles et fournies par le module d'administration.
-			$info = $server->query->GetInfo();
+			// On envoie ensuite la requête correspondante à l'instance.
+			switch ($action)
+			{
+				case "shutdown":
+				{
+					// Requête d'arrêt classique
+					//	Note : l'instance peut automatiquement redémarrer après
+					//		un certain temps sur certains jeux.
+					$server->query->Rcon("shutdown");
+					break;
+				}
 
-			// On encode alors certaines de ces informations pour les
-			//	transmettre au client à travers le JavaScript.
-			echo(json_encode([
+				case "force":
+				{
+					// Requête d'arrêt forcé
+					//	Note : doit être seulement utilisé lorsque l'instance ne
+					//		répond plus à cause des risques de pertes de données.
+					$server->query->Rcon("quit");
+					break;
+				}
 
-				// Mode de jeu.
-				"gamemode" => $info["ModDesc"],
+				case "restart":
+				{
+					// Requête de redémarrage.
+					$server->query->Rcon("_restart");
+					break;
+				}
 
-				// Carte/environnement.
-				"maps" => $info["Map"],
+				case "update":
+				{
+					// Requête de mise à jour.
+					//	Note : uniquement supportée sur les versions récentes
+					//		du protocole RCON.
+					$server->query->Rcon("svc_update");
+					break;
+				}
 
-				// Nombre de robots.
-				"bots" => $info["Bots"],
+				case "service":
+				{
+					// Mise en maintenance : verouillage de l'instance.
+					$server->query->Rcon("sv_password \"password\"");
+					break;
+				}
+			}
 
-				// Sécurisation par mot de passe.
-				"password" => $info["Password"],
+			// On enregistre par la même occasion l'action en historique.
+			$server->addActionLogs($instance["server_id"], $action);
 
-				// Nombre de joueurs/clients.
-				"players" => $info["Players"],
-
-				// Nombre maximum de joueurs/clients.
-				"max_players" => $info["MaxPlayers"],
-
-				// Liste des joueurs
-				"players_list" => $server->query->GetPlayers()
-
-			]));
+			// On affiche ensuite le message de validation.
+			echo($translation->getPhrase("dashboard_action_$action"));
 		}
 		catch (Exception $error)
 		{
-			// Si une exception est lancé, on encode alors le message
-			//	d'erreur sous format JSON.
-			echo(json_encode([
-
-				"error" => $error->getMessage()
-
-			]));
+			// Si une exception est lancé, on affiche l'erreur.
+			echo($error->getMessage());
 		}
 		finally
 		{
