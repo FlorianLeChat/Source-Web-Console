@@ -41,7 +41,7 @@
 			if (!empty($password))
 			{
 				// On déchiffre enfin le mot de passe avant de le définir.
-				$this->query->SetRconPassword($this->password_decrypt($password));
+				$this->query->SetRconPassword($this->decryptPassword($password));
 			}
 		}
 
@@ -50,7 +50,7 @@
 		//	de la bibliothèque de OpenSSL.
 		// 	Source : https://stackoverflow.com/a/60283328
 		//
-		public function password_encrypt(string $password): string
+		public function encryptPassword(string $password): string
 		{
 			// On chiffre d'abord la phrase unique de chiffrement.
 			$key = hash("sha256", $this->getConfig("openssl_phrase"));
@@ -72,7 +72,7 @@
 		//	de la bibliothèque de OpenSSL.
 		// 	Source : voir fonction précédente.
 		//
-		public function password_decrypt(string $password): string
+		public function decryptPassword(string $password): string
 		{
 			// On chiffre d'abord la phrase unique de chiffrement.
 			$key = hash("sha256", $this->getConfig("openssl_phrase"));
@@ -88,7 +88,6 @@
 			// On retourne enfin le mot de passe déchiffré.
 			return $password;
 		}
-
 
 		//
 		// Permet d'ajouter une nouvelle entrée dans l'historique des commandes

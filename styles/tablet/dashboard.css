@@ -949,13 +949,16 @@ main #last ul li {
   font-size: 1.25rem;
 }
 main #last ul li i {
+  color: rgb(245, 154, 35);
+}
+main #last ul li i[type=restart] {
   color: rgb(85, 140, 3);
 }
-main #last ul li:nth-of-type(2) i {
-  color: rgb(237, 67, 29);
-}
-main #last ul li:nth-of-type(3) i {
+main #last ul li i[type=update] {
   color: rgb(1, 111, 160);
+}
+main #last ul li i[type=force], main #last ul li i[type=shutdown] {
+  color: rgb(237, 67, 29);
 }
 main #last ul li span {
   margin: 0 0 0.25rem 0.25rem;
