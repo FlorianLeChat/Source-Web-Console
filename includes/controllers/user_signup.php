@@ -95,7 +95,7 @@
 				// Dans un second temps, on ajoute le serveur enregistré dans la
 				//	base de données du site.
 				$client_id = $_SESSION["user_id"];
-				$server->storePublicInstance($client_id, $_POST["server_address"], $_POST["server_port"], $_POST["secure_only"], $_POST["auto_connect"]);
+				$server->storePublicServer($client_id, $_POST["server_address"], $_POST["server_port"], $_POST["secure_only"], $_POST["auto_connect"]);
 
 				if (!empty($_POST["admin_address"]))
 				{

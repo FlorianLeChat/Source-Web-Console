@@ -25,14 +25,14 @@
 			// Exécution du constructeur parent.
 			parent::__construct();
 
-			// Initialisation de la connexion administrateur à l'instance.
+			// Initialisation de la connexion administrateur à un serveur.
 			$this->query = new SourceQuery();
 		}
 
 		//
-		// Permet d'établir une connexion avec une instance distante.
+		// Permet d'établir une connexion avec un serveur distant.
 		//
-		public function connectInstance(string $address, int $port, string $password = "")
+		public function connectServer(string $address, int $port, string $password = "")
 		{
 			// On établit la connexion avec les informations renseignées.
 			$this->query->Connect($address, $port, 1, SourceQuery::SOURCE);
@@ -109,7 +109,7 @@
 
 		//
 		// Permet de récupérer toutes les entrées dans l'historique des actions
-		//	et des commandes réalisées par une instance.
+		//	et des commandes réalisées par un serveur.
 		//
 		public function getActionLogs(int $server_id, int $limit = 3): array
 		{
@@ -132,9 +132,9 @@
 		}
 
 		//
-		// Permet d'enregistrer une nouvelle instance dans la base de données.
+		// Permet d'enregistrer un nouveau serveur dans la base de données.
 		//
-		public function storePublicInstance(int $client, string $address, string $port, bool $secure = false, bool $auto_connect = false): void
+		public function storeServer(int $client, string $address, string $port, bool $secure = false, bool $auto_connect = false): void
 		{
 			$query = $this->connector->prepare("INSERT INTO servers (`client_id`, `client_address`, `client_port`, `game_platform`, `secure_only`, `auto_connect`) VALUES (?, ?, ?, ?, ?, ?);");
 
@@ -161,10 +161,10 @@
 		}
 
 		//
-		// Permet de mettre à jour les informations d'une instances dans la
+		// Permet de mettre à jour les informations d'un serveur dans la
 		//	base de données.
 		//
-		public function updatePublicInstance(int $client_id, int $server_id, string $address, string $port)
+		public function updateServer(int $client_id, int $server_id, string $address, string $port)
 		{
 			$query = $this->connector->prepare("UPDATE servers SET `client_address` = ?, `client_port` = ? WHERE `client_id` = ? AND `server_id` = ?;");
 
@@ -184,9 +184,9 @@
 		}
 
 		//
-		// Permet de supprimer une instance dans la base de données.
+		// Permet de supprimer un serveur dans la base de données.
 		//
-		public function deletePublicInstance(int $client_id, int $server_id): void
+		public function deleteServer(int $client_id, int $server_id): void
 		{
 			// La suppression nécessite que l'utilisateur possède le serveur sélectionnée
 			//	et que l'adresse IP corresponde à celle utilisée par les clients ou par
@@ -230,7 +230,7 @@
 		}
 
 		//
-		// Permet de déterminer le nom complet du jeu utilisé par une instance à partir
+		// Permet de déterminer le nom complet du jeu utilisé par un serveur à partir
 		//	de sa plate-forme ou son numéro d'identification unique.
 		//	Source : https://github.com/BrakeValve/dataflow/issues/5 (non officielle)
 		//
@@ -268,13 +268,13 @@
 
 		//
 		// Permet de récupérer l'identifiant unique du jeu actuellement monté sur le
-		//	serveur dédié de l'instance du client à partir de son adresse IP.
+		//	serveur dédié du client à partir de son adresse IP.
 		// 	Source : https://partner.steamgames.com/doc/webapi/ISteamApps#GetServersAtAddress
 		//
 		private function getGameIDByAddress(string $address): int
 		{
 			// On fait une requête à l'API centrale Steam pour récupérer
-			//	les informations de l'instance.
+			//	les informations du serveur.
 			$response = file_get_contents("https://api.steampowered.com/ISteamApps/GetServersAtAddress/v1/?addr=$address");
 
 			// On transforme par la suite ce résultat sous format JSON en
@@ -305,10 +305,10 @@
 		}
 
 		//
-		// Permet de récupérer les données d'une instance en fonction de son identifiant
+		// Permet de récupérer les données d'un serveur en fonction de son identifiant
 		//	unique et celui du compte de l'utilisateur.
 		//
-		public function getInstance(int $client_id, int $server_id): array|false
+		public function getServerData(int $client_id, int $server_id): array|false
 		{
 			// On récupère d'abord tous les potentiels serveurs dans la base de données.
 			$query = $this->connector->prepare("SELECT * FROM servers WHERE `client_id` = ? AND `server_id` = ?");
@@ -330,9 +330,9 @@
 		}
 
 		//
-		// Permet de récupérer toutes les instances enregistrés d'un compte utilisateur.
+		// Permet de récupérer tous les serveurs enregistrés d'un compte utilisateur.
 		//
-		public function getInstances(int $client_id): array|false
+		public function getServersData(int $client_id): array|false
 		{
 			// On récupère d'abord tous les potentiels serveurs dans la base de données.
 			$query = $this->connector->prepare("SELECT * FROM servers WHERE `client_id` = ?");
