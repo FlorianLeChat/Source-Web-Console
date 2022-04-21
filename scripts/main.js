@@ -296,6 +296,33 @@ if ( window.history.replaceState && window.location.hostname !== "localhost" )
 }
 
 //
+// Permet d'envoyer les commandes et actions vers un serveur distant.
+//
+function sendRemoteAction( action )
+{
+	// On réalise d'abord la requête AJAX.
+	$.post( "includes/controllers/server_actions.php", {
+
+		// Action qui doit être réalisée à distance.
+		server_action: action
+
+	} )
+		.done( function ( data, _status, _self )
+		{
+			// Une fois terminée, on affiche la notification d'information
+			//	à l'utilisateur pour lui indiquer si la requête a été envoyée
+			//	ou non avec succès au serveur distant.
+			addQueuedNotification( data, 3 );
+		} )
+		.fail( function ( self, _status, error )
+		{
+			// Dans le cas contraire, on affiche une notification
+			//	d'échec avec les informations à notre disposition.
+			addQueuedNotification( server_fatal_error.replace( "$1", getStatusText( error, self.status ) ), 1 );
+		} );
+}
+
+//
 // Permet d'obtenir le texte de réponse adéquat en fonction du code HTTP.
 //	Note : cette fonctionnalité est présente par défaut avec le protocole
 //		HTTP/1.1 mais complètement abandonnée avec HTTP/2 et HTTP/3.

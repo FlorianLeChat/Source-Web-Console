@@ -13,7 +13,7 @@ for ( const server of servers )
 }
 
 //
-// Permet d'effectuer des actions sur les instances présentes
+// Permet d'effectuer des actions sur les serveurs présents
 //	sur le tableau de bord.
 //	Note : ce système peut largement être améliorable dans le futur.
 //
@@ -32,7 +32,7 @@ $( "[name = server_edit]" ).click( function ( event )
 	const parent = $( this ).parent();
 
 	// On demande ensuite à l'utilisateur s'il veut supprimer ou non
-	//	l'instance.
+	//	le serveur.
 	if ( confirm( "Voulez-vous supprimer ce serveur ?" ) )
 	{
 		// Suppression de l'action par défaut.
@@ -61,19 +61,14 @@ $( "[name = server_edit]" ).click( function ( event )
 } );
 
 //
-// Permet de faire la récupération des informations générales de l'instance.
+// Permet de faire la récupération des informations générales du serveur.
 //
 let timer;
 
 function retrieveRemoteData()
 {
 	// On réalise d'abord la requête AJAX.
-	$.post( "includes/controllers/server_overview.php", {
-
-		// Identifiant unique du serveur.
-		server_id: server_identifier,
-
-	} )
+	$.post( "includes/controllers/server_overview.php" )
 		.done( function ( data, _status, _self )
 		{
 			// Une fois terminée, on affiche la réponse JSON du
@@ -172,35 +167,9 @@ timer = setInterval( function ()
 }, 5000 );
 
 //
-// Permet d'envoyer les commandes et actions vers le serveur distant.
+// Permet d'envoyer des requêtes d'action lors du clic sur l'un des
+//	boutons du tableau de bord.
 //
-function sendRemoteAction( action )
-{
-	// On réalise d'abord la requête AJAX.
-	$.post( "includes/controllers/server_actions.php", {
-
-		// Identifiant unique du serveur.
-		server_id: server_identifier,
-
-		// Action qui doit être réalisée à distance.
-		server_action: action
-
-	} )
-		.done( function ( data, _status, _self )
-		{
-			// Une fois terminée, on affiche la notification d'information
-			//	à l'utilisateur pour lui indiquer si la requête a été envoyée
-			//	ou non avec succès au serveur distant.
-			addQueuedNotification( data, 3 );
-		} )
-		.fail( function ( self, _status, error )
-		{
-			// Dans le cas contraire, on affiche une notification
-			//	d'échec avec les informations à notre disposition.
-			addQueuedNotification( server_fatal_error.replace( "$1", getStatusText( error, self.status ) ), 1 );
-		} );
-}
-
 $( "#actions li" ).click( function ()
 {
 	// Requête classique en fonction du bouton.
