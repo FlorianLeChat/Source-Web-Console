@@ -8,7 +8,7 @@
 
 	// On vérifie si l'utilisateur est actuellement connecté
 	//	à un compte utilisateur.
-	if (empty($_SESSION["identifier"]))
+	if (empty($_SESSION["user_id"]))
 	{
 		// Indication : « Unauthorized ».
 		// 	Source : https://developer.mozilla.org/fr/docs/Web/HTTP/Status/401
@@ -40,13 +40,11 @@
 	// On vérifie si la page est demandée avec une requête AJAX.
 	if (strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) === "xmlhttprequest")
 	{
-		// Si c'est le cas, on récupère les données transmises dans la requête
-		//	avant de vérifier leur validité.
-		$password = $_POST["server_password"] ?? "";
-		$address = $_POST["server_address"] ?? "";
-		$port = $_POST["server_port"] ?? "";
+		// Si c'est le cas, on tente de récupérer l'instance sélectionnée
+		//	via les données transmises dans la requête.
+		$instance = $server->getInstance($_SESSION["user_id"], $_POST["server_id"] ?? 0);
 
-		if (empty($address) || empty($port))
+		if (empty($instance))
 		{
 			// Indication : « Bad Request ».
 			// 	Source : https://developer.mozilla.org/fr/docs/Web/HTTP/Status/400
@@ -57,7 +55,7 @@
 		try
 		{
 			// On tente après d'établir une connexion avec l'instance.
-			$server->connectInstance($address, $port, $password);
+			$server->connectInstance($instance["admin_address"] ?? $instance["client_address"], $instance["admin_port"] ?? $instance["client_port"], $instance["admin_password"] ?? "");
 
 			// En cas de réussite, on récupère toutes les informations
 			//	disponibles et fournies par le module d'administration.

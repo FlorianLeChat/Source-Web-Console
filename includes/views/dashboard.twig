@@ -22,14 +22,8 @@
 		//	information d'un ou plusieurs serveurs.
 		const server_fatal_error = "{{ dashboard_phrases["dashboard_state_fatal"] }}";
 
-		// Adresse IP de l'instance connectée.
-		let current_address = "{{ dashboard_current_server["admin_address"]|default(dashboard_current_server["client_address"]) }}";
-
-		// Port de communication de l'instance connectée.
-		let current_port = "{{ dashboard_current_server["admin_port"]|default(dashboard_current_server["client_port"]) }}";
-
-		// Mot de passe chiffré de l'instance connectée.
-		let current_password = "{{ dashboard_current_server["admin_password"] }}";
+		// Identifiant unique du serveur qui doit être surveillé.
+		const server_identifier = "{{ dashboard_server_identifier }}";
 	</script>
 {% endblock %}
 
@@ -55,8 +49,8 @@
 
 					{# Édition des propriétés du serveur #}
 					<form method="POST">
-						<input type="hidden" name="action" value="edit" />
-						<input type="hidden" name="address" value="{{ address }}" />
+						<input type="hidden" name="server_id" value="{{ server["server_id"] }}" />
+						<input type="hidden" name="server_action" value="edit" />
 
 						<button type="submit" name="server_edit">
 							<i class="bi bi-pencil-square"></i>
@@ -65,8 +59,8 @@
 
 					{# Connexion directe au serveur #}
 					<form method="POST">
-						<input type="hidden" name="action" value="connect" />
-						<input type="hidden" name="address" value="{{ address }}" />
+						<input type="hidden" name="server_id" value="{{ server["server_id"] }}" />
+						<input type="hidden" name="server_action" value="connect" />
 
 						<button type="submit" name="server_connect">
 							<i class="bi bi-plug"></i>
@@ -149,9 +143,9 @@
 				{{ global_phrases["global_update_title"] }}
 			</li>
 
-			<li data-action="maintenance">
+			<li data-action="service">
 				{# Passer en mode de maintenance #}
-				{{ global_phrases["global_maintenance_title"] }}
+				{{ global_phrases["global_service_title"] }}
 			</li>
 		</ul>
 	</section>

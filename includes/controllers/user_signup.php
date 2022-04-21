@@ -86,8 +86,6 @@
 		if (empty($message))
 		{
 			// Tentative d'ajout du nouveau compte utilisateur.
-			$client_id = $_SESSION["identifier"];
-
 			if ($user->register($_POST["username"], $_POST["password"]))
 			{
 				// Si l'inscription réussie, on prépare le message de confirmation
@@ -96,6 +94,7 @@
 
 				// Dans un second temps, on ajoute le serveur enregistré dans la
 				//	base de données du site.
+				$client_id = $_SESSION["user_id"];
 				$server->storePublicInstance($client_id, $_POST["server_address"], $_POST["server_port"], $_POST["secure_only"], $_POST["auto_connect"]);
 
 				if (!empty($_POST["admin_address"]))

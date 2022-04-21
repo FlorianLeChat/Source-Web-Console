@@ -39,7 +39,7 @@ $( "[name = server_edit]" ).click( function ( event )
 		$( "input[value = edit]" ).remove();
 
 		// Ajout de l'action de suppression.
-		parent.append( "<input type=\"hidden\" name=\"action\" value=\"delete\" />" );
+		parent.append( "<input type=\"hidden\" name=\"server_action\" value=\"delete\" />" );
 	}
 	else
 	{
@@ -70,14 +70,8 @@ function retrieveRemoteData()
 	// On réalise d'abord la requête AJAX.
 	$.post( "includes/controllers/server_overview.php", {
 
-		// Adresse IP du serveur.
-		server_address: current_address,
-
-		// Port de communication du serveur.
-		server_port: current_port,
-
-		// Mot de passe d'administration du serveur.
-		server_password: current_password
+		// Identifiant unique du serveur.
+		server_id: server_identifier,
 
 	} )
 		.done( function ( data, _status, _self )

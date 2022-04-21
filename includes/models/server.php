@@ -263,13 +263,38 @@
 		}
 
 		//
-		// Permet de récupérer toutes les instances enregistrés d'un compte utilisateur.
+		// Permet de récupérer les données d'une instance en fonction de son identifiant
+		//	unique et celui du compte de l'utilisateur.
 		//
-		public function getInstances(int $identifier): array|false
+		public function getInstance(int $client_id, int $server_id): array|false
 		{
 			// On récupère d'abord tous les potentiels serveurs dans la base de données.
-			$query = $this->connector->prepare("SELECT * FROM servers WHERE client_id = ?");
-				$query->bindValue(1, $identifier);
+			$query = $this->connector->prepare("SELECT * FROM servers WHERE `client_id` = ? AND `server_id` = ?");
+				$query->bindValue(1, $client_id);
+				$query->bindValue(2, $server_id);
+			$query->execute();
+
+			$result = $query->fetch();
+
+			// En fonction du résultat, on retourne alors les résultats.
+			if (is_array($result) && count($result) > 0)
+			{
+				// Résultats trouvés.
+				return $result;
+			}
+
+			// Indication de l'échec de la récupération.
+			return false;
+		}
+
+		//
+		// Permet de récupérer toutes les instances enregistrés d'un compte utilisateur.
+		//
+		public function getInstances(int $client_id): array|false
+		{
+			// On récupère d'abord tous les potentiels serveurs dans la base de données.
+			$query = $this->connector->prepare("SELECT * FROM servers WHERE `client_id` = ?");
+				$query->bindValue(1, $client_id);
 			$query->execute();
 
 			$result = $query->fetchAll();
