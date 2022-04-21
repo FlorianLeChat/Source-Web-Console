@@ -502,8 +502,14 @@ header a:hover i {
   position: fixed;
 }
 #tips span {
+  width: 40%;
   display: none;
   margin-left: 1rem;
+}
+@media screen and (max-width: 768px) {
+  #tips span {
+    width: 100%;
+  }
 }
 #tips button, #tips header ul a, header ul #tips a {
   color: rgb(245, 154, 35);
@@ -526,7 +532,7 @@ header a:hover i {
 #tips button:hover + span, #tips header ul a:hover + span, header ul #tips a:hover + span {
   color: rgb(245, 154, 35);
   right: 4rem;
-  bottom: 4.6rem;
+  bottom: 4.1rem;
   border: 1px solid rgb(121, 121, 121);
   padding: 0.5rem;
   display: inline-block;
