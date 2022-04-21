@@ -1,0 +1,37 @@
+// --------------- //
+// Base de travail //
+// --------------- //
+@import "../main";
+
+// ------- //
+// En-tête //
+// ------- //
+header
+{
+	// Suppression de l'en-tête.
+	display: none;
+}
+
+// ---------------- //
+// Corps de la page //
+// ---------------- //
+main
+{
+	// Ajout des espacements classiques.
+	padding: 1rem;
+	margin-bottom: 4rem;
+
+	a
+	{
+		// Remise en place de l'apparence par défaut.
+		text-decoration: revert;
+	}
+
+	ul, ol
+	{
+		// Remise en place de l'apparence par défaut.
+		margin: revert;
+		padding: revert;
+		list-style: revert;
+	}
+}
