@@ -4,6 +4,24 @@
 {# Injection de code JavaScript #}
 {% block javascript %}
 	<script>
+		// Libellés demandant le changement de l'adresse IP/port du serveur.
+		const edit_client_address = "{{ dashboard_phrases["dashboard_edit_client_address"] }}";
+		const edit_client_port = "{{ dashboard_phrases["dashboard_edit_client_port"] }}";
+
+		// Libellés demandant le changement de l'adresse IP/port du module d'administration.
+		const edit_admin_address = "{{ dashboard_phrases["dashboard_edit_admin_address"] }}";
+		const edit_admin_port = "{{ dashboard_phrases["dashboard_edit_admin_port"] }}";
+		const edit_admin_password = "{{ dashboard_phrases["dashboard_edit_admin_password"] }}";
+
+		// Libellés pour les différents états du serveur.
+		const server_no_data = "{{ dashboard_phrases["dashboard_state_nodata"] }}";		// Hors service/aucune donnée.
+		const server_running = "{{ dashboard_phrases["dashboard_state_running"] }}";	// En fonctionnement.
+		const server_service = "{{ dashboard_phrases["dashboard_state_service"] }}";	// En maintenance/mise à jour.
+
+		// Message d'erreur lorsqu'une erreur fatale se produit dans la récupération des
+		//	information d'un ou plusieurs serveurs.
+		const server_fatal_error = "{{ dashboard_phrases["dashboard_state_fatal"] }}";
+
 		// Adresse IP de l'instance connectée.
 		let current_address = "{{ dashboard_current_server["admin_address"]|default(dashboard_current_server["client_address"]) }}";
 
