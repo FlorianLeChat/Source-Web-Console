@@ -94,14 +94,14 @@
 
 				// Dans un second temps, on ajoute le serveur enregistré dans la
 				//	base de données du site.
-				$client_id = $_SESSION["user_id"];
-				$server->storeServer($client_id, $_POST["server_address"], $_POST["server_port"], $_POST["secure_only"], $_POST["auto_connect"]);
+				$user_id = $_SESSION["user_id"];
+				$server->storeServer($user_id, $_POST["server_address"], $_POST["server_port"], $_POST["secure_only"], $_POST["auto_connect"]);
 
 				if (!empty($_POST["admin_address"]))
 				{
 					// Les informations sont facultatives, donc on vérifie leur présence
 					//	avant de les ajouter eux aussi dans la base de données.
-					$server->storeAdminCredentials($client_id, $server->connector->lastInsertId(), $_POST["admin_address"], $_POST["admin_port"], $server->encryptPassword($_POST["admin_password"]));
+					$server->storeAdminCredentials($user_id, $server->connector->lastInsertId(), $_POST["admin_address"], $_POST["admin_port"], $server->encryptPassword($_POST["admin_password"]));
 				}
 			}
 			else

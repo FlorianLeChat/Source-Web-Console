@@ -5,14 +5,14 @@
 
 	// On récupère tout d'abord les identifiants uniques concernant
 	//	l'utilisateur et le serveur actuellement sélectionné.
-	$client_id = $_SESSION["user_id"];
+	$user_id = $_SESSION["user_id"];
 	$server_id = $_SESSION["server_id"] ?? 0;
 
 	// On récupère ensuite les données actuelles du serveur si
 	//	l'identifiant unique du serveur est valide.
 	if (!empty($server_id))
 	{
-		$remote = $server->getServerData($_SESSION["user_id"], $server_id);
+		$remote = $server->getServerData($user_id, $server_id);
 
 		if (!empty($remote))
 		{
@@ -43,13 +43,16 @@
 	$parameters = [
 
 		// État actuel de la restriction de la lampe torche.
-		"index_flashlight_switch" => $rules["mp_flashlight"] ?? "",
+		"actions_value_flashlight" => $rules["mp_flashlight"] ?? "",
 
 		// État actuel de la restriction des logiciels de triche.
-		"index_cheats_switch" => $rules["sv_cheats"] ?? "0",
+		"actions_value_cheats" => $rules["sv_cheats"] ?? "0",
 
 		// État actuel de la restriction des communications vocales.
-		"index_voice_switch" => $rules["sv_voiceenable"] ?? "0"
+		"actions_value_voice" => $rules["sv_voiceenable"] ?? "0",
+
+		// Liste des commandes personnalisées.
+		"actions_custom_commands" => $server->getCustomCommands($user_id)
 
 	];
 ?>
