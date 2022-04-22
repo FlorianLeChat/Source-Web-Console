@@ -15,7 +15,6 @@
 		// Indication : « Unauthorized ».
 		// 	Source : https://developer.mozilla.org/fr/docs/Web/HTTP/Status/401
 		http_response_code(401);
-		header("Location: ?target=dashboard");
 		exit();
 	}
 
