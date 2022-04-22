@@ -15,7 +15,6 @@
 		// Indication : « Unauthorized ».
 		// 	Source : https://developer.mozilla.org/fr/docs/Web/HTTP/Status/401
 		http_response_code(401);
-		header("Location: ?target=dashboard");
 		exit();
 	}
 
@@ -189,7 +188,7 @@
 						$command = array_shift($command);
 
 						// Exécution de la commande avec la valeur.
-						$server->query->Rcon($action . " \"$value\"");
+						$server->query->Rcon($command["content"] . " \"$value\"");
 					}
 				}
 			}
