@@ -90,12 +90,72 @@
 		}
 
 		//
+		// Permet d'ajouter une nouvelle commande personnalisée pour la page
+		//	des actions dans la base de données.
+		//
+		public function addCustomCommand(int $user_id, string $name, string $content): void
+		{
+			$query = $this->connector->prepare("INSERT INTO `commands` (`client_id`, `name`, `content`) VALUES (?, ?, ?);");
+
+				// Identifiant unique du client.
+				$query->bindValue(1, $user_id);
+
+				// Nom de la commande personnalisée.
+				$query->bindValue(2, $name);
+
+				// Contenu de la commande personnalisée.
+				$query->bindValue(3, $content);
+
+			$query->execute();
+		}
+
+		//
+		// Permet de supprimer une commande personnalisée de la base de données.
+		//
+		public function removeCustomCommand(int $user_id, string $command_id): void
+		{
+			$query = $this->connector->prepare("DELETE FROM `commands` WHERE `client_id` = ? AND `command_id` = ?;");
+
+				// Identifiant unique du client.
+				$query->bindValue(1, $user_id);
+
+				// Identifiant unique de la commande.
+				$query->bindValue(2, $command_id);
+
+			$query->execute();
+		}
+
+		//
+		// Permet de récupérer toutes les entrées dans l'historique des actions
+		//	et des commandes réalisées par un serveur.
+		//
+		public function getCustomCommands(int $user_id): array
+		{
+			// On récupère d'abord toutes les commandes dans la base de données.
+			$query = $this->connector->prepare("SELECT * FROM `commands` WHERE `client_id` = ?;");
+				$query->bindValue(1, $user_id);
+			$query->execute();
+
+			$result = $query->fetchAll();
+
+			// En fonction du résultat, on retourne alors les résultats.
+			if (is_array($result) && count($result) > 0)
+			{
+				// Résultats trouvés.
+				return $result;
+			}
+
+			// Aucun résultat.
+			return [];
+		}
+
+		//
 		// Permet d'ajouter une nouvelle entrée dans l'historique des commandes
 		//	et des actions réalisées dans la base de données.
 		//
 		public function addActionLogs(int $server_id, string $action): void
 		{
-			$query = $this->connector->prepare("INSERT INTO logs (`server_id`, `action_type`) VALUES (?, ?);");
+			$query = $this->connector->prepare("INSERT INTO `logs` (`server_id`, `action_type`) VALUES (?, ?);");
 
 				// Identifiant unique du serveur.
 				$query->bindValue(1, $server_id);
@@ -113,7 +173,7 @@
 		public function getActionLogs(int $server_id, int $limit = 3): array
 		{
 			// On récupère d'abord tous les potentiels serveurs dans la base de données.
-			$query = $this->connector->prepare("SELECT * FROM logs WHERE `server_id` = ? ORDER BY `timestamp` DESC LIMIT $limit;");
+			$query = $this->connector->prepare("SELECT `timestamp`, `action_type` FROM logs WHERE `server_id` = ? ORDER BY `timestamp` DESC LIMIT $limit;");
 				$query->bindValue(1, $server_id);
 			$query->execute();
 
@@ -133,12 +193,12 @@
 		//
 		// Permet d'enregistrer un nouveau serveur dans la base de données.
 		//
-		public function storeServer(int $client, string $address, string $port, bool $secure = false, bool $auto_connect = false): void
+		public function storeServer(int $user_id, string $address, string $port, bool $secure = false, bool $auto_connect = false): void
 		{
-			$query = $this->connector->prepare("INSERT INTO servers (`client_id`, `client_address`, `client_port`, `game_platform`, `secure_only`, `auto_connect`) VALUES (?, ?, ?, ?, ?, ?);");
+			$query = $this->connector->prepare("INSERT INTO `servers` (`client_id`, `client_address`, `client_port`, `game_platform`, `secure_only`, `auto_connect`) VALUES (?, ?, ?, ?, ?, ?);");
 
 				// Identifiant unique du client.
-				$query->bindValue(1, $client);
+				$query->bindValue(1, $user_id);
 
 				// Adresse IP du serveur.
 				$query->bindValue(2, $address);
@@ -163,9 +223,9 @@
 		// Permet de mettre à jour les informations d'un serveur dans la
 		//	base de données.
 		//
-		public function updateServer(int $client_id, int $server_id, string $address, string $port)
+		public function updateServer(int $user_id, int $server_id, string $address, string $port)
 		{
-			$query = $this->connector->prepare("UPDATE servers SET `client_address` = ?, `client_port` = ? WHERE `client_id` = ? AND `server_id` = ?;");
+			$query = $this->connector->prepare("UPDATE `servers` SET `client_address` = ?, `client_port` = ? WHERE `client_id` = ? AND `server_id` = ?;");
 
 				// Adresse IP du serveur.
 				$query->bindValue(1, $address);
@@ -174,7 +234,7 @@
 				$query->bindValue(2, $port);
 
 				// Identifiant unique du client.
-				$query->bindValue(3, $client_id);
+				$query->bindValue(3, $user_id);
 
 				// Identifiant unique du serveur.
 				$query->bindValue(4, $server_id);
@@ -185,7 +245,7 @@
 		//
 		// Permet de supprimer un serveur dans la base de données.
 		//
-		public function deleteServer(int $client_id, int $server_id): void
+		public function deleteServer(int $user_id, int $server_id): void
 		{
 			// La suppression nécessite que l'utilisateur possède le serveur sélectionnée
 			//	et que l'adresse IP corresponde à celle utilisée par les clients ou par
@@ -193,7 +253,7 @@
 			$query = $this->connector->prepare("DELETE FROM `servers` WHERE `client_id` = ? AND `server_id` = ?;");
 
 				// Identifiant unique du client.
-				$query->bindValue(1, $client_id);
+				$query->bindValue(1, $user_id);
 
 				// Identifiant unique du serveur.
 				$query->bindValue(2, $server_id);
@@ -205,9 +265,9 @@
 		// Permet d'enregistrer les informations de connexion au système d'administration
 		//	dans la base de données.
 		//
-		public function storeAdminCredentials(int $client_id, int $server_id, ?string $address, ?string $port, ?string $password): void
+		public function storeAdminCredentials(int $user_id, int $server_id, ?string $address, ?string $port, ?string $password): void
 		{
-			$query = $this->connector->prepare("UPDATE servers SET `admin_address` = ?, `admin_port` = ?, `admin_password` = ? WHERE `client_id` = ? AND `server_id` = ?");
+			$query = $this->connector->prepare("UPDATE `servers` SET `admin_address` = ?, `admin_port` = ?, `admin_password` = ? WHERE `client_id` = ? AND `server_id` = ?");
 
 				// Adresse IP du module d'administration (RCON).
 				// 	Source : https://developer.valvesoftware.com/wiki/Source_RCON_Protocol#Requests_and_Responses
@@ -220,7 +280,7 @@
 				$query->bindValue(3, $password);
 
 				// Identifiant unique du client.
-				$query->bindValue(4, $client_id);
+				$query->bindValue(4, $user_id);
 
 				// Identifiant unique du serveur.
 				$query->bindValue(5, $server_id);
@@ -307,11 +367,11 @@
 		// Permet de récupérer les données d'un serveur en fonction de son identifiant
 		//	unique et celui du compte de l'utilisateur.
 		//
-		public function getServerData(int $client_id, int $server_id): array|false
+		public function getServerData(int $user_id, int $server_id): array|false
 		{
 			// On récupère d'abord tous les potentiels serveurs dans la base de données.
-			$query = $this->connector->prepare("SELECT * FROM servers WHERE `client_id` = ? AND `server_id` = ?");
-				$query->bindValue(1, $client_id);
+			$query = $this->connector->prepare("SELECT * FROM `servers` WHERE `client_id` = ? AND `server_id` = ?");
+				$query->bindValue(1, $user_id);
 				$query->bindValue(2, $server_id);
 			$query->execute();
 
@@ -331,11 +391,11 @@
 		//
 		// Permet de récupérer tous les serveurs enregistrés d'un compte utilisateur.
 		//
-		public function getServersData(int $client_id): array|false
+		public function getServersData(int $user_id): array|false
 		{
 			// On récupère d'abord tous les potentiels serveurs dans la base de données.
-			$query = $this->connector->prepare("SELECT * FROM servers WHERE `client_id` = ?");
-				$query->bindValue(1, $client_id);
+			$query = $this->connector->prepare("SELECT * FROM `servers` WHERE `client_id` = ?");
+				$query->bindValue(1, $user_id);
 			$query->execute();
 
 			$result = $query->fetchAll();

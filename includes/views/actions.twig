@@ -1,6 +1,18 @@
 {# Modèle de base #}
 {% extends "base.twig" %}
 
+{# Injection de code JavaScript #}
+{% block javascript %}
+	<script>
+		// Libellé demandant d'entrer une valeur pour une commande.
+		const execute_value = "{{ actions_phrases["actions_commands_value"] }}";
+
+		// Libellés demendant le nom et le contenue d'une nouvelle commande personnalisée.
+		const command_add_name = "{{ actions_phrases["actions_add_name"] }}";
+		const command_add_content = "{{ actions_phrases["actions_add_content"] }}";
+	</script>
+{% endblock %}
+
 {# Contenu de la page demandé #}
 {% block content %}
 	{# Description de la page #}
@@ -44,7 +56,7 @@
 				<span>{{ actions_phrases["actions_switch_flashlight"] }}</span>
 
 				<label class="switch">
-					<input type="checkbox" {{ index_flashlight_switch != "" ? "checked" : "" }} />
+					<input type="checkbox" {{ actions_value_flashlight != "" ? "checked" : "" }} />
 					<span></span>
 				</label>
 			</li>
@@ -54,7 +66,7 @@
 				<span>{{ actions_phrases["actions_switch_cheats"] }}</span>
 
 				<label class="switch">
-					<input type="checkbox" {{ index_cheats_switch == "1" ? "checked" : "" }} />
+					<input type="checkbox" {{ actions_value_cheats == "1" ? "checked" : "" }} />
 					<span></span>
 				</label>
 			</li>
@@ -64,7 +76,7 @@
 				<span>{{ actions_phrases["actions_switch_voice"] }}</span>
 
 				<label class="switch">
-					<input type="checkbox" {{ index_voice_switch == "1" ? "checked" : "" }} />
+					<input type="checkbox" {{ actions_value_voice == "1" ? "checked" : "" }} />
 					<span></span>
 				</label>
 			</li>
@@ -78,26 +90,45 @@
 
 		{# Commandes de la section #}
 		<ul>
-			{% for i in range(1, 1) %}
-				<li>
-					<span>Nom de la commande {{ i }}</span>
+			<li data-command="level">
+				{# Changement de carte/environnement #}
+				<span>{{ actions_phrases["actions_commands_level"] }}</span>
 
-					{# Supprimer la commande #}
-					<button type="button" name="remove_command" value={{ "uuid_" ~ i }}>{{ actions_phrases["actions_commands_remove"] }}</button>
+				<button type="button" data-action="execute">{{ actions_phrases["actions_commands_execute"] }}</button>
+			</li>
 
-					{# Exécuter la commande #}
-					<button type="button" name="execute_command" value={{ "uuid_" ~ i }}>{{ actions_phrases["actions_commands_execute"] }}</button>
+			<li data-command="password">
+				{# Modification du mot de passe #}
+				<span>{{ actions_phrases["actions_commands_password"] }}</span>
+
+				<button type="button" data-action="execute">{{ actions_phrases["actions_commands_execute"] }}</button>
+			</li>
+
+			<li data-command="gravity">
+				{# Modification de la gravité applicable à la carte #}
+				<span>{{ actions_phrases["actions_commands_gravity"] }}</span>
+
+				<button type="button" data-action="execute">{{ actions_phrases["actions_commands_execute"] }}</button>
+			</li>
+
+			{% for command in actions_custom_commands %}
+				<li data-command="{{ command["command_id"] }}">
+					{# Contenu HTML de la commande HTML #}
+					<span>{{ command["name"] }}</span>
+
+					<button type="button" data-action="remove">{{ actions_phrases["actions_commands_remove"] }}</button>
+					<button type="button" data-action="execute">{{ actions_phrases["actions_commands_execute"] }}</button>
 				</li>
 			{% endfor %}
 
-			<li>
-				<span>{{ actions_phrases["actions_add_command"] }}</span>
+			{% if actions_custom_commands|length < 2 %}
+				<li data-action="add">
+					{# Ajout d'une commande personnalisée #}
+					<span>{{ actions_phrases["actions_add_command"] }}</span>
 
-				{{ actions_phrases["actions_remaining"]|format(5) }}
-			</li>
+					{{ actions_phrases["actions_remaining"]|format(2 - actions_custom_commands|length) }}
+				</li>
+			{% endif %}
 		</ul>
-
-		{# Bouton avec icône pour ajouter une commande #}
-		<div data-image="path"></div>
 	</section>
 {% endblock %}

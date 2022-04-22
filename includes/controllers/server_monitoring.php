@@ -8,7 +8,9 @@
 
 	// On vérifie si l'utilisateur est actuellement connecté
 	//	à un compte utilisateur.
-	if (empty($_SESSION["user_id"]))
+	$user_id = $_SESSION["user_id"];
+
+	if (empty($user_id))
 	{
 		// Indication : « Unauthorized ».
 		// 	Source : https://developer.mozilla.org/fr/docs/Web/HTTP/Status/401
@@ -42,7 +44,7 @@
 	{
 		// Si c'est le cas, on tente de récupérer le serveur sélectionné
 		//	via les données transmises dans la requête.
-		$remote = $server->getServerData($_SESSION["user_id"], $_SESSION["server_id"] ?? 0);
+		$remote = $server->getServerData($user_id, $_SESSION["server_id"] ?? 0);
 
 		if (empty($remote))
 		{

@@ -5,11 +5,11 @@
 
 	// On récupère d'abord l'identifiant unique de l'utilisateur et d'un
 	//	serveur possiblement sélectionné depuis le tableau de bord.
-	$client_id = $_SESSION["user_id"];
+	$user_id = $_SESSION["user_id"];
 	$server_id = $_POST["server_id"] ?? $_SESSION["server_id"] ?? 0;
 
 	// On récupère tous les serveurs liés au compte de l'utilisateur.
-	$remotes = $server->getServersData($client_id);
+	$remotes = $server->getServersData($user_id);
 
 	// On tente de récupérer par la même occasion le serveur sélectionné
 	//	par l'utilisateur.
@@ -59,8 +59,8 @@
 					$admin_port = tryGetValue($_POST["admin_port"], $target_remote["admin_port"]);
 					$admin_password = tryGetValue($server->encryptPassword($_POST["admin_password"]), $target_remote["admin_password"]);
 
-					$server->updateServer($client_id, $target_remote["server_id"], $client_address, $client_port);
-					$server->storeAdminCredentials($client_id, $target_remote["server_id"], $admin_address, $admin_port, $admin_password);
+					$server->updateServer($user_id, $target_remote["server_id"], $client_address, $client_port);
+					$server->storeAdminCredentials($user_id, $target_remote["server_id"], $admin_address, $admin_port, $admin_password);
 
 					break;
 				}
@@ -68,7 +68,7 @@
 				case "delete":
 				{
 					// Suppression d'un serveur.
-					$server->deleteServer($client_id, $target_remote["server_id"]);
+					$server->deleteServer($user_id, $target_remote["server_id"]);
 					break;
 				}
 
