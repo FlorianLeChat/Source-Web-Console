@@ -16,9 +16,8 @@
 	if (empty($server_id))
 	{
 		// Filtrage de tous les serveurs par identifiant unique.
-		$target_remote = array_filter($remotes, function(array $remote)
+		$target_remote = array_filter($remotes, function(array $remote) use ($server_id)
 		{
-			global $server_id;
 			return $remote["server_id"] == $server_id;
 		});
 	}
@@ -95,9 +94,8 @@
 
 	// On implémente ensuite une fonction TWIG afin de déterminer le
 	//	nom complet du jeu actuellement utilisé sur le serveur.
-	$function = new \Twig\TwigFunction("getNameByGameID", function(int $identifier, string $fallback)
+	$function = new \Twig\TwigFunction("getNameByGameID", function(int $identifier, string $fallback) use ($server)
 	{
-		global $server;
 		return $server->getNameByGameID($identifier, $fallback);
 	});
 

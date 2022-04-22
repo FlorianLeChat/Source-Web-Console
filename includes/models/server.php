@@ -90,6 +90,65 @@
 		}
 
 		//
+		// Permet d'ajouter une tâche planifiée dans la base de données.
+		//
+		public function addScheduledTask(int $server_id, string $timestamp, string $action): void
+		{
+			$query = $this->connector->prepare("INSERT INTO `tasks` (`server_id`, `date`, `action`) VALUES (?, ?, ?);");
+
+				// Identifiant unique du serveur.
+				$query->bindValue(1, $server_id);
+
+				// Date de déclenchement de l'action.
+				$query->bindValue(2, $timestamp);
+
+				// Action de déclenchement.
+				$query->bindValue(3, $action);
+
+			$query->execute();
+		}
+
+		//
+		// Permet de supprimer une tâche planifiée de la base de données.
+		//	Note : la suppression est exclue sur les tâches terminées.
+		//
+		public function removeScheduledTask(int $server_id, string $task_id): void
+		{
+			$query = $this->connector->prepare("DELETE FROM `tasks` WHERE `server_id` = ? AND `task_id` = ? AND `state` = 'WAITING';");
+
+				// Identifiant unique du serverur.
+				$query->bindValue(1, $server_id);
+
+				// Identifiant unique de la tâche.
+				$query->bindValue(2, $task_id);
+
+			$query->execute();
+		}
+
+		//
+		// Permet de récupérer toutes les tâches planifiées de la base de données.
+		//
+		public function getScheduledTasks(int $user_id): array
+		{
+			// On récupère d'abord toutes les tâches planifiées dans la base de données.
+			$query = $this->connector->prepare("SELECT * FROM `tasks` WHERE `server_id` IN ( SELECT `server_id` FROM `servers` WHERE `client_id` = ? );");
+				$query->bindValue(1, $user_id);
+			$query->execute();
+
+			$result = $query->fetchAll();
+
+			// En fonction du résultat, on retourne alors les résultats.
+			if (is_array($result) && count($result) > 0)
+			{
+				// Résultats trouvés.
+				return $result;
+			}
+
+			// Aucun résultat.
+			return [];
+		}
+
+		//
 		// Permet d'ajouter une nouvelle commande personnalisée pour la page
 		//	des actions dans la base de données.
 		//	Note : un utilisateur ne peut pas créer plus de deux commandes à la fois.
