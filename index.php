@@ -62,7 +62,7 @@
 		// Si malgré la tentative de connexion automatique, l'utilisateur
 		//	est toujours déconnecté et qu'il veut accès à une page protégé
 		//	alors, on force l'affichage de la page d'accueil.
-		if (!$connected && ($file !== "index" || $file !== "legal" || $file !== "help"))
+		if (!$connected && ($file !== "index" && $file !== "legal" && $file !== "help"))
 		{
 			$file = "index";
 		}

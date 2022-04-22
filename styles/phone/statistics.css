@@ -282,13 +282,16 @@ header a:hover i {
   font-size: 2rem;
   margin-top: 0;
 }
-#signup article i, #signin i, #contact i {
-  left: 1rem;
-  float: left;
-  color: rgb(237, 67, 29);
-  position: relative;
-  font-size: 2rem;
+#signup article div, #signin div, #contact div {
+  gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
   margin-right: 1rem;
+}
+#signup article div i, #signin div i, #contact div i {
+  color: rgb(237, 67, 29);
+  font-size: 2rem;
 }
 #signup article p, #signup article em, #signin p, #signin em, #contact p, #contact em {
   margin: 0 5% 1rem 5%;
