@@ -92,21 +92,28 @@
 		//
 		// Permet d'ajouter une nouvelle commande personnalisée pour la page
 		//	des actions dans la base de données.
+		//	Note : un utilisateur ne peut pas créer plus de deux commandes à la fois.
 		//
 		public function addCustomCommand(int $user_id, string $name, string $content): void
 		{
-			$query = $this->connector->prepare("INSERT INTO `commands` (`client_id`, `name`, `content`) VALUES (?, ?, ?);");
+			// On vérifie le nombre de commandes déjà créées.
+			if (count($this->getCustomCommands($user_id)) < 2)
+			{
+				// Si l'utilisateur peut encore en créer, on réalise la requête dans
+				//	la base de données pour insérer les informations.
+				$query = $this->connector->prepare("INSERT INTO `commands` (`client_id`, `name`, `content`) VALUES (?, ?, ?);");
 
-				// Identifiant unique du client.
-				$query->bindValue(1, $user_id);
+					// Identifiant unique du client.
+					$query->bindValue(1, $user_id);
 
-				// Nom de la commande personnalisée.
-				$query->bindValue(2, $name);
+					// Nom de la commande personnalisée.
+					$query->bindValue(2, $name);
 
-				// Contenu de la commande personnalisée.
-				$query->bindValue(3, $content);
+					// Contenu de la commande personnalisée.
+					$query->bindValue(3, $content);
 
-			$query->execute();
+				$query->execute();
+			}
 		}
 
 		//
