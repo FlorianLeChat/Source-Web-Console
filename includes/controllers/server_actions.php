@@ -48,7 +48,7 @@
 		{
 			// Indication : « Bad Request ».
 			// 	Source : https://developer.mozilla.org/fr/docs/Web/HTTP/Status/400
-			//http_response_code(400);
+			http_response_code(400);
 			exit();
 		}
 
@@ -186,6 +186,9 @@
 					{
 						// Récupération du premier résultat.
 						$command = array_shift($command);
+
+						// Définition du nom de l'action.
+						$action = $command["name"];
 
 						// Exécution de la commande avec la valeur.
 						$server->query->Rcon($command["content"] . " \"$value\"");
