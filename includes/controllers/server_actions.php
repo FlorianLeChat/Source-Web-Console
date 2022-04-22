@@ -174,9 +174,8 @@
 					//	d'une commande personnalisée. On tente alors de récupérer
 					//	les données de toutes les commandes pour trouver celle
 					//	qui semble avoir été choisie par l'uitlisateur.
-					$command = array_filter($commands, function(array $command)
+					$command = array_filter($commands, function(array $command) use ($action)
 					{
-						global $action;
 						return $command["command_id"] == $action;
 					});
 
