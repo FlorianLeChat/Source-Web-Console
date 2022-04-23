@@ -227,7 +227,7 @@ header
 					top: 6rem;
 					right: 10rem;
 					width: 185px;
-					border: 1px solid $border-color;
+					z-index: 1;
 					display: block;
 					position: absolute;
 					background-color: $box-color;
@@ -235,6 +235,7 @@ header
 					li
 					{
 						// Résultat quelconque.
+						border: 1px solid $border-color;
 						padding: 0.5rem;
 						transition: color 250ms, background-color 250ms;
 						border-bottom: 1px solid $background-color;

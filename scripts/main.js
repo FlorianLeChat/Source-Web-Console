@@ -177,6 +177,47 @@ contact.find( "input[type = reset]" ).click( function ()
 } );
 
 //
+// Permet de faire fonctionner un petit moteur de recherche
+//	intégré pour accéder plus rapidement aux pages du site.
+//
+let labels = [];
+
+for ( const label of $( "nav span" ) )
+{
+	// Libellés des pages de la barre de navigation.
+	labels.push( $( label ).html() );
+}
+
+for ( const label of $( "footer a[href *= target] span" ) )
+{
+	// Libellés des pages du pied de page.
+	labels.push( $( label ).html() );
+}
+
+$( "input[name = search]" ).keyup( function ()
+{
+	// On récupère la recherche de l'utilisateur ainsi
+	//	que la liste des résultats possibles.
+	const search = $( this ).val();
+	const results = $( this ).next();
+
+	// On vide ensuite les résultats précédents.
+	results.empty();
+
+	// On itére alors à travers tous les libellés afin
+	//	de les comparer à l'entrée de l'utilisateur.
+	for ( const label of labels )
+	{
+		// Si l'entrée n'est pas vide et qu'elle semble corrrespondre
+		//	à un libellé en mémoire, on l'ajoute en tant que résultat.
+		if ( search !== "" && label.toLowerCase().match( search.toLowerCase() ) )
+		{
+			results.append( `<li data-target=\"${ label.toLowerCase() }\">${ label }</li>` );
+		}
+	}
+} );
+
+//
 // Permet d'ajuster l'agrandissement des éléments par rapport au zoom
 // 	du navigateur (fonctionne seulement pour l'amoindrissement).
 //
