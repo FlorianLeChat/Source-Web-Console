@@ -32,7 +32,7 @@
 			{# Corps du tableau #}
 			<tbody>
 				{% for task in tasks_list %}
-					<tr data-task="{{ task["task_id"] }}" class="{{ task["state"] == "DONE" ? "finished" : "" }}">
+					<tr data-task="{{ task["task_id"] }}" class="{{ task["state"] != "WAITING" ? "finished" : "" }}">
 						<td>
 							{# Récupération de l'indice de la boucle principale #}
 							{% set indice = loop.index %}
