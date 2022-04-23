@@ -6,8 +6,116 @@
 	// On initialise le contrôleur principal des données.
 	require_once(__DIR__ . "/../controller.php");
 
-	// On vérifie si l'utilisateur est actuellement connecté
-	//	à un compte utilisateur.
+	// On vérifie qu'il ne s'agit pas d'une exécution via les tâches
+	//	CRON interne au système d'exploitation.
+	//	Note : dans ce mode, le code peut parfois être moins « soigné »...
+	//	Source : https://stackoverflow.com/a/22358929
+	//	Exemple : /usr/bin/php8.0 /var/www/console.florian-dev.fr/includes/controllers/server_tasks.php
+	if (php_sapi_name() === "cli")
+	{
+		// Récupération de toutes les tâches planifiées en fonction
+		//	de leur état et de la date de déclenchement.
+		//	Note : on définit le fuseau horaire arbitrairement sur celui
+		//		de Paris même si les utilisateurs sont hors de France.
+		date_default_timezone_set("Europe/Paris");
+
+		$query = $server->connector->prepare("SELECT `task_id`, `server_id`, `action` FROM `tasks` WHERE `date` = ? AND `state` = 'WAITING';");
+			$query->bindValue(1, date("Y-m-d H:i:00"));
+		$query->execute();
+
+		$tasks = $query->fetchAll() ?? [];
+
+		// Calcul du nombre de tâches récupérées.
+		$count = count($tasks);
+
+		if ($count === 0)
+		{
+			echo("Aucune tâche ne peut être récupérer pour le moment." . PHP_EOL);
+			exit();
+		}
+		else
+		{
+			echo("Récupération de " . count($tasks) . " tâches planifiées." . PHP_EOL);
+		}
+
+		// Itération à travers toutes les tâches.
+		foreach ($tasks as $task)
+		{
+			echo("Début de l'exécution de la tâche " . $task["task_id"] . "." . PHP_EOL);
+
+			// Récupération des données du serveur.
+			$query = $server->connector->prepare("SELECT * FROM `servers` WHERE `server_id` = ?");
+				$query->bindValue(1, $task["server_id"]);
+			$query->execute();
+
+			$remote = $query->fetch();
+
+			if (is_array($tasks) && count($tasks) > 0)
+			{
+				try
+				{
+					// Tentative de connexion distante au serveur.
+					//	Note : c'est un copier/coller du fichier « server_actions.php ».
+					$server->connectServer($remote["admin_address"] ?? $remote["client_address"], $remote["admin_port"] ?? $remote["client_port"], $remote["admin_password"]);
+
+					switch ($task["action"])
+					{
+						case "shutdown":
+						{
+							// Arrêt du serveur.
+							$server->query->Rcon("sv_shutdown");
+							break;
+						}
+
+						case "restart":
+						{
+							// Redémarrage du serveur.
+							$server->query->Rcon("_restart");
+							break;
+						}
+
+						case "update":
+						{
+							// Mise à jour du serveur.
+							$server->query->Rcon("svc_update");
+							break;
+						}
+
+						case "service":
+						{
+							// Maintenance du serveur.
+							$server->query->Rcon("sv_password \"password\"");
+							break;
+						}
+					}
+
+					// Signalisation de fin d'exécution.
+					$query = $server->connector->prepare("UPDATE `tasks` SET `state` = 'DONE' WHERE `task_id` = ?;");
+						$query->bindValue(1, $task["task_id"]);
+					$query->execute();
+
+					echo("Fin d'exécution. Tâche marquée comme « terminée »." . PHP_EOL);
+				}
+				catch (Exception $error)
+				{
+					// Signalisation de l'erreur fatale.
+					$query = $server->connector->prepare("UPDATE `tasks` SET `state` = 'ERROR' WHERE `task_id` = ?;");
+						$query->bindValue(1, $task["task_id"]);
+					$query->execute();
+
+					echo("Erreur fatale. Tâche marquée comme « échouée »." . PHP_EOL);
+				}
+				finally
+				{
+					// Déconnexion du serveur distant.
+					$server->query->Disconnect();
+				}
+			}
+		}
+	}
+
+	// Dans un cas classique, on vérifie d'abord si l'utilisateur
+	//	est actuellement connecté à un compte utilisateur.
 	$user_id = $_SESSION["user_id"];
 
 	if (empty($user_id))
