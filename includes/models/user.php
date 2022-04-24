@@ -55,7 +55,7 @@
 		{
 			// On exécute une requête SQL pour récupérer le jeton
 			//	d'authentification enregistré dans la base de données.
-			$query = $this->connector->prepare("SELECT `client_id`, `username`, `creation_time` FROM `users` WHERE `access_token` = ?;");
+			$query = $this->connector->prepare("SELECT `client_id`, `username`, `creation_time`, `level` FROM `users` WHERE `access_token` = ?;");
 				$query->bindValue(1, $token);
 			$query->execute();
 
@@ -69,6 +69,7 @@
 				//	avec le jeton a réussie.
 				$_SESSION["user_id"] = $result["client_id"];
 				$_SESSION["user_name"] = $result["username"];
+				$_SESSION["user_level"] = $result["level"];
 
 				return true;
 			}
@@ -166,7 +167,7 @@
 		{
 			// On effectue d'abord une requête SQL pour vérifier si un enregistrement
 			//	est présent avec les identifiants donnés lors de l'étape précédente.
-			$query = $this->connector->prepare("SELECT `client_id`, `password` FROM `users` WHERE `username` = ?;");
+			$query = $this->connector->prepare("SELECT `client_id`, `password`, `level` FROM `users` WHERE `username` = ?;");
 				$query->bindValue(1, $username);
 			$query->execute();
 
@@ -180,6 +181,7 @@
 				//	l'authentification a réussie.
 				$_SESSION["user_id"] = $result["client_id"];
 				$_SESSION["user_name"] = $username;
+				$_SESSION["user_level"] = $result["level"];
 
 				return true;
 			}

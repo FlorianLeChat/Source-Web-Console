@@ -87,6 +87,7 @@
 		"global_language" => $language,
 
 		// Variables utilisateurs.
+		"user_level" => $_SESSION["user_level"] ?? "standard",
 		"user_connected" => $connected,
 		"user_identifier" => $_SESSION["user_name"] ?? "",
 

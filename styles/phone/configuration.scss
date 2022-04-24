@@ -25,7 +25,7 @@ main
 	{
 		// Mise en place de tailles fixes.
 		width: 100%;
-		max-width: 350px;
+		max-width: $html-min-width;
 		box-sizing: border-box;
 	}
 
