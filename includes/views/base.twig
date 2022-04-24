@@ -172,6 +172,28 @@
 								<span>{{ header_phrases["header_subtitle_tasks"] }}</span>
 							</a>
 						</li>
+
+						{% if user_identifier is not empty %}
+							<li class="{{ global_file == "user" ? "active" : "" }}">
+								{# Compte utilisateur #}
+								{# Note : apparaît seulement sur les comptes inscrits #}
+								<a href="?target=user">
+									<i class="bi bi-person-circle"></i>
+									<span>{{ header_phrases["header_subtitle_user"] }}</span>
+								</a>
+							</li>
+						{% endif %}
+
+						{% if user_level == "admin" %}
+							<li class="{{ global_file == "admin" ? "active" : "" }}">
+								{# Administration #}
+								{# Note : apparaît seulement pour les administrateurs #}
+								<a href="?target=admin">
+									<i class="bi bi-server"></i>
+									<span>{{ header_phrases["header_subtitle_admin"] }}</span>
+								</a>
+							</li>
+						{% endif %}
 					</ul>
 				</nav>
 			{% endblock %}

@@ -25,7 +25,7 @@ main
 	{
 		// Mise en place de tailles fixes.
 		width: 100%;
-		max-width: 350px;
+		max-width: $html-min-width;
 		box-sizing: border-box;
 	}
 
@@ -75,7 +75,7 @@ main
 	#servers
 	{
 		// Modification de la grille.
-		grid-area: 7 / 1 / 8 / 2;
+		grid-area: 6 / 1 / 7 / 2;
 	}
 
 	#state
@@ -87,7 +87,7 @@ main
 	#players
 	{
 		// Modification de la grille.
-		grid-area: 6 / 1 / 7 / 2;
+		grid-area: 7 / 1 / 8 / 2;
 	}
 
 	#actions
