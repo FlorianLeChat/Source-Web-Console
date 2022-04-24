@@ -180,41 +180,57 @@ contact.find( "input[type = reset]" ).click( function ()
 // Permet de faire fonctionner un petit moteur de recherche
 //	intégré pour accéder plus rapidement aux pages du site.
 //
-let labels = [];
+const search = $("#search input[name = search]");
+let pages = {};
 
-for ( const label of $( "nav span" ) )
+for ( const page of $( "nav span, footer a[href *= target] span" ) )
 {
-	// Libellés des pages de la barre de navigation.
-	labels.push( $( label ).html() );
+	// Libellés des pages de la barre de navigation ainsi que ceux
+	//	présents dans le pied de page.
+	pages[ $( page ).html() ] = $( page ).parent().attr( "href" );
 }
 
-for ( const label of $( "footer a[href *= target] span" ) )
+search.focusout( function ()
 {
-	// Libellés des pages du pied de page.
-	labels.push( $( label ).html() );
-}
+	// La définition de l'opacité est une astuce qui permet aux
+	//	événements "click" de jQuery de pouvoir s'exécuter systématiquement
+	//	lorsque les résultats doivent être cachés.
+	search.next().css( "opacity", 0 );
+})
 
-$( "input[name = search]" ).keyup( function ()
+search.focusin( function ()
+{
+	// Voir commentaire précédent.
+	search.next().css( "opacity", 1 );
+})
+
+search.keyup( function ()
 {
 	// On récupère la recherche de l'utilisateur ainsi
 	//	que la liste des résultats possibles.
-	const search = $( this ).val();
+	const content = $( this ).val();
 	const results = $( this ).next();
 
 	// On vide ensuite les résultats précédents.
 	results.empty();
 
-	// On itére alors à travers tous les libellés afin
+	// On itére alors à travers toutes les pages afin
 	//	de les comparer à l'entrée de l'utilisateur.
-	for ( const label of labels )
+	for ( const page of Object.keys( pages ) )
 	{
 		// Si l'entrée n'est pas vide et qu'elle semble corrrespondre
-		//	à un libellé en mémoire, on l'ajoute en tant que résultat.
-		if ( search !== "" && label.toLowerCase().match( search.toLowerCase() ) )
+		//	à une page mise en mémoire, on l'ajoute en tant que résultat.
+		if ( content !== "" && page.toLowerCase().match( content.toLowerCase() ) )
 		{
-			results.append( `<li data-target=\"${ label.toLowerCase() }\">${ label }</li>` );
+			results.append( `<li data-target=\"${ pages[ page ] }\">${ page }</li>` );
 		}
 	}
+} );
+
+$( "#search ul" ).on( "click", "li", function ()
+{
+	// On simule la présence d'un élement <a> en JavaScript.
+	location.href = $( this ).attr( "data-target" );
 } );
 
 //
