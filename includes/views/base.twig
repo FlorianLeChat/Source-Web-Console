@@ -125,7 +125,7 @@
 
 					<ul>
 						{# Liste des pages #}
-						<li>
+						<li class="{{ global_file == "dashboard" ? "active" : "" }}">
 							{# Tableau de bord #}
 							<a href="?target=dashboard">
 								<i class="bi bi-kanban"></i>
@@ -133,7 +133,7 @@
 							</a>
 						</li>
 
-						<li>
+						<li class="{{ global_file == "statistics" ? "active" : "" }}">
 							{# Statistiques #}
 							<a href="?target=statistics">
 								<i class="bi bi-graph-up"></i>
@@ -141,7 +141,7 @@
 							</a>
 						</li>
 
-						<li>
+						<li class="{{ global_file == "configuration" ? "active" : "" }}">
 							{# Configuration #}
 							<a href="?target=configuration">
 								<i class="bi bi-tools"></i>
@@ -149,7 +149,7 @@
 							</a>
 						</li>
 
-						<li>
+						<li class="{{ global_file == "actions" ? "active" : "" }}">
 							{# Actions et commandes #}
 							<a href="?target=actions">
 								<i class="bi bi-lightning"></i>
@@ -157,7 +157,7 @@
 							</a>
 						</li>
 
-						<li>
+						<li class="{{ global_file == "console" ? "active" : "" }}">
 							{# Console interactive #}
 							<a href="?target=console">
 								<i class="bi bi-code-slash"></i>
@@ -165,7 +165,7 @@
 							</a>
 						</li>
 
-						<li>
+						<li class="{{ global_file == "tasks" ? "active" : "" }}">
 							{# Tâches planifiées #}
 							<a href="?target=tasks">
 								<i class="bi bi-calendar3"></i>
