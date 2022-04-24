@@ -13,7 +13,7 @@
 
 	// On tente de récupérer par la même occasion le serveur sélectionné
 	//	par l'utilisateur.
-	if (empty($server_id))
+	if (!empty($server_id))
 	{
 		// Filtrage de tous les serveurs par identifiant unique.
 		$target_remote = array_filter($remotes, function(array $remote) use ($server_id)
@@ -33,9 +33,11 @@
 	// On vérifie si on a pu récupérer un serveur lors de l'étape précédente
 	//	pour la suite des opérations.
 	if (!empty($target_remote))
-
-		// On récupère la première valeur des résultats de filtrage.
+	{
+		// On récupère la première valeur des résultats de filtrage avant
+		//	mettre à jour l'identifiant unique du serveur.
 		$target_remote = array_shift($target_remote);
+		$server_id = $target_remote["server_id"];
 
 		// On vérifie si la page a été demandée sous une requête de type POST.
 		if ($_SERVER["REQUEST_METHOD"] === "POST")
@@ -58,8 +60,8 @@
 					$admin_port = tryGetValue($_POST["admin_port"], $target_remote["admin_port"]);
 					$admin_password = tryGetValue($server->encryptPassword($_POST["admin_password"]), $target_remote["admin_password"]);
 
-					$server->updateServer($user_id, $target_remote["server_id"], $client_address, $client_port);
-					$server->storeAdminCredentials($user_id, $target_remote["server_id"], $admin_address, $admin_port, $admin_password);
+					$server->updateServer($user_id, $server_id, $client_address, $client_port);
+					$server->storeAdminCredentials($user_id, $server_id, $admin_address, $admin_port, $admin_password);
 
 					break;
 				}
@@ -67,7 +69,7 @@
 				case "delete":
 				{
 					// Suppression d'un serveur.
-					$server->deleteServer($user_id, $target_remote["server_id"]);
+					$server->deleteServer($user_id, $server_id);
 					break;
 				}
 
@@ -86,11 +88,12 @@
 				header("Location: " . $_SERVER["REQUEST_URI"]);
 				exit();
 			}
-
-			// On sauvegarde enfin l'identifiant unique en session pour
-			//	pouvoir garder cette information sur les autres pages.
-			$_SESSION["server_id"] = $server_id;
 		}
+
+		// On sauvegarde également l'identifiant unique en session pour
+		//	pouvoir garder cette information sur les autres pages.
+		$_SESSION["server_id"] = $server_id;
+	}
 
 	// On implémente ensuite une fonction TWIG afin de déterminer le
 	//	nom complet du jeu actuellement utilisé sur le serveur.
