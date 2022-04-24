@@ -1010,7 +1010,7 @@ main {
 }
 main section, main article, main nav {
   width: 100%;
-  max-width: 350px;
+  max-width: 360px;
   box-sizing: border-box;
 }
 main p {
@@ -1033,13 +1033,13 @@ main nav ul li a i + span {
   display: none;
 }
 main #servers {
-  grid-area: 7/1/8/2;
+  grid-area: 6/1/7/2;
 }
 main #state {
   grid-area: 3/1/4/2;
 }
 main #players {
-  grid-area: 6/1/7/2;
+  grid-area: 7/1/8/2;
 }
 main #actions {
   grid-area: 4/1/5/2;

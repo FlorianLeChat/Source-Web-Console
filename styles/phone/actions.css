@@ -977,7 +977,7 @@ main {
 }
 main section, main article, main nav {
   width: 100%;
-  max-width: 350px;
+  max-width: 360px;
   box-sizing: border-box;
 }
 main p {
