@@ -147,6 +147,13 @@
 					break;
 				}
 
+				case "console":
+				{
+					// Console interactive : libre arbitre de l'entrée utilisateur.
+					$server->query->Rcon($value);
+					break;
+				}
+
 				case "level":
 				{
 					// Commande : changement de l'environnement/carte.

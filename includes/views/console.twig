@@ -15,22 +15,13 @@
 		<div>
 			<input type="text" name="command" placeholder="{{ console_phrases["console_controller_placeholder"] }}" required />
 
-			<button type="button" name="execute" value="bash">
+			<button type="button" data-action="execute">
 				<i class="bi bi-send-fill"></i>
 			</button>
 		</div>
 
 		{# Historique des commandes #}
-		<ul>
-			{# Première commande #}
-			<li>command_name value</li>
-
-			{# Deuxième commande #}
-			<li>command_name value</li>
-
-			{# Troisième commande #}
-			<li>command_name value</li>
-		</ul>
+		<ul></ul>
 	</section>
 
 	{# Terminal de la console #}
