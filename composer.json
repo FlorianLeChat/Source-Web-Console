@@ -1,6 +1,7 @@
 {
     "require": {
         "twig/twig": "^3.0",
-        "xpaw/php-source-query-class": "^2.1"
+        "xpaw/php-source-query-class": "^2.1",
+        "phpseclib/phpseclib": "~3.0"
     }
 }
