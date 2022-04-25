@@ -5,7 +5,7 @@
 
 	// On récupère tout d'abord les identifiants uniques concernant
 	//	l'utilisateur et le serveur actuellement sélectionné.
-	$user_id = $_SESSION["user_id"];
+	$user_id = $_SESSION["user_id"] ?? 0;
 	$server_id = $_SESSION["server_id"] ?? 0;
 
 	// On récupère ensuite les données actuelles du serveur si
