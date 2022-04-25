@@ -5,7 +5,7 @@
 
 	// On récupère d'abord l'identifiant unique de l'utilisateur et d'un
 	//	serveur possiblement sélectionné depuis le tableau de bord.
-	$user_id = $_SESSION["user_id"];
+	$user_id = $_SESSION["user_id"] ?? 0;
 	$server_id = $_POST["server_id"] ?? $_SESSION["server_id"] ?? 0;
 
 	// On récupère tous les serveurs liés au compte de l'utilisateur.

@@ -93,7 +93,7 @@
 		//
 		public function addScheduledTask(int $server_id, string $timestamp, string $action): void
 		{
-			$query = $this->connector->prepare("INSERT INTO `tasks` (`server_id`, `date`, `action`) VALUES (?, ?, ?);");
+			$query = $this->connector->prepare("INSERT IGNORE INTO `tasks` (`server_id`, `date`, `action`) VALUES (?, ?, ?);");
 
 				// Identifiant unique du serveur.
 				$query->bindValue(1, $server_id);
@@ -159,7 +159,7 @@
 			{
 				// Si l'utilisateur peut encore en créer, on réalise la requête dans
 				//	la base de données pour insérer les informations.
-				$query = $this->connector->prepare("INSERT INTO `commands` (`client_id`, `name`, `content`) VALUES (?, ?, ?);");
+				$query = $this->connector->prepare("INSERT IGNORE INTO `commands` (`client_id`, `name`, `content`) VALUES (?, ?, ?);");
 
 					// Identifiant unique du client.
 					$query->bindValue(1, $user_id);
@@ -220,7 +220,7 @@
 		//
 		public function addActionLogs(int $server_id, string $action): void
 		{
-			$query = $this->connector->prepare("INSERT INTO `logs` (`server_id`, `action_type`) VALUES (?, ?);");
+			$query = $this->connector->prepare("INSERT IGNORE INTO `logs` (`server_id`, `action_type`) VALUES (?, ?);");
 
 				// Identifiant unique du serveur.
 				$query->bindValue(1, $server_id);
@@ -237,8 +237,8 @@
 		//
 		public function getActionLogs(int $server_id, int $limit = 3): array
 		{
-			// On récupère d'abord tous les potentiels serveurs dans la base de données.
-			$query = $this->connector->prepare("SELECT `timestamp`, `action_type` FROM logs WHERE `server_id` = ? ORDER BY `timestamp` DESC LIMIT $limit;");
+			// On récupère d'abord tous les journaux dans la base de données.
+			$query = $this->connector->prepare("SELECT `timestamp`, `action_type` FROM `logs` WHERE `server_id` = ? ORDER BY `timestamp` DESC LIMIT $limit;");
 				$query->bindValue(1, $server_id);
 			$query->execute();
 
@@ -256,11 +256,90 @@
 		}
 
 		//
+		// Permet d'enregistrer les informations de stockage du serveur distant.
+		//
+		public function addExternalStorage(int $server_id, string $host, string $port, string $protocol, ?string $username, ?string $password): void
+		{
+			$query = $this->connector->prepare("INSERT IGNORE INTO `storage` (`server_id`, `host`, `port`, `protocol`, `username`, `password`) VALUES (?, ?, ?, ?, ?, ?);");
+
+				// Identifiant unique du serveur.
+				$query->bindValue(1, $server_id);
+
+				// Adresse IP du serveur.
+				$query->bindValue(2, $host);
+
+				// Port de communication du serveur.
+				$query->bindValue(3, $port);
+
+				// Protocole de transmission du serveur.
+				$query->bindValue(4, $protocol);
+
+				// Nom d'utilisateur du serveur.
+				$query->bindValue(5, $username);
+
+				// Mot de passe du serveur.
+				$query->bindValue(6, $this->encryptPassword($password));
+
+			$query->execute();
+		}
+
+		//
+		// Permet de mettre à jour les informations de stockage du serveur distant.
+		//
+		public function updateExternalStorage(int $user_id, string $host, string $port, string $protocol, ?string $username, ?string $password): void
+		{
+			$query = $this->connector->prepare("UPDATE `storage` SET `host` = ?, `port` = ?, `protocol` = ?, `username` = ?, `password` = ? WHERE `server_id` IN ( SELECT `server_id` FROM `servers` WHERE `client_id` = ? );");
+
+				// Adresse IP du serveur.
+				$query->bindValue(1, $host);
+
+				// Port de communication du serveur.
+				$query->bindValue(2, $port);
+
+				// Protocole de transmission du serveur.
+				$query->bindValue(3, $protocol);
+
+				// Nom d'utilisateur du serveur.
+				$query->bindValue(4, $username);
+
+				// Mot de passe du serveur.
+				$query->bindValue(5, $this->encryptPassword($password));
+
+				// Identifiant unique du client.
+				$query->bindValue(6, $user_id);
+
+			$query->execute();
+		}
+
+		//
+		// Permet de récupérer les données de stockage du serveur distant.
+		//
+		public function getExternalStorage(int $user_id): array
+		{
+			// On récupère d'abord toutes les informations dans la base de données.
+			$query = $this->connector->prepare("SELECT * FROM `storage` WHERE `server_id` IN ( SELECT `server_id` FROM `servers` WHERE `client_id` = ? );");
+				$query->bindValue(1, $user_id);
+			$query->execute();
+
+			$result = $query->fetch();
+
+			// En fonction du résultat, on retourne alors les résultats.
+			if (is_array($result) && count($result) > 0)
+			{
+				// Résultats trouvés.
+				return $result;
+			}
+
+			// Aucun résultat.
+			return [];
+		}
+
+		//
 		// Permet d'enregistrer un nouveau serveur dans la base de données.
 		//
 		public function storeServer(int $user_id, string $address, string $port, bool $secure = false, bool $auto_connect = false): void
 		{
-			$query = $this->connector->prepare("INSERT INTO `servers` (`client_id`, `client_address`, `client_port`, `game_platform`, `secure_only`, `auto_connect`) VALUES (?, ?, ?, ?, ?, ?);");
+			$query = $this->connector->prepare("INSERT IGNORE INTO `servers` (`client_id`, `client_address`, `client_port`, `game_platform`, `secure_only`, `auto_connect`) VALUES (?, ?, ?, ?, ?, ?);");
 
 				// Identifiant unique du client.
 				$query->bindValue(1, $user_id);

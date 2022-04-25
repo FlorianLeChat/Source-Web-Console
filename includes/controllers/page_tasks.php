@@ -3,9 +3,8 @@
 	// Contrôleur de gestion de la page des tâches planifiées.
 	//
 
-	// On récupère tout d'abord les identifiants uniques concernant
-	//	l'utilisateur et le serveur actuellement sélectionné.
-	$user_id = $_SESSION["user_id"];
+	// On récupère tout d'abord l'idenfiant unique de l'utilisateur
+	$user_id = $_SESSION["user_id"] ?? 0;
 
 	// On implémente ensuite une fonction TWIG afin de déterminer le
 	//	nom complet du jeu actuellement utilisé par le serveur.
