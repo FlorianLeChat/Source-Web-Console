@@ -40,7 +40,7 @@
 	if (strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) === "xmlhttprequest")
 	{
 		// Si c'est le cas, on tente de récupérer le serveur sélectionné ainsi
-		// 	que la requête demandée via les données transmises dans la requête.
+		// 	que les données transmises dans la requête.
 		$action = $_POST["server_action"] ?? "";
 		$remote = $server->getServerData($user_id, $_SESSION["server_id"] ?? 0);
 

@@ -21,28 +21,28 @@
 		<form method="POST">
 			{# Adresse IP #}
 			<label for="ftp_address">{{ configuration_phrases["configuration_storage_address"] }}<span>*</span></label>
-			<input type="text" spellcheck="false" id="ftp_address" name="ftp_address" placeholder="147.56.210.47" minlength="7" maxlength="15" required />
+			<input type="text" spellcheck="false" id="ftp_address" name="ftp_address" placeholder="51.75.125.244" minlength="7" maxlength="15" value="{{ configuration_credentials["host"] }}" required />
 
 			{# Port de communication #}
-			<input type="text" spellcheck="false" id="ftp_port" name="ftp_port" placeholder="22" minlength="5" maxlength="5" required />
+			<input type="text" spellcheck="false" id="ftp_port" name="ftp_port" placeholder="22" minlength="5" maxlength="5" value="{{ configuration_credentials["port"] }}" required />
 
 			{# Type de protocole #}
 			<label for="ftp_protocol">{{ configuration_phrases["configuration_storage_protocol"] }}<span>*</span></label>
 			<select id="ftp_protocol" name="ftp_protocol">
-				<option value="ftp">{{ configuration_phrases["configuration_storage_ftp"] }}</option>
-				<option value="sftp">{{ configuration_phrases["configuration_storage_sftp"] }}</option>
+				<option value="ftp" {{ configuration_credentials["protocol"] == "ftp" ? "checked" : "" }}>{{ configuration_phrases["configuration_storage_ftp"] }}</option>
+				<option value="sftp" {{ configuration_credentials["protocol"] == "sftp" ? "checked" : "" }}>{{ configuration_phrases["configuration_storage_sftp"] }}</option>
 			</select>
 
 			{# Nom d'utilisateur #}
 			<label for="ftp_user">{{ configuration_phrases["configuration_storage_username"] }}<span>*</span></label>
-			<input type="text" autocomplete="username" spellcheck="false" id="ftp_user" name="ftp_user" placeholder="johndoe" required />
+			<input type="text" autocomplete="username" spellcheck="false" id="ftp_user" name="ftp_user" placeholder="johndoe" value="{{ configuration_credentials["username"] }}" required />
 
 			{# Mot de passe #}
 			<label for="ftp_password">{{ configuration_phrases["configuration_storage_password"] }}<span>*</span></label>
-			<input type="password" autocomplete="current-password" spellcheck="false" id="ftp_password" name="ftp_password" placeholder="?JohnDoe2022!" required />
+			<input type="password" autocomplete="current-password" spellcheck="false" id="ftp_password" name="ftp_password" placeholder="?JohnDoe2022!" value="{{ configuration_credentials["password"] }}" required />
 
-			{# Validation #}
-			<input type="submit" value="Valider" />
+			{# Validation/Mise à jour #}
+			<input type="submit" data-action="{{ configuration_credentials is not empty ? "update" : "insert" }}" value="{{ configuration_credentials is not empty ? global_phrases["global_update_title"] : form_phrases["form_validate_button"] }}" />
 		</form>
 	</section>
 

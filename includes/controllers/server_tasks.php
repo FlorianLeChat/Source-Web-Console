@@ -129,7 +129,8 @@
 	// On vérifie si la page est demandée avec une requête AJAX.
 	if (strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) === "xmlhttprequest")
 	{
-		// On récupère une partie des informations reçues dans la requête.
+		// Si c'est le cas, on tente de récupérer le serveur sélectionné ainsi
+		// 	que les données transmises dans la requête.
 		$target = $_POST["target_server"] ?? 0;
 		$date = $_POST["trigger_date"] ?? "";
 		$action = $_POST["trigger_action"] ?? "";

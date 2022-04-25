@@ -41,8 +41,8 @@
 	// On vérifie si la page est demandée avec une requête AJAX.
 	if (strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) === "xmlhttprequest")
 	{
-		// Si c'est le cas, on tente de récupérer le serveur sélectionné
-		//	via les données transmises dans la requête.
+		// Si c'est le cas, on tente de récupérer le serveur sélectionné ainsi
+		// 	que les données transmises dans la requête.
 		$remote = $server->getServerData($user_id, $_SESSION["server_id"] ?? 0);
 
 		if (empty($remote))
