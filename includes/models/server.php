@@ -4,8 +4,7 @@
 	//
 	namespace Source\Models;
 
-	require __DIR__ . "/../../vendor/xpaw/php-source-query-class/SourceQuery/bootstrap.php";
-
+	use phpseclib3\Net\SFTP;
 	use xPaw\SourceQuery\SourceQuery;
 
 	final class Server extends Main
