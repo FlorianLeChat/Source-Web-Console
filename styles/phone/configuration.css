@@ -720,7 +720,7 @@ main nav ul li.active i, main nav ul li.active span, main nav ul li:hover i, mai
 }
 main #stockage {
   color: rgb(245, 154, 35);
-  height: 70vh;
+  height: 650px;
   padding: 1rem;
   display: flex;
   grid-area: 2/2/3/3;
@@ -781,7 +781,7 @@ main #stockage form select {
 }
 main #parameters {
   color: rgb(245, 154, 35);
-  height: 70vh;
+  height: 650px;
   padding: 1rem;
   display: flex;
   grid-area: 2/3/3/4;
