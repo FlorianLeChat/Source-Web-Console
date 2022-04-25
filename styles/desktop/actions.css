@@ -720,7 +720,7 @@ main nav ul li.active i, main nav ul li.active span, main nav ul li:hover i, mai
 }
 main #actions {
   color: rgb(245, 154, 35);
-  height: 50vh;
+  height: 500px;
   display: flex;
   padding: 1rem;
   grid-area: 2/2/3/3;
@@ -861,7 +861,7 @@ main #actions ul:last-of-type li:last-of-type {
 }
 main #commands {
   color: rgb(245, 154, 35);
-  height: 50vh;
+  height: 500px;
   padding: 1rem;
   display: flex;
   grid-area: 2/3/3/4;
