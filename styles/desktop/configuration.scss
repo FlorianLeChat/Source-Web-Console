@@ -36,10 +36,10 @@ main
 	{
 		// Informations de connexion FTP.
 		color: $text-color;
-		height: 650px;
 		padding: 1rem;
 		display: flex;
 		grid-area: 2 / 2 / 3 / 3;
+		min-height: 600px;
 		border-radius: 0.5rem;
 		flex-direction: column;
 		justify-content: space-evenly;
@@ -141,10 +141,10 @@ main
 	{
 		// Paramètres disponibles pour modification.
 		color: $text-color;
-		height: 650px;
 		padding: 1rem;
 		display: flex;
 		grid-area: 2 / 3 / 3 / 4;
+		min-height: 600px;
 		border-radius: 0.5rem;
 		flex-direction: column;
 		background-color: $box-color;

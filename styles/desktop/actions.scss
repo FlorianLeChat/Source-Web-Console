@@ -36,10 +36,10 @@ main
 	{
 		// Panneau des actions.
 		color: $text-color;
-		height: 500px;
 		display: flex;
 		padding: 1rem;
 		grid-area: 2 / 2 / 3 / 3;
+		min-height: 500px;
 		border-radius: 0.5rem;
 		flex-direction: column;
 		justify-content: space-evenly;
@@ -264,10 +264,10 @@ main
 	{
 		// Panneau des commandes.
 		color: $text-color;
-		height: 500px;
 		padding: 1rem;
 		display: flex;
 		grid-area: 2 / 3 / 3 / 4;
+		min-height: 500px;
 		border-radius: 0.5rem;
 		flex-direction: column;
 		justify-content: space-evenly;
