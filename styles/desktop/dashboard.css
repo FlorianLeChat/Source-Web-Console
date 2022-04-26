@@ -699,7 +699,7 @@ main nav ul li {
   padding: 0.75rem;
   font-size: 1.25rem;
   box-shadow: 0.25rem 0.25rem 0.25rem rgb(121, 121, 121);
-  transition: color 250ms, background-color 250ms;
+  transition: background-color 250ms;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
