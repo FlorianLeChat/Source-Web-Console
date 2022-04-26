@@ -258,7 +258,7 @@
 		//
 		// Permet d'enregistrer les informations de stockage du serveur distant.
 		//
-		public function addExternalStorage(int $server_id, string $host, string $port, string $protocol, ?string $username, ?string $password): void
+		public function addExternalStorage(int $server_id, string $host, int $port, string $protocol, ?string $username, ?string $password): void
 		{
 			$query = $this->connector->prepare("INSERT IGNORE INTO `storage` (`server_id`, `host`, `port`, `protocol`, `username`, `password`) VALUES (?, ?, ?, ?, ?, ?);");
 
@@ -286,9 +286,9 @@
 		//
 		// Permet de mettre à jour les informations de stockage du serveur distant.
 		//
-		public function updateExternalStorage(int $user_id, string $host, string $port, string $protocol, ?string $username, ?string $password): void
+		public function updateExternalStorage(int $server_id, string $host, int $port, string $protocol, ?string $username, ?string $password): void
 		{
-			$query = $this->connector->prepare("UPDATE `storage` SET `host` = ?, `port` = ?, `protocol` = ?, `username` = ?, `password` = ? WHERE `server_id` IN ( SELECT `server_id` FROM `servers` WHERE `client_id` = ? );");
+			$query = $this->connector->prepare("UPDATE `storage` SET `host` = ?, `port` = ?, `protocol` = ?, `username` = ?, `password` = ? WHERE `server_id` = ?;");
 
 				// Adresse IP du serveur.
 				$query->bindValue(1, $host);
@@ -305,8 +305,8 @@
 				// Mot de passe du serveur.
 				$query->bindValue(5, $this->encryptPassword($password));
 
-				// Identifiant unique du client.
-				$query->bindValue(6, $user_id);
+				// Identifiant unique du serveur.
+				$query->bindValue(6, $server_id);
 
 			$query->execute();
 		}
@@ -314,11 +314,11 @@
 		//
 		// Permet de récupérer les données de stockage du serveur distant.
 		//
-		public function getExternalStorage(int $user_id): array
+		public function getExternalStorage(int $server_id): array
 		{
 			// On récupère d'abord toutes les informations dans la base de données.
-			$query = $this->connector->prepare("SELECT * FROM `storage` WHERE `server_id` IN ( SELECT `server_id` FROM `servers` WHERE `client_id` = ? );");
-				$query->bindValue(1, $user_id);
+			$query = $this->connector->prepare("SELECT * FROM `storage` WHERE `server_id` = ?;");
+				$query->bindValue(1, $server_id);
 			$query->execute();
 
 			$result = $query->fetch();
@@ -337,7 +337,7 @@
 		//
 		// Permet d'enregistrer un nouveau serveur dans la base de données.
 		//
-		public function storeServer(int $user_id, string $address, string $port, bool $secure = false, bool $auto_connect = false): void
+		public function storeServer(int $user_id, string $address, int $port, bool $secure = false, bool $auto_connect = false): void
 		{
 			$query = $this->connector->prepare("INSERT IGNORE INTO `servers` (`client_id`, `client_address`, `client_port`, `game_platform`, `secure_only`, `auto_connect`) VALUES (?, ?, ?, ?, ?, ?);");
 
@@ -367,7 +367,7 @@
 		// Permet de mettre à jour les informations d'un serveur dans la
 		//	base de données.
 		//
-		public function updateServer(int $user_id, int $server_id, string $address, string $port)
+		public function updateServer(int $user_id, int $server_id, string $address, int $port)
 		{
 			$query = $this->connector->prepare("UPDATE `servers` SET `client_address` = ?, `client_port` = ? WHERE `client_id` = ? AND `server_id` = ?;");
 
@@ -406,10 +406,86 @@
 		}
 
 		//
+		// Permet d'intialiser une connexion FTP vers le serveur de stockage
+		//	d'un serveur.
+		//
+		public function openFTPConnection(string $address, int $port, string $username, string $password, string $type = "ftp"): mixed
+		{
+			if ($type === "ftp")
+			{
+				// Protocol FTP : https://www.php.net/manual/fr/function.ftp-connect.php
+				$stream = ftp_connect($address, $port);
+
+				if (ftp_login($stream, $username, $password))
+				{
+					// Connexion réussie.
+					return $stream;
+				}
+
+				// Échec de la connexion.
+				return null;
+			}
+			elseif ($type === "sftp")
+			{
+				// Protocole SFTP : https://phpseclib.com/docs/sftp
+				$stream = new SFTP($address, $port);
+				$stream->login($username, $password);
+			}
+
+			return $stream;
+		}
+
+		//
+		// Permet de récupérer le contenu d'un fichier sur un serveur de stockage
+		//	FTP sous une forme de chaîne de caractères.
+		//
+		public function getFTPFileContents(mixed $stream, string $path, string $type = "ftp"): string
+		{
+			if ($type === "ftp")
+			{
+				// Connexion FTP : https://www.php.net/manual/en/function.ftp-fget.php#86107
+				$handler = fopen("php://temp", "r+");
+
+				if (ftp_fget($stream, $handler, $path, FTP_ASCII))
+				{
+					// Transformation d'une référence de variable en pointer.
+					rewind($handler);
+
+					// Récupération du contenu du fichier.
+					$output = stream_get_contents($handler);
+				}
+			}
+			elseif ($type === "sftp")
+			{
+				// Connexion SFTP : https://phpseclib.com/docs/sftp#downloading-files
+				$output = $stream->get($path);
+			}
+
+			return $output ?? "";
+		}
+
+		//
+		// Permet de téléverser le contenu d'un fichier sur un serveur de stockage.
+		//
+		public function putFTPFileContents(mixed $stream, string $path, string $content, string $type = "ftp"): void
+		{
+			if ($type === "ftp")
+			{
+				// Connexion FTP : https://www.php.net/manual/en/function.ftp-put
+				ftp_put($stream, $path, $content);
+			}
+			elseif ($type === "sftp")
+			{
+				// Connexion SFTP : https://phpseclib.com/docs/sftp#uploading-files
+				$stream->put($path, $content);
+			}
+		}
+
+		//
 		// Permet d'enregistrer les informations de connexion au système d'administration
 		//	dans la base de données.
 		//
-		public function storeAdminCredentials(int $user_id, int $server_id, ?string $address, ?string $port, ?string $password): void
+		public function storeAdminCredentials(int $user_id, int $server_id, ?string $address, ?int $port, ?string $password): void
 		{
 			$query = $this->connector->prepare("UPDATE `servers` SET `admin_address` = ?, `admin_port` = ?, `admin_password` = ? WHERE `client_id` = ? AND `server_id` = ?");
 
