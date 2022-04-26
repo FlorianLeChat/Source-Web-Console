@@ -339,6 +339,7 @@ header a:hover i {
 }
 #signup article form label, #signin form label, #contact form label {
   color: rgb(245, 154, 35);
+  display: inline-block;
 }
 #signup article form label > span, #signin form label > span, #contact form label > span {
   color: rgb(237, 67, 29);
