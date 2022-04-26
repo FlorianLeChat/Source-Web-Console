@@ -20,7 +20,7 @@
 		// Si c'est le cas, on tente de récupérer le serveur sélectionné ainsi
 		// 	que les données transmises dans la requête.
 		$remote = $server->getServerData($user_id, $_SESSION["server_id"] ?? 0);
-		$storage = $server->getExternalStorage($user_id, $remote["server_id"]);
+		$storage = $server->getExternalStorage($remote["server_id"]);
 
 		$action = $_POST["ftp_action"] ?? "";
 		$address = $_POST["ftp_address"] ?? $storage["host"] ?? "";
@@ -35,10 +35,16 @@
 			exit();
 		}
 
-		// On récupère les dernières informations tranmises dans la requête
-		//	avant de déterminer l'action a réaliser.
+		// On récupère ensuite les dernières informations tranmises dans la
+		//	requête avant de déterminer l'action a réaliser.
 		$username = $_POST["ftp_user"] ?? $storage["username"] ?? "";
-		$password = $_POST["ftp_password"] ?? $server->decryptPassword($storage["password"]) ?? "";
+		$password = $_POST["ftp_password"] ?? $storage["password"];
+
+		if ($password === $storage["password"])
+		{
+			// Déchiffrement du mot de passe à la volée.
+			$password = $server->decryptPassword($password);
+		}
 
 		if ($action === "insert")
 		{
@@ -48,29 +54,53 @@
 		elseif ($action === "update")
 		{
 			// Mise à jour des données dans la base de données.
-			$server->updateExternalStorage($user_id, $address, $port, $protocol, $username, $password);
+			$server->updateExternalStorage($remote["server_id"], $address, $port, $protocol, $username, $password);
 		}
-		elseif ($action === "connexion_ftp")
+		elseif ($action === "connexion")
 		{
-			// Connexion au serveur de stockage FTP.
+			// Récupération du type de protocole.
+			$stream = $server->openFTPConnection($address, $port, $username, $password, $protocol);
+
+			if ($stream !== null)
+			{
+				// Récupération du fichier distant.
+				$content = $server->getFTPFileContents($stream, "serverfiles/garrysmod/cfg/gmodserver.cfg", $protocol);
+
+				// Récupération du type d'action/valeur qui doit être réalisé.
+				$type = $_POST["ftp_type"] ?? "";
+				$value = $_POST["ftp_value"] ?? "";
+
+				switch ($type)
+				{
+					case "hostname":
+					{
+						// Édition du nom du serveur.
+						$content = preg_replace("/hostname \"(.*)\"/i", "hostname \"" . $value . "\"", $content);
+						break;
+					}
+
+					case "loading":
+					{
+						// Édition de l'écran de chargement.
+						$content = preg_replace("/sv_loadingurl \"(.*)\"/i", "sv_loadingurl \"" . $value . "\"", $content);
+						break;
+					}
+
+					case "password":
+					{
+						// Édition du mot de passe d'accès.
+						$content = preg_replace("/rcon_password \"(.*)\"/i", "rcon_password \"" . $value . "\"", $content);
+						break;
+					}
+				}
+
+				// Téléversement des modifications.
+				$server->putFTPFileContents($stream, "serverfiles/garrysmod/cfg/gmodserver.cfg", $content, $protocol);
+			}
 		}
-		elseif ($action === "connexion_sftp")
-		{
-			// Connexion au serveur de stockage SFTP.
 
-
-			// $sftp = new SFTP("51.75.125.244", 27412);
-			// $sftp->login("discretoss", "A3EN2c94iq");
-
-			// $data = $sftp->get("serverfiles/garrysmod/cfg/gmodserver.cfg");
-			// $data = str_replace("sv_region 0", "sv_region 1", $data);
-
-			// echo($data);
-
-			// $sftp->put("serverfiles/garrysmod/cfg/gmodserver.cfg", $data);
-		}
-
-
+		// On affiche enfin le message de validation.
+		echo($translation->getPhrase("global_action_success"));
 		exit();
 	}
 
