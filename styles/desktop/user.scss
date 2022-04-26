@@ -1,0 +1,143 @@
+// --------------- //
+// Base de travail //
+// --------------- //
+@import "../main";
+
+// ---------------- //
+// Corps de la page //
+// ---------------- //
+main
+{
+	display: grid;
+	padding: 2rem 5%;
+	text-align: center;
+	align-items: start;
+	grid-row-gap: 2rem;
+	margin-bottom: 4rem;
+	justify-items: stretch;
+	grid-column-gap: 5%;
+	grid-template-columns: clamp(15rem, 17.5vw, 25rem) 0.75fr 1fr;
+
+	p
+	{
+		// Description de la page.
+		grid-area: 1 / 1 / 2 / 4;
+		@include header-paragraph;
+	}
+
+	nav
+	{
+		// Barre de navigation.
+		grid-area: 2 / 1 / 3 / 2;
+		@include navigation-bar;
+	}
+
+	#account
+	{
+		// Informations du compte.
+		color: $text-color;
+		padding: 1rem;
+		grid-area: 2 / 2 / 3 / 3;
+		border-radius: 0.5rem;
+		background-color: $box-color;
+
+		h2
+		{
+			// Titre de la catégorie.
+			margin: 1rem 0.5rem 2rem 0.5rem;
+			font-size: 1.75rem;
+		}
+
+		form
+		{
+			// Formulaire de modification.
+			gap: 1.5rem;
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			justify-content: center;
+
+			label
+			{
+				// Intitulé des champs de saisies.
+				display: block;
+				margin-bottom: 0.5rem;
+			}
+
+			select, input
+			{
+				// Champs de saisies et sélecteurs.
+				padding: 0.5rem;
+
+				&[type = submit]
+				{
+					// Bouton de validation.
+					margin-bottom: 0.5rem;
+					@extend %submit-button-layout;
+				}
+			}
+		}
+	}
+
+	#signup
+	{
+		// Ajout d'un nouveau serveur.
+		color: $text-color;
+		grid-area: 2 / 3 / 3 / 4;
+		border-radius: 0.5rem;
+		background-color: $box-color;
+
+		#user
+		{
+			// Suppression de la première partie du formulaire
+			// 	classique d'inscription.
+			display: none;
+		}
+
+		#server
+		{
+			// Réintialisation du conteneur du formulaire.
+			// 	Note : les règles sont héritées du fichier
+			// 		principal de toutes les feuilles CSS.
+			width: auto;
+			border: none;
+			display: block;
+			position: unset;
+			transform: none;
+			max-width: 100%;
+			max-height: 100%;
+			box-shadow: none;
+			background-color: revert;
+
+			form
+			{
+				// Modification des marges internes.
+				padding: 1rem 0 0 0;
+
+				hr
+				{
+					// Modification des marges du séparateur.
+					margin: 1rem 0 1.5rem
+				}
+
+				label[for = secure_only]
+				{
+					display: inline-block;
+					margin-top: 0.5rem;
+				}
+
+				input[type = reset]
+				{
+					// Suppression du bouton d'annulation.
+					display: none;
+				}
+			}
+
+			> p, > ul, >div, em
+			{
+				// Suppression de certains éléments.
+				display: none;
+			}
+		}
+	}
+}
