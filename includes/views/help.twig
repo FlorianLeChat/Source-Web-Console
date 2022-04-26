@@ -4,46 +4,41 @@
 {# Contenu de la page demandé #}
 {% block content %}
 	{# Description de la page #}
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-		Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-		Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-		Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-	</p>
+	<p>{{ help_phrases["help_description"] }}</p>
 
 	{# Statistiques de comptage #}
 	<section id="counter">
 		{# Titre de la section #}
-		<h2>Statistiques</h2>
+		<h2>{{ header_phrases["header_subtitle_statistics"] }}</h2>
 
 		{# Liste des statistiques #}
 		<ul>
 			<li>
 				{# Nombre de donateurs #}
 				<i class="bi bi-cash"></i>
-				<h3>100+</h3>
-				<h4>Donateurs</h4>
+				<h3>{{ help_donators_count }}+</h3>
+				<h4>{{ help_phrases["help_donators_count"] }}</h4>
 			</li>
 
 			<li>
 				{# Nombre de serveurs #}
 				<i class="bi bi-hdd-stack-fill"></i>
-				<h3>200+</h3>
-				<h4>Serveurs</h4>
+				<h3>{{ help_servers_count }}+</h3>
+				<h4>{{ help_phrases["help_servers_count"] }}</h4>
 			</li>
 
 			<li>
 				{# Nombre d'utilisateurs #}
 				<i class="bi bi-person-fill"></i>
-				<h3>300+</h3>
-				<h4>Utilisateurs</h4>
+				<h3>{{ help_users_count }}+</h3>
+				<h4>{{ help_phrases["help_users_count"] }}</h4>
 			</li>
 
 			<li>
 				{# Nombre d'actionnements #}
 				<i class="bi bi-lightning-fill"></i>
-				<h3>400+</h3>
-				<h4>Requêtes</h4>
+				<h3>{{ help_requests_count }}+</h3>
+				<h4>{{ help_phrases["help_requests_count"] }}</h4>
 			</li>
 		</ul>
 	</section>
@@ -51,33 +46,12 @@
 	{# Foire aux questions #}
 	<section id="faq">
 		{# Titre de la section #}
-		<h2>Foire aux questions</h2>
+		<h2>{{ help_phrases["help_faq"] }}</h2>
 
-		{# Première question/réponse #}
-		<button type="button">Question numéro 1</button>
-		<p>
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-			Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-			Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-			Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		</p>
-
-		{# Deuxième question/réponse #}
-		<button type="button">Question numéro 2</button>
-		<p>
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-			Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-			Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-			Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		</p>
-
-		{# Troisième question/réponse #}
-		<button type="button">Question numéro 3</button>
-		<p>
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-			Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-			Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-			Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		</p>
+		{% for i in range(1, 3) %}
+			{# Question/réponse #}
+			<button type="button">{{ help_phrases["help_question_" ~ i] }}</button>
+			<p>{{ help_phrases["help_answer_" ~ i] }}</p>
+		{% endfor %}
 	</section>
 {% endblock %}
