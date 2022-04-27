@@ -27,7 +27,7 @@ $( "table tr:not([class = finished])" ).click( function ()
 				//		le HTML à la réception finale du message.
 				setTimeout( function ()
 				{
-					location.reload();
+					window.location.reload();
 				}, 3000 );
 			} )
 			.fail( function ( self, _status, error )
@@ -71,7 +71,7 @@ $( "form input[type = submit]" ).click( function ( event )
 			//		le HTML à la réception finale du message.
 			setTimeout( function ()
 			{
-				location.reload();
+				window.location.reload();
 			}, 3000 );
 		} )
 		.fail( function ( self, _status, error )

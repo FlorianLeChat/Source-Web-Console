@@ -9,25 +9,36 @@
 	{# Informations du compte #}
 	<section id="account">
 		{# Titre de la section #}
-		<h2>Informations du compte</h2>
+		<h2>{{ user_phrases["user_account"] }}</h2>
 
 		{# Champs du formulaire #}
 		<form novalidate>
 			{# Nom d'utilisateur #}
 			<div>
-				<label for="username">{{ form_phrases["form_signup_username"] }}<span>*</span></label>
-				<input type="text" autocomplete="username" spellcheck="false" id="username" name="username" placeholder="johndoe" minlength="10" maxlength="50" required />
+				<label for="account_username">{{ form_phrases["form_signup_username"] }}<span>*</span></label>
+				<input type="text" autocomplete="username" spellcheck="false" id="account_username" name="username" placeholder="johndoe" minlength="10" maxlength="50" required />
 			</div>
 
 			{# Mot de passe #}
 			<div>
-				<label for="password">{{ form_phrases["form_signup_password"] }}<span>*</span></label>
-				<input type="password" autocomplete="current-password" spellcheck="false" id="password" name="password" placeholder="?JohnDoe2022!" minlength="10" maxlength="60" required />
+				<label for="account_password">{{ form_phrases["form_signup_password"] }}<span>*</span></label>
+				<input type="password" autocomplete="current-password" spellcheck="false" id="account_password" name="password" placeholder="?JohnDoe2022!" minlength="10" maxlength="60" required />
 			</div>
 
 			{# Validation finale #}
-			<input type="submit" value="{{ global_phrases["global_update_title"] }}" />
+			<input type="submit" data-action="update" value="{{ global_phrases["global_update_title"] }}" />
 		</form>
+	</section>
+
+	<section id="actions">
+		{# Titre de la section #}
+		<h2>{{ user_phrases["user_actions"] }}</h2>
+
+		{# Bouton de déconnexion #}
+		<input type="submit" data-action="disconnect" value="{{ user_phrases["user_disconnect"] }}" />
+
+		{# Bouton de reconnexion #}
+		<input type="submit" data-action="reconnect" value="{{ user_phrases["user_reconnect"] }}" />
 	</section>
 
 	{# Ajout d'un serveur #}
