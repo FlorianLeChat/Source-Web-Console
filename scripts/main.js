@@ -230,7 +230,7 @@ search.keyup( function ()
 $( "#search ul" ).on( "click", "li", function ()
 {
 	// On simule la présence d'un élement <a> en JavaScript.
-	location.href = $( this ).attr( "data-target" );
+	window.location.href = $( this ).attr( "data-target" );
 } );
 
 //

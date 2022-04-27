@@ -1,4 +1,8 @@
 <?php
+	//
+	// Contrôleur de gestion des serveurs de stockage.
+	//
+
 	// On initialise le contrôleur principal des données.
 	require_once(__DIR__ . "/../controller.php");
 

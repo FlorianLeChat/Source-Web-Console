@@ -22,7 +22,7 @@ ul, ol {
   }
 }
 
-#signup article form input[type=reset], #signin form input[type=reset], #contact form input[type=reset] {
+main #actions input[data-action=reconnect], main #actions input[data-action=disconnect], #signup article form input[type=reset], #signin form input[type=reset], #contact form input[type=reset] {
   color: rgb(242, 242, 242);
   cursor: pointer;
   padding: 0.5rem 1rem;
@@ -32,13 +32,13 @@ ul, ol {
   border-radius: 0.25rem;
   background-color: rgb(237, 67, 29);
 }
-#signup article form input[type=reset]:hover, #signin form input[type=reset]:hover, #contact form input[type=reset]:hover {
+main #actions input[data-action=reconnect]:hover, main #actions input[data-action=disconnect]:hover, #signup article form input[type=reset]:hover, #signin form input[type=reset]:hover, #contact form input[type=reset]:hover {
   color: rgb(237, 67, 29);
   font-weight: bold;
   background-color: rgb(242, 242, 242);
 }
 
-main #account form select[type=submit], main #account form input[type=submit], #signup article form input[type=submit], #signin form input[type=submit], #contact form input[type=submit] {
+main #account form input[type=submit], #signup article form input[type=submit], #signin form input[type=submit], #contact form input[type=submit] {
   color: rgb(242, 242, 242);
   cursor: pointer;
   padding: 0.5rem 1rem;
@@ -48,7 +48,7 @@ main #account form select[type=submit], main #account form input[type=submit], #
   border-radius: 0.25rem;
   background-color: rgb(85, 140, 3);
 }
-main #account form select[type=submit]:hover, main #account form input[type=submit]:hover, #signup article form input[type=submit]:hover, #signin form input[type=submit]:hover, #contact form input[type=submit]:hover {
+main #account form input[type=submit]:hover, #signup article form input[type=submit]:hover, #signin form input[type=submit]:hover, #contact form input[type=submit]:hover {
   color: rgb(85, 140, 3);
   font-weight: bold;
   background-color: rgb(242, 242, 242);
@@ -672,6 +672,7 @@ main {
   margin-bottom: 4rem;
   justify-items: stretch;
   grid-column-gap: 5%;
+  grid-template-rows: auto 24.5rem;
   grid-template-columns: clamp(15rem, 17.5vw, 25rem) 0.75fr 1fr;
 }
 main p {
@@ -680,7 +681,7 @@ main p {
   text-align: center;
 }
 main nav {
-  grid-area: 2/1/3/2;
+  grid-area: 2/1/4/2;
   border: 1px solid rgb(121, 121, 121);
   padding: 1rem;
   border-radius: 0.5rem;
@@ -741,15 +742,32 @@ main #account form label {
   display: block;
   margin-bottom: 0.5rem;
 }
-main #account form select, main #account form input {
-  padding: 0.5rem;
+main #account form input {
+  padding: 1rem;
 }
-main #account form select[type=submit], main #account form input[type=submit] {
+main #account form input[type=submit] {
   margin-bottom: 0.5rem;
+}
+main #actions {
+  color: rgb(245, 154, 35);
+  padding: 1rem;
+  grid-area: 3/2/4/3;
+  border-radius: 0.5rem;
+  background-color: rgb(51, 51, 51);
+}
+main #actions h2 {
+  margin: 1rem 0.5rem 2rem 0.5rem;
+  font-size: 1.75rem;
+}
+main #actions input[data-action=reconnect] {
+  background-color: rgb(1, 111, 160);
+}
+main #actions input[data-action=reconnect]:hover {
+  color: rgb(1, 111, 160);
 }
 main #signup {
   color: rgb(245, 154, 35);
-  grid-area: 2/3/3/4;
+  grid-area: 2/3/4/4;
   border-radius: 0.5rem;
   background-color: rgb(51, 51, 51);
 }
@@ -840,8 +858,11 @@ main nav ul li a i + span {
   display: none;
 }
 main #account {
+  grid-area: 4/1/5/2;
+}
+main #actions {
   grid-area: 3/1/4/2;
 }
 main #signup {
-  grid-area: 4/1/5/2;
+  grid-area: 5/1/6/2;
 }

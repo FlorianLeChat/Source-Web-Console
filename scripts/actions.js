@@ -17,14 +17,14 @@ $( "#commands li[data-action = add]" ).click( function ()
 {
 	// Ajout d'une commande personnalisée.
 	sendRemoteAction( prompt( command_add_name ) + "|" + prompt( command_add_content ), "#ADD#" );
-	location.reload();
+	window.location.reload();
 } );
 
 $( "#commands button[data-action = remove]" ).click( function ()
 {
 	// Suppression de la commande personnalisée.
 	sendRemoteAction( $( this ).parent().attr( "data-command" ), "#REMOVE#" );
-	location.reload();
+	window.location.reload();
 } );
 
 $( "#commands button[data-action = execute]" ).click( function ()

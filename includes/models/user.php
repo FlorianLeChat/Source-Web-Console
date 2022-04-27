@@ -161,6 +161,34 @@
 		}
 
 		//
+		// Permet de mettre à jour les identifiants de connexion actuellement
+		//	enregistrés dans la base de données.
+		//
+		public function update(?string $username, ?string $password): void
+		{
+			if (!empty($username))
+			{
+				// Mise à jour du nom d'utilisateur.
+				$query = $this->connector->prepare("UPDATE `users` SET `username` = ? WHERE `client_id` = ?;");
+					$query->bindValue(1, $username);
+					$query->bindValue(2, $_SESSION["user_id"]);
+				$query->execute();
+
+				// Mise à jour des données en session.
+				$_SESSION["username"] = $username;
+			}
+
+			if (!empty($password))
+			{
+				// Mise à jour du mot de passe.
+				$query = $this->connector->prepare("UPDATE `users` SET `password` = ? WHERE `client_id` = ?;");
+					$query->bindValue(1, password_hash($password, PASSWORD_DEFAULT));
+					$query->bindValue(2, $_SESSION["user_id"]);
+				$query->execute();
+			}
+		}
+
+		//
 		// Permet d'authentifier un utilisateur au niveau de la	base de données.
 		//
 		public function authenticate(string $username, string $password): bool
