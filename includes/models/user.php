@@ -91,7 +91,7 @@
 			// On effectue juste après la requête de mise à jour.
 			$query = $this->connector->prepare("UPDATE `users` SET `access_token` = ?, `creation_time` = $timestamp WHERE `username` = ?;");
 				$query->bindValue(1, $token);
-				$query->bindValue(2, $username ?? $_SESSION["user_name"]);
+				$query->bindValue(2, $username ?? $_SESSION["user_name"] ?? $this->connector->lastInsertId());
 			$query->execute();
 
 			// On définit enfin le cookie de mise à jour pour le client.
