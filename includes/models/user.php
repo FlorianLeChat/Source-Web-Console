@@ -199,10 +199,11 @@
 			// On supprime le jeton d'authentification de l'utilisateur.
 			$this->storeToken();
 
-			// On supprime toutes les informations utilisateurs sauvegardées
+			// On supprime certaines informations utilisateurs sauvegardées
 			// 	dans les sessions.
 			unset($_SESSION["user_id"]);
 			unset($_SESSION["user_name"]);
+			unset($_SESSION["server_id"]);
 		}
 	}
 ?>
