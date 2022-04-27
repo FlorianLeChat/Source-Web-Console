@@ -339,7 +339,7 @@
 		//
 		public function storeServer(int $user_id, string $address, int $port, bool $secure = false, bool $auto_connect = false): void
 		{
-			$query = $this->connector->prepare("INSERT IGNORE INTO `servers` (`client_id`, `client_address`, `client_port`, `game_platform`, `secure_only`, `auto_connect`) VALUES (?, ?, ?, ?, ?, ?);");
+			$query = $this->connector->prepare("INSERT IGNORE INTO `servers` (`client_id`, `client_address`, `client_port`, `game_id`, `secure_only`, `auto_connect`) VALUES (?, ?, ?, ?, ?, ?);");
 
 				// Identifiant unique du client.
 				$query->bindValue(1, $user_id);
@@ -351,7 +351,7 @@
 				$query->bindValue(3, $port);
 
 				// Jeu utilisé sur la plate-forme Steam.
-				$query->bindValue(4, $this->getGameIDByAddress($address));
+				$query->bindValue(4, $this->getGameIDByAddress($address, $port));
 
 				// Option de maintien de connexion sous trafic sécurisé (HTTPS).
 				$query->bindValue(5, intval($secure));
@@ -550,11 +550,11 @@
 		//	serveur dédié du client à partir de son adresse IP.
 		// 	Source : https://partner.steamgames.com/doc/webapi/ISteamApps#GetServersAtAddress
 		//
-		private function getGameIDByAddress(string $address): int
+		private function getGameIDByAddress(string $address, int $port): int
 		{
 			// On fait une requête à l'API centrale Steam pour récupérer
 			//	les informations du serveur.
-			$response = file_get_contents("https://api.steampowered.com/ISteamApps/GetServersAtAddress/v1/?addr=$address");
+			$response = file_get_contents("https://api.steampowered.com/ISteamApps/GetServersAtAddress/v1/?addr=$address:$port");
 
 			// On transforme par la suite ce résultat sous format JSON en
 			//	tableau associatif pour la manipuler.
