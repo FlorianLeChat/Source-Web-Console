@@ -220,11 +220,18 @@
 		}
 
 		//
-		// Permet de supprimer l'utilisateur dans la base de données.
+		// Permet de supprimer l'utilisateur ainsi que toutes ses données
+		//	associées dans la base de données.
 		//
 		public function remove(): void
 		{
+			// Suppression du compte utilisateur.
 			$query = $this->connector->prepare("DELETE FROM `users` WHERE `client_id` = ?;");
+				$query->bindValue(1, $_SESSION["user_id"]);
+			$query->execute();
+
+			// Suppression des serveurs enregistrés.
+			$query = $this->connector->prepare("DELETE FROM `servers` WHERE `client_id` = ?;");
 				$query->bindValue(1, $_SESSION["user_id"]);
 			$query->execute();
 		}
