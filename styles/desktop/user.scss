@@ -70,7 +70,7 @@ main
 				// Champs de saisies et sélecteurs.
 				padding: 1rem;
 
-				&[type = reset]
+				&[data-action = remove]
 				{
 					// Bouton d'annulation.
 					margin-bottom: 0.5rem;
@@ -84,7 +84,7 @@ main
 					}
 				}
 
-				&[type = submit]
+				&[data-action = update]
 				{
 					// Bouton de validation.
 					margin-bottom: 0.5rem;

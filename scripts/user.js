@@ -2,7 +2,7 @@
 // Permet d'envoyer les demandes de modification ou de suppression
 //	des informations d'authentification vers le serveur.
 //
-$( "#account input" ).click( function ( event )
+$( "#account input[data-action]" ).click( function ( event )
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
