@@ -744,6 +744,7 @@ main #tables p {
   margin: 0 1rem 0 1rem;
 }
 main #tables div {
+  height: 30.5rem;
   display: flex;
   margin-top: 1rem;
 }
