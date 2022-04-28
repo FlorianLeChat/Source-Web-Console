@@ -41,8 +41,12 @@ $( "#account input[data-action]" ).click( function ( event )
 			addQueuedNotification( server_fatal_error.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 
-	// On réinitialise enfin le formulaire.
-	$( this ).parent()[ 0 ].reset();
+	// On réinitialise enfin le formulaire après une
+	//	mise à jour des informations.
+	if ( action === "update" )
+	{
+		$( this ).parent().parent()[ 0 ].reset();
+	}
 } );
 
 //
