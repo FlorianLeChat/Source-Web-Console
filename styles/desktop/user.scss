@@ -70,6 +70,20 @@ main
 				// Champs de saisies et sélecteurs.
 				padding: 1rem;
 
+				&[type = reset]
+				{
+					// Bouton d'annulation.
+					margin-bottom: 0.5rem;
+					@extend %cancel-button-layout;
+					background-color: $border-color;
+
+					&:hover
+					{
+						// Effet de sélection.
+						color: $border-color;
+					}
+				}
+
 				&[type = submit]
 				{
 					// Bouton de validation.
