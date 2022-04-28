@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1deb4~bpo11+1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : localhost:3306
--- Généré le : jeu. 28 avr. 2022 à 14:50
--- Version du serveur : 10.5.15-MariaDB-0+deb11u1
--- Version de PHP : 8.0.18
+-- Hôte : 127.0.0.1:3307
+-- Généré le : jeu. 28 avr. 2022 à 16:51
+-- Version du serveur : 10.6.5-MariaDB
+-- Version de PHP : 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,11 +27,13 @@ SET time_zone = "+00:00";
 -- Structure de la table `commands`
 --
 
-CREATE TABLE `commands` (
-  `command_id` mediumint(8) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `commands`;
+CREATE TABLE IF NOT EXISTS `commands` (
+  `command_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   `client_id` smallint(5) UNSIGNED NOT NULL,
   `name` text NOT NULL,
-  `content` text NOT NULL
+  `content` text NOT NULL,
+  PRIMARY KEY (`command_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -40,11 +42,13 @@ CREATE TABLE `commands` (
 -- Structure de la table `contact`
 --
 
-CREATE TABLE `contact` (
+DROP TABLE IF EXISTS `contact`;
+CREATE TABLE IF NOT EXISTS `contact` (
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `email` varchar(40) NOT NULL,
   `subject` varchar(15) NOT NULL,
-  `content` varchar(4000) NOT NULL
+  `content` varchar(4000) NOT NULL,
+  PRIMARY KEY (`timestamp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -53,10 +57,12 @@ CREATE TABLE `contact` (
 -- Structure de la table `logs`
 --
 
-CREATE TABLE `logs` (
+DROP TABLE IF EXISTS `logs`;
+CREATE TABLE IF NOT EXISTS `logs` (
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `server_id` mediumint(8) UNSIGNED NOT NULL,
-  `action_type` text NOT NULL
+  `action_type` text NOT NULL,
+  PRIMARY KEY (`timestamp`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -65,8 +71,9 @@ CREATE TABLE `logs` (
 -- Structure de la table `servers`
 --
 
-CREATE TABLE `servers` (
-  `server_id` mediumint(8) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `servers`;
+CREATE TABLE IF NOT EXISTS `servers` (
+  `server_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   `client_id` smallint(5) UNSIGNED NOT NULL,
   `client_address` varchar(15) NOT NULL,
   `client_port` char(5) NOT NULL,
@@ -75,7 +82,8 @@ CREATE TABLE `servers` (
   `admin_password` longtext DEFAULT NULL,
   `game_id` int(11) NOT NULL,
   `secure_only` tinyint(1) NOT NULL DEFAULT 0,
-  `auto_connect` tinyint(1) NOT NULL DEFAULT 0
+  `auto_connect` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`server_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -84,13 +92,15 @@ CREATE TABLE `servers` (
 -- Structure de la table `storage`
 --
 
-CREATE TABLE `storage` (
+DROP TABLE IF EXISTS `storage`;
+CREATE TABLE IF NOT EXISTS `storage` (
   `server_id` mediumint(8) UNSIGNED NOT NULL,
   `protocol` varchar(4) NOT NULL DEFAULT 'FTP',
   `host` varchar(255) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` char(60) NOT NULL,
-  `port` char(5) NOT NULL
+  `port` char(5) NOT NULL,
+  PRIMARY KEY (`server_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -99,12 +109,14 @@ CREATE TABLE `storage` (
 -- Structure de la table `tasks`
 --
 
-CREATE TABLE `tasks` (
-  `task_id` mediumint(8) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tasks`;
+CREATE TABLE IF NOT EXISTS `tasks` (
+  `task_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   `server_id` mediumint(8) UNSIGNED NOT NULL,
   `date` datetime NOT NULL,
   `action` tinytext NOT NULL,
-  `state` varchar(10) NOT NULL DEFAULT 'WAITING'
+  `state` varchar(10) NOT NULL DEFAULT 'WAITING',
+  PRIMARY KEY (`task_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -113,12 +125,14 @@ CREATE TABLE `tasks` (
 -- Structure de la table `translations`
 --
 
-CREATE TABLE `translations` (
-  `identifier` smallint(5) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `translations`;
+CREATE TABLE IF NOT EXISTS `translations` (
+  `identifier` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `source_string` varchar(40) NOT NULL,
   `translated_string` mediumtext NOT NULL,
-  `target_language` char(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `target_language` char(2) NOT NULL,
+  PRIMARY KEY (`identifier`)
+) ENGINE=InnoDB AUTO_INCREMENT=383 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `translations`
@@ -473,7 +487,13 @@ INSERT INTO `translations` (`identifier`, `source_string`, `translated_string`, 
 (373, 'user_updated', 'Les informations personnelles de votre compte ont bien été mises à jour dans la base de données.', 'FR'),
 (374, 'user_updated', 'Your personal account information has been updated in the database.', 'EN'),
 (375, 'user_insert', 'Votre nouveau serveur a bien été ajouté dans la base de données. Il est désormais disponible à la sélection sur le tableau de bord.', 'FR'),
-(376, 'user_insert', 'Your new server has been added to the database. It is now available for selection on the dashboard.', 'EN');
+(376, 'user_insert', 'Your new server has been added to the database. It is now available for selection on the dashboard.', 'EN'),
+(377, 'global_remove_title', 'Supprimer', 'FR'),
+(378, 'global_remove_title', 'Remove', 'EN'),
+(379, 'user_edit_remove', 'Vous voulez supprimer votre compte utilisateur ? Attention, la suppression est définitive et irréversible.', 'FR'),
+(380, 'user_edit_remove', 'You want to delete your user account? Please note that the deletion is final and irreversible.', 'EN'),
+(381, 'user_removed', 'Votre compte utilisateur a été supprimé avec succès. Veuillez rafraîchir la page pour être redirigé vers la page d\'accueil.', 'FR'),
+(382, 'user_removed', 'Your user account has been successfully deleted. Please refresh the page to be redirected to the home page.', 'EN');
 
 -- --------------------------------------------------------
 
@@ -481,100 +501,16 @@ INSERT INTO `translations` (`identifier`, `source_string`, `translated_string`, 
 -- Structure de la table `users`
 --
 
-CREATE TABLE `users` (
-  `client_id` smallint(5) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `client_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
   `password` char(60) NOT NULL,
   `access_token` char(64) DEFAULT NULL,
   `creation_time` timestamp NOT NULL DEFAULT current_timestamp(),
-  `level` enum('standard','donator','admin') NOT NULL DEFAULT 'standard'
+  `level` enum('standard','donator','admin') NOT NULL DEFAULT 'standard',
+  PRIMARY KEY (`client_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `commands`
---
-ALTER TABLE `commands`
-  ADD PRIMARY KEY (`command_id`);
-
---
--- Index pour la table `contact`
---
-ALTER TABLE `contact`
-  ADD PRIMARY KEY (`timestamp`);
-
---
--- Index pour la table `logs`
---
-ALTER TABLE `logs`
-  ADD PRIMARY KEY (`timestamp`);
-
---
--- Index pour la table `servers`
---
-ALTER TABLE `servers`
-  ADD PRIMARY KEY (`server_id`);
-
---
--- Index pour la table `storage`
---
-ALTER TABLE `storage`
-  ADD PRIMARY KEY (`server_id`);
-
---
--- Index pour la table `tasks`
---
-ALTER TABLE `tasks`
-  ADD PRIMARY KEY (`task_id`);
-
---
--- Index pour la table `translations`
---
-ALTER TABLE `translations`
-  ADD PRIMARY KEY (`identifier`);
-
---
--- Index pour la table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`client_id`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `commands`
---
-ALTER TABLE `commands`
-  MODIFY `command_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `servers`
---
-ALTER TABLE `servers`
-  MODIFY `server_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `tasks`
---
-ALTER TABLE `tasks`
-  MODIFY `task_id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `translations`
---
-ALTER TABLE `translations`
-  MODIFY `identifier` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=377;
-
---
--- AUTO_INCREMENT pour la table `users`
---
-ALTER TABLE `users`
-  MODIFY `client_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
