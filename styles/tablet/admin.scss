@@ -9,7 +9,7 @@
 main
 {
 	// Modification du nombre de lignes/colonnes.
-	height: auto;
+	min-height: 0;
 	margin-bottom: 4rem;
 	grid-template-columns: 1fr;
 

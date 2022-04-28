@@ -676,12 +676,13 @@ header {
 }
 
 main {
-  height: calc(100vh - 6rem - 1.75rem);
   display: grid;
   padding: 2rem 5%;
+  min-height: calc(100vh - 6rem - 1.75rem);
   text-align: center;
   align-items: center;
   grid-row-gap: 2rem;
+  margin-bottom: 4rem;
   grid-column-gap: 5%;
   grid-template-columns: clamp(15rem, 17.5vw, 25rem) 1fr;
 }
@@ -848,7 +849,7 @@ main #tables div form:last-of-type table input[name*=remove]:hover {
 }
 
 main {
-  height: auto;
+  min-height: 0;
   margin-bottom: 4rem;
   grid-template-columns: 1fr;
 }
