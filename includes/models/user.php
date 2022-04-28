@@ -220,6 +220,16 @@
 		}
 
 		//
+		// Permet de supprimer l'utilisateur dans la base de données.
+		//
+		public function remove(): void
+		{
+			$query = $this->connector->prepare("DELETE FROM `users` WHERE `client_id` = ?;");
+				$query->bindValue(1, $_SESSION["user_id"]);
+			$query->execute();
+		}
+
+		//
 		// Permet de déconnecter l'utilisateur actuellement connecté.
 		//
 		public function destroy(): void

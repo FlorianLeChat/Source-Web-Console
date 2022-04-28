@@ -1,6 +1,14 @@
 {# Modèle de base #}
 {% extends "base.twig" %}
 
+{# Injection de code JavaScript #}
+{% block javascript %}
+	<script>
+		// Libellé demandant la suppression ou non du compte utilisateur.
+		const edit_remove = "{{ user_phrases["user_edit_remove"] }} ";
+	</script>
+{% endblock %}
+
 {# Contenu de la page demandé #}
 {% block content %}
 	{# Description de la page #}
@@ -25,8 +33,11 @@
 				<input type="password" autocomplete="current-password" spellcheck="false" id="account_password" name="password" placeholder="?JohnDoe2022!" minlength="10" maxlength="60" required />
 			</div>
 
-			{# Validation finale #}
-			<input type="submit" data-action="update" value="{{ global_phrases["global_update_title"] }}" />
+			{# Suppression/mise à jour #}
+			<div>
+				<input type="reset" data-action="remove" value="{{ global_phrases["global_remove_title"] }}" />
+				<input type="submit" data-action="update" value="{{ global_phrases["global_update_title"] }}" />
+			</div>
 		</form>
 	</section>
 

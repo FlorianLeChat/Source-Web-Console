@@ -49,6 +49,15 @@
 				break;
 			}
 
+			case "remove":
+			{
+				// Suppression du compte utilisateur.
+				$user->remove();
+				$user->destroy();
+				$message = $translation->getPhrase("user_removed");
+				break;
+			}
+
 			case "reconnect":
 			{
 				// Reconnexion au compte utilisateur.

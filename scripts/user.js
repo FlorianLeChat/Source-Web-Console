@@ -1,17 +1,26 @@
 //
-// Permet d'envoyer les demandes de modification des informations
-//	personnelles et d'authentification vers le serveur.
+// Permet d'envoyer les demandes de modification ou de suppression
+//	des informations d'authentification vers le serveur.
 //
-$( "#account input[type = submit]" ).click( function ( event )
+$( "#account input" ).click( function ( event )
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
+
+	// On vérifie après si l'utilisateur veut réellement supprimer
+	//	son compte utilisateur.
+	const action = $( this ).attr( "data-action" );
+
+	if ( action === "remove" && !confirm( edit_remove ) )
+	{
+		return;
+	}
 
 	// On réalise ensuite la requête AJAX.
 	$.post( "includes/controllers/server_user.php", {
 
 		// Type de l'action qui doît être effectué.
-		user_action: $( this ).attr( "data-action" ),
+		user_action: action,
 
 		// Valeur du nouveau nom d'utilisateur.
 		user_name: $( "input[name = username]" ).val(),

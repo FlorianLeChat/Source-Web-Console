@@ -22,7 +22,7 @@ ul, ol {
   }
 }
 
-main #actions input[data-action=reconnect], main #actions input[data-action=disconnect], #signup article form input[type=reset], #signin form input[type=reset], #contact form input[type=reset] {
+main #actions input[data-action=reconnect], main #actions input[data-action=disconnect], main #account form input[type=reset], #signup article form input[type=reset], #signin form input[type=reset], #contact form input[type=reset] {
   color: rgb(242, 242, 242);
   cursor: pointer;
   padding: 0.5rem 1rem;
@@ -32,7 +32,7 @@ main #actions input[data-action=reconnect], main #actions input[data-action=disc
   border-radius: 0.25rem;
   background-color: rgb(237, 67, 29);
 }
-main #actions input[data-action=reconnect]:hover, main #actions input[data-action=disconnect]:hover, #signup article form input[type=reset]:hover, #signin form input[type=reset]:hover, #contact form input[type=reset]:hover {
+main #actions input[data-action=reconnect]:hover, main #actions input[data-action=disconnect]:hover, main #account form input[type=reset]:hover, #signup article form input[type=reset]:hover, #signin form input[type=reset]:hover, #contact form input[type=reset]:hover {
   color: rgb(237, 67, 29);
   font-weight: bold;
   background-color: rgb(242, 242, 242);
@@ -752,6 +752,13 @@ main #account form label {
 }
 main #account form input {
   padding: 1rem;
+}
+main #account form input[type=reset] {
+  margin-bottom: 0.5rem;
+  background-color: rgb(121, 121, 121);
+}
+main #account form input[type=reset]:hover {
+  color: rgb(121, 121, 121);
 }
 main #account form input[type=submit] {
   margin-bottom: 0.5rem;
