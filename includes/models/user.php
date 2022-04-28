@@ -175,7 +175,7 @@
 				$query->execute();
 
 				// Mise à jour des données en session.
-				$_SESSION["username"] = $username;
+				$_SESSION["user_name"] = $username;
 			}
 
 			if (!empty($password))
