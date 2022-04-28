@@ -306,6 +306,7 @@
 	}
 
 	// On vérifie après si la requête actuelle est de type POST.
+	//	Source : https://github.com/FlorianLeChat/Portfolio/blob/cf930999d5740575ff606998e1e9f7748f2355ea/admin/index.php#L26-L56
 	if ($_SERVER["REQUEST_METHOD"] === "POST")
 	{
 		// On tente de récupérer la table actuellement sélectionnée.
