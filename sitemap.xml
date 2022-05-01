@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+	xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+				http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+	<url>
+		<loc>https://console.florian-dev.fr/</loc>
+		<lastmod>2022-05-01T18:49:33+00:00</lastmod>
+		<priority>1.00</priority>
+	</url>
+
+	<url>
+		<loc>https://console.florian-dev.fr/?target=legal</loc>
+		<lastmod>2022-05-01T18:49:33+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+
+	<url>
+		<loc>https://console.florian-dev.fr/?target=help</loc>
+		<lastmod>2022-05-01T18:49:33+00:00</lastmod>
+		<priority>0.80</priority>
+	</url>
+
+	<url>
+		<loc>https://console.florian-dev.fr/?target=dashboard</loc>
+		<lastmod>2022-05-01T18:49:33+00:00</lastmod>
+		<priority>0.64</priority>
+	</url>
+
+	<url>
+		<loc>https://console.florian-dev.fr/?target=statistics</loc>
+		<lastmod>2022-05-01T18:49:33+00:00</lastmod>
+		<priority>0.64</priority>
+	</url>
+
+	<url>
+		<loc>https://console.florian-dev.fr/?target=configuration</loc>
+		<lastmod>2022-05-01T18:49:33+00:00</lastmod>
+		<priority>0.64</priority>
+	</url>
+
+	<url>
+		<loc>https://console.florian-dev.fr/?target=actions</loc>
+		<lastmod>2022-05-01T18:49:33+00:00</lastmod>
+		<priority>0.64</priority>
+	</url>
+
+	<url>
+		<loc>https://console.florian-dev.fr/?target=console</loc>
+		<lastmod>2022-05-01T18:49:33+00:00</lastmod>
+		<priority>0.64</priority>
+	</url>
+
+	<url>
+		<loc>https://console.florian-dev.fr/?target=tasks</loc>
+		<lastmod>2022-05-01T18:49:33+00:00</lastmod>
+		<priority>0.64</priority>
+	</url>
+
+	<url>
+		<loc>https://console.florian-dev.fr/?target=user</loc>
+		<lastmod>2022-05-01T18:49:33+00:00</lastmod>
+		<priority>0.64</priority>
+	</url>
+
+	<url>
+		<loc>https://console.florian-dev.fr/?target=admin</loc>
+		<lastmod>2022-05-01T18:49:33+00:00</lastmod>
+		<priority>0.64</priority>
+	</url>
+</urlset>
