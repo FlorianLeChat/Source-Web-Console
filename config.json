@@ -5,6 +5,16 @@
 	"sql_password": "password",
 	"sql_charset": "charset",
 	"sql_port": "port",
+
+	"smtp_host": "host",
+	"smtp_port": "port",
+	"smtp_username": "username",
+	"smtp_password": "password",
+
+	"dkim_domain": "domain",
+	"dkim_private_key": "private",
+	"dkim_selector": "selector",
+
 	"openssl_phrase": "phrase",
 	"openssl_iv": "iv"
 }
