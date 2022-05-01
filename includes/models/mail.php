@@ -4,6 +4,7 @@
 	//
 	namespace Source\Models;
 
+	use SMTPValidateEmail\Validator;
 	use PHPMailer\PHPMailer\PHPMailer;
 
 	final class Mail extends Main
@@ -19,11 +20,19 @@
 			//	de production chez l'hébergeur OVH.
 			if ($_SERVER["SERVER_NAME"] !== "console.florian-dev.fr")
 			{
-				// On indique que l'email n'a pas pu être envoyé.
 				return false;
 			}
 
-			// On créé alors une nouvelle instance pour envoyer un email.
+			// On vérifie alors si l'adresse du destinataire existe bien.
+			$validator = new SMTPValidateEmail\Validator($address, $this->getConfig("smtp_username"));
+			$results = $validator->validate();
+
+			if (array_values($results)[0] === false)
+			{
+				return false;
+			}
+
+			// On créé ensuite une nouvelle instance pour envoyer un email.
 			$mail = new PHPMailer();
 
 			// Paramètres généraux.
@@ -41,7 +50,6 @@
 
 			// Paramètres DKIM.
 			// 	Source : https://github.com/PHPMailer/PHPMailer/blob/bf99c202a92daa6d847bc346d554a4727fd802a5/examples/DKIM_sign.phps
-			$mail->SMTPDebug = \PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;
 			$mail->DKIM_domain = $this->getConfig("dkim_domain");
 			$mail->DKIM_private = $this->getConfig("dkim_private_key");
 			$mail->DKIM_selector = $this->getConfig("dkim_selector");
