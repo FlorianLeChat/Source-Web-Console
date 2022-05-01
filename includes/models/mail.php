@@ -4,16 +4,14 @@
 	//
 	namespace Source\Models;
 
+	use PHPMailer\PHPMailer\PHPMailer;
+
 	final class Mail extends Main
 	{
-		// Adresse électronique d'émisssion.
-		public const SOURCE_ADDRESS = "admin@florian-dev.fr";
-
 		//
 		// Permet de traiter les demandes de création d'un nouveau mot de passe
 		// 	afin d'accéder à la page d'administration du site.
 		//	Note : nécessite l'utilisation du serveur de production.
-		// 	Source : https://www.cloudbooklet.com/how-to-install-and-setup-sendmail-on-ubuntu/
 		//
 		public function dispatch(string $address, string $subject, string $message): bool
 		{
@@ -25,26 +23,38 @@
 				return false;
 			}
 
-			// Si c'est le cas, on envoie un email avec les informations renseignées.
-			$state = mb_send_mail(
-				// Adresse électronique.
-				$address,
+			// On créé alors une nouvelle instance pour envoyer un email.
+			$mail = new PHPMailer();
 
-				// Sujet du message.
-				$subject,
+			// Paramètres généraux.
+			$mail->isSMTP();
+			$mail->CharSet = "UTF-8";
+			$mail->Host = $this->getConfig("smtp_host");
+			$mail->SMTPAuth = true;
+			$mail->Username = $this->getConfig("smtp_username");
+			$mail->Password = $this->getConfig("smtp_password");
+			$mail->Port = $this->getConfig("smtp_port");
 
-				// Contenu du message.
-				$message,
+			// Envoyeur/destinataire de l'email.
+			$mail->setFrom($this->getConfig("smtp_username"), "Source Web Console");
+			$mail->addAddress($address);
 
-				// En-tête du message.
-				[
-					"From" => "Source Web Console <" . self::SOURCE_ADDRESS . ">",		// Auteur de l'email.
-					"X-Mailer" => "PHP/" . phpversion()									// Serveur de messagerie.
-				]
-			);
+			// Paramètres DKIM.
+			// 	Source : https://github.com/PHPMailer/PHPMailer/blob/bf99c202a92daa6d847bc346d554a4727fd802a5/examples/DKIM_sign.phps
+			$mail->SMTPDebug = \PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;
+			$mail->DKIM_domain = $this->getConfig("dkim_domain");
+			$mail->DKIM_private = $this->getConfig("dkim_private_key");
+			$mail->DKIM_selector = $this->getConfig("dkim_selector");
+			$mail->DKIM_identity = $mail->From;
+			$mail->DKIM_copyHeaderFields = false;
 
-			// On indique l'état d'envoi de l'email.
-			return $state;
+			// Contenu du message.
+			$mail->Subject = $subject;
+			$mail->Body = $message;
+			$mail->AltBody = $mail->Body;
+
+			// On retourne enfin l'état d'envoi de l'email.
+			return $mail->send();
 		}
 	}
 ?>
