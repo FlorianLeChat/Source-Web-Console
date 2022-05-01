@@ -3,6 +3,7 @@
         "twig/twig": "^3.0",
         "xpaw/php-source-query-class": "^2.1",
         "phpseclib/phpseclib": "~3.0",
-        "phpmailer/phpmailer": "^6.6"
+        "phpmailer/phpmailer": "^6.6",
+        "zytzagoo/smtp-validate-email": "^1.0"
     }
 }

@@ -8,8 +8,6 @@
 	require_once("includes/controller.php");
 
 	// Initialisation du moteur de modèles TWIG.
-	require_once("vendor/autoload.php");
-
 	$engine = new Twig\Loader\FilesystemLoader("includes/views");
 	$twig = new Twig\Environment($engine, ["debug" => true, "autoescape" => false]);
 
