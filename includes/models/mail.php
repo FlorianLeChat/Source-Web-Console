@@ -24,7 +24,7 @@
 			}
 
 			// On vérifie alors si l'adresse du destinataire existe bien.
-			$validator = new SMTPValidateEmail\Validator($address, $this->getConfig("smtp_username"));
+			$validator = new Validator($address, $this->getConfig("smtp_username"));
 			$results = $validator->validate();
 
 			if (array_values($results)[0] === false)
