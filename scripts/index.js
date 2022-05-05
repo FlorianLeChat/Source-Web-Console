@@ -203,7 +203,7 @@ links.eq( 1 ).click( function ()
 	signin.fadeOut( 150, function ()
 	{
 		// Redirection vers la connexion unique.
-		signup.last().fadeIn( 150 );
+		signup.first().fadeIn( 150 );
 	} );
 } );
 
