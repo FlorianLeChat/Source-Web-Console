@@ -38,21 +38,6 @@
 
 		];
 
-		// On vérifie si l'utilisateur ne tente pas de créer un compte
-		//	à usage unique et donc ne nécessite pas la création d'un
-		//	compte utilisateur classique.
-		if (empty($_POST["username"]) && empty($_POST["password"]))
-		{
-			// On enregistre les données à notre possession.
-			$_SESSION["temporary_user"] = true;
-			$_SESSION["server_data"] = $_POST;
-
-			// On retourne alors la phrase signifiant que l'accès unique
-			//	a été créé avec succès.
-			echo(json_encode([$translation->getPhrase("form_signup_onetime"), 2]));
-			exit();
-		}
-
 		// On itére ensuite à travers toutes les clés attendues de la
 		//	la requête AJAX pour vérifier les données transmises.
 		foreach (array_keys($form->length) as $key)
