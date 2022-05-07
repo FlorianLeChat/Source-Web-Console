@@ -9,7 +9,7 @@
 
 	// Initialisation du moteur de modèles TWIG.
 	$engine = new Twig\Loader\FilesystemLoader("includes/views");
-	$twig = new Twig\Environment($engine, ["debug" => true, "autoescape" => false]);
+	$twig = new Twig\Environment($engine, ["autoescape" => false]);
 
 	// Récupération de la langue demandée par l'utilisateur.
 	$language = htmlentities($_POST["language"] ?? "", ENT_QUOTES);
