@@ -323,11 +323,11 @@ function displayInitialElements()
 	const indice = texts.filter( ":visible" ).index();	// Récupération de la position de l'élément visible.
 	const show = indice == 0 ? true : false;			// Détermination de son affichage ou non.
 
-	// Apparition/disparition des éléments de présentation.
-	header.first().css( "display", show ? "revert" : "none" );
+	// Apparition/disparition du logo et du lien cliquable.
+	header.slice( 0, 2 ).css( "display", show ? "revert" : "none" );
 
 	// Apparition/disparition du bouton pour revenir à un élément précédent.
-	header.slice( 1, 2 ).css( "display", show ? "none" : "revert" );
+	header.slice( 2, 4 ).css( "display", show ? "none" : "revert" );
 }
 
 // Permet d'exécuter le mécanisme de défilement précédent/suivant.
