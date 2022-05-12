@@ -97,7 +97,7 @@
 			// On définit enfin le cookie de mise à jour pour le client.
 			// 	Note : cette définition est faite uniquement lorsque le trafic
 			//		du site est entièrement sécurisé.
-			if (isset($_SERVER["HTTPS"]))
+			if (!empty($_SERVER["HTTPS"]))
 			{
 				// Si le jeton est vide, alors le cookie doit être supprimé.
 				setcookie("generated_token", $token, empty($token) ? 1 : time() + self::EXPIRATION_TIME, "/", $_SERVER["HTTP_HOST"], true);
