@@ -12,13 +12,14 @@
 	$remotes = $server->getServersData($user_id);
 
 	// On tente de récupérer par la même occasion le serveur sélectionné
-	//	par l'utilisateur.
+	//	par l'utilisateur en prenant systématiquement compte du niveau
+	//	de sécurisation du trafic entre le site Internet et l'utilisateur.
 	if (!empty($server_id))
 	{
 		// Filtrage de tous les serveurs par identifiant unique.
 		$target_remote = array_filter($remotes, function(array $remote) use ($server_id)
 		{
-			return $remote["server_id"] == $server_id;
+			return $remote["server_id"] == $server_id && ($remote["secure_only"] && !empty($_SERVER["HTTPS"]));
 		});
 	}
 	else
@@ -26,7 +27,7 @@
 		// Filtrage de tous les serveurs par connexion automatique.
 		$target_remote = array_filter($remotes, function(array $remote)
 		{
-			return $remote["auto_connect"] === 1;
+			return $remote["auto_connect"] === 1 && ($remote["secure_only"] && !empty($_SERVER["HTTPS"]));
 		});
 	}
 
