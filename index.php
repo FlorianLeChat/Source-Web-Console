@@ -83,6 +83,7 @@
 		"global_file" => $file,
 		"global_phrases" => $translation->getPhrases("global"),
 		"global_language" => $language,
+		"global_javascript" => file_exists("scripts/$file.js"),
 
 		// Variables utilisateurs.
 		"user_level" => $_SESSION["user_level"] ?? "standard",

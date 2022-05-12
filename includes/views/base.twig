@@ -72,7 +72,9 @@
 		<![endif]-->
 
 		<script src="scripts/main.js" defer></script>
-		<script src="scripts/{{ global_file }}.js" defer></script>
+		{% if global_javascript %}
+			<script src="scripts/{{ global_file }}.js" defer></script>
+		{% endif %}
 
 		{# Icône du document (16x16) #}
 		<link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
