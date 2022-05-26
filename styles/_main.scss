@@ -652,12 +652,11 @@ header
 		// Texte de l'astuce caché par défaut.
 		width: 40%;
 		display: none;
-		margin-left: 1rem;
 
 		@media screen and (max-width: 768px)
 		{
 			// Dimensionnement pour les téléphones.
-			width: 100%;
+			width: calc(100% - 5.5rem);
 		}
 	}
 

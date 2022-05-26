@@ -513,11 +513,10 @@ header a:hover i {
 #tips span {
   width: 40%;
   display: none;
-  margin-left: 1rem;
 }
 @media screen and (max-width: 768px) {
   #tips span {
-    width: 100%;
+    width: calc(100% - 5.5rem);
   }
 }
 #tips button {
