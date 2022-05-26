@@ -39,13 +39,7 @@ main
 		form
 		{
 			// Suppression de la hauteur imposée.
-			height: auto;
-
-			input[type = submit]
-			{
-				// Suppression du positionnement relatif.
-				bottom: 0;
-			}
+			max-height: 100%;
 		}
 	}
 }
