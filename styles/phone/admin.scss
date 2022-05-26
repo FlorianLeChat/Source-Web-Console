@@ -31,24 +31,29 @@ main
 		{
 			// Modification de l'affichage.
 			display: inline-block;
-			position: relative;
 
-			a i
+			a
 			{
-				// Suppression de la marge droite.
-				margin-right: 0;
+				// Modification de la zone sélection.
+				position: relative;
 
-				+ span
+				i
 				{
-					// Suppression du titre.
-					display: none;
-				}
-			}
+					// Suppression de la marge droite.
+					margin-right: 0;
 
-			&::after
-			{
-				// Amélioration de la zone de sélection.
-				@extend %larger-touch-zone;
+					+ span
+					{
+						// Suppression du titre.
+						display: none;
+					}
+				}
+
+				&::after
+				{
+					// Amélioration de la zone de sélection.
+					@extend %larger-touch-zone;
+				}
 			}
 		}
 	}

@@ -117,21 +117,28 @@
 		margin-bottom: 0.5rem;
 		background-color: $box;
 
-		a i
+		a
 		{
-			// Icône de la catégorie.
-			margin-right: 0.5rem;
+			// Modification de la zone sélection.
+			display: block;
+			position: relative;
 
-			+ span
+			i
 			{
-				// Titre de la catégorie.
-				position: relative;
+				// Icône de la catégorie.
+				margin-right: 0.5rem;
 
-				&::after
+				+ span
 				{
-					// Amélioration de la zone de sélection.
-					@extend %larger-touch-zone;
+					// Titre de la catégorie.
+					position: relative;
 				}
+			}
+
+			&::after
+			{
+				// Amélioration de la zone de sélection.
+				@extend %larger-touch-zone;
 			}
 		}
 

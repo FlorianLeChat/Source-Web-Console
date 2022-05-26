@@ -12,7 +12,7 @@ ul, ol {
 }
 
 @media screen and (max-width: 1024px) {
-  main nav ul li::after, main #parameters ul li button::after, main nav ul li a i + span::after, footer ul li a span::after, #tips button::after {
+  main #parameters ul li button::after, main nav ul li a::after, footer ul li a span::after, #tips button::after {
     top: -0.5rem;
     left: -0.5rem;
     right: -0.5rem;
@@ -715,6 +715,10 @@ main nav ul li {
   margin-bottom: 0.5rem;
   background-color: rgb(51, 51, 51);
 }
+main nav ul li a {
+  display: block;
+  position: relative;
+}
 main nav ul li a i {
   margin-right: 0.5rem;
 }
@@ -875,6 +879,8 @@ main nav {
 }
 main nav ul li {
   display: inline-block;
+}
+main nav ul li a {
   position: relative;
 }
 main nav ul li a i {
