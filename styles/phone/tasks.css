@@ -786,10 +786,13 @@ main #tasks table tbody td:last-of-type {
   text-transform: uppercase;
 }
 main #tasks form {
-  gap: 2rem;
-  height: 5rem;
   display: flex;
+  row-gap: 1.5rem;
+  flex-wrap: wrap;
+  -moz-column-gap: 2rem;
+       column-gap: 2rem;
   margin-top: 1rem;
+  max-height: 6.5rem;
   align-items: center;
   margin-bottom: 1rem;
   justify-content: center;
@@ -869,7 +872,7 @@ main #tasks {
 }
 main #tasks form {
   gap: 0.75rem;
-  height: auto;
+  max-height: 100%;
   flex-direction: column;
 }
 main #tasks form div {
