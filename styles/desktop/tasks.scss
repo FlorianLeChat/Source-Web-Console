@@ -121,10 +121,12 @@ main
 		form
 		{
 			// Formulaire d'ajout d'une tâche.
-			gap: 2rem;
-			height: 5rem;
 			display: flex;
+			row-gap: 1.5rem;
+			flex-wrap: wrap;
+			column-gap: 2rem;
 			margin-top: 1rem;
+			max-height: 6.5rem;
 			align-items: center;
 			margin-bottom: 1rem;
 			justify-content: center;
