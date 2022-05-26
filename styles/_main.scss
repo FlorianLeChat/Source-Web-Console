@@ -296,7 +296,7 @@ header
 	z-index: 1;
 	padding: 2rem;
 	display: none;
-	position: absolute;
+	position: fixed;
 	transform: translate(-50%, -50%);
 	max-width: 600px;
 	overflow-y: auto;
