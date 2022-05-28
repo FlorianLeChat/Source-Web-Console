@@ -273,10 +273,10 @@
 									<button type="submit" name="language" value="{{ code|upper }}">
 										{% if code == "EN" %}
 											{# Le drapeau britannique possède un code ISO différent #}
-											<img src="assets/images/flags/gb.svg" alt="{{ name }}" />
+											<img src="https://raw.githubusercontent.com/lipis/flag-icons/main/flags/4x3/gb.svg" alt="{{ name }}" />
 										{% else %}
 											{# Dans le cas contraire, on utilise le comportement par défaut #}
-											<img src="assets/images/flags/{{ code|lower }}.svg" alt="{{ name }}" />
+											<img src="https://raw.githubusercontent.com/lipis/flag-icons/main/flags/4x3/{{ code|lower }}.svg" alt="{{ name }}" />
 										{% endif %}
 
 										<span>{{ name }}</span>
