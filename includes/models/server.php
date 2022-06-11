@@ -430,9 +430,9 @@
 				// Protocole SFTP : https://phpseclib.com/docs/sftp
 				$stream = new SFTP($address, $port);
 				$stream->login($username, $password);
-			}
 
-			return $stream;
+				return $stream;
+			}
 		}
 
 		//
