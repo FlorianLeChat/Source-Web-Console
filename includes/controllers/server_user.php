@@ -21,7 +21,8 @@
 	// On vérifie si la page est demandée avec une requête AJAX.
 	if (strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) === "xmlhttprequest")
 	{
-		// Si c'est le cas,
+		// Si c'est le cas, on tente de récupérer l'action demandée
+		//	par l'utilisateur.
 		$action = $_POST["user_action"] ?? "";
 
 		switch ($action)
