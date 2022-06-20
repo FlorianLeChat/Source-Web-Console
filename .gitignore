@@ -1,3 +1,7 @@
 # Composer files
 composer.phar
 /vendor/
+
+# CSS files
+*.css
+*.css.map
