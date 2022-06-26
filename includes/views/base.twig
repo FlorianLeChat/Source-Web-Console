@@ -4,7 +4,7 @@
 	<head>
 		{# Méta-données du document #}
 		<meta charset="utf-8" />
-		<meta name="Author" content="Florian Trayon" />
+		<meta name="author" content="Florian Trayon" />
 		<meta name="description" content="{{ head_phrases["head_description"] }}" />
 		<meta name="keywords" lang="{{ global_language }}" content="console, source, webadmin, panel, custom, gmod, csgo, rust" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -78,8 +78,9 @@
 			<script src="scripts/{{ global_file }}.js" defer></script>
 		{% endif %}
 
-		{# Icône du document (16x16) #}
+		{# Icône et manifeste du document #}
 		<link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
+		<link rel="manifest" href="manifest.json" type="application/json" />
 	</head>
 
 	<body>
