@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.4deb1~bpo11+1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3307
--- Généré le : jeu. 28 avr. 2022 à 16:51
--- Version du serveur : 10.6.5-MariaDB
--- Version de PHP : 8.0.13
+-- Hôte : localhost:3306
+-- Généré le : dim. 26 juin 2022 à 14:29
+-- Version du serveur : 10.5.15-MariaDB-0+deb11u1
+-- Version de PHP : 8.0.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `database`
+-- Base de données : `source_web_console`
 --
 
 -- --------------------------------------------------------
@@ -209,8 +209,8 @@ INSERT INTO `translations` (`identifier`, `source_string`, `translated_string`, 
 (70, 'form_signup_admin_title', 'Enter the administrator credentials', 'EN'),
 (71, 'form_signup_secure_only', 'Accepter uniquement les connexions sécurisées', 'FR'),
 (72, 'form_signup_secure_only', 'Only accept secure connections', 'EN'),
-(73, 'form_signup_auto_connect', 'Forcer la connexion automatique sur le tableau de bord', 'FR'),
-(74, 'form_signup_auto_connect', 'Enforce automatic connection on the dashboard', 'EN'),
+(73, 'form_signup_auto_connect', 'Forcer la connexion automatique', 'FR'),
+(74, 'form_signup_auto_connect', 'Force automatic connection', 'EN'),
 (75, 'form_signin_description', 'Ce formulaire vous permet la connexion à votre compte utilisateur grâce à une combinaison d\'un nom d\'utilisateur et un mot de passe définie lors de l\'inscription. Vous retrouverez également la possibilité de réinitialiser votre mot de passe mais également de vous connecter grâce à un accès unique.', 'FR'),
 (76, 'form_signin_description', 'This form provides you with the ability to connect to your user account using a combination of a username and a password defined during the registration process. You will also find the possibility to reset your password but also to connect through a unique access.', 'EN'),
 (77, 'form_signin_username', 'Saisissez votre nom d\'utilisateur', 'FR'),
