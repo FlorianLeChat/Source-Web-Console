@@ -1,0 +1,21 @@
+{
+	"short_name": "Source RCON",
+	"name": "Source Web Console",
+	"description": "A project made during my studies to manage game dedicated servers using the Source RCON protocol through a web interface.",
+	"icons": [
+		{
+			"src": "assets/images/favicon.ico",
+			"type": "image/x-icon",
+			"sizes": "16x16"
+		},
+		{
+			"src": "assets/images/logo.svg",
+			"type": "image/svg+xml",
+			"sizes": "any"
+		}
+	],
+	"start_url": ".",
+	"background_color": "#f2f2f2",
+	"display": "standalone",
+	"theme_color": "#f59a23"
+}
