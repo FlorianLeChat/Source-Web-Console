@@ -79,7 +79,7 @@
 	$parameters = array_merge($parameters ?? [], [
 
 		// Variables globales.
-		"global_url" => $_SERVER["SERVER_NAME"],
+		"global_url" => "http" . (!empty($_SERVER["HTTPS"]) ? "s" : "") . "://" . $_SERVER["HTTP_HOST"] . "/",
 		"global_file" => $file,
 		"global_phrases" => $translation->getPhrases("global"),
 		"global_language" => $language,
