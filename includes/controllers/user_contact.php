@@ -27,7 +27,7 @@
 			"email" => [10, 40],
 
 			// Taille du sujet de contact.
-			"subject" => [1, 15],
+			"subject" => [1, 50],
 
 			// Taille du contenu du message.
 			"content" => [50, 4000]
@@ -39,7 +39,7 @@
 		foreach (array_keys($form->length) as $key)
 		{
 			// On rend propre et valide l'entrée utilisateur.
-			$input = $form->serializeInput($key, $_POST[$key]);
+			$input = $form->serializeInput($key, $_POST[$key], false);
 
 			if ($input === false)
 			{
