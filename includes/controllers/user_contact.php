@@ -71,7 +71,7 @@
 			$message = [$translation->getPhrase("form_contact_success"), 2];
 
 			// Envoi d'un email automatique.
-			$mail->dispatch($_POST["email"], $_POST["subject"], sprintf($translation->getPhrase("form_contact_mail"), $_POST["content"]));
+			$mail->dispatch($_POST["email"], $_POST["subject"], sprintf($translation->getPhrase("form_contact_mailing"), $_POST["content"]));
 		}
 
 		// On met en mémoire que l'utilisateur a effectué une inscription.
