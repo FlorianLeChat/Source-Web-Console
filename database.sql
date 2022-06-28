@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : dim. 26 juin 2022 à 14:29
+-- Généré le : mar. 28 juin 2022 à 09:53
 -- Version du serveur : 10.5.15-MariaDB-0+deb11u1
 -- Version de PHP : 8.0.20
 
@@ -46,7 +46,7 @@ DROP TABLE IF EXISTS `contact`;
 CREATE TABLE IF NOT EXISTS `contact` (
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `email` varchar(40) NOT NULL,
-  `subject` varchar(15) NOT NULL,
+  `subject` varchar(50) NOT NULL,
   `content` varchar(4000) NOT NULL,
   PRIMARY KEY (`timestamp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -229,12 +229,12 @@ INSERT INTO `translations` (`identifier`, `source_string`, `translated_string`, 
 (90, 'form_contact_email', 'Enter your email address', 'EN'),
 (91, 'form_contact_subject', 'Sélectionnez le sujet du contact', 'FR'),
 (92, 'form_contact_subject', 'Select the subject', 'EN'),
-(93, 'form_contact_subject_1', 'Sujet 1', 'FR'),
-(94, 'form_contact_subject_1', 'Subject 1', 'EN'),
-(95, 'form_contact_subject_2', 'Sujet 2', 'FR'),
-(96, 'form_contact_subject_2', 'Subject 2', 'EN'),
-(97, 'form_contact_subject_3', 'Sujet 3', 'FR'),
-(98, 'form_contact_subject_3', 'Subject 3', 'EN'),
+(93, 'form_contact_subject_1', 'J\'ai un problème avec l\'inscription d\'un compte', 'FR'),
+(94, 'form_contact_subject_1', 'I have an issue with the account registration', 'EN'),
+(95, 'form_contact_subject_2', 'J\'ai un problème avec la connexion à mon compte', 'FR'),
+(96, 'form_contact_subject_2', 'I have an issue with logging into my account', 'EN'),
+(97, 'form_contact_subject_3', 'J\'ai une question avec la gestion de mon serveur', 'FR'),
+(98, 'form_contact_subject_3', 'I have a question with my server administration', 'EN'),
 (99, 'form_contact_content', 'Indiquez le contenu de votre message', 'FR'),
 (100, 'form_contact_content', 'Specify the content of your message', 'EN'),
 (101, 'form_client_check_failed', 'Le champ « $1 » doit avoir une taille comprise entre $2 et $3 caractères.', 'FR'),
