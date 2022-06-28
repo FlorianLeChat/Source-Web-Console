@@ -54,7 +54,7 @@
 				//	majuscules sur chaque début de valeur avant de mettre à
 				//	jour les données reçues par la requête AJAX.
 				//	Note : ne s'applique pas à l'adresse électronique.
-				if ($email !== "email")
+				if ($key !== "email")
 				{
 					$_POST[$key] = capitalize($input);
 				}
