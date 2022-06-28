@@ -80,11 +80,14 @@
 		// Permet de « rendre propre » des chaînes de caractères pour
 		//	détecter les entrées invalides ou malveillantes.
 		//
-		public function serializeInput(string $field, string $input): string|false
+		public function serializeInput(string $field, string $input, bool $encode = true): string|false
 		{
-			// On convertit d'abord caractères spéciaux en balises
-			//	HTML lisibles.
-			$input = htmlentities($input, ENT_QUOTES);
+			// On encode d'abord caractères spéciaux en balises
+			//	HTML lisibles si demandé explicitement.
+			if ($encode)
+			{
+				$input = htmlentities($input, ENT_QUOTES);
+			}
 
 			// On supprime les espaces en trop en début et à la fin de
 			//	la chaîne de caractères.
