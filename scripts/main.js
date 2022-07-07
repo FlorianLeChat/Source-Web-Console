@@ -3,13 +3,13 @@
 //	entre un mot de passe avec les majuscules activées.
 // 	Source : https://www.w3schools.com/howto/howto_js_detect_capslock.asp
 //
-$( "input[type = password]" ).keyup( function ( event )
+$( "input[type = password]" ).keyup( ( event ) =>
 {
 	if ( event.originalEvent.getModifierState( "CapsLock" ) )
 	{
 		// Si les majuscules sont activées, on insère dynamiquement
 		//	un nouvel élément HTML après le champ de saisie.
-		$( this ).next().after( `<p class=\"capslock\">${ capslock_enabled }</p>` );
+		$( event.target ).next().after( `<p class=\"capslock\">${ capslock_enabled }</p>` );
 	}
 	else
 	{
@@ -23,10 +23,10 @@ $( "input[type = password]" ).keyup( function ( event )
 //	de saisies obligatoire d'un formulaire.
 //	Note : cette vérification se fait AVANT TOUTES les autres.
 //
-$( "form" ).submit( function ( event )
+$( "form" ).submit( ( event ) =>
 {
 	// On filtre tous les éléments nécessitant une valeur.
-	const elements = $( this ).children().filter( "[required]" );
+	const elements = $( event.target ).children().filter( "[required]" );
 
 	for ( const element of elements )
 	{
@@ -42,10 +42,10 @@ $( "form" ).submit( function ( event )
 //
 // Permet de vérifier les informations obligatoires dans les formulaires.
 //
-$( "*[required]" ).keyup( function ()
+$( "*[required]" ).keyup( ( event ) =>
 {
 	// On récupère le message d'erreur présent par défaut.
-	const element = $( this );
+	const element = $( event.target );
 	const error = element.parent().find( ".error" );
 
 	// On vérifie par la suite si l'élément est valide ou non
@@ -89,7 +89,7 @@ $( "*[required]" ).keyup( function ()
 //
 // Permet d'ouvrir le formulaire de contact via le pied de page.
 //
-$( "footer" ).find( "a[href = \"javascript:void(0);\"]" ).click( function ()
+$( "footer" ).find( "a[href = \"javascript:void(0);\"]" ).click( () =>
 {
 	contact.fadeIn( 150 );
 } );
@@ -97,7 +97,7 @@ $( "footer" ).find( "a[href = \"javascript:void(0);\"]" ).click( function ()
 //
 // Permet de désactiver le mécanisme de glissement des liens.
 //
-$( "a" ).mousedown( function ( event )
+$( "a" ).mousedown( ( event ) =>
 {
 	event.preventDefault();
 } );
@@ -106,7 +106,7 @@ $( "a" ).mousedown( function ( event )
 // Permet d'indiquer la position de défilement actuelle de l'utilisateur.
 // 	Source : https://www.w3schools.com/howto/howto_js_scroll_indicator.asp
 //
-$( window ).scroll( function ()
+$( window ).scroll( () =>
 {
 	// Récupération de la racine du document.
 	const root = $( document.documentElement );
@@ -126,7 +126,7 @@ $( window ).scroll( function ()
 //
 const contact = $( "#contact" );
 
-contact.find( "form" ).submit( function ( event )
+contact.find( "form" ).submit( ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -144,7 +144,7 @@ contact.find( "form" ).submit( function ( event )
 		content: contact.find( "textarea" ).val()
 
 	} )
-		.done( function ( data, _status, _self )
+		.done( ( data, _status, _self ) =>
 		{
 			// Une fois terminée, on affiche la réponse JSON du
 			//	serveur sous forme d'une liste numérique.
@@ -162,7 +162,7 @@ contact.find( "form" ).submit( function ( event )
 				contact.fadeOut( 150 );
 			}
 		} )
-		.fail( function ( self, _status, error )
+		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//	d'échec avec les informations à notre disposition.
@@ -170,7 +170,7 @@ contact.find( "form" ).submit( function ( event )
 		} );
 } );
 
-contact.find( "input[type = reset]" ).click( function ()
+contact.find( "input[type = reset]" ).click( () =>
 {
 	// On cache le formulaire à la demande de l'utilisateur.
 	contact.fadeOut( 150 );
@@ -190,7 +190,7 @@ for ( const page of $( "nav span, footer a[href *= target] span" ) )
 	pages[ $( page ).html() ] = $( page ).parent().attr( "href" );
 }
 
-search.focusout( function ()
+search.focusout( () =>
 {
 	// La définition de l'opacité est une astuce qui permet aux
 	//	événements "click" de jQuery de pouvoir s'exécuter systématiquement
@@ -198,18 +198,18 @@ search.focusout( function ()
 	search.next().css( "opacity", 0 );
 })
 
-search.focusin( function ()
+search.focusin( () =>
 {
 	// Voir commentaire précédent.
 	search.next().css( "opacity", 1 );
 })
 
-search.keyup( function ()
+search.keyup( ( event ) =>
 {
 	// On récupère la recherche de l'utilisateur ainsi
 	//	que la liste des résultats possibles.
-	const content = $( this ).val();
-	const results = $( this ).next();
+	const content = $( event.target ).val();
+	const results = $( event.target ).next();
 
 	// On vide ensuite les résultats précédents.
 	results.empty();
@@ -227,10 +227,10 @@ search.keyup( function ()
 	}
 } );
 
-$( "#search ul" ).on( "click", "li", function ()
+$( "#search ul" ).on( "click", "li", ( event ) =>
 {
 	// On simule la présence d'un élement <a> en JavaScript.
-	window.location.href = $( this ).attr( "data-target" );
+	window.location.href = $( event.target ).attr( "data-target" );
 } );
 
 //
@@ -304,7 +304,7 @@ function processNotification( text, type )
 		icon.addClass( "bi-info-square-fill" );
 	}
 
-	setTimeout( function ()
+	setTimeout( () =>
 	{
 		// Après 5 secondes d'affichage, on supprime toutes
 		//	les classes associées aux élements pour les faire
@@ -318,7 +318,7 @@ function processNotification( text, type )
 	return true;
 }
 
-setInterval( function ()
+setInterval( () =>
 {
 	// On récupère d'abord toutes les clés disponibles dans
 	//	la file d'attente des notifications.
@@ -367,7 +367,7 @@ function sendRemoteAction( action, value )
 		server_value: value
 
 	} )
-		.done( function ( data, _status, _self )
+		.done( ( data, _status, _self ) =>
 		{
 			// Une fois terminée, on affiche la notification d'information
 			//	à l'utilisateur pour lui indiquer si la requête a été envoyée
@@ -377,7 +377,7 @@ function sendRemoteAction( action, value )
 				addQueuedNotification( data, 3 );
 			}
 		} )
-		.fail( function ( self, _status, error )
+		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//	d'échec avec les informations à notre disposition.
@@ -473,7 +473,7 @@ if ( window.location.search !== "?target=legal" )
 		hide_from_bots: true,		// La fenêtre est cachée pour les robots.
 		cookie_expiration: 31,		// Temps d'expiration du cookie (en jour).
 
-		onAccept: function ( cookie )
+		onAccept: ( cookie ) =>
 		{
 			// Lors de chaque chargement de page, on itére à travers toutes les
 			//	autorisations pour déterminer si les balises de signalement de
