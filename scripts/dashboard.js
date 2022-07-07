@@ -19,7 +19,7 @@ for ( const server of servers )
 //
 let submit_edit = false;
 
-$( "[name = server_edit]" ).click( function ( event )
+$( "[name = server_edit]" ).click( ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	if ( submit_edit )
@@ -29,7 +29,7 @@ $( "[name = server_edit]" ).click( function ( event )
 	event.preventDefault();
 
 	// On récupère le parent de l'élément.
-	const parent = $( this ).parent();
+	const parent = $( event.target ).parent();
 
 	// On demande ensuite à l'utilisateur s'il veut supprimer ou non
 	//	le serveur.
@@ -57,7 +57,7 @@ $( "[name = server_edit]" ).click( function ( event )
 	//	qu'on ne doit pas demander de nouveau les informations.
 	submit_edit = true;
 
-	$( this ).click();
+	$( event.target ).click();
 } );
 
 //
@@ -69,7 +69,7 @@ function retrieveRemoteData()
 {
 	// On réalise d'abord la requête AJAX.
 	$.post( "includes/controllers/server_monitoring.php" )
-		.done( function ( data, _status, _self )
+		.done( ( data, _status, _self ) =>
 		{
 			// Une fois terminée, on affiche la réponse JSON du
 			//	serveur sous forme d'une liste numérique.
@@ -147,7 +147,7 @@ function retrieveRemoteData()
 				players_list.append( `<li>[${ indice }] ${ players_field[ indice ][ "Name" ] }</li>` );
 			}
 		} )
-		.fail( function ( self, _status, error )
+		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//	d'échec avec les informations à notre disposition
@@ -161,7 +161,7 @@ function retrieveRemoteData()
 retrieveRemoteData();
 
 // Récupération des informations toutes les 5 secondes.
-timer = setInterval( function ()
+timer = setInterval( () =>
 {
 	retrieveRemoteData();
 }, 5000 );
@@ -170,13 +170,13 @@ timer = setInterval( function ()
 // Permet d'envoyer des requêtes d'action lors du clic sur l'un des
 //	boutons du tableau de bord.
 //
-$( "#actions li" ).click( function ()
+$( "#actions li" ).click( ( event ) =>
 {
 	// Requête classique en fonction du bouton.
-	sendRemoteAction( $( this ).attr( "data-action" ) );
+	sendRemoteAction( $( event.target ).attr( "data-action" ) );
 } );
 
-$( "#actions li:first-of-type" ).dblclick( function ()
+$( "#actions li:first-of-type" ).dblclick( () =>
 {
 	// Requête d'arrêt forcé.
 	sendRemoteAction( "force" );

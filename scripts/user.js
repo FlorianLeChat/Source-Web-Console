@@ -2,14 +2,14 @@
 // Permet d'envoyer les demandes de modification ou de suppression
 //	des informations d'authentification vers le serveur.
 //
-$( "#account input[data-action]" ).click( function ( event )
+$( "#account input[data-action]" ).click( ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
 
 	// On vérifie après si l'utilisateur veut réellement supprimer
 	//	son compte utilisateur.
-	const action = $( this ).attr( "data-action" );
+	const action = $( event.target ).attr( "data-action" );
 
 	if ( action === "remove" && !confirm( edit_remove ) )
 	{
@@ -29,12 +29,12 @@ $( "#account input[data-action]" ).click( function ( event )
 		user_password: $( "select[name = password]" ).val()
 
 	} )
-		.done( function ( data, _status, _self )
+		.done( ( data, _status, _self ) =>
 		{
 			// On affiche la notification de confirmation.
 			addQueuedNotification( data, 3 );
 		} )
-		.fail( function ( self, _status, error )
+		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//	d'échec avec les informations à notre disposition.
@@ -45,7 +45,7 @@ $( "#account input[data-action]" ).click( function ( event )
 	//	mise à jour des informations.
 	if ( action === "update" )
 	{
-		$( this ).parent().parent()[ 0 ].reset();
+		$( event.target ).parent().parent()[ 0 ].reset();
 	}
 } );
 
@@ -53,7 +53,7 @@ $( "#account input[data-action]" ).click( function ( event )
 // Permet d'envoyer les demandes de déconnexion et de reconnexion
 //	au compte utilisateur.
 //
-$( "#actions input[type = submit]" ).click( function ( event )
+$( "#actions input[type = submit]" ).click( ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -62,21 +62,21 @@ $( "#actions input[type = submit]" ).click( function ( event )
 	$.post( "includes/controllers/server_user.php", {
 
 		// Type de l'action qui doît être effectué
-		user_action: $( this ).attr( "data-action" ),
+		user_action: $( event.target ).attr( "data-action" ),
 
 	} )
-		.done( function ( data, _status, _self )
+		.done( ( data, _status, _self ) =>
 		{
 			// On affiche la notification de confirmation.
 			addQueuedNotification( data, 3 );
 
 			// On redirige l'utilisateur quelques instants après.
-			setTimeout( function ()
+			setTimeout( () =>
 			{
 				window.location.href = "?target=index";
 			}, 5000 );
 		} )
-		.fail( function ( self, _status, error )
+		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//	d'échec avec les informations à notre disposition.
@@ -94,18 +94,18 @@ $( "#signup input[type = submit]" ).attr( "data-action", "insert" );
 // Permet d'envoyer les demandes d'ajout d'un nouveau serveur dans
 //	la base de données.
 //
-$( "#signup input[type = submit]" ).click( function ( event )
+$( "#signup input[type = submit]" ).click( ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
 
 	// On réalise ensuite la requête AJAX.
-	const form = $( this ).parent();
+	const form = $( event.target ).parent();
 
 	$.post( "includes/controllers/server_user.php", {
 
 		// Type de l'action qui doît être effectué.
-		user_action: $( this ).attr( "data-action" ),
+		user_action: $( event.target ).attr( "data-action" ),
 
 		// Informations du client (obligatoires côté serveur).
 		server_address: form.find( "input[name = server_address]" ).val(),
@@ -122,12 +122,12 @@ $( "#signup input[type = submit]" ).click( function ( event )
 		auto_connect: form.find( "input[id = auto_connect]" ).is( ":checked" ) | 0
 
 	} )
-		.done( function ( data, _status, _self )
+		.done( ( data, _status, _self ) =>
 		{
 			// On affiche la notification de confirmation.
 			addQueuedNotification( data, 3 );
 		} )
-		.fail( function ( self, _status, error )
+		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//	d'échec avec les informations à notre disposition.
@@ -135,5 +135,5 @@ $( "#signup input[type = submit]" ).click( function ( event )
 		} );
 
 	// On réinitialise enfin le formulaire.
-	$( this ).parent()[ 0 ].reset();
+	$( event.target ).parent()[ 0 ].reset();
 } );

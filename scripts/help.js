@@ -3,14 +3,14 @@
 //	des questions/réponses de la page.
 //	Source : https://www.w3schools.com/howto/howto_js_collapsible.asp
 //
-$( "#faq button" ).click( function ()
+$( "#faq button" ).click( ( event ) =>
 {
 	// On bascule d'abord l'état d'activation du bouton.
-	$( this ).toggleClass( "active" );
+	$( event.target ).toggleClass( "active" );
 
 	// On récupère alors l'élément suivant le bouton.
 	//	Note : on doit récupérer ici un élément <p>.
-	const content = $( this ).next();
+	const content = $( event.target ).next();
 
 	// On vérifie ensuite si une taille maximale a été définie.
 	if ( content.css( "maxHeight" ) != "0px" )

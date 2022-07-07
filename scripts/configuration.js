@@ -2,7 +2,7 @@
 // Permet d'enregistrer ou de mettre à jour les données du
 //	serveur de stockage FTP.
 //
-$( "form input[type = submit]" ).click( function ( event )
+$( "form input[type = submit]" ).click( ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -11,7 +11,7 @@ $( "form input[type = submit]" ).click( function ( event )
 	$.post( "includes/controllers/server_storage.php", {
 
 		// Action qui doit être réalisée (insertion, mise à jour ou connexion).
-		ftp_action: $( this ).attr( "data-action" ),
+		ftp_action: $( event.target ).attr( "data-action" ),
 
 		// Adresse IP du serveur FTP.
 		ftp_address: $( "input[name = ftp_address]" ).val(),
@@ -29,7 +29,7 @@ $( "form input[type = submit]" ).click( function ( event )
 		ftp_password: $( "input[name = ftp_password]" ).val()
 
 	} )
-		.done( function ( data, _status, _self )
+		.done( ( data, _status, _self ) =>
 		{
 			// Une fois terminée, on affiche la notification d'information
 			//	à l'utilisateur pour lui indiquer si la requête a été envoyée
@@ -39,7 +39,7 @@ $( "form input[type = submit]" ).click( function ( event )
 				addQueuedNotification( data, 3 );
 			}
 		} )
-		.fail( function ( self, _status, error )
+		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//	d'échec avec les informations à notre disposition.
@@ -51,7 +51,7 @@ $( "form input[type = submit]" ).click( function ( event )
 // Permet de mettre à jour les informations présentes dans le fichier
 //	de configuraiton du serveur distant.
 //
-$( "button[data-type]" ).click( function ( event )
+$( "button[data-type]" ).click( ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -63,13 +63,13 @@ $( "button[data-type]" ).click( function ( event )
 		ftp_action: "connexion",
 
 		// Type de modification qui doivent être effectué.
-		ftp_type: $( this ).attr( "data-type" ),
+		ftp_type: $( event.target ).attr( "data-type" ),
 
 		// Valeur indiquée par l'utilisateur.
-		ftp_value: $( this ).prev().val()
+		ftp_value: $( event.target ).prev().val()
 
 	} )
-		.done( function ( data, _status, _self )
+		.done( ( data, _status, _self ) =>
 		{
 			// Une fois terminée, on affiche la notification d'information
 			//	à l'utilisateur pour lui indiquer si la requête a été envoyée
@@ -79,7 +79,7 @@ $( "button[data-type]" ).click( function ( event )
 				addQueuedNotification( data, 3 );
 			}
 		} )
-		.fail( function ( self, _status, error )
+		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//	d'échec avec les informations à notre disposition.

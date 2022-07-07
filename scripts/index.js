@@ -6,13 +6,13 @@ const header = $( "header li" );
 const signup = $( "#signup article" );
 const signin = $( "#signin" );
 
-header.first().find( "button" ).click( function ()
+header.first().find( "button" ).click( () =>
 {
 	// Inscription (première partie).
 	signup.first().fadeIn( 150 );
 } );
 
-header.last().find( "button" ).click( function ()
+header.last().find( "button" ).click( () =>
 {
 	// Connexion.
 	signin.fadeIn( 150 );
@@ -24,7 +24,7 @@ header.last().find( "button" ).click( function ()
 const first_step = signup.first();
 const last_step = signup.last();
 
-signup.find( "form" ).submit( function ( event )
+signup.find( "form" ).submit( ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -34,7 +34,7 @@ signup.find( "form" ).submit( function ( event )
 	if ( first_step.is( ":visible" ) )
 	{
 		// Si c'est le cas, on passe à la seconde étape.
-		first_step.fadeOut( 150, function ()
+		first_step.fadeOut( 150, () =>
 		{
 			last_step.fadeIn( 150 );
 		} );
@@ -64,7 +64,7 @@ signup.find( "form" ).submit( function ( event )
 			auto_connect: last_step.find( "input[id = auto_connect]" ).is( ":checked" ) | 0
 
 		} )
-			.done( function ( data, _status, _self )
+			.done( ( data, _status, _self ) =>
 			{
 				// Une fois terminée, on affiche la réponse JSON du
 				//	serveur sous forme d'une liste numérique.
@@ -86,13 +86,13 @@ signup.find( "form" ).submit( function ( event )
 
 					// On effectue enfin la redirection de l'utilisateur
 					//	vers le tableau de bord au bout de 5 secondes.
-					setTimeout( function ()
+					setTimeout( () =>
 					{
 						window.location.href = "?target=dashboard";
 					}, 5000 );
 				}
 			} )
-			.fail( function ( self, _status, error )
+			.fail( ( self, _status, error ) =>
 			{
 				// Dans le cas contraire, on affiche une notification
 				//	d'échec avec les informations à notre disposition.
@@ -101,7 +101,7 @@ signup.find( "form" ).submit( function ( event )
 	}
 } );
 
-signup.find( "input[type = reset]" ).click( function ()
+signup.find( "input[type = reset]" ).click( () =>
 {
 	// On vérifie d'abord si l'utilisateur se trouve ou non
 	//	à la première étape de l'inscription.
@@ -126,7 +126,7 @@ signup.find( "input[type = reset]" ).click( function ()
 //
 // Permet de gérer les mécanismes du formulaire de connexion.
 //
-signin.find( "input[type = submit]" ).click( function ( event )
+signin.find( "input[type = submit]" ).click( ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -144,7 +144,7 @@ signin.find( "input[type = submit]" ).click( function ( event )
 		remember_me: signin.find( "input[id = remember_me]" ).is( ":checked" ) | 0
 
 	} )
-		.done( function ( data, _status, _self )
+		.done( ( data, _status, _self ) =>
 		{
 			// Une fois terminée, on affiche la réponse JSON du
 			//	serveur sous forme d'une liste numérique.
@@ -163,13 +163,13 @@ signin.find( "input[type = submit]" ).click( function ( event )
 
 				// On effectue enfin la redirection de l'utilisateur
 				//	vers le tableau de bord au bout de 5 secondes.
-				setTimeout( function ()
+				setTimeout( () =>
 				{
 					window.location.href = "?target=dashboard";
 				}, 5000 );
 			}
 		} )
-		.fail( function ( self, _status, error )
+		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//	d'échec avec les informations à notre disposition.
@@ -177,7 +177,7 @@ signin.find( "input[type = submit]" ).click( function ( event )
 		} );
 } );
 
-signin.find( "input[type = reset]" ).click( function ()
+signin.find( "input[type = reset]" ).click( () =>
 {
 	// On cache le formulaire à la demande de l'utilisateur.
 	signin.hide();
@@ -189,25 +189,25 @@ signin.find( "input[type = reset]" ).click( function ()
 //
 const links = signin.find( "a[href = \"javascript:void(0);\"]" );
 
-links.first().click( function ()
+links.first().click( () =>
 {
-	signin.fadeOut( 150, function ()
+	signin.fadeOut( 150, () =>
 	{
 		// Redirection vers l'inscription.
 		signup.first().fadeIn( 150 );
 	} );
 } );
 
-links.eq( 1 ).click( function ()
+links.eq( 1 ).click( () =>
 {
-	signin.fadeOut( 150, function ()
+	signin.fadeOut( 150, () =>
 	{
 		// Redirection vers la connexion unique.
 		signup.first().fadeIn( 150 );
 	} );
 } );
 
-links.last().click( function ( event )
+links.last().click( ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -225,7 +225,7 @@ links.last().click( function ( event )
 		backup: true
 
 	} )
-		.done( function ( data, _status, _self )
+		.done( ( data, _status, _self ) =>
 		{
 			// Une fois terminée, on affiche la réponse JSON du
 			//	serveur sous forme d'une liste numérique.
@@ -234,7 +234,7 @@ links.last().click( function ( event )
 			// On affiche enfin le message de confirmation.
 			addQueuedNotification( json[ 0 ], json[ 1 ] );
 		} )
-		.fail( function ( self, _status, error )
+		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//	d'échec avec les informations à notre disposition.
@@ -246,10 +246,10 @@ links.last().click( function ( event )
 // Permet d'afficher en clair les mots de passe entrés dans les champs
 //	de saisies dédiés dans les différents formulaire.
 //
-$( "input[id *= clear]" ).click( function ()
+$( "input[id *= clear]" ).click( ( event ) =>
 {
 	// On recherche le champ de saisie des mots de passe.
-	const input = $( this ).parent().find( "input[id *= password]" );
+	const input = $( event.target ).parent().find( "input[id *= password]" );
 
 	// On vérifie ensuite son état actuel.
 	if ( input.attr( "type" ) == "password" )
@@ -272,13 +272,13 @@ $( "input[id *= clear]" ).click( function ()
 const characters = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 let old_password = "";
 
-$( "#generation" ).click( function ()
+$( "#generation" ).click( ( event ) =>
 {
 	// On récupère le champ de saisie associé au formulaire.
-	const input = $( this ).parent().find( "input[id *= password]" );
+	const input = $( event.target ).parent().find( "input[id *= password]" );
 
 	// On vérifie alors si la boite est cochée ou non.
-	if ( $( this ).is( ":checked" ) )
+	if ( $( event.target ).is( ":checked" ) )
 	{
 		// Si elle est coché, on génère aléatoirement un mot de passe
 		//	grâce à une série de caractèrs.
@@ -342,7 +342,7 @@ function updateInformation( forward )
 		if ( element.is( ":visible" ) )
 		{
 			// Dans ce cas, on cache progressement l'image actuelle.
-			element.fadeOut( 200, function ()
+			element.fadeOut( 200, () =>
 			{
 				// On vérifie ensuite si l'utilisateur demander d'avancer
 				//	ou de reculer dans les positions des images.
@@ -391,7 +391,7 @@ function updateInformation( forward )
 		// Vérification de la visilité de l'élement.
 		if ( element.is( ":visible" ) )
 		{
-			element.fadeOut( 200, function ()
+			element.fadeOut( 200, () =>
 			{
 				// Mécanisme de précédent/suivant.
 				if ( forward )
@@ -428,13 +428,13 @@ function updateInformation( forward )
 	}
 }
 
-informations.find( "button" ).first().click( function ()
+informations.find( "button" ).first().click( () =>
 {
 	// Bouton pour voir l'information précédente.
 	updateInformation( false );
 } );
 
-informations.find( "button" ).last().click( function ()
+informations.find( "button" ).last().click( () =>
 {
 	// Bouton pour voir l'information suivante.
 	updateInformation( true );

@@ -2,7 +2,7 @@
 // Permet de gérer les demandes de suppression de tâches planifiées
 //	dans la base de données.
 //
-$( "table tr:not([class = finished])" ).click( function ()
+$( "table tr:not([class = finished])" ).click( ( event ) =>
 {
 	// On vérifie si l'utilisateur demande a supprimer la tâche.
 	if ( confirm( edit_remove ) )
@@ -11,13 +11,13 @@ $( "table tr:not([class = finished])" ).click( function ()
 		$.post( "includes/controllers/server_tasks.php", {
 
 			// Identifiant unique du serveur sélectionné.
-			target_server: $( this ).find( "em" ).attr( "data-server" ),
+			target_server: $( event.target ).find( "em" ).attr( "data-server" ),
 
 			// Identifiant unique de la tâche sélectionnée.
-			target_task: $( this ).attr( "data-task" )
+			target_task: $( event.target ).attr( "data-task" )
 
 		} )
-			.done( function ( data, _status, _self )
+			.done( ( data, _status, _self ) =>
 			{
 				// On affiche la notification de confirmation.
 				addQueuedNotification( data, 3 );
@@ -25,12 +25,12 @@ $( "table tr:not([class = finished])" ).click( function ()
 				// On recharge enfin la page quelques instants après.
 				//	Note : cela pourrait être amélioré en construisant directement
 				//		le HTML à la réception finale du message.
-				setTimeout( function ()
+				setTimeout( () =>
 				{
 					window.location.reload();
 				}, 3000 );
 			} )
-			.fail( function ( self, _status, error )
+			.fail( ( self, _status, error ) =>
 			{
 				// Dans le cas contraire, on affiche une notification
 				//	d'échec avec les informations à notre disposition.
@@ -43,7 +43,7 @@ $( "table tr:not([class = finished])" ).click( function ()
 // Permet d'envoyer les demandes de création de tâches planifiées
 //	vers la base de données.
 //
-$( "form input[type = submit]" ).click( function ( event )
+$( "form input[type = submit]" ).click( ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -61,7 +61,7 @@ $( "form input[type = submit]" ).click( function ( event )
 		trigger_action: $( "select[name = action]" ).val()
 
 	} )
-		.done( function ( data, _status, _self )
+		.done( ( data, _status, _self ) =>
 		{
 			// On affiche la notification de confirmation.
 			addQueuedNotification( data, 3 );
@@ -69,12 +69,12 @@ $( "form input[type = submit]" ).click( function ( event )
 			// On recharge enfin la page quelques instants après.
 			//	Note : cela pourrait être amélioré en construisant directement
 			//		le HTML à la réception finale du message.
-			setTimeout( function ()
+			setTimeout( () =>
 			{
 				window.location.reload();
 			}, 3000 );
 		} )
-		.fail( function ( self, _status, error )
+		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//	d'échec avec les informations à notre disposition.
