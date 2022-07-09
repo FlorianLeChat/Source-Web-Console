@@ -73,8 +73,18 @@ main
 
 			form:last-of-type
 			{
-				// Suppression de la définition.
+				// Modification de l'apparence.
 				width: auto;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+
+				p
+				{
+					// Suppression de la transformation.
+					top: 0;
+					transform: none;
+				}
 			}
 		}
 	}
