@@ -478,7 +478,7 @@ if ( window.location.search !== "?target=legal" )
 			// Lors de chaque chargement de page, on itére à travers toutes les
 			//	autorisations pour déterminer si les balises de signalement de
 			//	Google Analytics doivent être utilisées.
-			for ( const level of cookie.level )
+			for ( const level of cookie.categories )
 			{
 				if ( level === "analytics" )
 				{
