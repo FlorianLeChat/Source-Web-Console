@@ -36,15 +36,13 @@
 
 			{# Modification des données #}
 			<form method="POST">
-				<!-- Texte initial -->
 				{% if admin_result|length == 0 %}
+					{# Texte initial #}
 					<p>Aucune table n'est actuellement sélectionnée.</p>
+				{% else %}
+					{# Table des données #}
+					<table>{{ admin_result }}</table>
 				{% endif %}
-
-				<!-- Table des données -->
-				<table>
-					{{ admin_result }}
-				</table>
 			</form>
 		</div>
 	</section>
