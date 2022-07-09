@@ -55,6 +55,7 @@ main
 		ul:first-of-type
 		{
 			// Corps de la liste.
+			hyphens: auto;
 			display: flex;
 			flex-wrap: wrap;
 			box-sizing: border-box;
