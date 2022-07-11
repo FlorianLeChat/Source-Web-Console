@@ -455,7 +455,7 @@ function sendAnalytics()
 //
 // Permet de demander le consentement de l'utilisateur pour utiliser le mécanisme des cookies.
 //	Note : ne s'applique pas à la page des mentions légales.
-//	Source : https://github.com/orestbida/cookieconsent#full-example-configurations
+//	Source : https://github.com/orestbida/cookieconsent#all-configuration-options
 //
 if ( window.location.search !== "?target=legal" )
 {
@@ -468,9 +468,9 @@ if ( window.location.search !== "?target=legal" )
 	// On exécute alors le mécanisme en suivant certaines consignes.
 	cookie.run( {
 		// On définit d'abord nos paramètres personnalisés.
-		auto_language: "document",	// Langue sélectionnée par l'utilisateur.
+		page_scripts: false,		// Désactivation de la gestion des scripts
 		force_consent: true,		// Le consentement est obligatoire.
-		hide_from_bots: true,		// La fenêtre est cachée pour les robots.
+		auto_language: "document",	// Langue sélectionnée par l'utilisateur.
 		cookie_expiration: 31,		// Temps d'expiration du cookie (en jour).
 
 		onAccept: ( cookie ) =>
