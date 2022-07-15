@@ -49,6 +49,7 @@
 		<script src="https://www.googletagmanager.com/gtag/js?id=G-56KCE1D8JG" crossorigin="anonymous" defer></script>
 		<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" crossorigin="anonymous" defer></script>
 		<script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js" crossorigin="anonymous" defer></script>
+		<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.2/dist/lazyload.min.js" crossorigin="anonymous" defer></script>
 		<script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.2/dist/cookieconsent.js" crossorigin="anonymous" defer></script>
 		<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@2.0.0/dist/chartjs-adapter-date-fns.bundle.min.js" crossorigin="anonymous" defer></script>
 
@@ -101,7 +102,7 @@
 		<header>
 			{% block header %}
 				{# Logo du site #}
-				<img src="assets/images/logo.svg" alt="Logo" />
+				<img src="#" data-src="assets/images/logo.svg" alt="Logo" />
 
 				{# Titre du site #}
 				<h1>{{ header_phrases["header_title"] }}</h1>
