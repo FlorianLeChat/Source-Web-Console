@@ -6,6 +6,7 @@
 
 	use phpseclib3\Net\SFTP;
 	use xPaw\SourceQuery\SourceQuery;
+	use Phpfastcache\Helper\Psr16Adapter;
 
 	final class Server extends Main
 	{
@@ -515,9 +516,30 @@
 		//
 		public function getNameByGameID(int $identifier, string $fallback = ""): string
 		{
-			// On fait une requête à l'API centrale Steam pour récupérer
-			//	les informations du magasin.
-			$response = file_get_contents("https://store.steampowered.com/api/appdetails?appids=$identifier");
+			// On fait appel au cache de données pour récupérer les informations
+			//	du magasin récupérées précédemment.
+			$key = "GameID-$identifier";
+			$adapter = new Psr16Adapter("Files");
+
+			if ($adapter->has($key) === false)
+			{
+				// Le cache n'a pas été trouvé, on effectue une requête à l'API
+				//	centrale de Steam pour récupérer les informations.
+				$request = curl_init();
+
+				curl_setopt($request, CURLOPT_URL, "https://store.steampowered.com/api/appdetails?appids=$identifier");
+				curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
+
+				$response = curl_exec($request);
+				$adapter->set($key, $response, 86400);
+
+				curl_close($request);
+			}
+			else
+			{
+				// Dans le cas contraire, on récupère les informations du cache.
+				$response = $adapter->get($key);
+			}
 
 			// On transforme par la suite ce résultat sous format JSON en
 			//	tableau associatif pour la manipuler.
