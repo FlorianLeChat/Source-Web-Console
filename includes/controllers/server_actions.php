@@ -121,7 +121,7 @@
 
 				case "service":
 				{
-					// Action : mise en maintenance - verouillage du serveur.
+					// Action : mise en maintenance - verrouillage du serveur.
 					$server->query->Rcon("sv_password \"password\"");
 					break;
 				}
@@ -180,7 +180,7 @@
 					// Si aucune action est trouvée, alors il s'agit probablement
 					//	d'une commande personnalisée. On tente alors de récupérer
 					//	les données de toutes les commandes pour trouver celle
-					//	qui semble avoir été choisie par l'uitlisateur.
+					//	qui semble avoir été choisie par l'utilisation.
 					$command = array_filter($commands, function(array $command) use ($action)
 					{
 						return $command["command_id"] == $action;

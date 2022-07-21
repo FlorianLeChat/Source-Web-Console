@@ -116,7 +116,7 @@
 		{
 			$query = $this->connector->prepare("DELETE FROM `tasks` WHERE `server_id` = ? AND `task_id` = ? AND `state` = 'WAITING';");
 
-				// Identifiant unique du serverur.
+				// Identifiant unique du serveur.
 				$query->bindValue(1, $server_id);
 
 				// Identifiant unique de la tâche.
@@ -407,7 +407,7 @@
 		}
 
 		//
-		// Permet d'intialiser une connexion FTP vers le serveur de stockage
+		// Permet d'initialiser une connexion FTP vers le serveur de stockage
 		//	d'un serveur.
 		//
 		public function openFTPConnection(string $address, int $port, string $username, string $password, string $type = "ftp"): mixed

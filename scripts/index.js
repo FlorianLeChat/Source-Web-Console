@@ -281,7 +281,7 @@ $( "#generation" ).click( ( event ) =>
 	if ( $( event.target ).is( ":checked" ) )
 	{
 		// Si elle est coché, on génère aléatoirement un mot de passe
-		//	grâce à une série de caractèrs.
+		//	grâce à une série de caractères.
 		let new_password = "";
 
 		for ( let indice = 0; indice <= 15; indice++ )
@@ -341,7 +341,7 @@ function updateInformation( forward )
 		// On vérifie si l'image est actuellement visible.
 		if ( element.is( ":visible" ) )
 		{
-			// Dans ce cas, on cache progressement l'image actuelle.
+			// Dans ce cas, on cache progressivement l'image actuelle.
 			element.fadeOut( 200, () =>
 			{
 				// On vérifie ensuite si l'utilisateur demander d'avancer
@@ -388,7 +388,7 @@ function updateInformation( forward )
 	{
 		const element = $( texts[ indice ] );
 
-		// Vérification de la visilité de l'élement.
+		// Vérification de la visibilité de l'élément.
 		if ( element.is( ":visible" ) )
 		{
 			element.fadeOut( 200, () =>

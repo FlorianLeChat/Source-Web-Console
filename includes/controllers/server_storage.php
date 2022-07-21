@@ -39,7 +39,7 @@
 			exit();
 		}
 
-		// On récupère ensuite les dernières informations tranmises dans la
+		// On récupère ensuite les dernières informations transmises dans la
 		//	requête avant de déterminer l'action a réaliser.
 		$username = $_POST["ftp_user"] ?? $storage["username"] ?? "";
 		$password = $_POST["ftp_password"] ?? $storage["password"];
