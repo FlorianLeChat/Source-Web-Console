@@ -30,7 +30,7 @@ new Chart( player_chart,
 		type: "line",
 		data: {
 			datasets: [
-				// Données brutes transmises par la base de donnéees.
+				// Données brutes transmises par la base de données.
 				{
 					data: [ 12, 4, 1, 0, 0, 0, 1, 3, 5, 1, 2, 4, 5, 6, 4, 15, 16, 18, 23, 45, 24, 26, 45, 34, 24 ],
 					fill: true,
@@ -139,7 +139,7 @@ new Chart( server_usage,
 				tooltipFormat: "HH:mm - dd/MM/yyyy"
 			},
 			datasets: [
-				// Données brutes transmises par la base de donnéees.
+				// Données brutes transmises par la base de données.
 				{
 					label: cpu_usage,
 					backgroundColor: "#ed431d",

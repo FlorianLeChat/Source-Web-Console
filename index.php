@@ -47,7 +47,7 @@
 
 	if (!$connected)
 	{
-		// Si l'utilisateur est déconnecté, on tente de le connnecter
+		// Si l'utilisateur est déconnecté, on tente de le connecter
 		//	automatiquement à son compte avec un jeton d'authentification
 		//	enregistré sur son navigateur.
 		if (!empty($_COOKIE["generated_token"]))
@@ -75,7 +75,7 @@
 	// Assemblage des paramètres du moteur TWIG.
 	// 	Note : dans cette partie, les paramètres dynamiques possiblement créés
 	//		dans le script PHP de la page actuel sont fusionnés avec ceux qui
-	//		ont été prédéfis par défaut.
+	//		ont été prédéfinis par défaut.
 	$parameters = array_merge($parameters ?? [], [
 
 		// Variables globales.

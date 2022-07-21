@@ -19,7 +19,7 @@ $( "#account input[data-action]" ).click( ( event ) =>
 	// On réalise ensuite la requête AJAX.
 	$.post( "includes/controllers/server_user.php", {
 
-		// Type de l'action qui doît être effectué.
+		// Type de l'action qui doit être effectué.
 		user_action: action,
 
 		// Valeur du nouveau nom d'utilisateur.
@@ -61,7 +61,7 @@ $( "#actions input[type = submit]" ).click( ( event ) =>
 	// On réalise ensuite la requête AJAX.
 	$.post( "includes/controllers/server_user.php", {
 
-		// Type de l'action qui doît être effectué
+		// Type de l'action qui doit être effectué
 		user_action: $( event.target ).attr( "data-action" ),
 
 	} )
@@ -104,7 +104,7 @@ $( "#signup input[type = submit]" ).click( ( event ) =>
 
 	$.post( "includes/controllers/server_user.php", {
 
-		// Type de l'action qui doît être effectué.
+		// Type de l'action qui doit être effectué.
 		user_action: $( event.target ).attr( "data-action" ),
 
 		// Informations du client (obligatoires côté serveur).

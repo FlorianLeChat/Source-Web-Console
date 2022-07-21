@@ -49,7 +49,7 @@ $( "form input[type = submit]" ).click( ( event ) =>
 
 //
 // Permet de mettre à jour les informations présentes dans le fichier
-//	de configuraiton du serveur distant.
+//	de configuration du serveur distant.
 //
 $( "button[data-type]" ).click( ( event ) =>
 {

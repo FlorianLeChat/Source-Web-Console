@@ -3,7 +3,7 @@
 	// Contrôleur de gestion de la page des tâches planifiées.
 	//
 
-	// On récupère tout d'abord l'idenfiant unique de l'utilisateur.
+	// On récupère tout d'abord l'identifiant unique de l'utilisateur.
 	$user_id = $_SESSION["user_id"] ?? 0;
 
 	// On implémente ensuite une fonction TWIG afin de déterminer le

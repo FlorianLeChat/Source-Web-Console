@@ -77,7 +77,7 @@ function retrieveRemoteData()
 
 			// On vérifie ensuite s'il ne s'agit pas d'une erreur,
 			//	dans ce cas, on affiche une notification avant de
-			//	casser définitivement le minutor.
+			//	casser définitivement le minuteur.
 			if ( json.hasOwnProperty( "error" ) )
 			{
 				clearInterval( timer );

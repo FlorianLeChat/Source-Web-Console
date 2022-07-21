@@ -88,7 +88,7 @@
 		$where_data = $server->connector->query("SELECT * FROM `$table` LIMIT 1 OFFSET $identifier;")->fetch();
 
 		$where_field = array_key_first($where_data);	// Nom de la première colonne.
-		$where_value = $where_data[$where_field];		// Valeur de la première colonbne.
+		$where_value = $where_data[$where_field];		// Valeur de la première colonne.
 
 		$values[] = $where_value;						// Insertion dans les paramètres de la requête.
 
@@ -109,7 +109,7 @@
 		$where_data = $server->connector->query("SELECT * FROM `$table` LIMIT 1 OFFSET $identifier;")->fetch();
 
 		$where_field = array_key_first($where_data);	// Nom de la première colonne.
-		$where_value = $where_data[$where_field];		// Valeur de la première colonbne.
+		$where_value = $where_data[$where_field];		// Valeur de la première colonne.
 
 		// Exécution de la requête de suppression.
 		$query = $server->connector->prepare("DELETE FROM `$table` WHERE $where_field = ?;");
@@ -183,7 +183,7 @@
 		if ($table === "users" && !str_starts_with($values[2], "$2y$"))
 		{
 			// Si c'est une action dans la table utilisateurs, on vérifie si
-			//	le champ de mot passe doit être hashé.
+			//	le champ de mot passe doit être hash.
 			$values[2] = password_hash($values[2], PASSWORD_DEFAULT);
 		}
 

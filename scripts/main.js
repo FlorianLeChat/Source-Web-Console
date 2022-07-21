@@ -67,7 +67,7 @@ $( "*[required]" ).keyup( ( event ) =>
 		//	libellés qui définissent si le champ est obligatoire.
 		label = label.replace( "*", "" );
 
-		// On remplace les informations pré-formattées dans le message
+		// On remplace les informations pré-formatées dans le message
 		//	d'erreur par certaines données du champ de saisie.
 		let message = client_check_failed;
 		message = message.replace( "$1", label );							// Nom du champ.
@@ -214,11 +214,11 @@ search.keyup( ( event ) =>
 	// On vide ensuite les résultats précédents.
 	results.empty();
 
-	// On itére alors à travers toutes les pages afin
+	// On itère alors à travers toutes les pages afin
 	//	de les comparer à l'entrée de l'utilisateur.
 	for ( const page of Object.keys( pages ) )
 	{
-		// Si l'entrée n'est pas vide et qu'elle semble corrrespondre
+		// Si l'entrée n'est pas vide et qu'elle semble correspondre
 		//	à une page mise en mémoire, on l'ajoute en tant que résultat.
 		if ( content !== "" && page.toLowerCase().match( content.toLowerCase() ) )
 		{
@@ -229,7 +229,7 @@ search.keyup( ( event ) =>
 
 $( "#search ul" ).on( "click", "li", ( event ) =>
 {
-	// On simule la présence d'un élement <a> en JavaScript.
+	// On simule la présence d'un élément <a> en JavaScript.
 	window.location.href = $( event.target ).attr( "data-target" );
 } );
 
@@ -307,7 +307,7 @@ function processNotification( text, type )
 	setTimeout( () =>
 	{
 		// Après 5 secondes d'affichage, on supprime toutes
-		//	les classes associées aux élements pour les faire
+		//	les classes associées aux éléments pour les faire
 		//	disparaître progressivement.
 		icon.removeAttr( "class" );
 		notification.removeAttr( "class" );
@@ -485,7 +485,7 @@ if ( window.location.search !== "?target=legal" )
 
 		onAccept: ( cookie ) =>
 		{
-			// Lors de chaque chargement de page, on itére à travers toutes les
+			// Lors de chaque chargement de page, on itère à travers toutes les
 			//	autorisations pour déterminer si les balises de signalement de
 			//	Google Analytics doivent être utilisées.
 			for ( const level of cookie.categories )

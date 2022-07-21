@@ -34,7 +34,7 @@
 
 		];
 
-		// On itére ensuite à travers toutes les clés attendues de la
+		// On itère ensuite à travers toutes les clés attendues de la
 		//	la requête AJAX pour vérifier les données transmises.
 		foreach (array_keys($form->length) as $key)
 		{
