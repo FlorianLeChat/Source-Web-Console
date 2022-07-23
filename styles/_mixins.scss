@@ -63,7 +63,7 @@
 	cursor: pointer;
 	padding: 0.5rem 1rem;
 	font-size: 1.25rem;
-	transition: color 250ms, background-color 250ms;
+	transition: filter 250ms, color 250ms, background-color 250ms;
 	margin-left: 0.25rem;
 	border-radius: 0.25rem;
 	background-color: $validate-color;
