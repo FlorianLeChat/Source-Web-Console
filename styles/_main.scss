@@ -17,6 +17,13 @@ html
 	// Disposition et affichage.
 	min-width: $html-min-width;
 	scroll-behavior: smooth;
+
+	// Badge de Google reCAPTCHA.
+	// 	Source : https://developers.google.com/recaptcha/docs/faq#id-like-to-hide-the-recaptcha-badge.-what-is-allowed
+	.grecaptcha-badge
+	{
+		display: none;
+	}
 }
 
 h1

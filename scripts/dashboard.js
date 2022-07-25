@@ -68,7 +68,7 @@ let timer;
 function retrieveRemoteData()
 {
 	// On réalise d'abord la requête AJAX.
-	$.post( "includes/controllers/server_monitoring.php" )
+	$.post( "includes/controllers/server_monitoring.php", JSON.stringify( "" ) )
 		.done( ( data, _status, _self ) =>
 		{
 			// Une fois terminée, on affiche la réponse JSON du

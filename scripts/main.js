@@ -19,27 +19,6 @@ $( "input[type = password]" ).keyup( ( event ) =>
 } );
 
 //
-// Permet de vérifier l'état de vérification actuel des champs
-//	de saisies obligatoire d'un formulaire.
-//	Note : cette vérification se fait AVANT TOUTES les autres.
-//
-$( "form" ).submit( ( event ) =>
-{
-	// On filtre tous les éléments nécessitant une valeur.
-	const elements = $( event.target ).children().filter( "[required]" );
-
-	for ( const element of elements )
-	{
-		// On vérifie alors l'état de vérification HTML.
-		if ( !element.validity.valid )
-		{
-			event.preventDefault();
-			event.stopImmediatePropagation();
-		}
-	}
-} );
-
-//
 // Permet de vérifier les informations obligatoires dans les formulaires.
 //
 $( "*[required]" ).keyup( ( event ) =>
@@ -103,6 +82,56 @@ $( "a" ).mousedown( ( event ) =>
 } );
 
 //
+// Permet de retarder l'ensemble des requêtes asynchrones AJAX
+//	afin d'inclure un jeton d'authentification généré par les services
+//	de Google reCAPTCHA.
+//
+$( window ).ajaxSend( ( _event, _request, settings ) =>
+{
+	// On vérifie d'abord si la requête est de type POST.
+	//	Note : seules les requêtes de soumission doivent être surveillées.
+	if ( settings.type !== "POST" )
+	{
+		return;
+	}
+
+	// On met en mémoire la fonction de retour utilisée par la requête.
+	const callback = settings.xhr;
+
+	settings.xhr = function ()
+	{
+		// On récupère par la même occasion certaines données de la requête.
+		const request = callback();
+		const sender = request.send;
+
+		// On redéfinit après la fonction de retour de la requête.
+		request.send = ( ...parameters ) =>
+		{
+			// On attend ensuite que les services de reCAPTCHA soient chargés.
+			grecaptcha.ready( async () =>
+			{
+				// Une fois terminé, on exécute alors une requête de vérification
+				// 	afin d'obtenir un jeton de vérification auprès de Google.
+				const token = await grecaptcha.execute( "6LfC-xghAAAAAMjvcmOchuTFkF3CjzYnDFyDULWr" );
+
+				// On ajoute par la suite le jeton aux paramètres de la requête.
+				parameters[ 0 ] += `&recaptcha=${ token }`;
+
+				// On vérifie l'état de la requête avant de l'exécuter de nouveau
+				//	avec les paramètres modifiés.
+				if ( request.readyState === 1 )
+				{
+					sender.apply( request, parameters );
+				}
+			} );
+		};
+
+		// On retourne enfin la requête modifiée.
+		return request;
+	};
+} );
+
+//
 // Permet d'indiquer la position de défilement actuelle de l'utilisateur.
 // 	Source : https://www.w3schools.com/howto/howto_js_scroll_indicator.asp
 //
@@ -118,7 +147,7 @@ $( window ).scroll( () =>
 	// Calcul du pourcentage du décalage avant affichage.
 	const offset = ( position / height ) * 100;
 
-	$( "footer div > div" ).css( "width", offset + "%" );
+	$( "footer div > div" ).css( "width", `${ offset }%` );
 } );
 
 //
