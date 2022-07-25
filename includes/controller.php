@@ -35,4 +35,31 @@
 	$mail = new Source\Models\Mail();
 	$server = new Source\Models\Server();
 	$translation = new Source\Models\Language();
+
+	// Vérification systématique de l'authenticité de l'utilisateur au travers
+	//	des services de Google reCAPTCHA pendant la soumission d'un formulaire.
+	$recaptcha = $_POST["recaptcha"] ?? "";
+
+	if (!empty($recaptcha))
+	{
+		// Exécution de la requête de vérification auprès des services Google.
+		$secret = $user->getConfig("captcha_secret");
+		$request = curl_init();
+
+		curl_setopt($request, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$recaptcha");
+		curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
+
+		$result = json_decode(curl_exec($request), true);
+
+		curl_close($request);
+
+		// Récupération de la réponse et application des mesures adéquates
+		//	afin d'empêcher ou non l'exécution du script du formulaire.
+		if (is_array($result) && ($result["success"] === false || $result["score"] < 0.7))
+		{
+			http_response_code(401);
+			header("Refresh: 0");
+			exit();
+		}
+	}
 ?>

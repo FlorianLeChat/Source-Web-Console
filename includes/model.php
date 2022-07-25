@@ -15,7 +15,7 @@
 		public PDO $connector;
 
 		// Configuration générale du site.
-		protected array $config;
+		public array $config;
 
 		//
 		// Permet d'initialiser certains mécanismes	lors de l'instanciation
@@ -33,7 +33,7 @@
 		//
 		// Permet de récupérer une valeur de la configuration générale.
 		//
-		protected function getConfig(string $key): mixed
+		public function getConfig(string $key): mixed
 		{
 			return $this->config[$key];
 		}
