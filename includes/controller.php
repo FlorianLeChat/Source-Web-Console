@@ -37,10 +37,10 @@
 	$translation = new Source\Models\Language();
 
 	// Vérification systématique de l'authenticité de l'utilisateur au travers
-	//	des services de Google reCAPTCHA pendant la soumission d'un formulaire.
+	//	des services de Google reCAPTCHA pendant la réalisation d'une requête AJAX.
 	$recaptcha = $_POST["recaptcha"] ?? "";
 
-	if (!empty($recaptcha))
+	if (strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) === "xmlhttprequest")
 	{
 		// Exécution de la requête de vérification auprès des services Google.
 		$secret = $user->getConfig("captcha_secret");
