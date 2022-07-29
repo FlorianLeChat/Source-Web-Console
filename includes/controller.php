@@ -57,8 +57,9 @@
 		//	afin d'empêcher ou non l'exécution du script du formulaire.
 		if (is_array($result) && ($result["success"] === false || $result["score"] < 0.7))
 		{
+			// Indication : « Unauthorized ».
+			// 	Source : https://developer.mozilla.org/fr/docs/Web/HTTP/Status/401
 			http_response_code(401);
-			header("Refresh: 0");
 			exit();
 		}
 	}
