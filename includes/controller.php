@@ -3,11 +3,16 @@
 	// Contrôleur principal de la gestion des données.
 	//
 
-	// Affichage de toutes les erreurs liées aux scripts PHP.
-	ini_set("display_errors", 1);
-	ini_set("display_startup_errors", 1);
+	// Suppression de l'affichage des erreurs liées aux scripts PHP
+	//	dans un environnement de production.
+	if ($_SERVER["SERVER_NAME"] !== "localhost")
+	{
+		// Environnement de production.
+		ini_set("display_errors", false);
+		ini_set("display_startup_errors", false);
 
-	error_reporting(E_ALL);
+		error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
+	}
 
 	// Initialisation du système des sessions PHP.
 	if (session_status() !== PHP_SESSION_ACTIVE && !headers_sent())
@@ -40,7 +45,7 @@
 	//	des services de Google reCAPTCHA pendant la réalisation d'une requête AJAX.
 	$recaptcha = $_POST["recaptcha"] ?? "";
 
-	if (strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) === "xmlhttprequest")
+	if (strtolower($_SERVER["HTTP_X_REQUESTED_WITH"] ?? "") === "xmlhttprequest")
 	{
 		// Exécution de la requête de vérification auprès des services Google.
 		$secret = $user->getConfig("captcha_secret");

@@ -10,7 +10,7 @@
 	//	CRON interne au système d'exploitation.
 	//	Note : dans ce mode, le code peut parfois être moins « soigné »...
 	//	Source : https://stackoverflow.com/a/22358929
-	//	Exemple : /usr/bin/php8.0 /var/www/console.florian-dev.fr/includes/controllers/server_tasks.php
+	//	Exemple : /usr/bin/php8.0 /var/www/<domain>/includes/controllers/server_tasks.php
 	if (php_sapi_name() === "cli")
 	{
 		// Récupération de toutes les tâches planifiées en fonction
