@@ -16,9 +16,9 @@
 		//
 		public function dispatch(string $address, string $subject, string $message): bool
 		{
-			// On vérifie si l'adresse du serveur actuel correspond à la machine
-			//	de production chez l'hébergeur OVH.
-			if ($_SERVER["SERVER_NAME"] !== "console.florian-dev.fr")
+			// On vérifie si l'adresse du serveur actuel correspond à l'environnement
+			// 	de développement ou la machine de production chez l'hébergeur OVH.
+			if ($_SERVER["SERVER_NAME"] === "localhost")
 			{
 				return false;
 			}
