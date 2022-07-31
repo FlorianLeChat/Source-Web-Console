@@ -112,7 +112,7 @@ $( window ).ajaxSend( ( _event, _request, settings ) =>
 			{
 				// Une fois terminé, on exécute alors une requête de vérification
 				// 	afin d'obtenir un jeton de vérification auprès de Google.
-				const token = await grecaptcha.execute( "6LfC-xghAAAAAMjvcmOchuTFkF3CjzYnDFyDULWr" );
+				const token = await grecaptcha.execute( captcha_public_key );
 
 				// On ajoute par la suite le jeton aux paramètres de la requête.
 				parameters[ 0 ] += `&recaptcha=${ token }`;

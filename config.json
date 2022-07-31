@@ -15,7 +15,8 @@
 	"dkim_private_key": "private",
 	"dkim_selector": "selector",
 
-	"captcha_secret": "secret",
+	"captcha_public_key": "public",
+	"captcha_secret_key": "secret",
 
 	"openssl_phrase": "phrase",
 	"openssl_iv": "iv"
