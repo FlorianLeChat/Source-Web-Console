@@ -82,6 +82,7 @@
 		"global_url" => "http" . (!empty($_SERVER["HTTPS"]) ? "s" : "") . "://" . $_SERVER["HTTP_HOST"] . "/",
 		"global_file" => $file,
 		"global_phrases" => $translation->getPhrases("global"),
+		"global_captcha" => $user->getConfig("captcha_public_key"),
 		"global_language" => $language,
 		"global_javascript" => file_exists("scripts/$file.js"),
 
