@@ -478,7 +478,7 @@ function sendAnalytics()
 	}
 
 	gtag( "js", new Date() );
-	gtag( "config", "G-56KCE1D8JG" );
+	gtag( "config", analytics_identifier );
 }
 
 //
