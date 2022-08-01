@@ -73,8 +73,11 @@
 			// Message d'erreur lorsqu'une erreur fatale se produit sur un serveur distant.
 			const server_fatal_error = "{{ global_phrases["global_error_fatal"] }}";
 
-			// Clé de sécurité publique pour le service de Google reCAPTCHA v3.
+			// Clé de sécurité publique pour le service de Google reCAPTCHA.
 			const captcha_public_key = "{{ global_captcha }}"
+
+			// Identifiant unique pour les mesures de Google Analytics.
+			const analytics_identifier = "{{ global_analytics }}"
 		</script>
 
 		{# Injection de code #}

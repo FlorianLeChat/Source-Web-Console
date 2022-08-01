@@ -84,6 +84,7 @@
 		"global_phrases" => $translation->getPhrases("global"),
 		"global_captcha" => $user->getConfig("captcha_public_key"),
 		"global_language" => $language,
+		"global_analytics" => $user->getConfig("analytics_identifier"),
 		"global_javascript" => file_exists("scripts/$file.js"),
 
 		// Variables utilisateurs.
