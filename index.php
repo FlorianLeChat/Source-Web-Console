@@ -55,6 +55,13 @@
 			// Récupération de l'état de connexion après comparaison avec les
 			//	données présentes dans la base de données.
 			$connected = $user->compareToken($_COOKIE["generated_token"]);
+
+			if ($connected)
+			{
+				// Si la connexion a réussi, on génère un nouveau jeton pour
+				//	l'utilisateur pour éviter certains types d'attaques.
+				$user->generateToken();
+			}
 		}
 
 		// Si malgré la tentative de connexion automatique, l'utilisateur
