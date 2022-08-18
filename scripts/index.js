@@ -304,7 +304,7 @@ $( "#generation" ).click( ( event ) =>
 		// Dans le cas contraire, on restore l'ancien mot de passe.
 		input.val( old_password );
 	}
-} )
+} );
 
 //
 // Permet de contrôler le mécanisme de présentation des fonctionnalités

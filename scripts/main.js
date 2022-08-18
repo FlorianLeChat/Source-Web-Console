@@ -195,7 +195,7 @@ contact.find( "form" ).submit( ( event ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//	d'échec avec les informations à notre disposition.
-			addQueuedNotification( form_contact_failed.replace( "$1", getStatusText( error, self.status ) ), 1 )
+			addQueuedNotification( form_contact_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 } );
 
@@ -209,7 +209,7 @@ contact.find( "input[type = reset]" ).click( () =>
 // Permet de faire fonctionner un petit moteur de recherche
 //	intégré pour accéder plus rapidement aux pages du site.
 //
-const search = $("#search input[name = search]");
+const search = $( "#search input[name = search]" );
 let pages = {};
 
 for ( const page of $( "nav span, footer a[href *= target] span" ) )
@@ -225,13 +225,13 @@ search.focusout( () =>
 	//	événements "click" de jQuery de pouvoir s'exécuter systématiquement
 	//	lorsque les résultats doivent être cachés.
 	search.next().css( "opacity", 0 );
-})
+} );
 
 search.focusin( () =>
 {
 	// Voir commentaire précédent.
 	search.next().css( "opacity", 1 );
-})
+} );
 
 search.keyup( ( event ) =>
 {
@@ -369,7 +369,7 @@ setInterval( () =>
 			delete messages_queue[ keys[ 0 ] ];
 		}
 	}
-}, 500 )
+}, 500 );
 
 //
 // Permet de bloquer le renvoie des formulaires lors du rafraîchissement
