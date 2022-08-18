@@ -35,7 +35,7 @@
 
 		<ul>
 			{% for server in dashboard_servers %}
-				<li data-image="assets/images/games/{{ server["game_id"] }}_background.jpg">
+				<li data-image="assets/images/games/{{ server["game_id"] }}_background.webp">
 					{# Construction de l'adresse IP #}
 					{% set address = server["admin_address"]|default(server["client_address"]) ~ ":" ~ server["admin_port"]|default(server["client_port"]) %}
 

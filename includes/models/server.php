@@ -68,7 +68,7 @@
 		}
 
 		//
-		// Permet de dechiffrer une chaîne de caractères en utilisant les fonctions
+		// Permet de déchiffrer une chaîne de caractères en utilisant les fonctions
 		//	de la bibliothèque de OpenSSL.
 		// 	Source : voir fonction précédente.
 		//
@@ -81,7 +81,7 @@
 			$iv = substr(hash("sha256", $this->getConfig("openssl_iv")), 0, 16);
 
 			// On utilise après la fonction de OpenSSL pour déchiffrer
-			//	complétement le mot de passe.
+			//	complètement le mot de passe.
 			$password = base64_decode($password);
 			$password = openssl_decrypt($password, self::ENCRYPTION_METHOD, $key, 0, $iv);
 
