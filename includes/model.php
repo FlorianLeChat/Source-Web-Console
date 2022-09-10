@@ -24,7 +24,7 @@
 		public function __construct()
 		{
 			// Mise en mémoire de la configuration.
-			$this->config = json_decode(file_get_contents(__DIR__ . "/../config.json"), true);
+			$this->config = parse_ini_file(__DIR__ . "/../config.ini", true);
 
 			// Connexion à la base de données.
 			$this->getConnector();
@@ -33,9 +33,9 @@
 		//
 		// Permet de récupérer une valeur de la configuration générale.
 		//
-		public function getConfig(string $key): mixed
+		public function getConfig(string $section, string $key): mixed
 		{
-			return $this->config[$key];
+			return $this->config[$section][$key];
 		}
 
 		//
@@ -59,8 +59,8 @@
 		private function getConnector(): void
 		{
 			// On renseigne les informations de connexion.
-			$link = sprintf("mysql:host=%s;dbname=%s;charset=%s;port=%s", $this->getConfig("sql_host"), $this->getConfig("sql_database"),
-																			$this->getConfig("sql_charset"), $this->getConfig("sql_port"));
+			$link = sprintf("mysql:host=%s;dbname=%s;charset=%s;port=%s", $this->getConfig("SQL", "host"), $this->getConfig("SQL", "database"),
+																			$this->getConfig("SQL", "charset"), $this->getConfig("SQL", "port"));
 
 			// On définit ensuite les options de connexion.
 			$options = [
@@ -72,7 +72,7 @@
 			// On tente enfin de créer la connexion avec les informations précédentes.
 			try
 			{
-				$this->connector = new PDO($link, $this->getConfig("sql_username"), $this->getConfig("sql_password"), $options);
+				$this->connector = new PDO($link, $this->getConfig("SQL", "username"), $this->getConfig("SQL", "password"), $options);
 			}
 			catch (PDOException $error)
 			{

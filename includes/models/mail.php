@@ -24,7 +24,7 @@
 			}
 
 			// On vérifie alors si l'adresse du destinataire existe bien.
-			$validator = new Validator($address, $this->getConfig("smtp_username"));
+			$validator = new Validator($address, $this->getConfig("SMTP", "username"));
 			$results = $validator->validate();
 
 			if (array_values($results)[0] === false)
@@ -38,21 +38,21 @@
 			// Paramètres généraux.
 			$mail->isSMTP();
 			$mail->CharSet = "UTF-8";
-			$mail->Host = $this->getConfig("smtp_host");
+			$mail->Host = $this->getConfig("SMTP", "host");
 			$mail->SMTPAuth = true;
-			$mail->Username = $this->getConfig("smtp_username");
-			$mail->Password = $this->getConfig("smtp_password");
-			$mail->Port = $this->getConfig("smtp_port");
+			$mail->Username = $this->getConfig("SMTP", "username");
+			$mail->Password = $this->getConfig("SMTP", "password");
+			$mail->Port = $this->getConfig("SMTP", "port");
 
 			// Envoyeur/destinataire de l'email.
-			$mail->setFrom($this->getConfig("smtp_username"), "Source Web Console");
+			$mail->setFrom($this->getConfig("SMTP", "username"), "Source Web Console");
 			$mail->addAddress($address);
 
 			// Paramètres DKIM.
 			// 	Source : https://github.com/PHPMailer/PHPMailer/blob/bf99c202a92daa6d847bc346d554a4727fd802a5/examples/DKIM_sign.phps
-			$mail->DKIM_domain = $this->getConfig("dkim_domain");
-			$mail->DKIM_private = $this->getConfig("dkim_private_key");
-			$mail->DKIM_selector = $this->getConfig("dkim_selector");
+			$mail->DKIM_domain = $this->getConfig("DKIM", "domain");
+			$mail->DKIM_private = $this->getConfig("DKIM", "private_key");
+			$mail->DKIM_selector = $this->getConfig("DKIM", "selector");
 			$mail->DKIM_identity = $mail->From;
 			$mail->DKIM_copyHeaderFields = false;
 

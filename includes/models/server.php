@@ -53,10 +53,10 @@
 		public function encryptPassword(string $password): string
 		{
 			// On chiffre d'abord la phrase unique de chiffrement.
-			$key = hash("sha256", $this->getConfig("openssl_phrase"));
+			$key = hash("sha256", $this->getConfig("OpenSSL", "phrase"));
 
 			// On chiffre ensuite le vecteur d'initialisation.
-			$iv = substr(hash("sha256", $this->getConfig("openssl_iv")), 0, 16);
+			$iv = substr(hash("sha256", $this->getConfig("OpenSSL", "iv")), 0, 16);
 
 			// On utilise après la fonction de OpenSSL pour chiffrer
 			//	à deux reprises le mot de passe.
@@ -75,10 +75,10 @@
 		public function decryptPassword(string $password): string
 		{
 			// On chiffre d'abord la phrase unique de chiffrement.
-			$key = hash("sha256", $this->getConfig("openssl_phrase"));
+			$key = hash("sha256", $this->getConfig("OpenSSL", "phrase"));
 
 			// On chiffre ensuite le vecteur d'initialisation.
-			$iv = substr(hash("sha256", $this->getConfig("openssl_iv")), 0, 16);
+			$iv = substr(hash("sha256", $this->getConfig("OpenSSL", "iv")), 0, 16);
 
 			// On utilise après la fonction de OpenSSL pour déchiffrer
 			//	complètement le mot de passe.
