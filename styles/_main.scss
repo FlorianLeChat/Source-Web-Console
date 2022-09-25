@@ -111,7 +111,7 @@ input, textarea, select
 	line-height: 1;
 	border-radius: 0.5rem;
 
-	&[required]:invalid ~ input[type=submit]
+	&[required]:invalid ~ input[type = submit]
 	{
 		// Désactivation conditionnelle des boutons de soumission.
 		filter: opacity(0.5);

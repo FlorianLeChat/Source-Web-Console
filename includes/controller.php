@@ -48,10 +48,9 @@
 	if (strtolower($_SERVER["HTTP_X_REQUESTED_WITH"] ?? "") === "xmlhttprequest")
 	{
 		// Exécution de la requête de vérification auprès des services Google.
-		$secret = $user->getConfig("ReCAPTCHA", "secret_key");
 		$request = curl_init();
 
-		curl_setopt($request, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify?secret=$secret&response=$recaptcha");
+		curl_setopt($request, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify?secret=" . CAPTCHA_SECRET_KEY . "&response=$recaptcha");
 		curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
 
 		$result = json_decode(curl_exec($request), true);

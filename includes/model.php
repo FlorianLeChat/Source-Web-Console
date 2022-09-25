@@ -4,6 +4,7 @@
 	//
 	namespace Source\Models;
 
+	require_once(__DIR__ . "/../config.php");
 	require_once(__DIR__ . "/models/language.php");
 
 	use PDO;
@@ -18,24 +19,12 @@
 		public array $config;
 
 		//
-		// Permet d'initialiser certains mécanismes	lors de l'instanciation
-		//	d'une des classes héritées du modèle principal.
+		// Permet d'initialiser la connexion à la base de données lors de
+		//	l'instanciation d'une des classes héritées du modèle principal.
 		//
 		public function __construct()
 		{
-			// Mise en mémoire de la configuration.
-			$this->config = parse_ini_file(__DIR__ . "/../config.ini", true);
-
-			// Connexion à la base de données.
 			$this->getConnector();
-		}
-
-		//
-		// Permet de récupérer une valeur de la configuration générale.
-		//
-		public function getConfig(string $section, string $key): mixed
-		{
-			return $this->config[$section][$key];
 		}
 
 		//
@@ -59,8 +48,7 @@
 		private function getConnector(): void
 		{
 			// On renseigne les informations de connexion.
-			$link = sprintf("mysql:host=%s;dbname=%s;charset=%s;port=%s", $this->getConfig("SQL", "host"), $this->getConfig("SQL", "database"),
-																			$this->getConfig("SQL", "charset"), $this->getConfig("SQL", "port"));
+			$link = sprintf("mysql:host=%s;dbname=%s;charset=%s;port=%s", SQL_HOST, SQL_DATABASE, SQL_CHARSET, SQL_PORT);
 
 			// On définit ensuite les options de connexion.
 			$options = [
@@ -72,7 +60,7 @@
 			// On tente enfin de créer la connexion avec les informations précédentes.
 			try
 			{
-				$this->connector = new PDO($link, $this->getConfig("SQL", "username"), $this->getConfig("SQL", "password"), $options);
+				$this->connector = new PDO($link, SQL_USERNAME, SQL_PASSWORD, $options);
 			}
 			catch (PDOException $error)
 			{
