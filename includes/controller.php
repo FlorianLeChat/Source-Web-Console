@@ -3,17 +3,6 @@
 	// Contrôleur principal de la gestion des données.
 	//
 
-	// Suppression de l'affichage des erreurs liées aux scripts PHP
-	//	dans un environnement de production.
-	if ($_SERVER["SERVER_NAME"] !== "localhost")
-	{
-		// Environnement de production.
-		ini_set("display_errors", false);
-		ini_set("display_startup_errors", false);
-
-		error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
-	}
-
 	// Initialisation du système des sessions PHP.
 	if (session_status() !== PHP_SESSION_ACTIVE && !headers_sent())
 	{
