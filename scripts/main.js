@@ -510,7 +510,7 @@ if ( window.location.search !== "?target=legal" )
 		page_scripts: false,		// Désactivation de la gestion des scripts
 		force_consent: true,		// Le consentement est obligatoire.
 		auto_language: "document",	// Langue sélectionnée par l'utilisateur.
-		cookie_expiration: 31,		// Temps d'expiration du cookie (en jour).
+		cookie_expiration: 31,		// Temps d'expiration du cookie (en jours).
 
 		onAccept: ( cookie ) =>
 		{
