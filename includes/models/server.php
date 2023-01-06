@@ -32,7 +32,7 @@
 		//
 		// Permet d'établir une connexion avec un serveur distant.
 		//
-		public function connectServer(string $address, int $port, string $password = "")
+		public function connectServer(string $address, int $port, string $password = ""): void
 		{
 			// On établit la connexion avec les informations renseignées.
 			$this->query->Connect($address, $port, 1, SourceQuery::SOURCE);
@@ -368,7 +368,7 @@
 		// Permet de mettre à jour les informations d'un serveur dans la
 		//	base de données.
 		//
-		public function updateServer(int $user_id, int $server_id, string $address, int $port)
+		public function updateServer(int $user_id, int $server_id, string $address, int $port): void
 		{
 			$query = $this->connector->prepare("UPDATE `servers` SET `client_address` = ?, `client_port` = ? WHERE `client_id` = ? AND `server_id` = ?;");
 
