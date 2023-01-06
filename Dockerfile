@@ -33,6 +33,6 @@ RUN composer install -d /app
 # Remove the database.sql file (it was previously imported into the docker compose file)
 RUN rm ./app/database.sql
 
-# Add a cronjob to run every minute (automated tasks for dedicated servers)
+# Add a cronjob to run every minute (automated tasks for registered game servers)
 # Default cronjobs are broken in Alpine, so we have to use a different method : https://github.com/webdevops/Dockerfile/issues/280#issuecomment-1311681838
 RUN echo "* * * * * /usr/local/bin/php /app/includes/controllers/server_tasks.php > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
