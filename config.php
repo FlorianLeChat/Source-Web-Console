@@ -1,5 +1,6 @@
 <?php
 	// MySQL credentials
+	// WARNING : these default parameters are automatically modified by Docker at build time
 	// https://www.php.net/manual/en/pdo.construct.php
 	const SQL_HOST = 'localhost';
 	const SQL_DATABASE = 'source_web_console';
