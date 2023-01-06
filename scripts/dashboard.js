@@ -153,7 +153,11 @@ function retrieveRemoteData()
 			//	d'échec avec les informations à notre disposition
 			//	avant de casser définitivement le minuteur.
 			clearInterval( timer );
-			addQueuedNotification( server_fatal_error.replace( "$1", getStatusText( error, self.status ) ), 1 );
+
+			if ( self.status !== 400 )
+			{
+				addQueuedNotification( server_fatal_error.replace( "$1", getStatusText( error, self.status ) ), 1 );
+			}
 		} );
 }
 
