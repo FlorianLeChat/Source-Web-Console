@@ -10,12 +10,11 @@ Malgré tout, je pense qu'il reste encore énormément de points à améliorer p
 
 <ins>Voici les exigences pour exécuter le site Internet</ins> :
 * HTML **5** / CSS **3** (*préprocesseur SASS*)
-* TWIG **3.3+**
-* PHP **8.0+**
+* PHP **8.2+**
 * JavaScript (*jQuery **3.6+***)
 * Maria DB **10.5+**
 
-**La base de données est inclus dans le dépôt GitHub, donc vous pouvez aisément l'importer de votre côté afin de tester ce projet dans sa globalité. Une autre alternative est d'utiliser l'image Docker mise à disposition pour vous épargner l'installation longue et fastidieuse.**
+**La base de données est inclus dans le dépôt GitHub, donc vous pouvez aisément l'importer de votre côté afin de tester ce projet dans sa globalité. Une autre alternative est d'utiliser l'image Docker mise à disposition pour vous épargner l'installation longue et fastidieuse. 🐳**
 
 Par soucis de simplicité, l'entièreté du code est commentée dans ma langue natale (en français) mais il sera traduit dans un futur proche si des contributeurs étrangers viennent s'ajouter au projet.
 
@@ -29,11 +28,10 @@ However, I think that there are still a lot of points to improve for this projec
 
 <ins>Here are the requirements to run the website</ins>:
 * HTML **5** / CSS **3** (*SASS preprocessor*)
-* TWIG **3.3+**
-* PHP **8.0+**
+* PHP **8.2+**
 * JavaScript (*jQuery **3.6+***)
 * Maria DB **10.5+**
 
-**The database is included in the GitHub repository, so you can easily import it on your side to test this project globally. Another alternative is to use the available Docker image to save you a long and tedious installation.**
+**The database is included in the GitHub repository, so you can easily import it on your side to test this project globally. Another alternative is to use the available Docker image to save you a long and tedious installation. 🐳**
 
 To keep it simple, the whole code is commented in my native language (French) but it will be translated in the near future if foreign contributors come to the project.
