@@ -25,7 +25,7 @@ services:
     networks:
       - source-web-console
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-p${MARIADB_PASSWORD}"]
+      test: ["CMD", "mysqladmin", "ping", "--silent"]
       retries: 3
       timeout: 5s
 
