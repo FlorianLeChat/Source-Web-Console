@@ -14,22 +14,24 @@
 	// On tente de récupérer par la même occasion le serveur sélectionné
 	//	par l'utilisateur en prenant systématiquement compte du niveau
 	//	de sécurisation du trafic entre le site Internet et l'utilisateur.
-	if (!empty($server_id))
+	$target_remote = array_filter($remotes, function(array $remote) use ($server_id)
 	{
-		// Filtrage de tous les serveurs par identifiant unique.
-		$target_remote = array_filter($remotes, function(array $remote) use ($server_id)
+		if ($remote["secure_only"] && !empty($_SERVER["HTTPS"]))
 		{
-			return $remote["server_id"] == $server_id && ($remote["secure_only"] && !empty($_SERVER["HTTPS"]));
-		});
-	}
-	else
-	{
-		// Filtrage de tous les serveurs par connexion automatique.
-		$target_remote = array_filter($remotes, function(array $remote)
+			return false;
+		}
+
+		if (!empty($server_id))
 		{
-			return $remote["auto_connect"] === 1 && ($remote["secure_only"] && !empty($_SERVER["HTTPS"]));
-		});
-	}
+			// Filtrage de tous les serveurs par identifiant unique.
+			return $remote["server_id"] == $server_id;
+		}
+		else
+		{
+			// Filtrage de tous les serveurs par connexion automatique.
+			return $remote["auto_connect"] === 1;
+		}
+	});
 
 	// On vérifie si on a pu récupérer un serveur lors de l'étape précédente
 	//	pour la suite des opérations.
