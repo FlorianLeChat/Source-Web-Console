@@ -15,7 +15,7 @@ Malgré tout, je pense qu'il reste encore énormément de points à améliorer p
 * JavaScript (*jQuery **3.6+***)
 * Maria DB **10.5+**
 
-**La base de données est inclus dans le dépôt GitHub, donc vous pouvez aisément l'importer de votre côté afin de tester ce projet dans sa globalité**
+**La base de données est inclus dans le dépôt GitHub, donc vous pouvez aisément l'importer de votre côté afin de tester ce projet dans sa globalité. Une autre alternative est d'utiliser l'image Docker mise à disposition pour vous épargner l'installation longue et fastidieuse.**
 
 Par soucis de simplicité, l'entièreté du code est commentée dans ma langue natale (en français) mais il sera traduit dans un futur proche si des contributeurs étrangers viennent s'ajouter au projet.
 
@@ -34,6 +34,6 @@ However, I think that there are still a lot of points to improve for this projec
 * JavaScript (*jQuery **3.6+***)
 * Maria DB **10.5+**
 
-**The database is included in the GitHub repository, so you can easily import it on your side to test this project globally**.
+**The database is included in the GitHub repository, so you can easily import it on your side to test this project globally. Another alternative is to use the available Docker image to save you a long and tedious installation.**
 
 To keep it simple, the whole code is commented in my native language (French) but it will be translated in the near future if foreign contributors come to the project.
