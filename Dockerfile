@@ -8,9 +8,6 @@ FROM webdevops/php-nginx:${PHP_VERSION}-alpine
 # Copy the website files to the container
 COPY ./ /app
 
-# Modify some PHP settings
-RUN echo memory_limit = 128M >> /opt/docker/etc/php/php.ini
-
 # Modify the config.php file to use the environment variables
 # (Since we don't have an .env file for this project...)
 RUN sed -i "s/localhost/database/g" /app/config.php
