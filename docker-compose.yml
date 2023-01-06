@@ -1,0 +1,61 @@
+version: "3.9"
+
+networks:
+  source-web-console:
+    driver: bridge
+
+x-common-variables: &common-variables
+  MARIADB_DATABASE: source_web_console
+  MARIADB_USER: username
+  MARIADB_PASSWORD: password
+  MARIADB_ROOT_PASSWORD: password
+  MARIADB_ALLOW_EMPTY_PASSWORD: 1
+  MARIADB_PORT: 3306
+  PHP_VERSION: 8.2
+
+services:
+  # https://hub.docker.com/_/mariadb
+  mariadb:
+    image: mariadb:latest
+    container_name: database
+    restart: always
+    environment: *common-variables
+    volumes:
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql
+    networks:
+      - source-web-console
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-p${MARIADB_PASSWORD}"]
+      retries: 3
+      timeout: 5s
+
+  # https://hub.docker.com/_/phpmyadmin
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: administration
+    restart: always
+    depends_on:
+      - mariadb
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=mariadb
+    networks:
+      - source-web-console
+
+  # https://github.com/FlorianLeChat/Source-Web-Console
+  php-nginx:
+    image: sourcewebconsole
+    container_name: website
+    restart: always
+    depends_on:
+      - mariadb
+      - phpmyadmin
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args: *common-variables
+    networks:
+      - source-web-console
+    ports:
+      - 80:80
