@@ -25,7 +25,6 @@
 	// OpenSSL settings
 	// https://www.php.net/manual/en/ref.openssl.php
 	const SSL_PHRASE = '';
-	const SSL_IV = '';
 
 	// Google Analytics
 	// https://analytics.google.com/
