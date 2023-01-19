@@ -48,23 +48,24 @@
 		//
 		// Permet de chiffrer une chaîne de caractères en utilisant les fonctions
 		//	de la bibliothèque de OpenSSL.
-		// 	Source : https://stackoverflow.com/a/60283328
+		// 	Source : https://www.php.net/manual/en/function.openssl-encrypt
 		//
 		public function encryptPassword(string $password): string
 		{
-			// On chiffre d'abord la phrase unique de chiffrement.
-			$key = hash("sha256", SSL_PHRASE);
+			// On génère d'abord le vecteur d'initialisation.
+			$iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length(self::ENCRYPTION_METHOD));
 
-			// On chiffre ensuite le vecteur d'initialisation.
-			$iv = substr(hash("sha256", SSL_IV), 0, 16);
+			// On utilise ensuite la fonction de OpenSSL pour chiffrer
+			//	le mot de passe avec la phrase unique ainsi que le
+			//	vecteur d'initialisation créés précédemment.
+			$password = openssl_encrypt($password, self::ENCRYPTION_METHOD, SSL_PHRASE, OPENSSL_RAW_DATA, $iv);
 
-			// On utilise après la fonction de OpenSSL pour chiffrer
-			//	à deux reprises le mot de passe.
-			$password = openssl_encrypt($password, self::ENCRYPTION_METHOD, $key, 0, $iv);
-			$password = base64_encode($password);
+			// On utilise après la fonction pour créer une clé de hachage
+			// 	en utilisant la méthode HMAC.
+			$hmac = hash_hmac("sha256", $password, SSL_PHRASE, true);
 
 			// On retourne enfin le mot de passe chiffré.
-			return $password;
+			return base64_encode($iv . $hmac . $password);
 		}
 
 		//
@@ -74,19 +75,31 @@
 		//
 		public function decryptPassword(string $password): string
 		{
-			// On chiffre d'abord la phrase unique de chiffrement.
-			$key = hash("sha256", SSL_PHRASE);
-
-			// On chiffre ensuite le vecteur d'initialisation.
-			$iv = substr(hash("sha256", SSL_IV), 0, 16);
-
-			// On utilise après la fonction de OpenSSL pour déchiffrer
-			//	complètement le mot de passe.
+			// On décode d'abord le mot de passe chiffré.
 			$password = base64_decode($password);
-			$password = openssl_decrypt($password, self::ENCRYPTION_METHOD, $key, 0, $iv);
 
-			// On retourne enfin le mot de passe déchiffré.
-			return $password;
+			// On détermine la longueur du vecteur d'initialisation.
+			$length = openssl_cipher_iv_length(self::ENCRYPTION_METHOD);
+
+			// On récupère la longueur du vecteur d'initialisation.
+			$iv = substr($password, 0, $length);
+
+			// On récupère la longueur du mot de passe chiffré.
+			$hmac = substr($password, $length, 32);
+
+			// On récupère alors une partie du mot de passe chiffré.
+			$password = substr($password, $length + 32);
+
+			// On récupère ensuite le mot de passe déchiffré.
+			$plain_text = openssl_decrypt($password, self::ENCRYPTION_METHOD, SSL_PHRASE, OPENSSL_RAW_DATA, $iv);
+
+			// On vérifie après si le mot de passe est valide.
+			$calcmac = hash_hmac("sha256", $password, SSL_PHRASE, true);
+
+			// On vérifie enfin si les deux clés de hachage sont identiques.
+			// 	Note : c'est une protection contre les attaques temporisées.
+			//	Source : https://fr.wikipedia.org/wiki/Attaque_temporelle
+			return hash_equals($hmac, $calcmac) ? $plain_text : "";
 		}
 
 		//
