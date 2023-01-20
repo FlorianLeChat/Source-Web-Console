@@ -46,8 +46,8 @@
 		}
 
 		//
-		// Permet de chiffrer une chaîne de caractères en utilisant les fonctions
-		//	de la bibliothèque de OpenSSL.
+		// Permet de chiffrer symétriquement une chaîne de caractères en utilisant
+		//	 les fonctions de la bibliothèque de OpenSSL.
 		// 	Source : https://www.php.net/manual/en/function.openssl-encrypt
 		//
 		public function encryptPassword(string $password): string
@@ -69,9 +69,9 @@
 		}
 
 		//
-		// Permet de déchiffrer une chaîne de caractères en utilisant les fonctions
-		//	de la bibliothèque de OpenSSL.
-		// 	Source : voir fonction précédente.
+		// Permet de déchiffrer symétriquement une chaîne de caractères en utilisant
+		//	 les fonctions de la bibliothèque de OpenSSL.
+		// 	Source : https://www.php.net/manual/en/function.openssl-decrypt.php
 		//
 		public function decryptPassword(string $password): string
 		{
@@ -97,8 +97,8 @@
 			$calcmac = hash_hmac("sha256", $password, SSL_PHRASE, true);
 
 			// On vérifie enfin si les deux clés de hachage sont identiques.
-			// 	Note : c'est une protection contre les attaques temporisées.
-			//	Source : https://fr.wikipedia.org/wiki/Attaque_temporelle
+			// 	Note : c'est une protection contre les attaques temporelles.
+			//	Source : https://en.wikipedia.org/wiki/Timing_attack
 			return hash_equals($hmac, $calcmac) ? $plain_text : "";
 		}
 
