@@ -9,10 +9,8 @@ C'est un projet réalisé durant mes études afin de permettre de gérer les ser
 Malgré tout, je pense qu'il reste encore énormément de points à améliorer pour ce projet et à cause des limitations imposées par les enseignants, l'utilisation d'outils modernes et de frameworks ont été complètement bannis. Le projet risque alors de recevoir beaucoup de modifications dans le futur jusqu'à l'abandon lorsque j'estimerais que cela ne vaut plus le coup de le maintenir en fonctionnement.
 
 <ins>Voici les exigences pour exécuter le site Internet</ins> :
-* HTML **5** / CSS **3** (*préprocesseur SASS*)
 * PHP **8.2+**
-* JavaScript (*jQuery **3.6+***)
-* Maria DB **10.5+**
+* MariaDB **10.5+**
 
 **La base de données est inclus dans le dépôt GitHub, donc vous pouvez aisément l'importer de votre côté afin de tester ce projet dans sa globalité. Une autre alternative est d'utiliser l'image Docker mise à disposition pour vous épargner l'installation longue et fastidieuse. 🐳**
 
@@ -27,10 +25,8 @@ This is a project I did during my studies to manage dedicated game servers using
 However, I think that there are still a lot of points to improve for this project and because of the limitations imposed by the teachers, the use of modern tools and frameworks have been completely banned. The project is then likely to receive a lot of modifications in the future until it is abandoned when I feel it is no longer worth keeping it running.
 
 <ins>Here are the requirements to run the website</ins>:
-* HTML **5** / CSS **3** (*SASS preprocessor*)
 * PHP **8.2+**
-* JavaScript (*jQuery **3.6+***)
-* Maria DB **10.5+**
+* MariaDB **10.5+**
 
 **The database is included in the GitHub repository, so you can easily import it on your side to test this project globally. Another alternative is to use the available Docker image to save you a long and tedious installation. 🐳**
 
