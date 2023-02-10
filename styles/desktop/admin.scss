@@ -1,7 +1,7 @@
 // --------------- //
 // Base de travail //
 // --------------- //
-@import "../main";
+@import "../global";
 
 // ------- //
 // En-tête //
@@ -19,7 +19,7 @@ main
 {
 	display: grid;
 	padding: 2rem 5%;
-	min-height: calc(100vh - 6rem - $footer-height); // Padding haut/bas + espace grille + hauteur pied-de-page.
+	min-height: calc(100vh - 6rem - $footer-height); // Padding haut/bas + espace grille + hauteur pied de page.
 	text-align: center;
 	align-items: center;
 	grid-row-gap: 2rem;
