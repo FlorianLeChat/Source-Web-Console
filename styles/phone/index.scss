@@ -21,6 +21,15 @@ header ul
 	}
 }
 
+// ----------------------------------- //
+// Lien vers le dépôt GitHub du projet //
+// ----------------------------------- //
+main > a
+{
+	// Suppression du lien et de l'icône.
+	display: none
+}
+
 // -------------------------------- //
 // Section : informations générales //
 // -------------------------------- //
