@@ -65,6 +65,35 @@ header
 	}
 }
 
+// ----------------------------------- //
+// Lien vers le dépôt GitHub du projet //
+// ----------------------------------- //
+main > a
+{
+	// Animation du logo GitHub.
+	&:hover path:nth-of-type(2)
+	{
+		// Effet de survol.
+		animation: octocat-wave 560ms ease-in-out;
+	}
+
+	svg
+	{
+		// Délimitation de la zone cliquable.
+		clip-path: polygon(0 0, 100% 0, 100% 100%)
+	}
+
+	@keyframes octocat-wave
+	{
+		0% { transform: rotate(0); }
+		20% { transform: rotate(-25deg); }
+		40% { transform: rotate(10deg); }
+		60% { transform: rotate(-25deg); }
+		80% { transform: rotate(10deg); }
+		100% { transform: rotate(0); }
+	}
+}
+
 // -------------------------------- //
 // Section : informations générales //
 // -------------------------------- //
