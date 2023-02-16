@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.4deb1~bpo11+1
+-- version 5.1.4deb2~bpo11+1
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mar. 28 juin 2022 à 09:53
--- Version du serveur : 10.5.15-MariaDB-0+deb11u1
--- Version de PHP : 8.0.20
+-- Généré le : jeu. 16 fév. 2023 à 10:52
+-- Version du serveur : 10.5.18-MariaDB-0+deb11u1
+-- Version de PHP : 8.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -351,8 +351,8 @@ INSERT INTO `translations` (`identifier`, `source_string`, `translated_string`, 
 (215, 'form_signin_recover', 'If the provided username is valid, then the new password has been updated.', 'EN'),
 (216, 'form_signup_onetime', 'Votre accès unique a été créé avec succès. Vous conserverez son accès tout au long de votre session. Une fois terminée, vous devrez de nouveau recréer un accès. Attention ce mode possède des fonctionnalités restreintes.', 'FR'),
 (217, 'form_signup_onetime', 'Your one-time access has been successfully created. You will be able to keep this access during your session. Once expired, you will have to recreate an access again. Please note that this method has limited features.', 'EN'),
-(218, 'form_contact_mailing', 'Votre message d\'assistance à bien été envoyé. Vous receverez une réponse sous 24 heures.\r\n\r\nVoici le récapitulatif de votre message :\r\n\r\n%s', 'FR'),
-(219, 'form_contact_mailing', 'Your message for support has been sent. You will receive a reply within 24 hours.\r\n\r\nHere is the summary of your message:\r\n\r\n%s', 'EN'),
+(218, 'form_contact_mailing', 'Votre message d\'assistance à bien été envoyé. Vous receverez une réponse sous 24 heures.\n\nVoici le récapitulatif de votre message :\n\n%s', 'FR'),
+(219, 'form_contact_mailing', 'Your message for support has been sent. You will receive a reply within 24 hours.\n\nHere is the summary of your message:\n\n%s', 'EN'),
 (222, 'index_feature_title_2', 'Performant', 'FR'),
 (223, 'index_feature_title_2', 'Powerful', 'EN'),
 (224, 'index_feature_title_3', 'Moderne', 'FR'),
