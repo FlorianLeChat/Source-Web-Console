@@ -1,19 +1,318 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<html lang="{{ global_language }}" dir="auto" prefix="og: https://ogp.me/ns#">
+	{# En-tête du site #}
+	<head>
+		{# Méta-données du document #}
+		<meta charset="utf-8" />
+		<meta name="author" content="Florian Trayon" />
+		<meta name="description" content="{{ head_phrases["head_description"] }}" />
+		<meta name="keywords" content="console, source, webadmin, panel, custom, gmod, csgo, rust" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+		<meta name="theme-color" content="#f59a23" />
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="{{ global_url }}" />
+		<meta property="og:title" content="{{ head_phrases["head_title"] }}" />
+		<meta property="og:description" content="{{ head_phrases["head_description"] }}" />
+		<meta property="og:image" content="https://opengraph.githubassets.com/13ba739f90d3b9a74a277a81e7412c17603348fc621cdf279c4fa521e625f1f9/FlorianLeChat/Source-Web-Console" />
+
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content="{{ global_url }}" />
+		<meta property="twitter:title" content="{{ head_phrases["head_title"] }}" />
+		<meta property="twitter:description" content="{{ head_phrases["head_description"] }}" />
+		<meta property="twitter:image" content="https://opengraph.githubassets.com/13ba739f90d3b9a74a277a81e7412c17603348fc621cdf279c4fa521e625f1f9/FlorianLeChat/Source-Web-Console" />
+
+		{# Titre du document #}
+		<title>{{ head_phrases["head_title"] }}</title>
+
+		{# Pré-connexion des ressources externes #}
+		<link rel="preconnect" href="https://www.google.com" />
+		<link rel="preconnect" href="https://www.gstatic.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://maxcdn.bootstrapcdn.com" />
+		<link rel="preconnect" href="https://www.google-analytics.com" />
+
+		{# Polices & feuilles de style CSS #}
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300" crossorigin="anonymous" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700" crossorigin="anonymous" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;500" crossorigin="anonymous" />
+
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css" crossorigin="anonymous" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@6.6.6/css/flag-icons.min.css" crossorigin="anonymous" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" crossorigin="anonymous" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.9/dist/cookieconsent.css" crossorigin="anonymous" />
+
+		<link rel="stylesheet" href="styles/phone/{{ global_file }}.css" media="screen and (max-width: 768px)" />
+		<link rel="stylesheet" href="styles/tablet/{{ global_file }}.css" media="screen and (min-width: 769px) and (max-width: 1023px)" />
+		<link rel="stylesheet" href="styles/desktop/{{ global_file }}.css" media="screen and (min-width: 1024px)" />
+
+		{# Scripts JavaScript #}
+		<script src="https://www.googletagmanager.com/gtag/js?id={{ global_analytics }}" crossorigin="anonymous" defer></script>
+		<script src="https://www.google.com/recaptcha/api.js?render={{ global_captcha }}" defer></script>
+
+		<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js" crossorigin="anonymous" defer></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@4.0.1/dist/chart.umd.js" crossorigin="anonymous" defer></script>
+		<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js" crossorigin="anonymous" defer></script>
+		<script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.9/dist/cookieconsent.js" crossorigin="anonymous" defer></script>
+		<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js" crossorigin="anonymous" defer></script>
+
+		<script>
+			// Message d'échec si les vérifications côté client échouent.
+			const client_check_failed = "{{ form_phrases["form_client_check_failed"]|escape }}";
+
+			// Message d'échec si les vérifications côté serveur échouent.
+			const server_check_failed = "{{ form_phrases["form_server_check_failed"]|escape }}";
+
+			// Message d'erreur lorsqu'un message du formulaire de contact ne peut pas être envoyé.
+			const form_contact_failed = "{{ form_phrases["form_contact_failed"]|escape }}";
+
+			// Message signalant à l'utilisateur que les majuscules sont activées.
+			const capslock_enabled = "{{ form_phrases["form_capslock_warning"]|escape }}";
+
+			// Message d'erreur lorsqu'une erreur fatale se produit sur un serveur distant.
+			const server_fatal_error = "{{ global_phrases["global_error_fatal"] }}";
+
+			// Clé de sécurité publique pour le service de Google reCAPTCHA.
+			const captcha_public_key = "{{ global_captcha }}"
+
+			// Identifiant unique pour les mesures de Google Analytics.
+			const analytics_identifier = "{{ global_analytics }}"
+		</script>
+
+		{# Injection de code #}
+		{% block javascript %} {% endblock %}
+
+		<!--[if lte IE 9]>
+			<script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+		<![endif]-->
+
+		<script src="scripts/main.js" defer></script>
+		{% if global_javascript %}
+			<script src="scripts/{{ global_file }}.js" defer></script>
+		{% endif %}
+
+		{# Icônes et manifeste du document #}
+		<link rel="icon" type="image/webp" sizes="16x16" href="assets/favicons/16x16.webp" />
+		<link rel="icon" type="image/webp" sizes="32x32" href="assets/favicons/32x32.webp" />
+		<link rel="icon" type="image/webp" sizes="48x48" href="assets/favicons/48x48.webp" />
+		<link rel="icon" type="image/webp" sizes="192x192" href="assets/favicons/192x192.webp" />
+		<link rel="icon" type="image/webp" sizes="512x512" href="assets/favicons/512x512.webp" />
+
+		<link rel="apple-touch-icon" href="assets/favicons/180x180.webp" />
+		<link rel="manifest" href="manifest.json" />
+	</head>
+
+	<body>
+		{# Avertissement page sans JavaScript #}
+		<noscript>{{ head_phrases["head_no_javascript"] }}</noscript>
+
+		{# En-tête de la page #}
+		<header>
+			{% block header %}
+				{# Logo du site #}
+				<img src="assets/images/logo.svg" alt="Logo" decoding="async" />
+
+				{# Titre du site #}
+				<h1>{{ header_phrases["header_title"] }}</h1>
+
+				{# Sous-titre du site #}
+				<h2>{{ header_phrases["header_subtitle_" ~ global_file] }}</h2>
+
+				{# Barre de recherche #}
+				<div id="search">
+					<i class="bi bi-search"></i>
+
+					<span>{{ header_phrases["header_search_title"] }}</span>
+
+					<input type="text" name="search" placeholder="{{ header_phrases["header_search_placeholder"] }}" autocomplete="off" maxlength="20" required />
+
+					<ul></ul>
+				</div>
+
+				{# État de connexion #}
+				{# Note : apparaît seulement sur les comptes inscrits #}
+				{% if user_identifier is not empty %}
+					<a href="?target=user">
+						<i class="bi bi-person-circle"></i>
+						<span>{{ header_phrases["header_user_status"]|format(user_identifier|capitalize) }}</span>
+					</a>
+				{% endif %}
+			{% endblock %}
+		</header>
+
+		<main>
+			{# Barre de navigation #}
+			{% block navigation %}
+				<nav>
+					{# Titre de la barre #}
+					<h2>Navigation</h2>
+
+					<ul>
+						{# Liste des pages #}
+						<li class="{{ global_file == "dashboard" ? "active" : "" }}">
+							{# Tableau de bord #}
+							<a href="?target=dashboard">
+								<i class="bi bi-kanban"></i>
+								<span>{{ header_phrases["header_subtitle_dashboard"] }}</span>
+							</a>
+						</li>
+
+						<li class="{{ global_file == "statistics" ? "active" : "" }}">
+							{# Statistiques #}
+							<a href="?target=statistics">
+								<i class="bi bi-graph-up"></i>
+								<span>{{ header_phrases["header_subtitle_statistics"] }}</span>
+							</a>
+						</li>
+
+						<li class="{{ global_file == "configuration" ? "active" : "" }}">
+							{# Configuration #}
+							<a href="?target=configuration">
+								<i class="bi bi-tools"></i>
+								<span>{{ header_phrases["header_subtitle_configuration"] }}</span>
+							</a>
+						</li>
+
+						<li class="{{ global_file == "actions" ? "active" : "" }}">
+							{# Actions et commandes #}
+							<a href="?target=actions">
+								<i class="bi bi-lightning"></i>
+								<span>{{ header_phrases["header_subtitle_actions"] }}</span>
+							</a>
+						</li>
+
+						<li class="{{ global_file == "console" ? "active" : "" }}">
+							{# Console interactive #}
+							<a href="?target=console">
+								<i class="bi bi-code-slash"></i>
+								<span>{{ header_phrases["header_subtitle_console"] }}</span>
+							</a>
+						</li>
+
+						<li class="{{ global_file == "tasks" ? "active" : "" }}">
+							{# Tâches planifiées #}
+							<a href="?target=tasks">
+								<i class="bi bi-calendar3"></i>
+								<span>{{ header_phrases["header_subtitle_tasks"] }}</span>
+							</a>
+						</li>
+
+						{% if user_identifier is not empty %}
+							<li class="{{ global_file == "user" ? "active" : "" }}">
+								{# Compte utilisateur #}
+								{# Note : apparaît seulement sur les comptes inscrits #}
+								<a href="?target=user">
+									<i class="bi bi-person-circle"></i>
+									<span>{{ header_phrases["header_subtitle_user"] }}</span>
+								</a>
+							</li>
+						{% endif %}
+
+						{% if user_level == "admin" %}
+							<li class="{{ global_file == "admin" ? "active" : "" }}">
+								{# Administration #}
+								{# Note : apparaît seulement pour les administrateurs #}
+								<a href="?target=admin">
+									<i class="bi bi-server"></i>
+									<span>{{ header_phrases["header_subtitle_admin"] }}</span>
+								</a>
+							</li>
+						{% endif %}
+					</ul>
+				</nav>
+			{% endblock %}
+
+			{# Contenu de la page demandé #}
+			{% block content %} {% endblock %}
+
+			{# Formulaire de contact #}
+			<section id="contact">
+				{% include("form_contact.twig") %}
+			</section>
+
+			{# Notifications textuelles #}
+			<div id="notifications">
+				<i class="bi"></i>
+				<span></span>
+			</div>
+
+			{# Conteneur du bouton des astuces #}
+			<div id="tips">
+				<button type="button">?</button>
+				<span>{{ attribute(attribute(_context, global_file ~ "_phrases"), global_file ~ "_tips") }}</span>
+			</div>
+		</main>
+
+		{# Pied de page du site #}
+		<footer>
+			{# Liste des options #}
+			<ul>
+				<li>
+					{# Bouton de retour à l'accueil #}
+					<a href="?target=index">
+						<i class="bi bi-house-door"></i>
+						<span>{{ footer_phrases["footer_home"] }}</span>
+					</a>
+				</li>
+
+				<li>
+					{# Bouton des informations juridiques #}
+					<a href="?target=legal">
+						<i class="bi bi-flag-fill"></i>
+						<span>{{ footer_phrases["footer_legal"] }}</span>
+					</a>
+				</li>
+
+				<li>
+					{# Bouton du formulaire de contact #}
+					<a href="javascript:void(0);">
+						<i class="bi bi-envelope"></i>
+						<span>{{ footer_phrases["footer_contact"] }}</span>
+					</a>
+				</li>
+
+				<li>
+					{# Bouton de la page d'assistance #}
+					<a href="?target=help">
+						<i class="bi bi-question-circle"></i>
+						<span>{{ footer_phrases["footer_support"] }}</span>
+					</a>
+				</li>
+
+				<li>
+					{# Sélecteur des langues #}
+					<i class="bi bi-translate"></i>
+					<form method="POST">
+						<ul>
+							{% for code in language_codes %}
+								<li>
+									{# Création du bouton avec les informations #}
+									<button type="submit" name="language" value="{{ code|upper }}">
+										{% if code == "EN" %}
+											{# Le drapeau britannique possède un code ISO différent #}
+											<i class="fi fi-gb"></i>
+										{% else %}
+											{# Dans le cas contraire, on utilise le comportement par défaut #}
+											<i class="fi fi-fr"></i>
+										{% endif %}
+
+										{# Affichage du nom de la langue #}
+										<span>{{ language_phrases["language_" ~ code|lower ] }}</span>
+									</button>
+								</li>
+							{% endfor %}
+						</ul>
+					</form>
+				</li>
+			</ul>
+
+			{# Indicateur de défilement #}
+			{# Modification depuis le JavaScript #}
+			<div>
+				<div></div>
+			</div>
+		</footer>
+	</body>
 </html>
