@@ -14,3 +14,4 @@ updates:
     schedule:
       # Check for updates managed by Composer once a month
       interval: "monthly"
+    open-pull-requests-limit: 30
