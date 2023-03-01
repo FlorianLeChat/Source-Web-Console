@@ -33,7 +33,7 @@
         "ext-iconv": "*",
 
         "doctrine/orm": "~2.1",
-        "doctrine/annotations": "~1.0",
+        "doctrine/annotations": "~2.0",
         "doctrine/doctrine-bundle": "~2.8",
         "doctrine/doctrine-migrations-bundle": "~3.2",
 
