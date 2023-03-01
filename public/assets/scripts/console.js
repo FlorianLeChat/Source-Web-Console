@@ -19,7 +19,7 @@ $( "#controller button" ).click( ( event ) =>
 
 	// Une fois réalisée, on ajoute une entrée dans l'historique
 	//	des entrées juste au-dessous.
-	$( event.target ).parent().parent().find( "ul" ).append( `<li>${ input }</li>` );
+	$( event.target ).parent().parent().find( "ul" ).append( $( "<li></li>" ).text( input ) );
 
 	// On réinitialise enfin le champ de saisie.
 	$( event.target ).prev().val( "" );
