@@ -42,9 +42,9 @@ $( "*[required]" ).keyup( ( event ) =>
 			label = element.prevAll().filter( "label" ).html();
 		}
 
-		// On supprime ensuite les astérisque présents dans certains
+		// On supprime ensuite les astérisques présents dans certains
 		//	libellés qui définissent si le champ est obligatoire.
-		label = label.replace( "*", "" );
+		label = label.replaceAll( "*", "" );
 
 		// On remplace les informations pré-formatées dans le message
 		//	d'erreur par certaines données du champ de saisie.
