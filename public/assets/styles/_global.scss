@@ -471,11 +471,7 @@ header
 		{
 			// Boites à cocher.
 			margin-left: 0.5rem;
-
-			&:checked
-			{
-				box-shadow: 0 0 0 3px $text-color;
-			}
+			accent-color: $text-color;
 		}
 
 		select
