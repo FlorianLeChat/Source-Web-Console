@@ -1,0 +1,148 @@
+legal:
+    tips: "Vous êtes sur la page des mentions légales du site. Vous pouvez retrouver toutes les informations juridiques disponibles en utilisant ce site Internet. Elles sont uniquement disponibles en français."
+
+index:
+    tips: "Vous êtes sur la page d'accueil du site. Vous pourrez retrouver la liste des fonctionnalités ainsi que la possibilité de vous inscrire et que de vous connecter à un compte utilisateur."
+    signup: "Inscription"
+    signin: "Connexion"
+    feature:
+        title:
+            2: "Performant"
+            3: "Moderne"
+            4: "Sécurisé"
+        description:
+            1: "Bienvenue sur l'interface d'administration en ligne pour serveurs multi-joueurs exécutant le moteur Source de Valve Corporation. Le site propose plusieurs outils performants et simples d'utilisation pour gérer facilement ses serveurs. Il est compatible avec les jeux populaires du moment comme **Garry's Mod**, **Minecraft** et **Counter-Strike : Global Offensive** !"
+            2: "À la place des solutions actuelles et concurrences, le site vous permettra d'exploiter le protocole de communication RCON sans aucun interruption ainsi que de façon rapide et facile d'accès. De plus, le site possède plusieurs optimisations pour réduire les temps d'accès et de chargement traditionnellement longs chez les hébergeurs les plus connus."
+            3: "Le protocole de communication RCON subit plusieurs modifications et mises à jour chaque année pour rendre plus performant les interactions entre les tiers (nous) et l'API distant utilisé sur les serveurs de jeux. De ce fait, toutes les solutions actuelles sont parfois rendues obsolètes ou hors-service pendant des mois voir des années car les créateurs doivent réviser leurs outils de communication. Le site utilise de nouveaux moyens afin d'être presque indépendant aux mises à jour et de pouvoir continuer de fonctionner malgré des modifications importantes réalisées par Valve."
+            4: "Grâce à l'utilisation de moyens modernes et performances des outils de communications RCON, la sécurisation et le chiffrement de bout en bout des données transmises et reçues par le site est maintenant possible. Toutes les informations sensibles que vous pourriez peut-être renseignées seront automatiquement chiffré au travers d'algorithme de type de militaire. Nous ne stockons jamais en clair les mots de passes, jamais."
+
+configuration:
+    tips: "Vous êtes sur la page de la configuration générale de votre serveur. Si vous indiquez les informations d'authentification de votre serveur FTP ou SFTP, le site peut proposer une configuration avancée de votre serveur en respectant l'anonymat et la sécurité des données sensibles."
+    rcon:
+        title: "Mot de passe d'administration"
+        description: "Ce paramètre permet de changer le mot de passe vers le module d'administration RCON pour le contrôle à distance."
+    loading:
+        title: "Écran de chargement"
+        description: "Ce paramètre permet de modifier l'URL de destination vers l'écran de chargement qui doit être affiché lors du téléchargement automatique des ressources."
+    storage:
+        ftp: "Protocole de transfert de fichier (FTP)"
+        sftp: "Protocole de transfert de fichier par SSH (SFTP)"
+        title: "Stockage distant"
+        address: "Adresse IP et port"
+        protocol: "Type de protocole"
+        username: "Nom d'utilisateur"
+        password: "Mot de passe"
+    settings:
+        title: "Paramètres"
+    hostname:
+        title: "Nom d'affichage"
+        description: "Ce paramètre permet de changer le nom du serveur affiché sur la liste des serveurs mondiaux de la communauté Steam."
+    description: "La page de configuration est une page spéciale nécessitant pour l'utilisateur d'indiquer des informations de connexion supplémentaires pour débloquer des fonctionnalités additionnelles (données FTP/SFTP). Celles-ci permettent une configuration plus poussée des options et de la configuration générale du serveur normalement inaccessible par le système standard."
+
+actions:
+    add:
+        name: "Entrez l'intitulé de la nouvelle commande personnalisée."
+        content: "Entrez le contenu de la commande personnalisée."
+    tips: "Vous êtes sur la page des actions. Vous pourrez retrouver ici toutes les actions, interrupteurs et commandes disponibles qui peuvent être exécutés à distance sur votre serveur."
+    switch:
+        voice: "Autoriser les voix par IP"
+        cheats: "Autoriser la triche"
+        flashlight: "Autoriser la lampe torche"
+    commands:
+        level: "Changer la carte actuelle"
+        value: "Entrez la valeur pour exécuter la commande."
+        gravity: "Modifier le niveau de gravité"
+        password: "Modifier le mot de passe"
+    remaining: "*%d restante(s)*"
+    description: "La page des actions est une page qui permet l'envoi d'actions rapides et personnalisées. La présence d'interrupteurs permet d'activer ou de désactiver certaines fonctionnalités du serveur. Enfin, les commandes personnalisées permettent de modifier le comportement général du serveur."
+    add_command: "Ajouter une commande..."
+    actions_title: "Actions"
+    commands_title: "Commandes"
+    remove_command: "Supprimer"
+    execute_command: "Exécuter"
+
+console:
+    tips: "Vous êtes sur la page de la console interactive. Vous pourrez retrouver ici la visualisation en temps réel de ce qu'il se passe sur votre serveur. De plus, vous avez un certain libre arbitre pour envoyer des requêtes quelconque à votre serveur."
+    controller:
+        title: "Contrôleur principal"
+        placeholder: "Écrivez quelque chose..."
+    description: "La console interactive est une page qui permet de visualiser les informations de sortie du serveur en temps réel. Ces informations sont directement issues du programme d'exécution et sont indépendantes du site. De plus, la page permet de saisir des commandes libres vers le serveur."
+    terminal_title: "Terminal d'observation"
+
+tasks:
+    tips: "Vous êtes sur la page des tâches planifiées. Vous pourrez retrouver ici la liste de toutes les tâches planifiées prévues ou terminées. Les tâches sont automatiquement gérer par l'infrastructure du site tant que vos informations de connexion sont valides."
+    label:
+        date: "Date de déclenchement"
+        server: "Serveur concerné"
+        action: "Action de réalisation"
+    added: "La tâche planifiée pour ce serveur a été créée avec succès. La page va être rafraîchie automatiquement."
+    removed: "La tâche planifiée pour ce serveur a été supprimée avec succès. La page va être rafraîchie automatiquement."
+    edit_remove: "Voulez-vous supprimer cette tâche ?"
+    description: "La page des tâches planifiées est une tâche fonctionnant de manière semi-automatique. La page propose la création d'actions qui peuvent être exécutées plus tard et de manière répétitives dans le temps. Une fois enregistrées, ces tâches peuvent être supprimées mais sont exécutées automatiquement à votre serveur à la date du déclenchement."
+
+statistics:
+    tips: "Vous êtes sur la page des statistiques. Vous pouvez retrouver ici même toutes les statistiques disponibles à propos de votre serveur durant les dernières 24 heures. Ces statistiques sont automatisées et anonymes."
+    axis:
+        utc: "Heure UTC"
+        cpu: "Processeur (en %)"
+        ram: "Mémoire vive (en %)"
+        usage: "Pourcentage d'utilisation"
+        players: "Nombre de joueurs"
+    description: "La page des statistiques est une page permettant de visualiser les informations collectées automatiquement par l'infrastructure du site. Ces informations sont bien évidemment rendues anonymes et enregistrées en toute sécurité pour pouvoir les visualiser."
+    orientation: "Veuillez tourner votre appareil."
+
+user:
+    tips: "Vous êtes sur la page du compte utilisateur. Vous pourrez retrouver la possibilité de modifier vos informations de connexion personnelles ainsi que le moyen d'ajouter un nouveau serveur à votre compte."
+    insert: "Votre nouveau serveur a bien été ajouté dans la base de données. Il est désormais disponible à la sélection sur le tableau de bord."
+    account: "Informations du compte"
+    actions: "Actions du compte"
+    updated: "Les informations personnelles de votre compte ont bien été mises à jour dans la base de données."
+    removed: "Votre compte utilisateur a été supprimé avec succès. Veuillez rafraîchir la page pour être redirigé vers la page d'accueil."
+    reconnect: "Se reconnecter"
+    disconnect: "Se déconnecter"
+    edit_remove: "Vous voulez supprimer votre compte utilisateur ? Attention, la suppression est définitive et irréversible."
+    description: "La page du compte utilisateur est une page où les utilisateurs authentifiés peuvent modifier leur nom d'utilisateur ainsi que leur mot de passe afin d'accéder à leur compte. De plus, l'utilisateur peut téléverser une photo de profil afin d'être reconnaissable sur les services de messageries internes au site."
+    reconnected: "Vous avez été reconnecté à votre compte utilisateur. Vous allez être redirigé automatiquement dans quelques secondes."
+    disconnected: "Vous êtes désormais déconnecté de votre compte utilisateur. Vous allez être redirigé automatiquement dans quelques secondes."
+
+dashboard:
+    tips: "Vous êtes sur le tableau de bord. Sur cette page, vous pouvez voir l'état général de votre serveur ainsi que réaliser certaines actions rapides. De cette manière, vous avez un oeil sur l'ensemble de votre infrastructure."
+    state:
+        map: "Carte actuelle"
+        title: "État général"
+        nodata: "Aucun signal\r\n(Inconnu)"
+        players: "Nombre de joueurs"
+        service: "En maintenance\r\n($1)"
+        running: "En fonctionnement\r\n($1)"
+    edit:
+        admin:
+            port: "Saisissez le port de communication du module d'administration.\nLaissez vide pour aucun changement."
+            address: "Saisissez l'adresse IP du module d'administration.\nLaissez vide pour aucun changement."
+            password: "Saisissez le mot de passe du module d'administration.\nLaissez vide pour aucun changement."
+        client:
+            port: "Saisissez le port de communication du serveur.\nLaissez vide pour aucun changement."
+            address: "Saisissez l'adresse IP du serveur.\nLaissez vide pour aucun changement."
+            remove: "Voulez-vous supprimer ce serveur ?"
+    actions: "Dernières actions"
+    players: "Liste des joueurs"
+    servers: "Liste des serveurs"
+    edit_remove: "Voulez-vous supprimer ce serveur ?"
+    description: "Le tableau de page est la page principale du site. Il permet de vous donner un aperçu immédiat et en temps réel de ce qu'il se passe sur le serveur et les actions que vous avez réalisé dernièrement. De plus, le tableau de bord permet l'exécution de commandes rapides et le changement dynamique entre chacun de vos serveurs enregistrés."
+
+help:
+    faq: "Foire aux questions"
+    tips: "Vous êtes sur la page de l'assistance utilisateur. Vous pourrez retrouver ici toutes les informations concernant la résolution des potentiels problèmes que vous pouvez rencontrer lors de l'utilisation du site. De plus, vous retrouverez des informations utiles sur le fonctionnement général et comment améliorer votre confort de navigation."
+    count:
+        users: "Utilisateurs"
+        servers: "Serveurs"
+        requests: "Requêtes"
+        donators: "Donateurs"
+    answer:
+        1: "L'inscription sur le site se fait sur la page d'accueil du site. Sur cette page, vous retrouverez la présentation des fonctionnalités ainsi qu'un moyen afin de procéder à votre inscription et à votre connexion. L'inscription se fait en deux étapes : d'abord vous devez renseigner vos informations personnelles afin de créer un compte utilisateurs, dans un second temps vous serez invité à remplir des informations sur l'un de vos serveurs de jeux. Ces informations seront ensuite traités pour l'affichage des données sur le tableau de bord."
+        2: "Lors de votre inscription au site, votre compte est automatiquement défini en tant qu'utilisateur classique et vous possédez d'or et déjà d'un grands nombres de fonctionnalités disponibles. Cependant, si vous réalisez une donation unique d'un montant que vous voulez, vous aurez la possibilité de débloquer des avantages et des fonctionnalités supplémentairs pour améliorer votre expérience d'utilisateurs."
+        3: "Le site actuel et les sites concurrents sont possèdent plusieurs différences. D'abord, les sites concurrents ne peuvent pas être accessibles sans compte utilisateur et sans avoir déjà acheté un service chez leurs infrastructures. Cela signifie que l'accès à leur panneau d'administration dépend d'une souscription à leurs services, notre site est alors totalement gratuit d'utilisateur. La seconde est que notre site utilise les dernières versions de communication entre nos serveurs et vos infrastructures afin de faciliter la rapidité d'exécution de toutes vos actions."
+    question:
+        1: "Comment s'inscrire sur le site ?"
+        2: "Quels sont les avantages des utilisateurs donateurs ?"
+        3: "Quelle est la différence entre le site actuel et les concurrents ?"
+    description: "La page de l'assistance utilisateur est la page la plus important pour tous les utilisateurs qui peuvent rencontrer des problèmes lors de l'utilisation ou la navigation à travers l'entièreté du site. Elle permet également de donner des indications supplémentaires afin d'améliorer l'expérience générale d'utilisation."
