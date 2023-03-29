@@ -1,0 +1,148 @@
+legal:
+    tips: "You are on the legal notice page of the website. You can find all the legal information available by using this website. They are only available in French."
+
+index:
+    tips: "You are on the website's home page. You can find a list of features here, along with the ability to register and connect to a user account."
+    signup: "Register"
+    signin: "Login"
+    feature:
+        title:
+            2: "Powerful"
+            3: "Modern"
+            4: "Secure"
+        description:
+            1: "Welcome to the online administration interface for multiplayer servers running Valve Corporation's Source engine. The website offers several powerful and easy-to-use tools to easily manage your servers. It is compatible with popular games like Garry's Mod, Minecraft, and Counter-Strike: Global Offensive!"
+            2: "Unlike other competing solutions, this website allows you to use the RCON communication protocol without interruption and in a fast and easy way. Additionally, the website has several optimizations to reduce access and loading times, which are traditionally long with the most famous hosts."
+            3: "The RCON communication protocol is subject to several modifications and updates every year to improve the performance of interactions between third parties (us) and the remote API used on game servers. As a result, all current solutions are sometimes rendered obsolete or out of service for months or even years as creators need to revise their communication tools. This website uses new ways to be practically independent from updates and to be able to continue to work despite major changes made by Valve."
+            4: "Thanks to the use of modern, high-performance RCON communications tools, end-to-end security and encryption of data transmitted and received by the website is now possible. Any sensitive information you may enter will be automatically encrypted using a military-grade algorithm. We never store passwords in clear text, never."
+
+configuration:
+    tips: "You are on the general configuration page for your server. If you provide your FTP or SFTP server authentication information, the website can offer advanced server configuration while respecting anonymity and sensitive data security."
+    rcon:
+        title: "Administration password"
+        description: "This parameter is used to change the password to the RCON administration module for remote control."
+    loading:
+        title: "Loading screen"
+        description: "This parameter allows you to change the destination URL to the loading screen that should be displayed when automatically downloading resources."
+    storage:
+        ftp: "File Transfer Protocol (FTP)"
+        sftp: "Secure File Transfer Protocol (SFTP) over SSH"
+        title: "Remote storage"
+        address: "IP address & Port"
+        protocol: "Protocol Type"
+        username: "Username"
+        password: "Password"
+    settings:
+        title: "Settings"
+    hostname:
+        title: "Display name"
+        description: "This setting allows you to change the name of the server displayed on the list of global servers in the Steam community."
+    description: "The configuration page is a special page requiring the user to indicate additional login information to unlock additional functionality (FTP/SFTP data). These allow for further configuration of options and general server setup normally inaccessible by the default system."
+
+actions:
+    add:
+        name: "Enter the label of the new custom command."
+        content: "Enter the content of the custom command."
+    tips: "You are on the actions page. Here you can find all available actions, switches and commands that can be executed remotely on your server."
+    switch:
+        voice: "Allow the flashlight"
+        cheats: "Allow cheating"
+        flashlight: "Lock the server"
+    commands:
+        level: "Change the current map"
+        value: "Type a value to execute the command."
+        gravity: "Change the gravity level"
+        password: "Change the password"
+    remaining: "*%d remaining*"
+    description: "The actions page is a page that allows you to send quick and personalized actions. The presence of switches allows you to activate or deactivate certain server features. Finally, the custom commands allow to modify the general behavior of the server."
+    add_command: "Add a command..."
+    actions_title: "Actions"
+    commands_title: "Commands"
+    remove_command: "Remove"
+    execute_command: "Execute"
+
+console:
+    tips: "You are on the interactive console page. Here you can see in real time what is happening on your server. Moreover, you have some freedom to send any request to your server."
+    controller:
+        title: "Main controller"
+        placeholder: "Write something..."
+    description: "The interactive console is a page that allows you to view the server's output information in real time. This information comes directly from the execution program and is independent of the website. In addition, the page allows you to enter free commands to the server."
+    terminal_title: "Monitoring terminal"
+
+tasks:
+    tips: "You are on the scheduled tasks page. Here you can find the list of all scheduled or completed tasks. The tasks are automatically managed by the website infrastructure as long as your credentials are valid."
+    label:
+        date: "Trigger date"
+        server: "Related server"
+        action: "Action plan"
+    added: "The scheduled task for this server has been successfully created. The page will be refreshed automatically."
+    removed: "The scheduled task for this server has been successfully deleted. The page will be refreshed automatically."
+    edit_remove: "Do you want to delete this task?"
+    description: "The scheduled tasks page is a semi-automatically working task. The page offers the creation of actions that can be executed later and repeatedly over time. Once saved, these tasks can be deleted but are automatically executed on your server at the date of the trigger."
+
+statistics:
+    tips: "You are on the statistics page. Here you can find all available statistics about your server during the last 24 hours. These statistics are automated and anonymous."
+    axis:
+        utc: "UTC time"
+        cpu: "CPU (in %)"
+        ram: "RAM (in %)"
+        usage: "Usage percentage"
+        players: "Player count"
+    description: "The statistics page is a page allowing to visualize the information collected automatically by the infrastructure of the website. This information is of course anonymized and saved in a safe place for viewing."
+    orientation: "Please rotate your device."
+
+user:
+    tips: "You are on the user account page. You will find the possibility to modify your personal login credentials and the way to add a new server to your account."
+    insert: "Your new server has been added to the database. It is now available for selection on the dashboard."
+    account: "Account details"
+    actions: "Account actions"
+    updated: "Your personal account information has been updated in the database."
+    removed: "Your user account has been successfully deleted. Please refresh the page to be redirected to the home page."
+    reconnect: "Reconnect"
+    disconnect: "Disconnect"
+    edit_remove: "You want to delete your user account? Please note that the deletion is final and irreversible."
+    description: "The user account page is a page where authenticated users can change their username and password to access their account. In addition, the user can upload a profile picture in order to be recognizable on the website's internal messaging services."
+    reconnected: "You have been reconnected to your user account. You will be redirected automatically in a few seconds."
+    disconnected: "You are now disconnected from your user account. You will be redirected automatically in a few seconds."
+
+dashboard:
+    tips: "You are on the dashboard. On this page you can see the global state of your server and perform some quick actions. This way, you have an eye on your entire infrastructure."
+    state:
+        map: "Current map"
+        title: "General state"
+        nodata: "No signal\r\n(Unknown)"
+        players: "Player count"
+        service: "In servicing\r\n($1)"
+        running: "Operating\r\n($1)"
+    edit:
+        admin:
+            port: "Type in the communication port of the administration module.\\nLeave blank for no change."
+            address: "Type in the IP address of the administration module.\\nLeave blank for no change."
+            password: "Type in the password for the administration module.\\nLeave blank for no change."
+        client:
+            port: "Type the communication port of the server.\\nLeave blank for no change."
+            address: "Type in the IP address of the server.\\nLeave blank for no change."
+            remove: "Do you want to delete this server?"
+    actions: "Last actions"
+    players: "Players list"
+    servers: "Servers list"
+    edit_remove: "Do you want to delete this server?"
+    description: "The page table is the main page of the website. It gives you an immediate and real-time overview of what is happening on the server and the actions you have performed lately. In addition, the dashboard allows for quick command execution and dynamic switching between each of your registered servers."
+
+help:
+    faq: "Frequently asked questions"
+    tips: "You are on the user support page. Here you can find all the information concerning the resolution of potential problems that you may encounter while using the website. In addition, you will find useful information about the general operation and how to improve your browsing comfort."
+    count:
+        users: "Users"
+        servers: "Servers"
+        requests: "Requests"
+        donators: "Donators"
+    answer:
+        1: "Registration on the website is done on the home page of the website. On this page, you will find the presentation of the functionalities as well as a way to proceed to your registration and connection. Registration is done in two steps: first you have to fill in your personal information in order to create a user account, then you will be asked to fill in information about one of your game servers. This information will then be processed for display on the dashboard."
+        2: "When you register on the website, your account is automatically set up as a regular user and you already have a number of features available to you. However, if you make a one-off donation of any amount you wish, you will be able to unlock additional benefits and features to enhance your user experience."
+        3: "The current site and the competing sites have several differences. Firstly, the competing sites cannot be accessed without a user account and without having already purchased a service from their infrastructure. This means that access to their administration panel depends on a subscription to their services, so our site is completely free of charge. The second is that our site uses the latest versions of communication between our servers and your infrastructure to facilitate the speed of execution of all your actions."
+    question:
+        1: "How do I register on the website?"
+        2: "What are the benefits for donator users?"
+        3: "What is the difference between the current website and the competitors?"
+    description: "The user support page is the most important page for all users who may encounter problems while using or navigating through the entire website. It also provides additional guidance to improve the overall user experience."
