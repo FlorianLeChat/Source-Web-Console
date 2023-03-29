@@ -1,5 +1,8 @@
 twig:
     default_path: "%kernel.project_dir%/templates"
+    globals:
+        global_analytics: "%env(APP_ANALYTICS_TAG)%"
+        global_recaptcha: "%env(APP_RECAPTCHA_PUBLIC_KEY)%"
 
 when@test:
     twig:
