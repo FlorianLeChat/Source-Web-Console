@@ -1,60 +1,66 @@
-// --------------- //
-// Base de travail //
-// --------------- //
-@import "../desktop/index";
-
-// ------- //
-// En-tête //
-// ------- //
-header ul
+// -------------- //
+// Version mobile //
+// -------------- //
+@media screen and (max-width: 768px)
 {
-	// Centrage des boutons.
-	gap: 1rem;
-	display: flex;
-	position: initial;
-	justify-content: center;
+	// --------------- //
+	// Base de travail //
+	// --------------- //
+	@import "../desktop/index";
 
-	li
+	// ------- //
+	// En-tête //
+	// ------- //
+	header ul
 	{
-		// Disposition en ligne.
-		display: inline;
-	}
-}
+		// Centrage des boutons.
+		gap: 1rem;
+		display: flex;
+		position: initial;
+		justify-content: center;
 
-// ----------------------------------- //
-// Lien vers le dépôt GitHub du projet //
-// ----------------------------------- //
-main > a
-{
-	// Suppression du lien et de l'icône.
-	display: none
-}
-
-// -------------------------------- //
-// Section : informations générales //
-// -------------------------------- //
-#informations
-{
-	// Modification de la disposition flex.
-	gap: 0;
-	flex-direction: column;
-
-	ul img
-	{
-		// Suppression de l'image de présentation.
-		display: none;
-	}
-
-	article
-	{
-		// Agrandissement du texte de présentation.
-		width: auto;
-
-		img
+		li
 		{
-			// Dynamisation des dimensions du logo.
+			// Disposition en ligne.
+			display: inline;
+		}
+	}
+
+	// ----------------------------------- //
+	// Lien vers le dépôt GitHub du projet //
+	// ----------------------------------- //
+	main > a
+	{
+		// Suppression du lien et de l'icône.
+		display: none
+	}
+
+	// -------------------------------- //
+	// Section : informations générales //
+	// -------------------------------- //
+	#informations
+	{
+		// Modification de la disposition flex.
+		gap: 0;
+		flex-direction: column;
+
+		ul img
+		{
+			// Suppression de l'image de présentation.
+			display: none;
+		}
+
+		article
+		{
+			// Agrandissement du texte de présentation.
 			width: auto;
-			max-width: 26rem;
+
+			img
+			{
+				// Dynamisation des dimensions du logo.
+				width: auto;
+				max-width: 26rem;
+			}
 		}
 	}
 }

@@ -1,89 +1,95 @@
-// --------------- //
-// Base de travail //
-// --------------- //
-@import "../desktop/admin";
-
-// ---------------- //
-// Corps de la page //
-// ---------------- //
-main
+// -------------- //
+// Version mobile //
+// -------------- //
+@media screen and (max-width: 768px)
 {
-	// Modification du nombre de lignes/colonnes.
-	min-height: 0;
-	margin-bottom: 4rem;
-	justify-items: center;
-	grid-template-columns: 1fr;
+	// --------------- //
+	// Base de travail //
+	// --------------- //
+	@import "../desktop/admin";
 
-	section, article, nav
+	// ---------------- //
+	// Corps de la page //
+	// ---------------- //
+	main
 	{
-		// Mise en place de tailles fixes.
-		width: 100%;
-		max-width: $html-min-width;
-		box-sizing: border-box;
-	}
+		// Modification du nombre de lignes/colonnes.
+		min-height: 0;
+		margin-bottom: 4rem;
+		justify-items: center;
+		grid-template-columns: 1fr;
 
-	nav
-	{
-		// Modification de la grille.
-		grid-area: 1 / 1 / 2 / 2;
-
-		ul li
+		section, article, nav
 		{
-			// Modification de l'affichage.
-			display: inline-block;
+			// Mise en place de tailles fixes.
+			width: 100%;
+			max-width: $html-min-width;
+			box-sizing: border-box;
+		}
 
-			a
+		nav
+		{
+			// Modification de la grille.
+			grid-area: 1 / 1 / 2 / 2;
+
+			ul li
 			{
-				// Modification de la zone sélection.
-				position: relative;
+				// Modification de l'affichage.
+				display: inline-block;
 
-				i
+				a
 				{
-					// Suppression de la marge droite.
-					margin-right: 0;
+					// Modification de la zone sélection.
+					position: relative;
 
-					+ span
+					i
 					{
-						// Suppression du titre.
-						display: none;
-					}
-				}
+						// Suppression de la marge droite.
+						margin-right: 0;
 
-				&::after
-				{
-					// Amélioration de la zone de sélection.
-					@extend %larger-touch-zone;
+						+ span
+						{
+							// Suppression du titre.
+							display: none;
+						}
+					}
+
+					&::after
+					{
+						// Amélioration de la zone de sélection.
+						@extend %larger-touch-zone;
+					}
 				}
 			}
 		}
-	}
 
-	#tables
-	{
-		// Modification de la grille.
-		height: auto;
-		display: revert;
-		grid-area: 2 / 1 / 3 / 2;
-
-		div
+		#tables
 		{
-			// Changement de la direction.
+			// Modification de la grille.
 			height: auto;
-			flex-direction: column;
+			display: revert;
+			grid-area: 2 / 1 / 3 / 2;
 
-			form:last-of-type
+			div
 			{
-				// Modification de l'apparence.
-				width: auto;
-				display: flex;
+				// Changement de la direction.
+				height: auto;
 				flex-direction: column;
-				justify-content: center;
 
-				p
+				form:last-of-type
 				{
-					// Suppression de la transformation.
-					top: 0;
-					transform: none;
+					// Modification de l'apparence.
+					width: auto;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+
+					p
+					{
+						// Suppression de la transformation.
+						top: 0;
+						transform: none;
+					}
 				}
 			}
 		}
