@@ -1,5 +1,4 @@
 // Dépendances CSS/JavaScript.
-import "./styles/_global.scss";
 import "normalize.css/normalize.css";
 import "flag-icons/css/flag-icons.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";

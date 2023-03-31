@@ -1,90 +1,96 @@
-// --------------- //
-// Base de travail //
-// --------------- //
-@import "../desktop/console";
-
-// ------- //
-// En-tête //
-// ------- //
-header
+// -------------- //
+// Version mobile //
+// -------------- //
+@media screen and (max-width: 768px)
 {
-	@include responsive-header-adaptation;
-}
+	// --------------- //
+	// Base de travail //
+	// --------------- //
+	@import "../desktop/console";
 
-// ---------------- //
-// Corps de la page //
-// ---------------- //
-main
-{
-	// Modification du nombre de lignes/colonnes.
-	justify-items: center;
-	grid-template-rows: 0.5fr;
-	grid-template-columns: 1fr;
-
-	section, article, nav
+	// ------- //
+	// En-tête //
+	// ------- //
+	header
 	{
-		// Mise en place de tailles fixes.
-		width: 100%;
-		max-width: $html-min-width;
-		box-sizing: border-box;
+		@include responsive-header-adaptation;
 	}
 
-	p
+	// ---------------- //
+	// Corps de la page //
+	// ---------------- //
+	main
 	{
-		// Modification des marges et de la disposition.
-		margin: 0 5% 0 5%;
-		grid-area: 1 / 1 / 2 / 2;
-	}
+		// Modification du nombre de lignes/colonnes.
+		justify-items: center;
+		grid-template-rows: 0.5fr;
+		grid-template-columns: 1fr;
 
-	nav
-	{
-		// Modification de la grille.
-		grid-area: 2 / 1 / 3 / 2;
-
-		ul li
+		section, article, nav
 		{
-			// Modification de l'affichage.
-			display: inline-block;
+			// Mise en place de tailles fixes.
+			width: 100%;
+			max-width: $html-min-width;
+			box-sizing: border-box;
+		}
 
-			a
+		p
+		{
+			// Modification des marges et de la disposition.
+			margin: 0 5% 0 5%;
+			grid-area: 1 / 1 / 2 / 2;
+		}
+
+		nav
+		{
+			// Modification de la grille.
+			grid-area: 2 / 1 / 3 / 2;
+
+			ul li
 			{
-				// Modification de la zone sélection.
-				position: relative;
+				// Modification de l'affichage.
+				display: inline-block;
 
-				i
+				a
 				{
-					// Suppression de la marge droite.
-					margin-right: 0;
+					// Modification de la zone sélection.
+					position: relative;
 
-					+ span
+					i
 					{
-						// Suppression du titre.
-						display: none;
-					}
-				}
+						// Suppression de la marge droite.
+						margin-right: 0;
 
-				&::after
-				{
-					// Amélioration de la zone de sélection.
-					@extend %larger-touch-zone;
+						+ span
+						{
+							// Suppression du titre.
+							display: none;
+						}
+					}
+
+					&::after
+					{
+						// Amélioration de la zone de sélection.
+						@extend %larger-touch-zone;
+					}
 				}
 			}
 		}
-	}
 
-	#controller
-	{
-		// Modification de la grille.
-		height: auto;
-		display: revert;
-		grid-area: 3 / 1 / 4 / 2;
-	}
+		#controller
+		{
+			// Modification de la grille.
+			height: auto;
+			display: revert;
+			grid-area: 3 / 1 / 4 / 2;
+		}
 
-	#terminal
-	{
-		// Modification de la grille.
-		height: auto;
-		display: revert;
-		grid-area: 4 / 1 / 5 / 2;
+		#terminal
+		{
+			// Modification de la grille.
+			height: auto;
+			display: revert;
+			grid-area: 4 / 1 / 5 / 2;
+		}
 	}
 }

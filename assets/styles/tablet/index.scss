@@ -1,26 +1,32 @@
-// --------------- //
-// Base de travail //
-// --------------- //
-@import "../desktop/index";
-
-// -------------------------------- //
-// Section : informations générales //
-// -------------------------------- //
-#informations
+// ---------------- //
+// Version tablette //
+// ---------------- //
+@media screen and (min-width: 769px) and (max-width: 1023px)
 {
-	// Modification de la disposition flex.
-	gap: 0;
-	flex-direction: column;
+	// --------------- //
+	// Base de travail //
+	// --------------- //
+	@import "../desktop/index";
 
-	ul img
+	// -------------------------------- //
+	// Section : informations générales //
+	// -------------------------------- //
+	#informations
 	{
-		// Suppression de l'image de présentation.
-		display: none;
-	}
+		// Modification de la disposition flex.
+		gap: 0;
+		flex-direction: column;
 
-	article
-	{
-		// Agrandissement du texte de présentation.
-		width: auto;
+		ul img
+		{
+			// Suppression de l'image de présentation.
+			display: none;
+		}
+
+		article
+		{
+			// Agrandissement du texte de présentation.
+			width: auto;
+		}
 	}
 }
