@@ -32,6 +32,7 @@ Encore
 		config.corejs = "3.23";
 	} )
 	.copyFiles( [
+		{ from: "./assets/favicons", to: "favicons/[path][name].[hash:8].[ext]" },
 		{ from: "./assets/images", to: "images/[path][name].[hash:8].[ext]" },
 		{ from: "./assets/videos", to: "videos/[path][name].[hash:8].[ext]" }
 	] )

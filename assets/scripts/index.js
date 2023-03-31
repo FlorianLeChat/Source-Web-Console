@@ -1,3 +1,8 @@
+// Importation des feuilles de style.
+import "../styles/desktop/index.scss";
+import "../styles/phone/index.scss";
+import "../styles/tablet/index.scss";
+
 //
 // Permet de gérer les ouvertures/fermetures de certains
 //	formulaires de la page d'accueil.

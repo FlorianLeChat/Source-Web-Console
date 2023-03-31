@@ -1,3 +1,8 @@
+// Importation des feuilles de style.
+import "../styles/desktop/user.scss";
+import "../styles/phone/user.scss";
+import "../styles/tablet/user.scss";
+
 //
 // Permet d'envoyer les demandes de modification ou de suppression
 //	des informations d'authentification vers le serveur.

@@ -1,3 +1,8 @@
+// Importation des feuilles de style.
+import "../styles/desktop/configuration.scss";
+import "../styles/phone/configuration.scss";
+import "../styles/tablet/configuration.scss";
+
 //
 // Permet d'enregistrer ou de mettre à jour les données du
 //	serveur de stockage FTP.
