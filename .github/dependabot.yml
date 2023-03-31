@@ -15,3 +15,11 @@ updates:
       # Check for updates managed by Composer once a month
       interval: "monthly"
     open-pull-requests-limit: 30
+
+  # Maintain dependencies for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      # Check for updates managed by npm once a month
+      interval: "monthly"
+    open-pull-requests-limit: 30
