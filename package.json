@@ -34,5 +34,8 @@
         "watch": "encore dev --watch",
         "build": "encore production --progress",
         "dev-server": "encore dev-server"
-    }
+    },
+    "browserslist": [
+        "defaults"
+    ]
 }
