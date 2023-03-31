@@ -1,13 +1,13 @@
 {# Titre du formulaire #}
-<h2>{{ footer_phrases["footer_contact"] }}</h2>
+<h2>{{ t("footer.contact")|trans }}</h2>
 
 {# Description du formulaire #}
-<p>{{ form_phrases["form_contact_description"] }}</p>
+<p>{{ t("form.contact.description")|trans }}</p>
 
 {# Spécifications juridiques #}
 <div>
 	<i class="bi bi-exclamation-triangle-fill"></i>
-	<span>{{ form_phrases["form_rgpd_warning"] }}</span>
+	<span>{{ t("form.rgpd_warning")|trans }}</span>
 </div>
 
 <form novalidate>
@@ -15,27 +15,27 @@
 	<p class="error"></p>
 
 	{# Message de succès #}
-	<p class="success">{{ form_phrases["form_contact_success"] }}</p>
+	<p class="success">{{ t("form.contact.success")|trans }}</p>
 
 	{# Adresse email #}
-	<label for="email">{{ form_phrases["form_contact_email"] }}<span>*</span></label>
+	<label for="email">{{ t("form.contact.email")|trans }}<span>*</span></label>
 	<input type="email" autocomplete="email" spellcheck="false" id="email" name="email" placeholder="johndoe@gmail.com" minlength="10" maxlength="40" required />
 	<span></span>
 
 	{# Sujet de la prise de contact #}
-	<label for="subject">{{ form_phrases["form_contact_subject"] }}<span>*</span></label>
+	<label for="subject">{{ t("form.contact.subject.default")|trans }}<span>*</span></label>
 	<select id="subject" name="subject">
 		{% for i in range(1, 3) %}
-			<option value="subject_{{ i }}">{{ form_phrases["form_contact_subject_" ~ i] }}</option>
+			<option value="subject.{{ i }}">{{ t("form.contact.subject." ~ i)|trans }}</option>
 		{% endfor %}
 	</select>
 
 	{# Contenu du message #}
-	<label for="content">{{ form_phrases["form_contact_content"] }}<span>*</span></label>
+	<label for="content">{{ t("form.contact.content")|trans }}<span>*</span></label>
 	<textarea id="content" name="content" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit." minlength="50" maxlength="4000" required></textarea>
 	<span></span>
 
 	{# Validation/annulation #}
-	<input type="reset" value="{{ form_phrases["form_cancel_button"] }}" />
-	<input type="submit" value="{{ form_phrases["form_validate_button"] }}" />
+	<input type="reset" value="{{ t("form.cancel_button")|trans }}" />
+	<input type="submit" value="{{ t("form.validate_button")|trans }}" />
 </form>
