@@ -1,0 +1,38 @@
+{
+    "name": "source-web-console",
+    "author": "Florian Trayon (https://github.com/FlorianLeChat)",
+    "license": "MIT",
+    "private": true,
+    "version": "1.0.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/FlorianLeChat/Source-Web-Console.git"
+    },
+    "bugs": {
+        "url": "https://github.com/FlorianLeChat/Source-Web-Console/issues"
+    },
+    "devDependencies": {
+        "@babel/core": "~7.17",
+        "@babel/preset-env": "~7.16",
+        "@hotwired/stimulus": "~3.0",
+        "@symfony/webpack-encore": "~4.0",
+        "@symfony/stimulus-bridge": "~3.2",
+        "sass": "~1.60",
+        "core-js": "~3.23",
+        "webpack": "~5.77",
+        "webpack-cli": "~4.10",
+        "sass-loader": "~13.2",
+        "webpack-notifier": "~1.15",
+        "regenerator-runtime": "~0.13"
+    },
+    "engines": {
+        "node": ">=19.6",
+        "npm": ">=9.4"
+    },
+    "scripts": {
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "build": "encore production --progress",
+        "dev-server": "encore dev-server"
+    }
+}
