@@ -19,7 +19,7 @@
         "@symfony/stimulus-bridge": "~3.2",
         "sass": "~1.60",
         "jquery": "~3.6",
-        "core-js": "~3.23",
+        "core-js": "~3.29",
         "webpack": "~5.77",
         "chart.js": "~4.2",
         "flag-icons": "~6.6",
