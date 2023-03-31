@@ -15,7 +15,7 @@
         "@babel/core": "~7.17",
         "@babel/preset-env": "~7.21",
         "@hotwired/stimulus": "~3.0",
-        "@symfony/webpack-encore": "~4.0",
+        "@symfony/webpack-encore": "~4.2",
         "@symfony/stimulus-bridge": "~3.2",
         "sass": "~1.60",
         "jquery": "~3.6",
