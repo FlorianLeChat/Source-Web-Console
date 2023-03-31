@@ -21,7 +21,7 @@
         "jquery": "~3.6",
         "core-js": "~3.23",
         "webpack": "~5.77",
-        "chart.js": "~4.0",
+        "chart.js": "~4.2",
         "flag-icons": "~6.6",
         "file-loader": "~6.0",
         "webpack-cli": "~4.10",
