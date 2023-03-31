@@ -2,6 +2,7 @@
 import "normalize.css/normalize.css";
 import "flag-icons/css/flag-icons.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import "vanilla-cookieconsent/dist/cookieconsent.css";
 
 // Démarrage des contrôleurs Stimulus.
 import "./bootstrap";
