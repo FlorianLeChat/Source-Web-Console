@@ -1,3 +1,97 @@
+global:
+    shutdown:
+        title: "Arrêter"
+        subtitle: "Double-cliquez pour forcer l'arrêt"
+    restart:
+        title: "Redémarrer"
+    update:
+        title: "Mettre à jour"
+    service:
+        title: "Maintenance"
+    error_fatal: "Une erreur interne s'est produite lors de la récupération des informations du serveur. Veuillez rafraîchir la page pour relancer la surveillance. Message : « $1 »."
+    remove_title: "Supprimer"
+    action_success: "La requête demandée a été envoyée avec succès avec le serveur distant. Dans certains cas, il peut se produire des effets secondaires en fonction de la configuration de votre serveur."
+
+header:
+    title: "Administration"
+    search:
+        title: "Actions rapides"
+        placeholder: "Recherche..."
+    subtitle:
+        user: "Compte utilisateur"
+        admin: "Administration"
+        console: "Interactive console"
+        actions: "Actions et commandes"
+        dashboard: "Tableau de bord"
+        statistics: "Statistiques"
+        configuration: "Configuration"
+    user_status:
+        connected: "Connecté sous\r\n%s"
+
+footer:
+    home: "Accueil"
+    legal: "Mentions légales"
+    contact: "Contact"
+    support: "Assistance"
+
+head:
+    title: "Source Web Console"
+    description: "Interface d'administration en ligne pour serveurs multi-joueurs exécutant le moteur Source de Valve."
+    no_javascript: "Votre navigateur ne supporte pas ou refuse de charger le JavaScript."
+
+language:
+    en: "Anglais"
+    fr: "Français"
+
+form:
+    signup:
+        failed: "An internal error occurred when you registered on the website. Response: \"$1\"."
+        success: "Your user account has been successfully created. You will be redirected automatically in a few seconds."
+        onetime: "Your one-time access has been successfully created. You will be able to keep this access during your session. Once expired, you will have to recreate an access again. Please note that this method has limited features."
+        username: "Choose a username"
+        password: "Choose a password"
+        generation: "Generate a secure password"
+        duplication: "This username is already used. Please choose another one."
+    description:
+        user: "The first part of the registration form is for user account details. You must provide a unique username and a password that is long and complex enough to be considered secure."
+        server: "The second and last part of the form concerns authentication information for the connection to the first server. Only client information is required, while administrator information is optional. Some actions on the website, however, will require administrator permissions."
+        client:
+            title: "Enter client credentials"
+            description: "The client information is the data used by players (clients) to connect to the server conventionally. This information allows for reading overall website information without performing any advanced actions."
+        admin:
+            title: "Enter administrator credentials"
+            description: "The administrator information is the data required for the control systems to connect to the server's admin module API. This provides the ability to perform actions and commands remotely without the intervention of anyone."
+            secure_only: "Only accept secure connections"
+            auto_connect: "Force automatic connection"
+            cancel_button: "Cancel"
+            clear_password: "Reveal the password"
+            validate_button: "Validate"
+    contact:
+        email: "Enter your email address"
+        failed: "An internal error occurred when sending your message to the website. Response: \"$1\"."
+        success: "The message has been sent successfully. You will receive a reply as soon as possible."
+        content: "Specify the content of your message"
+        subject:
+            default: "Select the subject"
+            1: "I have an issue with the account registration"
+            2: "I have an issue with logging into my account"
+            3: "I have a question with my server administration"
+    signin:
+        links: "No account? url=javascript:void(0); or switch to a [url=javascript:void(0);](one-shot signin).\nIf not, you may have [url=javascript:void(0);](lost your password)?"
+        failed: "An internal error occurred while connecting to your user account. Response: \"$1\"."
+        success: "You are now connected to your user account. You will be redirected automatically in a few seconds."
+        invalid: "The provided credentials are invalid or do not exist."
+        recover: "If the provided username is valid, then the new password has been updated."
+        username: "Enter your username"
+        password: "Enter your password"
+        remember_me: "Remember me"
+        description: "This form lets you send a support message to the website administrators. You will receive an answer by the email address you entered within a few hours/days. Any abuse will be prosecuted."
+        rgpd_warning: "By filling out this form, you tacitly agree to the processing of your personal data in compliance with national and European laws in effect (GDPR)."
+        contact_mailing: "Your message for support has been sent. You will receive a reply within 24 hours.\n\nHere is the summary of your message:\n\n%s"
+        capslock_warning: "The caps lock keys are activated."
+        client_check_failed: "The \"%field%\" field must be at least %min% and less than %max% characters long."
+        server_check_failed: "The information provided did not allow this query to be completed."
+
 legal:
     tips: "Vous êtes sur la page des mentions légales du site. Vous pouvez retrouver toutes les informations juridiques disponibles en utilisant ce site Internet. Elles sont uniquement disponibles en français."
 
