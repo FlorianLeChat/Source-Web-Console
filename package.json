@@ -18,12 +18,20 @@
         "@symfony/webpack-encore": "~4.0",
         "@symfony/stimulus-bridge": "~3.2",
         "sass": "~1.60",
+        "jquery": "~3.6",
         "core-js": "~3.23",
         "webpack": "~5.77",
+        "chart.js": "~4.0",
+        "flag-icons": "~6.6",
         "webpack-cli": "~4.10",
         "sass-loader": "~13.2",
+        "normalize.css": "~8.0",
+        "bootstrap-icons": "~1.10",
         "webpack-notifier": "~1.15",
-        "regenerator-runtime": "~0.13"
+        "vanilla-lazyload": "~17.8",
+        "regenerator-runtime": "~0.13",
+        "vanilla-cookieconsent": "~2.8",
+        "chartjs-adapter-date-fns": "~3.0"
     },
     "engines": {
         "node": ">=19.6",
