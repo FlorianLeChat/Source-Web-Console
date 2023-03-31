@@ -1,3 +1,8 @@
+// Importation des feuilles de style.
+import "../styles/desktop/actions.scss";
+import "../styles/phone/actions.scss";
+import "../styles/tablet/actions.scss";
+
 //
 // Permet d'envoyer des requêtes d'action lors du clic sur l'un des
 //	boutons présents (par défaut ou non) sur la page.

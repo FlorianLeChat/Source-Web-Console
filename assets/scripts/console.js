@@ -1,3 +1,8 @@
+// Importation des feuilles de style.
+import "../styles/desktop/console.scss";
+import "../styles/phone/console.scss";
+import "../styles/tablet/console.scss";
+
 //
 // Permet d'envoyer les entrées utilisateurs personnalisées
 //	au serveur distant.

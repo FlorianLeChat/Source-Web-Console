@@ -1,3 +1,8 @@
+// Importation des feuilles de style.
+import "../styles/desktop/dashboard.scss";
+import "../styles/phone/dashboard.scss";
+import "../styles/tablet/dashboard.scss";
+
 //
 // Permet d'appliquer les images en arrière-plan des serveurs
 //	en fonction de leur jeu installé.

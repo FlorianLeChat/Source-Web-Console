@@ -1,3 +1,8 @@
+// Importation des feuilles de style.
+import "../styles/desktop/tasks.scss";
+import "../styles/phone/tasks.scss";
+import "../styles/tablet/tasks.scss";
+
 //
 // Permet de gérer les demandes de suppression de tâches planifiées
 //	dans la base de données.

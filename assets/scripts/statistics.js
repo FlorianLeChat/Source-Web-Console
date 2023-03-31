@@ -1,3 +1,8 @@
+// Importation des feuilles de style.
+import "../styles/desktop/statistics.scss";
+import "../styles/phone/statistics.scss";
+import "../styles/tablet/statistics.scss";
+
 //
 // Permet de générer les libellés présents sur les graphiques.
 // 	Note : ils sont créés en partant de 24 heures en arrière.
