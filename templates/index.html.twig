@@ -5,16 +5,16 @@
 {% block javascript %}
 	<script>
 		// Libellé demandant le nom d'utilisateur pour une récupération de compte.
-		const recover_password_username = "{{ form_phrases["form_signin_username"] }}";
+		const recover_password_username = "{{ t("form.signin.username")|trans }}";
 
 		// Libellé demandant le nouveau mot de passe pour une récupération de compte.
-		const recover_password_password = "{{ form_phrases["form_signin_password"] }}";
+		const recover_password_password = "{{ t("form.signin.password")|trans }}";
 
 		// Message d'erreur lorsqu'une erreur s'est produite lors de l'inscription.
-		const form_signup_failed = "{{ form_phrases["form_signup_failed"]|escape }}";
+		const form_signup_failed = "{{ t("form.signup.failed")|trans|escape }}";
 
 		// Message d'erreur lorsqu'une erreur s'est produite lors de la connexion.
-		const form_signin_failed = "{{ form_phrases["form_signin_failed"]|escape }}";
+		const form_signin_failed = "{{ t("form.signin.failed")|trans|escape }}";
 	</script>
 {% endblock %}
 
@@ -23,15 +23,15 @@
 	<ul>
 		{# Les boutons présents dans l'en-tête peuvent variés si
 			un utilisateur est déjà connecté à son compte. #}
-		{% if user_connected %}
+		{% if app.user %}
 			{# Accès au tableau de bord #}
-			<li><a href="?target=dashboard">{{ header_phrases["header_subtitle_dashboard"] }}</a></li>
+			<li><a href="{{ path("app_dashboard_index") }}">{{ t("header.subtitle.dashboard")|trans }}</a></li>
 		{% else %}
 			{# Formulaire d'inscription #}
-			<li><button type="button">{{ index_phrases["index_signup"] }}</button></li>
+			<li><button type="button">{{ t("index.signup")|trans }}</button></li>
 
 			{# Formulaire de connexion #}
-			<li><button type="button">{{ index_phrases["index_signin"] }}</button></li>
+			<li><button type="button">{{ t("index.signin")|trans }}</button></li>
 		{% endif %}
 	</ul>
 {% endblock %}
@@ -43,7 +43,7 @@
 {% block content %}
 	{# Vidéo en arrière-plan #}
 	<video autoplay muted loop>
-		<source src="#" data-src="assets/videos/landing.mp4" type="video/mp4" />
+		<source src="#" data-src="{{ asset('build/videos/landing.mp4') }}" type="video/mp4" />
 	</video>
 
 	{# Affichage de l'animation du logo vers le dépôt GitHub #}
@@ -61,7 +61,7 @@
 		{# Carrousel des images #}
 		<ul>
 			{% for i in range(1, 4) %}
-				<li><img src="assets/images/landing/{{ i }}.webp" alt="Image {{ i }}" decoding="async" /></li>
+				<li><img src="{{ asset('build/images/landing/' ~ i ~ '.webp') }}" alt="Image {{ i }}" decoding="async" /></li>
 			{% endfor %}
 		</ul>
 
@@ -69,7 +69,7 @@
 		<article>
 			{# Logo du site #}
 			<a href="https://github.com/FlorianLeChat/Source-Web-Console">
-				<img src="assets/images/logo.svg" alt="Logo" decoding="async" />
+				<img src="{{ asset('build/images/logo.svg') }}" alt="Logo" decoding="async" />
 			</a>
 
 			{# Bouton de défilement (précédent) #}
@@ -83,11 +83,11 @@
 					<li>
 						{# Titre #}
 						{% if i > 1 %}
-							<h2>{{ index_phrases["index_feature_title_" ~ i] }}.</h2>
+							<h2>{{ t("index.feature.title." ~ i)|trans }}.</h2>
 						{% endif %}
 
 						{# Description #}
-						<p>{{ index_phrases["index_feature_description_" ~ i] }}</p>
+						<p>{{ t("index.feature.description." ~ i)|trans }}</p>
 					</li>
 				{% endfor %}
 			</ul>
@@ -101,11 +101,11 @@
 
 	{# Formulaire d'inscription #}
 	<section id="signup">
-		{% include("form_signup.twig") %}
+		{% include("form_signup.html.twig") %}
 	</section>
 
 	{# Formulaire de connexion #}
 	<section id="signin">
-		{% include("form_signin.twig") %}
+		{% include("form_signin.html.twig") %}
 	</section>
 {% endblock %}
