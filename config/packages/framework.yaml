@@ -7,7 +7,7 @@ framework:
         default_options:
             http_version: "2.0"
     session:
-        handler_id: null
+        handler_id: Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler
     php_errors:
         log: true
 
