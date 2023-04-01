@@ -1,29 +1,32 @@
+{# Nom de la route utilisée par Symfony #}
+{% set route_name = app.current_route|split("_")[1] %}
+
 <!DOCTYPE html>
-<html lang="{{ global_language }}" dir="auto" prefix="og: https://ogp.me/ns#">
+<html lang="{{ app.request.locale ?? app.request.defaultLocale }}" dir="auto" prefix="og: https://ogp.me/ns#">
 	{# En-tête du site #}
 	<head>
 		{# Méta-données du document #}
 		<meta charset="utf-8" />
 		<meta name="author" content="Florian Trayon" />
-		<meta name="description" content="{{ head_phrases["head_description"] }}" />
+		<meta name="description" content="{{ t("head.description")|trans }}" />
 		<meta name="keywords" content="console, source, webadmin, panel, custom, gmod, csgo, rust" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 		<meta name="theme-color" content="#f59a23" />
 
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content="{{ global_url }}" />
-		<meta property="og:title" content="{{ head_phrases["head_title"] }}" />
-		<meta property="og:description" content="{{ head_phrases["head_description"] }}" />
+		<meta property="og:url" content="{{ app.request.server.get("SYMFONY_DEFAULT_ROUTE_URL") }}" />
+		<meta property="og:title" content="{{ t("head.title")|trans }}" />
+		<meta property="og:description" content="{{ t("head.description")|trans }}" />
 		<meta property="og:image" content="https://opengraph.githubassets.com/13ba739f90d3b9a74a277a81e7412c17603348fc621cdf279c4fa521e625f1f9/FlorianLeChat/Source-Web-Console" />
 
 		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content="{{ global_url }}" />
-		<meta property="twitter:title" content="{{ head_phrases["head_title"] }}" />
-		<meta property="twitter:description" content="{{ head_phrases["head_description"] }}" />
+		<meta property="twitter:url" content="{{ app.request.server.get("SYMFONY_DEFAULT_ROUTE_URL") }}" />
+		<meta property="twitter:title" content="{{ t("head.title")|trans }}" />
+		<meta property="twitter:description" content="{{ t("head.description")|trans }}" />
 		<meta property="twitter:image" content="https://opengraph.githubassets.com/13ba739f90d3b9a74a277a81e7412c17603348fc621cdf279c4fa521e625f1f9/FlorianLeChat/Source-Web-Console" />
 
 		{# Titre du document #}
-		<title>{{ head_phrases["head_title"] }}</title>
+		<title>{{ t("head.title")|trans }}</title>
 
 		{# Pré-connexion des ressources externes #}
 		<link rel="preconnect" href="https://www.google.com" />
@@ -38,6 +41,7 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;500" crossorigin="anonymous" />
 
 		{{ encore_entry_link_tags("global") }}
+		{{ encore_entry_link_tags(route_name) }}
 
 		{# Scripts JavaScript #}
 		<script src="https://www.googletagmanager.com/gtag/js?id={{ global_analytics }}" crossorigin="anonymous" defer></script>
@@ -45,22 +49,22 @@
 
 		<script>
 			// Message d'échec si les vérifications côté client échouent.
-			const client_check_failed = "{{ form_phrases["form_client_check_failed"]|escape }}";
+			const client_check_failed = "{{ t("form.client_check_failed")|trans }}";
 
 			// Message d'échec si les vérifications côté serveur échouent.
-			const server_check_failed = "{{ form_phrases["form_server_check_failed"]|escape }}";
+			const server_check_failed = "{{ t("form.server_check_failed")|trans }}";
 
 			// Message d'erreur lorsqu'un message du formulaire de contact ne peut pas être envoyé.
-			const form_contact_failed = "{{ form_phrases["form_contact_failed"]|escape }}";
+			const form_contact_failed = "{{ t("form.contact.failed")|trans }}";
 
 			// Message signalant à l'utilisateur que les majuscules sont activées.
-			const capslock_enabled = "{{ form_phrases["form_capslock_warning"]|escape }}";
+			const capslock_enabled = "{{ t("form.capslock_warning")|trans }}";
 
 			// Message d'erreur lorsqu'une erreur fatale se produit sur un serveur distant.
-			const server_fatal_error = "{{ global_phrases["global_error_fatal"] }}";
+			const server_fatal_error = "{{ t("global.fatal_error")|trans }}";
 
 			// Clé de sécurité publique pour le service de Google reCAPTCHA.
-			const captcha_public_key = "{{ global_captcha }}"
+			const captcha_public_key = "{{ global_recaptcha }}"
 
 			// Identifiant unique pour les mesures de Google Analytics.
 			const analytics_identifier = "{{ global_analytics }}"
@@ -70,6 +74,7 @@
 		{% block javascript %} {% endblock %}
 
 		{{ encore_entry_script_tags("global") }}
+		{{ encore_entry_script_tags(route_name) }}
 
 		{# Icônes et manifeste du document #}
 		<link rel="icon" type="image/webp" sizes="16x16" href="{{ asset('build/favicons/16x16.webp') }}" />
@@ -84,27 +89,27 @@
 
 	<body>
 		{# Avertissement page sans JavaScript #}
-		<noscript>{{ head_phrases["head_no_javascript"] }}</noscript>
+		<noscript>{{ t("head.no_javascript")|trans }}</noscript>
 
 		{# En-tête de la page #}
 		<header>
 			{% block header %}
 				{# Logo du site #}
-				<img src="assets/images/logo.svg" alt="Logo" decoding="async" />
+				<img src="{{ asset('build/images/logo.svg') }}" alt="Logo" decoding="async" />
 
 				{# Titre du site #}
-				<h1>{{ header_phrases["header_title"] }}</h1>
+				<h1>{{ t("header.title")|trans }}</h1>
 
 				{# Sous-titre du site #}
-				<h2>{{ header_phrases["header_subtitle_" ~ global_file] }}</h2>
+				<h2>{{ t("header.subtitle." ~ route_name)|trans }}</h2>
 
 				{# Barre de recherche #}
 				<div id="search">
 					<i class="bi bi-search"></i>
 
-					<span>{{ header_phrases["header_search_title"] }}</span>
+					<span>{{ t("header.search.title")|trans }}</span>
 
-					<input type="text" name="search" placeholder="{{ header_phrases["header_search_placeholder"] }}" autocomplete="off" maxlength="20" required />
+					<input type="text" name="search" placeholder="{{ t("header.search.placeholder")|trans }}" autocomplete="off" maxlength="20" required />
 
 					<ul></ul>
 				</div>
@@ -112,9 +117,9 @@
 				{# État de connexion #}
 				{# Note : apparaît seulement sur les comptes inscrits #}
 				{% if user_identifier is not empty %}
-					<a href="?target=user">
+					<a href="{{ path("app_user_index") }}">
 						<i class="bi bi-person-circle"></i>
-						<span>{{ header_phrases["header_user_status"]|format(user_identifier|capitalize) }}</span>
+						<span>{{ t("header.user.status")|trans|format(user_identifier|capitalize) }}</span>
 					</a>
 				{% endif %}
 			{% endblock %}
@@ -129,72 +134,72 @@
 
 					<ul>
 						{# Liste des pages #}
-						<li class="{{ global_file == "dashboard" ? "active" : "" }}">
+						<li class="{{ route_name == "dashboard" ? "active" : "" }}">
 							{# Tableau de bord #}
-							<a href="?target=dashboard">
+							<a href="{{ path("app_dashboard_index") }}">
 								<i class="bi bi-kanban"></i>
-								<span>{{ header_phrases["header_subtitle_dashboard"] }}</span>
+								<span>{{ t("header_subtitle_dashboard") }}</span>
 							</a>
 						</li>
 
-						<li class="{{ global_file == "statistics" ? "active" : "" }}">
+						<li class="{{ route_name == "statistics" ? "active" : "" }}">
 							{# Statistiques #}
-							<a href="?target=statistics">
+							<a href="{{ path("app_statistics_index") }}">
 								<i class="bi bi-graph-up"></i>
-								<span>{{ header_phrases["header_subtitle_statistics"] }}</span>
+								<span>{{ header_subtitle_statistics }}</span>
 							</a>
 						</li>
 
-						<li class="{{ global_file == "configuration" ? "active" : "" }}">
+						<li class="{{ route_name == "configuration" ? "active" : "" }}">
 							{# Configuration #}
-							<a href="?target=configuration">
+							<a href="{{ path("app_configuration_index") }}">
 								<i class="bi bi-tools"></i>
-								<span>{{ header_phrases["header_subtitle_configuration"] }}</span>
+								<span>{{ header_subtitle_configuration }}</span>
 							</a>
 						</li>
 
-						<li class="{{ global_file == "actions" ? "active" : "" }}">
+						<li class="{{ route_name == "actions" ? "active" : "" }}">
 							{# Actions et commandes #}
-							<a href="?target=actions">
+							<a href="{{ path("app_actions_index") }}">
 								<i class="bi bi-lightning"></i>
-								<span>{{ header_phrases["header_subtitle_actions"] }}</span>
+								<span>{{ header_subtitle_actions }}</span>
 							</a>
 						</li>
 
-						<li class="{{ global_file == "console" ? "active" : "" }}">
+						<li class="{{ route_name == "console" ? "active" : "" }}">
 							{# Console interactive #}
-							<a href="?target=console">
+							<a href="{{ path("app_console_index") }}">
 								<i class="bi bi-code-slash"></i>
-								<span>{{ header_phrases["header_subtitle_console"] }}</span>
+								<span>{{ header_subtitle_console }}</span>
 							</a>
 						</li>
 
-						<li class="{{ global_file == "tasks" ? "active" : "" }}">
+						<li class="{{ route_name == "tasks" ? "active" : "" }}">
 							{# Tâches planifiées #}
-							<a href="?target=tasks">
+							<a href="{{ path("app_tasks_index") }}">
 								<i class="bi bi-calendar3"></i>
-								<span>{{ header_phrases["header_subtitle_tasks"] }}</span>
+								<span>{{ header_subtitle_tasks }}</span>
 							</a>
 						</li>
 
 						{% if user_identifier is not empty %}
-							<li class="{{ global_file == "user" ? "active" : "" }}">
+							<li class="{{ route_name == "user" ? "active" : "" }}">
 								{# Compte utilisateur #}
 								{# Note : apparaît seulement sur les comptes inscrits #}
-								<a href="?target=user">
+								<a href="{{ path("app_user_index") }}">
 									<i class="bi bi-person-circle"></i>
-									<span>{{ header_phrases["header_subtitle_user"] }}</span>
+									<span>{{ header_subtitle_user }}</span>
 								</a>
 							</li>
 						{% endif %}
 
 						{% if user_level == "admin" %}
-							<li class="{{ global_file == "admin" ? "active" : "" }}">
+							<li class="{{ route_name == "admin" ? "active" : "" }}">
 								{# Administration #}
 								{# Note : apparaît seulement pour les administrateurs #}
-								<a href="?target=admin">
+								<a href="{{ path("app_admin_index") }}">
 									<i class="bi bi-server"></i>
-									<span>{{ header_phrases["header_subtitle_admin"] }}</span>
+									<span>{{ header_subtitle_admin }}</span>
 								</a>
 							</li>
 						{% endif %}
@@ -207,7 +212,7 @@
 
 			{# Formulaire de contact #}
 			<section id="contact">
-				{% include("form_contact.twig") %}
+				{% include("form_contact.html.twig") %}
 			</section>
 
 			{# Notifications textuelles #}
@@ -219,7 +224,7 @@
 			{# Conteneur du bouton des astuces #}
 			<div id="tips">
 				<button type="button">?</button>
-				<span>{{ attribute(attribute(_context, global_file ~ "_phrases"), global_file ~ "_tips") }}</span>
+				<span>{{ t("index.tips")|trans }}</span>
 			</div>
 		</main>
 
@@ -229,17 +234,17 @@
 			<ul>
 				<li>
 					{# Bouton de retour à l'accueil #}
-					<a href="?target=index">
+					<a href="{{ path("app_index_index") }}">
 						<i class="bi bi-house-door"></i>
-						<span>{{ footer_phrases["footer_home"] }}</span>
+						<span>{{ t("footer.home")|trans }}</span>
 					</a>
 				</li>
 
 				<li>
 					{# Bouton des informations juridiques #}
-					<a href="?target=legal">
+					<a href="{{ path("app_legal_index") }}">
 						<i class="bi bi-flag-fill"></i>
-						<span>{{ footer_phrases["footer_legal"] }}</span>
+						<span>{{ t("footer.legal")|trans }}</span>
 					</a>
 				</li>
 
@@ -247,15 +252,15 @@
 					{# Bouton du formulaire de contact #}
 					<a href="javascript:void(0);">
 						<i class="bi bi-envelope"></i>
-						<span>{{ footer_phrases["footer_contact"] }}</span>
+						<span>{{ t("footer.contact")|trans }}</span>
 					</a>
 				</li>
 
 				<li>
 					{# Bouton de la page d'assistance #}
-					<a href="?target=help">
+					<a href="{{ path("app_help_index") }}">
 						<i class="bi bi-question-circle"></i>
-						<span>{{ footer_phrases["footer_support"] }}</span>
+						<span>{{ t("footer.support")|trans }}</span>
 					</a>
 				</li>
 
@@ -264,11 +269,11 @@
 					<i class="bi bi-translate"></i>
 					<form method="POST">
 						<ul>
-							{% for code in language_codes %}
+							{% for code in get_languages() %}
 								<li>
 									{# Création du bouton avec les informations #}
-									<button type="submit" name="language" value="{{ code|upper }}">
-										{% if code == "EN" %}
+									<button type="submit" name="language" value="{{ code }}">
+										{% if code == "en" %}
 											{# Le drapeau britannique possède un code ISO différent #}
 											<i class="fi fi-gb"></i>
 										{% else %}
@@ -277,7 +282,7 @@
 										{% endif %}
 
 										{# Affichage du nom de la langue #}
-										<span>{{ language_phrases["language_" ~ code|lower ] }}</span>
+										<span>{{ t("language." ~ code)|trans }}</span>
 									</button>
 								</li>
 							{% endfor %}
