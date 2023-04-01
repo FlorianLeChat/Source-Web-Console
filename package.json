@@ -24,7 +24,7 @@
         "chart.js": "~4.2",
         "flag-icons": "~6.6",
         "file-loader": "~6.2",
-        "webpack-cli": "~4.10",
+        "webpack-cli": "~5.0",
         "sass-loader": "~13.2",
         "normalize.css": "~8.0",
         "bootstrap-icons": "~1.10",
