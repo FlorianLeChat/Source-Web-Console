@@ -3,10 +3,11 @@ framework:
     secret: "%env(APP_SECRET)%"
     http_method_override: false
     handle_all_throwables: true
-
+    http_client:
+        default_options:
+            http_version: "2.0"
     session:
         handler_id: null
-
     php_errors:
         log: true
 
