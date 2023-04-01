@@ -8,3 +8,5 @@ services:
             - "../src/DependencyInjection/"
             - "../src/Entity/"
             - "../src/Kernel.php"
+    App\EventSubscriber\LocaleSubscriber:
+        arguments: ["%kernel.default_locale%"]
