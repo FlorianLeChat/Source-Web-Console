@@ -10,3 +10,6 @@ services:
             - "../src/Kernel.php"
     App\EventSubscriber\LocaleSubscriber:
         arguments: ["%kernel.default_locale%"]
+    App\Twig\AppRuntime:
+        arguments: ["@translator"]
+        tags: ["twig.runtime"]
