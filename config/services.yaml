@@ -13,3 +13,6 @@ services:
     App\Twig\AppRuntime:
         arguments: ["@translator"]
         tags: ["twig.runtime"]
+    Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler:
+        arguments:
+            - "%env(DATABASE_URL)%"
