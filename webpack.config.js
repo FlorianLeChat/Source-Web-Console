@@ -38,7 +38,8 @@ Encore
 		config.corejs = "3.23";
 	} )
 	.copyFiles( [
-		{ from: "./assets/favicons", to: "favicons/[path][name].[hash:8].[ext]" },
+		{ from: "./assets/favicons", to: "favicons/[path][name].[ext]" }, // https://github.com/symfony/webpack-encore/issues/796#issuecomment-653091438
+		{ from: "./assets/images", to: "favicons/[path][name].[ext]", includeSubdirectories: false }, // Voir commentaire précédent.
 		{ from: "./assets/images", to: "images/[path][name].[hash:8].[ext]" },
 		{ from: "./assets/videos", to: "videos/[path][name].[hash:8].[ext]" }
 	] )
