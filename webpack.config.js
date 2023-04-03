@@ -28,6 +28,10 @@ Encore
 	.enableBuildNotifications()
 	.enableSourceMaps( !Encore.isProduction() )
 	.enableVersioning( Encore.isProduction() )
+	.configureManifestPlugin( options =>
+	{
+		options.fileName = "webpack-manifest.json";
+	} )
 	.configureBabelPresetEnv( ( config ) =>
 	{
 		config.useBuiltIns = "usage";
