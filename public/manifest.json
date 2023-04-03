@@ -4,37 +4,37 @@
 	"description": "A project made during my studies to manage game dedicated servers using the Source RCON protocol through a web interface.",
 	"icons": [
 		{
-			"src": "assets/favicons/16x16.webp",
+			"src": "build/favicons/16x16.webp",
 			"type": "image/webp",
 			"sizes": "16x16"
 		},
 		{
-			"src": "assets/favicons/32x32.webp",
+			"src": "build/favicons/32x32.webp",
 			"type": "image/webp",
 			"sizes": "32x32"
 		},
 		{
-			"src": "assets/favicons/48x48.webp",
+			"src": "build/favicons/48x48.webp",
 			"type": "image/webp",
 			"sizes": "48x48"
 		},
 		{
-			"src": "assets/favicons/180x180.webp",
+			"src": "build/favicons/180x180.webp",
 			"type": "image/webp",
 			"sizes": "180x180"
 		},
 		{
-			"src": "assets/favicons/192x192.webp",
+			"src": "build/favicons/192x192.webp",
 			"type": "image/webp",
 			"sizes": "192x192"
 		},
 		{
-			"src": "assets/favicons/512x512.webp",
+			"src": "build/favicons/512x512.webp",
 			"type": "image/webp",
 			"sizes": "512x512"
 		},
 		{
-			"src": "assets/images/logo.svg",
+			"src": "build/favicons/logo.svg",
 			"type": "image/svg+xml",
 			"sizes": "any"
 		}
