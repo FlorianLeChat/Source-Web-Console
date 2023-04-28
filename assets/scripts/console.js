@@ -7,7 +7,7 @@ import "../styles/tablet/console.scss";
 // Permet d'envoyer les entrées utilisateurs personnalisées
 //	au serveur distant.
 //
-$( "#controller button" ).click( ( event ) =>
+$( "#controller button" ).on( "click", ( event ) =>
 {
 	// On récupère le contenu de l'entrée utilisateur avant
 	//	de le vérifie pour la prochaine étape.
