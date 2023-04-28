@@ -8,7 +8,7 @@ import "../styles/tablet/help.scss";
 //	des questions/réponses de la page.
 //	Source : https://www.w3schools.com/howto/howto_js_collapsible.asp
 //
-$( "#faq button" ).click( ( event ) =>
+$( "#faq button" ).on( "click", ( event ) =>
 {
 	// On bascule d'abord l'état d'activation du bouton.
 	$( event.target ).toggleClass( "active" );

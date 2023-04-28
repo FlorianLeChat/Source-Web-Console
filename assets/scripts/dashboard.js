@@ -24,7 +24,7 @@ for ( const server of servers )
 //
 let submit_edit = false;
 
-$( "[name = server_edit]" ).click( ( event ) =>
+$( "[name = server_edit]" ).on( "click", ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	if ( submit_edit )
@@ -62,7 +62,7 @@ $( "[name = server_edit]" ).click( ( event ) =>
 	//	qu'on ne doit pas demander de nouveau les informations.
 	submit_edit = true;
 
-	$( event.target ).click();
+	$( event.target ).trigger( "click" );
 } );
 
 //
@@ -179,13 +179,13 @@ timer = setInterval( () =>
 // Permet d'envoyer des requêtes d'action lors du clic sur l'un des
 //	boutons du tableau de bord.
 //
-$( "#actions li" ).click( ( event ) =>
+$( "#actions li" ).on( "click", ( event ) =>
 {
 	// Requête classique en fonction du bouton.
 	sendRemoteAction( $( event.target ).attr( "data-action" ) );
 } );
 
-$( "#actions li:first-of-type" ).dblclick( () =>
+$( "#actions li:first-of-type" ).on( "dblclick", () =>
 {
 	// Requête d'arrêt forcé.
 	sendRemoteAction( "force" );

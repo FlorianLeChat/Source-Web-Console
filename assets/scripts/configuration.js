@@ -7,7 +7,7 @@ import "../styles/tablet/configuration.scss";
 // Permet d'enregistrer ou de mettre à jour les données du
 //	serveur de stockage FTP.
 //
-$( "form input[type = submit]" ).click( ( event ) =>
+$( "form input[type = submit]" ).on( "click", ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -56,7 +56,7 @@ $( "form input[type = submit]" ).click( ( event ) =>
 // Permet de mettre à jour les informations présentes dans le fichier
 //	de configuration du serveur distant.
 //
-$( "button[data-type]" ).click( ( event ) =>
+$( "button[data-type]" ).on( "click", ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();

@@ -11,13 +11,13 @@ const header = $( "header li" );
 const signup = $( "#signup article" );
 const signin = $( "#signin" );
 
-header.first().find( "button" ).click( () =>
+header.first().find( "button" ).on( "click", () =>
 {
 	// Inscription (première partie).
 	signup.first().fadeIn( 150 );
 } );
 
-header.last().find( "button" ).click( () =>
+header.last().find( "button" ).on( "click", () =>
 {
 	// Connexion.
 	signin.fadeIn( 150 );
@@ -29,7 +29,7 @@ header.last().find( "button" ).click( () =>
 const first_step = signup.first();
 const last_step = signup.last();
 
-signup.find( "form" ).submit( ( event ) =>
+signup.find( "form" ).on( "submit", ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -106,7 +106,7 @@ signup.find( "form" ).submit( ( event ) =>
 	}
 } );
 
-signup.find( "input[type = reset]" ).click( () =>
+signup.find( "input[type = reset]" ).on( "click", () =>
 {
 	// On vérifie d'abord si l'utilisateur se trouve ou non
 	//	à la première étape de l'inscription.
@@ -131,7 +131,7 @@ signup.find( "input[type = reset]" ).click( () =>
 //
 // Permet de gérer les mécanismes du formulaire de connexion.
 //
-signin.find( "input[type = submit]" ).click( ( event ) =>
+signin.find( "input[type = submit]" ).on( "click", ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -182,7 +182,7 @@ signin.find( "input[type = submit]" ).click( ( event ) =>
 		} );
 } );
 
-signin.find( "input[type = reset]" ).click( () =>
+signin.find( "input[type = reset]" ).on( "click", () =>
 {
 	// On cache le formulaire à la demande de l'utilisateur.
 	signin.hide();
@@ -194,7 +194,7 @@ signin.find( "input[type = reset]" ).click( () =>
 //
 const links = signin.find( "a[href = \"javascript:void(0);\"]" );
 
-links.first().click( () =>
+links.first().on( "click", () =>
 {
 	signin.fadeOut( 150, () =>
 	{
@@ -203,7 +203,7 @@ links.first().click( () =>
 	} );
 } );
 
-links.eq( 1 ).click( () =>
+links.eq( 1 ).on( "click", () =>
 {
 	signin.fadeOut( 150, () =>
 	{
@@ -212,7 +212,7 @@ links.eq( 1 ).click( () =>
 	} );
 } );
 
-links.last().click( ( event ) =>
+links.last().on( "click", ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -251,7 +251,7 @@ links.last().click( ( event ) =>
 // Permet d'afficher en clair les mots de passe entrés dans les champs
 //	de saisies dédiés dans les différents formulaire.
 //
-$( "input[id *= clear]" ).click( ( event ) =>
+$( "input[id *= clear]" ).on( "click", ( event ) =>
 {
 	// On recherche le champ de saisie des mots de passe.
 	const input = $( event.target ).parent().find( "input[id *= password]" );
@@ -277,7 +277,7 @@ $( "input[id *= clear]" ).click( ( event ) =>
 const characters = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 let old_password = "";
 
-$( "#generation" ).click( ( event ) =>
+$( "#generation" ).on( "click", ( event ) =>
 {
 	// On récupère le champ de saisie associé au formulaire.
 	const input = $( event.target ).parent().find( "input[id *= password]" );
@@ -433,13 +433,13 @@ function updateInformation( forward )
 	}
 }
 
-informations.find( "button" ).first().click( () =>
+informations.find( "button" ).first().on( "click", () =>
 {
 	// Bouton pour voir l'information précédente.
 	updateInformation( false );
 } );
 
-informations.find( "button" ).last().click( () =>
+informations.find( "button" ).last().on( "click", () =>
 {
 	// Bouton pour voir l'information suivante.
 	updateInformation( true );

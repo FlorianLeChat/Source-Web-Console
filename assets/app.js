@@ -9,7 +9,7 @@ import "vanilla-cookieconsent/dist/cookieconsent.css";
 //	entre un mot de passe avec les majuscules activées.
 // 	Source : https://www.w3schools.com/howto/howto_js_detect_capslock.asp
 //
-$( "input[type = password]" ).keyup( ( event ) =>
+$( "input[type = password]" ).on( "keyup", ( event ) =>
 {
 	if ( event.originalEvent.getModifierState( "CapsLock" ) )
 	{
@@ -27,7 +27,7 @@ $( "input[type = password]" ).keyup( ( event ) =>
 //
 // Permet de vérifier les informations obligatoires dans les formulaires.
 //
-$( "*[required]" ).keyup( ( event ) =>
+$( "*[required]" ).on( "keyup", ( event ) =>
 {
 	// On récupère le message d'erreur présent par défaut.
 	const element = $( event.target );
@@ -74,7 +74,7 @@ $( "*[required]" ).keyup( ( event ) =>
 //
 // Permet d'ouvrir le formulaire de contact via le pied de page.
 //
-$( "footer" ).find( "a[href = \"javascript:void(0);\"]" ).click( () =>
+$( "footer" ).find( "a[href = \"javascript:void(0);\"]" ).on( "click", () =>
 {
 	contact.fadeIn( 150 );
 } );
@@ -82,7 +82,7 @@ $( "footer" ).find( "a[href = \"javascript:void(0);\"]" ).click( () =>
 //
 // Permet de désactiver le mécanisme de glissement des liens.
 //
-$( "a" ).mousedown( ( event ) =>
+$( "a" ).on( "mousedown", ( event ) =>
 {
 	event.preventDefault();
 } );
@@ -141,7 +141,7 @@ $( window ).ajaxSend( ( _event, _request, settings ) =>
 // Permet d'indiquer la position de défilement actuelle de l'utilisateur.
 // 	Source : https://www.w3schools.com/howto/howto_js_scroll_indicator.asp
 //
-$( window ).scroll( () =>
+$( window ).on( "scroll", () =>
 {
 	// Récupération de la racine du document.
 	const root = $( document.documentElement );
@@ -161,7 +161,7 @@ $( window ).scroll( () =>
 //
 const contact = $( "#contact" );
 
-contact.find( "form" ).submit( ( event ) =>
+contact.find( "form" ).on( "submit", ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -205,7 +205,7 @@ contact.find( "form" ).submit( ( event ) =>
 		} );
 } );
 
-contact.find( "input[type = reset]" ).click( () =>
+contact.find( "input[type = reset]" ).on( "click", () =>
 {
 	// On cache le formulaire à la demande de l'utilisateur.
 	contact.fadeOut( 150 );
@@ -225,7 +225,7 @@ for ( const page of $( "nav span, footer a[href *= target] span" ) )
 	pages[ $( page ).html() ] = $( page ).parent().attr( "href" );
 }
 
-search.focusout( () =>
+search.on( "focusout", () =>
 {
 	// La définition de l'opacité est une astuce qui permet aux
 	//	événements "click" de jQuery de pouvoir s'exécuter systématiquement
@@ -233,13 +233,13 @@ search.focusout( () =>
 	search.next().css( "opacity", 0 );
 } );
 
-search.focusin( () =>
+search.on( "focusin", () =>
 {
 	// Voir commentaire précédent.
 	search.next().css( "opacity", 1 );
 } );
 
-search.keyup( ( event ) =>
+search.on( "keyup", ( event ) =>
 {
 	// On récupère la recherche de l'utilisateur ainsi
 	//	que la liste des résultats possibles.
@@ -284,7 +284,7 @@ function adjustZoom()
 
 adjustZoom();
 
-$( window ).resize( adjustZoom );
+$( window ).on( "resize", adjustZoom );
 
 //
 // Permet d'afficher des notifications textuelles après une action.

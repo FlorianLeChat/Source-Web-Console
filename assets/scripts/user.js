@@ -7,7 +7,7 @@ import "../styles/tablet/user.scss";
 // Permet d'envoyer les demandes de modification ou de suppression
 //	des informations d'authentification vers le serveur.
 //
-$( "#account input[data-action]" ).click( ( event ) =>
+$( "#account input[data-action]" ).on( "click", ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -58,7 +58,7 @@ $( "#account input[data-action]" ).click( ( event ) =>
 // Permet d'envoyer les demandes de déconnexion et de reconnexion
 //	au compte utilisateur.
 //
-$( "#actions input[type = submit]" ).click( ( event ) =>
+$( "#actions input[type = submit]" ).on( "click", ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -99,7 +99,7 @@ $( "#signup input[type = submit]" ).attr( "data-action", "insert" );
 // Permet d'envoyer les demandes d'ajout d'un nouveau serveur dans
 //	la base de données.
 //
-$( "#signup input[type = submit]" ).click( ( event ) =>
+$( "#signup input[type = submit]" ).on( "click", ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();

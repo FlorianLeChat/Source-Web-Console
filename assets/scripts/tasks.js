@@ -7,7 +7,7 @@ import "../styles/tablet/tasks.scss";
 // Permet de gérer les demandes de suppression de tâches planifiées
 //	dans la base de données.
 //
-$( "table tr:not([class = finished])" ).click( ( event ) =>
+$( "table tr:not([class = finished])" ).on( "click", ( event ) =>
 {
 	// On vérifie si l'utilisateur demande a supprimer la tâche.
 	if ( confirm( edit_remove ) )
@@ -48,7 +48,7 @@ $( "table tr:not([class = finished])" ).click( ( event ) =>
 // Permet d'envoyer les demandes de création de tâches planifiées
 //	vers la base de données.
 //
-$( "form input[type = submit]" ).click( ( event ) =>
+$( "form input[type = submit]" ).on( "click", ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
