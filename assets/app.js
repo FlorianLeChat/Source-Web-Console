@@ -4,9 +4,6 @@ import "flag-icons/css/flag-icons.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "vanilla-cookieconsent/dist/cookieconsent.css";
 
-// Démarrage des contrôleurs Stimulus.
-import "./bootstrap";
-
 //
 // Permet d'afficher des messages d'avertissement lorsqu'un utilisateur
 //	entre un mot de passe avec les majuscules activées.
