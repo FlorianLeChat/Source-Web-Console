@@ -1,6 +1,10 @@
 doctrine:
     dbal:
-        url: "%env(resolve:DATABASE_URL)%"
+        host: "%env(DATABASE_HOST)%"
+        port: "%env(DATABASE_PORT)%"
+        dbname: "%env(DATABASE_NAME)%"
+        user: "%env(DATABASE_USERNAME)%"
+        password: "%env(DATABASE_PASSWORD)%"
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
@@ -29,7 +33,6 @@ when@prod:
             result_cache_driver:
                 type: pool
                 pool: doctrine.result_cache_pool
-
     framework:
         cache:
             pools:

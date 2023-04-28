@@ -15,4 +15,5 @@ services:
         tags: ["twig.runtime"]
     Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler:
         arguments:
-            - "%env(DATABASE_URL)%"
+            - "mysql:dbname=%env(DATABASE_NAME)%; host=%env(DATABASE_HOST)%; port=%env(DATABASE_PORT)%"
+            - { db_username: "%env(DATABASE_USERNAME)%", db_password: "%env(DATABASE_PASSWORD)%" }
