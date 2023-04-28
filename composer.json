@@ -26,7 +26,6 @@
         "phpfastcache/phpfastcache": "~9.1",
         "xpaw/php-source-query-class": "~2.1",
         "zytzagoo/smtp-validate-email": "~1.0",
-        "sensio/framework-extra-bundle": "~6.1",
         "phpdocumentor/reflection-docblock": "~5.3",
 
         "ext-ctype": "*",
