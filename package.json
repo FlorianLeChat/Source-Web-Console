@@ -29,7 +29,7 @@
         "webpack-notifier": "~1.15",
         "vanilla-lazyload": "~17.8",
         "regenerator-runtime": "~0.13",
-        "vanilla-cookieconsent": "~2.8",
+        "vanilla-cookieconsent": "~2.9",
         "chartjs-adapter-date-fns": "~3.0"
     },
     "engines": {
