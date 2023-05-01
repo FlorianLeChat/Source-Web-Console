@@ -15,7 +15,7 @@
         "@babel/core": "~7.21",
         "@babel/preset-env": "~7.21",
         "@symfony/webpack-encore": "~4.3",
-        "sass": "~1.60",
+        "sass": "~1.62",
         "jquery": "~3.6",
         "core-js": "~3.30",
         "webpack": "~5.77",
