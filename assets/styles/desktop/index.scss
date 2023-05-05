@@ -95,6 +95,7 @@ main > a
 	svg
 	{
 		// Délimitation de la zone cliquable.
+		position: fixed;
 		clip-path: polygon(0 0, 100% 0, 100% 100%)
 	}
 
