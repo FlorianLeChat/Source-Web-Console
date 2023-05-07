@@ -5,7 +5,7 @@ import "../styles/tablet/index.scss";
 
 //
 // Permet de gérer les ouvertures/fermetures de certains
-//	formulaires de la page d'accueil.
+//  formulaires de la page d'accueil.
 //
 const login = $( "#login" );
 const header = $( "header li" );
@@ -35,7 +35,7 @@ register.find( "form" ).on( "submit", ( event ) =>
 	event.preventDefault();
 
 	// On vérifie ensuite si l'utilisateur se trouve à la première
-	//	ou à la deuxième étape de la phase d'inscription.
+	//  ou à la deuxième étape de la phase d'inscription.
 	if ( first_step.is( ":visible" ) )
 	{
 		// Si c'est le cas, on passe à la seconde étape.
@@ -47,7 +47,7 @@ register.find( "form" ).on( "submit", ( event ) =>
 	else
 	{
 		// Dans le cas contraire, on réalise une requête AJAX pour
-		//	envoyer les informations au serveur.
+		//  envoyer les informations au serveur.
 		$.post( "api/user/register", {
 
 			// Nom d'utilisateur et mot de passe du compte utilisateur.
@@ -64,7 +64,7 @@ register.find( "form" ).on( "submit", ( event ) =>
 			admin_password: last_step.find( "input[name = admin_password]" ).val(),
 
 			// Options de connexion.
-			//	Note : conversion explicite de la valeur booléenne en valeur entière.
+			//  Note : conversion explicite de la valeur booléenne en valeur entière.
 			secure_only: last_step.find( "input[id = secure_only]" ).is( ":checked" ) | 0,
 			auto_connect: last_step.find( "input[id = auto_connect]" ).is( ":checked" ) | 0
 
@@ -72,25 +72,25 @@ register.find( "form" ).on( "submit", ( event ) =>
 			.done( ( data, _status, _self ) =>
 			{
 				// Une fois terminée, on affiche la réponse JSON du
-				//	serveur sous forme d'une liste numérique.
+				//  serveur sous forme d'une liste numérique.
 				const json = JSON.parse( data );
 
 				// On affiche un message de confirmation.
 				addQueuedNotification( json[ 0 ], json[ 1 ] );
 
 				// On effectue par la suite certaines actions si le message
-				//	renvoyé par le serveur est un message de succès.
+				//  renvoyé par le serveur est un message de succès.
 				if ( json[ 1 ] == 2 )
 				{
 					// On réinitialise alors les deux formulaires avant
-					//	de fermer le second.
+					//  de fermer le second.
 					first_step.find( "form" )[ 0 ].reset();
 					last_step.find( "form" )[ 0 ].reset();
 
 					last_step.fadeOut( 150 );
 
 					// On effectue enfin la redirection de l'utilisateur
-					//	vers le tableau de bord au bout de 5 secondes.
+					//  vers le tableau de bord au bout de 5 secondes.
 					setTimeout( () =>
 					{
 						window.location.href = "?target=dashboard";
@@ -100,7 +100,7 @@ register.find( "form" ).on( "submit", ( event ) =>
 			.fail( ( self, _status, error ) =>
 			{
 				// Dans le cas contraire, on affiche une notification
-				//	d'échec avec les informations à notre disposition.
+				//  d'échec avec les informations à notre disposition.
 				addQueuedNotification( form_register_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
 			} );
 	}
@@ -109,7 +109,7 @@ register.find( "form" ).on( "submit", ( event ) =>
 register.find( "input[type = reset]" ).on( "click", () =>
 {
 	// On vérifie d'abord si l'utilisateur se trouve ou non
-	//	à la première étape de l'inscription.
+	//  à la première étape de l'inscription.
 	if ( first_step.is( ":visible" ) )
 	{
 		// Si c'est le cas, on cache le formulaire..
@@ -122,7 +122,7 @@ register.find( "input[type = reset]" ).on( "click", () =>
 	else
 	{
 		// Dans le cas contraire, on retourne juste en arrière
-		//	si l'utilisateur veut modifier certaines informations.
+		//  si l'utilisateur veut modifier certaines informations.
 		first_step.fadeIn( 150 );
 		last_step.fadeOut( 150 );
 	}
@@ -152,14 +152,14 @@ login.find( "input[type = submit]" ).on( "click", ( event ) =>
 		.done( ( data, _status, _self ) =>
 		{
 			// Une fois terminée, on affiche la réponse JSON du
-			//	serveur sous forme d'une liste numérique.
+			//  serveur sous forme d'une liste numérique.
 			const json = JSON.parse( data );
 
 			// On affiche alors un message de confirmation.
 			addQueuedNotification( json[ 0 ], json[ 1 ] );
 
 			// On effectue par la suite certaines actions si le message
-			//	renvoyé par le serveur est un message de succès.
+			//  renvoyé par le serveur est un message de succès.
 			if ( json[ 1 ] == 2 )
 			{
 				// On réinitialise alors l'entièreté du formulaire.
@@ -167,7 +167,7 @@ login.find( "input[type = submit]" ).on( "click", ( event ) =>
 				login.fadeOut( 150 );
 
 				// On effectue enfin la redirection de l'utilisateur
-				//	vers le tableau de bord au bout de 5 secondes.
+				//  vers le tableau de bord au bout de 5 secondes.
 				setTimeout( () =>
 				{
 					window.location.href = "?target=dashboard";
@@ -177,7 +177,7 @@ login.find( "input[type = submit]" ).on( "click", ( event ) =>
 		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
-			//	d'échec avec les informations à notre disposition.
+			//  d'échec avec les informations à notre disposition.
 			addQueuedNotification( form_login_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 } );
@@ -190,7 +190,7 @@ login.find( "input[type = reset]" ).on( "click", () =>
 
 //
 // Permet de gérer les liens de redirection présents dans le
-//	formulaire de connexion.
+//  formulaire de connexion.
 //
 const links = login.find( "a[href = \"javascript:void(0);\"]" );
 
@@ -233,7 +233,7 @@ links.last().on( "click", ( event ) =>
 		.done( ( data, _status, _self ) =>
 		{
 			// Une fois terminée, on affiche la réponse JSON du
-			//	serveur sous forme d'une liste numérique.
+			//  serveur sous forme d'une liste numérique.
 			const json = JSON.parse( data );
 
 			// On affiche enfin le message de confirmation.
@@ -242,14 +242,14 @@ links.last().on( "click", ( event ) =>
 		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
-			//	d'échec avec les informations à notre disposition.
+			//  d'échec avec les informations à notre disposition.
 			addQueuedNotification( form_login_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 } );
 
 //
 // Permet d'afficher en clair les mots de passe entrés dans les champs
-//	de saisies dédiés dans les différents formulaire.
+//  de saisies dédiés dans les différents formulaire.
 //
 $( "input[id *= clear]" ).on( "click", ( event ) =>
 {
@@ -260,7 +260,7 @@ $( "input[id *= clear]" ).on( "click", ( event ) =>
 	if ( input.attr( "type" ) == "password" )
 	{
 		// Alors on définit le type du champ en texte pour afficher
-		//	le contenu en clair sans les pointillés habituels.
+		//  le contenu en clair sans les pointillés habituels.
 		input.attr( "type", "text" );
 	}
 	else
@@ -272,7 +272,7 @@ $( "input[id *= clear]" ).on( "click", ( event ) =>
 
 //
 // Permet de générer un mot de passe pseudo-sécurisé pour l'utilisateur.
-// 	Source : https://dev.to/code_mystery/random-password-generator-using-javascript-6a
+//  Source : https://dev.to/code_mystery/random-password-generator-using-javascript-6a
 //
 const characters = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 let old_password = "";
@@ -286,7 +286,7 @@ $( "#generation" ).on( "click", ( event ) =>
 	if ( $( event.target ).is( ":checked" ) )
 	{
 		// Si elle est coché, on génère aléatoirement un mot de passe
-		//	grâce à une série de caractères.
+		//  grâce à une série de caractères.
 		let new_password = "";
 
 		for ( let indice = 0; indice <= 15; indice++ )
@@ -299,7 +299,7 @@ $( "#generation" ).on( "click", ( event ) =>
 		}
 
 		// On enregistre enfin l'ancien mot de passe en mémoire avant de
-		//	définir le mot de passe sécurisé dans le champ approprié.
+		//  définir le mot de passe sécurisé dans le champ approprié.
 		old_password = input.val();
 
 		input.val( new_password );
@@ -313,7 +313,7 @@ $( "#generation" ).on( "click", ( event ) =>
 
 //
 // Permet de contrôler le mécanisme de présentation des fonctionnalités
-//	principales du site.
+//  principales du site.
 //
 const informations = $( "#informations" );		// Conteneur général des informations.
 const elements = informations.find( "ul" ); 	// Les deux listes : paragraphes et images.
@@ -350,11 +350,11 @@ function updateInformation( forward )
 			element.fadeOut( 200, () =>
 			{
 				// On vérifie ensuite si l'utilisateur demander d'avancer
-				//	ou de reculer dans les positions des images.
+				//  ou de reculer dans les positions des images.
 				if ( forward )
 				{
 					// Pour avancer, on vérifie si on atteint pas le dépassement
-					//	du nombre d'images disponibles.
+					//  du nombre d'images disponibles.
 					if ( indice >= length )
 					{
 						// Dans ce cas, on affiche la première image de la liste.
@@ -369,11 +369,11 @@ function updateInformation( forward )
 				else
 				{
 					// En cas de reculement, on vérifie la position actuelle
-					//	dans la liste.
+					//  dans la liste.
 					if ( indice == 0 )
 					{
 						// Si on atteint le début de la liste, on affiche la dernière
-						//	image disponible.
+						//  image disponible.
 						images.last().fadeIn( 150 );
 					}
 					else

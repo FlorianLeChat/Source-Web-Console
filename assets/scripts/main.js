@@ -6,15 +6,15 @@ import "vanilla-cookieconsent/dist/cookieconsent.css";
 
 //
 // Permet d'afficher des messages d'avertissement lorsqu'un utilisateur
-//	entre un mot de passe avec les majuscules activées.
-// 	Source : https://www.w3schools.com/howto/howto_js_detect_capslock.asp
+//  entre un mot de passe avec les majuscules activées.
+//  Source : https://www.w3schools.com/howto/howto_js_detect_capslock.asp
 //
 $( "input[type = password]" ).on( "keyup", ( event ) =>
 {
 	if ( event.originalEvent.getModifierState( "CapsLock" ) )
 	{
 		// Si les majuscules sont activées, on insère dynamiquement
-		//	un nouvel élément HTML après le champ de saisie.
+		//  un nouvel élément HTML après le champ de saisie.
 		$( event.target ).next().after( `<p class=\"capslock\">${ capslock_enabled }</p>` );
 	}
 	else
@@ -34,33 +34,33 @@ $( "*[required]" ).on( "keyup", ( event ) =>
 	const error = element.parent().find( ".error" );
 
 	// On vérifie par la suite si l'élément est valide ou non
-	//	aux yeux des vérifications HTML.
+	//  aux yeux des vérifications HTML.
 	if ( !element[ 0 ].validity.valid )
 	{
 		// On récupère alors le libellé du champ de saisie.
-		//	Note : il doit se trouver techniquement juste avant le champ.
+		//  Note : il doit se trouver techniquement juste avant le champ.
 		let label = element.prev().html();
 
 		if ( label == "" )
 		{
 			// S'il est invalide, on récupère tous les éléments précédents
-			//	et on fait un recherche jusqu'à trouver un libellé.
+			//  et on fait un recherche jusqu'à trouver un libellé.
 			label = element.prevAll().filter( "label" ).html();
 		}
 
 		// On supprime ensuite les astérisques présents dans certains
-		//	libellés qui définissent si le champ est obligatoire.
+		//  libellés qui définissent si le champ est obligatoire.
 		label = label.replaceAll( "*", "" );
 
 		// On remplace les informations pré-formatées dans le message
-		//	d'erreur par certaines données du champ de saisie.
+		//  d'erreur par certaines données du champ de saisie.
 		let message = client_check_failed;
 		message = message.replace( "$1", label );							// Nom du champ.
 		message = message.replace( "$2", element.attr( "minLength" ) );		// Taille minimale.
 		message = message.replace( "$3", element.attr( "maxLength" ) );		// Taille maximale.
 
 		// On définit enfin le message d'erreur avant de l'afficher
-		//	progressivement avec une animation.
+		//  progressivement avec une animation.
 		error.html( message );
 		error.fadeIn( 200 );
 	}
@@ -89,13 +89,13 @@ $( "a" ).on( "mousedown", ( event ) =>
 
 //
 // Permet de retarder l'ensemble des requêtes asynchrones AJAX
-//	afin d'inclure un jeton d'authentification généré par les services
-//	de Google reCAPTCHA.
+//  afin d'inclure un jeton d'authentification généré par les services
+//  de Google reCAPTCHA.
 //
 $( window ).ajaxSend( ( _event, _request, settings ) =>
 {
 	// On vérifie d'abord si la requête est de type POST.
-	//	Note : seules les requêtes de soumission doivent être surveillées.
+	//  Note : seules les requêtes de soumission doivent être surveillées.
 	if ( settings.type !== "POST" )
 	{
 		return;
@@ -117,14 +117,14 @@ $( window ).ajaxSend( ( _event, _request, settings ) =>
 			grecaptcha.ready( async () =>
 			{
 				// Une fois terminé, on exécute alors une requête de vérification
-				// 	afin d'obtenir un jeton de vérification auprès de Google.
+				//  afin d'obtenir un jeton de vérification auprès de Google.
 				const token = await grecaptcha.execute( captcha_public_key );
 
 				// On ajoute par la suite le jeton aux paramètres de la requête.
 				parameters[ 0 ] += `&recaptcha=${ token }`;
 
 				// On vérifie l'état de la requête avant de l'exécuter de nouveau
-				//	avec les paramètres modifiés.
+				//  avec les paramètres modifiés.
 				if ( request.readyState === 1 )
 				{
 					sender.apply( request, parameters );
@@ -139,7 +139,7 @@ $( window ).ajaxSend( ( _event, _request, settings ) =>
 
 //
 // Permet d'indiquer la position de défilement actuelle de l'utilisateur.
-// 	Source : https://www.w3schools.com/howto/howto_js_scroll_indicator.asp
+//  Source : https://www.w3schools.com/howto/howto_js_scroll_indicator.asp
 //
 $( window ).on( "scroll", () =>
 {
@@ -182,15 +182,15 @@ contact.find( "form" ).on( "submit", ( event ) =>
 		.done( ( data, _status, _self ) =>
 		{
 			// Une fois terminée, on affiche la réponse JSON du
-			//	serveur sous forme d'une liste numérique.
+			//  serveur sous forme d'une liste numérique.
 			const json = JSON.parse( data );
 
 			// On affiche alors un message de confirmation.
 			addQueuedNotification( json[ 0 ], json[ 1 ] );
 
 			// On réinitialise enfin l'entièreté du formulaire
-			//	avant de le fermer si le message renvoyé par
-			//	le serveur est un message de succès.
+			//  avant de le fermer si le message renvoyé par
+			//  le serveur est un message de succès.
 			if ( json[ 1 ] == 2 )
 			{
 				contact.find( "form" )[ 0 ].reset();
@@ -200,7 +200,7 @@ contact.find( "form" ).on( "submit", ( event ) =>
 		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
-			//	d'échec avec les informations à notre disposition.
+			//  d'échec avec les informations à notre disposition.
 			addQueuedNotification( form_contact_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 } );
@@ -213,7 +213,7 @@ contact.find( "input[type = reset]" ).on( "click", () =>
 
 //
 // Permet de faire fonctionner un petit moteur de recherche
-//	intégré pour accéder plus rapidement aux pages du site.
+//  intégré pour accéder plus rapidement aux pages du site.
 //
 const search = $( "#search input[name = search]" );
 let pages = {};
@@ -221,15 +221,15 @@ let pages = {};
 for ( const page of $( "nav span, footer a[href *= target] span" ) )
 {
 	// Libellés des pages de la barre de navigation ainsi que ceux
-	//	présents dans le pied de page.
+	//  présents dans le pied de page.
 	pages[ $( page ).html() ] = $( page ).parent().attr( "href" );
 }
 
 search.on( "focusout", () =>
 {
 	// La définition de l'opacité est une astuce qui permet aux
-	//	événements "click" de jQuery de pouvoir s'exécuter systématiquement
-	//	lorsque les résultats doivent être cachés.
+	//  événements "click" de jQuery de pouvoir s'exécuter systématiquement
+	//  lorsque les résultats doivent être cachés.
 	search.next().css( "opacity", 0 );
 } );
 
@@ -242,7 +242,7 @@ search.on( "focusin", () =>
 search.on( "keyup", ( event ) =>
 {
 	// On récupère la recherche de l'utilisateur ainsi
-	//	que la liste des résultats possibles.
+	//  que la liste des résultats possibles.
 	const content = $( event.target ).val();
 	const results = $( event.target ).next();
 
@@ -250,11 +250,11 @@ search.on( "keyup", ( event ) =>
 	results.empty();
 
 	// On itère alors à travers toutes les pages afin
-	//	de les comparer à l'entrée de l'utilisateur.
+	//  de les comparer à l'entrée de l'utilisateur.
 	for ( const page of Object.keys( pages ) )
 	{
 		// Si l'entrée n'est pas vide et qu'elle semble correspondre
-		//	à une page mise en mémoire, on l'ajoute en tant que résultat.
+		//  à une page mise en mémoire, on l'ajoute en tant que résultat.
 		if ( content !== "" && page.toLowerCase().match( content.toLowerCase() ) )
 		{
 			results.append( `<li data-target=\"${ pages[ page ] }\">${ page }</li>` );
@@ -270,7 +270,7 @@ $( "#search ul" ).on( "click", "li", ( event ) =>
 
 //
 // Permet d'ajuster l'agrandissement des éléments par rapport au zoom
-// 	du navigateur (fonctionne seulement pour l'amoindrissement).
+//  du navigateur (fonctionne seulement pour l'amoindrissement).
 //
 function adjustZoom()
 {
@@ -288,7 +288,7 @@ $( window ).on( "resize", adjustZoom );
 
 //
 // Permet d'afficher des notifications textuelles après une action.
-// 	Source : https://www.w3schools.com/howto/howto_js_snackbar.asp
+//  Source : https://www.w3schools.com/howto/howto_js_snackbar.asp
 //
 const notification = $( "#notifications" );
 let messages_queue = {};
@@ -297,7 +297,7 @@ let counter = 1;
 function addQueuedNotification( text, type )
 {
 	// On ajoute la notification dans une file d'attente
-	//	afin d'être traitée les uns après les autres.
+	//  afin d'être traitée les uns après les autres.
 	messages_queue[ counter ] = [ text, type ];
 	counter++;
 }
@@ -305,14 +305,14 @@ function addQueuedNotification( text, type )
 function processNotification( text, type )
 {
 	// On vérifie tout d'abord si une notification est déjà
-	//	actuellement visible.
+	//  actuellement visible.
 	if ( notification.is( ":visible" ) )
 	{
 		return false;
 	}
 
 	// On apparaître ensuite le bloc avant de définir
-	//	le texte passé en paramètre de la fonction.
+	//  le texte passé en paramètre de la fonction.
 	notification.find( "span" ).html( text );
 	notification.addClass( "show" );
 
@@ -342,36 +342,36 @@ function processNotification( text, type )
 	setTimeout( () =>
 	{
 		// Après 5 secondes d'affichage, on supprime toutes
-		//	les classes associées aux éléments pour les faire
-		//	disparaître progressivement.
+		//  les classes associées aux éléments pour les faire
+		//  disparaître progressivement.
 		icon.removeAttr( "class" );
 		notification.removeAttr( "class" );
 	}, 5000 );
 
 	// On retourne cette variable pour signifier à la file
-	//	d'attente que la notification a été créée avec succès.
+	//  d'attente que la notification a été créée avec succès.
 	return true;
 }
 
 setInterval( () =>
 {
 	// On récupère d'abord toutes les clés disponibles dans
-	//	la file d'attente des notifications.
+	//  la file d'attente des notifications.
 	const keys = Object.keys( messages_queue );
 
 	// On vérifie alors si la file n'est pas vide avant de
-	//	continuer son traitement.
+	//  continuer son traitement.
 	if ( keys.length > 0 )
 	{
 		// On récupère ensuite les données associées à la première
-		//	notification de la file afin de la traiter.
+		//  notification de la file afin de la traiter.
 		const notification = messages_queue[ keys[ 0 ] ];
 		const state = processNotification( notification[ 0 ], notification[ 1 ] );
 
 		if ( state )
 		{
 			// Si la notification a été créée, alors on supprime les
-			//	données de la file d'attente pour la prochaine.
+			//  données de la file d'attente pour la prochaine.
 			delete messages_queue[ keys[ 0 ] ];
 		}
 	}
@@ -379,8 +379,8 @@ setInterval( () =>
 
 //
 // Permet de bloquer le renvoie des formulaires lors du rafraîchissement
-//	de la page par l'utilisateur.
-// 	Source : https://stackoverflow.com/a/45656609
+//  de la page par l'utilisateur.
+//  Source : https://stackoverflow.com/a/45656609
 //
 if ( window.history.replaceState && window.location.hostname !== "localhost" )
 {
@@ -405,8 +405,8 @@ function sendRemoteAction( action, value )
 		.done( ( data, _status, _self ) =>
 		{
 			// Une fois terminée, on affiche la notification d'information
-			//	à l'utilisateur pour lui indiquer si la requête a été envoyée
-			//	ou non avec succès au serveur distant.
+			//  à l'utilisateur pour lui indiquer si la requête a été envoyée
+			//  ou non avec succès au serveur distant.
 			if ( data !== "" )
 			{
 				addQueuedNotification( data, 3 );
@@ -415,30 +415,30 @@ function sendRemoteAction( action, value )
 		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
-			//	d'échec avec les informations à notre disposition.
+			//  d'échec avec les informations à notre disposition.
 			addQueuedNotification( server_fatal_error.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 }
 
 //
 // Permet d'obtenir le texte de réponse adéquat en fonction du code HTTP.
-//	Note : cette fonctionnalité est présente par défaut avec le protocole
-//		HTTP/1.1 mais complètement abandonnée avec HTTP/2 et HTTP/3.
-//	Sources : https://github.com/whatwg/fetch/issues/599 / https://fetch.spec.whatwg.org/#concept-response-status-message
+//  Note : cette fonctionnalité est présente par défaut avec le protocole
+//   HTTP/1.1 mais complètement abandonnée avec HTTP/2 et HTTP/3.
+//  Sources : https://github.com/whatwg/fetch/issues/599 / https://fetch.spec.whatwg.org/#concept-response-status-message
 //
 function getStatusText( response, code )
 {
 	// On vérifie si la réponse originale n'est pas vide.
-	//	Note : cela peut être le cas sur un serveur de développement
-	//		mais aussi sur certains navigateurs comme Firefox.
+	//  Note : cela peut être le cas sur un serveur de développement
+	//   mais aussi sur certains navigateurs comme Firefox.
 	if ( response !== "" )
 	{
 		return response;
 	}
 
 	// Dans le cas contraire, on retourne manuellement une liste réduite
-	//	de réponses en fonction du code actuel.
-	//	Source : https://searchfox.org/mozilla-central/rev/a5102e7f8ec3cda922b7c012b732a1efaff0e732/netwerk/protocol/http/nsHttpResponseHead.cpp#340
+	//  de réponses en fonction du code actuel.
+	//  Source : https://searchfox.org/mozilla-central/rev/a5102e7f8ec3cda922b7c012b732a1efaff0e732/netwerk/protocol/http/nsHttpResponseHead.cpp#340
 	switch ( code )
 	{
 		case 200:
@@ -472,7 +472,7 @@ function getStatusText( response, code )
 
 //
 // Permet d'ajouter le mécanisme de fonctionnement de Google Analytics.
-// 	Source : https://analytics.google.com/analytics/web/#/
+//  Source : https://analytics.google.com/analytics/web/#/
 //
 function sendAnalytics()
 {
@@ -489,7 +489,7 @@ function sendAnalytics()
 
 //
 // Permet d'implémenter le chargement différé de certaines ressources (images, vidéos, ...).
-// 	Source : https://github.com/verlok/vanilla-lazyload#-getting-started---script
+//  Source : https://github.com/verlok/vanilla-lazyload#-getting-started---script
 //
 import LazyLoad from "vanilla-lazyload";
 
@@ -501,8 +501,8 @@ lazyLoad.update();
 
 //
 // Permet de demander le consentement de l'utilisateur pour utiliser le mécanisme des cookies.
-//	Note : ne s'applique pas à la page des mentions légales.
-//	Source : https://github.com/orestbida/cookieconsent#all-configuration-options
+//  Note : ne s'applique pas à la page des mentions légales.
+//  Source : https://github.com/orestbida/cookieconsent#all-configuration-options
 //
 import "vanilla-cookieconsent";
 
@@ -525,8 +525,8 @@ if ( window.location.search !== "?target=legal" )
 		onAccept: ( cookie ) =>
 		{
 			// Lors de chaque chargement de page, on itère à travers toutes les
-			//	autorisations pour déterminer si les balises de signalement de
-			//	Google Analytics doivent être utilisées.
+			//  autorisations pour déterminer si les balises de signalement de
+			//  Google Analytics doivent être utilisées.
 			for ( const level of cookie.categories )
 			{
 				if ( level === "analytics" )

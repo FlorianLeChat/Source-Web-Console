@@ -2,7 +2,7 @@
 
 //
 // Extension Twig pour les fonctions et filtres personnalisés.
-// 	Source : https://symfony.com/doc/current/templates.html#creating-lazy-loaded-twig-extensions
+//  Source : https://symfony.com/doc/current/templates.html#creating-lazy-loaded-twig-extensions
 //
 namespace App\Twig;
 

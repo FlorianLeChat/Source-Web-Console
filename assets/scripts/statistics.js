@@ -5,7 +5,7 @@ import "../styles/tablet/statistics.scss";
 
 //
 // Permet de générer les libellés présents sur les graphiques.
-// 	Note : ils sont créés en partant de 24 heures en arrière.
+//  Note : ils sont créés en partant de 24 heures en arrière.
 //
 const date_now = Date.now();								// Horodatage immédiat.
 const time_offset = 3600 * 1000;							// Représentation d'une journée en secondes.
@@ -18,7 +18,7 @@ date_back = date_back.getTime();							// Récupération de l'horodatage final.
 for ( let indice = 0; indice <= 24; indice++ )
 {
 	// On itère 24 fois pour créer toutes les heures partant
-	//	de 24 heures en arrière jusqu'à maintenant.
+	//  de 24 heures en arrière jusqu'à maintenant.
 	const date = new Date( date_back + time_offset * indice );
 
 	labels.push( date.toISOString() );
@@ -26,7 +26,7 @@ for ( let indice = 0; indice <= 24; indice++ )
 
 //
 // Permet de créer un graphique pour illustrer le nombre total
-//	de joueurs en fonction du temps.
+//  de joueurs en fonction du temps.
 //
 const player_chart = $( "#player_count" );
 
@@ -126,7 +126,7 @@ new Chart( player_chart,
 
 //
 // Permet de créer un graphique pour illustrer les statistiques
-//	d'utilisation du serveur en fonction du temps.
+//  d'utilisation du serveur en fonction du temps.
 //
 const server_usage = $( "#server_usage" );
 

@@ -124,8 +124,8 @@ main
 			{
 				// Image d'arrière plan.
 				// Note : on place cette image dans le sélecteur "before"
-				//	afin de pouvoir appliquer un filtre uniquement à l'image
-				// 	et non pas conteneur entier.
+				//  afin de pouvoir appliquer un filtre uniquement à l'image
+				//  et non pas conteneur entier.
 				top: 0;
 				left: 0;
 				width: 100%;
@@ -402,8 +402,7 @@ main
 			i
 			{
 				// Icône d'état de la dernière action.
-				// 	Note : par défaut, on considère qu'il s'agit
-				// 		d'un actionneur personnalisé.
+				//  Note : par défaut, on considère qu'il s'agit d'un actionneur personnalisé.
 				color: $text-color;
 
 				&[type = restart]

@@ -5,8 +5,8 @@ import "../styles/tablet/help.scss";
 
 //
 // Permet de contrôler le mécanisme de basculement de la section
-//	des questions/réponses de la page.
-//	Source : https://www.w3schools.com/howto/howto_js_collapsible.asp
+//  des questions/réponses de la page.
+//  Source : https://www.w3schools.com/howto/howto_js_collapsible.asp
 //
 $( "#faq button" ).on( "click", ( event ) =>
 {
@@ -14,7 +14,7 @@ $( "#faq button" ).on( "click", ( event ) =>
 	$( event.target ).toggleClass( "active" );
 
 	// On récupère alors l'élément suivant le bouton.
-	//	Note : on doit récupérer ici un élément <p>.
+	//  Note : on doit récupérer ici un élément <p>.
 	const content = $( event.target ).next();
 
 	// On vérifie ensuite si une taille maximale a été définie.
@@ -26,7 +26,7 @@ $( "#faq button" ).on( "click", ( event ) =>
 	else
 	{
 		// Dans le cas contraire, on définit plusieurs règles pour
-		//	permettre l'apparition du paragraphe.
+		//  permettre l'apparition du paragraphe.
 		content.css( "maxHeight", content.prop( "scrollHeight" ) + "px" );
 		content.css( "paddingTop", "0.5rem" );
 		content.css( "paddingBottom", "0.5rem" );

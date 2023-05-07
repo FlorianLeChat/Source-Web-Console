@@ -2,7 +2,7 @@
 
 //
 // Écouteur d'événements pour la langue.
-// 	Source : https://symfony.com/doc/current/session.html#creating-a-localesubscriber
+//  Source : https://symfony.com/doc/current/session.html#creating-a-localesubscriber
 //
 namespace App\EventSubscriber;
 
@@ -34,7 +34,7 @@ class LocaleSubscriber implements EventSubscriberInterface
 		else
 		{
 			// Si rien n'a été défini, on tente d'utiliser la langue du navigateur
-			//	ou la langue par défaut si les informations ne sont pas disponibles.
+			//  ou la langue par défaut si les informations ne sont pas disponibles.
 			$locale = substr($request->get("language", $request->server->get("HTTP_ACCEPT_LANGUAGE", $this->defaultLocale)), 0, 2);
 
 			// On définit la langue de la session.
@@ -47,7 +47,7 @@ class LocaleSubscriber implements EventSubscriberInterface
 	{
 		return [
 			// On définit la priorité à 20 pour que l'écouteur
-			//	soit exécuté après celui de la classe IndexController.
+			//  soit exécuté après celui de la classe IndexController.
 			KernelEvents::REQUEST => [["onKernelRequest", 20]],
 		];
 	}
