@@ -76,7 +76,7 @@ form:
             3: "I have a question with my server administration"
         description: "This form lets you send a support message to the website administrators. You will receive an answer by the email address you entered within a few hours/days. Any abuse will be prosecuted."
     signin:
-        links: "No account? url=javascript:void(0); or switch to a [url=javascript:void(0);](one-shot signin).\nIf not, you may have [url=javascript:void(0);](lost your password)?"
+        links: "No account? <a href=\"javascript:void(0);\">Register</a> or switch to a <a href=\"javascript:void(0);\">one-shot login</a>.\nIf not, you may have <a href=\"javascript:void(0);\">lost your password</a>?"
         failed: "An internal error occurred while connecting to your user account. Response: \"$1\"."
         success: "You are now connected to your user account. You will be redirected automatically in a few seconds."
         invalid: "The provided credentials are invalid or do not exist."
@@ -107,7 +107,7 @@ index:
             3: "Modern"
             4: "Secure"
         description:
-            1: "Welcome to the online administration interface for multiplayer servers running Valve Corporation's Source engine. The website offers several powerful and easy-to-use tools to easily manage your servers. It is compatible with popular games like Garry's Mod, Minecraft, and Counter-Strike: Global Offensive!"
+            1: "Welcome to the online administration interface for multiplayer servers running Valve Corporation's Source engine. The website offers several powerful and easy-to-use tools to easily manage your servers. It is compatible with popular games like <strong>Garry's Mod</strong>, <strong>Minecraft</strong> et <strong>Counter-Strike : Global Offensive</strong>!"
             2: "Unlike other competing solutions, this website allows you to use the RCON communication protocol without interruption and in a fast and easy way. Additionally, the website has several optimizations to reduce access and loading times, which are traditionally long with the most famous hosts."
             3: "The RCON communication protocol is subject to several modifications and updates every year to improve the performance of interactions between third parties (us) and the remote API used on game servers. As a result, all current solutions are sometimes rendered obsolete or out of service for months or even years as creators need to revise their communication tools. This website uses new ways to be practically independent from updates and to be able to continue to work despite major changes made by Valve."
             4: "Thanks to the use of modern, high-performance RCON communications tools, end-to-end security and encryption of data transmitted and received by the website is now possible. Any sensitive information you may enter will be automatically encrypted using a military-grade algorithm. We never store passwords in clear text, never."

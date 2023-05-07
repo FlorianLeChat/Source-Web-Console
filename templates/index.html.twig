@@ -87,7 +87,7 @@
 						{% endif %}
 
 						{# Description #}
-						<p>{{ t("index.feature.description." ~ i)|trans }}</p>
+						<p>{{ t("index.feature.description." ~ i)|trans|raw }}</p>
 					</li>
 				{% endfor %}
 			</ul>

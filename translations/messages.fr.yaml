@@ -76,7 +76,7 @@ form:
             3: "J'ai une question avec la gestion de mon serveur"
         description: "Ce formulaire vous permet d'envoyer un message d'assistance aux administrateurs du site. Vous recevrez une réponse par l'adresse électronique renseignée d'ici quelques heures/jours. Tout abus sera sévèrement sanctionné."
     signin:
-        links: "Pas de compte ? [url=javascript:void(0);](Inscrivez-vous) ou passez à une [url=javascript:void(0);](connexion unique).\nSinon, vous avez peut-être [url=javascript:void(0);](perdu votre mot de passe) ?"
+        links: "Pas de compte ? <a href=\"javascript:void(0);\">Inscrivez-vous</a> ou passez à une <a href=\"javascript:void(0);\">connexion unique</a>.\nSinon, vous avez peut-être <a href=\"javascript:void(0);\">perdu votre mot de passe</a> ?"
         failed: "Une erreur interne s'est produite lors de votre connexion au compte utilisateur. Réponse : « $1 »."
         success: "Vous êtes désormais connecté à votre compte utilisateur. Vous allez être redirigé automatiquement dans quelques secondes."
         invalid: "Les identifiants de connexion renseignés sont invalides ou n'existent pas."
@@ -107,7 +107,7 @@ index:
             3: "Moderne"
             4: "Sécurisé"
         description:
-            1: "Bienvenue sur l'interface d'administration en ligne pour serveurs multi-joueurs exécutant le moteur Source de Valve Corporation. Le site propose plusieurs outils performants et simples d'utilisation pour gérer facilement ses serveurs. Il est compatible avec les jeux populaires du moment comme **Garry's Mod**, **Minecraft** et **Counter-Strike : Global Offensive** !"
+            1: "Bienvenue sur l'interface d'administration en ligne pour serveurs multi-joueurs exécutant le moteur Source de Valve Corporation. Le site propose plusieurs outils performants et simples d'utilisation pour gérer facilement ses serveurs. Il est compatible avec les jeux populaires du moment comme <strong>Garry's Mod</strong>, <strong>Minecraft</strong> et <strong>Counter-Strike : Global Offensive</strong> !"
             2: "À la place des solutions actuelles et concurrences, le site vous permettra d'exploiter le protocole de communication RCON sans aucun interruption ainsi que de façon rapide et facile d'accès. De plus, le site possède plusieurs optimisations pour réduire les temps d'accès et de chargement traditionnellement longs chez les hébergeurs les plus connus."
             3: "Le protocole de communication RCON subit plusieurs modifications et mises à jour chaque année pour rendre plus performant les interactions entre les tiers (nous) et l'API distant utilisé sur les serveurs de jeux. De ce fait, toutes les solutions actuelles sont parfois rendues obsolètes ou hors-service pendant des mois voir des années car les créateurs doivent réviser leurs outils de communication. Le site utilise de nouveaux moyens afin d'être presque indépendant aux mises à jour et de pouvoir continuer de fonctionner malgré des modifications importantes réalisées par Valve."
             4: "Grâce à l'utilisation de moyens modernes et performances des outils de communications RCON, la sécurisation et le chiffrement de bout en bout des données transmises et reçues par le site est maintenant possible. Toutes les informations sensibles que vous pourriez peut-être renseignées seront automatiquement chiffré au travers d'algorithme de type de militaire. Nous ne stockons jamais en clair les mots de passes, jamais."
