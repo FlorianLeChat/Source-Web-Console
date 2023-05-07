@@ -1,10 +1,10 @@
 {# Informations générales de l'utilisateur #}
 <article id="user">
 	{# Titre du formulaire #}
-	<h2>{{ t("index.signup")|trans }}</h2>
+	<h2>{{ t("index.register")|trans }}</h2>
 
 	{# Description du formulaire #}
-	<p>{{ t("form.signup.description.user")|trans }}</p>
+	<p>{{ t("form.register.description.user")|trans }}</p>
 
 	{# Spécifications juridiques #}
 	<div>
@@ -18,21 +18,21 @@
 		<p class="error"></p>
 
 		{# Nom d'utilisateur #}
-		<label for="username">{{ t("form.signup.username")|trans }}<span>*</span></label>
+		<label for="username">{{ t("form.register.username")|trans }}<span>*</span></label>
 		<input type="text" autocomplete="username" spellcheck="false" id="username" name="username" placeholder="johndoe" minlength="10" maxlength="50" required />
 		<span></span>
 
 		{# Mot de passe #}
-		<label for="password">{{ t("form.signup.password")|trans }}<span>*</span></label>
+		<label for="password">{{ t("form.register.password")|trans }}<span>*</span></label>
 		<input type="password" autocomplete="new-password" spellcheck="false" id="password" name="password" placeholder="?JohnDoe2022!" minlength="10" maxlength="60" required />
 		<span></span>
 
 		{# Bouton d'affichage du mot de passe #}
-		<label for="signup_clear">{{ t("form.clear_password")|trans }}</label>
-		<input type="checkbox" id="signup_clear" /><br /><br />
+		<label for="register_clear">{{ t("form.clear_password")|trans }}</label>
+		<input type="checkbox" id="register_clear" /><br /><br />
 
 		{# Génération d'un mot de passe sécurisé #}
-		<label for="generation">{{ t("form.signup.generation")|trans }}</label>
+		<label for="generation">{{ t("form.register.generation")|trans }}</label>
 		<input type="checkbox" id="generation" /><br /><br />
 
 		{# Validation/annulation #}
@@ -50,10 +50,10 @@
 {# Informations du serveur #}
 <article id="server">
 	{# Titre du formulaire #}
-	<h2>{{ t("form.signup.server")|trans }}</h2>
+	<h2>{{ t("form.register.server")|trans }}</h2>
 
 	{# Description du formulaire #}
-	<p>{{ t("form.signup.description.server")|trans }}</p>
+	<p>{{ t("form.register.description.server")|trans }}</p>
 
 	{# Spécifications juridiques #}
 	<div>
@@ -67,7 +67,7 @@
 		<p class="error"></p>
 
 		{# Informations client (adresse IP & port) #}
-		<label>{{ t("form.signup.client.title")|trans }}<span>*</span></label>
+		<label>{{ t("form.register.client.title")|trans }}<span>*</span></label>
 
 		<input type="text" id="server_address" name="server_address" placeholder="51.75.125.244" minlength="10" maxlength="15" required />
 		<span></span>
@@ -75,24 +75,24 @@
 		<input type="text" id="server_port" name="server_port" placeholder="27015" minlength="5" maxlength="5" required />
 		<span></span>
 
-		<em>{{ t("form.signup.client.description")|trans }}</em>
+		<em>{{ t("form.register.client.description")|trans }}</em>
 
 		<hr />
 
 		{# Informations administrateur (adresse IP, port & mot de passe) #}
-		<label>{{ t("form.signup.admin.title")|trans }}</label>
+		<label>{{ t("form.register.admin.title")|trans }}</label>
 
 		<input type="text" id="admin_address" name="admin_address" placeholder="51.75.125.244" />
 		<input type="text" id="admin_port" name="admin_port" placeholder="27025" />
 		<input type="text" id="admin_password" name="admin_password" placeholder="a2D2ea4NE6e9As" />
 
-		<em>{{ t("form.signup.admin.description")|trans }}</em>
+		<em>{{ t("form.register.admin.description")|trans }}</em>
 
 		{# Paramètres de liaison #}
-		<label for="secure_only">{{ t("form.signup.secure_only")|trans }}</label>
+		<label for="secure_only">{{ t("form.register.secure_only")|trans }}</label>
 		<input type="checkbox" id="secure_only" /><br /><br />
 
-		<label for="auto_connect">{{ t("form.signup.auto_connect")|trans }}</label>
+		<label for="auto_connect">{{ t("form.register.auto_connect")|trans }}</label>
 		<input type="checkbox" id="auto_connect" /><br /><br />
 
 		{# Validation/annulation #}

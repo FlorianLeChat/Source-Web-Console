@@ -7,29 +7,29 @@ import "../styles/tablet/index.scss";
 // Permet de gérer les ouvertures/fermetures de certains
 //	formulaires de la page d'accueil.
 //
+const login = $( "#login" );
 const header = $( "header li" );
-const signup = $( "#signup article" );
-const signin = $( "#signin" );
+const register = $( "#register article" );
 
 header.first().find( "button" ).on( "click", () =>
 {
 	// Inscription (première partie).
-	signup.first().fadeIn( 150 );
+	register.first().fadeIn( 150 );
 } );
 
 header.last().find( "button" ).on( "click", () =>
 {
 	// Connexion.
-	signin.fadeIn( 150 );
+	login.fadeIn( 150 );
 } );
 
 //
 // Permet de gérer les mécanismes du formulaire d'inscription.
 //
-const first_step = signup.first();
-const last_step = signup.last();
+const first_step = register.first();
+const last_step = register.last();
 
-signup.find( "form" ).on( "submit", ( event ) =>
+register.find( "form" ).on( "submit", ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -101,12 +101,12 @@ signup.find( "form" ).on( "submit", ( event ) =>
 			{
 				// Dans le cas contraire, on affiche une notification
 				//	d'échec avec les informations à notre disposition.
-				addQueuedNotification( form_signup_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
+				addQueuedNotification( form_register_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
 			} );
 	}
 } );
 
-signup.find( "input[type = reset]" ).on( "click", () =>
+register.find( "input[type = reset]" ).on( "click", () =>
 {
 	// On vérifie d'abord si l'utilisateur se trouve ou non
 	//	à la première étape de l'inscription.
@@ -131,7 +131,7 @@ signup.find( "input[type = reset]" ).on( "click", () =>
 //
 // Permet de gérer les mécanismes du formulaire de connexion.
 //
-signin.find( "input[type = submit]" ).on( "click", ( event ) =>
+login.find( "input[type = submit]" ).on( "click", ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -140,13 +140,13 @@ signin.find( "input[type = submit]" ).on( "click", ( event ) =>
 	$.post( "api/user/login", {
 
 		// Nom d'utilisateur.
-		username: signin.find( "input[name = user_name]" ).val(),
+		username: login.find( "input[name = user_name]" ).val(),
 
 		// Mot de passe.
-		password: signin.find( "input[name = user_password]" ).val(),
+		password: login.find( "input[name = user_password]" ).val(),
 
 		// Option de maintien de connexion.
-		remember_me: signin.find( "input[id = remember_me]" ).is( ":checked" ) | 0
+		remember_me: login.find( "input[id = remember_me]" ).is( ":checked" ) | 0
 
 	} )
 		.done( ( data, _status, _self ) =>
@@ -163,8 +163,8 @@ signin.find( "input[type = submit]" ).on( "click", ( event ) =>
 			if ( json[ 1 ] == 2 )
 			{
 				// On réinitialise alors l'entièreté du formulaire.
-				signin.find( "form" )[ 0 ].reset();
-				signin.fadeOut( 150 );
+				login.find( "form" )[ 0 ].reset();
+				login.fadeOut( 150 );
 
 				// On effectue enfin la redirection de l'utilisateur
 				//	vers le tableau de bord au bout de 5 secondes.
@@ -178,37 +178,37 @@ signin.find( "input[type = submit]" ).on( "click", ( event ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//	d'échec avec les informations à notre disposition.
-			addQueuedNotification( form_signin_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
+			addQueuedNotification( form_login_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 } );
 
-signin.find( "input[type = reset]" ).on( "click", () =>
+login.find( "input[type = reset]" ).on( "click", () =>
 {
 	// On cache le formulaire à la demande de l'utilisateur.
-	signin.hide();
+	login.hide();
 } );
 
 //
 // Permet de gérer les liens de redirection présents dans le
 //	formulaire de connexion.
 //
-const links = signin.find( "a[href = \"javascript:void(0);\"]" );
+const links = login.find( "a[href = \"javascript:void(0);\"]" );
 
 links.first().on( "click", () =>
 {
-	signin.fadeOut( 150, () =>
+	login.fadeOut( 150, () =>
 	{
 		// Redirection vers l'inscription.
-		signup.first().fadeIn( 150 );
+		register.first().fadeIn( 150 );
 	} );
 } );
 
 links.eq( 1 ).on( "click", () =>
 {
-	signin.fadeOut( 150, () =>
+	login.fadeOut( 150, () =>
 	{
 		// Redirection vers la connexion unique.
-		signup.first().fadeIn( 150 );
+		register.first().fadeIn( 150 );
 	} );
 } );
 
@@ -243,7 +243,7 @@ links.last().on( "click", ( event ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//	d'échec avec les informations à notre disposition.
-			addQueuedNotification( form_signin_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
+			addQueuedNotification( form_login_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 } );
 

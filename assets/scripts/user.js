@@ -93,13 +93,13 @@ $( "#actions input[type = submit]" ).on( "click", ( event ) =>
 // Permet de modifier le comportement par défaut de la seconde
 //	partie du formulaire d'inscription (oui c'est du recyclage).
 //
-$( "#signup input[type = submit]" ).attr( "data-action", "insert" );
+$( "#register input[type = submit]" ).attr( "data-action", "insert" );
 
 //
 // Permet d'envoyer les demandes d'ajout d'un nouveau serveur dans
 //	la base de données.
 //
-$( "#signup input[type = submit]" ).on( "click", ( event ) =>
+$( "#register input[type = submit]" ).on( "click", ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();

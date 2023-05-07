@@ -23,13 +23,13 @@
 		<form novalidate>
 			{# Nom d'utilisateur #}
 			<div>
-				<label for="account_username">{{ form_phrases["form_signup_username"] }}<span>*</span></label>
+				<label for="account_username">{{ form_phrases["form_register_username"] }}<span>*</span></label>
 				<input type="text" autocomplete="username" spellcheck="false" id="account_username" name="username" placeholder="johndoe" minlength="10" maxlength="50" required />
 			</div>
 
 			{# Mot de passe #}
 			<div>
-				<label for="account_password">{{ form_phrases["form_signup_password"] }}<span>*</span></label>
+				<label for="account_password">{{ form_phrases["form_register_password"] }}<span>*</span></label>
 				<input type="password" autocomplete="current-password" spellcheck="false" id="account_password" name="password" placeholder="?JohnDoe2022!" minlength="10" maxlength="60" required />
 			</div>
 
@@ -53,7 +53,7 @@
 	</section>
 
 	{# Ajout d'un serveur #}
-	<section id="signup">
-		{% include("form_signup.twig") %}
+	<section id="register">
+		{% include("form_register.twig") %}
 	</section>
 {% endblock %}

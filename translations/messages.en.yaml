@@ -44,7 +44,7 @@ language:
     fr: "French"
 
 form:
-    signup:
+    register:
         server: "Server information"
         failed: "An internal error occurred when you registered on the website. Response: \"$1\"."
         success: "Your user account has been successfully created. You will be redirected automatically in a few seconds."
@@ -75,7 +75,7 @@ form:
             2: "I have an issue with logging into my account"
             3: "I have a question with my server administration"
         description: "This form lets you send a support message to the website administrators. You will receive an answer by the email address you entered within a few hours/days. Any abuse will be prosecuted."
-    signin:
+    login:
         links: "No account? <a href=\"javascript:void(0);\">Register</a> or switch to a <a href=\"javascript:void(0);\">one-shot login</a>.\nIf not, you may have <a href=\"javascript:void(0);\">lost your password</a>?"
         failed: "An internal error occurred while connecting to your user account. Response: \"$1\"."
         success: "You are now connected to your user account. You will be redirected automatically in a few seconds."
@@ -99,8 +99,8 @@ legal:
 
 index:
     tips: "You are on the website's home page. You can find a list of features here, along with the ability to register and connect to a user account."
-    signup: "Register"
-    signin: "Login"
+    register: "Register"
+    login: "Login"
     feature:
         title:
             2: "Powerful"
