@@ -167,7 +167,7 @@ contact.find( "form" ).on( "submit", ( event ) =>
 	event.preventDefault();
 
 	// On réalise ensuite la requête AJAX.
-	$.post( "includes/controllers/user_contact.php", {
+	$.post( "api/user/contact", {
 
 		// Adresse électronique.
 		email: contact.find( "input[name = email]" ).val(),
