@@ -16,7 +16,7 @@ class Server
 	#[ORM\Column]
 	private ?int $id = null;
 
-	#[ORM\ManyToOne(inversedBy: 'servers')]
+	#[ORM\ManyToOne(inversedBy: "servers")]
 	#[ORM\JoinColumn(nullable: false)]
 	private ?user $client = null;
 
@@ -26,10 +26,10 @@ class Server
 	#[ORM\Column(length: 5)]
 	private ?string $port = null;
 
-	#[ORM\Column(length: 255)]
+	#[ORM\Column(length: 255, nullable: true)]
 	private ?string $password = null;
 
-	#[ORM\Column]
+	#[ORM\Column(nullable: true)]
 	private ?int $game = null;
 
 	public function getId(): ?int

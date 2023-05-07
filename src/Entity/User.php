@@ -5,7 +5,6 @@
 //
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
@@ -22,7 +21,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	private ?int $id = null;
 
 	#[ORM\Column(length: 180, unique: true)]
-	private ?string $name = null;
+	private ?string $username = null;
 
 	#[ORM\Column]
 	private ?string $password = null;
@@ -30,16 +29,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	#[ORM\Column]
     private array $roles = [];
 
-	#[ORM\Column(length: 64)]
-	private ?string $token = null;
-
-	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
-	private ?\DateTimeInterface $creation = null;
-
-	#[ORM\Column(type: Types::SMALLINT)]
-	private ?int $level = null;
-
-	#[ORM\OneToMany(mappedBy: 'client', targetEntity: Server::class, orphanRemoval: true)]
+	#[ORM\OneToMany(mappedBy: "client", targetEntity: Server::class, orphanRemoval: true)]
 	private Collection $servers;
 
 	public function __construct()
@@ -52,21 +42,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 		return $this->id;
 	}
 
-	public function getName(): ?string
+	public function getUsername(): ?string
 	{
-		return $this->name;
+		return $this->username;
 	}
 
-	public function setName(string $name): self
+	public function setUsername(string $username): self
 	{
-		$this->name = $name;
+		$this->username = $username;
 
 		return $this;
 	}
 
 	public function getUserIdentifier(): string
 	{
-		return (string) $this->name;
+		return (string) $this->username;
 	}
 
 	public function getPassword(): ?string
@@ -92,42 +82,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	public function setRoles(array $roles): self
 	{
 		$this->roles = $roles;
-
-		return $this;
-	}
-
-	public function getToken(): ?string
-	{
-		return $this->token;
-	}
-
-	public function setToken(string $token): self
-	{
-		$this->token = $token;
-
-		return $this;
-	}
-
-	public function getCreation(): ?\DateTimeInterface
-	{
-		return $this->creation;
-	}
-
-	public function setCreation(\DateTimeInterface $creation): self
-	{
-		$this->creation = $creation;
-
-		return $this;
-	}
-
-	public function getLevel(): ?int
-	{
-		return $this->level;
-	}
-
-	public function setLevel(int $level): self
-	{
-		$this->level = $level;
 
 		return $this;
 	}
