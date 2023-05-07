@@ -298,7 +298,7 @@ header
 // -------------------------------------------- //
 // Sections : inscription, connexion et contact //
 // -------------------------------------------- //
-#signup article, #signin, #contact
+#register article, #login, #contact
 {
 	// Disposition et affichage.
 	top: calc(50% - $footer-height);

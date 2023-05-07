@@ -44,7 +44,7 @@ language:
     fr: "Français"
 
 form:
-    signup:
+    register:
         server: "Informations du serveur"
         failed: "Une erreur interne s'est produite lors de votre connexion au compte utilisateur. Réponse : « $1 »."
         success: "Vous êtes désormais connecté à votre compte utilisateur. Vous allez être redirigé automatiquement dans quelques secondes."
@@ -75,7 +75,7 @@ form:
             2: "J'ai un problème avec la connexion à mon compte"
             3: "J'ai une question avec la gestion de mon serveur"
         description: "Ce formulaire vous permet d'envoyer un message d'assistance aux administrateurs du site. Vous recevrez une réponse par l'adresse électronique renseignée d'ici quelques heures/jours. Tout abus sera sévèrement sanctionné."
-    signin:
+    login:
         links: "Pas de compte ? <a href=\"javascript:void(0);\">Inscrivez-vous</a> ou passez à une <a href=\"javascript:void(0);\">connexion unique</a>.\nSinon, vous avez peut-être <a href=\"javascript:void(0);\">perdu votre mot de passe</a> ?"
         failed: "Une erreur interne s'est produite lors de votre connexion au compte utilisateur. Réponse : « $1 »."
         success: "Vous êtes désormais connecté à votre compte utilisateur. Vous allez être redirigé automatiquement dans quelques secondes."
@@ -99,8 +99,8 @@ legal:
 
 index:
     tips: "Vous êtes sur la page d'accueil du site. Vous pourrez retrouver la liste des fonctionnalités ainsi que la possibilité de vous inscrire et que de vous connecter à un compte utilisateur."
-    signup: "Inscription"
-    signin: "Connexion"
+    register: "Inscription"
+    login: "Connexion"
     feature:
         title:
             2: "Performant"

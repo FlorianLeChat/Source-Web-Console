@@ -5,16 +5,16 @@
 {% block javascript %}
 	<script>
 		// Libellé demandant le nom d'utilisateur pour une récupération de compte.
-		const recover_password_username = "{{ t("form.signin.username")|trans }}";
+		const recover_password_username = "{{ t("form.login.username")|trans }}";
 
 		// Libellé demandant le nouveau mot de passe pour une récupération de compte.
-		const recover_password_password = "{{ t("form.signin.password")|trans }}";
+		const recover_password_password = "{{ t("form.login.password")|trans }}";
 
 		// Message d'erreur lorsqu'une erreur s'est produite lors de l'inscription.
-		const form_signup_failed = "{{ t("form.signup.failed")|trans|escape }}";
+		const form_register_failed = "{{ t("form.register.failed")|trans|escape }}";
 
 		// Message d'erreur lorsqu'une erreur s'est produite lors de la connexion.
-		const form_signin_failed = "{{ t("form.signin.failed")|trans|escape }}";
+		const form_login_failed = "{{ t("form.login.failed")|trans|escape }}";
 	</script>
 {% endblock %}
 
@@ -28,10 +28,10 @@
 			<li><a href="{{ path("app_dashboard_index") }}">{{ t("header.subtitle.dashboard")|trans }}</a></li>
 		{% else %}
 			{# Formulaire d'inscription #}
-			<li><button type="button">{{ t("index.signup")|trans }}</button></li>
+			<li><button type="button">{{ t("index.register")|trans }}</button></li>
 
 			{# Formulaire de connexion #}
-			<li><button type="button">{{ t("index.signin")|trans }}</button></li>
+			<li><button type="button">{{ t("index.login")|trans }}</button></li>
 		{% endif %}
 	</ul>
 {% endblock %}
@@ -100,12 +100,12 @@
 	</section>
 
 	{# Formulaire d'inscription #}
-	<section id="signup">
-		{% include("form_signup.html.twig") %}
+	<section id="register">
+		{% include("form_register.html.twig") %}
 	</section>
 
 	{# Formulaire de connexion #}
-	<section id="signin">
-		{% include("form_signin.html.twig") %}
+	<section id="login">
+		{% include("form_login.html.twig") %}
 	</section>
 {% endblock %}
