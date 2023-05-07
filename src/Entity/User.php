@@ -1,5 +1,8 @@
 <?php
 
+//
+// Entité pour les utilisateurs.
+//
 namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;

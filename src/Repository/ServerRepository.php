@@ -1,5 +1,8 @@
 <?php
 
+//
+// Répertoire des méthodes pour les serveurs distants.
+//
 namespace App\Repository;
 
 use App\Entity\Server;
