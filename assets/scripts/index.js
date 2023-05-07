@@ -171,7 +171,7 @@ signin.find( "input[type = submit]" ).on( "click", ( event ) =>
 				setTimeout( () =>
 				{
 					window.location.href = "?target=dashboard";
-				}, 5000 );
+				}, 3000 );
 			}
 		} )
 		.fail( ( self, _status, error ) =>
