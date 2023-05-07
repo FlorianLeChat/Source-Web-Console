@@ -5,7 +5,7 @@ import "../styles/tablet/dashboard.scss";
 
 //
 // Permet d'appliquer les images en arrière-plan des serveurs
-//	en fonction de leur jeu installé.
+//  en fonction de leur jeu installé.
 //
 const servers = $( "li[data-image]" );
 let image_indice = 1;
@@ -19,8 +19,8 @@ for ( const server of servers )
 
 //
 // Permet d'effectuer des actions sur les serveurs présents
-//	sur le tableau de bord.
-//	Note : ce système peut largement être améliorable dans le futur.
+//  sur le tableau de bord.
+//  Note : ce système peut largement être améliorable dans le futur.
 //
 let submit_edit = false;
 
@@ -37,7 +37,7 @@ $( "[name = server_edit]" ).on( "click", ( event ) =>
 	const parent = $( event.target ).parent();
 
 	// On demande ensuite à l'utilisateur s'il veut supprimer ou non
-	//	le serveur.
+	//  le serveur.
 	if ( confirm( edit_remove ) )
 	{
 		// Suppression de l'action par défaut.
@@ -59,7 +59,7 @@ $( "[name = server_edit]" ).on( "click", ( event ) =>
 	}
 
 	// On force enfin la soumission du formulaire en indiquant
-	//	qu'on ne doit pas demander de nouveau les informations.
+	//  qu'on ne doit pas demander de nouveau les informations.
 	submit_edit = true;
 
 	$( event.target ).trigger( "click" );
@@ -77,12 +77,12 @@ function retrieveRemoteData()
 		.done( ( data, _status, _self ) =>
 		{
 			// Une fois terminée, on affiche la réponse JSON du
-			//	serveur sous forme d'une liste numérique.
+			//  serveur sous forme d'une liste numérique.
 			const json = JSON.parse( data );
 
 			// On vérifie ensuite s'il ne s'agit pas d'une erreur,
-			//	dans ce cas, on affiche une notification avant de
-			//	casser définitivement le minuteur.
+			//  dans ce cas, on affiche une notification avant de
+			//  casser définitivement le minuteur.
 			if ( json.hasOwnProperty( "error" ) )
 			{
 				clearInterval( timer );
@@ -155,8 +155,8 @@ function retrieveRemoteData()
 		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
-			//	d'échec avec les informations à notre disposition
-			//	avant de casser définitivement le minuteur.
+			//  d'échec avec les informations à notre disposition
+			//  avant de casser définitivement le minuteur.
 			clearInterval( timer );
 
 			if ( self.status !== 400 )
@@ -177,7 +177,7 @@ timer = setInterval( () =>
 
 //
 // Permet d'envoyer des requêtes d'action lors du clic sur l'un des
-//	boutons du tableau de bord.
+//  boutons du tableau de bord.
 //
 $( "#actions li" ).on( "click", ( event ) =>
 {

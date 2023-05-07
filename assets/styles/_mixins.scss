@@ -1,5 +1,5 @@
 // Permet de réinitialiser les règles initiales d'un
-// 	bouton afin de le personnaliser par la suite.
+//  bouton afin de le personnaliser par la suite.
 %reset-button-style
 {
 	border: none;
@@ -8,7 +8,7 @@
 }
 
 // Permet de réinitialiser les règles initiales d'une
-// 	liste ordonnée ou non-ordonnée.
+//  liste ordonnée ou non-ordonnée.
 %reset-list-style
 {
 	margin: 0;
@@ -17,7 +17,7 @@
 }
 
 // Permet d'élargir la zone de détection lors d'un clic
-// 	de l'utilisateur (uniquement sur les terminaux mobiles).
+//  de l'utilisateur (uniquement sur les terminaux mobiles).
 %larger-touch-zone
 {
 	@media screen and (max-width: 1024px)
@@ -32,7 +32,7 @@
 }
 
 // Permet d'appliquer automatiquement les modifications
-// 	de personnalisation aux boutons d'annulation.
+//  de personnalisation aux boutons d'annulation.
 %cancel-button-layout
 {
 	// Disposition et affichage.
@@ -55,7 +55,7 @@
 }
 
 // Permet d'appliquer automatiquement les modifications
-// 	de personnalisation aux boutons de validation.
+//  de personnalisation aux boutons de validation.
 %submit-button-layout
 {
 	// Disposition et affichage.
@@ -78,7 +78,7 @@
 }
 
 // Permet de générer les règles nécessaires à la création
-// 	du paragraphe principal présent dans l'en-tête de la page.
+//  du paragraphe principal présent dans l'en-tête de la page.
 @mixin header-paragraph($margin-left: 15%, $margin-right: 15%)
 {
 	margin: 0 $margin-left 0 $margin-right;
@@ -86,7 +86,7 @@
 }
 
 // Permet de générer la présentation ainsi que la disposition
-//	nécessaire pour créer la barre de navigation du site.
+//  nécessaire pour créer la barre de navigation du site.
 @mixin navigation-bar($border: $border-color, $text: $text-color, $box: $box-color)
 {
 	border: 1px solid $border;
@@ -156,7 +156,7 @@
 }
 
 // Permet d'adapter la présentation de l'en-tête commun pour
-// 	toutes les pages sur les terminaux mobiles.
+//  toutes les pages sur les terminaux mobiles.
 @mixin responsive-header-adaptation($text: $text-color, $box: $box-color)
 {
 	color: $text;

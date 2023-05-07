@@ -18,7 +18,7 @@ html
 	scroll-behavior: smooth;
 
 	// Badge de Google reCAPTCHA.
-	// 	Source : https://developers.google.com/recaptcha/docs/faq#id-like-to-hide-the-recaptcha-badge.-what-is-allowed
+	//  Source : https://developers.google.com/recaptcha/docs/faq#id-like-to-hide-the-recaptcha-badge.-what-is-allowed
 	.grecaptcha-badge
 	{
 		display: none;
@@ -126,7 +126,7 @@ input, textarea, select
 }
 
 // Personnalisation de la barre de défilement.
-//	(Navigateurs WebKit uniquement : https://caniuse.com/css-scrollbar).
+//  (Navigateurs WebKit uniquement : https://caniuse.com/css-scrollbar).
 ::-webkit-scrollbar
 {
 	// Taille de la barre.
@@ -384,7 +384,7 @@ header
 		p.capslock
 		{
 			// Message d'avertissement des majuscules.
-			// 	Note : se contrôle via une action JavaScript.
+			//  Note : se contrôle via une action JavaScript.
 			color: $error-color;
 			font-size: 110%;
 			font-weight: bold;
@@ -404,7 +404,7 @@ header
 		a
 		{
 			// Liens vers l'inscription, connexion unique ou
-			//	la récupération de mot de passe.
+			//  la récupération de mot de passe.
 			color: $text-color;
 			transition: color 250ms, background-color 250ms;
 			text-decoration: underline;
@@ -458,7 +458,7 @@ header
 					position: absolute;
 
 					// Correction du positionnement de l'icône
-					//	sur les navigateurs Firefox.
+					//  sur les navigateurs Firefox.
 					@-moz-document url-prefix()
 					{
 						top: -1rem;
@@ -493,7 +493,7 @@ header
 				left: -2rem;
 
 				// Correction du positionnement de l'icône sur les
-				// 	navigateurs Firefox.
+				//  navigateurs Firefox.
 				@-moz-document url-prefix()
 				{
 					top: -2rem;
@@ -625,7 +625,7 @@ header
 	&.show
 	{
 		// Apparition/disparition de l'élément
-		//	avec des transitions.
+		//  avec des transitions.
 		gap: 0.75rem;
 		display: flex;
 		animation: fadeIn 500ms, fadeOut 500ms 4.75s;
@@ -693,7 +693,7 @@ header
 			+ span
 			{
 				// Affichage du texte de l'astuce lorsque l'icône
-				// 	est sélectionné par l'utilisateur.
+				//  est sélectionné par l'utilisateur.
 				color: $text-color;
 				right: 4rem;
 				bottom: 4.1rem;
@@ -799,7 +799,7 @@ footer
 				position: absolute;
 
 				// Correction du positionnement à gauche sur
-				//	les navigateurs Firefox.
+				//  les navigateurs Firefox.
 				@-moz-document url-prefix()
 				{
 					left: -3.75rem;
@@ -843,8 +843,8 @@ footer
 					&:last-of-type::after
 					{
 						// Petite astuce pour pouvoir garder le menu ouvert
-						// 	lorsque l'utilisateur déplace sa souris vers un
-						//	des boutons du menu.
+						//  lorsque l'utilisateur déplace sa souris vers un
+						//  des boutons du menu.
 						bottom: -4rem;
 						content: "";
 						z-index: -1;
@@ -856,7 +856,7 @@ footer
 			&::after
 			{
 				// Astuce pour faire afficher le menu sans utiliser de
-				// 	de code JavaScript (voir commentaire précédent).
+				//  de code JavaScript (voir commentaire précédent).
 				top: -0.5rem;
 				left: -0.5rem;
 				right: -0.5rem;
@@ -889,7 +889,7 @@ footer
 	> div
 	{
 		// Indicateur de défilement.
-		// 	Source : https://www.w3schools.com/howto/howto_js_scroll_indicator.asp
+		//  Source : https://www.w3schools.com/howto/howto_js_scroll_indicator.asp
 		top: 0.5rem;
 		height: 0.25rem;
 		position: relative;

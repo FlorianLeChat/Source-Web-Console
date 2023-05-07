@@ -5,12 +5,12 @@ import "../styles/tablet/console.scss";
 
 //
 // Permet d'envoyer les entrées utilisateurs personnalisées
-//	au serveur distant.
+//  au serveur distant.
 //
 $( "#controller button" ).on( "click", ( event ) =>
 {
 	// On récupère le contenu de l'entrée utilisateur avant
-	//	de le vérifie pour la prochaine étape.
+	//  de le vérifie pour la prochaine étape.
 	const input = $( event.target ).prev().val();
 
 	if ( input.trim() === "" || input.length === 0 )
@@ -23,7 +23,7 @@ $( "#controller button" ).on( "click", ( event ) =>
 	sendRemoteAction( "console", input );
 
 	// Une fois réalisée, on ajoute une entrée dans l'historique
-	//	des entrées juste au-dessous.
+	//  des entrées juste au-dessous.
 	$( event.target ).parent().parent().find( "ul" ).append( $( "<li></li>" ).text( input ) );
 
 	// On réinitialise enfin le champ de saisie.

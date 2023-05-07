@@ -5,7 +5,7 @@ import "../styles/tablet/tasks.scss";
 
 //
 // Permet de gérer les demandes de suppression de tâches planifiées
-//	dans la base de données.
+//  dans la base de données.
 //
 $( "table tr:not([class = finished])" ).on( "click", ( event ) =>
 {
@@ -28,8 +28,8 @@ $( "table tr:not([class = finished])" ).on( "click", ( event ) =>
 				addQueuedNotification( data, 3 );
 
 				// On recharge enfin la page quelques instants après.
-				//	Note : cela pourrait être amélioré en construisant directement
-				//		le HTML à la réception finale du message.
+				//  Note : cela pourrait être amélioré en construisant directement
+				//   le HTML à la réception finale du message.
 				setTimeout( () =>
 				{
 					window.location.reload();
@@ -38,7 +38,7 @@ $( "table tr:not([class = finished])" ).on( "click", ( event ) =>
 			.fail( ( self, _status, error ) =>
 			{
 				// Dans le cas contraire, on affiche une notification
-				//	d'échec avec les informations à notre disposition.
+				//  d'échec avec les informations à notre disposition.
 				addQueuedNotification( server_fatal_error.replace( "$1", getStatusText( error, self.status ) ), 1 );
 			} );
 	}
@@ -46,7 +46,7 @@ $( "table tr:not([class = finished])" ).on( "click", ( event ) =>
 
 //
 // Permet d'envoyer les demandes de création de tâches planifiées
-//	vers la base de données.
+//  vers la base de données.
 //
 $( "form input[type = submit]" ).on( "click", ( event ) =>
 {
@@ -72,8 +72,8 @@ $( "form input[type = submit]" ).on( "click", ( event ) =>
 			addQueuedNotification( data, 3 );
 
 			// On recharge enfin la page quelques instants après.
-			//	Note : cela pourrait être amélioré en construisant directement
-			//		le HTML à la réception finale du message.
+			//  Note : cela pourrait être amélioré en construisant directement
+			//   le HTML à la réception finale du message.
 			setTimeout( () =>
 			{
 				window.location.reload();
@@ -82,7 +82,7 @@ $( "form input[type = submit]" ).on( "click", ( event ) =>
 		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
-			//	d'échec avec les informations à notre disposition.
+			//  d'échec avec les informations à notre disposition.
 			addQueuedNotification( server_fatal_error.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 } );

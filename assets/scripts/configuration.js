@@ -5,7 +5,7 @@ import "../styles/tablet/configuration.scss";
 
 //
 // Permet d'enregistrer ou de mettre à jour les données du
-//	serveur de stockage FTP.
+//  serveur de stockage FTP.
 //
 $( "form input[type = submit]" ).on( "click", ( event ) =>
 {
@@ -37,8 +37,8 @@ $( "form input[type = submit]" ).on( "click", ( event ) =>
 		.done( ( data, _status, _self ) =>
 		{
 			// Une fois terminée, on affiche la notification d'information
-			//	à l'utilisateur pour lui indiquer si la requête a été envoyée
-			//	ou non avec succès au serveur distant.
+			//  à l'utilisateur pour lui indiquer si la requête a été envoyée
+			//  ou non avec succès au serveur distant.
 			if ( data !== "" )
 			{
 				addQueuedNotification( data, 3 );
@@ -47,14 +47,14 @@ $( "form input[type = submit]" ).on( "click", ( event ) =>
 		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
-			//	d'échec avec les informations à notre disposition.
+			//  d'échec avec les informations à notre disposition.
 			addQueuedNotification( server_fatal_error.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 } );
 
 //
 // Permet de mettre à jour les informations présentes dans le fichier
-//	de configuration du serveur distant.
+//  de configuration du serveur distant.
 //
 $( "button[data-type]" ).on( "click", ( event ) =>
 {
@@ -77,8 +77,8 @@ $( "button[data-type]" ).on( "click", ( event ) =>
 		.done( ( data, _status, _self ) =>
 		{
 			// Une fois terminée, on affiche la notification d'information
-			//	à l'utilisateur pour lui indiquer si la requête a été envoyée
-			//	ou non avec succès au serveur distant.
+			//  à l'utilisateur pour lui indiquer si la requête a été envoyée
+			//  ou non avec succès au serveur distant.
 			if ( data !== "" )
 			{
 				addQueuedNotification( data, 3 );
@@ -87,7 +87,7 @@ $( "button[data-type]" ).on( "click", ( event ) =>
 		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
-			//	d'échec avec les informations à notre disposition.
+			//  d'échec avec les informations à notre disposition.
 			addQueuedNotification( server_fatal_error.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 } );

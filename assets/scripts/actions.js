@@ -5,7 +5,7 @@ import "../styles/tablet/actions.scss";
 
 //
 // Permet d'envoyer des requêtes d'action lors du clic sur l'un des
-//	boutons présents (par défaut ou non) sur la page.
+//  boutons présents (par défaut ou non) sur la page.
 //
 $( "#actions ul:first-of-type li, .switch span" ).on( "click", ( event ) =>
 {
@@ -15,8 +15,8 @@ $( "#actions ul:first-of-type li, .switch span" ).on( "click", ( event ) =>
 
 //
 // Permet de gérer les demandes d'ajout, exécution ou de suppression
-//	des commandes personnalisées par défaut ou créées par l'utilisateur.
-//	Note : dans certains cas, on doit rafraîchir la page.
+//  des commandes personnalisées par défaut ou créées par l'utilisateur.
+//  Note : dans certains cas, on doit rafraîchir la page.
 //
 $( "#commands li[data-action = add]" ).on( "click", () =>
 {

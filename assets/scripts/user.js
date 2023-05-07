@@ -5,7 +5,7 @@ import "../styles/tablet/user.scss";
 
 //
 // Permet d'envoyer les demandes de modification ou de suppression
-//	des informations d'authentification vers le serveur.
+//  des informations d'authentification vers le serveur.
 //
 $( "#account input[data-action]" ).on( "click", ( event ) =>
 {
@@ -13,7 +13,7 @@ $( "#account input[data-action]" ).on( "click", ( event ) =>
 	event.preventDefault();
 
 	// On vérifie après si l'utilisateur veut réellement supprimer
-	//	son compte utilisateur.
+	//  son compte utilisateur.
 	const action = $( event.target ).attr( "data-action" );
 
 	if ( action === "remove" && !confirm( edit_remove ) )
@@ -42,12 +42,12 @@ $( "#account input[data-action]" ).on( "click", ( event ) =>
 		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
-			//	d'échec avec les informations à notre disposition.
+			//  d'échec avec les informations à notre disposition.
 			addQueuedNotification( server_fatal_error.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 
 	// On réinitialise enfin le formulaire après une
-	//	mise à jour des informations.
+	//  mise à jour des informations.
 	if ( action === "update" )
 	{
 		$( event.target ).parent().parent()[ 0 ].reset();
@@ -56,7 +56,7 @@ $( "#account input[data-action]" ).on( "click", ( event ) =>
 
 //
 // Permet d'envoyer les demandes de déconnexion et de reconnexion
-//	au compte utilisateur.
+//  au compte utilisateur.
 //
 $( "#actions input[type = submit]" ).on( "click", ( event ) =>
 {
@@ -84,20 +84,20 @@ $( "#actions input[type = submit]" ).on( "click", ( event ) =>
 		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
-			//	d'échec avec les informations à notre disposition.
+			//  d'échec avec les informations à notre disposition.
 			addQueuedNotification( server_fatal_error.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 } );
 
 //
 // Permet de modifier le comportement par défaut de la seconde
-//	partie du formulaire d'inscription (oui c'est du recyclage).
+//  partie du formulaire d'inscription (oui c'est du recyclage).
 //
 $( "#register input[type = submit]" ).attr( "data-action", "insert" );
 
 //
 // Permet d'envoyer les demandes d'ajout d'un nouveau serveur dans
-//	la base de données.
+//  la base de données.
 //
 $( "#register input[type = submit]" ).on( "click", ( event ) =>
 {
@@ -122,7 +122,7 @@ $( "#register input[type = submit]" ).on( "click", ( event ) =>
 		admin_password: form.find( "input[name = admin_password]" ).val(),
 
 		// Options de connexion.
-		//	Note : conversion explicite de la valeur booléenne en valeur entière.
+		//  Note : conversion explicite de la valeur booléenne en valeur entière.
 		secure_only: form.find( "input[id = secure_only]" ).is( ":checked" ) | 0,
 		auto_connect: form.find( "input[id = auto_connect]" ).is( ":checked" ) | 0
 
@@ -135,7 +135,7 @@ $( "#register input[type = submit]" ).on( "click", ( event ) =>
 		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
-			//	d'échec avec les informations à notre disposition.
+			//  d'échec avec les informations à notre disposition.
 			addQueuedNotification( server_fatal_error.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 
