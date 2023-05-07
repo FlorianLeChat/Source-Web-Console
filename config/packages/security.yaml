@@ -13,6 +13,8 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            custom_authenticators:
+                - App\Security\AjaxAuthenticator
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
