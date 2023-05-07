@@ -1,5 +1,8 @@
 <?php
 
+//
+// Répertoire des méthodes pour les messages de contact.
+//
 namespace App\Repository;
 
 use App\Entity\Contact;

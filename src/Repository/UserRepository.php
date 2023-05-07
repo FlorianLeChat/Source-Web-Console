@@ -1,5 +1,8 @@
 <?php
 
+//
+// Répertoire des méthodes pour les utilisateurs.
+//
 namespace App\Repository;
 
 use App\Entity\User;

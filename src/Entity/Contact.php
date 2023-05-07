@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+//
+// Entité pour les messages de contact.
+//
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 use App\Repository\ContactRepository;
