@@ -16,7 +16,7 @@ $( "#controller button" ).on( "click", ( event ) =>
 	if ( input.trim() === "" || input.length === 0 )
 	{
 		// C'est une chaîne vide.
-		return "";
+		return;
 	}
 
 	// On envoie ensuite le contenu au serveur distant.
@@ -24,7 +24,8 @@ $( "#controller button" ).on( "click", ( event ) =>
 
 	// Une fois réalisée, on ajoute une entrée dans l'historique
 	//  des entrées juste au-dessous.
-	$( event.target ).parent().parent().find( "ul" ).append( $( "<li></li>" ).text( input ) );
+	$( event.target ).parent().parent().find( "ul" )
+		.append( $( "<li></li>" ).text( input ) );
 
 	// On réinitialise enfin le champ de saisie.
 	$( event.target ).prev().val( "" );

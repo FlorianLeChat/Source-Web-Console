@@ -21,7 +21,7 @@ $( "#actions ul:first-of-type li, .switch span" ).on( "click", ( event ) =>
 $( "#commands li[data-action = add]" ).on( "click", () =>
 {
 	// Ajout d'une commande personnalisée.
-	sendRemoteAction( prompt( command_add_name ) + "|" + prompt( command_add_content ), "#ADD#" );
+	sendRemoteAction( `${ prompt( command_add_name ) }|${ prompt( command_add_content ) }`, "#ADD#" );
 	window.location.reload();
 } );
 

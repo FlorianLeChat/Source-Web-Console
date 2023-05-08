@@ -34,7 +34,7 @@ $( "form input[type = submit]" ).on( "click", ( event ) =>
 		ftp_password: $( "input[name = ftp_password]" ).val()
 
 	} )
-		.done( ( data, _status, _self ) =>
+		.done( ( data ) =>
 		{
 			// Une fois terminée, on affiche la notification d'information
 			//  à l'utilisateur pour lui indiquer si la requête a été envoyée
@@ -74,7 +74,7 @@ $( "button[data-type]" ).on( "click", ( event ) =>
 		ftp_value: $( event.target ).prev().val()
 
 	} )
-		.done( ( data, _status, _self ) =>
+		.done( ( data ) =>
 		{
 			// Une fois terminée, on affiche la notification d'information
 			//  à l'utilisateur pour lui indiquer si la requête a été envoyée

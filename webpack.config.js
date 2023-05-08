@@ -27,7 +27,7 @@ Encore
 	.enableBuildNotifications()
 	.enableSourceMaps( !Encore.isProduction() )
 	.enableVersioning( Encore.isProduction() )
-	.configureManifestPlugin( options =>
+	.configureManifestPlugin( ( options ) =>
 	{
 		options.fileName = "webpack-manifest.json";
 	} )
@@ -43,10 +43,10 @@ Encore
 		{ from: "./assets/videos", to: "videos/[path][name].[hash:8].[ext]" }
 	] )
 	.configureImageRule( {
-		type: "asset",
+		type: "asset"
 	} )
 	.configureFontRule( {
-		type: "asset",
+		type: "asset"
 	} )
 	.enableSassLoader()
 	.enableIntegrityHashes( Encore.isProduction() );
