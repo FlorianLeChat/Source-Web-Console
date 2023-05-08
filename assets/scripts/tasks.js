@@ -22,7 +22,7 @@ $( "table tr:not([class = finished])" ).on( "click", ( event ) =>
 			target_task: $( event.target ).attr( "data-task" )
 
 		} )
-			.done( ( data, _status, _self ) =>
+			.done( ( data ) =>
 			{
 				// On affiche la notification de confirmation.
 				addQueuedNotification( data, 3 );
@@ -66,7 +66,7 @@ $( "form input[type = submit]" ).on( "click", ( event ) =>
 		trigger_action: $( "select[name = action]" ).val()
 
 	} )
-		.done( ( data, _status, _self ) =>
+		.done( ( data ) =>
 		{
 			// On affiche la notification de confirmation.
 			addQueuedNotification( data, 3 );

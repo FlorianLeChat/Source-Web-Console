@@ -34,7 +34,7 @@ $( "#account input[data-action]" ).on( "click", ( event ) =>
 		user_password: $( "select[name = password]" ).val()
 
 	} )
-		.done( ( data, _status, _self ) =>
+		.done( ( data ) =>
 		{
 			// On affiche la notification de confirmation.
 			addQueuedNotification( data, 3 );
@@ -67,10 +67,10 @@ $( "#actions input[type = submit]" ).on( "click", ( event ) =>
 	$.post( "includes/controllers/server_user.php", {
 
 		// Type de l'action qui doit être effectué
-		user_action: $( event.target ).attr( "data-action" ),
+		user_action: $( event.target ).attr( "data-action" )
 
 	} )
-		.done( ( data, _status, _self ) =>
+		.done( ( data ) =>
 		{
 			// On affiche la notification de confirmation.
 			addQueuedNotification( data, 3 );
@@ -123,11 +123,11 @@ $( "#register input[type = submit]" ).on( "click", ( event ) =>
 
 		// Options de connexion.
 		//  Note : conversion explicite de la valeur booléenne en valeur entière.
-		secure_only: form.find( "input[id = secure_only]" ).is( ":checked" ) | 0,
-		auto_connect: form.find( "input[id = auto_connect]" ).is( ":checked" ) | 0
+		secure_only: form.find( "input[id = secure_only]" ).is( ":checked" ) && 0,
+		auto_connect: form.find( "input[id = auto_connect]" ).is( ":checked" ) && 0
 
 	} )
-		.done( ( data, _status, _self ) =>
+		.done( ( data ) =>
 		{
 			// On affiche la notification de confirmation.
 			addQueuedNotification( data, 3 );

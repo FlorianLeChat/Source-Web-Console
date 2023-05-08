@@ -15,7 +15,7 @@ $( "input[type = password]" ).on( "keyup", ( event ) =>
 	{
 		// Si les majuscules sont activées, on insère dynamiquement
 		//  un nouvel élément HTML après le champ de saisie.
-		$( event.target ).next().after( `<p class=\"capslock\">${ capslock_enabled }</p>` );
+		$( event.target ).next().after( `<p class="capslock">${ capslock_enabled }</p>` );
 	}
 	else
 	{
@@ -41,7 +41,7 @@ $( "*[required]" ).on( "keyup", ( event ) =>
 		//  Note : il doit se trouver techniquement juste avant le champ.
 		let label = element.prev().html();
 
-		if ( label == "" )
+		if ( label === "" )
 		{
 			// S'il est invalide, on récupère tous les éléments précédents
 			//  et on fait un recherche jusqu'à trouver un libellé.
@@ -179,7 +179,7 @@ contact.find( "form" ).on( "submit", ( event ) =>
 		content: contact.find( "textarea" ).val()
 
 	} )
-		.done( ( data, _status, _self ) =>
+		.done( ( data ) =>
 		{
 			// Une fois terminée, on affiche la réponse JSON du
 			//  serveur sous forme d'une liste numérique.
@@ -191,7 +191,7 @@ contact.find( "form" ).on( "submit", ( event ) =>
 			// On réinitialise enfin l'entièreté du formulaire
 			//  avant de le fermer si le message renvoyé par
 			//  le serveur est un message de succès.
-			if ( json[ 1 ] == 2 )
+			if ( json[ 1 ] === 2 )
 			{
 				contact.find( "form" )[ 0 ].reset();
 				contact.fadeOut( 150 );
@@ -215,15 +215,15 @@ contact.find( "input[type = reset]" ).on( "click", () =>
 // Permet de faire fonctionner un petit moteur de recherche
 //  intégré pour accéder plus rapidement aux pages du site.
 //
+const pages = {};
 const search = $( "#search input[name = search]" );
-let pages = {};
 
-for ( const page of $( "nav span, footer a[href *= target] span" ) )
+$( "nav span, footer a[href *= target] span" ).forEach( ( page ) =>
 {
 	// Libellés des pages de la barre de navigation ainsi que ceux
 	//  présents dans le pied de page.
 	pages[ $( page ).html() ] = $( page ).parent().attr( "href" );
-}
+} );
 
 search.on( "focusout", () =>
 {
@@ -251,15 +251,15 @@ search.on( "keyup", ( event ) =>
 
 	// On itère alors à travers toutes les pages afin
 	//  de les comparer à l'entrée de l'utilisateur.
-	for ( const page of Object.keys( pages ) )
+	Object.keys( pages ).forEach( ( page ) =>
 	{
 		// Si l'entrée n'est pas vide et qu'elle semble correspondre
 		//  à une page mise en mémoire, on l'ajoute en tant que résultat.
 		if ( content !== "" && page.toLowerCase().match( content.toLowerCase() ) )
 		{
-			results.append( `<li data-target=\"${ pages[ page ] }\">${ page }</li>` );
+			results.append( `<li data-target="${ pages[ page ] }">${ page }</li>` );
 		}
-	}
+	} );
 } );
 
 $( "#search ul" ).on( "click", "li", ( event ) =>
@@ -290,15 +290,14 @@ $( window ).on( "resize", adjustZoom );
 // Permet d'afficher des notifications textuelles après une action.
 //  Source : https://www.w3schools.com/howto/howto_js_snackbar.asp
 //
-const notification = $( "#notifications" );
-let messages_queue = {};
+const messageQueue = {};
 let counter = 1;
 
 function addQueuedNotification( text, type )
 {
 	// On ajoute la notification dans une file d'attente
 	//  afin d'être traitée les uns après les autres.
-	messages_queue[ counter ] = [ text, type ];
+	messageQueue[ counter ] = [ text, type ];
 	counter++;
 }
 
@@ -306,6 +305,8 @@ function processNotification( text, type )
 {
 	// On vérifie tout d'abord si une notification est déjà
 	//  actuellement visible.
+	const notification = $( "#notifications" );
+
 	if ( notification.is( ":visible" ) )
 	{
 		return false;
@@ -320,19 +321,19 @@ function processNotification( text, type )
 	const icon = notification.find( "i" );
 
 	// On vérifie alors le type de notification.
-	if ( type == 1 )
+	if ( type === 1 )
 	{
 		// Cette notification est une erreur.
 		notification.addClass( "error" );
 		icon.addClass( "bi-exclamation-octagon-fill" );
 	}
-	else if ( type == 2 )
+	else if ( type === 2 )
 	{
 		// Cette notification est une validation.
 		notification.addClass( "success" );
 		icon.addClass( "bi-check-square-fill" );
 	}
-	else if ( type == 3 )
+	else if ( type === 3 )
 	{
 		// Cette notification est une information.
 		notification.addClass( "info" );
@@ -357,7 +358,7 @@ setInterval( () =>
 {
 	// On récupère d'abord toutes les clés disponibles dans
 	//  la file d'attente des notifications.
-	const keys = Object.keys( messages_queue );
+	const keys = Object.keys( messageQueue );
 
 	// On vérifie alors si la file n'est pas vide avant de
 	//  continuer son traitement.
@@ -365,14 +366,14 @@ setInterval( () =>
 	{
 		// On récupère ensuite les données associées à la première
 		//  notification de la file afin de la traiter.
-		const notification = messages_queue[ keys[ 0 ] ];
+		const notification = messageQueue[ keys[ 0 ] ];
 		const state = processNotification( notification[ 0 ], notification[ 1 ] );
 
 		if ( state )
 		{
 			// Si la notification a été créée, alors on supprime les
 			//  données de la file d'attente pour la prochaine.
-			delete messages_queue[ keys[ 0 ] ];
+			delete messageQueue[ keys[ 0 ] ];
 		}
 	}
 }, 500 );
@@ -402,7 +403,7 @@ function sendRemoteAction( action, value )
 		server_value: value
 
 	} )
-		.done( ( data, _status, _self ) =>
+		.done( ( data ) =>
 		{
 			// Une fois terminée, on affiche la notification d'information
 			//  à l'utilisateur pour lui indiquer si la requête a été envoyée
@@ -517,30 +518,29 @@ if ( window.location.search !== "?target=legal" )
 	// On exécute alors le mécanisme en suivant certaines consignes.
 	cookie.run( {
 		// On définit d'abord nos paramètres personnalisés.
-		page_scripts: false,		// Désactivation de la gestion des scripts
-		force_consent: true,		// Le consentement est obligatoire.
-		auto_language: "document",	// Langue sélectionnée par l'utilisateur.
-		cookie_expiration: 31,		// Temps d'expiration du cookie (en jours).
+		page_scripts: false, // Désactivation de la gestion des scripts
+		force_consent: true, // Le consentement est obligatoire.
+		auto_language: "document", // Langue sélectionnée par l'utilisateur.
+		cookie_expiration: 31, // Temps d'expiration du cookie (en jours).
 
 		onAccept: ( cookie ) =>
 		{
 			// Lors de chaque chargement de page, on itère à travers toutes les
 			//  autorisations pour déterminer si les balises de signalement de
 			//  Google Analytics doivent être utilisées.
-			for ( const level of cookie.categories )
+			cookie.categories.forEach( ( level ) =>
 			{
 				if ( level === "analytics" )
 				{
 					sendAnalytics();
-					break;
 				}
-			}
+			} );
 		},
 
 		// On définit enfin les traductions globales pour la bibliothèque.
 		languages: {
 			// Traductions anglaises.
-			"EN": {
+			en: {
 				consent_modal: {
 					// Première partie de la fenêtre.
 					title: "Do you want a cookie?",
@@ -567,7 +567,7 @@ if ( window.location.search !== "?target=legal" )
 						// Format de l'en-tête des cookies.
 						{ col1: "Nom" },
 						{ col2: "Domaine" },
-						{ col3: "Description" },
+						{ col3: "Description" }
 					],
 					blocks: [
 						{
@@ -613,7 +613,7 @@ if ( window.location.search !== "?target=legal" )
 			},
 
 			// Traductions françaises.
-			"FR": {
+			fr: {
 				consent_modal: {
 					// Première partie de la fenêtre.
 					title: "Vous voulez un cookie ?",
@@ -640,7 +640,7 @@ if ( window.location.search !== "?target=legal" )
 						// Format de l'en-tête des cookies.
 						{ col1: "Nom" },
 						{ col2: "Domaine" },
-						{ col3: "Description" },
+						{ col3: "Description" }
 					],
 					blocks: [
 						{

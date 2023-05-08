@@ -7,19 +7,19 @@ import "../styles/tablet/statistics.scss";
 // Permet de générer les libellés présents sur les graphiques.
 //  Note : ils sont créés en partant de 24 heures en arrière.
 //
-const date_now = Date.now();								// Horodatage immédiat.
-const time_offset = 3600 * 1000;							// Représentation d'une journée en secondes.
+const dateNow = Date.now(); // Horodatage immédiat.
+const timeOffset = 3600 * 1000; // Représentation d'une journée en secondes.
 
-let labels = [];											// Enregistrement des libellés.
-let date_back = new Date( date_now - ( 86400 * 1000 ) );	// Création de la date 24 heures en arrière.
-date_back.setMinutes( 0, 0, 0 );							// Réinitialisation des minutes/secondes et millisecondes.
-date_back = date_back.getTime();							// Récupération de l'horodatage final.
+const labels = []; // Enregistrement des libellés.
+let dateBack = new Date( dateNow - ( 86400 * 1000 ) ); // Création de la date 24 heures en arrière.
+dateBack.setMinutes( 0, 0, 0 ); // Réinitialisation des minutes/secondes et millisecondes.
+dateBack = dateBack.getTime(); // Récupération de l'horodatage final.
 
 for ( let indice = 0; indice <= 24; indice++ )
 {
 	// On itère 24 fois pour créer toutes les heures partant
 	//  de 24 heures en arrière jusqu'à maintenant.
-	const date = new Date( date_back + time_offset * indice );
+	const date = new Date( dateBack + timeOffset * indice );
 
 	labels.push( date.toISOString() );
 }
@@ -28,9 +28,10 @@ for ( let indice = 0; indice <= 24; indice++ )
 // Permet de créer un graphique pour illustrer le nombre total
 //  de joueurs en fonction du temps.
 //
-const player_chart = $( "#player_count" );
+const playerChart = $( "#player_count" );
 
-new Chart( player_chart,
+new Chart(
+	playerChart,
 	{
 		type: "line",
 		data: {
@@ -237,4 +238,5 @@ new Chart( server_usage,
 				}
 			}
 		}
-	} );
+	}
+);
