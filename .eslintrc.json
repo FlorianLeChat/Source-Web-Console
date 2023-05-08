@@ -1,0 +1,29 @@
+{
+	"ignorePatterns": ["*.config.js"],
+	"extends": ["airbnb"],
+	"rules": {
+		"indent": ["error", "tab", { "SwitchCase": 1 }],
+		"quotes": ["error", "double"],
+		"max-len": ["warn", { "code": 125, "ignoreComments": true }],
+		"no-tabs": ["error", { "allowIndentationTabs": true }],
+		"eol-last": ["error", "never"],
+		"no-alert": "off",
+		"no-plusplus": "off",
+		"brace-style": ["error", "allman"],
+		"comma-dangle": ["error", "never"],
+		"linebreak-style": "off",
+		"space-in-parens": ["error", "always"],
+		"object-curly-newline": ["error", { "ObjectExpression": { "consistent": true } }],
+		"no-restricted-globals": "off",
+		"no-prototype-builtins": "off",
+		"array-bracket-spacing": ["error", "always"],
+		"template-curly-spacing": ["error", "always"],
+		"computed-property-spacing": ["error", "always"]
+	},
+	"env": {
+		"es6": true,
+		"jquery": true,
+		"browser": true,
+		"commonjs": true
+	}
+}

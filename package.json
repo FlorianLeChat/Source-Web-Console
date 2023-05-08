@@ -29,6 +29,7 @@
         "webpack-notifier": "~1.15",
         "vanilla-lazyload": "~17.8",
         "regenerator-runtime": "~0.13",
+        "eslint-config-airbnb": "~19.0",
         "vanilla-cookieconsent": "~2.9",
         "chartjs-adapter-date-fns": "~3.0"
     },
@@ -38,6 +39,7 @@
     },
     "scripts": {
         "dev": "encore dev",
+        "lint": "eslint ./assets/scripts --config .eslintrc.json --ext .js",
         "watch": "encore dev --watch",
         "build": "encore production --progress",
         "dev-server": "encore dev-server"
