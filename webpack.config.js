@@ -8,7 +8,7 @@ if ( !Encore.isRuntimeEnvironmentConfigured() )
 Encore
 	.setOutputPath( "public/build/" )
 	.setPublicPath( "/build" )
-	.addEntry( "global", "./assets/scripts/main.js" )
+	.addEntry( "main", "./assets/scripts/main.js" )
 	.addEntry( "actions", "./assets/scripts/actions.js" )
 	.addEntry( "admin", "./assets/scripts/admin.js" )
 	.addEntry( "configuration", "./assets/scripts/configuration.js" )
