@@ -269,24 +269,6 @@ $( "#search ul" ).on( "click", "li", ( event ) =>
 } );
 
 //
-// Permet d'ajuster l'agrandissement des éléments par rapport au zoom
-//  du navigateur (fonctionne seulement pour l'amoindrissement).
-//
-function adjustZoom()
-{
-	const zoom = 100 / Math.round( window.devicePixelRatio * 100 );
-
-	if ( zoom >= 1 )
-	{
-		$( "body" ).css( "zoom", zoom );
-	}
-}
-
-adjustZoom();
-
-$( window ).on( "resize", adjustZoom );
-
-//
 // Permet d'afficher des notifications textuelles après une action.
 //  Source : https://www.w3schools.com/howto/howto_js_snackbar.asp
 //
