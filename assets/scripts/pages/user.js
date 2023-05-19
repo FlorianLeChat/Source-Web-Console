@@ -1,10 +1,11 @@
 // Importation des feuilles de style.
-import "../styles/desktop/user.scss";
-import "../styles/phone/user.scss";
-import "../styles/tablet/user.scss";
+import "../../styles/desktop/user.scss";
+import "../../styles/phone/user.scss";
+import "../../styles/tablet/user.scss";
 
-// Importation des fonctions et constantes communes.
-import { addQueuedNotification, getStatusText } from "./_functions";
+// Importation des fonctions et constantes globales.
+import "../global";
+import { addQueuedNotification, getStatusText } from "../functions";
 
 //
 // Permet d'envoyer les demandes de modification ou de suppression

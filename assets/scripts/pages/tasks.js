@@ -1,10 +1,11 @@
 // Importation des feuilles de style.
-import "../styles/desktop/tasks.scss";
-import "../styles/phone/tasks.scss";
-import "../styles/tablet/tasks.scss";
+import "../../styles/desktop/tasks.scss";
+import "../../styles/phone/tasks.scss";
+import "../../styles/tablet/tasks.scss";
 
 // Importation des fonctions et constantes communes.
-import { addQueuedNotification, getStatusText } from "./_functions";
+import "../global";
+import { addQueuedNotification, getStatusText } from "../functions";
 
 //
 // Permet de gérer les demandes de suppression de tâches planifiées
@@ -16,7 +17,7 @@ $( "table tr:not([class = finished])" ).on( "click", ( event ) =>
 	if ( confirm( edit_remove ) )
 	{
 		// On réalise ensuite la requête AJAX.
-		$.post( "includes/controllers/server_tasks.php", {
+		$.post( "includes/controllers/../server_tasks.php", {
 
 			// Identifiant unique du serveur sélectionné.
 			target_server: $( event.target ).find( "em" ).attr( "data-server" ),

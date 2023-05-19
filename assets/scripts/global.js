@@ -4,8 +4,10 @@ import "flag-icons/css/flag-icons.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "vanilla-cookieconsent/dist/cookieconsent.css";
 
-// Importation des fonctions globales.
-import { addQueuedNotification } from "./_functions";
+// Importation des fonctions et constantes communes.
+import "./cookies";
+import "./analytics";
+import { addQueuedNotification } from "./functions";
 
 //
 // Permet d'afficher des messages d'avertissement lorsqu'un utilisateur

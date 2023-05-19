@@ -1,7 +1,7 @@
 // Importation des feuilles de style.
-import "../styles/desktop/statistics.scss";
-import "../styles/phone/statistics.scss";
-import "../styles/tablet/statistics.scss";
+import "../../styles/desktop/statistics.scss";
+import "../../styles/phone/statistics.scss";
+import "../../styles/tablet/statistics.scss";
 
 //
 // Permet de générer les libellés présents sur les graphiques.
