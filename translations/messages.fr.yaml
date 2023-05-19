@@ -60,10 +60,8 @@ form:
             title: "Saisissez les informations client"
             description: "Les informations client concernent celles qui sont utilisés par les joueurs (client) pour se connecter classiquement au serveur. Ces informations permettent de lire les données générales du site sans réaliser d'actions avancées."
         admin:
-            title: "Saisissez les informations administrateur"
-            description: "Les informations administrateur concernent celles qui permettent aux systèmes d'administrateur de se connecter à l'API du module d'administration de l'instance. Cela permet de réaliser des actions et commandes à distance sans l'intervention d'une personne."
-        secure_only: "Accepter uniquement les connexions sécurisées"
-        auto_connect: "Forcer la connexion automatique"
+            title: "Saisissez le mot de passe administrateur"
+            description: "Le mot de passe administrateur permet de se connecter à l'API du module d'administration du serveur. Cela permet de réaliser des actions et commandes à distance sans l'intervention d'une personne."
     contact:
         email: "Saisissez votre adresse électronique"
         failed: "Une erreur interne s'est produite lors de l'envoi de votre message au site web. Réponse : « $1 »."
