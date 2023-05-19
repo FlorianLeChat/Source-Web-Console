@@ -114,6 +114,7 @@ register.find( "input[type = reset]" ).on( "click", () =>
 
 		// ..avant de réinitialiser les informations des deux parties.
 		firstStep.find( "form" )[ 0 ].reset();
+		firstStep.find( "input[id *= password]" ).attr( "type", "password" );
 		lastStep.find( "form" )[ 0 ].reset();
 	}
 	else
