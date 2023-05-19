@@ -1,10 +1,11 @@
 // Importation des feuilles de style.
-import "../styles/desktop/console.scss";
-import "../styles/phone/console.scss";
-import "../styles/tablet/console.scss";
+import "../../styles/desktop/console.scss";
+import "../../styles/phone/console.scss";
+import "../../styles/tablet/console.scss";
 
-// Importation des fonctions globales.
-import { sendRemoteAction } from "./_functions";
+// Importation des fonctions et constantes communes.
+import "../global";
+import { sendRemoteAction } from "../functions";
 
 //
 // Permet d'envoyer les entrées utilisateurs personnalisées

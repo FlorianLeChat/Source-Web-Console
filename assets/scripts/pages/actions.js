@@ -1,10 +1,11 @@
 // Importation des feuilles de style.
-import "../styles/desktop/actions.scss";
-import "../styles/phone/actions.scss";
-import "../styles/tablet/actions.scss";
+import "../../styles/desktop/actions.scss";
+import "../../styles/phone/actions.scss";
+import "../../styles/tablet/actions.scss";
 
-// Importation des fonctions globales.
-import { sendRemoteAction } from "./_functions";
+// Importation des fonctions et constantes communes.
+import "../global";
+import { sendRemoteAction } from "../functions";
 
 //
 // Permet d'envoyer des requêtes d'action lors du clic sur l'un des

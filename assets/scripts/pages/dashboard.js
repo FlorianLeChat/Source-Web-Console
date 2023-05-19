@@ -1,10 +1,11 @@
 // Importation des feuilles de style.
-import "../styles/desktop/dashboard.scss";
-import "../styles/phone/dashboard.scss";
-import "../styles/tablet/dashboard.scss";
+import "../../styles/desktop/dashboard.scss";
+import "../../styles/phone/dashboard.scss";
+import "../../styles/tablet/dashboard.scss";
 
-// Importation des fonctions globales.
-import { addQueuedNotification, sendRemoteAction } from "./_functions";
+// Importation des fonctions et constantes communes.
+import "../global";
+import { addQueuedNotification, sendRemoteAction } from "../functions";
 
 //
 // Permet d'appliquer les images en arrière-plan des serveurs
