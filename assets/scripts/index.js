@@ -3,6 +3,9 @@ import "../styles/desktop/index.scss";
 import "../styles/phone/index.scss";
 import "../styles/tablet/index.scss";
 
+// Importation des fonctions et constantes communes.
+import { addQueuedNotification, getStatusText } from "./_functions";
+
 //
 // Permet de gérer les ouvertures/fermetures de certains
 //  formulaires de la page d'accueil.
