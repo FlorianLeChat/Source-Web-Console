@@ -3,6 +3,9 @@ import "../styles/desktop/console.scss";
 import "../styles/phone/console.scss";
 import "../styles/tablet/console.scss";
 
+// Importation des fonctions globales.
+import { sendRemoteAction } from "./_functions";
+
 //
 // Permet d'envoyer les entrées utilisateurs personnalisées
 //  au serveur distant.

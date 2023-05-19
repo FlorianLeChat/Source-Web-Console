@@ -3,6 +3,9 @@ import "../styles/desktop/user.scss";
 import "../styles/phone/user.scss";
 import "../styles/tablet/user.scss";
 
+// Importation des fonctions et constantes communes.
+import { addQueuedNotification, getStatusText } from "./_functions";
+
 //
 // Permet d'envoyer les demandes de modification ou de suppression
 //  des informations d'authentification vers le serveur.

@@ -3,6 +3,9 @@ import "../styles/desktop/configuration.scss";
 import "../styles/phone/configuration.scss";
 import "../styles/tablet/configuration.scss";
 
+// Importation des fonctions globales.
+import { addQueuedNotification, getStatusText } from "./_functions";
+
 //
 // Permet d'enregistrer ou de mettre à jour les données du
 //  serveur de stockage FTP.

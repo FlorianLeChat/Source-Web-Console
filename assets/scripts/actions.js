@@ -3,6 +3,9 @@ import "../styles/desktop/actions.scss";
 import "../styles/phone/actions.scss";
 import "../styles/tablet/actions.scss";
 
+// Importation des fonctions globales.
+import { sendRemoteAction } from "./_functions";
+
 //
 // Permet d'envoyer des requêtes d'action lors du clic sur l'un des
 //  boutons présents (par défaut ou non) sur la page.

@@ -3,6 +3,9 @@ import "../styles/desktop/dashboard.scss";
 import "../styles/phone/dashboard.scss";
 import "../styles/tablet/dashboard.scss";
 
+// Importation des fonctions globales.
+import { addQueuedNotification, sendRemoteAction } from "./_functions";
+
 //
 // Permet d'appliquer les images en arrière-plan des serveurs
 //  en fonction de leur jeu installé.
