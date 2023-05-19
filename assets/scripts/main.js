@@ -218,7 +218,7 @@ contact.find( "input[type = reset]" ).on( "click", () =>
 const pages = {};
 const search = $( "#search input[name = search]" );
 
-$( "nav span, footer a[href *= target] span" ).forEach( ( page ) =>
+$( "nav span, footer a[href *= target] span" ).each( ( _, page ) =>
 {
 	// Libellés des pages de la barre de navigation ainsi que ceux
 	//  présents dans le pied de page.

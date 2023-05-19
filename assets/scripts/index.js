@@ -339,7 +339,7 @@ function displayInitialElements()
 function updateInformation( forward )
 {
 	// Défilement des images.
-	images.ForEach( ( image, indice ) =>
+	images.each( ( indice, image ) =>
 	{
 		// On vérifie si l'image est actuellement visible.
 		const element = $( image );
@@ -384,7 +384,7 @@ function updateInformation( forward )
 	} );
 
 	// Défilement des paragraphes.
-	texts.ForEach( ( text, indice ) =>
+	texts.each( ( indice, text ) =>
 	{
 		// Vérification de la visibilité de l'élément.
 		const element = $( text );
