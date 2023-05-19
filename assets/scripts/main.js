@@ -80,14 +80,6 @@ $( "footer" ).find( "a[href = \"javascript:void(0);\"]" ).on( "click", () =>
 } );
 
 //
-// Permet de désactiver le mécanisme de glissement des liens.
-//
-$( "a" ).on( "mousedown", ( event ) =>
-{
-	event.preventDefault();
-} );
-
-//
 // Permet de retarder l'ensemble des requêtes asynchrones AJAX
 //  afin d'inclure un jeton d'authentification généré par les services
 //  de Google reCAPTCHA.
