@@ -258,22 +258,6 @@ $( "#search ul" ).on( "click", "li", ( event ) =>
 {
 	// On simule la présence d'un élément <a> en JavaScript.
 	window.location.href = $( event.target ).attr( "data-target" );
-//
-// Permet d'ajouter le mécanisme de fonctionnement de Google Analytics.
-//  Source : https://analytics.google.com/analytics/web/#/
-//
-function sendAnalytics()
-{
-	window.dataLayer = window.dataLayer || [];
-
-	function gtag()
-	{
-		dataLayer.push( arguments );
-	}
-
-	gtag( "js", new Date() );
-	gtag( "config", analytics_identifier );
-}
 
 //
 // Permet de demander le consentement de l'utilisateur pour utiliser le mécanisme des cookies.
