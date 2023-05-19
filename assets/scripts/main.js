@@ -453,18 +453,6 @@ function sendAnalytics()
 }
 
 //
-// Permet d'implémenter le chargement différé de certaines ressources (images, vidéos, ...).
-//  Source : https://github.com/verlok/vanilla-lazyload#-getting-started---script
-//
-import LazyLoad from "vanilla-lazyload";
-
-const resources = $( "img, video, [data-bg]" );
-resources.addClass( "lazy" );
-
-const lazyLoad = new LazyLoad();
-lazyLoad.update();
-
-//
 // Permet de demander le consentement de l'utilisateur pour utiliser le mécanisme des cookies.
 //  Note : ne s'applique pas à la page des mentions légales.
 //  Source : https://github.com/orestbida/cookieconsent#all-configuration-options

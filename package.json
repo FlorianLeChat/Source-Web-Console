@@ -27,7 +27,6 @@
         "normalize.css": "~8.0",
         "bootstrap-icons": "~1.10",
         "webpack-notifier": "~1.15",
-        "vanilla-lazyload": "~17.8",
         "regenerator-runtime": "~0.13",
         "eslint-config-airbnb": "~19.0",
         "vanilla-cookieconsent": "~2.9",
