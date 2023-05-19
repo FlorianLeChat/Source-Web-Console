@@ -61,9 +61,7 @@ form:
             description: "The client information is the data used by players (clients) to connect to the server conventionally. This information allows for reading overall website information without performing any advanced actions."
         admin:
             title: "Enter administrator credentials"
-            description: "The administrator information is the data required for the control systems to connect to the server's admin module API. This provides the ability to perform actions and commands remotely without the intervention of anyone."
-        secure_only: "Only accept secure connections"
-        auto_connect: "Force automatic connection"
+            description: "The administrator password is used to connect to the server administration module API. This allows to perform actions and commands remotely without human intervention."
     contact:
         email: "Enter your email address"
         failed: "An internal error occurred when sending your message to the website. Response: \"$1\"."

@@ -58,19 +58,12 @@ register.find( "form" ).on( "submit", ( event ) =>
 			username: firstStep.find( "input[name = username]" ).val(),
 			password: firstStep.find( "input[name = password]" ).val(),
 
-			// Informations du client (obligatoires côté serveur).
+			// Informations du client.
 			server_address: lastStep.find( "input[name = server_address]" ).val(),
 			server_port: lastStep.find( "input[name = server_port]" ).val(),
 
-			// Informations administrateur (facultatives).
-			admin_address: lastStep.find( "input[name = admin_address]" ).val(),
-			admin_port: lastStep.find( "input[name = admin_port]" ).val(),
-			admin_password: lastStep.find( "input[name = admin_password]" ).val(),
-
-			// Options de connexion.
-			//  Note : conversion explicite de la valeur booléenne en valeur entière.
-			secure_only: lastStep.find( "input[id = secure_only]" ).is( ":checked" ) && 0,
-			auto_connect: lastStep.find( "input[id = auto_connect]" ).is( ":checked" ) && 0
+			// Mot de passe administrateur.
+			server_password: lastStep.find( "input[name = server_password]" ).val()
 
 		} )
 			.done( ( data ) =>

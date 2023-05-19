@@ -79,21 +79,12 @@
 
 		<hr />
 
-		{# Informations administrateur (adresse IP, port & mot de passe) #}
+		{# Informations administrateur (mot de passe) #}
 		<label>{{ t("form.register.admin.title")|trans }}</label>
 
-		<input type="text" id="admin_address" name="admin_address" placeholder="51.75.125.244" />
-		<input type="text" id="admin_port" name="admin_port" placeholder="27025" />
-		<input type="text" id="admin_password" name="admin_password" placeholder="a2D2ea4NE6e9As" />
+		<input type="text" id="server_password" name="server_password" placeholder="a2D2ea4NE6e9As" />
 
 		<em>{{ t("form.register.admin.description")|trans }}</em>
-
-		{# Paramètres de liaison #}
-		<label for="secure_only">{{ t("form.register.secure_only")|trans }}</label>
-		<input type="checkbox" id="secure_only" /><br /><br />
-
-		<label for="auto_connect">{{ t("form.register.auto_connect")|trans }}</label>
-		<input type="checkbox" id="auto_connect" /><br /><br />
 
 		{# Validation/annulation #}
 		<input type="reset" value="{{ t("form.cancel_button")|trans }}" />
