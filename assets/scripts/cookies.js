@@ -4,6 +4,8 @@
 //  Source : https://github.com/orestbida/cookieconsent#all-configuration-options
 //
 import "vanilla-cookieconsent";
+import sendAnalytics from "./analytics";
+
 
 if ( window.location.search !== "?target=legal" )
 {
