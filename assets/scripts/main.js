@@ -58,9 +58,9 @@ $( "*[required]" ).on( "keyup", ( event ) =>
 		// On remplace les informations pré-formatées dans le message
 		//  d'erreur par certaines données du champ de saisie.
 		let message = client_check_failed;
-		message = message.replace( "$1", label );							// Nom du champ.
-		message = message.replace( "$2", element.attr( "minLength" ) );		// Taille minimale.
-		message = message.replace( "$3", element.attr( "maxLength" ) );		// Taille maximale.
+		message = message.replace( "$1", label ); // Nom du champ.
+		message = message.replace( "$2", element.attr( "minLength" ) ); // Taille minimale.
+		message = message.replace( "$3", element.attr( "maxLength" ) ); // Taille maximale.
 
 		// On définit enfin le message d'erreur avant de l'afficher
 		//  progressivement avec une animation.
@@ -77,6 +77,8 @@ $( "*[required]" ).on( "keyup", ( event ) =>
 //
 // Permet d'ouvrir le formulaire de contact via le pied de page.
 //
+const contact = $( "#contact" );
+
 $( "footer" ).find( "a[href = \"javascript:void(0);\"]" ).on( "click", () =>
 {
 	contact.fadeIn( 150 );
@@ -99,7 +101,7 @@ $( window ).ajaxSend( ( _event, _request, settings ) =>
 	// On met en mémoire la fonction de retour utilisée par la requête.
 	const callback = settings.xhr;
 
-	settings.xhr = function ()
+	settings.xhr = () =>
 	{
 		// On récupère par la même occasion certaines données de la requête.
 		const request = callback();
@@ -154,8 +156,6 @@ $( window ).on( "scroll", () =>
 //
 // Permet de gérer les mécanismes du formulaire de contact.
 //
-const contact = $( "#contact" );
-
 contact.find( "form" ).on( "submit", ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
@@ -261,3 +261,4 @@ $( "#search ul" ).on( "click", "li", ( event ) =>
 {
 	// On simule la présence d'un élément <a> en JavaScript.
 	window.location.href = $( event.target ).attr( "data-target" );
+} );
