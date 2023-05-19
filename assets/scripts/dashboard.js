@@ -7,8 +7,7 @@ import "../styles/tablet/dashboard.scss";
 // Permet d'appliquer les images en arrière-plan des serveurs
 //  en fonction de leur jeu installé.
 //
-const servers = $( "li[data-image]" );
-servers.forEach( ( server, indice ) =>
+$( "li[data-image]" ).each( ( indice, server ) =>
 {
 	$( `<style>#servers li:nth-of-type(${ indice }):before { background-image: url(${ $( server ).attr( "data-image" ) })</style>` ).appendTo( "head" );
 } );
@@ -141,10 +140,9 @@ function retrieveRemoteData()
 
 			// Affichage de la liste des joueurs.
 			const playerList = $( "#players ul" );
-			const playerField = json.playerList;
-
 			playerList.empty();
-			playerField.forEach( ( player ) =>
+
+			json.playerList.forEach( ( player ) =>
 			{
 				playerList.append( `<li>[${ player.index }] ${ player.name }</li>` );
 			} );
