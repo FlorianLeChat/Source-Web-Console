@@ -172,17 +172,13 @@ contact.find( "form" ).on( "submit", ( event ) =>
 	} )
 		.done( ( data ) =>
 		{
-			// Une fois terminée, on affiche la réponse JSON du
-			//  serveur sous forme d'une liste numérique.
-			const json = JSON.parse( data );
-
-			// On affiche alors un message de confirmation.
-			addQueuedNotification( json[ 0 ], json[ 1 ] );
+			// Une fois terminée, on affiche la message de confirmation.
+			addQueuedNotification( data[ 0 ], data[ 1 ] );
 
 			// On réinitialise enfin l'entièreté du formulaire
 			//  avant de le fermer si le message renvoyé par
 			//  le serveur est un message de succès.
-			if ( json[ 1 ] === 2 )
+			if ( data[ 1 ] === 2 )
 			{
 				contact.find( "form" )[ 0 ].reset();
 				contact.fadeOut( 150 );
