@@ -124,14 +124,14 @@ class UserController extends AbstractController
 		// On récupère d'abord toutes les informations de la requête.
 		$email = $request->request->get("email");
 		$subject = $request->request->get("subject");
-		$message = $request->request->get("message");
+		$content = $request->request->get("content");
 
 		// On créé alors un nouvel objet de type "Contact".
 		$contact = new Contact();
 		$contact->setTimestamp(new \DateTime());
 		$contact->setEmail($email);
 		$contact->setSubject($subject);
-		$contact->setMessage($message);
+		$contact->setContent($content);
 
 		// TODO : vérifier si Doctrine ne signale pas d'erreur (https://symfony.com/doc/current/doctrine.html#validating-objects).
 

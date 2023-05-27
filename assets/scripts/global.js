@@ -1,7 +1,7 @@
 // Importation des fonctions et constantes communes.
 import "./cookies";
 import "./analytics";
-import { addQueuedNotification } from "./functions";
+import { addQueuedNotification, getStatusText } from "./functions";
 
 //
 // Permet d'afficher des messages d'avertissement lorsqu'un utilisateur

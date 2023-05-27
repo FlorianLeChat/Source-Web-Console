@@ -5,7 +5,7 @@ import "../../styles/tablet/dashboard.scss";
 
 // Importation des fonctions et constantes communes.
 import "../global";
-import { addQueuedNotification, sendRemoteAction } from "../functions";
+import { addQueuedNotification, sendRemoteAction, getStatusText } from "../functions";
 
 //
 // Permet d'appliquer les images en arrière-plan des serveurs

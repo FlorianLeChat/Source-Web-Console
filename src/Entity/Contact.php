@@ -27,7 +27,7 @@ class Contact
 	private ?string $subject = null;
 
 	#[ORM\Column(length: 5000)]
-	private ?string $message = null;
+	private ?string $content = null;
 
 	public function getId(): ?int
 	{
@@ -70,14 +70,14 @@ class Contact
 		return $this;
 	}
 
-	public function getMessage(): ?string
+	public function getContent(): ?string
 	{
-		return $this->message;
+		return $this->content;
 	}
 
-	public function setMessage(string $message): self
+	public function setContent(string $content): self
 	{
-		$this->message = $message;
+		$this->content = $content;
 
 		return $this;
 	}
