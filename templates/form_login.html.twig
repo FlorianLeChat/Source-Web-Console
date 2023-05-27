@@ -19,6 +19,14 @@
 	<input type="password" autocomplete="current-password" spellcheck="false" id="password" name="password" placeholder="?JohnDoe2022!" minlength="10" maxlength="100" required />
 	<span></span>
 
+	{# Champ caché pour la redirection après connexion #}
+	{# Source : https://symfony.com/doc/current/security.html#form-login #}
+	<input type="hidden" name="target_path" value="{{ path("app_user_login") }}">
+
+	{# Champ caché pour le jeton de sécurité (CSRF) #}
+	{# Source : https://symfony.com/doc/current/security.html#csrf-protection-in-login-forms #}
+	<input type="hidden" name="csrf_token" value="{{ csrf_token("authenticate") }}">
+
 	{# Liens vers l'inscription, connexion unique ou la récupération de mot de passe. #}
 	<em>{{ t("form.login.links")|trans|raw }}</em>
 

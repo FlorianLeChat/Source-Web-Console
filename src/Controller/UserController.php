@@ -35,17 +35,8 @@ class UserController extends AbstractController
 	}
 
 	//
-	// Route vers le page de déconnexion de l'utilisateur.
-	//  Source : https://symfony.com/doc/current/security.html#logout-programmatically
-	//
-	#[Route("/user/logout")]
-    public function logout(): Response
-    {
-		throw new \Exception("This method can be blank - it will be intercepted by the logout key on your firewall");
-    }
-
-	//
 	// API vers le mécanisme de création de compte.
+	//  Source : https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
 	//
 	#[Route("/api/user/register", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
     public function register(Request $request, Security $security, TranslatorInterface $translator, EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher): JsonResponse
@@ -65,8 +56,7 @@ class UserController extends AbstractController
 		$serverPort = $request->request->get("server_port");
 		$serverPassword = $request->request->get("server_password");
 
-		// On enregistre ensuite les informations de l'utilisateur
-		//  ainsi que celle du serveur.
+		// On enregistre ensuite les informations de l'utilisateur ainsi que celle du serveur.
 		$user = new User();
 		$server = new Server();
 
@@ -98,19 +88,19 @@ class UserController extends AbstractController
     }
 
 	//
-	// API vers le mécanisme d'authentification.
+	// API vers le mécanisme d'authentification de l'utilisateur.
+	//  Source : https://symfony.com/doc/current/security.html#form-login
 	//
-	#[Route("/api/user/login", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
+	#[Route("/api/user/login", condition: "request.isXmlHttpRequest()")]
     public function login(AuthenticationUtils $authenticationUtils, TranslatorInterface $translator): Response
     {
 		// TODO : vérifier si l'utilisateur est déjà connecté.
 		// TODO : imposer une limite de connexion par IP (https://symfony.com/doc/current/security.html#limiting-login-attempts).
 		// TODO : vérifier les champs du formulaire.
-		// TODO : ajouter la protection CSRF (https://symfony.com/doc/current/security.html#csrf-protection-in-login-forms).
 		// TODO : ajouter la possibilité de se connecter via Token (https://symfony.com/doc/current/security/access_token.html).
 		// TODO : ajouter la possibilité de se connecter via lien de connexion (https://symfony.com/doc/current/security/login_link.html).
 		// TODO : ajouter la possibilité de se connecter via Google.
-		// TODO : ajouter la possibilité de se souvenir de la connexion.
+		// TODO : tester le "souvenir de la connexion" après authentification (en production).
 		// TODO : ajouter une vérification avec Google reCAPTCHA.
 
 		// On vérifie si l'authentification a réussie ou non.
@@ -121,6 +111,16 @@ class UserController extends AbstractController
 
 		return new JsonResponse([$translator->trans("form.login.success"), 2]);
 	}
+
+	//
+	// API vers le mécanisme de déconnexion de l'utilisateur.
+	//  Source : https://symfony.com/doc/current/security.html#logout-programmatically
+	//
+	#[Route("/api/user/logout", condition: "request.isXmlHttpRequest()")]
+    public function logout(): Response
+    {
+		throw new \Exception("This method can be blank - it will be intercepted by the logout key on the firewall.");
+    }
 
 	//
 	// API vers le mécanisme des messages de contact.
