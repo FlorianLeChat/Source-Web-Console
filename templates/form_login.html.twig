@@ -5,18 +5,18 @@
 <p>{{ t("form.login.description")|trans }}</p>
 
 {# Champs du formulaire #}
-<form action="dashboard.php" method="POST" novalidate>
+<form novalidate>
 	{# Message d'erreur #}
 	<p class="error"></p>
 
 	{# Nom d'utilisateur #}
-	<label for="user_name">{{ t("form.login.username")|trans }}<span>*</span></label>
-	<input type="text" autocomplete="username" spellcheck="false" id="user_name" name="user_name" placeholder="johndoe" minlength="10" maxlength="30" required />
+	<label for="username">{{ t("form.login.username")|trans }}<span>*</span></label>
+	<input type="text" autocomplete="username" spellcheck="false" id="username" name="username" placeholder="johndoe" minlength="10" maxlength="30" required />
 	<span></span>
 
 	{# Mot de passe #}
-	<label for="user_password">{{ t("form.login.password")|trans }}<span>*</span></label>
-	<input type="password" autocomplete="current-password" spellcheck="false" id="user_password" name="user_password" placeholder="?JohnDoe2022!" minlength="10" maxlength="100" required />
+	<label for="password">{{ t("form.login.password")|trans }}<span>*</span></label>
+	<input type="password" autocomplete="current-password" spellcheck="false" id="password" name="password" placeholder="?JohnDoe2022!" minlength="10" maxlength="100" required />
 	<span></span>
 
 	{# Liens vers l'inscription, connexion unique ou la récupération de mot de passe. #}
