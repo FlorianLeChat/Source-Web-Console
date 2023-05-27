@@ -20,7 +20,7 @@ class Contact
 	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
 	private ?\DateTimeInterface $timestamp = null;
 
-	#[ORM\Column(length: 320)]
+	#[ORM\Column(length: 100)]
 	private ?string $email = null;
 
 	#[ORM\Column(length: 255)]
