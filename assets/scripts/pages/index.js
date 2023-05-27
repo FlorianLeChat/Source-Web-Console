@@ -84,7 +84,7 @@ register.find( "form" ).on( "submit", ( event ) =>
 					//  vers le tableau de bord au bout de 5 secondes.
 					setTimeout( () =>
 					{
-						window.location.href = "?target=dashboard";
+						window.location.href = "dashboard";
 					}, 5000 );
 				}
 			} )
@@ -158,7 +158,7 @@ login.find( "input[type = submit]" ).on( "click", ( event ) =>
 				//  vers le tableau de bord au bout de 5 secondes.
 				setTimeout( () =>
 				{
-					window.location.href = "?target=dashboard";
+					window.location.href = "dashboard";
 				}, 3000 );
 			}
 		} )

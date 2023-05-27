@@ -7,7 +7,7 @@ import "vanilla-cookieconsent";
 import sendAnalytics from "./analytics";
 
 
-if ( window.location.search !== "?target=legal" )
+if ( window.location.search !== "legal" )
 {
 	// On initialise le mécanisme de consentement.
 	const cookie = initCookieConsent();
@@ -73,7 +73,7 @@ if ( window.location.search !== "?target=legal" )
 						{
 							// En-tête de la fenêtre.
 							title: "Cookie Usage 📢",
-							description: "I use cookies to provide basic website functionality and to enhance your online experience. For each category, you can choose to accept or decline cookies whenever you want. For more details about cookies and other sensitive data, please read the full <a href=\"?target=legal\" class=\"cc-link\">privacy policy</a>.",
+							description: "I use cookies to provide basic website functionality and to enhance your online experience. For each category, you can choose to accept or decline cookies whenever you want. For more details about cookies and other sensitive data, please read the full <a href=\"legal\" class=\"cc-link\">privacy policy</a>.",
 						},
 						{
 							// Première option.
@@ -146,7 +146,7 @@ if ( window.location.search !== "?target=legal" )
 						{
 							// En-tête de la fenêtre.
 							title: "Utilisation des cookies 📢",
-							description: "J'utilise des cookies pour assurer les fonctionnalités de base du site Internet et pour améliorer votre expérience en ligne. Pour chaque catégorie, vous pouvez choisir d'accepter ou de refuser les cookies quand vous le souhaitez. Pour plus de détails relatifs aux cookies et autres données sensibles, veuillez lire l'intégralité de la rubrique <a href=\"?target=legal\" class=\"cc-link\">politique de confidentialité</a>.",
+							description: "J'utilise des cookies pour assurer les fonctionnalités de base du site Internet et pour améliorer votre expérience en ligne. Pour chaque catégorie, vous pouvez choisir d'accepter ou de refuser les cookies quand vous le souhaitez. Pour plus de détails relatifs aux cookies et autres données sensibles, veuillez lire l'intégralité de la rubrique <a href=\"legal\" class=\"cc-link\">politique de confidentialité</a>."
 						},
 						{
 							// Première option.
