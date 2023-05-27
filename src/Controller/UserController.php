@@ -38,7 +38,7 @@ class UserController extends AbstractController
 	// API vers le mécanisme de création de compte.
 	//
 	#[Route("/api/user/register", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
-    public function register(Request $request, TranslatorInterface $translator, EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher): JsonResponse
+    public function register(Request $request, Security $security, TranslatorInterface $translator, EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher): JsonResponse
     {
 		// TODO : imposer une limite de création par IP.
 		// TODO : vérifier les champs du formulaire.
@@ -79,6 +79,9 @@ class UserController extends AbstractController
 		$entityManager->persist($user);
 		$entityManager->persist($server);
 		$entityManager->flush();
+
+		// On authentifie alors l'utilisateur.
+		$security->login($user);
 
 		// On envoie enfin la réponse au client.
 		return new JsonResponse([$translator->trans("form.register.success"), 2]);
