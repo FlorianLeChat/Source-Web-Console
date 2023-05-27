@@ -5,55 +5,55 @@
 {% block javascript %}
 	<script>
 		// Libellé demandant la suppression ou non du compte utilisateur.
-		const edit_remove = "{{ user_phrases["user_edit_remove"] }} ";
+		const edit_remove = "{{ t("user.edit_remove")|trans }} ";
 	</script>
 {% endblock %}
 
 {# Contenu de la page demandé #}
 {% block content %}
 	{# Description de la page #}
-	<p>{{ user_phrases["user_description"] }}</p>
+	<p>{{ t("user.description")|trans }}</p>
 
 	{# Informations du compte #}
 	<section id="account">
 		{# Titre de la section #}
-		<h2>{{ user_phrases["user_account"] }}</h2>
+		<h2>{{ t("user.account")|trans }}</h2>
 
 		{# Champs du formulaire #}
 		<form novalidate>
 			{# Nom d'utilisateur #}
 			<div>
-				<label for="account_username">{{ form_phrases["form_register_username"] }}<span>*</span></label>
+				<label for="account_username">{{ t("form.register.username")|trans }}<span>*</span></label>
 				<input type="text" autocomplete="username" spellcheck="false" id="account_username" name="username" placeholder="johndoe" minlength="10" maxlength="50" required />
 			</div>
 
 			{# Mot de passe #}
 			<div>
-				<label for="account_password">{{ form_phrases["form_register_password"] }}<span>*</span></label>
+				<label for="account_password">{{ t("form.register.password")|trans }}<span>*</span></label>
 				<input type="password" autocomplete="current-password" spellcheck="false" id="account_password" name="password" placeholder="?JohnDoe2022!" minlength="10" maxlength="60" required />
 			</div>
 
 			{# Suppression/mise à jour #}
 			<div>
-				<input type="submit" data-action="remove" value="{{ global_phrases["global_remove_title"] }}" />
-				<input type="submit" data-action="update" value="{{ global_phrases["global_update_title"] }}" />
+				<input type="submit" data-action="remove" value="{{ t("global.remove_title")|trans }}" />
+				<input type="submit" data-action="update" value="{{ t("global.update_title")|trans }}" />
 			</div>
 		</form>
 	</section>
 
 	<section id="actions">
 		{# Titre de la section #}
-		<h2>{{ user_phrases["user_actions"] }}</h2>
+		<h2>{{ t("user.actions")|trans }}</h2>
 
 		{# Bouton de déconnexion #}
-		<input type="submit" data-action="disconnect" value="{{ user_phrases["user_disconnect"] }}" />
+		<input type="submit" data-action="disconnect" value="{{ t("user.disconnect")|trans }}" />
 
 		{# Bouton de reconnexion #}
-		<input type="submit" data-action="reconnect" value="{{ user_phrases["user_reconnect"] }}" />
+		<input type="submit" data-action="reconnect" value="{{ t("user.reconnect")|trans }}" />
 	</section>
 
 	{# Ajout d'un serveur #}
 	<section id="register">
-		{% include("form_register.twig") %}
+		{% include("form_register.html.twig") %}
 	</section>
 {% endblock %}

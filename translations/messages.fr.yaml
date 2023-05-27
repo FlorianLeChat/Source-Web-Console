@@ -1,13 +1,8 @@
 global:
-    shutdown:
-        title: "Arrêter"
-        subtitle: "Double-cliquez pour forcer l'arrêt"
-    restart:
-        title: "Redémarrer"
-    update:
-        title: "Mettre à jour"
-    service:
-        title: "Maintenance"
+    shutdown_title: "Arrêter"
+    restart_title: "Redémarrer"
+    update_title: "Mettre à jour"
+    service_title: "Maintenance"
     fatal_error: "Une erreur interne s'est produite lors de la récupération des informations du serveur. Veuillez rafraîchir la page pour relancer la surveillance. Message : « $1 »."
     remove_title: "Supprimer"
     action_success: "La requête demandée a été envoyée avec succès avec le serveur distant. Dans certains cas, il peut se produire des effets secondaires en fonction de la configuration de votre serveur."
@@ -20,13 +15,13 @@ header:
     subtitle:
         user: "Compte utilisateur"
         admin: "Administration"
+        tasks: "Tâches planifiées"
         console: "Interactive console"
         actions: "Actions et commandes"
         dashboard: "Tableau de bord"
         statistics: "Statistiques"
         configuration: "Configuration"
-    user_status:
-        connected: "Connecté sous\r\n%s"
+    user_status: "Connecté sous<br />%s"
 
 footer:
     home: "Accueil"

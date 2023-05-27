@@ -114,10 +114,10 @@
 
 				{# État de connexion #}
 				{# Note : apparaît seulement sur les comptes inscrits #}
-				{% if user_identifier is not empty %}
+				{% if app.user %}
 					<a href="{{ path("app_user_index") }}">
 						<i class="bi bi-person-circle"></i>
-						<span>{{ t("header.user.status")|trans|format(user_identifier|capitalize) }}</span>
+						<span>{{ t("header.user_status")|trans|format(app.user.username|capitalize)|raw }}</span>
 					</a>
 				{% endif %}
 			{% endblock %}
@@ -136,7 +136,7 @@
 							{# Tableau de bord #}
 							<a href="{{ path("app_dashboard_index") }}">
 								<i class="bi bi-kanban"></i>
-								<span>{{ t("header_subtitle_dashboard") }}</span>
+								<span>{{ t("header.subtitle.dashboard")|trans }}</span>
 							</a>
 						</li>
 
@@ -144,7 +144,7 @@
 							{# Statistiques #}
 							<a href="{{ path("app_statistics_index") }}">
 								<i class="bi bi-graph-up"></i>
-								<span>{{ header_subtitle_statistics }}</span>
+								<span>{{ t("header.subtitle.statistics")|trans }}</span>
 							</a>
 						</li>
 
@@ -152,7 +152,7 @@
 							{# Configuration #}
 							<a href="{{ path("app_configuration_index") }}">
 								<i class="bi bi-tools"></i>
-								<span>{{ header_subtitle_configuration }}</span>
+								<span>{{ t("header.subtitle.configuration")|trans }}</span>
 							</a>
 						</li>
 
@@ -160,7 +160,7 @@
 							{# Actions et commandes #}
 							<a href="{{ path("app_actions_index") }}">
 								<i class="bi bi-lightning"></i>
-								<span>{{ header_subtitle_actions }}</span>
+								<span>{{ t("header.subtitle.actions")|trans }}</span>
 							</a>
 						</li>
 
@@ -168,7 +168,7 @@
 							{# Console interactive #}
 							<a href="{{ path("app_console_index") }}">
 								<i class="bi bi-code-slash"></i>
-								<span>{{ header_subtitle_console }}</span>
+								<span>{{ t("header.subtitle.console")|trans }}</span>
 							</a>
 						</li>
 
@@ -176,28 +176,28 @@
 							{# Tâches planifiées #}
 							<a href="{{ path("app_tasks_index") }}">
 								<i class="bi bi-calendar3"></i>
-								<span>{{ header_subtitle_tasks }}</span>
+								<span>{{ t("header.subtitle.tasks")|trans }}</span>
 							</a>
 						</li>
 
-						{% if user_identifier is not empty %}
+						{% if app.user %}
 							<li class="{{ route_name == "user" ? "active" : "" }}">
 								{# Compte utilisateur #}
 								{# Note : apparaît seulement sur les comptes inscrits #}
 								<a href="{{ path("app_user_index") }}">
 									<i class="bi bi-person-circle"></i>
-									<span>{{ header_subtitle_user }}</span>
+									<span>{{ t("header.subtitle.user")|trans }}</span>
 								</a>
 							</li>
 						{% endif %}
 
-						{% if user_level == "admin" %}
+						{% if is_granted("ROLE_ADMIN") %}
 							<li class="{{ route_name == "admin" ? "active" : "" }}">
 								{# Administration #}
 								{# Note : apparaît seulement pour les administrateurs #}
 								<a href="{{ path("app_admin_index") }}">
 									<i class="bi bi-server"></i>
-									<span>{{ header_subtitle_admin }}</span>
+									<span>{{ t("header.subtitle.admin")|trans }}</span>
 								</a>
 							</li>
 						{% endif %}
