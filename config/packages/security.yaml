@@ -12,6 +12,9 @@ security:
             security: false
         main:
             lazy: true
+            logout:
+                path: app_user_logout
+                target: app_index_index
             provider: app_user_provider
             custom_authenticators:
                 - App\Security\AjaxAuthenticator

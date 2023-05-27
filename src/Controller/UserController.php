@@ -35,6 +35,16 @@ class UserController extends AbstractController
 	}
 
 	//
+	// Route vers le page de déconnexion de l'utilisateur.
+	//  Source : https://symfony.com/doc/current/security.html#logout-programmatically
+	//
+	#[Route("/user/logout")]
+    public function logout(): Response
+    {
+		throw new \Exception("This method can be blank - it will be intercepted by the logout key on your firewall");
+    }
+
+	//
 	// API vers le mécanisme de création de compte.
 	//
 	#[Route("/api/user/register", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
@@ -111,21 +121,6 @@ class UserController extends AbstractController
 
 		return new JsonResponse([$translator->trans("form.login.success"), 2]);
 	}
-
-	//
-	// API vers le mécanisme de déconnexion.
-	//
-	#[Route("/api/user/logout")]
-    public function logout(Security $security): Response
-    {
-		// TODO : restreindre la route pour les requêtes AJAX et de type POST (?).
-		// TODO : vérifier si l'utilisateur est connecté.
-		// TODO : ajouter la déconnexion via CSRF (https://symfony.com/doc/current/security.html#logout-programmatically).
-
-		$security->logout(false);
-
-		return $this->redirectToRoute("app_index_index");
-    }
 
 	//
 	// API vers le mécanisme des messages de contact.
