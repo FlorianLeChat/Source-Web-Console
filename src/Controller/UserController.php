@@ -51,10 +51,8 @@ class UserController extends AbstractController
 		$username = $request->request->get("username");
 		$password = $request->request->get("password");
 		$serverAddress = $request->request->get("server_address");
-		$serverPassword = $request->request->get("server_password");
 		$serverPort = $request->request->get("server_port");
-
-		// TODO : réviser les formulaires HTML pour supprimer la différence entre mot de passe du serveur et mot de passe administrateur.
+		$serverPassword = $request->request->get("server_password");
 
 		// On enregistre ensuite les informations de l'utilisateur
 		//  ainsi que celle du serveur.
@@ -82,7 +80,7 @@ class UserController extends AbstractController
 		$entityManager->flush();
 
 		// On envoie enfin la réponse au client.
-		return new JsonResponse([$translator->trans("form_register_success"), 2]);
+		return new JsonResponse([$translator->trans("form.register.success"), 2]);
     }
 
 	//
@@ -106,10 +104,10 @@ class UserController extends AbstractController
 
 		if ($error)
 		{
-			return new JsonResponse([$translator->trans("form_login_invalid"), 1]);
+			return new JsonResponse([$translator->trans("form.login.invalid"), 1]);
 		}
 
-		return new JsonResponse([$translator->trans("form_contact_success"), 2]);
+		return new JsonResponse([$translator->trans("form.contact.success"), 2]);
     }
 
 	//
@@ -144,6 +142,6 @@ class UserController extends AbstractController
 		// TODO : envoyer un courriel à l'administrateur du site.
 
 		// On envoie enfin la réponse au client.
-		return new JsonResponse([$translator->trans("form_contact_success"), 2]);
+		return new JsonResponse([$translator->trans("form.contact.success"), 2]);
 	}
 }
