@@ -11,6 +11,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class IndexController extends AbstractController
 {
+	//
+	// Route vers la page d'accueil.
+	//
 	#[Route(["/", "/index"])]
 	public function index(): Response
 	{
