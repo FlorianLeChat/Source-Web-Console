@@ -82,7 +82,7 @@ $( "#actions input[type = submit]" ).on( "click", ( event ) =>
 			// On redirige l'utilisateur quelques instants après.
 			setTimeout( () =>
 			{
-				window.location.href = "index";
+				window.location.href = "";
 			}, 5000 );
 		} )
 		.fail( ( self, _status, error ) =>
