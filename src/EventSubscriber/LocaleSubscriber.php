@@ -18,26 +18,21 @@ class LocaleSubscriber implements EventSubscriberInterface
 	// Permet de définir la langue en fonction de la session.
 	public function onKernelRequest(RequestEvent $event)
 	{
-		// On vérifie si la session existe.
+		// On vérifie d'abord si la langue a déjà été définie par l'utilisateur.
 		$request = $event->getRequest();
 
-		if (!$request->hasPreviousSession())
-		{
-			return;
-		}
-
-		// On vérifie si la langue a été définie ou non dans l'URL.
 		if ($locale = $request->attributes->get("_locale"))
 		{
+			// Si c'est le cas, on enregistre la nouvelle langue de la session.
 			$request->getSession()->set("_locale", $locale);
 		}
 		else
 		{
-			// Si rien n'a été défini, on tente d'utiliser la langue du navigateur
+			// Dans le cas contraire, on tente alors d'utiliser la langue du navigateur
 			//  ou la langue par défaut si les informations ne sont pas disponibles.
 			$locale = substr($request->get("language", $request->server->get("HTTP_ACCEPT_LANGUAGE", $this->defaultLocale)), 0, 2);
 
-			// On définit la langue de la session.
+			// On définit enfin la langue actuelle de la session.
 			$request->setLocale($request->getSession()->get("_locale", $locale));
 		}
 	}
