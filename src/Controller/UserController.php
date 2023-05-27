@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Entity\Server;
 use App\Entity\Contact;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -108,6 +109,21 @@ class UserController extends AbstractController
 		}
 
 		return new JsonResponse([$translator->trans("form.contact.success"), 2]);
+	}
+
+	//
+	// API vers le mécanisme de déconnexion.
+	//
+	#[Route("/api/user/logout")]
+    public function logout(Security $security): Response
+    {
+		// TODO : restreindre la route pour les requêtes AJAX et de type POST (?).
+		// TODO : vérifier si l'utilisateur est connecté.
+		// TODO : ajouter la déconnexion via CSRF (https://symfony.com/doc/current/security.html#logout-programmatically).
+
+		$security->logout(false);
+
+		return $this->redirectToRoute("app_index_index");
     }
 
 	//
