@@ -41,10 +41,7 @@ class AjaxAuthenticator extends AbstractLoginFormAuthenticator
 	//
 	public function authenticate(Request $request): Passport
 	{
-		$username = $request->request->get("username");
-		$password = $request->request->get("password");
-
-		if (!$username || !$password)
+		if ($username = $request->request->get("username") === null || $password = $request->request->get("password") === null)
 		{
 			throw new CustomUserMessageAuthenticationException("Identifiants manquants");
 		}

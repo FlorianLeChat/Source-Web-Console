@@ -104,14 +104,12 @@ class UserController extends AbstractController
 		// TODO : ajouter une vérification avec Google reCAPTCHA.
 
 		// On vérifie si l'authentification a réussie ou non.
-		$error = $authenticationUtils->getLastAuthenticationError();
-
-		if ($error)
+		if ($authenticationUtils->getLastAuthenticationError())
 		{
 			return new JsonResponse([$translator->trans("form.login.invalid"), 1]);
 		}
 
-		return new JsonResponse([$translator->trans("form.contact.success"), 2]);
+		return new JsonResponse([$translator->trans("form.login.success"), 2]);
 	}
 
 	//
