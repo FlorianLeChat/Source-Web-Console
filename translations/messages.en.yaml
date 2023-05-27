@@ -1,13 +1,8 @@
 global:
-    shutdown:
-        title: "Shutdown"
-        subtitle: "Double-click to force shutdown"
-    restart:
-        title: "Restart"
-    update:
-        title: "Update"
-    service:
-        title: "Service"
+    shutdown_title: "Shutdown"
+    restart_ title: "Restart"
+    update_title: "Update"
+    service_title: "Service"
     fatal_error: "An internal error occurred while retrieving information from the server. Please refresh the page to restart the monitoring. Message: « $1 »."
     remove_title: "Remove"
     action_success: "The desired request has been successfully sent to the remote server. In some cases, there may be side effects depending on your server configuration."
@@ -20,13 +15,13 @@ header:
     subtitle:
         user: "User account"
         admin: "Administration"
+        tasks: "Scheduled tasks"
         console: "Interactive console"
         actions: "Actions and commands"
         dashboard: "Dashboard"
         statistics: "Statistics"
         configuration: "Configuration"
-    user_status:
-        connected: "Connected as\r\n%s"
+    user_status: "Connected as<br />%s"
 
 footer:
     home: "Home"
