@@ -58,26 +58,20 @@ register.find( "form" ).on( "submit", ( event ) =>
 			username: firstStep.find( "input[name = username]" ).val(),
 			password: firstStep.find( "input[name = password]" ).val(),
 
-			// Informations du client.
+			// Informations du serveur.
 			server_address: lastStep.find( "input[name = server_address]" ).val(),
 			server_port: lastStep.find( "input[name = server_port]" ).val(),
-
-			// Mot de passe administrateur.
 			server_password: lastStep.find( "input[name = server_password]" ).val()
 
 		} )
 			.done( ( data ) =>
 			{
-				// Une fois terminée, on affiche la réponse JSON du
-				//  serveur sous forme d'une liste numérique.
-				const json = JSON.parse( data );
-
-				// On affiche un message de confirmation.
-				addQueuedNotification( json[ 0 ], json[ 1 ] );
+				// Une fois terminée, on affiche un message de confirmation.
+				addQueuedNotification( data[ 0 ], data[ 1 ] );
 
 				// On effectue par la suite certaines actions si le message
 				//  renvoyé par le serveur est un message de succès.
-				if ( json[ 1 ] === 2 )
+				if ( data[ 1 ] === 2 )
 				{
 					// On réinitialise alors les deux formulaires avant
 					//  de fermer le second.
@@ -149,16 +143,12 @@ login.find( "input[type = submit]" ).on( "click", ( event ) =>
 	} )
 		.done( ( data ) =>
 		{
-			// Une fois terminée, on affiche la réponse JSON du
-			//  serveur sous forme d'une liste numérique.
-			const json = JSON.parse( data );
-
-			// On affiche alors un message de confirmation.
-			addQueuedNotification( json[ 0 ], json[ 1 ] );
+			// Une fois terminée, on affiche un message de confirmation.
+			addQueuedNotification( data[ 0 ], data[ 1 ] );
 
 			// On effectue par la suite certaines actions si le message
 			//  renvoyé par le serveur est un message de succès.
-			if ( json[ 1 ] === 2 )
+			if ( data[ 1 ] === 2 )
 			{
 				// On réinitialise alors l'entièreté du formulaire.
 				login.find( "form" )[ 0 ].reset();
@@ -230,12 +220,8 @@ links.last().on( "click", ( event ) =>
 	} )
 		.done( ( data ) =>
 		{
-			// Une fois terminée, on affiche la réponse JSON du
-			//  serveur sous forme d'une liste numérique.
-			const json = JSON.parse( data );
-
-			// On affiche enfin le message de confirmation.
-			addQueuedNotification( json[ 0 ], json[ 1 ] );
+			// Une fois terminée, on affiche un message de confirmation.
+			addQueuedNotification( data[ 0 ], data[ 1 ] );
 		} )
 		.fail( ( self, _status, error ) =>
 		{
