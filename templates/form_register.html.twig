@@ -18,13 +18,13 @@
 		<p class="error"></p>
 
 		{# Nom d'utilisateur #}
-		<label for="username">{{ t("form.register.username")|trans }}<span>*</span></label>
-		<input type="text" autocomplete="username" spellcheck="false" id="username" name="username" placeholder="johndoe" minlength="10" maxlength="50" required />
+		<label for="new_username">{{ t("form.register.username")|trans }}<span>*</span></label>
+		<input type="text" autocomplete="username" spellcheck="false" id="new_username" name="username" placeholder="johndoe" minlength="10" maxlength="50" required />
 		<span></span>
 
 		{# Mot de passe #}
-		<label for="password">{{ t("form.register.password")|trans }}<span>*</span></label>
-		<input type="password" autocomplete="new-password" spellcheck="false" id="password" name="password" placeholder="?JohnDoe2022!" minlength="10" maxlength="60" required />
+		<label for="new_password">{{ t("form.register.password")|trans }}<span>*</span></label>
+		<input type="password" autocomplete="new-password" spellcheck="false" id="new_password" name="password" placeholder="?JohnDoe2022!" minlength="10" maxlength="60" required />
 		<span></span>
 
 		{# Bouton d'affichage du mot de passe #}
@@ -62,7 +62,7 @@
 	</div>
 
 	{# Champs du formulaire #}
-	<form action="dashboard.php" method="POST" novalidate>
+	<form novalidate>
 		{# Message d'erreur #}
 		<p class="error"></p>
 
