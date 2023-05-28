@@ -81,10 +81,6 @@ $( "footer" ).find( "a[href = \"javascript:void(0);\"]" ).on( "click", () =>
 } );
 
 //
-// Permet de retarder l'ensemble des requêtes asynchrones AJAX
-//  afin d'inclure un jeton d'authentification généré par les services
-//  de Google reCAPTCHA.
-//
 $( window ).ajaxSend( ( _event, _request, settings ) =>
 {
 	// On vérifie d'abord si la requête est de type POST.

@@ -446,7 +446,7 @@ header
 			}
 		}
 
-		input[type = text], input[type = email], input[type = password], textarea, select
+		input[type = text], input[type = number], input[type = email], input[type = password], textarea, select
 		{
 			// Champs et zones de saisies.
 			width: calc(100% - 2rem);
