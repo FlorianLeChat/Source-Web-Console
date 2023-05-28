@@ -155,4 +155,42 @@ class UserController extends AbstractController
 			"message" => $translator->trans("form.contact.success")
 		]);
 	}
+
+	//
+	// API vers le mécanisme de mise à jour des informations de l'utilisateur.
+	//
+	#[Route("/api/user/update", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
+	public function update(Request $request, TranslatorInterface $translator, EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher): Response
+	{
+		// TODO : vérifier les champs du formulaire.
+		// TODO : ajouter une vérification avec Google reCAPTCHA.
+
+		// On vérifie d'abord si l'utilisateur est connecté.
+		$user = $this->getUser();
+
+		if (!$user)
+		{
+			return new Response(status: Response::HTTP_UNAUTHORIZED);
+        }
+
+		// On tente de récupérer alors les informations de l'utilisateur.
+		$repository = $entityManager->getRepository(User::class);
+		$entity = $repository->findOneBy(["username" => $user->getUserIdentifier()]);
+
+        if (!$entity)
+		{
+			return new Response($translator->trans("form.login.invalid"), Response::HTTP_BAD_REQUEST);
+        }
+
+		// On récupère ensuite toutes les informations de la requête.
+		$username = $request->request->get("username");
+		$password = $request->request->get("password");
+
+		// On met à jour ensuite les informations de l'utilisateur.
+		$entity->setUsername($username);
+		$repository->upgradePassword($entity, $hasher->hashPassword($entity, $password));
+
+		// On envoie enfin la réponse au client.
+		return new Response($translator->trans("user.updated"));
+	}
 }

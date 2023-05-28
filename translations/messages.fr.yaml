@@ -41,8 +41,8 @@ language:
 form:
     register:
         server: "Informations du serveur"
-        failed: "Une erreur interne s'est produite lors de votre connexion au compte utilisateur. Réponse : « $1 »."
-        success: "Vous êtes désormais connecté à votre compte utilisateur. Vous allez être redirigé automatiquement dans quelques secondes."
+        failed: "Une erreur interne s'est produite lors de votre inscription au site. Réponse : « $1 »."
+        success: "Votre compte utilisateur a été créé avec succès. Vous allez être redirigé automatiquement dans quelques secondes."
         onetime: "Votre accès unique a été créé avec succès. Vous conserverez son accès tout au long de votre session. Une fois terminée, vous devrez de nouveau recréer un accès. Attention ce mode possède des fonctionnalités restreintes."
         username: "Saisissez votre nom d'utilisateur"
         password: "Saisissez votre mot de passe"
