@@ -169,12 +169,12 @@ contact.find( "form" ).on( "submit", ( event ) =>
 		.done( ( data ) =>
 		{
 			// Une fois terminée, on affiche la message de confirmation.
-			addQueuedNotification( data[ 0 ], data[ 1 ] );
+			addQueuedNotification( data.message, data.code );
 
 			// On réinitialise enfin l'entièreté du formulaire
 			//  avant de le fermer si le message renvoyé par
 			//  le serveur est un message de succès.
-			if ( data[ 1 ] === 2 )
+			if ( data.code === 2 )
 			{
 				contact.find( "form" )[ 0 ].reset();
 				contact.fadeOut( 150 );
