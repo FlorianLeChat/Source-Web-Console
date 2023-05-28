@@ -16,7 +16,7 @@ class AppRuntime implements RuntimeExtensionInterface
 	// Permet d'injecter des dépendances dans les fonctions Twig.
 	public function __construct(private Translator $translator)
 	{
-        $this->languages = $translator->getFallbackLocales();
+		$this->languages = $translator->getFallbackLocales();
 	}
 
 	// Permet de récupérer la liste des langues disponibles.

@@ -39,8 +39,8 @@ class UserController extends AbstractController
 	//  Source : https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
 	//
 	#[Route("/api/user/register", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
-    public function register(Request $request, Security $security, TranslatorInterface $translator, EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher): JsonResponse
-    {
+	public function register(Request $request, Security $security, TranslatorInterface $translator, EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher): JsonResponse
+	{
 		// TODO : imposer une limite de création par IP.
 		// TODO : vérifier les champs du formulaire.
 		// TODO : ajouter la protection CSRF (https://symfony.com/doc/current/security.html#csrf-protection-in-login-forms).
@@ -85,15 +85,15 @@ class UserController extends AbstractController
 
 		// On envoie enfin la réponse au client.
 		return new JsonResponse([$translator->trans("form.register.success"), 2]);
-    }
+	}
 
 	//
 	// API vers le mécanisme d'authentification de l'utilisateur.
 	//  Source : https://symfony.com/doc/current/security.html#form-login
 	//
 	#[Route("/api/user/login", condition: "request.isXmlHttpRequest()")]
-    public function login(AuthenticationUtils $authenticationUtils, TranslatorInterface $translator): Response
-    {
+	public function login(AuthenticationUtils $authenticationUtils, TranslatorInterface $translator): Response
+	{
 		// TODO : vérifier si l'utilisateur est déjà connecté.
 		// TODO : imposer une limite de connexion par IP (https://symfony.com/doc/current/security.html#limiting-login-attempts).
 		// TODO : vérifier les champs du formulaire.
@@ -117,17 +117,17 @@ class UserController extends AbstractController
 	//  Source : https://symfony.com/doc/current/security.html#logout-programmatically
 	//
 	#[Route("/api/user/logout", condition: "request.isXmlHttpRequest()")]
-    public function logout(): Response
-    {
+	public function logout(): void
+	{
 		throw new \Exception("This method can be blank - it will be intercepted by the logout key on the firewall.");
-    }
+	}
 
 	//
 	// API vers le mécanisme des messages de contact.
 	//
 	#[Route("/api/user/contact", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
-    public function contact(Request $request, TranslatorInterface $translator, EntityManagerInterface $entityManager): JsonResponse
-    {
+	public function contact(Request $request, TranslatorInterface $translator, EntityManagerInterface $entityManager): JsonResponse
+	{
 		// TODO : imposer une limite d'envoi de messages par jour.
 		// TODO : vérifier les champs du formulaire.
 		// TODO : ajouter la protection CSRF (https://symfony.com/doc/current/security.html#csrf-protection-in-login-forms).
