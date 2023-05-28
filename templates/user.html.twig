@@ -6,6 +6,12 @@
 	<script>
 		// Libellé demandant la suppression ou non du compte utilisateur.
 		const edit_remove = "{{ t("user.edit_remove")|trans }} ";
+
+		// Libellé indiquant que l'utilisateur s'est reconnecté à son compte.
+		const user_reconnected = "{{ t("user.reconnected")|trans }} ";
+
+		// Libellé indiquant que l'utilisateur s'est déconnecté de son compte.
+		const user_disconnected = "{{ t("user.disconnected")|trans }} ";
 	</script>
 {% endblock %}
 
@@ -46,10 +52,10 @@
 		<h2>{{ t("user.actions")|trans }}</h2>
 
 		{# Bouton de déconnexion #}
-		<input type="submit" data-action="disconnect" value="{{ t("user.disconnect")|trans }}" />
+		<input type="submit" data-action="logout" value="{{ t("user.disconnect")|trans }}" />
 
 		{# Bouton de reconnexion #}
-		<input type="submit" data-action="reconnect" value="{{ t("user.reconnect")|trans }}" />
+		<input type="submit" data-action="login" value="{{ t("user.reconnect")|trans }}" />
 	</section>
 
 	{# Ajout d'un serveur #}
