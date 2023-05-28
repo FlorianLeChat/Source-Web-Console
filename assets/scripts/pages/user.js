@@ -26,16 +26,13 @@ $( "#account input[data-action]" ).on( "click", ( event ) =>
 	}
 
 	// On réalise ensuite la requête AJAX.
-	$.post( "includes/controllers/server_user.php", {
-
-		// Type de l'action qui doit être effectué.
-		user_action: action,
+	$.post( `api/user/${ action }`, {
 
 		// Valeur du nouveau nom d'utilisateur.
-		user_name: $( "input[name = username]" ).val(),
+		username: $( "input[name = username]" ).val(),
 
 		// Valeur du nouveau mot de passe.
-		user_password: $( "select[name = password]" ).val()
+		password: $( "input[name = password]" ).val()
 
 	} )
 		.done( ( data ) =>
@@ -47,7 +44,7 @@ $( "#account input[data-action]" ).on( "click", ( event ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//  d'échec avec les informations à notre disposition.
-			addQueuedNotification( server_fatal_error.replace( "$1", getStatusText( error, self.status ) ), 1 );
+			addQueuedNotification( form_login_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 
 	// On réinitialise enfin le formulaire après une
@@ -89,7 +86,7 @@ $( "#actions input[type = submit]" ).on( "click", ( event ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//  d'échec avec les informations à notre disposition.
-			addQueuedNotification( server_fatal_error.replace( "$1", getStatusText( error, self.status ) ), 1 );
+			addQueuedNotification( form_login_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 } );
 
@@ -140,7 +137,7 @@ $( "#register input[type = submit]" ).on( "click", ( event ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//  d'échec avec les informations à notre disposition.
-			addQueuedNotification( server_fatal_error.replace( "$1", getStatusText( error, self.status ) ), 1 );
+			addQueuedNotification( form_login_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 
 	// On réinitialise enfin le formulaire.
