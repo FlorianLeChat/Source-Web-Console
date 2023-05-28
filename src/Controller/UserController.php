@@ -42,6 +42,7 @@ class UserController extends AbstractController
 	public function register(Request $request, Security $security, TranslatorInterface $translator, EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher): JsonResponse
 	{
 		// TODO : imposer une limite de création par IP.
+		// TODO : vérifier si l'utilisateur est déjà connecté.
 		// TODO : vérifier les champs du formulaire.
 		// TODO : ajouter la protection CSRF (https://symfony.com/doc/current/security.html#csrf-protection-in-login-forms).
 		// TODO : ajouter une vérification contre les noms d'utilisateurs dupliqués.
@@ -68,20 +69,17 @@ class UserController extends AbstractController
 		$user->setUsername($username);
 		$user->setPassword($hashedPassword);
 
-		// TODO : chiffrer le mot de passe du serveur avant de l'enregistrer.
-
 		$server->setAddress($serverAddress);
 		$server->setPassword($serverPassword);
 		$server->setPort($serverPort);
 		$server->setClient($user);
 
 		// On enregistre après les informations dans la base de données.
-		$entityManager->persist($user);
-		$entityManager->persist($server);
-		$entityManager->flush();
+		$entityManager->getRepository(User::class)->save($user);
+		$entityManager->getRepository(Server::class)->save($server, true);
 
 		// On authentifie alors l'utilisateur.
-		$security->login($user);
+		$security->login($user, "form_login");
 
 		// On envoie enfin la réponse au client.
 		return new JsonResponse([$translator->trans("form.register.success"), 2]);
@@ -92,7 +90,7 @@ class UserController extends AbstractController
 	//  Source : https://symfony.com/doc/current/security.html#form-login
 	//
 	#[Route("/api/user/login", condition: "request.isXmlHttpRequest()")]
-	public function login(AuthenticationUtils $authenticationUtils, TranslatorInterface $translator): Response
+	public function login(AuthenticationUtils $authenticationUtils, TranslatorInterface $translator): JsonResponse
 	{
 		// TODO : vérifier si l'utilisateur est déjà connecté.
 		// TODO : imposer une limite de connexion par IP (https://symfony.com/doc/current/security.html#limiting-login-attempts).
@@ -116,7 +114,7 @@ class UserController extends AbstractController
 	// API vers le mécanisme de déconnexion de l'utilisateur.
 	//  Source : https://symfony.com/doc/current/security.html#logout-programmatically
 	//
-	#[Route("/api/user/logout", condition: "request.isXmlHttpRequest()")]
+	#[Route("/api/user/logout", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
 	public function logout(): void
 	{
 		throw new \Exception("This method can be blank - it will be intercepted by the logout key on the firewall.");
@@ -148,8 +146,7 @@ class UserController extends AbstractController
 		// TODO : vérifier si Doctrine ne signale pas d'erreur (https://symfony.com/doc/current/doctrine.html#validating-objects).
 
 		// On enregistre ensuite le message dans la base de données.
-		$entityManager->persist($contact);
-		$entityManager->flush();
+		$entityManager->getRepository(Contact::class)->save($contact, true);
 
 		// TODO : envoyer un courriel à l'administrateur du site.
 
