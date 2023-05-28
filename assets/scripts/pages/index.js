@@ -67,11 +67,11 @@ register.find( "form" ).on( "submit", ( event ) =>
 			.done( ( data ) =>
 			{
 				// Une fois terminée, on affiche un message de confirmation.
-				addQueuedNotification( data[ 0 ], data[ 1 ] );
+				addQueuedNotification( data.message, data.code );
 
 				// On effectue par la suite certaines actions si le message
 				//  renvoyé par le serveur est un message de succès.
-				if ( data[ 1 ] === 2 )
+				if ( data.code === 2 )
 				{
 					// On réinitialise alors les deux formulaires avant
 					//  de fermer le second.
@@ -129,7 +129,7 @@ login.find( "input[type = submit]" ).on( "click", ( event ) =>
 	event.preventDefault();
 
 	// On réalise ensuite la requête AJAX.
-	$.post( "/api/user/login", {
+	$.post( "api/user/login", {
 
 		// Nom d'utilisateur.
 		_username: login.find( "input[name = username]" ).val(),
@@ -150,11 +150,11 @@ login.find( "input[type = submit]" ).on( "click", ( event ) =>
 		.done( ( data ) =>
 		{
 			// Une fois terminée, on affiche un message de confirmation.
-			addQueuedNotification( data[ 0 ], data[ 1 ] );
+			addQueuedNotification( data.message, data.code );
 
 			// On effectue par la suite certaines actions si le message
 			//  renvoyé par le serveur est un message de succès.
-			if ( data[ 1 ] === 2 )
+			if ( data.code === 2 )
 			{
 				// On réinitialise alors l'entièreté du formulaire.
 				login.find( "form" )[ 0 ].reset();
@@ -227,7 +227,7 @@ links.last().on( "click", ( event ) =>
 		.done( ( data ) =>
 		{
 			// Une fois terminée, on affiche un message de confirmation.
-			addQueuedNotification( data[ 0 ], data[ 1 ] );
+			addQueuedNotification( data.message, data.code );
 		} )
 		.fail( ( self, _status, error ) =>
 		{

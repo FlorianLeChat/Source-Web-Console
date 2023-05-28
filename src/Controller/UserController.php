@@ -42,7 +42,6 @@ class UserController extends AbstractController
 	public function register(Request $request, Security $security, TranslatorInterface $translator, EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher): JsonResponse
 	{
 		// TODO : imposer une limite de création par IP.
-		// TODO : vérifier si l'utilisateur est déjà connecté.
 		// TODO : vérifier les champs du formulaire.
 		// TODO : ajouter la protection CSRF (https://symfony.com/doc/current/security.html#csrf-protection-in-login-forms).
 		// TODO : ajouter une vérification contre les noms d'utilisateurs dupliqués.
@@ -61,13 +60,8 @@ class UserController extends AbstractController
 		$user = new User();
 		$server = new Server();
 
-		$hashedPassword = $hasher->hashPassword(
-			$user,
-			$password
-		);
-
 		$user->setUsername($username);
-		$user->setPassword($hashedPassword);
+		$user->setPassword($hasher->hashPassword($user, $password));
 
 		$server->setAddress($serverAddress);
 		$server->setPassword($serverPassword);
@@ -82,7 +76,10 @@ class UserController extends AbstractController
 		$security->login($user, "form_login");
 
 		// On envoie enfin la réponse au client.
-		return new JsonResponse([$translator->trans("form.register.success"), 2]);
+		return new JsonResponse([
+			"code" => 2,
+			"message" => $translator->trans("form.register.success")
+		]);
 	}
 
 	//
@@ -90,9 +87,8 @@ class UserController extends AbstractController
 	//  Source : https://symfony.com/doc/current/security.html#form-login
 	//
 	#[Route("/api/user/login", condition: "request.isXmlHttpRequest()")]
-	public function login(AuthenticationUtils $authenticationUtils, TranslatorInterface $translator): JsonResponse
+	public function login(AuthenticationUtils $authenticationUtils, TranslatorInterface $translator): Response|JsonResponse
 	{
-		// TODO : vérifier si l'utilisateur est déjà connecté.
 		// TODO : imposer une limite de connexion par IP (https://symfony.com/doc/current/security.html#limiting-login-attempts).
 		// TODO : vérifier les champs du formulaire.
 		// TODO : ajouter la possibilité de se connecter via Token (https://symfony.com/doc/current/security/access_token.html).
@@ -104,10 +100,13 @@ class UserController extends AbstractController
 		// On vérifie si l'authentification a réussie ou non.
 		if ($authenticationUtils->getLastAuthenticationError())
 		{
-			return new JsonResponse([$translator->trans("form.login.invalid"), 1]);
+			return new Response($translator->trans("form.login.invalid"));
 		}
 
-		return new JsonResponse([$translator->trans("form.login.success"), 2]);
+		return new JsonResponse([
+			"code" => 2,
+			"message" => $translator->trans("form.login.success")
+		]);
 	}
 
 	//
@@ -151,6 +150,9 @@ class UserController extends AbstractController
 		// TODO : envoyer un courriel à l'administrateur du site.
 
 		// On envoie enfin la réponse au client.
-		return new JsonResponse([$translator->trans("form.contact.success"), 2]);
+		return new JsonResponse([
+			"code" => 2,
+			"message" => $translator->trans("form.contact.success")
+		]);
 	}
 }
