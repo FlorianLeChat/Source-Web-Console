@@ -65,16 +65,21 @@ $( "#actions input[type = submit]" ).on( "click", ( event ) =>
 	event.preventDefault();
 
 	// On réalise ensuite la requête AJAX.
-	$.post( "includes/controllers/server_user.php", {
+	const action = $( event.target ).attr( "data-action" );
 
-		// Type de l'action qui doit être effectué
-		user_action: $( event.target ).attr( "data-action" )
+	$.post( `api/user/${ action }`, {
+
+		// Valeur du nouveau nom d'utilisateur.
+		_username: $( "input[name = username]" ).val(),
+
+		// Valeur du nouveau mot de passe.
+		_password: $( "input[name = password]" ).val()
 
 	} )
-		.done( ( data ) =>
+		.done( () =>
 		{
 			// On affiche la notification de confirmation.
-			addQueuedNotification( data, 3 );
+			addQueuedNotification( action === "logout" ? user_disconnected : user_reconnected, 3 );
 
 			// On redirige l'utilisateur quelques instants après.
 			setTimeout( () =>

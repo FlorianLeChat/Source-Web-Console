@@ -121,13 +121,13 @@ main
 			// Boutons d'actions.
 			margin-bottom: 0.5rem;
 
-			&[data-action = disconnect]
+			&[data-action = logout]
 			{
 				// Déconnexion.
 				@extend %cancel-button-layout;
 			}
 
-			&[data-action = reconnect]
+			&[data-action = login]
 			{
 				// Reconnexion.
 				@extend %cancel-button-layout;
