@@ -27,7 +27,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	private ?string $password = null;
 
 	#[ORM\Column]
-    private array $roles = [];
+	private array $roles = [];
 
 	#[ORM\OneToMany(mappedBy: "client", targetEntity: Server::class, orphanRemoval: true)]
 	private Collection $servers;
