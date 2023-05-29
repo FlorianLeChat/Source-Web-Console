@@ -183,4 +183,36 @@ class UserController extends AbstractController
 		// On envoie enfin la réponse au client.
 		return new Response($translator->trans("user.updated"), Response::HTTP_OK);
 	}
+
+	//
+	// API vers le mécanisme de suppression du compte de l'utilisateur.
+	//
+	#[Route("/api/user/remove", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
+	public function remove(TranslatorInterface $translator, EntityManagerInterface $entityManager): Response
+	{
+		// TODO : ajouter une vérification avec Google reCAPTCHA.
+
+		// On vérifie d'abord si l'utilisateur est connecté.
+		$user = $this->getUser();
+
+		if (!$user)
+		{
+			return new Response($translator->trans("form.login.invalid"), Response::HTTP_UNAUTHORIZED);
+        }
+
+		// On tente de récupérer alors les informations de l'utilisateur.
+		$repository = $entityManager->getRepository(User::class);
+		$entity = $repository->findOneBy(["username" => $user->getUserIdentifier()]);
+
+        if (!$entity)
+		{
+			return new Response($translator->trans("form.login.failed"), Response::HTTP_BAD_REQUEST);
+        }
+
+		// On supprime ensuite l'utilisateur de la base de données.
+		$repository->remove($entity, true);
+
+		// On déconnecte enfin l'utilisateur.
+		return new Response($translator->trans("user.removed"), Response::HTTP_OK);
+	}
 }
