@@ -16,7 +16,7 @@ header:
         user: "Compte utilisateur"
         admin: "Administration"
         tasks: "Tâches planifiées"
-        console: "Interactive console"
+        console: "Console interactive"
         actions: "Actions et commandes"
         dashboard: "Tableau de bord"
         statistics: "Statistiques"

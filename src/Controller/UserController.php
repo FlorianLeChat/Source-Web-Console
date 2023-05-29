@@ -13,7 +13,6 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -39,7 +38,7 @@ class UserController extends AbstractController
 	//  Source : https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
 	//
 	#[Route("/api/user/register", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
-	public function register(Request $request, Security $security, TranslatorInterface $translator, EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher): JsonResponse
+	public function register(Request $request, Security $security, TranslatorInterface $translator, EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher): Response
 	{
 		// TODO : imposer une limite de création par IP.
 		// TODO : vérifier les champs du formulaire.
@@ -76,10 +75,7 @@ class UserController extends AbstractController
 		$security->login($user, "form_login");
 
 		// On envoie enfin la réponse au client.
-		return new JsonResponse([
-			"code" => 2,
-			"message" => $translator->trans("form.register.success")
-		]);
+		return new Response($translator->trans("form.register.success"));
 	}
 
 	//
@@ -87,7 +83,7 @@ class UserController extends AbstractController
 	//  Source : https://symfony.com/doc/current/security.html#form-login
 	//
 	#[Route("/api/user/login", condition: "request.isXmlHttpRequest()")]
-	public function login(AuthenticationUtils $authenticationUtils, TranslatorInterface $translator): Response|JsonResponse
+	public function login(AuthenticationUtils $authenticationUtils, TranslatorInterface $translator): Response
 	{
 		// TODO : imposer une limite de connexion par IP (https://symfony.com/doc/current/security.html#limiting-login-attempts).
 		// TODO : vérifier les champs du formulaire.
@@ -100,13 +96,10 @@ class UserController extends AbstractController
 		// On vérifie si l'authentification a réussie ou non.
 		if ($authenticationUtils->getLastAuthenticationError())
 		{
-			return new Response($translator->trans("form.login.invalid"));
+			return new Response($translator->trans("form.login.failed"), Response::HTTP_BAD_REQUEST);
 		}
 
-		return new JsonResponse([
-			"code" => 2,
-			"message" => $translator->trans("form.login.success")
-		]);
+		return new Response($translator->trans("form.login.success"), Response::HTTP_OK);
 	}
 
 	//
@@ -123,7 +116,7 @@ class UserController extends AbstractController
 	// API vers le mécanisme des messages de contact.
 	//
 	#[Route("/api/user/contact", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
-	public function contact(Request $request, TranslatorInterface $translator, EntityManagerInterface $entityManager): JsonResponse
+	public function contact(Request $request, TranslatorInterface $translator, EntityManagerInterface $entityManager): Response
 	{
 		// TODO : imposer une limite d'envoi de messages par jour.
 		// TODO : vérifier les champs du formulaire.
@@ -150,10 +143,7 @@ class UserController extends AbstractController
 		// TODO : envoyer un courriel à l'administrateur du site.
 
 		// On envoie enfin la réponse au client.
-		return new JsonResponse([
-			"code" => 2,
-			"message" => $translator->trans("form.contact.success")
-		]);
+		return new Response($translator->trans("form.contact.success"), Response::HTTP_OK);
 	}
 
 	//
@@ -170,7 +160,7 @@ class UserController extends AbstractController
 
 		if (!$user)
 		{
-			return new Response(status: Response::HTTP_UNAUTHORIZED);
+			return new Response($translator->trans("form.login.invalid"), Response::HTTP_UNAUTHORIZED);
         }
 
 		// On tente de récupérer alors les informations de l'utilisateur.
@@ -179,7 +169,7 @@ class UserController extends AbstractController
 
         if (!$entity)
 		{
-			return new Response($translator->trans("form.login.invalid"), Response::HTTP_BAD_REQUEST);
+			return new Response($translator->trans("form.login.failed"), Response::HTTP_BAD_REQUEST);
         }
 
 		// On récupère ensuite toutes les informations de la requête.
@@ -191,6 +181,6 @@ class UserController extends AbstractController
 		$repository->upgradePassword($entity, $hasher->hashPassword($entity, $password));
 
 		// On envoie enfin la réponse au client.
-		return new Response($translator->trans("user.updated"));
+		return new Response($translator->trans("user.updated"), Response::HTTP_OK);
 	}
 }
