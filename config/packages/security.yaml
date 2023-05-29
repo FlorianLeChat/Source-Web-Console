@@ -18,7 +18,6 @@ security:
             provider: app_user_provider
             form_login:
                 login_path: app_index_index
-                check_path: app_user_login
                 enable_csrf: true
             remember_me:
                 secure: true
