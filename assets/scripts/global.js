@@ -169,22 +169,17 @@ contact.find( "form" ).on( "submit", ( event ) =>
 		.done( ( data ) =>
 		{
 			// Une fois terminée, on affiche la message de confirmation.
-			addQueuedNotification( data.message, data.code );
+			addQueuedNotification( data, 2 );
 
-			// On réinitialise enfin l'entièreté du formulaire
-			//  avant de le fermer si le message renvoyé par
-			//  le serveur est un message de succès.
-			if ( data.code === 2 )
-			{
-				contact.find( "form" )[ 0 ].reset();
-				contact.fadeOut( 150 );
-			}
+			// On réinitialise enfin l'entièreté du formulaire avant de le fermer.
+			contact.find( "form" )[ 0 ].reset();
+			contact.fadeOut( 150 );
 		} )
 		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//  d'échec avec les informations à notre disposition.
-			addQueuedNotification( form_contact_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
+			addQueuedNotification( self.responseText.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 } );
 

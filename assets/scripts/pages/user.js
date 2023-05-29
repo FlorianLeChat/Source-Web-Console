@@ -91,7 +91,7 @@ $( "#actions input[type = submit]" ).on( "click", ( event ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//  d'échec avec les informations à notre disposition.
-			addQueuedNotification( form_login_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
+			addQueuedNotification( self.responseText.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 } );
 

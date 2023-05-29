@@ -67,32 +67,27 @@ register.find( "form" ).on( "submit", ( event ) =>
 			.done( ( data ) =>
 			{
 				// Une fois terminée, on affiche un message de confirmation.
-				addQueuedNotification( data.message, data.code );
+				addQueuedNotification( data, 2 );
 
-				// On effectue par la suite certaines actions si le message
-				//  renvoyé par le serveur est un message de succès.
-				if ( data.code === 2 )
+				// On réinitialise alors les deux formulaires avant
+				//  de fermer le second.
+				firstStep.find( "form" )[ 0 ].reset();
+				lastStep.find( "form" )[ 0 ].reset();
+
+				lastStep.fadeOut( 150 );
+
+				// On effectue enfin la redirection de l'utilisateur
+				//  vers le tableau de bord au bout de 5 secondes.
+				setTimeout( () =>
 				{
-					// On réinitialise alors les deux formulaires avant
-					//  de fermer le second.
-					firstStep.find( "form" )[ 0 ].reset();
-					lastStep.find( "form" )[ 0 ].reset();
-
-					lastStep.fadeOut( 150 );
-
-					// On effectue enfin la redirection de l'utilisateur
-					//  vers le tableau de bord au bout de 5 secondes.
-					setTimeout( () =>
-					{
-						window.location.href = "dashboard";
-					}, 5000 );
-				}
+					window.location.href = "dashboard";
+				}, 3000 );
 			} )
 			.fail( ( self, _status, error ) =>
 			{
 				// Dans le cas contraire, on affiche une notification
 				//  d'échec avec les informations à notre disposition.
-				addQueuedNotification( form_register_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
+				addQueuedNotification( self.responseText.replace( "$1", getStatusText( error, self.status ) ), 1 );
 			} );
 	}
 } );
@@ -137,9 +132,6 @@ login.find( "input[type = submit]" ).on( "click", ( event ) =>
 		// Mot de passe.
 		_password: login.find( "input[name = password]" ).val(),
 
-		// Chemin de redirection.
-		_target_path: login.find( "input[name = target_path]" ).val(),
-
 		// Jeton de sécurité (CSRF).
 		_csrf_token: login.find( "input[name = csrf_token]" ).val(),
 
@@ -150,29 +142,24 @@ login.find( "input[type = submit]" ).on( "click", ( event ) =>
 		.done( ( data ) =>
 		{
 			// Une fois terminée, on affiche un message de confirmation.
-			addQueuedNotification( data.message, data.code );
+			addQueuedNotification( data, 2 );
 
-			// On effectue par la suite certaines actions si le message
-			//  renvoyé par le serveur est un message de succès.
-			if ( data.code === 2 )
+			// On réinitialise alors l'entièreté du formulaire avant de le fermer.
+			login.find( "form" )[ 0 ].reset();
+			login.fadeOut( 150 );
+
+			// On effectue enfin la redirection de l'utilisateur
+			//  vers le tableau de bord au bout de 5 secondes.
+			setTimeout( () =>
 			{
-				// On réinitialise alors l'entièreté du formulaire.
-				login.find( "form" )[ 0 ].reset();
-				login.fadeOut( 150 );
-
-				// On effectue enfin la redirection de l'utilisateur
-				//  vers le tableau de bord au bout de 5 secondes.
-				setTimeout( () =>
-				{
-					window.location.href = "dashboard";
-				}, 3000 );
-			}
+				window.location.href = "dashboard";
+			}, 3000 );
 		} )
 		.fail( ( self, _status, error ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//  d'échec avec les informations à notre disposition.
-			addQueuedNotification( form_login_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
+			addQueuedNotification( self.responseText.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 } );
 
