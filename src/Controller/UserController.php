@@ -14,12 +14,25 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
+	private $translator;
+	private $entityManager;
+
+	//
+	// Initialisation de certaines dépendances du contrôleur.
+	//
+	public function __construct(TranslatorInterface $translator, EntityManagerInterface $entityManager)
+	{
+		$this->translator = $translator;
+		$this->entityManager = $entityManager;
+	}
+
 	//
 	// Route vers la page de l'espace utilisateur.
 	//
@@ -38,7 +51,7 @@ class UserController extends AbstractController
 	//  Source : https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
 	//
 	#[Route("/api/user/register", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
-	public function register(Request $request, Security $security, TranslatorInterface $translator, EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher): Response
+	public function register(Request $request, Security $security, UserPasswordHasherInterface $hasher): Response
 	{
 		// TODO : imposer une limite de création par IP.
 		// TODO : vérifier les champs du formulaire.
@@ -49,11 +62,11 @@ class UserController extends AbstractController
 		// TODO : ajouter une vérification avec Google reCAPTCHA.
 
 		// On récupère d'abord toutes les informations de la requête.
-		$username = $request->request->get("username");
-		$password = $request->request->get("password");
-		$serverAddress = $request->request->get("server_address");
-		$serverPort = $request->request->get("server_port");
-		$serverPassword = $request->request->get("server_password");
+		$username = $request->get("username");
+		$password = $request->get("password");
+		$serverAddress = $request->get("server_address");
+		$serverPort = $request->get("server_port");
+		$serverPassword = $request->get("server_password");
 
 		// On enregistre ensuite les informations de l'utilisateur ainsi que celle du serveur.
 		$user = new User();
@@ -68,14 +81,14 @@ class UserController extends AbstractController
 		$server->setClient($user);
 
 		// On enregistre après les informations dans la base de données.
-		$entityManager->getRepository(User::class)->save($user);
-		$entityManager->getRepository(Server::class)->save($server, true);
+		$this->entityManager->getRepository(User::class)->save($user);
+		$this->entityManager->getRepository(Server::class)->save($server, true);
 
 		// On authentifie alors l'utilisateur.
 		$security->login($user, "form_login");
 
 		// On envoie enfin la réponse au client.
-		return new Response($translator->trans("form.register.success"));
+		return new Response($this->translator->trans("form.register.success"));
 	}
 
 	//
@@ -83,7 +96,7 @@ class UserController extends AbstractController
 	//  Source : https://symfony.com/doc/current/security.html#form-login
 	//
 	#[Route("/api/user/login", condition: "request.isXmlHttpRequest()")]
-	public function login(AuthenticationUtils $authenticationUtils, TranslatorInterface $translator): Response
+	public function login(AuthenticationUtils $authenticationUtils): Response
 	{
 		// TODO : imposer une limite de connexion par IP (https://symfony.com/doc/current/security.html#limiting-login-attempts).
 		// TODO : vérifier les champs du formulaire.
@@ -96,10 +109,10 @@ class UserController extends AbstractController
 		// On vérifie si l'authentification a réussie ou non.
 		if ($authenticationUtils->getLastAuthenticationError())
 		{
-			return new Response($translator->trans("form.login.failed"), Response::HTTP_BAD_REQUEST);
+			return new Response($this->translator->trans("form.login.failed"), Response::HTTP_BAD_REQUEST);
 		}
 
-		return new Response($translator->trans("form.login.success"), Response::HTTP_OK);
+		return new Response($this->translator->trans("form.login.success"), Response::HTTP_OK);
 	}
 
 	//
@@ -116,7 +129,7 @@ class UserController extends AbstractController
 	// API vers le mécanisme des messages de contact.
 	//
 	#[Route("/api/user/contact", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
-	public function contact(Request $request, TranslatorInterface $translator, EntityManagerInterface $entityManager): Response
+	public function contact(Request $request): Response
 	{
 		// TODO : imposer une limite d'envoi de messages par jour.
 		// TODO : vérifier les champs du formulaire.
@@ -124,9 +137,9 @@ class UserController extends AbstractController
 		// TODO : ajouter une vérification avec Google reCAPTCHA.
 
 		// On récupère d'abord toutes les informations de la requête.
-		$email = $request->request->get("email");
-		$subject = $request->request->get("subject");
-		$content = $request->request->get("content");
+		$email = $request->get("email");
+		$subject = $request->get("subject");
+		$content = $request->get("content");
 
 		// On créé alors un nouvel objet de type "Contact".
 		$contact = new Contact();
@@ -138,19 +151,19 @@ class UserController extends AbstractController
 		// TODO : vérifier si Doctrine ne signale pas d'erreur (https://symfony.com/doc/current/doctrine.html#validating-objects).
 
 		// On enregistre ensuite le message dans la base de données.
-		$entityManager->getRepository(Contact::class)->save($contact, true);
+		$this->entityManager->getRepository(Contact::class)->save($contact, true);
 
 		// TODO : envoyer un courriel à l'administrateur du site.
 
 		// On envoie enfin la réponse au client.
-		return new Response($translator->trans("form.contact.success"), Response::HTTP_OK);
+		return new Response($this->translator->trans("form.contact.success"), Response::HTTP_OK);
 	}
 
 	//
 	// API vers le mécanisme de mise à jour des informations de l'utilisateur.
 	//
 	#[Route("/api/user/update", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
-	public function update(Request $request, TranslatorInterface $translator, EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher): Response
+	public function update(Request $request, UserPasswordHasherInterface $hasher): Response
 	{
 		// TODO : vérifier les champs du formulaire.
 		// TODO : ajouter une vérification avec Google reCAPTCHA.
@@ -160,35 +173,35 @@ class UserController extends AbstractController
 
 		if (!$user)
 		{
-			return new Response($translator->trans("form.login.invalid"), Response::HTTP_UNAUTHORIZED);
-        }
+			return new Response($this->translator->trans("form.login.invalid"), Response::HTTP_UNAUTHORIZED);
+		}
 
 		// On tente de récupérer alors les informations de l'utilisateur.
-		$repository = $entityManager->getRepository(User::class);
+		$repository = $this->entityManager->getRepository(User::class);
 		$entity = $repository->findOneBy(["username" => $user->getUserIdentifier()]);
 
-        if (!$entity)
+		if (!$entity)
 		{
-			return new Response($translator->trans("form.login.failed"), Response::HTTP_BAD_REQUEST);
-        }
+			return new Response($this->translator->trans("form.login.failed"), Response::HTTP_BAD_REQUEST);
+		}
 
 		// On récupère ensuite toutes les informations de la requête.
-		$username = $request->request->get("username");
-		$password = $request->request->get("password");
+		$username = $request->get("username");
+		$password = $request->get("password");
 
 		// On met à jour ensuite les informations de l'utilisateur.
 		$entity->setUsername($username);
 		$repository->upgradePassword($entity, $hasher->hashPassword($entity, $password));
 
 		// On envoie enfin la réponse au client.
-		return new Response($translator->trans("user.updated"), Response::HTTP_OK);
+		return new Response($this->translator->trans("user.updated"), Response::HTTP_OK);
 	}
 
 	//
 	// API vers le mécanisme de suppression du compte de l'utilisateur.
 	//
 	#[Route("/api/user/remove", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
-	public function remove(TranslatorInterface $translator, EntityManagerInterface $entityManager): Response
+	public function remove(): Response
 	{
 		// TODO : ajouter une vérification avec Google reCAPTCHA.
 
@@ -197,22 +210,22 @@ class UserController extends AbstractController
 
 		if (!$user)
 		{
-			return new Response($translator->trans("form.login.invalid"), Response::HTTP_UNAUTHORIZED);
-        }
+			return new Response($this->translator->trans("form.login.invalid"), Response::HTTP_UNAUTHORIZED);
+		}
 
 		// On tente de récupérer alors les informations de l'utilisateur.
-		$repository = $entityManager->getRepository(User::class);
+		$repository = $this->entityManager->getRepository(User::class);
 		$entity = $repository->findOneBy(["username" => $user->getUserIdentifier()]);
 
-        if (!$entity)
+		if (!$entity)
 		{
-			return new Response($translator->trans("form.login.failed"), Response::HTTP_BAD_REQUEST);
-        }
+			return new Response($this->translator->trans("form.login.failed"), Response::HTTP_BAD_REQUEST);
+		}
 
 		// On supprime ensuite l'utilisateur de la base de données.
 		$repository->remove($entity, true);
 
 		// On déconnecte enfin l'utilisateur.
-		return new Response($translator->trans("user.removed"), Response::HTTP_OK);
+		return new Response($this->translator->trans("user.removed"), Response::HTTP_OK);
 	}
 }
