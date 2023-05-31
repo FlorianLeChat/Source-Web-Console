@@ -21,13 +21,10 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
-	private $translator;
-	private $entityManager;
-
 	//
 	// Initialisation de certaines dépendances du contrôleur.
 	//
-	public function __construct(TranslatorInterface $translator, EntityManagerInterface $entityManager)
+	public function __construct(private TranslatorInterface $translator, private EntityManagerInterface $entityManager)
 	{
 		$this->translator = $translator;
 		$this->entityManager = $entityManager;
@@ -37,12 +34,10 @@ class UserController extends AbstractController
 	// Route vers la page de l'espace utilisateur.
 	//
 	#[Route("/user")]
+	#[IsGranted("IS_AUTHENTICATED")]
 	public function index(): Response
 	{
-		// On vérifie d'abord que l'utilisateur est bien authentifié.
-		$this->denyAccessUnlessGranted("IS_AUTHENTICATED");
-
-		// Si c'est le cas, on le redirige enfin vers l'espace utilisateur.
+		// On affiche la page de l'espace utilisateur.
 		return $this->render("user.html.twig");
 	}
 
@@ -120,6 +115,7 @@ class UserController extends AbstractController
 	//  Source : https://symfony.com/doc/current/security.html#logout-programmatically
 	//
 	#[Route("/api/user/logout", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
+	#[IsGranted("IS_AUTHENTICATED")]
 	public function logout(): void
 	{
 		throw new \Exception("This method can be blank - it will be intercepted by the logout key on the firewall.");
@@ -163,20 +159,15 @@ class UserController extends AbstractController
 	// API vers le mécanisme de mise à jour des informations de l'utilisateur.
 	//
 	#[Route("/api/user/update", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
+	#[IsGranted("IS_AUTHENTICATED")]
 	public function update(Request $request, UserPasswordHasherInterface $hasher): Response
 	{
 		// TODO : vérifier les champs du formulaire.
 		// TODO : ajouter une vérification avec Google reCAPTCHA.
+		// TODO : ajouter la protection CSRF (https://symfony.com/doc/current/security.html#csrf-protection-in-login-forms).
 
-		// On vérifie d'abord si l'utilisateur est connecté.
+		// On tente de récupérer d'abord les informations de l'utilisateur.
 		$user = $this->getUser();
-
-		if (!$user)
-		{
-			return new Response($this->translator->trans("form.login.invalid"), Response::HTTP_UNAUTHORIZED);
-		}
-
-		// On tente de récupérer alors les informations de l'utilisateur.
 		$repository = $this->entityManager->getRepository(User::class);
 		$entity = $repository->findOneBy(["username" => $user->getUserIdentifier()]);
 
@@ -201,19 +192,14 @@ class UserController extends AbstractController
 	// API vers le mécanisme de suppression du compte de l'utilisateur.
 	//
 	#[Route("/api/user/remove", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
+	#[IsGranted("IS_AUTHENTICATED")]
 	public function remove(): Response
 	{
 		// TODO : ajouter une vérification avec Google reCAPTCHA.
+		// TODO : ajouter la protection CSRF (https://symfony.com/doc/current/security.html#csrf-protection-in-login-forms).
 
-		// On vérifie d'abord si l'utilisateur est connecté.
+		// On tente de récupérer d'abord les informations de l'utilisateur.
 		$user = $this->getUser();
-
-		if (!$user)
-		{
-			return new Response($this->translator->trans("form.login.invalid"), Response::HTTP_UNAUTHORIZED);
-		}
-
-		// On tente de récupérer alors les informations de l'utilisateur.
 		$repository = $this->entityManager->getRepository(User::class);
 		$entity = $repository->findOneBy(["username" => $user->getUserIdentifier()]);
 
