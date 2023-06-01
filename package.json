@@ -20,7 +20,7 @@
         "core-js": "~3.30",
         "webpack": "~5.85",
         "chart.js": "~4.3",
-        "flag-icons": "~6.6",
+        "flag-icons": "~6.7",
         "file-loader": "~6.2",
         "webpack-cli": "~5.0",
         "sass-loader": "~13.2",
