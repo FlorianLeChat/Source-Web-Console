@@ -116,9 +116,11 @@ class UserController extends AbstractController
 	//
 	#[Route("/api/user/logout", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
 	#[IsGranted("IS_AUTHENTICATED")]
-	public function logout(): void
+	public function logout(Security $security): Response
 	{
-		throw new \Exception("This method can be blank - it will be intercepted by the logout key on the firewall.");
+		$security->logout();
+
+		return new Response($this->translator->trans("user.disconnected"), Response::HTTP_OK);
 	}
 
 	//
