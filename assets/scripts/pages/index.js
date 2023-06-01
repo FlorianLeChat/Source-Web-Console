@@ -54,6 +54,9 @@ register.find( "form" ).on( "submit", ( event ) =>
 		//  envoyer les informations au serveur.
 		$.post( "api/user/register", {
 
+			// Jeton de sécurité (CSRF).
+			token: login.find( "input[name = token]" ).val(),
+
 			// Nom d'utilisateur et mot de passe du compte utilisateur.
 			username: firstStep.find( "input[name = username]" ).val(),
 			password: firstStep.find( "input[name = password]" ).val(),

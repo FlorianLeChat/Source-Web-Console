@@ -50,13 +50,18 @@ class UserController extends AbstractController
 	{
 		// TODO : imposer une limite de création par IP.
 		// TODO : vérifier les champs du formulaire.
-		// TODO : ajouter la protection CSRF (https://symfony.com/doc/current/security.html#csrf-protection-in-login-forms).
 		// TODO : ajouter une vérification contre les noms d'utilisateurs dupliqués.
 		// TODO : ajouter la possibilité de créer un compte via Google.
 		// TODO : ajouter la possibilité de se souvenir de la connexion après création de compte.
 		// TODO : ajouter une vérification avec Google reCAPTCHA.
 
-		// On récupère d'abord toutes les informations de la requête.
+		// On vérifie tout d'abord la validité du jeton CSRF.
+		if ($this->isCsrfTokenValid("register", $request->request->get("token")))
+		{
+			return new Response($this->translator->trans("form.register.failed"), Response::HTTP_BAD_REQUEST);
+		}
+
+		// On récupère après toutes les informations de la requête.
 		$username = $request->get("username");
 		$password = $request->get("password");
 		$serverAddress = $request->get("server_address");
@@ -83,7 +88,7 @@ class UserController extends AbstractController
 		$security->login($user, "form_login");
 
 		// On envoie enfin la réponse au client.
-		return new Response($this->translator->trans("form.register.success"));
+		return new Response($this->translator->trans("form.register.success"), Response::HTTP_OK);
 	}
 
 	//
@@ -131,10 +136,15 @@ class UserController extends AbstractController
 	{
 		// TODO : imposer une limite d'envoi de messages par jour.
 		// TODO : vérifier les champs du formulaire.
-		// TODO : ajouter la protection CSRF (https://symfony.com/doc/current/security.html#csrf-protection-in-login-forms).
 		// TODO : ajouter une vérification avec Google reCAPTCHA.
 
-		// On récupère d'abord toutes les informations de la requête.
+		// On vérifie tout d'abord la validité du jeton CSRF.
+		if ($this->isCsrfTokenValid("contact", $request->request->get("token")))
+		{
+			return new Response($this->translator->trans("form.contact.failed"), Response::HTTP_BAD_REQUEST);
+		}
+
+		// On récupère après toutes les informations de la requête.
 		$email = $request->get("email");
 		$subject = $request->get("subject");
 		$content = $request->get("content");

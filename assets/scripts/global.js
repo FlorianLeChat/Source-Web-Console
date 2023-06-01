@@ -156,6 +156,9 @@ contact.find( "form" ).on( "submit", ( event ) =>
 	// On réalise ensuite la requête AJAX.
 	$.post( "api/user/contact", {
 
+		// Jeton de sécurité (CSRF).
+		token: contact.find( "input[name = token]" ).val(),
+
 		// Adresse électronique.
 		email: contact.find( "input[name = email]" ).val(),
 

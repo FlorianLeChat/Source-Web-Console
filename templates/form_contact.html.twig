@@ -35,6 +35,9 @@
 	<textarea id="content" name="content" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit." minlength="50" maxlength="4000" required></textarea>
 	<span></span>
 
+	{# Champ caché pour le jeton de sécurité (CSRF) #}
+	<input type="hidden" name="token" value="{{ csrf_token("contact") }}">
+
 	{# Validation/annulation #}
 	<input type="reset" value="{{ t("form.cancel_button")|trans }}" />
 	<input type="submit" value="{{ t("form.validate_button")|trans }}" />
