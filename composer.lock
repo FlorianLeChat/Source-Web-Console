@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5255d24a5f087297e7e4106106aacb82",
+    "content-hash": "35102140740afc5a63b96566b58e1c63",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -10048,23 +10048,23 @@
         },
         {
             "name": "symfony/web-profiler-bundle",
-            "version": "v6.2.10",
+            "version": "v6.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/web-profiler-bundle.git",
-                "reference": "24b6f4370f1cd59aacfc5e799c8614b40776e9c8"
+                "reference": "bab614e12218a95a924685a1fbf662bd7ca2d746"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/web-profiler-bundle/zipball/24b6f4370f1cd59aacfc5e799c8614b40776e9c8",
-                "reference": "24b6f4370f1cd59aacfc5e799c8614b40776e9c8",
+                "url": "https://api.github.com/repos/symfony/web-profiler-bundle/zipball/bab614e12218a95a924685a1fbf662bd7ca2d746",
+                "reference": "bab614e12218a95a924685a1fbf662bd7ca2d746",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.1",
                 "symfony/config": "^5.4|^6.0",
                 "symfony/framework-bundle": "^5.4|^6.0",
-                "symfony/http-kernel": "^6.1",
+                "symfony/http-kernel": "^6.3",
                 "symfony/routing": "^5.4|^6.0",
                 "symfony/twig-bundle": "^5.4|^6.0",
                 "twig/twig": "^2.13|^3.0.4"
@@ -10105,8 +10105,11 @@
             ],
             "description": "Provides a development tool that gives detailed information about the execution of any request",
             "homepage": "https://symfony.com",
+            "keywords": [
+                "dev"
+            ],
             "support": {
-                "source": "https://github.com/symfony/web-profiler-bundle/tree/v6.2.10"
+                "source": "https://github.com/symfony/web-profiler-bundle/tree/v6.3.0"
             },
             "funding": [
                 {
@@ -10122,7 +10125,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-04-24T13:41:17+00:00"
+            "time": "2023-05-22T17:08:58+00:00"
         },
         {
             "name": "theseer/tokenizer",
