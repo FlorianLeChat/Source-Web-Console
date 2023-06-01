@@ -12,7 +12,7 @@
         "url": "https://github.com/FlorianLeChat/Source-Web-Console/issues"
     },
     "devDependencies": {
-        "@babel/core": "~7.21",
+        "@babel/core": "~7.22",
         "@babel/preset-env": "~7.21",
         "@symfony/webpack-encore": "~4.3",
         "sass": "~1.62",
