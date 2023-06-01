@@ -55,7 +55,7 @@
         "symfony/translation": "6.3.*",
         "symfony/twig-bundle": "6.2.*",
         "symfony/http-client": "6.2.*",
-        "symfony/property-info": "6.2.*",
+        "symfony/property-info": "6.3.*",
         "symfony/monolog-bundle": "~3.0",
         "symfony/property-access": "6.3.*",
         "symfony/security-bundle": "6.2.*",
