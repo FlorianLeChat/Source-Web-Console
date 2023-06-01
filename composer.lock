@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2965d6338a12bff8308e78e8f60be999",
+    "content-hash": "f57d2267e1840655d27977b34d5e8934",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -7325,16 +7325,16 @@
         },
         {
             "name": "symfony/web-link",
-            "version": "v6.2.7",
+            "version": "v6.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/web-link.git",
-                "reference": "410aac2034608ac661cdca1968e3c56d4164abc8"
+                "reference": "0989ca617d0703cdca501a245f10e194ff22315b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/web-link/zipball/410aac2034608ac661cdca1968e3c56d4164abc8",
-                "reference": "410aac2034608ac661cdca1968e3c56d4164abc8",
+                "url": "https://api.github.com/repos/symfony/web-link/zipball/0989ca617d0703cdca501a245f10e194ff22315b",
+                "reference": "0989ca617d0703cdca501a245f10e194ff22315b",
                 "shasum": ""
             },
             "require": {
@@ -7349,9 +7349,6 @@
             },
             "require-dev": {
                 "symfony/http-kernel": "^5.4|^6.0"
-            },
-            "suggest": {
-                "symfony/http-kernel": ""
             },
             "type": "library",
             "autoload": {
@@ -7391,7 +7388,7 @@
                 "push"
             ],
             "support": {
-                "source": "https://github.com/symfony/web-link/tree/v6.2.7"
+                "source": "https://github.com/symfony/web-link/tree/v6.3.0"
             },
             "funding": [
                 {
@@ -7407,7 +7404,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-02-14T08:44:56+00:00"
+            "time": "2023-04-21T14:41:17+00:00"
         },
         {
             "name": "symfony/webpack-encore-bundle",
