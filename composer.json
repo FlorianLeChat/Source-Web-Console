@@ -48,7 +48,7 @@
         "symfony/process": "6.3.*",
         "symfony/console": "6.3.*",
         "symfony/runtime": "6.3.*",
-        "symfony/notifier": "6.2.*",
+        "symfony/notifier": "6.3.*",
         "symfony/web-link": "6.3.*",
         "symfony/validator": "6.3.*",
         "symfony/serializer": "6.3.*",
