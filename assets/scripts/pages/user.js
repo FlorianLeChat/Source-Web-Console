@@ -44,7 +44,7 @@ $( "#account input[data-action]" ).on( "click", ( event ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//  d'échec avec les informations à notre disposition.
-			addQueuedNotification( form_login_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
+			addQueuedNotification( self.responseText.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 
 	// On réinitialise enfin le formulaire après une
@@ -76,10 +76,10 @@ $( "#actions input[type = submit]" ).on( "click", ( event ) =>
 		_password: $( "input[name = password]" ).val()
 
 	} )
-		.done( () =>
+		.done( ( data ) =>
 		{
-			// On affiche la notification de confirmation.
-			addQueuedNotification( action === "logout" ? user_disconnected : user_reconnected, 3 );
+			// Une fois terminée, on affiche un message de confirmation.
+			addQueuedNotification( data, 3 );
 
 			// On redirige l'utilisateur quelques instants après.
 			setTimeout( () =>
@@ -142,7 +142,7 @@ $( "#register input[type = submit]" ).on( "click", ( event ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//  d'échec avec les informations à notre disposition.
-			addQueuedNotification( form_login_failed.replace( "$1", getStatusText( error, self.status ) ), 1 );
+			addQueuedNotification( self.responseText.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 
 	// On réinitialise enfin le formulaire.
