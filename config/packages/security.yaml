@@ -13,9 +13,6 @@ security:
         main:
             lazy: true
             provider: app_user_provider
-            form_login:
-                login_path: app_index_index
-                enable_csrf: true
             remember_me:
                 secure: true
                 secret: "%kernel.secret%"
