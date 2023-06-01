@@ -11,8 +11,10 @@ use Symfony\Component\Translation\DataCollectorTranslator as Translator;
 
 class AppRuntime implements RuntimeExtensionInterface
 {
+	private $languages;
+
 	// Permet d'injecter des dépendances dans les fonctions Twig.
-	public function __construct(private array $languages, private Translator $translator)
+	public function __construct(private Translator $translator)
 	{
 		$this->languages = $translator->getFallbackLocales();
 	}
