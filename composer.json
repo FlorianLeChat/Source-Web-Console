@@ -61,7 +61,7 @@
         "symfony/security-bundle": "6.2.*",
         "symfony/framework-bundle": "6.2.*",
         "symfony/doctrine-messenger": "6.3.*",
-        "symfony/expression-language": "6.2.*",
+        "symfony/expression-language": "6.3.*",
         "symfony/webpack-encore-bundle": "*"
     },
     "config": {
