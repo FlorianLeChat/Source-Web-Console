@@ -129,14 +129,14 @@ login.find( "input[type = submit]" ).on( "click", ( event ) =>
 	// On réalise ensuite la requête AJAX.
 	$.post( "api/user/login", {
 
+		// Jeton de sécurité (CSRF).
+		token: login.find( "input[name = token]" ).val(),
+
 		// Nom d'utilisateur.
-		_username: login.find( "input[name = username]" ).val(),
+		username: login.find( "input[name = username]" ).val(),
 
 		// Mot de passe.
-		_password: login.find( "input[name = password]" ).val(),
-
-		// Jeton de sécurité (CSRF).
-		_csrf_token: login.find( "input[name = csrf_token]" ).val(),
+		password: login.find( "input[name = password]" ).val(),
 
 		// Option de maintien de connexion.
 		_remember_me: login.find( "input[id = remember_me]" ).is( ":checked" ) && 0

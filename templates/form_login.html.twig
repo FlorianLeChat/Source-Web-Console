@@ -20,8 +20,7 @@
 	<span></span>
 
 	{# Champ caché pour le jeton de sécurité (CSRF) #}
-	{# Source : https://symfony.com/doc/current/security.html#csrf-protection-in-login-forms #}
-	<input type="hidden" name="csrf_token" value="{{ csrf_token("authenticate") }}">
+	<input type="hidden" name="token" value="{{ csrf_token("login") }}">
 
 	{# Liens vers l'inscription, connexion unique ou la récupération de mot de passe. #}
 	<em>{{ t("form.login.links")|trans|raw }}</em>
