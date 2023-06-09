@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
@@ -20,10 +21,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	#[ORM\Column]
 	private ?int $id = null;
 
-	#[ORM\Column(length: 180, unique: true)]
+	#[ORM\Column(length: 30, unique: true)]
+	#[Assert\Length(min: 10, max: 30)]
+	#[Assert\NotNull]
+	#[Assert\NotBlank]
+	#[Assert\NoSuspiciousCharacters]
 	private ?string $username = null;
 
 	#[ORM\Column]
+	#[Assert\Length(min: 10, max: 100)]
+	#[Assert\NotNull]
+	#[Assert\NotBlank]
+	#[Assert\NotCompromisedPassword]
+	#[Assert\NoSuspiciousCharacters]
 	private ?string $password = null;
 
 	#[ORM\Column]
@@ -47,7 +57,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 		return $this->username;
 	}
 
-	public function setUsername(string $username): self
+	public function setUsername(?string $username): self
 	{
 		$this->username = $username;
 
@@ -64,7 +74,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 		return $this->password;
 	}
 
-	public function setPassword(string $password): self
+	public function setPassword(?string $password): self
 	{
 		$this->password = $password;
 

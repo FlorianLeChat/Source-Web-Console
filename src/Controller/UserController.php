@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -23,11 +24,17 @@ class UserController extends AbstractController
 	//
 	// Initialisation de certaines dépendances du contrôleur.
 	//
-	public function __construct(private Security $security, private TranslatorInterface $translator, private EntityManagerInterface $entityManager)
+	public function __construct(
+		private Security $security,
+		private ValidatorInterface $validator,
+		private TranslatorInterface $translator,
+		private EntityManagerInterface $entityManager,
+	)
 	{
 		$this->security = $security;
 		$this->translator = $translator;
 		$this->entityManager = $entityManager;
+		$this->validator = $validator;
 	}
 
 	//
@@ -49,7 +56,6 @@ class UserController extends AbstractController
 	public function register(Request $request, UserPasswordHasherInterface $hasher): Response
 	{
 		// TODO : imposer une limite de création par IP.
-		// TODO : vérifier les champs du formulaire.
 		// TODO : ajouter une vérification contre les noms d'utilisateurs dupliqués.
 		// TODO : ajouter la possibilité de créer un compte via Google.
 		// TODO : ajouter la possibilité de se souvenir de la connexion après création de compte.
@@ -73,12 +79,18 @@ class UserController extends AbstractController
 		$server = new Server();
 
 		$user->setUsername($username);
-		$user->setPassword($hasher->hashPassword($user, $password));
+		$user->setPassword($hasher->hashPassword($user, $password ?? ""));
 
 		$server->setAddress($serverAddress);
 		$server->setPassword($serverPassword);
 		$server->setPort($serverPort);
 		$server->setClient($user);
+
+		// On vérifie également si les informations sont valides.
+		if (count($this->validator->validate($user)) > 0 || count($this->validator->validate($server)) > 0)
+		{
+			return new Response($this->translator->trans("form.server_check_failed"), Response::HTTP_BAD_REQUEST);
+		}
 
 		// On enregistre après les informations dans la base de données.
 		$this->entityManager->getRepository(User::class)->save($user);
@@ -95,11 +107,10 @@ class UserController extends AbstractController
 	// API vers le mécanisme d'authentification de l'utilisateur.
 	//  Source : https://symfony.com/doc/current/security.html#login-programmatically
 	//
-	#[Route("/api/user/login", condition: "request.isXmlHttpRequest()")]
+	#[Route("/api/user/login", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
 	public function login(Request $request, UserPasswordHasherInterface $hasher): Response
 	{
 		// TODO : imposer une limite de connexion par IP (https://symfony.com/doc/current/security.html#limiting-login-attempts).
-		// TODO : vérifier les champs du formulaire.
 		// TODO : ajouter la possibilité de se connecter via Token (https://symfony.com/doc/current/security/access_token.html).
 		// TODO : ajouter la possibilité de se connecter via lien de connexion (https://symfony.com/doc/current/security/login_link.html).
 		// TODO : ajouter la possibilité de se connecter via Google.
@@ -115,6 +126,16 @@ class UserController extends AbstractController
 		// On récupère après toutes les informations de la requête.
 		$username = $request->get("username");
 		$password = $request->get("password");
+
+		// On vérifie également si les informations sont valides.
+		$user = new User();
+		$user->setUsername($username);
+		$user->setPassword($hasher->hashPassword($user, $password ?? ""));
+
+		if (count($this->validator->validate($user)) > 0)
+		{
+			return new Response($this->translator->trans("form.server_check_failed"), Response::HTTP_BAD_REQUEST);
+		}
 
 		// On vérifie ensuite les informations de l'utilisateur.
 		$user = $this->entityManager->getRepository(User::class)->findOneBy(["username" => $username]);
@@ -159,7 +180,6 @@ class UserController extends AbstractController
 	public function contact(Request $request): Response
 	{
 		// TODO : imposer une limite d'envoi de messages par jour.
-		// TODO : vérifier les champs du formulaire.
 		// TODO : ajouter une vérification avec Google reCAPTCHA.
 
 		// On vérifie tout d'abord la validité du jeton CSRF.
@@ -179,6 +199,12 @@ class UserController extends AbstractController
 		$contact->setEmail($email);
 		$contact->setSubject($subject);
 		$contact->setContent($content);
+
+		// On vérifie également si les informations sont valides.
+		if (count($this->validator->validate($contact)) > 0)
+		{
+			return new Response($this->translator->trans("form.server_check_failed"), Response::HTTP_BAD_REQUEST);
+		}
 
 		// TODO : vérifier si Doctrine ne signale pas d'erreur (https://symfony.com/doc/current/doctrine.html#validating-objects).
 
@@ -217,9 +243,19 @@ class UserController extends AbstractController
 			return new Response($this->translator->trans("form.login.failed"), Response::HTTP_BAD_REQUEST);
 		}
 
-		// On récupère ensuite toutes les informations de la requête.
+		// On récupère après toutes les informations de la requête.
 		$username = $request->get("username");
 		$password = $request->get("password");
+
+		// On vérifie également si les informations sont valides.
+		$user = new User();
+		$user->setUsername($username);
+		$user->setPassword($hasher->hashPassword($user, $password ?? ""));
+
+		if (count($this->validator->validate($user)) > 0)
+		{
+			return new Response($this->translator->trans("form.server_check_failed"), Response::HTTP_BAD_REQUEST);
+		}
 
 		// On met à jour ensuite les informations de l'utilisateur.
 		$entity->setUsername($username);

@@ -8,6 +8,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 use App\Repository\ContactRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact
@@ -21,12 +22,22 @@ class Contact
 	private ?\DateTimeInterface $timestamp = null;
 
 	#[ORM\Column(length: 100)]
+	#[Assert\Email]
+	#[Assert\Length(min: 10, max: 100)]
+	#[Assert\NotNull]
+	#[Assert\NotBlank]
 	private ?string $email = null;
 
 	#[ORM\Column(length: 255)]
+    #[Assert\Length(min: 10, max: 255)]
+	#[Assert\NotNull]
+	#[Assert\NotBlank]
 	private ?string $subject = null;
 
 	#[ORM\Column(length: 5000)]
+    #[Assert\Length(min: 50, max: 5000)]
+	#[Assert\NotNull]
+	#[Assert\NotBlank]
 	private ?string $content = null;
 
 	public function getId(): ?int
@@ -63,7 +74,7 @@ class Contact
 		return $this->subject;
 	}
 
-	public function setSubject(string $subject): self
+	public function setSubject(?string $subject): self
 	{
 		$this->subject = $subject;
 
@@ -75,7 +86,7 @@ class Contact
 		return $this->content;
 	}
 
-	public function setContent(string $content): self
+	public function setContent(?string $content): self
 	{
 		$this->content = $content;
 
