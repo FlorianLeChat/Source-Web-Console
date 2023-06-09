@@ -8,8 +8,12 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Server;
 use App\Entity\Contact;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Mime\Crypto\DkimSigner;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,6 +21,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
@@ -32,9 +37,9 @@ class UserController extends AbstractController
 	)
 	{
 		$this->security = $security;
+		$this->validator = $validator;
 		$this->translator = $translator;
 		$this->entityManager = $entityManager;
-		$this->validator = $validator;
 	}
 
 	//
@@ -184,7 +189,7 @@ class UserController extends AbstractController
 	// API vers le mécanisme des messages de contact.
 	//
 	#[Route("/api/user/contact", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
-	public function contact(Request $request): Response
+	public function contact(Request $request, MailerInterface $mailer): Response
 	{
 		// TODO : imposer une limite d'envoi de messages par jour.
 		// TODO : ajouter une vérification avec Google reCAPTCHA.
@@ -213,12 +218,31 @@ class UserController extends AbstractController
 			return new Response($this->translator->trans("form.server_check_failed"), Response::HTTP_BAD_REQUEST);
 		}
 
-		// TODO : vérifier si Doctrine ne signale pas d'erreur (https://symfony.com/doc/current/doctrine.html#validating-objects).
-
 		// On enregistre ensuite le message dans la base de données.
 		$this->entityManager->getRepository(Contact::class)->save($contact, true);
 
-		// TODO : envoyer un courriel à l'administrateur du site.
+		// On génère le courriel de confirmation qui sera envoyé à l'utilisateur.
+        $email = (new Email())
+			->to($email)
+			->from(new Address($_ENV["SMTP_USERNAME"], "Source Web Console"))
+			->text($this->translator->trans("form.contact.mailing", [$content]))
+			->subject($subject);
+
+		// On signe le courriel en utilisant DKIM.
+		//  Source : https://symfony.com/doc/current/mailer.html#signing-messages
+		$signer = new DkimSigner($_ENV["DKIM_PRIVATE_KEY"], $_ENV["DKIM_DOMAIN"], $_ENV["DKIM_SELECTOR"]);
+		$signedEmail = $signer->sign($email);
+
+		try
+		{
+			// On envoie le courriel à l'utilisateur.
+			$mailer->send($signedEmail);
+		}
+		catch (TransportExceptionInterface $error)
+		{
+			// En cas d'erreur, on renvoie la réponse d'erreur à l'utilisateur.
+			return new Response($error->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+		}
 
 		// On envoie enfin la réponse au client.
 		return new Response($this->translator->trans("form.contact.success"), Response::HTTP_OK);

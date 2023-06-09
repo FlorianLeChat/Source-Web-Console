@@ -62,6 +62,7 @@ form:
         failed: "An internal error occurred when sending your message to the website. Response: \"$1\"."
         success: "The message has been sent successfully. You will receive a reply as soon as possible."
         content: "Specify the content of your message"
+        mailing: "Your message for support has been sent. You will receive a reply within 24 hours.\n\nHere is the summary of your message:\n\n%s"
         subject:
             default: "Select the subject"
             1: "I have an issue with the account registration"
@@ -73,7 +74,6 @@ form:
         failed: "An internal error occurred while connecting to your user account. Response: \"$1\"."
         success: "You are now connected to your user account. You will be redirected automatically in a few seconds."
         invalid: "The provided credentials are invalid or do not exist."
-        mailing: "Your message for support has been sent. You will receive a reply within 24 hours.\n\nHere is the summary of your message:\n\n%s"
         recover: "If the provided username is valid, then the new password has been updated."
         username: "Enter your username"
         password: "Enter your password"

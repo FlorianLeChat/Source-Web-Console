@@ -59,9 +59,10 @@ form:
             description: "Le mot de passe administrateur permet de se connecter à l'API du module d'administration du serveur. Cela permet de réaliser des actions et commandes à distance sans l'intervention d'une personne."
     contact:
         email: "Saisissez votre adresse électronique"
-        failed: "Une erreur interne s'est produite lors de l'envoi de votre message au site web. Réponse : « $1 »."
+        failed: "Une erreur interne s'est produite lors de l'envoi de votre message au site Internet. Réponse : « $1 »."
         success: "Le message à été envoyé avec succès. Vous recevrez une réponse dans les plus brefs délais."
         content: "Indiquez le contenu de votre message"
+        mailing: "Votre message d'assistance à bien été envoyé. Vous receverez une réponse sous 24 heures.\n\nVoici le récapitulatif de votre message :\n\n%s"
         subject:
             default: "Sélectionnez le sujet du contact"
             1: "J'ai un problème avec l'inscription d'un compte"
@@ -73,7 +74,6 @@ form:
         failed: "Une erreur interne s'est produite lors de votre connexion au compte utilisateur. Réponse : « $1 »."
         success: "Vous êtes désormais connecté à votre compte utilisateur. Vous allez être redirigé automatiquement dans quelques secondes."
         invalid: "Les identifiants de connexion renseignés sont invalides ou n'existent pas."
-        mailing: "Votre message d'assistance à bien été envoyé. Vous receverez une réponse sous 24 heures.\n\nVoici le récapitulatif de votre message :\n\n%s"
         recover: "Si le nom d'utilisateur renseigné est valide, alors le nouveau mot de passe a bien été mis à jour."
         username: "Saisissez votre nom d'utilisateur"
         password: "Saisissez votre mot de passe"
