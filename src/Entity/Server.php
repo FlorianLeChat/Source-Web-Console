@@ -7,6 +7,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ServerRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ServerRepository::class)]
 class Server
@@ -21,12 +22,20 @@ class Server
 	private ?user $client = null;
 
 	#[ORM\Column(length: 15)]
+	#[Assert\Ip]
+	#[Assert\Length(min: 5, max: 15)]
+	#[Assert\NotNull]
+	#[Assert\NotBlank]
 	private ?string $address = null;
 
 	#[ORM\Column(length: 5)]
+	#[Assert\NotNull]
+	#[Assert\NotBlank]
+	#[Assert\EqualTo(5)]
 	private ?string $port = null;
 
 	#[ORM\Column(length: 255, nullable: true)]
+	#[Assert\LessThanOrEqual(255)]
 	private ?string $password = null;
 
 	#[ORM\Column(nullable: true)]
@@ -54,7 +63,7 @@ class Server
 		return $this->address;
 	}
 
-	public function setAddress(string $address): self
+	public function setAddress(?string $address): self
 	{
 		$this->address = $address;
 
@@ -66,7 +75,7 @@ class Server
 		return $this->port;
 	}
 
-	public function setPort(string $port): self
+	public function setPort(?string $port): self
 	{
 		$this->port = $port;
 
@@ -78,7 +87,7 @@ class Server
 		return $this->password;
 	}
 
-	public function setPassword(string $password): self
+	public function setPassword(?string $password): self
 	{
 		$this->password = $password;
 
