@@ -56,7 +56,7 @@ class UserController extends AbstractController
 		// TODO : ajouter une vérification avec Google reCAPTCHA.
 
 		// On vérifie tout d'abord la validité du jeton CSRF.
-		if (!$this->isCsrfTokenValid("register", $request->request->get("token")))
+		if (!$this->isCsrfTokenValid("user_register", $request->request->get("token")))
 		{
 			return new Response($this->translator->trans("form.register.failed"), Response::HTTP_BAD_REQUEST);
 		}
@@ -107,7 +107,7 @@ class UserController extends AbstractController
 		// TODO : ajouter une vérification avec Google reCAPTCHA.
 
 		// On vérifie tout d'abord la validité du jeton CSRF.
-		if (!$this->isCsrfTokenValid("login", $request->request->get("token")))
+		if (!$this->isCsrfTokenValid("user_login", $request->request->get("token")))
 		{
 			return new Response($this->translator->trans("form.login.failed"), Response::HTTP_BAD_REQUEST);
 		}
@@ -137,10 +137,18 @@ class UserController extends AbstractController
 	//
 	#[Route("/api/user/logout", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
 	#[IsGranted("IS_AUTHENTICATED")]
-	public function logout(): Response
+	public function logout(Request $request, ): Response
 	{
-		$this->security->logout();
+		// On vérifie tout d'abord la validité du jeton CSRF.
+		if (!$this->isCsrfTokenValid("user_logout", $request->request->get("token")))
+		{
+			return new Response($this->translator->trans("form.login.failed"), Response::HTTP_BAD_REQUEST);
+		}
 
+		// On déconnecte alors l'utilisateur.
+		$this->security->logout(false);
+
+		// On envoie enfin la réponse au client.
 		return new Response($this->translator->trans("user.disconnected"), Response::HTTP_OK);
 	}
 
@@ -155,7 +163,7 @@ class UserController extends AbstractController
 		// TODO : ajouter une vérification avec Google reCAPTCHA.
 
 		// On vérifie tout d'abord la validité du jeton CSRF.
-		if (!$this->isCsrfTokenValid("contact", $request->request->get("token")))
+		if (!$this->isCsrfTokenValid("user_contact", $request->request->get("token")))
 		{
 			return new Response($this->translator->trans("form.contact.failed"), Response::HTTP_BAD_REQUEST);
 		}
@@ -192,9 +200,14 @@ class UserController extends AbstractController
 	{
 		// TODO : vérifier les champs du formulaire.
 		// TODO : ajouter une vérification avec Google reCAPTCHA.
-		// TODO : ajouter la protection CSRF (https://symfony.com/doc/current/security.html#csrf-protection-in-login-forms).
 
-		// On tente de récupérer d'abord les informations de l'utilisateur.
+		// On vérifie tout d'abord la validité du jeton CSRF.
+		if (!$this->isCsrfTokenValid("user_update", $request->request->get("token")))
+		{
+			return new Response($this->translator->trans("form.login.failed"), Response::HTTP_BAD_REQUEST);
+		}
+
+		// On tente de récupérer ensuite les informations de l'utilisateur.
 		$user = $this->getUser();
 		$repository = $this->entityManager->getRepository(User::class);
 		$entity = $repository->findOneBy(["username" => $user->getUserIdentifier()]);
@@ -221,12 +234,17 @@ class UserController extends AbstractController
 	//
 	#[Route("/api/user/remove", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
 	#[IsGranted("IS_AUTHENTICATED")]
-	public function remove(): Response
+	public function remove(Request $request): Response
 	{
 		// TODO : ajouter une vérification avec Google reCAPTCHA.
-		// TODO : ajouter la protection CSRF (https://symfony.com/doc/current/security.html#csrf-protection-in-login-forms).
 
-		// On tente de récupérer d'abord les informations de l'utilisateur.
+		// On vérifie tout d'abord la validité du jeton CSRF.
+		if (!$this->isCsrfTokenValid("user_remove", $request->request->get("token")))
+		{
+			return new Response($this->translator->trans("form.login.failed"), Response::HTTP_BAD_REQUEST);
+		}
+
+		// On tente de récupérer ensuite les informations de l'utilisateur.
 		$user = $this->getUser();
 		$repository = $this->entityManager->getRepository(User::class);
 		$entity = $repository->findOneBy(["username" => $user->getUserIdentifier()]);

@@ -20,7 +20,7 @@
 	<span></span>
 
 	{# Champ caché pour le jeton de sécurité (CSRF) #}
-	<input type="hidden" name="token" value="{{ csrf_token("login") }}">
+	<input type="hidden" name="token" value="{{ csrf_token("user_login") }}">
 
 	{# Liens vers l'inscription, connexion unique ou la récupération de mot de passe. #}
 	<em>{{ t("form.login.links")|trans|raw }}</em>

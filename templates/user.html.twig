@@ -35,7 +35,10 @@
 
 			{# Suppression/mise à jour #}
 			<div>
+				<input type="hidden" name="token-remove" value="{{ csrf_token("user_remove") }}">
 				<input type="submit" data-action="remove" value="{{ t("global.remove_title")|trans }}" />
+
+				<input type="hidden" name="token-update" value="{{ csrf_token("user_update") }}">
 				<input type="submit" data-action="update" value="{{ t("global.update_title")|trans }}" />
 			</div>
 		</form>
@@ -46,9 +49,11 @@
 		<h2>{{ t("user.actions")|trans }}</h2>
 
 		{# Bouton de déconnexion #}
+		<input type="hidden" name="token-logout" value="{{ csrf_token("user_logout") }}">
 		<input type="submit" data-action="logout" value="{{ t("user.disconnect")|trans }}" />
 
 		{# Bouton de reconnexion #}
+		<input type="hidden" name="token-login" value="{{ csrf_token("user_login") }}">
 		<input type="submit" data-action="login" value="{{ t("user.reconnect")|trans }}" />
 	</section>
 
