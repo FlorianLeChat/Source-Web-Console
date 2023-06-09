@@ -26,13 +26,18 @@ $( "#account input[data-action]" ).on( "click", ( event ) =>
 	}
 
 	// On réalise ensuite la requête AJAX.
+	const form = $( "#account" );
+
 	$.post( `api/user/${ action }`, {
 
+		// Jeton de sécurité (CSRF).
+		token: form.find( `input[name = token-${ action }]` ).val(),
+
 		// Valeur du nouveau nom d'utilisateur.
-		username: $( "input[name = username]" ).val(),
+		username: form.find( "input[name = username]" ).val(),
 
 		// Valeur du nouveau mot de passe.
-		password: $( "input[name = password]" ).val()
+		password: form.find( "input[name = password]" ).val()
 
 	} )
 		.done( ( data ) =>
@@ -65,15 +70,19 @@ $( "#actions input[type = submit]" ).on( "click", ( event ) =>
 	event.preventDefault();
 
 	// On réalise ensuite la requête AJAX.
+	const form = $( "#actions" );
 	const action = $( event.target ).attr( "data-action" );
 
 	$.post( `api/user/${ action }`, {
 
+		// Jeton de sécurité (CSRF).
+		token: form.find( `input[name = token-${ action }]` ).val(),
+
 		// Valeur du nouveau nom d'utilisateur.
-		_username: $( "input[name = username]" ).val(),
+		username: form.find( "input[name = username]" ).val(),
 
 		// Valeur du nouveau mot de passe.
-		_password: $( "input[name = password]" ).val()
+		password: form.find( "input[name = password]" ).val()
 
 	} )
 		.done( ( data ) =>
