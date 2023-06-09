@@ -56,7 +56,6 @@ class UserController extends AbstractController
 	public function register(Request $request, UserPasswordHasherInterface $hasher): Response
 	{
 		// TODO : imposer une limite de création par IP.
-		// TODO : ajouter une vérification contre les noms d'utilisateurs dupliqués.
 		// TODO : ajouter la possibilité de créer un compte via Google.
 		// TODO : ajouter la possibilité de se souvenir de la connexion après création de compte.
 		// TODO : ajouter une vérification avec Google reCAPTCHA.
@@ -92,8 +91,16 @@ class UserController extends AbstractController
 			return new Response($this->translator->trans("form.server_check_failed"), Response::HTTP_BAD_REQUEST);
 		}
 
-		// On enregistre après les informations dans la base de données.
-		$this->entityManager->getRepository(User::class)->save($user);
+		// On vérifie si le nom d'utilisateur n'est pas déjà utilisé.
+		$userRepository = $this->entityManager->getRepository(User::class);
+
+		if ($userRepository->findOneBy(["username" => $username]))
+		{
+			return new Response($this->translator->trans("form.register.duplication"), Response::HTTP_BAD_REQUEST);
+		}
+
+		// On enregistre les informations dans la base de données.
+		$userRepository->save($user);
 		$this->entityManager->getRepository(Server::class)->save($server, true);
 
 		// On authentifie alors l'utilisateur.
