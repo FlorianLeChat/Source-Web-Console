@@ -1,3 +1,7 @@
 framework:
     mailer:
         dsn: smtp://%env(SMTP_USERNAME)%:%env(SMTP_PASSWORD)%@%env(SMTP_HOST)%:%env(SMTP_PORT)%
+        envelope:
+            sender: "%env(SMTP_USERNAME)%"
+        headers:
+            From: "Source Web Console <%env(SMTP_USERNAME)%>"
