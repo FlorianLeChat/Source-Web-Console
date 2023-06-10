@@ -139,7 +139,7 @@ login.find( "input[type = submit]" ).on( "click", ( event ) =>
 		password: login.find( "input[name = password]" ).val(),
 
 		// Option de maintien de connexion.
-		_remember_me: login.find( "input[id = remember_me]" ).is( ":checked" ) && 0
+		_remember_me: login.find( "input[id = remember_me]" ).is( ":checked" )
 
 	} )
 		.done( ( data ) =>
