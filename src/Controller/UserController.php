@@ -224,19 +224,21 @@ class UserController extends AbstractController
 		// On génère le courriel de confirmation qui sera envoyé à l'utilisateur.
         $email = (new Email())
 			->to($email)
-			->from(new Address($_ENV["SMTP_USERNAME"], "Source Web Console"))
 			->text($this->translator->trans("form.contact.mailing", [$content]))
 			->subject($subject);
 
-		// On signe le courriel en utilisant DKIM.
+		// On tente de signer le courriel en utilisant DKIM.
 		//  Source : https://symfony.com/doc/current/mailer.html#signing-messages
-		$signer = new DkimSigner($_ENV["DKIM_PRIVATE_KEY"], $_ENV["DKIM_DOMAIN"], $_ENV["DKIM_SELECTOR"]);
-		$signedEmail = $signer->sign($email);
+		if (is_file($path = $this->getParameter("app.dkim_private_key")))
+		{
+			$signer = new DkimSigner($path, $this->getParameter("app.dkim_domain"), $this->getParameter("app.dkim_selector"));
+			$signedEmail = $signer->sign($email);
+		}
 
 		try
 		{
 			// On envoie le courriel à l'utilisateur.
-			$mailer->send($signedEmail);
+			$mailer->send($signedEmail ?? $email);
 		}
 		catch (TransportExceptionInterface $error)
 		{
