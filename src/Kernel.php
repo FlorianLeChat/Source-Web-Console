@@ -8,4 +8,13 @@ use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 class Kernel extends BaseKernel
 {
 	use MicroKernelTrait;
+
+    public function boot(): void
+    {
+		// Appel de la méthode provenant de la classe parente.
+        parent::boot();
+
+		// Définition du fuseau horaire pour l'ensemble de l'application.
+        date_default_timezone_set($this->getContainer()->getParameter("app.timezone"));
+    }
 }
