@@ -70,7 +70,6 @@ header
 // ----------------------------------- //
 main > a
 {
-
 	@media screen and (max-width: 320px)
 	{
 		// Suppression du logo GitHub sur les écrans
@@ -78,10 +77,9 @@ main > a
 		display: none;
 	}
 
-	// Animation du logo GitHub.
 	&:hover path:nth-of-type(2)
 	{
-		// Effet de survol.
+		// Animation au survol du logo GitHub.
 		animation: octocat-wave 560ms ease-in-out;
 
 		@media (max-width: 768px)
@@ -92,11 +90,28 @@ main > a
 		}
 	}
 
+	path:nth-of-type(2)
+	{
+		// Orientation du bras du logo GitHub.
+		fill: currentColor;
+		transform-origin: 130px 106px;
+	}
+
+	path:last-of-type
+	{
+		// Apparence du corps du logo GitHub.
+		fill: currentColor;
+	}
+
 	svg
 	{
 		// Délimitation de la zone cliquable.
+		top: 0;
+		left: 0;
+		fill: $box-color;
+		color: $text-color;
 		position: fixed;
-		clip-path: polygon(0 0, 100% 0, 100% 100%)
+		clip-path: polygon(0 0, 100% 0, 0 100%)
 	}
 
 	@media (max-width: 768px)
@@ -111,12 +126,9 @@ main > a
 
 	@keyframes octocat-wave
 	{
-		0% { transform: rotate(0); }
-		20% { transform: rotate(-25deg); }
-		40% { transform: rotate(10deg); }
-		60% { transform: rotate(-25deg); }
-		80% { transform: rotate(10deg); }
-		100% { transform: rotate(0); }
+		0%, 100% { transform:rotate(0); }
+		20%, 60% { transform:rotate(-25deg); }
+		40%, 80% { transform:rotate(10deg); }
 	}
 }
 
