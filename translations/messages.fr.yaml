@@ -1,10 +1,10 @@
 global:
-    shutdown_title: "Arrêter"
-    restart_title: "Redémarrer"
-    update_title: "Mettre à jour"
-    service_title: "Maintenance"
+    update: "Mettre à jour"
+    remove: "Supprimer"
+    restart: "Redémarrer"
+    service: "Maintenance"
+    shutdown: "Arrêter"
     fatal_error: "Une erreur interne s'est produite lors de la récupération des informations du serveur. Veuillez rafraîchir la page pour relancer la surveillance. Message : « $1 »."
-    remove_title: "Supprimer"
     action_success: "La requête demandée a été envoyée avec succès avec le serveur distant. Dans certains cas, il peut se produire des effets secondaires en fonction de la configuration de votre serveur."
 
 header:
@@ -198,20 +198,17 @@ dashboard:
     tips: "Vous êtes sur le tableau de bord. Sur cette page, vous pouvez voir l'état général de votre serveur ainsi que réaliser certaines actions rapides. De cette manière, vous avez un oeil sur l'ensemble de votre infrastructure."
     state:
         map: "Carte actuelle"
+        info: "Information"
         title: "État général"
         nodata: "Aucun signal\r\n(Inconnu)"
         players: "Nombre de joueurs"
         service: "En maintenance\r\n($1)"
         running: "En fonctionnement\r\n($1)"
     edit:
-        admin:
-            port: "Saisissez le port de communication du module d'administration.\nLaissez vide pour aucun changement."
-            address: "Saisissez l'adresse IP du module d'administration.\nLaissez vide pour aucun changement."
-            password: "Saisissez le mot de passe du module d'administration.\nLaissez vide pour aucun changement."
-        client:
-            port: "Saisissez le port de communication du serveur.\nLaissez vide pour aucun changement."
-            address: "Saisissez l'adresse IP du serveur.\nLaissez vide pour aucun changement."
-            remove: "Voulez-vous supprimer ce serveur ?"
+        port: "Saisissez le port de communication du serveur.\nLaissez vide pour aucun changement."
+        remove: "Voulez-vous supprimer ce serveur ?"
+        address: "Saisissez l'adresse IP du serveur.\nLaissez vide pour aucun changement."
+        password: "Saisissez le mot de passe du module d'administration.\nLaissez vide pour aucun changement."
     actions: "Dernières actions"
     players: "Liste des joueurs"
     servers: "Liste des serveurs"
