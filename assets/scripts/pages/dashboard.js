@@ -83,7 +83,7 @@ function retrieveRemoteData()
 			if ( json.hasOwnProperty( "error" ) )
 			{
 				clearInterval( timer );
-				addQueuedNotification( server_fatal_error.replace( "$1", json.error ), 1 );
+				addQueuedNotification( self.responseText.replace( "$1", json.error ), 1 );
 				return;
 			}
 
@@ -156,7 +156,7 @@ function retrieveRemoteData()
 
 			if ( self.status !== 400 )
 			{
-				addQueuedNotification( server_fatal_error.replace( "$1", getStatusText( error, self.status ) ), 1 );
+				addQueuedNotification( self.responseText.replace( "$1", getStatusText( error, self.status ) ), 1 );
 			}
 		} );
 }

@@ -43,7 +43,7 @@ $( "table tr:not([class = finished])" ).on( "click", ( event ) =>
 			{
 				// Dans le cas contraire, on affiche une notification
 				//  d'échec avec les informations à notre disposition.
-				addQueuedNotification( server_fatal_error.replace( "$1", getStatusText( error, self.status ) ), 1 );
+				addQueuedNotification( self.responseText.replace( "$1", getStatusText( error, self.status ) ), 1 );
 			} );
 	}
 } );
@@ -87,6 +87,6 @@ $( "form input[type = submit]" ).on( "click", ( event ) =>
 		{
 			// Dans le cas contraire, on affiche une notification
 			//  d'échec avec les informations à notre disposition.
-			addQueuedNotification( server_fatal_error.replace( "$1", getStatusText( error, self.status ) ), 1 );
+			addQueuedNotification( self.responseText.replace( "$1", getStatusText( error, self.status ) ), 1 );
 		} );
 } );
