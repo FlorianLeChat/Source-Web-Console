@@ -5,45 +5,44 @@
 {% block javascript %}
 	<script>
 		// Libellé demandant d'entrer une valeur pour une commande.
-		const execute_value = "{{ actions_phrases["actions_commands_value"] }}";
+		const execute_value = "{{ t("actions.commands.value")|trans }}";
 
 		// Libellés demandant le nom et le contenue d'une nouvelle commande personnalisée.
-		const command_add_name = "{{ actions_phrases["actions_add_name"] }}";
-		const command_add_content = "{{ actions_phrases["actions_add_content"] }}";
+		const command_add_name = "{{ t("actions.add.name")|trans }}";
+		const command_add_content = "{{ t("actions.add.content")|trans }}";
 	</script>
 {% endblock %}
 
 {# Contenu de la page demandé #}
 {% block content %}
 	{# Description de la page #}
-	<p>{{ actions_phrases["actions_description"] }}</p>
+	<p>{{ t("actions.description")|trans }}</p>
 
 	{# Actions #}
 	<section id="actions">
 		{# Titre de la section #}
-		<h2>{{ actions_phrases["actions_actions_title"] }}</h2>
+		<h2>{{ t("actions.actions_title")|trans }}</h2>
 
 		{# Actions de la section #}
 		<ul>
 			<li data-action="shutdown">
 				{# Arrêter le serveur #}
-				{{ global_phrases["global_shutdown_title"] }}
-				<em>{{ global_phrases["global_shutdown_subtitle"] }}</em>
+				{{ t("global.shutdown")|trans }}
 			</li>
 
 			<li data-action="restart">
 				{# Redémarrer le serveur #}
-				{{ global_phrases["global_restart_title"] }}
+				{{ t("global.restart")|trans }}
 			</li>
 
 			<li data-action="update">
 				{# Mettre à jour le serveur #}
-				{{ global_phrases["global_update_title"] }}
+				{{ t("global.update")|trans }}
 			</li>
 
 			<li data-action="service">
 				{# Passer en mode de maintenance #}
-				{{ global_phrases["global_service_title"] }}
+				{{ t("global.service")|trans }}
 			</li>
 		</ul>
 
@@ -53,7 +52,7 @@
 		<ul>
 			<li data-action="flashlight">
 				{# Afficher ou non l'usage de la lampe torche #}
-				<span>{{ actions_phrases["actions_switch_flashlight"] }}</span>
+				<span>{{ t("actions.switch.flashlight")|trans }}</span>
 
 				<label class="switch">
 					<input type="checkbox" {{ actions_value_flashlight == "1" ? "checked" : "" }} />
@@ -63,7 +62,7 @@
 
 			<li data-action="cheats">
 				{# Autorise ou non l'utilisation des commandes de triche #}
-				<span>{{ actions_phrases["actions_switch_cheats"] }}</span>
+				<span>{{ t("actions.switch.cheats")|trans }}</span>
 
 				<label class="switch">
 					<input type="checkbox" {{ actions_value_cheats == "1" ? "checked" : "" }} />
@@ -73,7 +72,7 @@
 
 			<li data-action="voice">
 				{# Autorise ou non les communications vocales #}
-				<span>{{ actions_phrases["actions_switch_voice"] }}</span>
+				<span>{{ t("actions.switch.voice")|trans }}</span>
 
 				<label class="switch">
 					<input type="checkbox" {{ actions_value_voice == "1" ? "checked" : "" }} />
@@ -86,29 +85,29 @@
 	{# Commandes #}
 	<section id="commands">
 		{# Titre de la section #}
-		<h2>{{ actions_phrases["actions_commands_title"] }}</h2>
+		<h2>{{ t("actions.commands_title")|trans }}</h2>
 
 		{# Commandes de la section #}
 		<ul>
 			<li data-command="level">
 				{# Changement de carte/environnement #}
-				<span>{{ actions_phrases["actions_commands_level"] }}</span>
+				<span>{{ t("actions.commands.level")|trans }}</span>
 
-				<button type="button" data-action="execute">{{ actions_phrases["actions_commands_execute"] }}</button>
+				<button type="button" data-action="execute">{{ t("actions.execute_command")|trans }}</button>
 			</li>
 
 			<li data-command="password">
 				{# Modification du mot de passe #}
-				<span>{{ actions_phrases["actions_commands_password"] }}</span>
+				<span>{{ t("actions.commands.password")|trans }}</span>
 
-				<button type="button" data-action="execute">{{ actions_phrases["actions_commands_execute"] }}</button>
+				<button type="button" data-action="execute">{{ t("actions.execute_command")|trans }}</button>
 			</li>
 
 			<li data-command="gravity">
 				{# Modification de la gravité applicable à la carte #}
-				<span>{{ actions_phrases["actions_commands_gravity"] }}</span>
+				<span>{{ t("actions.commands.gravity")|trans }}</span>
 
-				<button type="button" data-action="execute">{{ actions_phrases["actions_commands_execute"] }}</button>
+				<button type="button" data-action="execute">{{ t("actions.execute_command")|trans }}</button>
 			</li>
 
 			{% for command in actions_custom_commands %}
@@ -116,17 +115,17 @@
 					{# Contenu HTML de la commande HTML #}
 					<span>{{ command["name"] }}</span>
 
-					<button type="button" data-action="remove">{{ actions_phrases["actions_commands_remove"] }}</button>
-					<button type="button" data-action="execute">{{ actions_phrases["actions_commands_execute"] }}</button>
+					<button type="button" data-action="remove">{{ t("actions.remove_command")|trans }}</button>
+					<button type="button" data-action="execute">{{ t("actions.execute_command")|trans }}</button>
 				</li>
 			{% endfor %}
 
 			{% if actions_custom_commands|length < 2 %}
 				<li data-action="add">
 					{# Ajout d'une commande personnalisée #}
-					<span>{{ actions_phrases["actions_add_command"] }}</span>
+					<span>{{ t("actions.add_command")|trans }}</span>
 
-					{{ actions_phrases["actions_remaining"]|format(2 - actions_custom_commands|length) }}
+					{{ t("actions.remaining")|trans|format(2 - actions_custom_commands|length) }}
 				</li>
 			{% endif %}
 		</ul>

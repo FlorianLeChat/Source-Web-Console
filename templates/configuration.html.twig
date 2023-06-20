@@ -4,61 +4,61 @@
 {# Contenu de la page demandé #}
 {% block content %}
 	{# Description de la page #}
-	<p>{{ configuration_phrases["configuration_description"] }}</p>
+	<p>{{ t("configuration.description")|trans }}</p>
 
 	{# Informations de connexion FTP #}
 	<section id="stockage">
 		{# Titre de la section #}
-		<h2>{{ configuration_phrases["configuration_storage_title"] }}</h2>
+		<h2>{{ t("configuration.storage.title")|trans }}</h2>
 
 		{# Spécifications juridiques #}
 		<div>
 			<i class="bi bi-exclamation-triangle-fill"></i>
-			<span>{{ form_phrases["form_rgpd_warning"] }}</span>
+			<span>{{ t("form.rgpd_warning")|trans }}</span>
 		</div>
 
 		{# Formulaire d'ajout d'un serveur #}
 		<form method="POST">
 			{# Adresse IP #}
-			<label for="ftp_address">{{ configuration_phrases["configuration_storage_address"] }}<span>*</span></label>
-			<input type="text" spellcheck="false" id="ftp_address" name="ftp_address" placeholder="51.75.125.244" minlength="7" maxlength="15" value="{{ configuration_credentials["host"] }}" required />
+			<label for="ftp_address">{{ t("configuration.storage.address")|trans }}<span>*</span></label>
+			<input type="text" spellcheck="false" id="ftp_address" name="ftp_address" placeholder="51.75.125.244" minlength="7" maxlength="15" value="{{ configuration_credentials["host"] ?? "" }}" required />
 
 			{# Port de communication #}
-			<input type="text" spellcheck="false" id="ftp_port" name="ftp_port" placeholder="22" minlength="5" maxlength="5" value="{{ configuration_credentials["port"] }}" required />
+			<input type="text" spellcheck="false" id="ftp_port" name="ftp_port" placeholder="22" minlength="5" maxlength="5" value="{{ configuration_credentials["port"] ?? "" }}" required />
 
 			{# Type de protocole #}
-			<label for="ftp_protocol">{{ configuration_phrases["configuration_storage_protocol"] }}<span>*</span></label>
+			<label for="ftp_protocol">{{ t("configuration.storage.protocol")|trans }}<span>*</span></label>
 			<select id="ftp_protocol" name="ftp_protocol">
-				<option value="ftp" {{ configuration_credentials["protocol"] == "ftp" ? "selected" : "" }}>{{ configuration_phrases["configuration_storage_ftp"] }}</option>
-				<option value="sftp" {{ configuration_credentials["protocol"] == "sftp" ? "selected" : "" }}>{{ configuration_phrases["configuration_storage_sftp"] }}</option>
+				<option value="ftp" {{ configuration_credentials["protocol"] ?? "ftp" == "ftp" ? "selected" : "" }}>{{ t("configuration.storage.ftp")|trans }}</option>
+				<option value="sftp" {{ configuration_credentials["protocol"] ?? "" == "sftp" ? "selected" : "" }}>{{ t("configuration.storage.sftp")|trans }}</option>
 			</select>
 
 			{# Nom d'utilisateur #}
-			<label for="ftp_user">{{ configuration_phrases["configuration_storage_username"] }}<span>*</span></label>
-			<input type="text" autocomplete="username" spellcheck="false" id="ftp_user" name="ftp_user" placeholder="johndoe" value="{{ configuration_credentials["username"] }}" required />
+			<label for="ftp_user">{{ t("configuration.storage.username")|trans }}<span>*</span></label>
+			<input type="text" autocomplete="username" spellcheck="false" id="ftp_user" name="ftp_user" placeholder="johndoe" value="{{ configuration_credentials["username"] ?? "" }}" required />
 
 			{# Mot de passe #}
-			<label for="ftp_password">{{ configuration_phrases["configuration_storage_password"] }}<span>*</span></label>
-			<input type="password" autocomplete="current-password" spellcheck="false" id="ftp_password" name="ftp_password" placeholder="?JohnDoe2022!" value="{{ configuration_credentials["password"] }}" required />
+			<label for="ftp_password">{{ t("configuration.storage.password")|trans }}<span>*</span></label>
+			<input type="password" autocomplete="current-password" spellcheck="false" id="ftp_password" name="ftp_password" placeholder="?JohnDoe2022!" value="{{ configuration_credentials["password"] ?? "" }}" required />
 
 			{# Validation/Mise à jour #}
-			<input type="submit" data-action="{{ configuration_credentials is not empty ? "update" : "insert" }}" value="{{ configuration_credentials is not empty ? global_phrases["global_update_title"] : form_phrases["form_validate_button"] }}" />
+			<input type="submit" data-action="{{ configuration_credentials is not empty ? "update" : "insert" }}" value="{{ configuration_credentials is not empty ? t("global.update")|trans : t("form.validate_button")|trans }}" />
 		</form>
 	</section>
 
 	{# Paramètres disponibles pour modification #}
 	<section id="parameters">
 		{# Titre de la section #}
-		<h2>{{ configuration_phrases["configuration_settings_title"] }}</h2>
+		<h2>{{ t("configuration.settings.title")|trans }}</h2>
 
 		{# Paramètres de la section #}
 		<ul>
 			<li>
 				{# Nom du premier paramètre #}
-				<h3>{{ configuration_phrases["configuration_hostname_title"] }}</h3>
+				<h3>{{ t("configuration.hostname.title")|trans }}</h3>
 
 				{# Description du premier paramètre #}
-				<p>{{ configuration_phrases["configuration_hostname_description"] }}</p>
+				<p>{{ t("configuration.hostname.description")|trans }}</p>
 
 				{# Champ de saisie du premier paramètre #}
 				<input type="text" placeholder="<value>" />
@@ -71,10 +71,10 @@
 
 			<li>
 				{# Nom du deuxième paramètre #}
-				<h3>{{ configuration_phrases["configuration_loading_title"] }}</h3>
+				<h3>{{ t("configuration.loading.title")|trans }}</h3>
 
 				{# Description du deuxième paramètre #}
-				<p>{{ configuration_phrases["configuration_loading_description"] }}</p>
+				<p>{{ t("configuration.loading.description")|trans }}</p>
 
 				{# Champ de saisie du deuxième paramètre #}
 				<input type="text" placeholder="<value>" />
@@ -87,10 +87,10 @@
 
 			<li>
 				{# Nom du troisième paramètre #}
-				<h3>{{ configuration_phrases["configuration_rcon_title"] }}</h3>
+				<h3>{{ t("configuration.rcon.title")|trans }}</h3>
 
 				{# Description du troisième paramètre #}
-				<p>{{ configuration_phrases["configuration_rcon_description"] }}</p>
+				<p>{{ t("configuration.rcon.description")|trans }}</p>
 
 				{# Champ de saisie du troisième paramètre #}
 				<input type="text" placeholder="<value>" />

@@ -12,10 +12,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ConfigurationController extends AbstractController
 {
-    public function index(): Response
-    {
-        return $this->render("configuration.html.twig");
-    }
 	#[Route("/configuration")]
 	#[IsGranted("IS_AUTHENTICATED")]
+	public function index(): Response
+	{
+		// On inclut les paramètres du moteur TWIG pour la création de la page.
+		return $this->render("configuration.html.twig", [
+
+			// Identifiants du serveur de stockage.
+			// TODO : remplacer par les identifiants du serveur de stockage.
+			"configuration_credentials" => []
+
+		]);
+	}
 }

@@ -36,10 +36,10 @@
 			{# Suppression/mise à jour #}
 			<div>
 				<input type="hidden" name="token-remove" value="{{ csrf_token("user_remove") }}">
-				<input type="submit" data-action="remove" value="{{ t("global.remove_title")|trans }}" />
+				<input type="submit" data-action="remove" value="{{ t("global.remove")|trans }}" />
 
 				<input type="hidden" name="token-update" value="{{ csrf_token("user_update") }}">
-				<input type="submit" data-action="update" value="{{ t("global.update_title")|trans }}" />
+				<input type="submit" data-action="update" value="{{ t("global.update")|trans }}" />
 			</div>
 		</form>
 	</section>
