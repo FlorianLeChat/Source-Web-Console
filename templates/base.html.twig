@@ -47,17 +47,8 @@
 		<script src="https://www.google.com/recaptcha/api.js?render={{ global_recaptcha }}" defer></script>
 
 		<script>
-			// Message d'échec si les vérifications côté client échouent.
-			const client_check_failed = "{{ t("form.client_check_failed")|trans }}";
-
-			// Message d'échec si les vérifications côté serveur échouent.
-			const server_check_failed = "{{ t("form.server_check_failed")|trans }}";
-
 			// Message signalant à l'utilisateur que les majuscules sont activées.
 			const capslock_enabled = "{{ t("form.capslock_warning")|trans }}";
-
-			// Message d'erreur lorsqu'une erreur fatale se produit sur un serveur distant.
-			const server_fatal_error = "{{ t("global.fatal_error")|trans }}";
 
 			// Clé de sécurité publique pour le service de Google reCAPTCHA.
 			const captcha_public_key = "{{ global_recaptcha }}"
