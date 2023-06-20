@@ -4,12 +4,12 @@
 {# Contenu de la page demandé #}
 {% block content %}
 	{# Description de la page #}
-	<p>{{ help_phrases["help_description"] }}</p>
+	<p>{{ t("help.description")|trans }}</p>
 
 	{# Statistiques de comptage #}
 	<section id="counter">
 		{# Titre de la section #}
-		<h2>{{ header_phrases["header_subtitle_statistics"] }}</h2>
+		<h2>{{ t("header.subtitle.statistics")|trans }}</h2>
 
 		{# Liste des statistiques #}
 		<ul>
@@ -17,28 +17,28 @@
 				{# Nombre de donateurs #}
 				<i class="bi bi-cash"></i>
 				<h3>{{ help_donators_count }}+</h3>
-				<h4>{{ help_phrases["help_donators_count"] }}</h4>
+				<h4>{{ t("help.count.donators")|trans }}</h4>
 			</li>
 
 			<li>
 				{# Nombre de serveurs #}
 				<i class="bi bi-hdd-stack-fill"></i>
 				<h3>{{ help_servers_count }}+</h3>
-				<h4>{{ help_phrases["help_servers_count"] }}</h4>
+				<h4>{{ t("help.count.servers")|trans }}</h4>
 			</li>
 
 			<li>
 				{# Nombre d'utilisateurs #}
 				<i class="bi bi-person-fill"></i>
 				<h3>{{ help_users_count }}+</h3>
-				<h4>{{ help_phrases["help_users_count"] }}</h4>
+				<h4>{{ t("help.count.users")|trans }}</h4>
 			</li>
 
 			<li>
 				{# Nombre d'actionnements #}
 				<i class="bi bi-lightning-fill"></i>
 				<h3>{{ help_requests_count }}+</h3>
-				<h4>{{ help_phrases["help_requests_count"] }}</h4>
+				<h4>{{ t("help.count.requests")|trans }}</h4>
 			</li>
 		</ul>
 	</section>
@@ -46,12 +46,12 @@
 	{# Foire aux questions #}
 	<section id="faq">
 		{# Titre de la section #}
-		<h2>{{ help_phrases["help_faq"] }}</h2>
+		<h2>{{ t("help.faq")|trans }}</h2>
 
 		{% for i in range(1, 3) %}
 			{# Question/réponse #}
-			<button type="button">{{ help_phrases["help_question_" ~ i] }}</button>
-			<p>{{ help_phrases["help_answer_" ~ i] }}</p>
+			<button type="button">{{ t("help.question." ~ i)|trans }}</button>
+			<p>{{ t("help.answer." ~ i)|trans }}</p>
 		{% endfor %}
 	</section>
 {% endblock %}

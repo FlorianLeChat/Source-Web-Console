@@ -5,47 +5,38 @@
 {% block javascript %}
 	<script>
 		// Libellé demandant la suppression ou non du serveur actuel.
-		const edit_remove = "{{ dashboard_phrases["dashboard_edit_remove"] }}";
+		const edit_remove = "{{ t("dashboard.edit.remove")|trans }}";
 
-		// Libellés demandant le changement de l'adresse IP/port du serveur.
-		const edit_client_address = "{{ dashboard_phrases["dashboard_edit_client_address"] }}";
-		const edit_client_port = "{{ dashboard_phrases["dashboard_edit_client_port"] }}";
-
-		// Libellés demandant le changement de l'adresse IP/port du module d'administration.
-		const edit_admin_address = "{{ dashboard_phrases["dashboard_edit_admin_address"] }}";
-		const edit_admin_port = "{{ dashboard_phrases["dashboard_edit_admin_port"] }}";
-		const edit_admin_password = "{{ dashboard_phrases["dashboard_edit_admin_password"] }}";
-
-		// Libellés pour afficher les différents états du serveur.
-		const server_no_data = "{{ dashboard_phrases["dashboard_state_nodata"] }}";		// Hors service/aucune donnée.
-		const server_running = "{{ dashboard_phrases["dashboard_state_running"] }}";	// En fonctionnement.
-		const server_service = "{{ dashboard_phrases["dashboard_state_service"] }}";	// En maintenance/mise à jour.
+		// Libellés demandant le changement de l'adresse IP/port et le mot de passe du serveur.
+		const edit_address = "{{ t("dashboard.edit.address")|trans }}";
+		const edit_port = "{{ t("dashboard.edit.port")|trans }}";
+		const edit_password = "{{ t("dashboard.edit.password")|trans }}";
 	</script>
 {% endblock %}
 
 {# Contenu de la page demandé #}
 {% block content %}
 	{# Description de la page #}
-	<p>{{ dashboard_phrases["dashboard_description"] }}</p>
+	<p>{{ t("dashboard.description")|trans }}</p>
 
 	{# Sélection des serveurs #}
 	<section id="servers">
 		{# Titre de la section #}
-		<h2>{{ dashboard_phrases["dashboard_servers"] }}</h2>
+		<h2>{{ t("dashboard.servers")|trans }}</h2>
 
 		<ul>
 			{% for server in dashboard_servers %}
-				<li data-image="assets/images/games/{{ server["game_id"] }}_background.webp">
+				<li data-image="assets/images/games/{{ server.game }}_background.webp">
 					{# Construction de l'adresse IP #}
-					{% set address = server["admin_address"]|default(server["client_address"]) ~ ":" ~ server["admin_port"]|default(server["client_port"]) %}
+					{% set address = server.address ~ ":" ~ server.port %}
 
 					{# Informations générales #}
-					<span>{{ getNameByGameID(server["game_id"], address) ~ " (" ~ loop.index ~ ")" }}</span>
+					<span>{{ get_name_by_game_id(server.game, address) ~ " (" ~ loop.index ~ ")" }}</span>
 					<span>{{ address }}</span>
 
 					{# Édition des propriétés du serveur #}
 					<form method="POST">
-						<input type="hidden" name="server_id" value="{{ server["server_id"] }}" />
+						<input type="hidden" name="server_id" value="{{ server.id }}" />
 						<input type="hidden" name="server_action" value="edit" />
 
 						<button type="submit" name="server_edit">
@@ -55,7 +46,7 @@
 
 					{# Connexion directe au serveur #}
 					<form method="POST">
-						<input type="hidden" name="server_id" value="{{ server["server_id"] }}" />
+						<input type="hidden" name="server_id" value="{{ server.id }}" />
 						<input type="hidden" name="server_action" value="connect" />
 
 						<button type="submit" name="server_connect">
@@ -82,27 +73,27 @@
 	{# État général #}
 	<section id="state">
 		{# Titre de la section #}
-		<h3>{{ dashboard_phrases["dashboard_state"] }}</h3>
+		<h3>{{ t("dashboard.state.title")|trans }}</h3>
 
 		<ul>
 			<li>
 				{# Informations d'état #}
 				<div class="circle"></div>
-				<h4>{{ dashboard_phrases["dashboard_state_info"] }}</h4>
-				<em data-field="state">{{ dashboard_phrases["dashboard_state_nodata"] }}</em>
+				<h4>{{ t("dashboard.state.info")|trans }}</h4>
+				<em data-field="state">{{ t("dashboard.state.nodata")|trans }}</em>
 			</li>
 
 			<li>
 				{# Nom de la carte actuelle #}
 				<div class="circle"></div>
-				<h4>{{ dashboard_phrases["dashboard_state_map"] }}</h4>
+				<h4>{{ t("dashboard.state.map")|trans }}</h4>
 				<em data-field="map">gm_source</em>
 			</li>
 
 			<li>
 				{# Nombre de joueurs (robots compris) #}
 				<div class="circle"></div>
-				<h4>{{ dashboard_phrases["dashboard_state_players"] }}</h4>
+				<h4>{{ t("dashboard.state.players")|trans }}</h4>
 				<em data-field="players">0 / 0 [0]</em>
 			</li>
 		</ul>
@@ -111,7 +102,7 @@
 	{# Liste des joueurs #}
 	<section id="players">
 		{# Titre de la section #}
-		<h3>{{ dashboard_phrases["dashboard_players"] }}</h3>
+		<h3>{{ t("dashboard.players")|trans }}</h3>
 
 		{# Détails des joueurs #}
 		<ul></ul>
@@ -120,28 +111,27 @@
 	{# Actions rapides #}
 	<section id="actions">
 		{# Titre de la section #}
-		<h3>{{ header_phrases["header_search_title"] }}</h3>
+		<h3>{{ t("header.search.title")|trans }}</h3>
 
 		<ul>
 			<li data-action="shutdown">
 				{# Arrêter le serveur #}
-				{{ global_phrases["global_shutdown_title"] }}
-				<em>{{ global_phrases["global_shutdown_subtitle"] }}</em>
+				{{ t("global.shutdown")|trans }}
 			</li>
 
 			<li data-action="restart">
 				{# Redémarrer le serveur #}
-				{{ global_phrases["global_restart_title"] }}
+				{{ t("global.restart")|trans }}
 			</li>
 
 			<li data-action="update">
 				{# Mettre à jour le serveur #}
-				{{ global_phrases["global_update_title"] }}
+				{{ t("global.update")|trans }}
 			</li>
 
 			<li data-action="service">
 				{# Passer en mode de maintenance #}
-				{{ global_phrases["global_service_title"] }}
+				{{ t("global.service")|trans }}
 			</li>
 		</ul>
 	</section>
@@ -149,7 +139,7 @@
 	{# Dernière action réalisée #}
 	<section id="last">
 		{# Titre de la section #}
-		<h3>{{ dashboard_phrases["dashboard_actions"] }}</h3>
+		<h3>{{ t("dashboard.actions")|trans }}</h3>
 
 		{# Nom des dernières tâches (descendantes) #}
 		<ul>
@@ -162,7 +152,7 @@
 					<span>{{ logs["timestamp"]|date("H:m:s (d/m)") }}</span>
 
 					{# Titre de l'action #}
-					<em>{{ global_phrases["global_" ~ logs["action_type"] ~ "_title"]|default(logs["action_type"]|capitalize) }}</em>
+					<em>{{ t("global_" ~ logs["action_type"] ~ "_title")|trans|default(logs["action_type"]|capitalize) }}</em>
 				</li>
 			{% endfor %}
 		</ul>

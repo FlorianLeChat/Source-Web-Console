@@ -49,14 +49,10 @@ $( "[name = server_edit]" ).on( "click", ( event ) =>
 	}
 	else
 	{
-		// Adresse IP et port de communication du serveur.
-		parent.append( `<input type="hidden" name="client_address" value="${ prompt( edit_client_address ) }" />` );
-		parent.append( `<input type="hidden" name="client_port" value="${ prompt( edit_client_port ) }" />` );
-
-		// Adresse IP, port et mot de passe administrateur.
-		parent.append( `<input type="hidden" name="admin_address" value="${ prompt( edit_admin_address ) }" />` );
-		parent.append( `<input type="hidden" name="admin_port" value="${ prompt( edit_admin_port ) }" />` );
-		parent.append( `<input type="hidden" name="admin_password" value="${ prompt( edit_admin_password ) }" />` );
+		// Adresse IP, port et mot de passe du serveur.
+		parent.append( `<input type="hidden" name="address" value="${ prompt( edit_address ) }" />` );
+		parent.append( `<input type="hidden" name="port" value="${ prompt( edit_port ) }" />` );
+		parent.append( `<input type="hidden" name="password" value="${ prompt( edit_password ) }" />` );
 	}
 
 	// On force enfin la soumission du formulaire en indiquant

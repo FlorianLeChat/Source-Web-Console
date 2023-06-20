@@ -5,58 +5,58 @@
 {% block javascript %}
 	<script>
 		// Libellé demandant la suppression ou non d'une tâche planifiée.
-		const edit_remove = "{{ tasks_phrases["tasks_edit_remove"] }}";
+		const edit_remove = "{{ t("tasks_edit_remove")|trans }}";
 	</script>
 {% endblock %}
 
 {# Contenu de la page demandé #}
 {% block content %}
 	{# Description de la page #}
-	<p>{{ tasks_phrases["tasks_description"] }}</p>
+	<p>{{ t("tasks.description")|trans }}</p>
 
 	<section id="tasks">
 		{# Titre de la section #}
-		<h2>{{ header_phrases["header_subtitle_tasks"] }}</h2>
+		<h2>{{ t("header.subtitle.tasks")|trans }}</h2>
 
 		{# Visualisation des tâches planifiées #}
 		<table>
 			{# En-tête du tableau #}
 			<thead>
 				<tr>
-					<th>{{ tasks_phrases["tasks_server_label"] }}</th>
-					<th>{{ tasks_phrases["tasks_date_label"] }}</th>
-					<th>{{ tasks_phrases["tasks_action_label"] }}</th>
+					<th>{{ t("tasks.label.server")|trans }}</th>
+					<th>{{ t("tasks.label.date")|trans }}</th>
+					<th>{{ t("tasks.label.action")|trans }}</th>
 				</tr>
 			</thead>
 
 			{# Corps du tableau #}
 			<tbody>
 				{% for task in tasks_list %}
-					<tr data-task="{{ task["task_id"] }}" class="{{ task["state"] != "WAITING" ? "finished" : "" }}">
+					<tr data-task="{{ task.id }}" class="{{ task.state != "WAITING" ? "finished" : "" }}">
 						<td>
 							{# Récupération de l'indice de la boucle principale #}
 							{% set indice = loop.index %}
 
 							{# Détermination de certaines informations du serveur #}
 							{% for server in tasks_servers %}
-								{% if server["server_id"] == task["server_id"] %}
+								{% if server.id == task.server %}
 									{# Construction de l'adresse IP #}
-									{% set address = server["admin_address"]|default(server["client_address"]) ~ ":" ~ server["admin_port"]|default(server["client_port"]) %}
+									{% set address = server.address ~ ":" ~ server.port %}
 
 									{# Nom du serveur #}
-									{{ getNameByGameID(server["game_id"], address) ~ " (" ~ indice ~ ")" }}
+									{{ get_name_by_game_id(server.game, address) ~ " (" ~ indice ~ ")" }}
 
 									{# Adresse IP du serveur #}
-									<em data-server="{{ server["server_id"] }}">{{ server["admin_address"]|default(server["client_address"]) ~ ":" ~ server["admin_port"]|default(server["client_port"]) }}</em>
+									<em data-server="{{ server.id }}">{{ server.address ~ ":" ~ server.port }}</em>
 								{% endif %}
 							{% endfor %}
 						</td>
 
 						{# Date de déclenchement #}
-						<td>{{ task["date"]|date("H:m | d/m/Y") }}</td>
+						<td>{{ task.date|date("H:m | d/m/Y") }}</td>
 
 						{# Action de déclenchement #}
-						<td>{{ global_phrases["global_" ~ task["action"] ~ "_title"] }}</td>
+						<td>{{ t("global." ~ task["action"])|trans }}</td>
 					</tr>
 				{% endfor %}
 			</tbody>
@@ -66,11 +66,11 @@
 		<form novalidate>
 			{# Serveur concerné #}
 			<div>
-				<label for="server">{{ tasks_phrases["tasks_server_label"] }}</label>
+				<label for="server">{{ t("tasks.label.server")|trans }}</label>
 				<select name="server">
 					{% for server in tasks_servers %}
 						<li>
-							<option data-server="{{ server["server_id"] }}">{{ server["client_address"] ~ ":" ~ server["client_port"] }}</option>
+							<option data-server="{{ server.id }}">{{ server.address ~ ":" ~ server.port }}</option>
 						</li>
 					{% endfor %}
 				</select>
@@ -78,23 +78,23 @@
 
 			{# Date de déclenchement #}
 			<div>
-				<label for="date">{{ tasks_phrases["tasks_date_label"] }}</label>
+				<label for="date">{{ t("tasks.label.date")|trans }}</label>
 				<input type="datetime-local" name="date" />
 			</div>
 
 			{# Action de réalisation #}
 			<div>
-				<label for="action">{{ tasks_phrases["tasks_action_label"] }}</label>
+				<label for="action">{{ t("tasks.label.action")|trans }}</label>
 				<select name="action">
-					<option value="shutdown">{{ global_phrases["global_shutdown_title"] }}</option>
-					<option value="restart">{{ global_phrases["global_restart_title"] }}</option>
-					<option value="update">{{ global_phrases["global_update_title"] }}</option>
-					<option value="service">{{ global_phrases["global_service_title"] }}</option>
+					<option value="shutdown">{{ t("global.shutdown")|trans }}</option>
+					<option value="restart">{{ t("global.restart")|trans }}</option>
+					<option value="update">{{ t("global.update")|trans }}</option>
+					<option value="service">{{ t("global.service")|trans }}</option>
 				</select>
 			</div>
 
 			{# Validation finale #}
-			<input type="submit" value="{{ form_phrases["form_validate_button"] }}" />
+			<input type="submit" value="{{ t("form.validate_button")|trans }}" />
 		</form>
 	</section>
 {% endblock %}
