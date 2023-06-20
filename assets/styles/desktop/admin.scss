@@ -17,13 +17,14 @@ header
 // ---------------- //
 main
 {
+	margin: 0 auto 4rem auto;
 	display: grid;
-	padding: 2rem 5%;
-	min-height: calc(100vh - 6rem - $footer-height); // Padding haut/bas + espace grille + hauteur pied de page.
+	padding: 2rem;
+	max-width: 1440px;
 	text-align: center;
-	align-items: center;
+	align-items: start;
 	grid-row-gap: 2rem;
-	margin-bottom: 4rem;
+	justify-items: stretch;
 	grid-column-gap: 5%;
 	grid-template-columns: clamp(15rem, 17.5vw, 25rem) 1fr;
 

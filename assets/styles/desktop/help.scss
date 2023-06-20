@@ -8,12 +8,13 @@
 // ---------------- //
 main
 {
+	margin: 0 auto 4rem auto;
 	display: grid;
-	padding: 2rem 5%;
+	padding: 2rem;
+	max-width: 1440px;
 	text-align: center;
 	align-items: start;
 	grid-row-gap: 2rem;
-	margin-bottom: 4rem;
 	justify-items: stretch;
 	grid-column-gap: 5%;
 	grid-template-rows: auto 0.75fr auto auto;
