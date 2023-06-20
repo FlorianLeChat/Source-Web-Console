@@ -24,4 +24,11 @@ class AppRuntime implements RuntimeExtensionInterface
 	{
 		return $this->languages;
 	}
+
+	// Permet de récupérer le nom d'un jeu à partir de son identifiant.
+	public function getNameByGameID()
+	{
+		// TODO : remettre en place les anciennes fonctions.
+		return 4000;
+	}
 }

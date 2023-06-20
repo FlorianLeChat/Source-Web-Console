@@ -17,6 +17,7 @@ class AppExtension extends AbstractExtension
 	{
 		return [
 			new TwigFunction("get_languages", [AppRuntime::class, "getLanguages"]),
+			new TwigFunction("get_name_by_game_id", [AppRuntime::class, "getNameByGameID"]),
 		];
 	}
 }
