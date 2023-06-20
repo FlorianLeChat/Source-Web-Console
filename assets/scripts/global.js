@@ -51,16 +51,9 @@ $( "*[required]" ).on( "keyup", ( event ) =>
 		//  libellés qui définissent si le champ est obligatoire.
 		label = label.replaceAll( "*", "" );
 
-		// On remplace les informations pré-formatées dans le message
-		//  d'erreur par certaines données du champ de saisie.
-		let message = client_check_failed;
-		message = message.replace( "$1", label ); // Nom du champ.
-		message = message.replace( "$2", element.attr( "minLength" ) ); // Taille minimale.
-		message = message.replace( "$3", element.attr( "maxLength" ) ); // Taille maximale.
-
 		// On définit enfin le message d'erreur avant de l'afficher
 		//  progressivement avec une animation.
-		error.html( message );
+		error.html( element[ 0 ].validationMessage );
 		error.fadeIn( 200 );
 	}
 	else
