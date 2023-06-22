@@ -9,7 +9,6 @@ use App\Entity\User;
 use App\Entity\Server;
 use App\Entity\Contact;
 use Symfony\Component\Mime\Email;
-use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Mime\Crypto\DkimSigner;
@@ -46,10 +45,16 @@ class UserController extends AbstractController
 	// Route vers la page de l'espace utilisateur.
 	//
 	#[Route("/user")]
-	#[IsGranted("IS_AUTHENTICATED")]
 	public function index(): Response
 	{
-		// On affiche la page de l'espace utilisateur.
+		// On vérifie d'abord que l'utilisateur est bien connecté avant d'accéder
+		//  à la page, sinon on le redirige vers la page d'accueil.
+		if (!$this->isGranted("IS_AUTHENTICATED"))
+		{
+			return $this->redirectToRoute("app_index_index");
+		}
+
+		// On affiche enfin la page de l'espace utilisateur.
 		return $this->render("user.html.twig");
 	}
 

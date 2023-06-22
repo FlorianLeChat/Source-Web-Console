@@ -7,15 +7,21 @@ namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class StatisticsController extends AbstractController
 {
 	#[Route("/statistics")]
-	#[IsGranted("IS_AUTHENTICATED")]
 	public function index(): Response
 	{
+		// On vérifie d'abord que l'utilisateur est bien connecté avant d'accéder
+		//  à la page, sinon on le redirige vers la page d'accueil.
+		if (!$this->isGranted("IS_AUTHENTICATED"))
+		{
+			return $this->redirectToRoute("app_index_index");
+		}
+
+		// On affiche enfin la page des statistiques.
 		return $this->render("statistics.html.twig");
 	}
 }

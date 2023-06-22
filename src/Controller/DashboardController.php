@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DashboardController extends AbstractController
@@ -35,10 +34,16 @@ class DashboardController extends AbstractController
 	// Route vers la page du tableau de bord.
 	//
 	#[Route("/dashboard")]
-	#[IsGranted("IS_AUTHENTICATED")]
 	public function index(Request $request): Response
 	{
-		// On récupère d'abord le premier serveur lié au compte de l'utilisateur
+		// On vérifie d'abord que l'utilisateur est bien connecté avant d'accéder
+		//  à la page, sinon on le redirige vers la page d'accueil.
+		if (!$this->isGranted("IS_AUTHENTICATED"))
+		{
+			return $this->redirectToRoute("app_index_index");
+		}
+
+		// On récupère ensuite le premier serveur lié au compte de l'utilisateur
 		//  ou celui sélectionné par l'utilisateur.
 		$session = $request->getSession();
 		$serverRepository = $this->entityManager->getRepository(Server::class);
