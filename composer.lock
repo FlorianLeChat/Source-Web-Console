@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1932bb5e3daab6e4304b98684b1dd75d",
+    "content-hash": "ba6f4551cf11b79383f0eb33fe00c40f",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -7834,60 +7834,6 @@
                 }
             ],
             "time": "2020-12-04T08:20:42+00:00"
-        },
-        {
-            "name": "zytzagoo/smtp-validate-email",
-            "version": "v1.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/zytzagoo/smtp-validate-email.git",
-                "reference": "22fb5fed11608b66c0c64f8f2ed49f206295e90b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/zytzagoo/smtp-validate-email/zipball/22fb5fed11608b66c0c64f8f2ed49f206295e90b",
-                "reference": "22fb5fed11608b66c0c64f8f2ed49f206295e90b",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2||>=8"
-            },
-            "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
-                "phpcompatibility/php-compatibility": "^9.0",
-                "phpunit/phpunit": "^9.5",
-                "squizlabs/php_codesniffer": "^3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "SMTPValidateEmail\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-3.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Tomaš Trkulja [zytzagoo]",
-                    "email": "zyt@zytzagoo.net"
-                }
-            ],
-            "description": "Perform email address verification via SMTP",
-            "homepage": "https://github.com/zytzagoo/smtp-validate-email",
-            "keywords": [
-                "email",
-                "smtp",
-                "validator",
-                "verify"
-            ],
-            "support": {
-                "docs": "https://github.com/zytzagoo/smtp-validate-email",
-                "issues": "https://github.com/zytzagoo/smtp-validate-email/issues",
-                "source": "https://github.com/zytzagoo/smtp-validate-email"
-            },
-            "time": "2022-09-12T14:00:41+00:00"
         }
     ],
     "packages-dev": [
