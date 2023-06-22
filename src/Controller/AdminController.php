@@ -15,11 +15,17 @@ class AdminController extends AbstractController
 {
 	#[Route("/admin")]
 	#[IsGranted("ROLE_ADMIN")]
-	#[IsGranted("IS_AUTHENTICATED")]
 	public function index(EntityManagerInterface $entityManager): Response
 	{
-		// On récupère d'abord la connexion à la base de données avant
-		//  de récupérer les tables de la base de données.
+		// On vérifie d'abord que l'utilisateur est bien connecté avant d'accéder
+		//  à la page, sinon on le redirige vers la page d'accueil.
+		if (!$this->isGranted("IS_AUTHENTICATED"))
+		{
+			return $this->redirectToRoute("app_index_index");
+		}
+
+		// On récupère ensuite la connexion à la base de données avant
+		//  de récupérer toutes les tables de la base de données.
         $doctrine = $entityManager->getConnection();
         $result = $doctrine->executeQuery("SHOW TABLES;");
 
