@@ -13,6 +13,7 @@ header:
         title: "Quick actions"
         placeholder: "Search..."
     subtitle:
+        help: "User support"
         user: "User account"
         admin: "Administration"
         tasks: "Scheduled tasks"
