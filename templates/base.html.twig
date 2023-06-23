@@ -63,13 +63,13 @@
 		{{ encore_entry_script_tags(route_name) }}
 
 		{# Icônes et manifeste du document #}
-		<link rel="icon" type="image/webp" sizes="16x16" href="{{ asset('build/favicons/16x16.webp') }}" />
-		<link rel="icon" type="image/webp" sizes="32x32" href="{{ asset('build/favicons/32x32.webp') }}" />
-		<link rel="icon" type="image/webp" sizes="48x48" href="{{ asset('build/favicons/48x48.webp') }}" />
-		<link rel="icon" type="image/webp" sizes="192x192" href="{{ asset('build/favicons/192x192.webp') }}" />
-		<link rel="icon" type="image/webp" sizes="512x512" href="{{ asset('build/favicons/512x512.webp') }}" />
+		<link rel="icon" type="image/webp" sizes="16x16" href="{{ asset("build/favicons/16x16.webp") }}" />
+		<link rel="icon" type="image/webp" sizes="32x32" href="{{ asset("build/favicons/32x32.webp") }}" />
+		<link rel="icon" type="image/webp" sizes="48x48" href="{{ asset("build/favicons/48x48.webp") }}" />
+		<link rel="icon" type="image/webp" sizes="192x192" href="{{ asset("build/favicons/192x192.webp") }}" />
+		<link rel="icon" type="image/webp" sizes="512x512" href="{{ asset("build/favicons/512x512.webp") }}" />
 
-		<link rel="apple-touch-icon" href="{{ asset('build/favicons/180x180.webp') }}" />
+		<link rel="apple-touch-icon" href="{{ asset("build/favicons/180x180.webp") }}" />
 		<link rel="manifest" href="manifest.json" />
 	</head>
 
@@ -81,7 +81,7 @@
 		<header>
 			{% block header %}
 				{# Logo du site #}
-				<img src="{{ asset('build/images/logo.svg') }}" alt="Logo" decoding="async" />
+				<img src="{{ asset("build/images/logo.svg") }}" alt="Logo" decoding="async" />
 
 				{# Titre du site #}
 				<h1>{{ t("header.title")|trans }}</h1>

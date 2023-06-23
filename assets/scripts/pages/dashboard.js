@@ -13,7 +13,19 @@ import { addQueuedNotification, sendRemoteAction } from "../functions";
 //
 $( "li[data-image]" ).each( ( indice, server ) =>
 {
-	$( `<style>#servers li:nth-of-type(${ indice }):before { background-image: url(${ $( server ).attr( "data-image" ) })</style>` ).appendTo( "head" );
+	const image = $( server ).attr( "data-image" );
+
+	if ( !image.endsWith( "0_background.webp" ) )
+	{
+		$( `
+			<style>
+				#servers li:nth-of-type(${ indice + 1 }):before
+				{
+					background-image: url(${ image });
+				}
+			</style>
+		` ).appendTo( "head" );
+	}
 } );
 
 //
