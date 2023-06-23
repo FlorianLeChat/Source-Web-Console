@@ -5,14 +5,15 @@ services:
     App\:
         resource: "../src/"
         exclude:
-            - "../src/DependencyInjection/"
             - "../src/Entity/"
             - "../src/Kernel.php"
+            - "../src/DependencyInjection/"
+    xPaw\SourceQuery\SourceQuery:
     App\EventSubscriber\LocaleSubscriber:
         arguments: ["%kernel.default_locale%"]
     App\Twig\AppRuntime:
-        arguments: ["@translator"]
         tags: ["twig.runtime"]
+        arguments: ["@translator"]
     Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler:
         arguments:
             - "mysql:dbname=%env(DATABASE_NAME)%; host=%env(DATABASE_HOST)%; port=%env(DATABASE_PORT)%"
