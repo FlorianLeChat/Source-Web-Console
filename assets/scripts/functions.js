@@ -91,56 +91,6 @@ setInterval( () =>
 }, 500 );
 
 //
-// Permet d'obtenir le texte de réponse adéquat en fonction du code HTTP.
-//  Note : cette fonctionnalité est présente par défaut avec le protocole
-//   HTTP/1.1 mais complètement abandonnée avec HTTP/2 et HTTP/3.
-//  Sources : https://github.com/whatwg/fetch/issues/599 / https://fetch.spec.whatwg.org/#concept-response-status-message
-//
-export function getStatusText( response, code )
-{
-	// On vérifie si la réponse originale n'est pas vide.
-	//  Note : cela peut être le cas sur un serveur de développement
-	//   mais aussi sur certains navigateurs comme Firefox.
-	if ( response !== "" )
-	{
-		return response;
-	}
-
-	// Dans le cas contraire, on retourne manuellement une liste réduite
-	//  de réponses en fonction du code actuel.
-	//  Source : https://searchfox.org/mozilla-central/rev/a5102e7f8ec3cda922b7c012b732a1efaff0e732/netwerk/protocol/http/nsHttpResponseHead.cpp#340
-	switch ( code )
-	{
-		case 200:
-			return "OK";
-		case 404:
-			return "Not Found";
-		case 301:
-			return "Moved Permanently";
-		case 307:
-			return "Temporary Redirect";
-		case 400:
-			return "Bad Request";
-		case 401:
-			return "Unauthorized";
-		case 402:
-			return "Payment Required";
-		case 403:
-			return "Forbidden";
-		case 405:
-			return "Method Not Allowed";
-		case 408:
-			return "Request Timeout";
-		case 429:
-			return "Too Many Requests";
-		case 500:
-			return "Internal Server Error";
-		default:
-			return "No Reason Phrase";
-	}
-}
-
-//
 // Permet d'envoyer les commandes et actions vers un serveur distant.
 //
 export function sendRemoteAction( action, value )
@@ -165,10 +115,9 @@ export function sendRemoteAction( action, value )
 				addQueuedNotification( data, 3 );
 			}
 		} )
-		.fail( ( self, _status, error ) =>
+		.fail( ( self ) =>
 		{
-			// Dans le cas contraire, on affiche une notification
-			//  d'échec avec les informations à notre disposition.
-			addQueuedNotification( self.responseText.replace( "$1", getStatusText( error, self.status ) ), 1 );
+			// Dans le cas contraire, on affiche un message d'erreur.
+			addQueuedNotification( self.responseText, 1 );
 		} );
 }

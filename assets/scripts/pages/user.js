@@ -5,7 +5,7 @@ import "../../styles/tablet/user.scss";
 
 // Importation des fonctions et constantes globales.
 import "../global";
-import { addQueuedNotification, getStatusText } from "../functions";
+import { addQueuedNotification } from "../functions";
 
 //
 // Permet d'envoyer les demandes de modification ou de suppression
@@ -45,11 +45,10 @@ $( "#account input[data-action]" ).on( "click", ( event ) =>
 			// On affiche la notification de confirmation.
 			addQueuedNotification( data, 3 );
 		} )
-		.fail( ( self, _status, error ) =>
+		.fail( ( self ) =>
 		{
-			// Dans le cas contraire, on affiche une notification
-			//  d'échec avec les informations à notre disposition.
-			addQueuedNotification( self.responseText.replace( "$1", getStatusText( error, self.status ) ), 1 );
+			// Dans le cas contraire, on affiche un message d'erreur.
+			addQueuedNotification( self.responseText, 1 );
 		} );
 
 	// On réinitialise enfin le formulaire après une
@@ -96,11 +95,10 @@ $( "#actions input[type = submit]" ).on( "click", ( event ) =>
 				window.location.href = "";
 			}, 5000 );
 		} )
-		.fail( ( self, _status, error ) =>
+		.fail( ( self ) =>
 		{
-			// Dans le cas contraire, on affiche une notification
-			//  d'échec avec les informations à notre disposition.
-			addQueuedNotification( self.responseText.replace( "$1", getStatusText( error, self.status ) ), 1 );
+			// Dans le cas contraire, on affiche un message d'erreur.
+			addQueuedNotification( self.responseText, 1 );
 		} );
 } );
 
@@ -147,11 +145,10 @@ $( "#register input[type = submit]" ).on( "click", ( event ) =>
 			// On affiche la notification de confirmation.
 			addQueuedNotification( data, 3 );
 		} )
-		.fail( ( self, _status, error ) =>
+		.fail( ( self ) =>
 		{
-			// Dans le cas contraire, on affiche une notification
-			//  d'échec avec les informations à notre disposition.
-			addQueuedNotification( self.responseText.replace( "$1", getStatusText( error, self.status ) ), 1 );
+			// Dans le cas contraire, on affiche un message d'erreur.
+			addQueuedNotification( self.responseText, 1 );
 		} );
 
 	// On réinitialise enfin le formulaire.

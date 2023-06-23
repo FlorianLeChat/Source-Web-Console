@@ -4,7 +4,7 @@ global:
     restart: "Restart"
     service: "Service"
     shutdown: "Shutdown"
-    fatal_error: "An internal error occurred while retrieving information from the server. Please refresh the page to restart the monitoring. Message: « $1 »."
+    fatal_error: "An internal error occurred while retrieving information from the server. Please refresh the page to restart the monitoring. Message: \"$1\"."
     action_success: "The desired request has been successfully sent to the remote server. In some cases, there may be side effects depending on your server configuration."
 
 header:
@@ -42,7 +42,7 @@ language:
 form:
     register:
         server: "Server information"
-        failed: "An internal error occurred when you registered on the website. Response: \"$1\"."
+        failed: "An internal error occurred when you registered on the website."
         success: "Your user account has been successfully created. You will be redirected automatically in a few seconds."
         onetime: "Your one-time access has been successfully created. You will be able to keep this access during your session. Once expired, you will have to recreate an access again. Please note that this method has limited features."
         username: "Choose a username"
@@ -60,7 +60,7 @@ form:
             description: "The administrator password is used to connect to the server administration module API. This allows to perform actions and commands remotely without human intervention."
     contact:
         email: "Enter your email address"
-        failed: "An internal error occurred when sending your message to the website. Response: \"$1\"."
+        failed: "An internal error occurred when sending your message to the website."
         success: "The message has been sent successfully. You will receive a reply as soon as possible."
         content: "Specify the content of your message"
         mailing: "Your message for support has been sent. You will receive a reply within 24 hours.\n\nHere is the summary of your message:\n\n%s"
@@ -72,7 +72,7 @@ form:
         description: "This form lets you send a support message to the website administrators. You will receive an answer by the email address you entered within a few hours/days. Any abuse will be prosecuted."
     login:
         links: "No account? <a href=\"javascript:void(0);\">Register</a> or switch to a <a href=\"javascript:void(0);\">one-shot login</a>.\nIf not, you may have <a href=\"javascript:void(0);\">lost your password</a>?"
-        failed: "An internal error occurred while connecting to your user account. Response: \"$1\"."
+        failed: "An internal error occurred while connecting to your user account."
         success: "You are now connected to your user account. You will be redirected automatically in a few seconds."
         invalid: "The provided credentials are invalid or do not exist."
         recover: "If the provided username is valid, then the new password has been updated."
@@ -85,7 +85,6 @@ form:
     clear_password: "Reveal the password"
     validate_button: "Validate"
     capslock_warning: "The caps lock keys are activated."
-    client_check_failed: "The \"$1\" field must be at least $2 and less than $3 characters long."
     server_check_failed: "The information provided did not allow this query to be completed."
 
 legal:

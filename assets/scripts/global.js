@@ -1,7 +1,7 @@
 // Importation des fonctions et constantes communes.
 import "./cookies";
 import "./analytics";
-import { addQueuedNotification, getStatusText } from "./functions";
+import { addQueuedNotification } from "./functions";
 
 //
 // Permet d'afficher des messages d'avertissement lorsqu'un utilisateur
@@ -171,11 +171,10 @@ contact.find( "form" ).on( "submit", ( event ) =>
 			contact.find( "form" )[ 0 ].reset();
 			contact.fadeOut( 150 );
 		} )
-		.fail( ( self, _status, error ) =>
+		.fail( ( self ) =>
 		{
-			// Dans le cas contraire, on affiche une notification
-			//  d'échec avec les informations à notre disposition.
-			addQueuedNotification( self.responseText.replace( "$1", getStatusText( error, self.status ) ), 1 );
+			// Dans le cas contraire, on affiche un message d'erreur.
+			addQueuedNotification( self.responseText, 1 );
 		} );
 } );
 

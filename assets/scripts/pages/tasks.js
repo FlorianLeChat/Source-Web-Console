@@ -5,7 +5,7 @@ import "../../styles/tablet/tasks.scss";
 
 // Importation des fonctions et constantes communes.
 import "../global";
-import { addQueuedNotification, getStatusText } from "../functions";
+import { addQueuedNotification } from "../functions";
 
 //
 // Permet de gérer les demandes de suppression de tâches planifiées
@@ -39,11 +39,10 @@ $( "table tr:not([class = finished])" ).on( "click", ( event ) =>
 					window.location.reload();
 				}, 3000 );
 			} )
-			.fail( ( self, _status, error ) =>
+			.fail( ( self ) =>
 			{
-				// Dans le cas contraire, on affiche une notification
-				//  d'échec avec les informations à notre disposition.
-				addQueuedNotification( self.responseText.replace( "$1", getStatusText( error, self.status ) ), 1 );
+				// Dans le cas contraire, on affiche un message d'erreur.
+				addQueuedNotification( self.responseText, 1 );
 			} );
 	}
 } );
@@ -83,10 +82,9 @@ $( "form input[type = submit]" ).on( "click", ( event ) =>
 				window.location.reload();
 			}, 3000 );
 		} )
-		.fail( ( self, _status, error ) =>
+		.fail( ( self ) =>
 		{
-			// Dans le cas contraire, on affiche une notification
-			//  d'échec avec les informations à notre disposition.
-			addQueuedNotification( self.responseText.replace( "$1", getStatusText( error, self.status ) ), 1 );
+			// Dans le cas contraire, on affiche un message d'erreur.
+			addQueuedNotification( self.responseText, 1 );
 		} );
 } );

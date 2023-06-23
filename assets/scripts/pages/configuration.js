@@ -5,7 +5,7 @@ import "../../styles/tablet/configuration.scss";
 
 // Importation des fonctions et constantes communes.
 import "../global";
-import { addQueuedNotification, getStatusText } from "../functions";
+import { addQueuedNotification } from "../functions";
 
 //
 // Permet d'enregistrer ou de mettre à jour les données du
@@ -48,11 +48,10 @@ $( "form input[type = submit]" ).on( "click", ( event ) =>
 				addQueuedNotification( data, 3 );
 			}
 		} )
-		.fail( ( self, _status, error ) =>
+		.fail( ( self ) =>
 		{
-			// Dans le cas contraire, on affiche une notification
-			//  d'échec avec les informations à notre disposition.
-			addQueuedNotification( self.responseText.replace( "$1", getStatusText( error, self.status ) ), 1 );
+			// Dans le cas contraire, on affiche un message d'erreur.
+			addQueuedNotification( self.responseText, 1 );
 		} );
 } );
 
@@ -88,10 +87,9 @@ $( "button[data-type]" ).on( "click", ( event ) =>
 				addQueuedNotification( data, 3 );
 			}
 		} )
-		.fail( ( self, _status, error ) =>
+		.fail( ( self ) =>
 		{
-			// Dans le cas contraire, on affiche une notification
-			//  d'échec avec les informations à notre disposition.
-			addQueuedNotification( self.responseText.replace( "$1", getStatusText( error, self.status ) ), 1 );
+			// Dans le cas contraire, on affiche un message d'erreur.
+			addQueuedNotification( self.responseText, 1 );
 		} );
 } );
