@@ -9,11 +9,11 @@ export function addQueuedNotification( text, type )
 {
 	// On ajoute la notification dans une file d'attente
 	//  afin d'être traitée les uns après les autres.
-	messageQueue[ counter ] = [ text, type ];
+	messageQueue[ counter ] = [ text.substring( 0, 500 ), type ];
 	counter++;
 }
 
-export function processNotification( text, type )
+function processNotification( text, type )
 {
 	// On vérifie tout d'abord si une notification est déjà
 	//  actuellement visible.
@@ -26,7 +26,7 @@ export function processNotification( text, type )
 
 	// On apparaître ensuite le bloc avant de définir
 	//  le texte passé en paramètre de la fonction.
-	notification.find( "span" ).html( text );
+	notification.find( "span" ).text( text );
 	notification.addClass( "show" );
 
 	// On récupère après l'icône associé au conteneur.
