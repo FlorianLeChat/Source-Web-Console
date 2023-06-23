@@ -11,7 +11,7 @@ import { addQueuedNotification } from "../functions";
 // Permet d'envoyer les demandes de modification ou de suppression
 //  des informations d'authentification vers le serveur.
 //
-$( "#account input[data-action]" ).on( "click", ( event ) =>
+$( "#account input[data-action]" ).on( "click", async ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -25,31 +25,27 @@ $( "#account input[data-action]" ).on( "click", ( event ) =>
 		return;
 	}
 
-	// On réalise ensuite la requête AJAX.
+	// On réalise alors la requête AJAX.
 	const form = $( "#account" );
+	const response = await fetch( `api/user/${ action }`, {
+		method: action === "update" ? "PUT" : "DELETE",
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded"
+		},
+		body: new URLSearchParams( {
+			// Jeton de sécurité (CSRF).
+			token: form.find( `input[name = token-${ action }]` ).val(),
 
-	$.post( `api/user/${ action }`, {
+			// Valeur du nouveau nom d'utilisateur.
+			username: form.find( "input[name = username]" ).val(),
 
-		// Jeton de sécurité (CSRF).
-		token: form.find( `input[name = token-${ action }]` ).val(),
-
-		// Valeur du nouveau nom d'utilisateur.
-		username: form.find( "input[name = username]" ).val(),
-
-		// Valeur du nouveau mot de passe.
-		password: form.find( "input[name = password]" ).val()
-
-	} )
-		.done( ( data ) =>
-		{
-			// On affiche la notification de confirmation.
-			addQueuedNotification( data, 3 );
+			// Valeur du nouveau mot de passe.
+			password: form.find( "input[name = password]" ).val()
 		} )
-		.fail( ( self ) =>
-		{
-			// Dans le cas contraire, on affiche un message d'erreur.
-			addQueuedNotification( self.responseText, 1 );
-		} );
+	} );
+
+	// On affiche ensuite un message de confirmation ou d'erreur.
+	addQueuedNotification( await response.text(), response.ok ? 3 : 1 );
 
 	// On réinitialise enfin le formulaire après une
 	//  mise à jour des informations.
@@ -63,7 +59,7 @@ $( "#account input[data-action]" ).on( "click", ( event ) =>
 // Permet d'envoyer les demandes de déconnexion et de reconnexion
 //  au compte utilisateur.
 //
-$( "#actions input[type = submit]" ).on( "click", ( event ) =>
+$( "#actions input[type = submit]" ).on( "click", async ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -72,34 +68,36 @@ $( "#actions input[type = submit]" ).on( "click", ( event ) =>
 	const form = $( "#actions" );
 	const action = $( event.target ).attr( "data-action" );
 
-	$.post( `api/user/${ action }`, {
+	const response = await fetch( `api/user/${ action }`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded"
+		},
+		body: new URLSearchParams( {
+			// Jeton de sécurité (CSRF).
+			token: form.find( `input[name = token-${ action }]` ).val(),
 
-		// Jeton de sécurité (CSRF).
-		token: form.find( `input[name = token-${ action }]` ).val(),
+			// Valeur du nouveau nom d'utilisateur.
+			username: form.find( "input[name = username]" ).val(),
 
-		// Valeur du nouveau nom d'utilisateur.
-		username: form.find( "input[name = username]" ).val(),
-
-		// Valeur du nouveau mot de passe.
-		password: form.find( "input[name = password]" ).val()
-
-	} )
-		.done( ( data ) =>
-		{
-			// Une fois terminée, on affiche un message de confirmation.
-			addQueuedNotification( data, 3 );
-
-			// On redirige l'utilisateur quelques instants après.
-			setTimeout( () =>
-			{
-				window.location.href = "";
-			}, 5000 );
+			// Valeur du nouveau mot de passe.
+			password: form.find( "input[name = password]" ).val()
 		} )
-		.fail( ( self ) =>
+	} );
+
+	// On affiche après un message de confirmation ou d'erreur.
+	addQueuedNotification( await response.text(), response.ok ? 3 : 1 );
+
+	// On vérifie si la requête a été effectuée avec succès.
+	if ( response.ok )
+	{
+		// Dans ce cas, on réinitialise enfin l'entièreté du formulaire
+		//  avant de le fermer au bout de 3 secondes.
+		setTimeout( () =>
 		{
-			// Dans le cas contraire, on affiche un message d'erreur.
-			addQueuedNotification( self.responseText, 1 );
-		} );
+			window.location.href = "";
+		}, 3000 );
+	}
 } );
 
 //

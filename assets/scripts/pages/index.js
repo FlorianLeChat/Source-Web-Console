@@ -33,7 +33,7 @@ header.last().find( "button" ).on( "click", () =>
 const firstStep = register.first();
 const lastStep = register.last();
 
-register.find( "form" ).on( "submit", ( event ) =>
+register.find( "form" ).on( "submit", async ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -50,47 +50,48 @@ register.find( "form" ).on( "submit", ( event ) =>
 	}
 	else
 	{
-		// Dans le cas contraire, on réalise une requête AJAX pour
-		//  envoyer les informations au serveur.
-		$.post( "api/user/register", {
+		// Dans le cas contraire, on réalise alors une requête AJAX
+		//  pour envoyer les informations au serveur.
+		const response = await fetch( "api/user/register", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded"
+			},
+			body: new URLSearchParams( {
+				// Jeton de sécurité (CSRF).
+				token: login.find( "input[name = token]" ).val(),
 
-			// Jeton de sécurité (CSRF).
-			token: login.find( "input[name = token]" ).val(),
+				// Nom d'utilisateur et mot de passe du compte utilisateur.
+				username: firstStep.find( "input[name = username]" ).val(),
+				password: firstStep.find( "input[name = password]" ).val(),
 
-			// Nom d'utilisateur et mot de passe du compte utilisateur.
-			username: firstStep.find( "input[name = username]" ).val(),
-			password: firstStep.find( "input[name = password]" ).val(),
-
-			// Informations du serveur.
-			server_address: lastStep.find( "input[name = server_address]" ).val(),
-			server_port: lastStep.find( "input[name = server_port]" ).val(),
-			server_password: lastStep.find( "input[name = server_password]" ).val()
-
-		} )
-			.done( ( data ) =>
-			{
-				// Une fois terminée, on affiche un message de confirmation.
-				addQueuedNotification( data, 2 );
-
-				// On réinitialise alors les deux formulaires avant
-				//  de fermer le second.
-				firstStep.find( "form" )[ 0 ].reset();
-				lastStep.find( "form" )[ 0 ].reset();
-
-				lastStep.fadeOut( 150 );
-
-				// On effectue enfin la redirection de l'utilisateur
-				//  vers le tableau de bord au bout de 5 secondes.
-				setTimeout( () =>
-				{
-					window.location.href = "dashboard";
-				}, 3000 );
+				// Informations du serveur.
+				server_address: lastStep.find( "input[name = server_address]" ).val(),
+				server_port: lastStep.find( "input[name = server_port]" ).val(),
+				server_password: lastStep.find( "input[name = server_password]" ).val()
 			} )
-			.fail( ( self ) =>
+		} );
+
+		// On affiche après un message de confirmation ou d'erreur.
+		addQueuedNotification( await response.text(), response.ok ? 2 : 1 );
+
+		// On vérifie si la requête a été effectuée avec succès.
+		if ( response.ok )
+		{
+			// Si c'est le cas, on réinitialise les deux formulaires
+			//  avant de fermer le second.
+			firstStep.find( "form" )[ 0 ].reset();
+			lastStep.find( "form" )[ 0 ].reset();
+
+			lastStep.fadeOut( 150 );
+
+			// On effectue enfin la redirection de l'utilisateur
+			//  vers le tableau de bord au bout de 5 secondes.
+			setTimeout( () =>
 			{
-				// Dans le cas contraire, on affiche un message d'erreur.
-				addQueuedNotification( self.responseText, 1 );
-			} );
+				window.location.href = "dashboard";
+			}, 3000 );
+		}
 	}
 } );
 
@@ -120,48 +121,50 @@ register.find( "input[type = reset]" ).on( "click", () =>
 //
 // Permet de gérer les mécanismes du formulaire de connexion.
 //
-login.find( "input[type = submit]" ).on( "click", ( event ) =>
+login.find( "input[type = submit]" ).on( "click", async ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
 
 	// On réalise ensuite la requête AJAX.
-	$.post( "api/user/login", {
+	const response = await fetch( "api/user/login", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded"
+		},
+		body: new URLSearchParams( {
+			// Jeton de sécurité (CSRF).
+			token: login.find( "input[name = token]" ).val(),
 
-		// Jeton de sécurité (CSRF).
-		token: login.find( "input[name = token]" ).val(),
+			// Nom d'utilisateur.
+			username: login.find( "input[name = username]" ).val(),
 
-		// Nom d'utilisateur.
-		username: login.find( "input[name = username]" ).val(),
+			// Mot de passe.
+			password: login.find( "input[name = password]" ).val(),
 
-		// Mot de passe.
-		password: login.find( "input[name = password]" ).val(),
-
-		// Option de maintien de connexion.
-		_remember_me: login.find( "input[id = remember_me]" ).is( ":checked" )
-
-	} )
-		.done( ( data ) =>
-		{
-			// Une fois terminée, on affiche un message de confirmation.
-			addQueuedNotification( data, 2 );
-
-			// On réinitialise alors l'entièreté du formulaire avant de le fermer.
-			login.find( "form" )[ 0 ].reset();
-			login.fadeOut( 150 );
-
-			// On effectue enfin la redirection de l'utilisateur
-			//  vers le tableau de bord au bout de 5 secondes.
-			setTimeout( () =>
-			{
-				window.location.href = "dashboard";
-			}, 3000 );
+			// Option de maintien de connexion.
+			_remember_me: login.find( "input[id = remember_me]" ).is( ":checked" )
 		} )
-		.fail( ( self ) =>
+	} );
+
+	// On affiche après un message de confirmation ou d'erreur.
+	addQueuedNotification( await response.text(), response.ok ? 3 : 1 );
+
+	// On vérifie si la requête a été effectuée avec succès.
+	if ( response.ok )
+	{
+		// Si c'est le cas, on réinitialise les deux formulaires
+		//  avant de fermer le second.
+		login.find( "form" )[ 0 ].reset();
+		login.fadeOut( 150 );
+
+		// On effectue enfin la redirection de l'utilisateur
+		//  vers le tableau de bord au bout de 5 secondes.
+		setTimeout( () =>
 		{
-			// Dans le cas contraire, on affiche un message d'erreur.
-			addQueuedNotification( self.responseText, 1 );
-		} );
+			window.location.href = "dashboard";
+		}, 3000 );
+	}
 } );
 
 login.find( "input[type = reset]" ).on( "click", () =>
