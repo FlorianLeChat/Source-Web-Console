@@ -67,103 +67,52 @@ $( "[name = server_edit]" ).on( "click", ( event ) =>
 //
 let timer;
 
-function retrieveRemoteData()
+async function retrieveRemoteData()
 {
 	// On réalise d'abord la requête AJAX.
-	$.post( "includes/controllers/server_monitoring.php" )
-		.done( ( data ) =>
+	const response = await fetch( "api/server/monitor" );
+
+	// On vérifie ensuite si la requête a été effectuée avec succès.
+	if ( response.ok )
+	{
+		// Une fois terminée, on récupère les données sous format JSON.
+		const data = await response.json();
+
+		// Affichage de l'état de fonctionnement.
+		$( "[data-field = state]" ).text( data.state );
+
+		// Affichage de la carte actuelle.
+		$( "[data-field = map]" ).text( data.map );
+
+		// Affichage du nombre de joueurs/clients.
+		$( "[data-field = players]" ).text( data.count );
+
+		// Affichage de la liste des joueurs.
+		const players = $( "#players ul" );
+		players.empty();
+
+		data.players.forEach( ( player ) =>
 		{
-			// Une fois terminée, on affiche la réponse JSON du
-			//  serveur sous forme d'une liste numérique.
-			const json = JSON.parse( data );
-
-			// On vérifie ensuite s'il ne s'agit pas d'une erreur,
-			//  dans ce cas, on affiche une notification avant de
-			//  casser définitivement le minuteur.
-			if ( json.hasOwnProperty( "error" ) )
-			{
-				clearInterval( timer );
-				addQueuedNotification( self.responseText.replace( "$1", json.error ), 1 );
-				return;
-			}
-
-			// Affichage de l'état de fonctionnement.
-			const stateField = $( "[data-field = state]" );
-
-			if ( json.hasOwnProperty( "gamemode" ) )
-			{
-				// Vérification de l'état (maintenance ou en fonctionnement).
-				if ( json.password === true )
-				{
-					// Serveur sécurisé par mot de passe, maintenance ou mise à jour en cours.
-					stateField.html( server_service.replace( "$1", json.gamemode ) );
-				}
-				else
-				{
-					// Serveur en fonctionnement standard.
-					stateField.html( server_running.replace( "$1", json.gamemode ) );
-				}
-			}
-			else
-			{
-				// Information par défaut.
-				stateField.html( server_no_data );
-			}
-
-			// Affichage de la carte actuelle.
-			const mapsField = $( "[data-field = map]" );
-
-			if ( json.hasOwnProperty( "maps" ) )
-			{
-				// Information du serveur.
-				mapsField.html( json.maps );
-			}
-			else
-			{
-				// Information par défaut.
-				mapsField.html( "gm_source" );
-			}
-
-			// Affichage du nombre de joueurs/clients.
-			const countField = $( "[data-field = players]" );
-
-			if ( json.hasOwnProperty( "players" ) && json.hasOwnProperty( "max_players" ) && json.hasOwnProperty( "bots" ) )
-			{
-				// Information du serveur.
-				countField.html( `${ json.players } / ${ json.max_players } [${ json.bots }]` );
-			}
-			else
-			{
-				// Information par défaut.
-				countField.html( "0 / 0 [0]" );
-			}
-
-			// Affichage de la liste des joueurs.
-			const playerList = $( "#players ul" );
-			playerList.empty();
-
-			json.playerList.forEach( ( player ) =>
-			{
-				playerList.append( `<li>[${ player.index }] ${ player.name }</li>` );
-			} );
-		} )
-		.fail( ( self ) =>
-		{
-			// Dans le cas contraire, on affiche un message d'erreur
-			//  avant de supprimer le minuteur.
-			clearInterval( timer );
-			addQueuedNotification( self.responseText, 1 );
+			players.append( `<li>[${ player.index }] ${ player.name }</li>` );
 		} );
+	}
+	else
+	{
+		// Dans le cas contraire, on affiche enfin un message d'erreur
+		//  avant de supprimer le minuteur.
+		clearInterval( timer );
+		addQueuedNotification( self.responseText, 1 );
+	}
 }
 
 // Récupération des informations au démarrage.
 retrieveRemoteData();
 
-// Récupération des informations toutes les 5 secondes.
+// Récupération des informations toutes les 3 secondes.
 timer = setInterval( () =>
 {
 	retrieveRemoteData();
-}, 5000 );
+}, 3000 );
 
 //
 // Permet d'envoyer des requêtes d'action lors du clic sur l'un des

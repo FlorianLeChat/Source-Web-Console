@@ -4,7 +4,7 @@ global:
     restart: "Restart"
     service: "Service"
     shutdown: "Shutdown"
-    fatal_error: "An internal error occurred while retrieving information from the server. Please refresh the page to restart the monitoring. Message: \"$1\"."
+    fatal_error: "An internal error occurred while retrieving information from the server. Please refresh the page to restart the monitoring. Message: \"%error%\"."
     action_success: "The desired request has been successfully sent to the remote server. In some cases, there may be side effects depending on your server configuration."
 
 header:
@@ -202,8 +202,8 @@ dashboard:
         title: "General state"
         nodata: "No signal\r\n(Unknown)"
         players: "Player count"
-        service: "In servicing\r\n($1)"
-        running: "Operating\r\n($1)"
+        service: "In servicing\r\n(%gamemode%)"
+        running: "Operating\r\n(%gamemode%)"
     edit:
         port: "Type the communication port of the server.\\nLeave blank for no change."
         remove: "Do you want to delete this server?"
