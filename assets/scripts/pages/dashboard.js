@@ -5,7 +5,7 @@ import "../../styles/tablet/dashboard.scss";
 
 // Importation des fonctions et constantes communes.
 import "../global";
-import { addQueuedNotification, sendRemoteAction, getStatusText } from "../functions";
+import { addQueuedNotification, sendRemoteAction } from "../functions";
 
 //
 // Permet d'appliquer les images en arrière-plan des serveurs
@@ -147,17 +147,12 @@ function retrieveRemoteData()
 				playerList.append( `<li>[${ player.index }] ${ player.name }</li>` );
 			} );
 		} )
-		.fail( ( self, _status, error ) =>
+		.fail( ( self ) =>
 		{
-			// Dans le cas contraire, on affiche une notification
-			//  d'échec avec les informations à notre disposition
-			//  avant de casser définitivement le minuteur.
+			// Dans le cas contraire, on affiche un message d'erreur
+			//  avant de supprimer le minuteur.
 			clearInterval( timer );
-
-			if ( self.status !== 400 )
-			{
-				addQueuedNotification( self.responseText.replace( "$1", getStatusText( error, self.status ) ), 1 );
-			}
+			addQueuedNotification( self.responseText, 1 );
 		} );
 }
 

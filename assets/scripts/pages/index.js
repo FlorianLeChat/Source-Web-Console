@@ -5,7 +5,7 @@ import "../../styles/tablet/index.scss";
 
 // Importation des fonctions et constantes communes.
 import "../global";
-import { addQueuedNotification, getStatusText } from "../functions";
+import { addQueuedNotification } from "../functions";
 
 //
 // Permet de gérer les ouvertures/fermetures de certains
@@ -86,11 +86,10 @@ register.find( "form" ).on( "submit", ( event ) =>
 					window.location.href = "dashboard";
 				}, 3000 );
 			} )
-			.fail( ( self, _status, error ) =>
+			.fail( ( self ) =>
 			{
-				// Dans le cas contraire, on affiche une notification
-				//  d'échec avec les informations à notre disposition.
-				addQueuedNotification( self.responseText.replace( "$1", getStatusText( error, self.status ) ), 1 );
+				// Dans le cas contraire, on affiche un message d'erreur.
+				addQueuedNotification( self.responseText, 1 );
 			} );
 	}
 } );
@@ -158,11 +157,10 @@ login.find( "input[type = submit]" ).on( "click", ( event ) =>
 				window.location.href = "dashboard";
 			}, 3000 );
 		} )
-		.fail( ( self, _status, error ) =>
+		.fail( ( self ) =>
 		{
-			// Dans le cas contraire, on affiche une notification
-			//  d'échec avec les informations à notre disposition.
-			addQueuedNotification( self.responseText.replace( "$1", getStatusText( error, self.status ) ), 1 );
+			// Dans le cas contraire, on affiche un message d'erreur.
+			addQueuedNotification( self.responseText, 1 );
 		} );
 } );
 
@@ -219,11 +217,10 @@ links.last().on( "click", ( event ) =>
 			// Une fois terminée, on affiche un message de confirmation.
 			addQueuedNotification( data.message, data.code );
 		} )
-		.fail( ( self, _status, error ) =>
+		.fail( ( self ) =>
 		{
-			// Dans le cas contraire, on affiche une notification
-			//  d'échec avec les informations à notre disposition.
-			addQueuedNotification( self.responseText.replace( "$1", getStatusText( error, self.status ) ), 1 );
+			// Dans le cas contraire, on affiche un message d'erreur.
+			addQueuedNotification( self.responseText, 1 );
 		} );
 } );
 

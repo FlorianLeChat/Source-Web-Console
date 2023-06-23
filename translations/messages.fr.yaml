@@ -42,7 +42,7 @@ language:
 form:
     register:
         server: "Informations du serveur"
-        failed: "Une erreur interne s'est produite lors de votre inscription au site. Réponse : « $1 »."
+        failed: "Une erreur interne s'est produite lors de votre inscription au site."
         success: "Votre compte utilisateur a été créé avec succès. Vous allez être redirigé automatiquement dans quelques secondes."
         onetime: "Votre accès unique a été créé avec succès. Vous conserverez son accès tout au long de votre session. Une fois terminée, vous devrez de nouveau recréer un accès. Attention ce mode possède des fonctionnalités restreintes."
         username: "Saisissez votre nom d'utilisateur"
@@ -60,7 +60,7 @@ form:
             description: "Le mot de passe administrateur permet de se connecter à l'API du module d'administration du serveur. Cela permet de réaliser des actions et commandes à distance sans l'intervention d'une personne."
     contact:
         email: "Saisissez votre adresse électronique"
-        failed: "Une erreur interne s'est produite lors de l'envoi de votre message au site Internet. Réponse : « $1 »."
+        failed: "Une erreur interne s'est produite lors de l'envoi de votre message au site Internet."
         success: "Le message à été envoyé avec succès. Vous recevrez une réponse dans les plus brefs délais."
         content: "Indiquez le contenu de votre message"
         mailing: "Votre message d'assistance à bien été envoyé. Vous receverez une réponse sous 24 heures.\n\nVoici le récapitulatif de votre message :\n\n%s"
@@ -72,7 +72,7 @@ form:
         description: "Ce formulaire vous permet d'envoyer un message d'assistance aux administrateurs du site. Vous recevrez une réponse par l'adresse électronique renseignée d'ici quelques heures/jours. Tout abus sera sévèrement sanctionné."
     login:
         links: "Pas de compte ? <a href=\"javascript:void(0);\">Inscrivez-vous</a> ou passez à une <a href=\"javascript:void(0);\">connexion unique</a>.\nSinon, vous avez peut-être <a href=\"javascript:void(0);\">perdu votre mot de passe</a> ?"
-        failed: "Une erreur interne s'est produite lors de votre connexion au compte utilisateur. Réponse : « $1 »."
+        failed: "Une erreur interne s'est produite lors de votre connexion au compte utilisateur."
         success: "Vous êtes désormais connecté à votre compte utilisateur. Vous allez être redirigé automatiquement dans quelques secondes."
         invalid: "Les identifiants de connexion renseignés sont invalides ou n'existent pas."
         recover: "Si le nom d'utilisateur renseigné est valide, alors le nouveau mot de passe a bien été mis à jour."
@@ -85,7 +85,6 @@ form:
     clear_password: "Afficher le mot de passe"
     validate_button: "Valider"
     capslock_warning: "Les touches majuscules sont activées."
-    client_check_failed: "Le champ « $1 » doit avoir une taille comprise entre $2 et $3 caractères."
     server_check_failed: "Les données renseignées n'ont pas permis de réaliser cette requête."
 
 legal:
