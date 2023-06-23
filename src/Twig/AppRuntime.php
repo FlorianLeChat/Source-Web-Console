@@ -13,19 +13,19 @@ class AppRuntime implements RuntimeExtensionInterface
 {
 	private $languages;
 
-	// Permet d'injecter des dépendances dans les fonctions Twig.
+	// Injection des dépendances.
 	public function __construct(private Translator $translator)
 	{
 		$this->languages = $translator->getFallbackLocales();
 	}
 
-	// Permet de récupérer la liste des langues disponibles.
+	// Récupération des langues disponibles.
 	public function getLanguages()
 	{
 		return $this->languages;
 	}
 
-	// Permet de récupérer le nom d'un jeu à partir de son identifiant.
+	// Récupération du nom d'un jeu par son identifiant unique.
 	public function getNameByGameID()
 	{
 		// TODO : remettre en place les anciennes fonctions.
