@@ -12,10 +12,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class LocaleSubscriber implements EventSubscriberInterface
 {
-	// Permet de définir la langue par défaut.
-	public function __construct(private string $defaultLocale = "en") {}
+	// Définition de la langue par défaut.
+	private string $defaultLocale = "en";
 
-	// Permet de définir la langue en fonction de la session.
+	// Définition de la langue actuelle de la session.
 	public function onKernelRequest(RequestEvent $event)
 	{
 		// On vérifie d'abord si la langue a déjà été définie par l'utilisateur.
@@ -37,7 +37,7 @@ class LocaleSubscriber implements EventSubscriberInterface
 		}
 	}
 
-	// Permet de définir les événements à écouter.
+	// Définition des écouteurs d'événements.
 	public static function getSubscribedEvents()
 	{
 		return [

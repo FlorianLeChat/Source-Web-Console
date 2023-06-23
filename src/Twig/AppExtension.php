@@ -12,7 +12,7 @@ use Twig\Extension\AbstractExtension;
 
 class AppExtension extends AbstractExtension
 {
-	// Permet de déclarer des fonctions Twig.
+	// Déclaration des fonctions et filtres Twig personnalisés.
 	public function getFunctions()
 	{
 		return [
