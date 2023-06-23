@@ -62,18 +62,20 @@ class UserController extends AbstractController
 	// API vers le mécanisme de création de compte.
 	//  Source : https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
 	//
-	#[Route("/api/user/register", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
+	#[Route("/api/user/register", methods: ["POST"])]
 	public function register(Request $request, UserPasswordHasherInterface $hasher): Response
 	{
 		// TODO : imposer une limite de création par IP.
 		// TODO : ajouter la possibilité de créer un compte via Google.
 		// TODO : ajouter la possibilité de se souvenir de la connexion après création de compte.
-		// TODO : ajouter une vérification avec Google reCAPTCHA.
 
 		// On vérifie tout d'abord la validité du jeton CSRF.
-		if (!$this->isCsrfTokenValid("user_register", $request->request->get("token")))
+		if (!$this->isCsrfTokenValid("user_register", $request->get("token")))
 		{
-			return new Response($this->translator->trans("form.register.failed"), Response::HTTP_BAD_REQUEST);
+			return new Response(
+				$this->translator->trans("form.register.failed"),
+				Response::HTTP_BAD_REQUEST
+			);
 		}
 
 		// On récupère après toutes les informations de la requête.
@@ -98,7 +100,10 @@ class UserController extends AbstractController
 		// On vérifie également si les informations sont valides.
 		if (count($this->validator->validate($user)) > 0 || count($this->validator->validate($server)) > 0)
 		{
-			return new Response($this->translator->trans("form.server_check_failed"), Response::HTTP_BAD_REQUEST);
+			return new Response(
+				$this->translator->trans("form.server_check_failed"),
+				Response::HTTP_BAD_REQUEST
+			);
 		}
 
 		// On vérifie si le nom d'utilisateur n'est pas déjà utilisé.
@@ -106,7 +111,10 @@ class UserController extends AbstractController
 
 		if ($userRepository->findOneBy(["username" => $username]))
 		{
-			return new Response($this->translator->trans("form.register.duplication"), Response::HTTP_BAD_REQUEST);
+			return new Response(
+				$this->translator->trans("form.register.duplication"),
+				Response::HTTP_BAD_REQUEST
+			);
 		}
 
 		// On enregistre les informations dans la base de données.
@@ -117,14 +125,17 @@ class UserController extends AbstractController
 		$this->security->login($user, "form_login");
 
 		// On envoie enfin la réponse au client.
-		return new Response($this->translator->trans("form.register.success"), Response::HTTP_OK);
+		return new Response(
+			$this->translator->trans("form.register.success"),
+			Response::HTTP_OK
+		);
 	}
 
 	//
 	// API vers le mécanisme d'authentification de l'utilisateur.
 	//  Source : https://symfony.com/doc/current/security.html#login-programmatically
 	//
-	#[Route("/api/user/login", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
+	#[Route("/api/user/login", methods: ["POST"])]
 	public function login(Request $request, UserPasswordHasherInterface $hasher): Response
 	{
 		// TODO : imposer une limite de connexion par IP (https://symfony.com/doc/current/security.html#limiting-login-attempts).
@@ -132,12 +143,14 @@ class UserController extends AbstractController
 		// TODO : ajouter la possibilité de se connecter via lien de connexion (https://symfony.com/doc/current/security/login_link.html).
 		// TODO : ajouter la possibilité de se connecter via Google.
 		// TODO : tester le "souvenir de la connexion" après authentification (en production).
-		// TODO : ajouter une vérification avec Google reCAPTCHA.
 
 		// On vérifie tout d'abord la validité du jeton CSRF.
-		if (!$this->isCsrfTokenValid("user_login", $request->request->get("token")))
+		if (!$this->isCsrfTokenValid("user_login", $request->get("token")))
 		{
-			return new Response($this->translator->trans("form.login.failed"), Response::HTTP_BAD_REQUEST);
+			return new Response(
+				$this->translator->trans("form.login.failed"),
+				Response::HTTP_BAD_REQUEST
+			);
 		}
 
 		// On récupère après toutes les informations de la requête.
@@ -151,7 +164,10 @@ class UserController extends AbstractController
 
 		if (count($this->validator->validate($user)) > 0)
 		{
-			return new Response($this->translator->trans("form.server_check_failed"), Response::HTTP_BAD_REQUEST);
+			return new Response(
+				$this->translator->trans("form.server_check_failed"),
+				Response::HTTP_BAD_REQUEST
+			);
 		}
 
 		// On vérifie ensuite les informations de l'utilisateur.
@@ -159,50 +175,64 @@ class UserController extends AbstractController
 
 		if (!$user || !$hasher->isPasswordValid($user, $password))
 		{
-			return new Response($this->translator->trans("form.login.invalid"), Response::HTTP_BAD_REQUEST);
+			return new Response(
+				$this->translator->trans("form.login.invalid"),
+				Response::HTTP_BAD_REQUEST
+			);
 		}
 
 		// On authentifie alors l'utilisateur.
 		$this->security->login($user);
 
 		// On envoie enfin la réponse au client.
-		return new Response($this->translator->trans("form.login.success"), Response::HTTP_OK);
+		return new Response(
+			$this->translator->trans("form.login.success"),
+			Response::HTTP_OK
+		);
 	}
 
 	//
 	// API vers le mécanisme de déconnexion de l'utilisateur.
 	//  Source : https://symfony.com/doc/current/security.html#logout-programmatically
 	//
-	#[Route("/api/user/logout", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
+	#[Route("/api/user/logout", methods: ["POST"])]
 	#[IsGranted("IS_AUTHENTICATED")]
 	public function logout(Request $request, ): Response
 	{
 		// On vérifie tout d'abord la validité du jeton CSRF.
-		if (!$this->isCsrfTokenValid("user_logout", $request->request->get("token")))
+		if (!$this->isCsrfTokenValid("user_logout", $request->get("token")))
 		{
-			return new Response($this->translator->trans("form.login.failed"), Response::HTTP_BAD_REQUEST);
+			return new Response(
+				$this->translator->trans("form.login.failed"),
+				Response::HTTP_BAD_REQUEST
+			);
 		}
 
 		// On déconnecte alors l'utilisateur.
 		$this->security->logout(false);
 
 		// On envoie enfin la réponse au client.
-		return new Response($this->translator->trans("user.disconnected"), Response::HTTP_OK);
+		return new Response(
+			$this->translator->trans("user.disconnected"),
+			Response::HTTP_OK
+		);
 	}
 
 	//
 	// API vers le mécanisme des messages de contact.
 	//
-	#[Route("/api/user/contact", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
+	#[Route("/api/user/contact", methods: ["POST"])]
 	public function contact(Request $request, MailerInterface $mailer): Response
 	{
-		// TODO : imposer une limite d'envoi de messages par jour.
-		// TODO : ajouter une vérification avec Google reCAPTCHA.
+		// TODO : imposer une limite d'envoi de messages par jour avec la même adresse IP.
 
 		// On vérifie tout d'abord la validité du jeton CSRF.
-		if (!$this->isCsrfTokenValid("user_contact", $request->request->get("token")))
+		if (!$this->isCsrfTokenValid("user_contact", $request->get("token")))
 		{
-			return new Response($this->translator->trans("form.contact.failed"), Response::HTTP_BAD_REQUEST);
+			return new Response(
+				$this->translator->trans("form.contact.failed"),
+				Response::HTTP_BAD_REQUEST
+			);
 		}
 
 		// On récupère après toutes les informations de la requête.
@@ -220,7 +250,10 @@ class UserController extends AbstractController
 		// On vérifie également si les informations sont valides.
 		if (count($this->validator->validate($contact)) > 0)
 		{
-			return new Response($this->translator->trans("form.server_check_failed"), Response::HTTP_BAD_REQUEST);
+			return new Response(
+				$this->translator->trans("form.server_check_failed"),
+				Response::HTTP_BAD_REQUEST
+			);
 		}
 
 		// On enregistre ensuite le message dans la base de données.
@@ -247,38 +280,45 @@ class UserController extends AbstractController
 		}
 		catch (TransportExceptionInterface $error)
 		{
-			// En cas d'erreur, on renvoie la réponse d'erreur à l'utilisateur.
-			return new Response($error->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+			// En cas d'erreur, on renvoie le message d'erreur à l'utilisateur.
+			return new Response(
+				$error->getMessage(),
+				Response::HTTP_INTERNAL_SERVER_ERROR
+			);
 		}
 
 		// On envoie enfin la réponse au client.
-		return new Response($this->translator->trans("form.contact.success"), Response::HTTP_OK);
+		return new Response(
+			$this->translator->trans("form.contact.success"),
+			Response::HTTP_OK
+		);
 	}
 
 	//
 	// API vers le mécanisme de mise à jour des informations de l'utilisateur.
 	//
-	#[Route("/api/user/update", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
+	#[Route("/api/user/update", methods: ["PUT"])]
 	#[IsGranted("IS_AUTHENTICATED")]
 	public function update(Request $request, UserPasswordHasherInterface $hasher): Response
 	{
-		// TODO : vérifier les champs du formulaire.
-		// TODO : ajouter une vérification avec Google reCAPTCHA.
-
 		// On vérifie tout d'abord la validité du jeton CSRF.
-		if (!$this->isCsrfTokenValid("user_update", $request->request->get("token")))
+		if (!$this->isCsrfTokenValid("user_update", $request->get("token")))
 		{
-			return new Response($this->translator->trans("form.login.failed"), Response::HTTP_BAD_REQUEST);
+			return new Response(
+				$this->translator->trans("form.login.failed"),
+				Response::HTTP_BAD_REQUEST
+			);
 		}
 
 		// On tente de récupérer ensuite les informations de l'utilisateur.
-		$user = $this->getUser();
 		$repository = $this->entityManager->getRepository(User::class);
-		$entity = $repository->findOneBy(["username" => $user->getUserIdentifier()]);
 
-		if (!$entity)
+		if (!$entity = $repository->findOneBy(["username" => $this->getUser()->getUserIdentifier()]))
 		{
-			return new Response($this->translator->trans("form.login.failed"), Response::HTTP_BAD_REQUEST);
+			return new Response(
+				$this->translator->trans("form.login.failed"),
+				Response::HTTP_BAD_REQUEST
+			);
 		}
 
 		// On récupère après toutes les informations de la requête.
@@ -292,7 +332,10 @@ class UserController extends AbstractController
 
 		if (count($this->validator->validate($user)) > 0)
 		{
-			return new Response($this->translator->trans("form.server_check_failed"), Response::HTTP_BAD_REQUEST);
+			return new Response(
+				$this->translator->trans("form.server_check_failed"),
+				Response::HTTP_BAD_REQUEST
+			);
 		}
 
 		// On met à jour ensuite les informations de l'utilisateur.
@@ -300,22 +343,26 @@ class UserController extends AbstractController
 		$repository->upgradePassword($entity, $hasher->hashPassword($entity, $password));
 
 		// On envoie enfin la réponse au client.
-		return new Response($this->translator->trans("user.updated"), Response::HTTP_OK);
+		return new Response(
+			$this->translator->trans("user.updated"),
+			Response::HTTP_OK
+		);
 	}
 
 	//
 	// API vers le mécanisme de suppression du compte de l'utilisateur.
 	//
-	#[Route("/api/user/remove", methods: ["POST"], condition: "request.isXmlHttpRequest()")]
+	#[Route("/api/user/remove", methods: ["DELETE"])]
 	#[IsGranted("IS_AUTHENTICATED")]
 	public function remove(Request $request): Response
 	{
-		// TODO : ajouter une vérification avec Google reCAPTCHA.
-
 		// On vérifie tout d'abord la validité du jeton CSRF.
-		if (!$this->isCsrfTokenValid("user_remove", $request->request->get("token")))
+		if (!$this->isCsrfTokenValid("user_remove", $request->get("token")))
 		{
-			return new Response($this->translator->trans("form.login.failed"), Response::HTTP_BAD_REQUEST);
+			return new Response(
+				$this->translator->trans("form.login.failed"),
+				Response::HTTP_BAD_REQUEST
+			);
 		}
 
 		// On tente de récupérer ensuite les informations de l'utilisateur.
@@ -325,7 +372,10 @@ class UserController extends AbstractController
 
 		if (!$entity)
 		{
-			return new Response($this->translator->trans("form.login.failed"), Response::HTTP_BAD_REQUEST);
+			return new Response(
+				$this->translator->trans("form.login.failed"),
+				Response::HTTP_BAD_REQUEST
+			);
 		}
 
 		// On supprime ensuite l'utilisateur de la base de données avant de le déconnecter.
@@ -333,6 +383,9 @@ class UserController extends AbstractController
 		$repository->remove($entity, true);
 
 		// On déconnecte enfin l'utilisateur.
-		return new Response($this->translator->trans("user.removed"), Response::HTTP_OK);
+		return new Response(
+			$this->translator->trans("user.removed"),
+			Response::HTTP_OK
+		);
 	}
 }

@@ -141,41 +141,43 @@ $( window ).on( "scroll", () =>
 //
 // Permet de gérer les mécanismes du formulaire de contact.
 //
-contact.find( "form" ).on( "submit", ( event ) =>
+contact.find( "form" ).on( "submit", async ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
 
-	// On réalise ensuite la requête AJAX.
-	$.post( "api/user/contact", {
+	// On réalise alors la requête AJAX.
+	const response = await fetch( "api/user/contact", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded"
+		},
+		body: new URLSearchParams( {
+			// Jeton de sécurité (CSRF).
+			token: contact.find( "input[name = token]" ).val(),
 
-		// Jeton de sécurité (CSRF).
-		token: contact.find( "input[name = token]" ).val(),
+			// Adresse électronique.
+			email: contact.find( "input[name = email]" ).val(),
 
-		// Adresse électronique.
-		email: contact.find( "input[name = email]" ).val(),
+			// Sujet du message.
+			subject: contact.find( "option:selected" ).text(),
 
-		// Sujet du message.
-		subject: contact.find( "option:selected" ).text(),
-
-		// Contenu du message.
-		content: contact.find( "textarea" ).val()
-
-	} )
-		.done( ( data ) =>
-		{
-			// Une fois terminée, on affiche la message de confirmation.
-			addQueuedNotification( data, 2 );
-
-			// On réinitialise enfin l'entièreté du formulaire avant de le fermer.
-			contact.find( "form" )[ 0 ].reset();
-			contact.fadeOut( 150 );
+			// Contenu du message.
+			content: contact.find( "textarea" ).val()
 		} )
-		.fail( ( self ) =>
-		{
-			// Dans le cas contraire, on affiche un message d'erreur.
-			addQueuedNotification( self.responseText, 1 );
-		} );
+	} );
+
+	// On affiche ensuite un message de confirmation ou d'erreur.
+	addQueuedNotification( await response.text(), response.ok ? 2 : 1 );
+
+	// On vérifie si la requête a été effectuée avec succès.
+	if ( response.ok )
+	{
+		// Dans ce cas, on réinitialise enfin l'entièreté du formulaire
+		//  avant de le fermer.
+		contact.find( "form" )[ 0 ].reset();
+		contact.fadeOut( 150 );
+	}
 } );
 
 contact.find( "input[type = reset]" ).on( "click", () =>
