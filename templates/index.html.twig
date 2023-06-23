@@ -37,7 +37,7 @@
 {% block content %}
 	{# Vidéo en arrière-plan #}
 	<video autoplay muted loop>
-		<source src="{{ asset('build/videos/landing.mp4') }}" type="video/mp4" />
+		<source src="{{ asset("build/videos/landing.mp4") }}" type="video/mp4" />
 	</video>
 
 	{# Affichage de l'animation du logo vers le dépôt GitHub #}
@@ -55,7 +55,7 @@
 		{# Carrousel des images #}
 		<ul>
 			{% for i in range(1, 4) %}
-				<li><img src="{{ asset('build/images/landing/' ~ i ~ '.webp') }}" alt="Image {{ i }}" decoding="async" /></li>
+				<li><img src="{{ asset("build/images/landing/" ~ i ~ ".webp") }}" alt="Image {{ i }}" decoding="async" /></li>
 			{% endfor %}
 		</ul>
 
@@ -63,7 +63,7 @@
 		<article>
 			{# Logo du site #}
 			<a href="https://github.com/FlorianLeChat/Source-Web-Console">
-				<img src="{{ asset('build/images/logo.svg') }}" alt="Logo" decoding="async" />
+				<img src="{{ asset("build/images/logo.svg") }}" alt="Logo" decoding="async" />
 			</a>
 
 			{# Bouton de défilement (précédent) #}
