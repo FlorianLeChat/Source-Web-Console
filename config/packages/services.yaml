@@ -1,5 +1,6 @@
 parameters:
     app.timezone: "%env(APP_TIMEZONE)%"
+    app.ssl_phrase: "%env(SSL_PHRASE)%"
     app.dkim_domain: "%env(DKIM_DOMAIN)%"
     app.dkim_selector: "%env(DKIM_SELECTOR)%"
     app.dkim_private_key: "%env(DKIM_PRIVATE_KEY)%"
