@@ -4,7 +4,7 @@ global:
     restart: "Redémarrer"
     service: "Maintenance"
     shutdown: "Arrêter"
-    fatal_error: "Une erreur interne s'est produite lors de la récupération des informations du serveur. Veuillez rafraîchir la page pour relancer la surveillance. Message : « $1 »."
+    fatal_error: "Une erreur interne s'est produite lors de la récupération des informations du serveur. Veuillez rafraîchir la page pour relancer la surveillance. Message : « %error% »."
     action_success: "La requête demandée a été envoyée avec succès avec le serveur distant. Dans certains cas, il peut se produire des effets secondaires en fonction de la configuration de votre serveur."
 
 header:
@@ -202,8 +202,8 @@ dashboard:
         title: "État général"
         nodata: "Aucun signal\r\n(Inconnu)"
         players: "Nombre de joueurs"
-        service: "En maintenance\r\n($1)"
-        running: "En fonctionnement\r\n($1)"
+        service: "En maintenance\r\n(%gamemode%)"
+        running: "En fonctionnement\r\n(%gamemode%)"
     edit:
         port: "Saisissez le port de communication du serveur.\nLaissez vide pour aucun changement."
         remove: "Voulez-vous supprimer ce serveur ?"
