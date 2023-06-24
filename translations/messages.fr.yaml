@@ -1,4 +1,5 @@
 global:
+    force: "Double-cliquez pour forcer l'arrêt"
     update: "Mettre à jour"
     remove: "Supprimer"
     restart: "Redémarrer"
@@ -205,10 +206,10 @@ dashboard:
         service: "En maintenance\r\n(%gamemode%)"
         running: "En fonctionnement\r\n(%gamemode%)"
     edit:
-        port: "Saisissez le port de communication du serveur.\nLaissez vide pour aucun changement."
+        port: "Saisissez le nouveau port du serveur.\nLaissez vide pour aucun changement."
         remove: "Voulez-vous supprimer ce serveur ?"
-        address: "Saisissez l'adresse IP du serveur.\nLaissez vide pour aucun changement."
-        password: "Saisissez le mot de passe du module d'administration.\nLaissez vide pour aucun changement."
+        address: "Saisissez la nouvelle adresse IP du serveur.\nLaissez vide pour aucun changement."
+        password: "Saisissez le nouveau mot de passe du module d'administration.\nLaissez vide pour aucun changement."
     actions: "Dernières actions"
     players: "Liste des joueurs"
     servers: "Liste des serveurs"

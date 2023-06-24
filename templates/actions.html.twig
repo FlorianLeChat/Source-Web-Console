@@ -5,11 +5,11 @@
 {% block javascript %}
 	<script>
 		// Libellé demandant d'entrer une valeur pour une commande.
-		const execute_value = "{{ t("actions.commands.value")|trans }}";
+		const execute_value = "{{ t("actions.commands.value")|trans|escape("js") }}";
 
 		// Libellés demandant le nom et le contenue d'une nouvelle commande personnalisée.
-		const command_add_name = "{{ t("actions.add.name")|trans }}";
-		const command_add_content = "{{ t("actions.add.content")|trans }}";
+		const command_add_name = "{{ t("actions.add.name")|trans|escape("js") }}";
+		const command_add_content = "{{ t("actions.add.content")|trans|escape("js") }}";
 	</script>
 {% endblock %}
 
@@ -28,6 +28,7 @@
 			<li data-action="shutdown">
 				{# Arrêter le serveur #}
 				{{ t("global.shutdown")|trans }}
+				<em>{{ t("global.force")|trans }}</em>
 			</li>
 
 			<li data-action="restart">

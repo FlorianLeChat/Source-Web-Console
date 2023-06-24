@@ -1,4 +1,5 @@
 global:
+    force: "Double-click to force shutdown"
     update: "Update"
     remove: "Remove"
     restart: "Restart"
@@ -205,10 +206,10 @@ dashboard:
         service: "In servicing\r\n(%gamemode%)"
         running: "Operating\r\n(%gamemode%)"
     edit:
-        port: "Type the communication port of the server.\\nLeave blank for no change."
+        port: "Enter the new server port.\nLeave blank for no change."
         remove: "Do you want to delete this server?"
-        address: "Type in the IP address of the server.\\nLeave blank for no change."
-        password: "Type in the password for the administration module.\\nLeave blank for no change."
+        address: "Enter the new server's IP address.\nLeave blank for no change."
+        password: "Enter the new password for the administration module.\nLeave blank for no change."
     actions: "Last actions"
     players: "Players list"
     servers: "Servers list"

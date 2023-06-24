@@ -5,10 +5,10 @@
 {% block javascript %}
 	<script>
 		// Libellé demandant le nom d'utilisateur pour une récupération de compte.
-		const recover_password_username = "{{ t("form.login.username")|trans }}";
+		const recover_password_username = "{{ t("form.login.username")|trans|escape("js") }}";
 
 		// Libellé demandant le nouveau mot de passe pour une récupération de compte.
-		const recover_password_password = "{{ t("form.login.password")|trans }}";
+		const recover_password_password = "{{ t("form.login.password")|trans|escape("js") }}";
 	</script>
 {% endblock %}
 

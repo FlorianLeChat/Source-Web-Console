@@ -5,7 +5,7 @@
 {% block javascript %}
 	<script>
 		// Libellé demandant la suppression ou non d'une tâche planifiée.
-		const edit_remove = "{{ t("tasks_edit_remove")|trans }}";
+		const edit_remove = "{{ t("tasks_edit_remove")|trans|escape("js") }}";
 	</script>
 {% endblock %}
 
