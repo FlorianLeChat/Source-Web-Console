@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DashboardController extends AbstractController
@@ -25,22 +26,16 @@ class DashboardController extends AbstractController
 	//
 	public function __construct(
 		private Security $security,
-		private ServerManager $manager,
+		private ServerManager $serverManager,
+		private ValidatorInterface $validator,
 		private TranslatorInterface $translator,
 		private EntityManagerInterface $entityManager,
-	)
-	{
-		$this->manager = $manager;
-		$this->security = $security;
-		$this->translator = $translator;
-		$this->entityManager = $entityManager;
-	}
+	) {}
 
 	//
 	// Route vers la page du tableau de bord.
 	//
 	#[Route("/dashboard")]
-	#[IsGranted("IS_AUTHENTICATED")]
 	public function index(Request $request): Response
 	{
 		// On vérifie d'abord que l'utilisateur est bien connecté avant d'accéder
@@ -50,15 +45,75 @@ class DashboardController extends AbstractController
 			return $this->redirectToRoute("app_index_index");
 		}
 
-		// On vérifie ensuite si l'utilisateur a sélectionné un serveur dans la liste
-		//  des serveurs disponibles.
+		// On récupère ensuite l'identifiant unique du serveur sélectionné par
+		//  l'action de l'utilisateur.
+		/** @var User */
+		$user = $this->getUser();
 		$serverId = intval($request->get("server_id", 0));
+		$serverRepository = $this->entityManager->getRepository(Server::class);
 
-		if ($request->get("server_action") === "connect" && $serverId !== 0)
+		if ($serverId !== 0)
 		{
-			// Si c'est le cas, on enregistre l'identifiant du serveur dans la
-			//  session de l'utilisateur.
-			$request->getSession()->set("serverId", $serverId);
+			// On détermine après l'action doit être réalisée sur le serveur.
+			$action = $request->get("server_action", "none");
+
+			switch ($action)
+			{
+				// Connexion à un serveur.
+				case "connect":
+				{
+					// On vérifie que l'utilisateur a bien sélectionné un serveur.
+					if ($serverId !== 0)
+					{
+						// Si c'est le cas, on enregistre l'identifiant du serveur dans la
+						//  session de l'utilisateur.
+						$request->getSession()->set("serverId", $serverId);
+					}
+
+					break;
+				}
+
+				// Édition d'un serveur.
+				case "edit":
+				{
+					// Vérification de l'existence et de l'appartenance du serveur à l'utilisateur.
+					if (!$server = $serverRepository->findOneBy(["id" => $serverId, "client" => $user->getId()]))
+					{
+						return new Response(status: Response::HTTP_UNAUTHORIZED);
+					}
+
+					// Enregistrement des modifications du serveur.
+					$server->setAddress($request->get("server_address", $server->getAddress()));
+					$server->setPort($request->get("server_port", $server->getPort()));
+					$server->setPassword($request->get("server_password", $server->getPassword()));
+
+					// Vérification de la validité des nouvelles informations.
+					if (count($this->validator->validate($server)) > 0)
+					{
+						return new Response(status: Response::HTTP_BAD_REQUEST);
+					}
+
+					// Sauvegarde dans la base de données.
+					$serverRepository->save($server, true);
+
+					break;
+				}
+
+				// Suppression définitive d'un serveur.
+				case "delete":
+				{
+					// Vérification de l'existence et de l'appartenance du serveur à l'utilisateur.
+					if (!$server = $serverRepository->findOneBy(["id" => $serverId, "client" => $user->getId()]))
+					{
+						return new Response(status: Response::HTTP_UNAUTHORIZED);
+					}
+
+					// Suppression dans la base de données.
+					$serverRepository->remove($server, true);
+
+					break;
+				}
+			}
 		}
 
 		// On inclut enfin les paramètres du moteur TWIG pour la création de la page.
@@ -71,7 +126,7 @@ class DashboardController extends AbstractController
 			"dashboard_logs" => [],
 
 			// Liste des serveurs depuis la base de données.
-			"dashboard_servers" => $this->entityManager->getRepository(Server::class)->findBy(["client" => $user->getId()])
+			"dashboard_servers" => $serverRepository->findBy(["client" => $user->getId()])
 
 		]);
 	}
@@ -83,7 +138,7 @@ class DashboardController extends AbstractController
 	#[IsGranted("IS_AUTHENTICATED")]
 	public function monitor(Request $request): Response|JsonResponse
 	{
-		// TODO : imposer un délai entre chaque requête pour éviter les abus.
+		// TODO : imposer un délai entre chaque requête pour éviter les abus (https://symfony.com/doc/current/rate_limiter.html).
 
 		// On récupère d'abord le premier serveur lié au compte de l'utilisateur
 		//  ou celui sélectionné par l'utilisateur.
@@ -106,11 +161,11 @@ class DashboardController extends AbstractController
 		try
 		{
 			// On tente après d'établir une connexion avec le serveur.
-			$this->manager->connect($server->getAddress(), $server->getPort(), $server->getPassword());
+			$this->serverManager->connect($server->getAddress(), $server->getPort(), $server->getPassword());
 
 			// En cas de réussite, on récupère toutes les informations
 			//	disponibles et fournies par le module d'administration.
-			$details = $this->manager->query->GetInfo();
+			$details = $this->serverManager->query->GetInfo();
 
 			// On encode alors certaines de ces informations pour les
 			//	transmettre au client à travers le JavaScript.
@@ -126,7 +181,7 @@ class DashboardController extends AbstractController
 				"count" => $details["Players"] . "/" . $details["MaxPlayers"] . " [" . $details["Bots"] . "]",
 
 				// Liste des joueurs
-				"players" => $this->manager->query->GetPlayers()
+				"players" => $this->serverManager->query->GetPlayers()
 
 			], JsonResponse::HTTP_OK);
 		}
@@ -142,7 +197,7 @@ class DashboardController extends AbstractController
 		{
 			// Si tout se passe bien, on libère enfin le socket réseau
 			//	pour d'autres scripts du site.
-			$this->manager->query->Disconnect();
+			$this->serverManager->query->Disconnect();
 		}
 	}
 }

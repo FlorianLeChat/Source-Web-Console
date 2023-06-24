@@ -93,31 +93,29 @@ setInterval( () =>
 //
 // Permet d'envoyer les commandes et actions vers un serveur distant.
 //
-export function sendRemoteAction( action, value )
+export async function sendRemoteAction( action, value )
 {
 	// On réalise d'abord la requête AJAX.
-	$.post( "includes/controllers/server_actions.php", {
+	const response = await fetch( `api/server/action/${ action }`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded"
+		},
+		body: new URLSearchParams( {
+			// Action qui doit être réalisée à distance.
+			server_action: action,
 
-		// Action qui doit être réalisée à distance.
-		server_action: action,
-
-		// Valeur possiblement associée à une commande.
-		server_value: value
-
-	} )
-		.done( ( data ) =>
-		{
-			// Une fois terminée, on affiche la notification d'information
-			//  à l'utilisateur pour lui indiquer si la requête a été envoyée
-			//  ou non avec succès au serveur distant.
-			if ( data !== "" )
-			{
-				addQueuedNotification( data, 3 );
-			}
+			// Valeur possiblement associée à une commande.
+			server_value: value
 		} )
-		.fail( ( self ) =>
-		{
-			// Dans le cas contraire, on affiche un message d'erreur.
-			addQueuedNotification( self.responseText, 1 );
-		} );
+	} );
+
+	// On affiche enfin un message de confirmation ou d'erreur
+	//  si nécessaire en fonction du résultat de la requête.
+	const text = await response.text();
+
+	if ( text !== "" )
+	{
+		addQueuedNotification( text, response.ok ? 3 : 1 );
+	}
 }
