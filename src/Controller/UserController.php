@@ -80,25 +80,29 @@ class UserController extends AbstractController
 			);
 		}
 
-		// On récupère après toutes les informations de la requête.
-		$username = $request->get("username");
-		$password = $request->get("password");
-		$serverAddress = $request->get("server_address");
-		$serverPort = $request->get("server_port");
-		$serverPassword = $request->get("server_password");
-
-		// On enregistre ensuite les informations de l'utilisateur ainsi que celle du serveur.
+		// On enregistre les informations de l'utilisateur ainsi que celle du serveur.
 		$user = new User();
 		$server = new Server();
 
-		$user->setUsername($username);
-		$user->setPassword($hasher->hashPassword($user, $password ?? ""));
+		$user->setUsername($username = $request->get("username"));
+		$user->setPassword($hasher->hashPassword($user, $request->get("password", "")));
 
-		$server->setAddress($serverAddress);
-		$server->setPassword($serverPassword);
-		$server->setPort($serverPort);
+		$server->setAddress($serverAddress = $request->get("server_address"));
+		$server->setPort($serverPort = $request->get("server_port"));
+		$server->setPassword($request->get("server_password"));
 		$server->setGame($this->serverManager->getGameIDByAddress($serverAddress, $serverPort));
 		$server->setClient($user);
+
+		// On vérifie ensuite si le nom d'utilisateur n'est pas déjà utilisé.
+		$repository = $this->entityManager->getRepository(User::class);
+
+		if ($repository->findOneBy(["username" => $username]))
+		{
+			return new Response(
+				$this->translator->trans("form.register.duplication"),
+				Response::HTTP_BAD_REQUEST
+			);
+		}
 
 		// On vérifie également si les informations sont valides.
 		if (count($this->validator->validate($user)) > 0 || count($this->validator->validate($server)) > 0)
@@ -109,19 +113,8 @@ class UserController extends AbstractController
 			);
 		}
 
-		// On vérifie si le nom d'utilisateur n'est pas déjà utilisé.
-		$userRepository = $this->entityManager->getRepository(User::class);
-
-		if ($userRepository->findOneBy(["username" => $username]))
-		{
-			return new Response(
-				$this->translator->trans("form.register.duplication"),
-				Response::HTTP_BAD_REQUEST
-			);
-		}
-
-		// On enregistre les informations dans la base de données.
-		$userRepository->save($user);
+		// On enregistre après les informations dans la base de données.
+		$repository->save($user);
 		$this->entityManager->getRepository(Server::class)->save($server, true);
 
 		// On authentifie alors l'utilisateur.
@@ -156,14 +149,10 @@ class UserController extends AbstractController
 			);
 		}
 
-		// On récupère après toutes les informations de la requête.
-		$username = $request->get("username");
-		$password = $request->get("password");
-
-		// On vérifie également si les informations sont valides.
+		// On vérifie ensuite si les informations sont valides.
 		$user = new User();
-		$user->setUsername($username);
-		$user->setPassword($hasher->hashPassword($user, $password ?? ""));
+		$user->setUsername($username = $request->get("username"));
+		$user->setPassword($hasher->hashPassword($user, $password = $request->get("password", "")));
 
 		if (count($this->validator->validate($user)) > 0)
 		{
@@ -173,7 +162,7 @@ class UserController extends AbstractController
 			);
 		}
 
-		// On vérifie ensuite les informations de l'utilisateur.
+		// On vérifie également les informations de l'utilisateur.
 		$user = $this->entityManager->getRepository(User::class)->findOneBy(["username" => $username]);
 
 		if (!$user || !$hasher->isPasswordValid($user, $password))
@@ -238,19 +227,14 @@ class UserController extends AbstractController
 			);
 		}
 
-		// On récupère après toutes les informations de la requête.
-		$email = $request->get("email");
-		$subject = $request->get("subject");
-		$content = $request->get("content");
-
-		// On créé alors un nouvel objet de type "Contact".
+		// On créé ensuite un nouvel objet de type "Contact".
 		$contact = new Contact();
+		$contact->setEmail($email = $request->get("email"));
+		$contact->setSubject($subject = $request->get("subject"));
+		$contact->setContent($content = $request->get("content"));
 		$contact->setTimestamp(new \DateTime());
-		$contact->setEmail($email);
-		$contact->setSubject($subject);
-		$contact->setContent($content);
 
-		// On vérifie également si les informations sont valides.
+		// On vérifie alors si les informations sont valides.
 		if (count($this->validator->validate($contact)) > 0)
 		{
 			return new Response(
@@ -259,7 +243,7 @@ class UserController extends AbstractController
 			);
 		}
 
-		// On enregistre ensuite le message dans la base de données.
+		// On enregistre après le message dans la base de données.
 		$this->entityManager->getRepository(Contact::class)->save($contact, true);
 
 		// On génère le courriel de confirmation qui sera envoyé à l'utilisateur.
@@ -268,7 +252,7 @@ class UserController extends AbstractController
 			->text($this->translator->trans("form.contact.mailing", [$content]))
 			->subject($subject);
 
-		// On tente de signer le courriel en utilisant DKIM.
+		// On tente de signer également le courriel en utilisant DKIM.
 		//  Source : https://symfony.com/doc/current/mailer.html#signing-messages
 		if (is_file($path = $this->getParameter("app.dkim_private_key")))
 		{
@@ -313,25 +297,10 @@ class UserController extends AbstractController
 			);
 		}
 
-		// On tente de récupérer ensuite les informations de l'utilisateur.
-		$repository = $this->entityManager->getRepository(User::class);
-
-		if (!$entity = $repository->findOneBy(["username" => $this->getUser()->getUserIdentifier()]))
-		{
-			return new Response(
-				$this->translator->trans("form.login.failed"),
-				Response::HTTP_BAD_REQUEST
-			);
-		}
-
-		// On récupère après toutes les informations de la requête.
-		$username = $request->get("username");
-		$password = $request->get("password");
-
-		// On vérifie également si les informations sont valides.
+		// On vérifie ensuite si les informations sont valides.
 		$user = new User();
-		$user->setUsername($username);
-		$user->setPassword($hasher->hashPassword($user, $password ?? ""));
+		$user->setUsername($username = $request->get("username"));
+		$user->setPassword($hasher->hashPassword($user, $password = $request->get("password", "")));
 
 		if (count($this->validator->validate($user)) > 0)
 		{
@@ -341,9 +310,16 @@ class UserController extends AbstractController
 			);
 		}
 
-		// On met à jour ensuite les informations de l'utilisateur.
-		$entity->setUsername($username);
-		$repository->upgradePassword($entity, $hasher->hashPassword($entity, $password));
+		// On met à jour alors les informations de l'utilisateur
+		//  dans la base de données.
+		$repository = $this->entityManager->getRepository(User::class);
+
+		/** @var User */
+		$user = $this->getUser();
+		$user->setUsername($username);
+
+		$repository->upgradePassword($user, $hasher->hashPassword($user, $password));
+		$repository->save($user, true);
 
 		// On envoie enfin la réponse au client.
 		return new Response(
@@ -368,22 +344,9 @@ class UserController extends AbstractController
 			);
 		}
 
-		// On tente de récupérer ensuite les informations de l'utilisateur.
-		$user = $this->getUser();
-		$repository = $this->entityManager->getRepository(User::class);
-		$entity = $repository->findOneBy(["username" => $user->getUserIdentifier()]);
-
-		if (!$entity)
-		{
-			return new Response(
-				$this->translator->trans("form.login.failed"),
-				Response::HTTP_BAD_REQUEST
-			);
-		}
-
 		// On supprime ensuite l'utilisateur de la base de données avant de le déconnecter.
 		$this->security->logout();
-		$repository->remove($entity, true);
+		$this->entityManager->getRepository(User::class)->remove($this->getUser(), true);
 
 		// On déconnecte enfin l'utilisateur.
 		return new Response(
