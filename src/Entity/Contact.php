@@ -29,13 +29,13 @@ class Contact
 	private ?string $email = null;
 
 	#[ORM\Column(length: 255)]
-    #[Assert\Length(min: 10, max: 255)]
+	#[Assert\Length(min: 10, max: 255)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
 	private ?string $subject = null;
 
 	#[ORM\Column(length: 5000)]
-    #[Assert\Length(min: 50, max: 5000)]
+	#[Assert\Length(min: 50, max: 5000)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
 	private ?string $content = null;
