@@ -35,13 +35,7 @@ class UserController extends AbstractController
 		private ValidatorInterface $validator,
 		private TranslatorInterface $translator,
 		private EntityManagerInterface $entityManager,
-	)
-	{
-		$this->security = $security;
-		$this->validator = $validator;
-		$this->translator = $translator;
-		$this->entityManager = $entityManager;
-	}
+	) {}
 
 	//
 	// Route vers la page de l'espace utilisateur.
@@ -102,6 +96,13 @@ class UserController extends AbstractController
 				$this->translator->trans("form.register.duplication"),
 				Response::HTTP_BAD_REQUEST
 			);
+		}
+
+		// On chiffre le mot de passe du serveur si celui-ci est renseigné
+		//  pour des raisons de sécurité évidentes.
+		if ($server->getPassword() !== null)
+		{
+			$server->setPassword($this->serverManager->encryptPassword($server->getPassword()));
 		}
 
 		// On vérifie également si les informations sont valides.

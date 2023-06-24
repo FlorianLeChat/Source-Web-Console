@@ -67,7 +67,7 @@ class ServerManager
 	//  de la bibliothèque de OpenSSL.
 	// 	Source : https://www.php.net/manual/en/function.openssl-decrypt.php
 	//
-	public function decryptPassword(string $password): string
+	private function decryptPassword(string $password): string
 	{
 		// On décode d'abord le mot de passe chiffré.
 		$password = base64_decode($password);
