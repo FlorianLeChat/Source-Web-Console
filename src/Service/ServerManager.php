@@ -138,7 +138,7 @@ class ServerManager
 	//  du client à partir de son adresse IP.
 	// 	Source : https://partner.steamgames.com/doc/webapi/ISteamApps#GetServersAtAddress
 	//
-	private function getGameIDByAddress(string $address, int $port): int
+	public function getGameIDByAddress(string $address, int $port): int
 	{
 		// On fait une requête à l'API centrale Steam pour récupérer
 		//	les informations du serveur.

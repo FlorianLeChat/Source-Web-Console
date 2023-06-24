@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Server;
 use App\Entity\Contact;
+use App\Service\ServerManager;
 use Symfony\Component\Mime\Email;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -30,6 +31,7 @@ class UserController extends AbstractController
 	//
 	public function __construct(
 		private Security $security,
+		private ServerManager $serverManager,
 		private ValidatorInterface $validator,
 		private TranslatorInterface $translator,
 		private EntityManagerInterface $entityManager,
@@ -95,6 +97,7 @@ class UserController extends AbstractController
 		$server->setAddress($serverAddress);
 		$server->setPassword($serverPassword);
 		$server->setPort($serverPort);
+		$server->setGame($this->serverManager->getGameIDByAddress($serverAddress, $serverPort));
 		$server->setClient($user);
 
 		// On vérifie également si les informations sont valides.
