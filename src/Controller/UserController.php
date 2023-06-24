@@ -81,10 +81,10 @@ class UserController extends AbstractController
 		$user->setUsername($username = $request->get("username"));
 		$user->setPassword($hasher->hashPassword($user, $request->get("password", "")));
 
-		$server->setAddress($serverAddress = $request->get("server_address"));
-		$server->setPort($serverPort = $request->get("server_port"));
-		$server->setPassword($request->get("server_password"));
-		$server->setGame($this->serverManager->getGameIDByAddress($serverAddress, $serverPort));
+		$server->setAddress($address = $request->get("server_address"));
+		$server->setPort($port = $request->get("server_port"));
+		$server->setPassword($password = $request->get("server_password"));
+		$server->setGame($this->serverManager->getGameIDByAddress($address, $port));
 		$server->setClient($user);
 
 		// On vérifie ensuite si le nom d'utilisateur n'est pas déjà utilisé.
@@ -98,11 +98,11 @@ class UserController extends AbstractController
 			);
 		}
 
-		// On chiffre le mot de passe du serveur si celui-ci est renseigné
+		// On chiffre le mot de passe administrateur s'il est renseigné
 		//  pour des raisons de sécurité évidentes.
-		if ($server->getPassword() !== null)
+		if ($password !== null)
 		{
-			$server->setPassword($this->serverManager->encryptPassword($server->getPassword()));
+			$server->setPassword($this->serverManager->encryptPassword($password));
 		}
 
 		// On vérifie également si les informations sont valides.
@@ -301,7 +301,7 @@ class UserController extends AbstractController
 		// On vérifie ensuite si les informations sont valides.
 		$user = new User();
 		$user->setUsername($username = $request->get("username"));
-		$user->setPassword($hasher->hashPassword($user, $password = $request->get("password", "")));
+		$user->setPassword($password = $request->get("password"));
 
 		if (count($this->validator->validate($user)) > 0)
 		{
@@ -318,8 +318,8 @@ class UserController extends AbstractController
 		/** @var User */
 		$user = $this->getUser();
 		$user->setUsername($username);
+		$user->setPassword($hasher->hashPassword($user, $password));
 
-		$repository->upgradePassword($user, $hasher->hashPassword($user, $password));
 		$repository->save($user, true);
 
 		// On envoie enfin la réponse au client.
