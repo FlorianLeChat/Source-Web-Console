@@ -148,7 +148,7 @@ login.find( "input[type = submit]" ).on( "click", async ( event ) =>
 	} );
 
 	// On affiche après un message de confirmation ou d'erreur.
-	addQueuedNotification( await response.text(), response.ok ? 3 : 1 );
+	addQueuedNotification( await response.text(), response.ok ? 2 : 1 );
 
 	// On vérifie si la requête a été effectuée avec succès.
 	if ( response.ok )
