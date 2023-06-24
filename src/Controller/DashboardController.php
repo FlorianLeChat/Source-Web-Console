@@ -5,6 +5,7 @@
 //
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Server;
 use App\Service\ServerManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -39,7 +40,8 @@ class DashboardController extends AbstractController
 	// Route vers la page du tableau de bord.
 	//
 	#[Route("/dashboard")]
-	public function index(): Response
+	#[IsGranted("IS_AUTHENTICATED")]
+	public function index(Request $request): Response
 	{
 		// On vérifie d'abord que l'utilisateur est bien connecté avant d'accéder
 		//  à la page, sinon on le redirige vers la page d'accueil.
@@ -48,20 +50,34 @@ class DashboardController extends AbstractController
 			return $this->redirectToRoute("app_index_index");
 		}
 
+		// On vérifie ensuite si l'utilisateur a sélectionné un serveur dans la liste
+		//  des serveurs disponibles.
+		$serverId = intval($request->get("server_id", 0));
+
+		if ($request->get("server_action") === "connect" && $serverId !== 0)
+		{
+			// Si c'est le cas, on enregistre l'identifiant du serveur dans la
+			//  session de l'utilisateur.
+			$request->getSession()->set("serverId", $serverId);
+		}
+
 		// On inclut enfin les paramètres du moteur TWIG pour la création de la page.
+		/** @var User */
+		$user = $this->getUser();
+
 		return $this->render("dashboard.html.twig", [
 
 			// Récupération de l'historique des actions et commandes.
 			"dashboard_logs" => [],
 
 			// Liste des serveurs depuis la base de données.
-			"dashboard_servers" => $this->entityManager->getRepository(Server::class)->findAll()
+			"dashboard_servers" => $this->entityManager->getRepository(Server::class)->findBy(["client" => $user->getId()])
 
 		]);
 	}
 
 	//
-	// API vers le mécanisme de création de compte.
+	// API vers la surveillance des constantes du serveur.
 	//
 	#[Route("/api/server/monitor", methods: ["GET"])]
 	#[IsGranted("IS_AUTHENTICATED")]
@@ -71,18 +87,20 @@ class DashboardController extends AbstractController
 
 		// On récupère d'abord le premier serveur lié au compte de l'utilisateur
 		//  ou celui sélectionné par l'utilisateur.
-		$session = $request->getSession();
+		/** @var User */
+		$user = $this->getUser();
+		$serverId = intval($request->getSession()->get("serverId", 0));
 		$repository = $this->entityManager->getRepository(Server::class);
 
-		if ($cacheId = $session->get("serverId", 0))
+		if ($serverId !== 0)
 		{
 			// Serveur sélectionné par l'utilisateur.
-			$server = $repository->findOneBy(["id" => $cacheId]);
+			$server = $repository->findOneBy(["id" => $serverId, "client" => $user->getId()]);
 		}
 		else
 		{
 			// Serveur par défaut.
-			$server = $repository->findOneBy([], ["id" => "ASC"]);
+			$server = $repository->findOneBy(["client" => $user->getId()], ["id" => "ASC"]);
 		}
 
 		try
