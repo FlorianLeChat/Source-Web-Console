@@ -48,7 +48,7 @@
 
 		<script>
 			// Message signalant à l'utilisateur que les majuscules sont activées.
-			const capslock_enabled = "{{ t("form.capslock_warning")|trans }}";
+			const capslock_enabled = "{{ t("form.capslock_warning")|trans|escape("js") }}";
 
 			// Clé de sécurité publique pour le service de Google reCAPTCHA.
 			const captcha_public_key = "{{ global_recaptcha }}"

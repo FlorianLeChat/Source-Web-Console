@@ -5,12 +5,12 @@
 {% block javascript %}
 	<script>
 		// Libellé demandant la suppression ou non du serveur actuel.
-		const edit_remove = "{{ t("dashboard.edit.remove")|trans }}";
+		const edit_remove = "{{ t("dashboard.edit.remove")|trans|escape("js") }}";
 
 		// Libellés demandant le changement de l'adresse IP/port et le mot de passe du serveur.
-		const edit_address = "{{ t("dashboard.edit.address")|trans }}";
-		const edit_port = "{{ t("dashboard.edit.port")|trans }}";
-		const edit_password = "{{ t("dashboard.edit.password")|trans }}";
+		const edit_address = "{{ t("dashboard.edit.address")|trans|escape("js") }}";
+		const edit_port = "{{ t("dashboard.edit.port")|trans|escape("js") }}";
+		const edit_password = "{{ t("dashboard.edit.password")|trans|escape("js") }}";
 	</script>
 {% endblock %}
 
@@ -37,7 +37,6 @@
 					{# Édition des propriétés du serveur #}
 					<form method="POST">
 						<input type="hidden" name="server_id" value="{{ server.id }}" />
-						<input type="hidden" name="server_action" value="edit" />
 
 						<button type="submit" name="server_edit">
 							<i class="bi bi-pencil-square"></i>
@@ -117,6 +116,7 @@
 			<li data-action="shutdown">
 				{# Arrêter le serveur #}
 				{{ t("global.shutdown")|trans }}
+				<em>{{ t("global.force")|trans }}</em>
 			</li>
 
 			<li data-action="restart">
