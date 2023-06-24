@@ -3,7 +3,9 @@
 namespace App\Service;
 
 use xPaw\SourceQuery\SourceQuery;
+use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
 class ServerManager
@@ -11,14 +13,20 @@ class ServerManager
 	// Phrase unique pour le chiffrement symétrique.
 	private $sslPhrase;
 
+	// Durée du cache pour les informations du serveur.
+	private const CACHE_LIFETIME = 3600 * 24 * 7;
+
 	// Méthode de chiffrement pour le mot de passe administrateur.
 	private const ENCRYPTION_METHOD = "AES-256-CTR";
 
 	//
 	// Initialisation de certaines variables du service.
 	//
-    public function __construct(public SourceQuery $query, private ContainerBagInterface $parameters)
-	{
+    public function __construct(
+		public SourceQuery $query,
+		private HttpClientInterface $client,
+		private ContainerBagInterface $parameters,
+	) {
 		$this->sslPhrase = $this->parameters->get("app.ssl_phrase");
 	}
 
@@ -102,34 +110,55 @@ class ServerManager
 	//
 	public function getNameByGameID(int $identifier, string $fallback = ""): string
 	{
-		// On fait une requête à l'API centrale Steam pour récupérer
-		//	les informations du magasin.
-		$response = file_get_contents("https://store.steampowered.com/api/appdetails?appids=$identifier");
+		// On initialise d'abord le cache du système de fichiers.
+		$cache = new FilesystemAdapter();
 
-		// On transforme par la suite ce résultat sous format JSON en
-		//	tableau associatif pour la manipuler.
-		$response = json_decode($response, true);
-
-		if (is_array($response) && count($response) > 0)
+		// On vérifie ensuite si le nom du jeu est déjà enregistré
+		// 	dans le cache de données.
+		return $cache->get($identifier, function (ItemInterface $item) use ($identifier, $fallback): string
 		{
-			// Si la réponse semble correcte, on vérifie si l'API indique
-			//	que la réponse est un succès et s'il existe les informations
-			// 	attendues initialement.
-			$response = $response[$identifier];
+			// Si ce n'est pas le cas, on définit une durée de vie
+			// 	de persistance pour le cache.
+			$item->expiresAfter(self::CACHE_LIFETIME);
 
-			if ($response["success"] === false)
+			// On fait une requête à l'API Steam pour récupérer
+			//  les informations nécessaires.
+			$response = $this->client->request("GET", "https://store.steampowered.com/api/appdetails?appids=$identifier");
+
+			// On vérifie après si la requête a réussie ou non.
+			if ($response->getStatusCode() !== 200)
 			{
-				// Si ce n'est pas le cas, on renvoie juste la valeur
+				// Si la requête a échouée, on renvoie alors la valeur
 				//	de secours.
 				return $fallback;
 			}
 
-			// Dans le cas contraire, on retourne le nom du jeu comme attendu.
-			return $response["data"]["name"];
-		}
+			// On transforme par la suite ce résultat sous format JSON
+			//	en tableau associatif pour le manipuler.
+			$response = json_decode($response->getContent(), true);
 
-		// On retourne enfin le résultat par défaut si la demande a échouée.
-		return $fallback;
+			if (is_array($response) && count($response) > 0)
+			{
+				// Si la réponse semble correcte, on vérifie si l'API indique
+				//	que la réponse est un succès et s'il existe les informations
+				// 	attendues initialement.
+				$response = $response[$identifier];
+
+				if ($response["success"] === false)
+				{
+					// Si l'API indique que la réponse est un échec, on renvoie
+					// 	également la valeur de secours.
+					return $fallback;
+				}
+
+				// Sinon, on retourne tout simplement le nom du jeu.
+				return $response["data"]["name"];
+			}
+
+			// On retourne enfin le résultat par défaut si la requête a échouée
+			//	quelque part ou si la réponse n'est pas conforme.
+			return $fallback;
+		});
 	}
 
 	//
@@ -139,34 +168,54 @@ class ServerManager
 	//
 	public function getGameIDByAddress(string $address, int $port): int
 	{
-		// On fait une requête à l'API centrale Steam pour récupérer
-		//	les informations du serveur.
-		$response = file_get_contents("https://api.steampowered.com/ISteamApps/GetServersAtAddress/v1/?addr=$address:$port");
+		// On initialise d'abord le cache du système de fichiers.
+		$cache = new FilesystemAdapter();
 
-		// On transforme par la suite ce résultat sous format JSON en
-		//	tableau associatif pour la manipuler.
-		$response = json_decode($response, true);
-
-		if (is_array($response) && count($response) > 0)
+		// On vérifie ensuite si le nom du jeu est déjà enregistré
+		// 	dans le cache de données.
+		return $cache->get("$address-$port", function (ItemInterface $item) use ($address, $port): int
 		{
-			// Si la réponse semble correcte, on vérifie si l'API indique
-			//	que la réponse est un succès et s'il existe une liste
-			//	d'informations comme attendu.
-			$response = $response["response"];
+			// Si ce n'est pas le cas, on définit une durée de vie
+			// 	de persistance pour le cache.
+			$item->expiresAfter(self::CACHE_LIFETIME);
 
-			if ($response["success"] === false || count($response["servers"]) === 0)
+			// On fait une requête à l'API Steam pour récupérer
+			//  les informations nécessaires.
+			$response = $this->client->request("GET", "https://api.steampowered.com/ISteamApps/GetServersAtAddress/v1/?addr=$address:$port");
+
+			// On vérifie après si la requête a réussie ou non.
+			if ($response->getStatusCode() !== 200)
 			{
 				// Si ce n'est pas le cas, on renvoie juste que le serveur
 				//	utilise un jeu qui n'est pas sur la plate-forme Steam.
 				return 0;
 			}
 
-			// Dans le cas contraire, on retourne l'identifiant du jeu comme attendu.
-			return $response["servers"][0]["appid"];
-		}
+			// On transforme par la suite ce résultat sous format JSON
+			//	en tableau associatif pour le manipuler.
+			$response = json_decode($response->getContent(), true);
 
-		// On retourne enfin un résultat par défaut si la requête a échouée
-		//	quelque part (connexion Internet impossible, API hors service...).
-		return 0;
+			if (is_array($response) && count($response) > 0)
+			{
+				// Si la réponse semble correcte, on vérifie si l'API indique
+				//	que la réponse est un succès et s'il existe une liste
+				//  d'informations comme attendu.
+				$response = $response["response"];
+
+				if ($response["success"] === false || count($response["servers"]) === 0)
+				{
+					// Si l'API indique que la réponse est un échec, on renvoie également
+					//  que le serveur utilise un jeu n'étant pas sur la plate-forme Steam.
+					return 0;
+				}
+
+				// Dans le cas contraire, on retourne l'identifiant du jeu.
+				return $response["servers"][0]["appid"];
+			}
+
+			// On retourne enfin le résultat par défaut si la requête a échouée
+			//	quelque part ou si la réponse n'est pas conforme.
+			return 0;
+		});
 	}
 }
