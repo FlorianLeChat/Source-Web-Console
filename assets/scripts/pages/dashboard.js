@@ -53,18 +53,35 @@ $( "[name = server_edit]" ).on( "click", ( event ) =>
 	//  le serveur.
 	if ( confirm( edit_remove ) )
 	{
-		// Suppression de l'action par défaut.
-		$( "input[value = edit]" ).remove();
-
 		// Ajout de l'action de suppression.
 		parent.append( "<input type=\"hidden\" name=\"server_action\" value=\"delete\" />" );
 	}
 	else
 	{
 		// Adresse IP, port et mot de passe du serveur.
-		parent.append( `<input type="hidden" name="address" value="${ prompt( edit_address ) }" />` );
-		parent.append( `<input type="hidden" name="port" value="${ prompt( edit_port ) }" />` );
-		parent.append( `<input type="hidden" name="password" value="${ prompt( edit_password ) }" />` );
+		const address = prompt( edit_address );
+		const port = prompt( edit_port );
+		const password = prompt( edit_password );
+
+		parent.append( "<input type=\"hidden\" name=\"server_action\" value=\"edit\" />" );
+
+		if ( address )
+		{
+			// Adresse IP valide.
+			parent.append( `<input type="hidden" name="server_address" value="${ address }" />` );
+		}
+
+		if ( port )
+		{
+			// Port valide.
+			parent.append( `<input type="hidden" name="server_port" value="${ port }" />` );
+		}
+
+		if ( password )
+		{
+			// Mot de passe valide.
+			parent.append( `<input type="hidden" name="server_password" value="${ password }" />` );
+		}
 	}
 
 	// On force enfin la soumission du formulaire en indiquant

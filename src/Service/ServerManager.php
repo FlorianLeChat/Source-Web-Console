@@ -19,7 +19,6 @@ class ServerManager
 	//
     public function __construct(public SourceQuery $query, private ContainerBagInterface $parameters)
 	{
-		$this->query = $query;
 		$this->sslPhrase = $this->parameters->get("app.ssl_phrase");
 	}
 
