@@ -6,8 +6,8 @@
 //
 namespace App\Twig;
 
-use App\Twig\AppRuntime;
 use Twig\TwigFunction;
+use App\Twig\AppRuntime;
 use Twig\Extension\AbstractExtension;
 
 class AppExtension extends AbstractExtension
