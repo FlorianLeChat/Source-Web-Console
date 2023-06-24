@@ -29,13 +29,13 @@ class Server
 	private ?string $address = null;
 
 	#[ORM\Column(length: 5)]
+	#[Assert\Length(exactly: 5)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
-	#[Assert\EqualTo(5)]
 	private ?string $port = null;
 
 	#[ORM\Column(length: 255, nullable: true)]
-	#[Assert\LessThanOrEqual(255)]
+	#[Assert\Length(max: 255)]
 	private ?string $password = null;
 
 	#[ORM\Column(nullable: true)]
