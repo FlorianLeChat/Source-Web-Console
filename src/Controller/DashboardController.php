@@ -83,9 +83,15 @@ class DashboardController extends AbstractController
 					}
 
 					// Enregistrement des modifications du serveur.
-					$server->setAddress($request->get("server_address", $server->getAddress()));
-					$server->setPort($request->get("server_port", $server->getPort()));
-					$server->setPassword($request->get("server_password", $server->getPassword()));
+					$server->setAddress($address = $request->get("server_address", $server->getAddress()));
+					$server->setPort($port = $request->get("server_port", $server->getPort()));
+					$server->setGame($this->serverManager->getGameIDByAddress($address, $port));
+
+					// Chiffrement du nouveau mot de passe administrateur.
+					if (($password = $request->get("server_password")) !== null)
+					{
+						$server->setPassword($this->serverManager->encryptPassword($password));
+					}
 
 					// Vérification de la validité des nouvelles informations.
 					if (count($this->validator->validate($server)) > 0)
