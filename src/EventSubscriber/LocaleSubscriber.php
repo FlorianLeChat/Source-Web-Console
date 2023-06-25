@@ -13,27 +13,28 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class LocaleSubscriber implements EventSubscriberInterface
 {
 	// Définition de la langue par défaut.
-	private string $defaultLocale = "en";
+	private const DEFAULT_LOCALE = "en";
 
 	// Définition de la langue actuelle de la session.
 	public function onKernelRequest(RequestEvent $event)
 	{
 		// On vérifie d'abord si la langue a déjà été définie par l'utilisateur.
 		$request = $event->getRequest();
+		$session = $request->getSession();
 
-		if ($locale = $request->attributes->get("_locale"))
+		if ($locale = $request->get("_locale"))
 		{
-			// Si c'est le cas, on enregistre la nouvelle langue de la session.
-			$request->getSession()->set("_locale", $locale);
+			// Si c'est le cas, on enregistre celle-ci dans la session.
+			$session->set("_locale", $locale);
 		}
 		else
 		{
 			// Dans le cas contraire, on tente alors d'utiliser la langue du navigateur
 			//  ou la langue par défaut si les informations ne sont pas disponibles.
-			$locale = substr($request->get("language", $request->server->get("HTTP_ACCEPT_LANGUAGE", $this->defaultLocale)), 0, 2);
+			$locale = substr($request->get("language", $request->get("HTTP_ACCEPT_LANGUAGE", self::DEFAULT_LOCALE)), 0, 2);
 
-			// On définit enfin la langue actuelle de la session.
-			$request->setLocale($request->getSession()->get("_locale", $locale));
+			// On définit enfin la langue préférée de l'utilisateur dans la requête.
+			$request->setLocale($session->get("_locale", $locale));
 		}
 	}
 
