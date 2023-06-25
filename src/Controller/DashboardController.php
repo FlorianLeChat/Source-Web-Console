@@ -49,13 +49,19 @@ class DashboardController extends AbstractController
 		//  l'action de l'utilisateur.
 		/** @var User */
 		$user = $this->getUser();
-		$serverId = intval($request->get("server_id", 0));
+		$serverId = intval($request->get("id", 0));
 		$serverRepository = $this->entityManager->getRepository(Server::class);
 
 		if ($serverId !== 0)
 		{
+			// On vérifie également la validité du jeton CSRF.
+			if (!$this->isCsrfTokenValid("server_action", $request->get("token")))
+			{
+				return new Response(status: Response::HTTP_BAD_REQUEST);
+			}
+
 			// On détermine après l'action doit être réalisée sur le serveur.
-			$action = $request->get("server_action", "none");
+			$action = $request->get("action", "none");
 
 			switch ($action)
 			{
@@ -83,12 +89,12 @@ class DashboardController extends AbstractController
 					}
 
 					// Enregistrement des modifications du serveur.
-					$server->setAddress($address = $request->get("server_address", $server->getAddress()));
-					$server->setPort($port = $request->get("server_port", $server->getPort()));
+					$server->setAddress($address = $request->get("address", $server->getAddress()));
+					$server->setPort($port = $request->get("port", $server->getPort()));
 					$server->setGame($this->serverManager->getGameIDByAddress($address, $port));
 
 					// Chiffrement du nouveau mot de passe administrateur.
-					if (($password = $request->get("server_password")) !== null)
+					if (($password = $request->get("password")) !== null)
 					{
 						$server->setPassword($this->serverManager->encryptPassword($password));
 					}
