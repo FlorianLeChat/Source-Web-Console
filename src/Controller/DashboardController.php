@@ -52,17 +52,17 @@ class DashboardController extends AbstractController
 		$serverId = intval($request->get("id", 0));
 		$serverRepository = $this->entityManager->getRepository(Server::class);
 
-		if ($serverId !== 0)
+		if ($serverId !== 0 && $request->getMethod() === "POST")
 		{
 			// On vérifie également la validité du jeton CSRF.
-			if (!$this->isCsrfTokenValid("server_action", $request->get("token")))
+			$action = $request->get("action", "none");
+
+			if (!$this->isCsrfTokenValid("server_$action", $request->get("token")))
 			{
 				return new Response(status: Response::HTTP_BAD_REQUEST);
 			}
 
 			// On détermine après l'action doit être réalisée sur le serveur.
-			$action = $request->get("action", "none");
-
 			switch ($action)
 			{
 				// Connexion à un serveur.
@@ -196,6 +196,107 @@ class DashboardController extends AbstractController
 				"players" => $this->serverManager->query->GetPlayers()
 
 			], JsonResponse::HTTP_OK);
+		}
+		catch (\Exception $error)
+		{
+			// En cas d'erreur, on renvoie le message d'erreur à l'utilisateur.
+			return new Response(
+				$this->translator->trans("global.fatal_error", ["%error%" => $error->getMessage()]),
+				Response::HTTP_INTERNAL_SERVER_ERROR
+			);
+		}
+		finally
+		{
+			// Si tout se passe bien, on libère enfin le socket réseau
+			//	pour d'autres scripts du site.
+			$this->serverManager->query->Disconnect();
+		}
+	}
+
+	//
+	// API vers la surveillance des constantes du serveur.
+	//
+	#[Route("/api/server/action/{name}", methods: ["POST"])]
+	#[IsGranted("IS_AUTHENTICATED")]
+	public function action(Request $request, string $name = "none"): Response
+	{
+		// TODO : imposer un délai entre chaque requête pour éviter les abus (https://symfony.com/doc/current/rate_limiter.html).
+
+		// On vérifie tout d'abord la validité du jeton CSRF.
+		if (!$this->isCsrfTokenValid("server_$name", $request->get("token")))
+		{
+			return new Response(
+				$this->translator->trans("form.server_check_failed"),
+				Response::HTTP_BAD_REQUEST
+			);
+		}
+
+		// On récupère ensuite le serveur sélectionné par l'utilisateur.
+		/** @var User */
+		$user = $this->getUser();
+		$serverId = intval($request->getSession()->get("serverId", 0));
+		$repository = $this->entityManager->getRepository(Server::class);
+
+		if ($serverId === 0)
+		{
+			return new Response(
+				$this->translator->trans("form.server_check_failed"),
+				Response::HTTP_BAD_REQUEST
+			);
+		}
+
+		// On récupère alors les données du serveur.
+		$server = $repository->findOneBy(["id" => $serverId, "client" => $user->getId()]);
+
+		try
+		{
+			// On tente après d'établir une connexion avec le serveur.
+			$this->serverManager->connect($server->getAddress(), $server->getPort(), $server->getPassword());
+
+			// On détermine l'action doit être réalisée sur le serveur.
+			switch ($name)
+			{
+				case "shutdown":
+				{
+					// Requête d'arrêt classique.
+					$this->serverManager->query->Rcon("sv_shutdown");
+					break;
+				}
+
+				case "force":
+				{
+					// Requête d'arrêt forcée.
+					$this->serverManager->query->Rcon("quit");
+					break;
+				}
+
+				case "restart":
+				{
+					// Requête de redémarrage.
+					$this->serverManager->query->Rcon("_restart");
+					break;
+				}
+
+				case "update":
+				{
+					// Requête de mise à jour.
+					$this->serverManager->query->Rcon("svc_update");
+					break;
+				}
+
+				case "service":
+				{
+					// Requête de mise en maintenance/verrouillage.
+					$this->serverManager->query->Rcon("sv_password \"" . bin2hex(random_bytes(10)) . "\"");
+					break;
+				}
+			}
+
+			// On envoie par la suite la réponse au client.
+			return new Response(
+				$this->translator->trans("global.action_success"),
+				Response::HTTP_OK
+			);
 		}
 		catch (\Exception $error)
 		{

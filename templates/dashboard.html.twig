@@ -37,7 +37,7 @@
 					{# Édition des propriétés du serveur #}
 					<form method="POST">
 						<input type="hidden" name="id" value="{{ server.id }}" />
-						<input type="hidden" name="token" value="{{ csrf_token("server_action") }}">
+						<input type="hidden" name="token" value="{{ csrf_token("server_edit") }}">
 
 						<button type="submit" name="server_edit">
 							<i class="bi bi-pencil-square"></i>
@@ -47,7 +47,7 @@
 					{# Connexion directe au serveur #}
 					<form method="POST">
 						<input type="hidden" name="id" value="{{ server.id }}" />
-						<input type="hidden" name="token" value="{{ csrf_token("server_action") }}">
+						<input type="hidden" name="token" value="{{ csrf_token("server_connect") }}">
 						<input type="hidden" name="action" value="connect" />
 
 						<button type="submit" name="server_connect">
@@ -115,23 +115,23 @@
 		<h3>{{ t("header.search.title")|trans }}</h3>
 
 		<ul>
-			<li data-action="shutdown">
+			<li data-action="shutdown" data-token="{{ csrf_token("server_shutdown") }}">
 				{# Arrêter le serveur #}
 				{{ t("global.shutdown")|trans }}
-				<em>{{ t("global.force")|trans }}</em>
+				<em data-token="{{ csrf_token("server_force") }}">{{ t("global.force")|trans }}</em>
 			</li>
 
-			<li data-action="restart">
+			<li data-action="restart" data-token="{{ csrf_token("server_restart") }}">
 				{# Redémarrer le serveur #}
 				{{ t("global.restart")|trans }}
 			</li>
 
-			<li data-action="update">
+			<li data-action="update" data-token="{{ csrf_token("server_update") }}">
 				{# Mettre à jour le serveur #}
 				{{ t("global.update")|trans }}
 			</li>
 
-			<li data-action="service">
+			<li data-action="service" data-token="{{ csrf_token("server_service") }}">
 				{# Passer en mode de maintenance #}
 				{{ t("global.service")|trans }}
 			</li>
