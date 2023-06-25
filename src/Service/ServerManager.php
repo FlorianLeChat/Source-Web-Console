@@ -8,10 +8,10 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
-class ServerManager
+readonly class ServerManager
 {
 	// Phrase unique pour le chiffrement symétrique.
-	private $sslPhrase;
+	private string $sslPhrase;
 
 	// Durée du cache pour les informations du serveur.
 	private const CACHE_LIFETIME = 3600 * 24 * 7;
