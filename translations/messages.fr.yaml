@@ -76,7 +76,7 @@ form:
         failed: "Une erreur interne s'est produite lors de votre connexion au compte utilisateur."
         success: "Vous êtes désormais connecté à votre compte utilisateur. Vous allez être redirigé automatiquement dans quelques secondes."
         invalid: "Les identifiants de connexion renseignés sont invalides ou n'existent pas."
-        recover: "Si le nom d'utilisateur renseigné est valide, alors le nouveau mot de passe a bien été mis à jour."
+        recover: "Si le nom d'utilisateur renseigné est valide et si votre adresse IP correspond à celle enregistrée lors de votre dernière connexion, alors le nouveau mot de passe a bien été mis à jour."
         username: "Saisissez votre nom d'utilisateur"
         password: "Saisissez votre mot de passe"
         description: "Ce formulaire vous permet la connexion à votre compte utilisateur grâce à une combinaison d'un nom d'utilisateur et un mot de passe définie lors de l'inscription. Vous retrouverez également la possibilité de réinitialiser votre mot de passe mais également de vous connecter grâce à un accès unique."
