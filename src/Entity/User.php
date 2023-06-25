@@ -8,6 +8,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\IpUtils;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -35,6 +36,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	#[Assert\NotCompromisedPassword]
 	#[Assert\NoSuspiciousCharacters]
 	private ?string $password = null;
+
+	#[ORM\Column(length: 45)]
+	private ?string $address = null;
 
 	#[ORM\Column]
 	private array $roles = [];
@@ -77,6 +81,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	public function setPassword(?string $password): self
 	{
 		$this->password = $password;
+
+		return $this;
+	}
+
+	public function getAddress(): ?string
+	{
+		return $this->address;
+	}
+
+	public function setAddress(string $address): self
+	{
+		$this->address = IpUtils::anonymize($address);
 
 		return $this;
 	}

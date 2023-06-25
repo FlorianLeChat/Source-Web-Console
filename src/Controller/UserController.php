@@ -12,6 +12,7 @@ use App\Service\ServerManager;
 use Symfony\Component\Mime\Email;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\IpUtils;
 use Symfony\Component\Mime\Crypto\DkimSigner;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,6 +81,7 @@ class UserController extends AbstractController
 
 		$user->setUsername($username = $request->get("username"));
 		$user->setPassword($hasher->hashPassword($user, $request->get("password", "")));
+		$user->setAddress($request->getClientIp());
 
 		$server->setAddress($address = $request->get("server_address"));
 		$server->setPort($port = $request->get("server_port"));
@@ -164,7 +166,8 @@ class UserController extends AbstractController
 		}
 
 		// On vérifie également les informations de l'utilisateur.
-		$user = $this->entityManager->getRepository(User::class)->findOneBy(["username" => $username]);
+		$repository = $this->entityManager->getRepository(User::class);
+		$user = $repository->findOneBy(["username" => $username]);
 
 		if (!$user || !$hasher->isPasswordValid($user, $password))
 		{
@@ -176,6 +179,14 @@ class UserController extends AbstractController
 
 		// On authentifie alors l'utilisateur.
 		$this->security->login($user);
+
+		// On met à jour après l'adresse IP de l'utilisateur
+		//  dans la base de données.
+		/** @var User */
+		$user = $this->getUser();
+		$user->setAddress($request->getClientIp());
+
+		$repository->save($user, true);
 
 		// On envoie enfin la réponse au client.
 		return new Response(
@@ -313,14 +324,13 @@ class UserController extends AbstractController
 
 		// On met à jour alors les informations de l'utilisateur
 		//  dans la base de données.
-		$repository = $this->entityManager->getRepository(User::class);
-
 		/** @var User */
 		$user = $this->getUser();
 		$user->setUsername($username);
 		$user->setPassword($hasher->hashPassword($user, $password));
+		$user->setAddress($request->getClientIp());
 
-		$repository->save($user, true);
+		$this->entityManager->getRepository(User::class)->save($user, true);
 
 		// On envoie enfin la réponse au client.
 		return new Response(
