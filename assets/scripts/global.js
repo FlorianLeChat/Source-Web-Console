@@ -147,7 +147,7 @@ contact.find( "form" ).on( "submit", async ( event ) =>
 	event.preventDefault();
 
 	// On réalise alors la requête AJAX.
-	const response = await fetch( "api/user/contact", {
+	const response = await fetch( contact.attr( "data-route" ), {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"

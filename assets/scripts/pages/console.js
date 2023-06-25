@@ -15,7 +15,8 @@ $( "#controller button" ).on( "click", ( event ) =>
 {
 	// On récupère le contenu de l'entrée utilisateur avant
 	//  de le vérifie pour la prochaine étape.
-	const input = $( event.target ).prev().val();
+	const target = $( event.target );
+	const input = target.prev().val();
 
 	if ( input.trim() === "" || input.length === 0 )
 	{
@@ -24,7 +25,7 @@ $( "#controller button" ).on( "click", ( event ) =>
 	}
 
 	// On envoie ensuite le contenu au serveur distant.
-	sendRemoteAction( "console", input );
+	sendRemoteAction( target.parent().attr( "data-route" ), input );
 
 	// Une fois réalisée, on ajoute une entrée dans l'historique
 	//  des entrées juste au-dessous.

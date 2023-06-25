@@ -27,7 +27,7 @@ $( "#account input[data-action]" ).on( "click", async ( event ) =>
 
 	// On réalise alors la requête AJAX.
 	const form = $( "#account" );
-	const response = await fetch( `api/user/${ action }`, {
+	const response = await fetch( $( event.target ).attr( "data-route" ), {
 		method: action === "update" ? "PUT" : "DELETE",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"
@@ -66,16 +66,15 @@ $( "#actions input[type = submit]" ).on( "click", async ( event ) =>
 
 	// On réalise ensuite la requête AJAX.
 	const form = $( "#actions" );
-	const action = $( event.target ).attr( "data-action" );
-
-	const response = await fetch( `api/user/${ action }`, {
+	const target = $( event.target );
+	const response = await fetch( target.attr( "data-route" ), {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"
 		},
 		body: new URLSearchParams( {
 			// Jeton de sécurité (CSRF).
-			token: form.find( `input[name = token-${ action }]` ).val(),
+			token: form.find( `input[name = token-${ target.attr( "data-action" ) }]` ).val(),
 
 			// Valeur du nouveau nom d'utilisateur.
 			username: form.find( "input[name = username]" ).val(),
