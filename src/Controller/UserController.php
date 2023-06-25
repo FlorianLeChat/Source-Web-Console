@@ -36,6 +36,7 @@ class UserController extends AbstractController
 		private ValidatorInterface $validator,
 		private TranslatorInterface $translator,
 		private EntityManagerInterface $entityManager,
+		private UserPasswordHasherInterface $hasher
 	) {}
 
 	//
@@ -60,7 +61,7 @@ class UserController extends AbstractController
 	//  Source : https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
 	//
 	#[Route("/api/user/register", methods: ["POST"])]
-	public function register(Request $request, UserPasswordHasherInterface $hasher): Response
+	public function register(Request $request): Response
 	{
 		// TODO : imposer une limite de création par IP.
 		// TODO : ajouter la possibilité de créer un compte via Google.
@@ -80,7 +81,7 @@ class UserController extends AbstractController
 		$server = new Server();
 
 		$user->setUsername($username = $request->get("username"));
-		$user->setPassword($hasher->hashPassword($user, $request->get("password", "")));
+		$user->setPassword($this->hasher->hashPassword($user, $request->get("password", "")));
 		$user->setAddress($request->getClientIp());
 
 		$server->setAddress($address = $request->get("server_address"));
@@ -135,7 +136,7 @@ class UserController extends AbstractController
 	//  Source : https://symfony.com/doc/current/security.html#login-programmatically
 	//
 	#[Route("/api/user/login", methods: ["POST"])]
-	public function login(Request $request, UserPasswordHasherInterface $hasher): Response
+	public function login(Request $request): Response
 	{
 		// TODO : imposer une limite de connexion par IP (https://symfony.com/doc/current/security.html#limiting-login-attempts).
 		// TODO : ajouter la possibilité de se connecter via Token (https://symfony.com/doc/current/security/access_token.html).
@@ -155,7 +156,7 @@ class UserController extends AbstractController
 		// On vérifie ensuite si les informations sont valides.
 		$user = new User();
 		$user->setUsername($username = $request->get("username"));
-		$user->setPassword($hasher->hashPassword($user, $password = $request->get("password", "")));
+		$user->setPassword($this->hasher->hashPassword($user, $password = $request->get("password", "")));
 
 		if (count($this->validator->validate($user)) > 0)
 		{
@@ -169,7 +170,7 @@ class UserController extends AbstractController
 		$repository = $this->entityManager->getRepository(User::class);
 		$user = $repository->findOneBy(["username" => $username]);
 
-		if (!$user || !$hasher->isPasswordValid($user, $password))
+		if (!$user || !$this->hasher->isPasswordValid($user, $password))
 		{
 			return new Response(
 				$this->translator->trans("form.login.invalid"),
@@ -298,7 +299,7 @@ class UserController extends AbstractController
 	//
 	#[Route("/api/user/update", methods: ["PUT"])]
 	#[IsGranted("IS_AUTHENTICATED")]
-	public function update(Request $request, UserPasswordHasherInterface $hasher): Response
+	public function update(Request $request): Response
 	{
 		// On vérifie tout d'abord la validité du jeton CSRF.
 		if (!$this->isCsrfTokenValid("user_update", $request->get("token")))
@@ -327,10 +328,76 @@ class UserController extends AbstractController
 		/** @var User */
 		$user = $this->getUser();
 		$user->setUsername($username);
-		$user->setPassword($hasher->hashPassword($user, $password));
+		$user->setPassword($this->hasher->hashPassword($user, $password));
 		$user->setAddress($request->getClientIp());
 
 		$this->entityManager->getRepository(User::class)->save($user, true);
+
+		// On envoie enfin la réponse au client.
+		return new Response(
+			$this->translator->trans("user.updated"),
+			Response::HTTP_OK
+		);
+	}
+
+	//
+	// API vers le mécanisme de récupération du mot de passe de l'utilisateur.
+	//
+	#[Route("/api/user/recover", methods: ["PUT"])]
+	public function recover(Request $request): Response
+	{
+		// On vérifie tout d'abord la validité du jeton CSRF.
+		if (!$this->isCsrfTokenValid("user_login", $request->get("token")))
+		{
+			return new Response(
+				$this->translator->trans("form.login.failed"),
+				Response::HTTP_BAD_REQUEST
+			);
+		}
+
+		// On vérifie ensuite si les informations sont valides.
+		$user = new User();
+		$user->setUsername($username = $request->get("username"));
+		$user->setPassword($password = $request->get("password"));
+
+		if (count($this->validator->validate($user)) > 0)
+		{
+			return new Response(
+				$this->translator->trans("form.server_check_failed"),
+				Response::HTTP_BAD_REQUEST
+			);
+		}
+
+		// On vérifie également les informations de l'utilisateur.
+		$repository = $this->entityManager->getRepository(User::class);
+		$user = $repository->findOneBy(["username" => $username]);
+
+		if (!$user)
+		{
+			return new Response(
+				$this->translator->trans("form.server_check_failed"),
+				Response::HTTP_BAD_REQUEST
+			);
+		}
+
+		// On vérifie après si l'adresse IP enregistrée dans la base de données
+		//  correspond bien à celle de l'utilisateur.
+		$address = $request->getClientIp();
+
+		if (!IpUtils::checkIp(IpUtils::anonymize($address), $user->getAddress()))
+		{
+			return new Response(
+				$this->translator->trans("form.server_check_failed"),
+				Response::HTTP_BAD_REQUEST
+			);
+		}
+
+		// On met à jour alors les informations de l'utilisateur
+		//  dans la base de données.
+		$user->setPassword($this->hasher->hashPassword($user, $password));
+		$user->setAddress($address);
+
+		$repository->save($user, true);
 
 		// On envoie enfin la réponse au client.
 		return new Response(

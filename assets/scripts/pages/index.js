@@ -197,34 +197,31 @@ links.eq( 1 ).on( "click", () =>
 	} );
 } );
 
-links.last().on( "click", ( event ) =>
+links.last().on( "click", async ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
 
 	// On réalise ensuite la requête AJAX.
-	$.post( "api/user/login", {
+	const response = await fetch( "api/user/recover", {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded"
+		},
+		body: new URLSearchParams( {
+			// Jeton de sécurité (CSRF).
+			token: login.find( "input[name = token]" ).val(),
 
-		// Nom d'utilisateur.
-		username: prompt( recover_password_username ),
+			// Nom d'utilisateur associé au compte.
+			username: prompt( recover_password_username ),
 
-		// Mot de passe.
-		password: prompt( recover_password_password ),
-
-		// Option de récupération.
-		backup: true
-
-	} )
-		.done( ( data ) =>
-		{
-			// Une fois terminée, on affiche un message de confirmation.
-			addQueuedNotification( data.message, data.code );
+			// Nouveau mot de passe.
+			password: prompt( recover_password_password )
 		} )
-		.fail( ( self ) =>
-		{
-			// Dans le cas contraire, on affiche un message d'erreur.
-			addQueuedNotification( self.responseText, 1 );
-		} );
+	} );
+
+	// On affiche enfin un message de confirmation ou d'erreur.
+	addQueuedNotification( await response.text(), response.ok ? 3 : 1 );
 } );
 
 //

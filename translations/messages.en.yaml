@@ -76,7 +76,7 @@ form:
         failed: "An internal error occurred while connecting to your user account."
         success: "You are now connected to your user account. You will be redirected automatically in a few seconds."
         invalid: "The provided credentials are invalid or do not exist."
-        recover: "If the provided username is valid, then the new password has been updated."
+        recover: "If your username is valid and your IP address matches the one registered when you last logged on, then your new password has been updated."
         username: "Enter your username"
         password: "Enter your password"
         description: "This form provides you with the ability to connect to your user account using a combination of a username and a password defined during the registration process. You will also find the possibility to reset your password but also to connect through a unique access."
