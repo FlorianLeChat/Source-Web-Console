@@ -149,12 +149,18 @@ timer = setInterval( () =>
 //
 $( "#actions li" ).on( "click", ( event ) =>
 {
-	// Requête classique en fonction du bouton.
-	sendRemoteAction( $( event.target ).attr( "data-action" ) );
+	// Requête classique d'action en fonction du bouton.
+	const target = $( event.target );
+	const action = target.attr( "data-action" );
+
+	if ( action )
+	{
+		sendRemoteAction( target.attr( "data-token" ), action );
+	}
 } );
 
-$( "#actions li:first-of-type" ).on( "dblclick", () =>
+$( "#actions li:first-of-type" ).on( "dblclick", ( event ) =>
 {
-	// Requête d'arrêt forcé.
-	sendRemoteAction( "force" );
+	// Requête d'arrêt forcée
+	sendRemoteAction( $( event.target ).attr( "data-token" ), "force" );
 } );
