@@ -94,12 +94,12 @@
 	</section>
 
 	{# Formulaire d'inscription #}
-	<section id="register">
+	<section id="register" data-route="{{ path("app_user_register") }}">
 		{% include("form_register.html.twig") %}
 	</section>
 
 	{# Formulaire de connexion #}
-	<section id="login">
+	<section id="login" data-route="{{ path("app_user_login") }}">
 		{% include("form_login.html.twig") %}
 	</section>
 {% endblock %}

@@ -52,14 +52,14 @@ register.find( "form" ).on( "submit", async ( event ) =>
 	{
 		// Dans le cas contraire, on réalise alors une requête AJAX
 		//  pour envoyer les informations au serveur.
-		const response = await fetch( "api/user/register", {
+		const response = await fetch( register.parent().attr( "data-route" ), {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded"
 			},
 			body: new URLSearchParams( {
 				// Jeton de sécurité (CSRF).
-				token: login.find( "input[name = token]" ).val(),
+				token: register.find( "input[name = token]" ).val(),
 
 				// Nom d'utilisateur et mot de passe du compte utilisateur.
 				username: firstStep.find( "input[name = username]" ).val(),
@@ -127,7 +127,7 @@ login.find( "input[type = submit]" ).on( "click", async ( event ) =>
 	event.preventDefault();
 
 	// On réalise ensuite la requête AJAX.
-	const response = await fetch( "api/user/login", {
+	const response = await fetch( login.attr( "data-route" ), {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"
@@ -203,7 +203,7 @@ links.last().on( "click", async ( event ) =>
 	event.preventDefault();
 
 	// On réalise ensuite la requête AJAX.
-	const response = await fetch( "api/user/recover", {
+	const response = await fetch( $( event.target ).parent().attr( "data-route" ), {
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"

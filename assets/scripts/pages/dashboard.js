@@ -99,7 +99,7 @@ let timer;
 async function retrieveRemoteData()
 {
 	// On réalise d'abord la requête AJAX.
-	const response = await fetch( "api/server/monitor" );
+	const response = await fetch( $( "#servers" ).attr( "data-route" ) );
 
 	// On vérifie ensuite si la requête a été effectuée avec succès.
 	if ( response.ok )
@@ -155,12 +155,14 @@ $( "#actions li" ).on( "click", ( event ) =>
 
 	if ( action )
 	{
-		sendRemoteAction( target.attr( "data-token" ), action );
+		sendRemoteAction( target.attr( "data-route" ), target.attr( "data-token" ) );
 	}
 } );
 
 $( "#actions li:first-of-type" ).on( "dblclick", ( event ) =>
 {
 	// Requête d'arrêt forcée
-	sendRemoteAction( $( event.target ).attr( "data-token" ), "force" );
+	const target = $( event.target );
+
+	sendRemoteAction( target.attr( "data-route" ), target.attr( "data-token" ) );
 } );

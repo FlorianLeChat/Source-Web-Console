@@ -197,7 +197,7 @@
 			{% block content %} {% endblock %}
 
 			{# Formulaire de contact #}
-			<section id="contact">
+			<section id="contact" data-route="{{ path("app_user_contact") }}">
 				{% include("form_contact.html.twig") %}
 			</section>
 
