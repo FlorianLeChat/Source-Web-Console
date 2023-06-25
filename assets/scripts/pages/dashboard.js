@@ -54,7 +54,7 @@ $( "[name = server_edit]" ).on( "click", ( event ) =>
 	if ( confirm( edit_remove ) )
 	{
 		// Ajout de l'action de suppression.
-		parent.append( "<input type=\"hidden\" name=\"server_action\" value=\"delete\" />" );
+		parent.append( "<input type=\"hidden\" name=\"action\" value=\"delete\" />" );
 	}
 	else
 	{
@@ -63,24 +63,24 @@ $( "[name = server_edit]" ).on( "click", ( event ) =>
 		const port = prompt( edit_port );
 		const password = prompt( edit_password );
 
-		parent.append( "<input type=\"hidden\" name=\"server_action\" value=\"edit\" />" );
+		parent.append( "<input type=\"hidden\" name=\"action\" value=\"edit\" />" );
 
 		if ( address )
 		{
 			// Adresse IP valide.
-			parent.append( `<input type="hidden" name="server_address" value="${ address }" />` );
+			parent.append( `<input type="hidden" name="address" value="${ address }" />` );
 		}
 
 		if ( port )
 		{
 			// Port valide.
-			parent.append( `<input type="hidden" name="server_port" value="${ port }" />` );
+			parent.append( `<input type="hidden" name="port" value="${ port }" />` );
 		}
 
 		if ( password )
 		{
 			// Mot de passe valide.
-			parent.append( `<input type="hidden" name="server_password" value="${ password }" />` );
+			parent.append( `<input type="hidden" name="password" value="${ password }" />` );
 		}
 	}
 

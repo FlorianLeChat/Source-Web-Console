@@ -36,7 +36,8 @@
 
 					{# Édition des propriétés du serveur #}
 					<form method="POST">
-						<input type="hidden" name="server_id" value="{{ server.id }}" />
+						<input type="hidden" name="id" value="{{ server.id }}" />
+						<input type="hidden" name="token" value="{{ csrf_token("server_action") }}">
 
 						<button type="submit" name="server_edit">
 							<i class="bi bi-pencil-square"></i>
@@ -45,8 +46,9 @@
 
 					{# Connexion directe au serveur #}
 					<form method="POST">
-						<input type="hidden" name="server_id" value="{{ server.id }}" />
-						<input type="hidden" name="server_action" value="connect" />
+						<input type="hidden" name="id" value="{{ server.id }}" />
+						<input type="hidden" name="token" value="{{ csrf_token("server_action") }}">
+						<input type="hidden" name="action" value="connect" />
 
 						<button type="submit" name="server_connect">
 							<i class="bi bi-plug"></i>
