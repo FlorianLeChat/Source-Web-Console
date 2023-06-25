@@ -85,7 +85,7 @@ class UserController extends AbstractController
 		$user->setAddress($request->getClientIp());
 
 		$server->setAddress($address = $request->get("server_address"));
-		$server->setPort($port = $request->get("server_port"));
+		$server->setPort($port = intval($request->get("server_port")));
 		$server->setPassword($password = $request->get("server_password"));
 		$server->setGame($this->serverManager->getGameIDByAddress($address, $port));
 		$server->setClient($user);
