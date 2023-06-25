@@ -216,9 +216,9 @@ class DashboardController extends AbstractController
 	//
 	// API vers la surveillance des constantes du serveur.
 	//
-	#[Route("/api/server/action/{name}", methods: ["POST"])]
+	#[Route("/api/server/action/{name?}/{value?}", methods: ["POST"])]
 	#[IsGranted("IS_AUTHENTICATED")]
-	public function action(Request $request, string $name = "none"): Response
+	public function action(Request $request, ?string $name, ?string $value): Response
 	{
 		// TODO : imposer un délai entre chaque requête pour éviter les abus (https://symfony.com/doc/current/rate_limiter.html).
 
@@ -237,7 +237,7 @@ class DashboardController extends AbstractController
 		$serverId = intval($request->getSession()->get("serverId", 0));
 		$repository = $this->entityManager->getRepository(Server::class);
 
-		if ($serverId === 0)
+		if ($serverId === 0 || !$name)
 		{
 			return new Response(
 				$this->translator->trans("form.server_check_failed"),
@@ -288,6 +288,55 @@ class DashboardController extends AbstractController
 				{
 					// Requête de mise en maintenance/verrouillage.
 					$this->serverManager->query->Rcon("sv_password \"" . bin2hex(random_bytes(10)) . "\"");
+					break;
+				}
+
+				case "flashlight":
+				{
+					// Basculement de l'autorisation d'utilisation de la lampe torche.
+					$this->serverManager->query->Rcon("toggle mp_flashlight");
+					break;
+				}
+
+				case "cheats":
+				{
+					// Basculement de l'autorisation d'utilisation des commandes de triche.
+					$this->serverManager->query->Rcon("toggle sv_cheats");
+					break;
+				}
+
+				case "voice":
+				{
+					// Basculement de l'autorisation d'utilisation de la voix par IP.
+					$this->serverManager->query->Rcon("toggle sv_voiceenable");
+					break;
+				}
+
+				case "console":
+				{
+					// Exécution d'une commande sur le serveur.
+					$this->serverManager->query->Rcon($value);
+					break;
+				}
+
+				case "level":
+				{
+					// Changement de l'environnement/carte.
+					$this->serverManager->query->Rcon("changelevel \"$value\"");
+					break;
+				}
+
+				case "password":
+				{
+					// Changement du mot de passe du serveur.
+					$this->serverManager->query->Rcon("sv_password \"$value\"");
+					break;
+				}
+
+				case "gravity":
+				{
+					// Changement du niveau de gravité.
+					$this->serverManager->query->Rcon("sv_gravity \"$value\"");
 					break;
 				}
 			}
