@@ -109,45 +109,40 @@ $( "#register input[type = submit]" ).attr( "data-action", "insert" );
 // Permet d'envoyer les demandes d'ajout d'un nouveau serveur dans
 //  la base de données.
 //
-$( "#register input[type = submit]" ).on( "click", ( event ) =>
+$( "#register input[type = submit]" ).on( "click", async ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
 
 	// On réalise ensuite la requête AJAX.
 	const form = $( event.target ).parent();
+	const response = await fetch( $( "#register" ).attr( "data-route" ), {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded"
+		},
+		body: new URLSearchParams( {
+			// Jeton de sécurité (CSRF).
+			token: form.find( "input[name = token]" ).val(),
 
-	$.post( "includes/controllers/server_user.php", {
+			// Nom d'utilisateur et mot de passe du compte utilisateur.
+			username: form.find( "input[name = username]" ).val(),
+			password: form.find( "input[name = password]" ).val(),
 
-		// Type de l'action qui doit être effectué.
-		user_action: $( event.target ).attr( "data-action" ),
-
-		// Informations du client (obligatoires côté serveur).
-		server_address: form.find( "input[name = server_address]" ).val(),
-		server_port: form.find( "input[name = server_port]" ).val(),
-
-		// Informations administrateur (facultatives).
-		admin_address: form.find( "input[name = admin_address]" ).val(),
-		admin_port: form.find( "input[name = admin_port]" ).val(),
-		admin_password: form.find( "input[name = admin_password]" ).val(),
-
-		// Options de connexion.
-		//  Note : conversion explicite de la valeur booléenne en valeur entière.
-		secure_only: form.find( "input[id = secure_only]" ).is( ":checked" ) && 0,
-		auto_connect: form.find( "input[id = auto_connect]" ).is( ":checked" ) && 0
-
-	} )
-		.done( ( data ) =>
-		{
-			// On affiche la notification de confirmation.
-			addQueuedNotification( data, 3 );
+			// Informations du serveur.
+			server_address: form.find( "input[name = server_address]" ).val(),
+			server_port: form.find( "input[name = server_port]" ).val(),
+			server_password: form.find( "input[name = server_password]" ).val()
 		} )
-		.fail( ( self ) =>
-		{
-			// Dans le cas contraire, on affiche un message d'erreur.
-			addQueuedNotification( self.responseText, 1 );
-		} );
+	} );
 
-	// On réinitialise enfin le formulaire.
-	$( event.target ).parent()[ 0 ].reset();
+	// On affiche après un message de confirmation ou d'erreur.
+	addQueuedNotification( await response.text(), response.ok ? 3 : 1 );
+
+	// On vérifie si la requête a été effectuée avec succès.
+	if ( response.ok )
+	{
+		// Dans ce cas, on réinitialise enfin l'entièreté du formulaire.
+		$( event.target ).parent()[ 0 ].reset();
+	}
 } );

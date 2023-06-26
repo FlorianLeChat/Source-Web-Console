@@ -58,7 +58,7 @@
 	</section>
 
 	{# Ajout d'un serveur #}
-	<section id="register">
+	<section id="register" data-route="{{ path("app_server_new") }}">
 		{% include("form_register.html.twig") %}
 	</section>
 {% endblock %}
