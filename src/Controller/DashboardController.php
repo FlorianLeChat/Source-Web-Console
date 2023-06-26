@@ -92,7 +92,7 @@ class DashboardController extends AbstractController
 					$server->setGame($this->serverManager->getGameIDByAddress($address, $port));
 
 					// Chiffrement du nouveau mot de passe administrateur.
-					if (($password = $request->request->get("password")) !== null)
+					if (!empty($password = $request->request->get("password")))
 					{
 						$server->setPassword($this->serverManager->encryptPassword($password));
 					}
