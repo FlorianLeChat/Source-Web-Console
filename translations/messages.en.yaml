@@ -201,10 +201,10 @@ dashboard:
         map: "Current map"
         info: "Information"
         title: "General state"
-        nodata: "No signal\r\n(Unknown)"
+        nodata: "No signal<br />(Unknown)"
         players: "Player count"
-        service: "In servicing\r\n(%gamemode%)"
-        running: "Operating\r\n(%gamemode%)"
+        service: "In servicing<br />(%gamemode%)"
+        running: "Operating<br />(%gamemode%)"
     edit:
         port: "Enter the new server port.\nLeave blank for no change."
         remove: "Do you want to delete this server?"
