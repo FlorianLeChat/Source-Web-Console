@@ -124,6 +124,23 @@ input, textarea, select
 		filter: opacity(0.5);
 		pointer-events: none;
 	}
+
+	&[type = number]
+	{
+		// Suppression des boutons de sélection des nombres.
+		&::-webkit-outer-spin-button, &::-webkit-inner-spin-button
+		{
+			// Navigateurs WebKit.
+			margin: 0;
+			-webkit-appearance: none;
+		}
+
+		@-moz-document url-prefix()
+		{
+			// Navigateurs Gecko.
+			-moz-appearance: textfield;
+		}
+	}
 }
 
 ::selection
