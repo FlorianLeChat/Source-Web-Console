@@ -29,7 +29,7 @@ class Server
 	private ?string $address = null;
 
 	#[ORM\Column(length: 5)]
-	#[Assert\Length(exactly: 5)]
+	#[Assert\Length(min: 1, max: 5)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
 	private ?string $port = null;
