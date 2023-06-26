@@ -49,15 +49,15 @@ class DashboardController extends AbstractController
 		//  l'action de l'utilisateur.
 		/** @var User */
 		$user = $this->getUser();
-		$serverId = intval($request->get("id", 0));
+		$serverId = intval($request->request->get("id", 0));
 		$serverRepository = $this->entityManager->getRepository(Server::class);
 
 		if ($serverId !== 0 && $request->getMethod() === "POST")
 		{
 			// On vérifie également la validité du jeton CSRF.
-			$action = $request->get("action", "none");
+			$action = $request->request->get("action", "none");
 
-			if (!$this->isCsrfTokenValid("server_$action", $request->get("token")))
+			if (!$this->isCsrfTokenValid("server_$action", $request->request->get("token")))
 			{
 				return new Response(status: Response::HTTP_BAD_REQUEST);
 			}
@@ -89,12 +89,12 @@ class DashboardController extends AbstractController
 					}
 
 					// Enregistrement des modifications du serveur.
-					$server->setAddress($address = $request->get("address", $server->getAddress()));
-					$server->setPort($port = $request->get("port", $server->getPort()));
+					$server->setAddress($address = $request->request->get("address", $server->getAddress()));
+					$server->setPort($port = $request->request->get("port", $server->getPort()));
 					$server->setGame($this->serverManager->getGameIDByAddress($address, $port));
 
 					// Chiffrement du nouveau mot de passe administrateur.
-					if (($password = $request->get("password")) !== null)
+					if (($password = $request->request->get("password")) !== null)
 					{
 						$server->setPassword($this->serverManager->encryptPassword($password));
 					}
@@ -223,7 +223,7 @@ class DashboardController extends AbstractController
 		// TODO : imposer un délai entre chaque requête pour éviter les abus (https://symfony.com/doc/current/rate_limiter.html).
 
 		// On vérifie tout d'abord la validité du jeton CSRF.
-		if (!$this->isCsrfTokenValid("server_$name", $request->get("token")))
+		if (!$this->isCsrfTokenValid("server_$name", $request->request->get("token")))
 		{
 			return new Response(
 				$this->translator->trans("form.server_check_failed"),

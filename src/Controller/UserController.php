@@ -68,7 +68,7 @@ class UserController extends AbstractController
 		// TODO : ajouter la possibilité de se souvenir de la connexion après création de compte.
 
 		// On vérifie tout d'abord la validité du jeton CSRF.
-		if (!$this->isCsrfTokenValid("user_register", $request->get("token")))
+		if (!$this->isCsrfTokenValid("user_register", $request->request->get("token")))
 		{
 			return new Response(
 				$this->translator->trans("form.register.failed"),
@@ -80,13 +80,13 @@ class UserController extends AbstractController
 		$user = new User();
 		$server = new Server();
 
-		$user->setUsername($username = $request->get("username"));
-		$user->setPassword($this->hasher->hashPassword($user, $request->get("password", "")));
+		$user->setUsername($username = $request->request->get("username"));
+		$user->setPassword($this->hasher->hashPassword($user, $request->request->get("password", "")));
 		$user->setAddress($request->getClientIp());
 
-		$server->setAddress($address = $request->get("server_address"));
-		$server->setPort($port = intval($request->get("server_port")));
-		$server->setPassword($password = $request->get("server_password"));
+		$server->setAddress($address = $request->request->get("server_address"));
+		$server->setPort($port = intval($request->request->get("server_port")));
+		$server->setPassword($password = $request->request->get("server_password"));
 		$server->setGame($this->serverManager->getGameIDByAddress($address, $port));
 		$server->setClient($user);
 
@@ -145,7 +145,7 @@ class UserController extends AbstractController
 		// TODO : tester le "souvenir de la connexion" après authentification (en production).
 
 		// On vérifie tout d'abord la validité du jeton CSRF.
-		if (!$this->isCsrfTokenValid("user_login", $request->get("token")))
+		if (!$this->isCsrfTokenValid("user_login", $request->request->get("token")))
 		{
 			return new Response(
 				$this->translator->trans("form.login.failed"),
@@ -155,8 +155,8 @@ class UserController extends AbstractController
 
 		// On vérifie ensuite si les informations sont valides.
 		$user = new User();
-		$user->setUsername($username = $request->get("username"));
-		$user->setPassword($this->hasher->hashPassword($user, $password = $request->get("password", "")));
+		$user->setUsername($username = $request->request->get("username"));
+		$user->setPassword($this->hasher->hashPassword($user, $password = $request->request->get("password", "")));
 
 		if (count($this->validator->validate($user)) > 0)
 		{
@@ -205,7 +205,7 @@ class UserController extends AbstractController
 	public function logout(Request $request, ): Response
 	{
 		// On vérifie tout d'abord la validité du jeton CSRF.
-		if (!$this->isCsrfTokenValid("user_logout", $request->get("token")))
+		if (!$this->isCsrfTokenValid("user_logout", $request->request->get("token")))
 		{
 			return new Response(
 				$this->translator->trans("form.login.failed"),
@@ -232,7 +232,7 @@ class UserController extends AbstractController
 		// TODO : imposer une limite d'envoi de messages par jour avec la même adresse IP.
 
 		// On vérifie tout d'abord la validité du jeton CSRF.
-		if (!$this->isCsrfTokenValid("user_contact", $request->get("token")))
+		if (!$this->isCsrfTokenValid("user_contact", $request->request->get("token")))
 		{
 			return new Response(
 				$this->translator->trans("form.contact.failed"),
@@ -242,9 +242,9 @@ class UserController extends AbstractController
 
 		// On créé ensuite un nouvel objet de type "Contact".
 		$contact = new Contact();
-		$contact->setEmail($email = $request->get("email"));
-		$contact->setSubject($subject = $request->get("subject"));
-		$contact->setContent($content = $request->get("content"));
+		$contact->setEmail($email = $request->request->get("email"));
+		$contact->setSubject($subject = $request->request->get("subject"));
+		$contact->setContent($content = $request->request->get("content"));
 		$contact->setTimestamp(new \DateTime());
 
 		// On vérifie alors si les informations sont valides.
@@ -302,7 +302,7 @@ class UserController extends AbstractController
 	public function update(Request $request): Response
 	{
 		// On vérifie tout d'abord la validité du jeton CSRF.
-		if (!$this->isCsrfTokenValid("user_update", $request->get("token")))
+		if (!$this->isCsrfTokenValid("user_update", $request->request->get("token")))
 		{
 			return new Response(
 				$this->translator->trans("form.login.failed"),
@@ -312,8 +312,8 @@ class UserController extends AbstractController
 
 		// On vérifie ensuite si les informations sont valides.
 		$user = new User();
-		$user->setUsername($username = $request->get("username"));
-		$user->setPassword($password = $request->get("password"));
+		$user->setUsername($username = $request->request->get("username"));
+		$user->setPassword($password = $request->request->get("password"));
 
 		if (count($this->validator->validate($user)) > 0)
 		{
@@ -347,7 +347,7 @@ class UserController extends AbstractController
 	public function recover(Request $request): Response
 	{
 		// On vérifie tout d'abord la validité du jeton CSRF.
-		if (!$this->isCsrfTokenValid("user_login", $request->get("token")))
+		if (!$this->isCsrfTokenValid("user_login", $request->request->get("token")))
 		{
 			return new Response(
 				$this->translator->trans("form.login.failed"),
@@ -357,8 +357,8 @@ class UserController extends AbstractController
 
 		// On vérifie ensuite si les informations sont valides.
 		$user = new User();
-		$user->setUsername($username = $request->get("username"));
-		$user->setPassword($password = $request->get("password"));
+		$user->setUsername($username = $request->request->get("username"));
+		$user->setPassword($password = $request->request->get("password"));
 
 		if (count($this->validator->validate($user)) > 0)
 		{
@@ -414,7 +414,7 @@ class UserController extends AbstractController
 	public function remove(Request $request): Response
 	{
 		// On vérifie tout d'abord la validité du jeton CSRF.
-		if (!$this->isCsrfTokenValid("user_remove", $request->get("token")))
+		if (!$this->isCsrfTokenValid("user_remove", $request->request->get("token")))
 		{
 			return new Response(
 				$this->translator->trans("form.login.failed"),
