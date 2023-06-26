@@ -103,7 +103,7 @@ class UserController extends AbstractController
 
 		// On chiffre le mot de passe administrateur s'il est renseigné
 		//  pour des raisons de sécurité évidentes.
-		if ($password !== null)
+		if (!empty($password))
 		{
 			$server->setPassword($this->serverManager->encryptPassword($password));
 		}
