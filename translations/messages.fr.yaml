@@ -201,10 +201,10 @@ dashboard:
         map: "Carte actuelle"
         info: "Information"
         title: "État général"
-        nodata: "Aucun signal\r\n(Inconnu)"
+        nodata: "Aucun signal<br/>(Inconnu)"
         players: "Nombre de joueurs"
-        service: "En maintenance\r\n(%gamemode%)"
-        running: "En fonctionnement\r\n(%gamemode%)"
+        service: "En maintenance<br />(%gamemode%)"
+        running: "En fonctionnement<br />(%gamemode%)"
     edit:
         port: "Saisissez le nouveau port du serveur.\nLaissez vide pour aucun changement."
         remove: "Voulez-vous supprimer ce serveur ?"

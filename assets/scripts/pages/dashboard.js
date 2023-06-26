@@ -108,7 +108,7 @@ async function retrieveRemoteData()
 		const data = await response.json();
 
 		// Affichage de l'état de fonctionnement.
-		$( "[data-field = state]" ).text( data.state );
+		$( "[data-field = state]" ).html( data.state );
 
 		// Affichage de la carte actuelle.
 		$( "[data-field = map]" ).text( data.map );
