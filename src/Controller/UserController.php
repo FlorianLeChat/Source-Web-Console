@@ -432,4 +432,55 @@ class UserController extends AbstractController
 			Response::HTTP_OK
 		);
 	}
+
+	//
+	// API vers le mécanisme d'ajout d'un nouveau serveur.
+	//
+	#[Route("/api/server/new", name: "app_server_new", methods: ["POST"])]
+	#[IsGranted("IS_AUTHENTICATED")]
+	public function new(Request $request): Response
+	{
+		// On vérifie tout d'abord la validité du jeton CSRF.
+		if (!$this->isCsrfTokenValid("user_register", $request->request->get("token")))
+		{
+			return new Response(
+				$this->translator->trans("form.register.failed"),
+				Response::HTTP_BAD_REQUEST
+			);
+		}
+
+		// On enregistre ensuite les informations du nouveau serveur.
+		$server = new Server();
+
+		$server->setAddress($address = $request->request->get("server_address"));
+		$server->setPort($port = intval($request->request->get("server_port")));
+		$server->setPassword($password = $request->request->get("server_password"));
+		$server->setGame($this->serverManager->getGameIDByAddress($address, $port));
+		$server->setClient($this->getUser());
+
+		// On chiffre le mot de passe administrateur s'il est renseigné
+		//  pour des raisons de sécurité évidentes.
+		if (!empty($password))
+		{
+			$server->setPassword($this->serverManager->encryptPassword($password));
+		}
+
+		// On vérifie également si les informations sont valides.
+		if (count($this->validator->validate($server)) > 0)
+		{
+			return new Response(
+				$this->translator->trans("form.server_check_failed"),
+				Response::HTTP_BAD_REQUEST
+			);
+		}
+
+		// On enregistre alors les informations dans la base de données.
+		$this->entityManager->getRepository(Server::class)->save($server, true);
+
+		// On envoie enfin la réponse au client.
+		return new Response(
+			$this->translator->trans("user.insert"),
+			Response::HTTP_OK
+		);
+	}
 }
