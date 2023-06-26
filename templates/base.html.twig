@@ -103,7 +103,7 @@
 				{# État de connexion #}
 				{# Note : apparaît seulement sur les comptes inscrits #}
 				{% if app.user %}
-					<a href="{{ path("app_user_index") }}">
+					<a href="{{ path("app_user_page") }}">
 						<i class="bi bi-person-circle"></i>
 						<span>{{ t("header.user_status")|trans|format(app.user.username|capitalize)|raw }}</span>
 					</a>
@@ -122,7 +122,7 @@
 						{# Liste des pages #}
 						<li class="{{ route_name == "dashboard" ? "active" : "" }}">
 							{# Tableau de bord #}
-							<a href="{{ path("app_dashboard_index") }}">
+							<a href="{{ path("app_dashboard_page") }}">
 								<i class="bi bi-kanban"></i>
 								<span>{{ t("header.subtitle.dashboard")|trans }}</span>
 							</a>
@@ -130,7 +130,7 @@
 
 						<li class="{{ route_name == "statistics" ? "active" : "" }}">
 							{# Statistiques #}
-							<a href="{{ path("app_statistics_index") }}">
+							<a href="{{ path("app_statistics_page") }}">
 								<i class="bi bi-graph-up"></i>
 								<span>{{ t("header.subtitle.statistics")|trans }}</span>
 							</a>
@@ -138,7 +138,7 @@
 
 						<li class="{{ route_name == "configuration" ? "active" : "" }}">
 							{# Configuration #}
-							<a href="{{ path("app_configuration_index") }}">
+							<a href="{{ path("app_configuration_page") }}">
 								<i class="bi bi-tools"></i>
 								<span>{{ t("header.subtitle.configuration")|trans }}</span>
 							</a>
@@ -146,7 +146,7 @@
 
 						<li class="{{ route_name == "actions" ? "active" : "" }}">
 							{# Actions et commandes #}
-							<a href="{{ path("app_actions_index") }}">
+							<a href="{{ path("app_actions_page") }}">
 								<i class="bi bi-lightning"></i>
 								<span>{{ t("header.subtitle.actions")|trans }}</span>
 							</a>
@@ -154,7 +154,7 @@
 
 						<li class="{{ route_name == "console" ? "active" : "" }}">
 							{# Console interactive #}
-							<a href="{{ path("app_console_index") }}">
+							<a href="{{ path("app_console_page") }}">
 								<i class="bi bi-code-slash"></i>
 								<span>{{ t("header.subtitle.console")|trans }}</span>
 							</a>
@@ -162,7 +162,7 @@
 
 						<li class="{{ route_name == "tasks" ? "active" : "" }}">
 							{# Tâches planifiées #}
-							<a href="{{ path("app_tasks_index") }}">
+							<a href="{{ path("app_tasks_page") }}">
 								<i class="bi bi-calendar3"></i>
 								<span>{{ t("header.subtitle.tasks")|trans }}</span>
 							</a>
@@ -172,7 +172,7 @@
 							<li class="{{ route_name == "user" ? "active" : "" }}">
 								{# Compte utilisateur #}
 								{# Note : apparaît seulement sur les comptes inscrits #}
-								<a href="{{ path("app_user_index") }}">
+								<a href="{{ path("app_user_page") }}">
 									<i class="bi bi-person-circle"></i>
 									<span>{{ t("header.subtitle.user")|trans }}</span>
 								</a>
@@ -183,7 +183,7 @@
 							<li class="{{ route_name == "admin" ? "active" : "" }}">
 								{# Administration #}
 								{# Note : apparaît seulement pour les administrateurs #}
-								<a href="{{ path("app_admin_index") }}">
+								<a href="{{ path("app_admin_page") }}">
 									<i class="bi bi-server"></i>
 									<span>{{ t("header.subtitle.admin")|trans }}</span>
 								</a>
@@ -220,7 +220,7 @@
 			<ul>
 				<li>
 					{# Bouton de retour à l'accueil #}
-					<a href="{{ path("app_index_index") }}">
+					<a href="{{ path("app_index_page") }}">
 						<i class="bi bi-house-door"></i>
 						<span>{{ t("footer.home")|trans }}</span>
 					</a>
@@ -228,7 +228,7 @@
 
 				<li>
 					{# Bouton des informations juridiques #}
-					<a href="{{ path("app_legal_index") }}">
+					<a href="{{ path("app_legal_page") }}">
 						<i class="bi bi-flag-fill"></i>
 						<span>{{ t("footer.legal")|trans }}</span>
 					</a>
@@ -244,7 +244,7 @@
 
 				<li>
 					{# Bouton de la page d'assistance #}
-					<a href="{{ path("app_help_index") }}">
+					<a href="{{ path("app_help_page") }}">
 						<i class="bi bi-question-circle"></i>
 						<span>{{ t("footer.support")|trans }}</span>
 					</a>

@@ -42,14 +42,14 @@ class UserController extends AbstractController
 	//
 	// Route vers la page de l'espace utilisateur.
 	//
-	#[Route("/user")]
+	#[Route("/user", name: "app_user_page")]
 	public function index(): Response
 	{
 		// On vérifie d'abord que l'utilisateur est bien connecté avant d'accéder
 		//  à la page, sinon on le redirige vers la page d'accueil.
 		if (!$this->isGranted("IS_AUTHENTICATED"))
 		{
-			return $this->redirectToRoute("app_index_index");
+			return $this->redirectToRoute("app_index_page");
 		}
 
 		// On affiche enfin la page de l'espace utilisateur.
@@ -60,7 +60,7 @@ class UserController extends AbstractController
 	// API vers le mécanisme de création de compte.
 	//  Source : https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
 	//
-	#[Route("/api/user/register", methods: ["POST"])]
+	#[Route("/api/user/register", name: "app_user_register", methods: ["POST"])]
 	public function register(Request $request): Response
 	{
 		// TODO : imposer une limite de création par IP.
@@ -135,7 +135,7 @@ class UserController extends AbstractController
 	// API vers le mécanisme d'authentification de l'utilisateur.
 	//  Source : https://symfony.com/doc/current/security.html#login-programmatically
 	//
-	#[Route("/api/user/login", methods: ["POST"])]
+	#[Route("/api/user/login", name: "app_user_login", methods: ["POST"])]
 	public function login(Request $request): Response
 	{
 		// TODO : imposer une limite de connexion par IP (https://symfony.com/doc/current/security.html#limiting-login-attempts).
@@ -200,7 +200,7 @@ class UserController extends AbstractController
 	// API vers le mécanisme de déconnexion de l'utilisateur.
 	//  Source : https://symfony.com/doc/current/security.html#logout-programmatically
 	//
-	#[Route("/api/user/logout", methods: ["POST"])]
+	#[Route("/api/user/logout", name: "app_user_logout", methods: ["POST"])]
 	#[IsGranted("IS_AUTHENTICATED")]
 	public function logout(Request $request, ): Response
 	{
@@ -226,7 +226,7 @@ class UserController extends AbstractController
 	//
 	// API vers le mécanisme des messages de contact.
 	//
-	#[Route("/api/user/contact", methods: ["POST"])]
+	#[Route("/api/user/contact", name: "app_user_contact", methods: ["POST"])]
 	public function contact(Request $request, MailerInterface $mailer): Response
 	{
 		// TODO : imposer une limite d'envoi de messages par jour avec la même adresse IP.
@@ -297,7 +297,7 @@ class UserController extends AbstractController
 	//
 	// API vers le mécanisme de mise à jour des informations de l'utilisateur.
 	//
-	#[Route("/api/user/update", methods: ["PUT"])]
+	#[Route("/api/user/update", name: "app_user_update", methods: ["PUT"])]
 	#[IsGranted("IS_AUTHENTICATED")]
 	public function update(Request $request): Response
 	{
@@ -343,7 +343,7 @@ class UserController extends AbstractController
 	//
 	// API vers le mécanisme de récupération du mot de passe de l'utilisateur.
 	//
-	#[Route("/api/user/recover", methods: ["PUT"])]
+	#[Route("/api/user/recover", name: "app_user_recover", methods: ["PUT"])]
 	public function recover(Request $request): Response
 	{
 		// On vérifie tout d'abord la validité du jeton CSRF.
@@ -409,7 +409,7 @@ class UserController extends AbstractController
 	//
 	// API vers le mécanisme de suppression du compte de l'utilisateur.
 	//
-	#[Route("/api/user/remove", methods: ["DELETE"])]
+	#[Route("/api/user/remove", name: "app_user_remove", methods: ["DELETE"])]
 	#[IsGranted("IS_AUTHENTICATED")]
 	public function remove(Request $request): Response
 	{

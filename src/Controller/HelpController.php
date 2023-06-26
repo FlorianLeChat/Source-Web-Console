@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HelpController extends AbstractController
 {
-	#[Route("/help")]
+	#[Route("/help", name: "app_help_page")]
 	public function index(EntityManagerInterface $entityManager): Response
 	{
 		// On inclut les paramètres du moteur TWIG pour la création de la page.

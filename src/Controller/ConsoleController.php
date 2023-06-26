@@ -11,14 +11,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ConsoleController extends AbstractController
 {
-	#[Route("/console")]
+	#[Route("/console", name: "app_console_page")]
 	public function index(): Response
 	{
 		// On vérifie d'abord que l'utilisateur est bien connecté avant d'accéder
 		//  à la page, sinon on le redirige vers la page d'accueil.
 		if (!$this->isGranted("IS_AUTHENTICATED"))
 		{
-			return $this->redirectToRoute("app_index_index");
+			return $this->redirectToRoute("app_index_page");
 		}
 
 		// On affiche enfin la page de la console interactive.
