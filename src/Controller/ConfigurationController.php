@@ -11,14 +11,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ConfigurationController extends AbstractController
 {
-	#[Route("/configuration")]
+	#[Route("/configuration", name: "app_configuration_page")]
 	public function index(): Response
 	{
 		// On vérifie d'abord que l'utilisateur est bien connecté avant d'accéder
 		//  à la page, sinon on le redirige vers la page d'accueil.
 		if (!$this->isGranted("IS_AUTHENTICATED"))
 		{
-			return $this->redirectToRoute("app_index_index");
+			return $this->redirectToRoute("app_index_page");
 		}
 
 		// On inclut enfin les paramètres du moteur TWIG pour la création de la page.

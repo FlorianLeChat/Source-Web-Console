@@ -19,7 +19,7 @@
 			un utilisateur est déjà connecté à son compte. #}
 		{% if app.user %}
 			{# Accès au tableau de bord #}
-			<li><a href="{{ path("app_dashboard_index") }}">{{ t("header.subtitle.dashboard")|trans }}</a></li>
+			<li><a href="{{ path("app_dashboard_page") }}">{{ t("header.subtitle.dashboard")|trans }}</a></li>
 		{% else %}
 			{# Formulaire d'inscription #}
 			<li><button type="button">{{ t("index.register")|trans }}</button></li>

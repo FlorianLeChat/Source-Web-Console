@@ -33,14 +33,14 @@ class DashboardController extends AbstractController
 	//
 	// Route vers la page du tableau de bord.
 	//
-	#[Route("/dashboard")]
+	#[Route("/dashboard", name: "app_dashboard_page")]
 	public function index(Request $request): Response
 	{
 		// On vérifie d'abord que l'utilisateur est bien connecté avant d'accéder
 		//  à la page, sinon on le redirige vers la page d'accueil.
 		if (!$this->isGranted("IS_AUTHENTICATED"))
 		{
-			return $this->redirectToRoute("app_index_index");
+			return $this->redirectToRoute("app_index_page");
 		}
 
 		// On récupère ensuite l'identifiant unique du serveur sélectionné par
@@ -144,7 +144,7 @@ class DashboardController extends AbstractController
 	//
 	// API vers la surveillance des constantes du serveur.
 	//
-	#[Route("/api/server/monitor", methods: ["GET"])]
+	#[Route("/api/server/monitor", name: "app_server_monitor", methods: ["GET"])]
 	#[IsGranted("IS_AUTHENTICATED")]
 	public function monitor(Request $request): Response|JsonResponse
 	{
