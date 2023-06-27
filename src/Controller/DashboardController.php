@@ -166,6 +166,9 @@ class DashboardController extends AbstractController
 		{
 			// Serveur par défaut.
 			$server = $repository->findOneBy(["client" => $user->getId()], ["id" => "ASC"]);
+
+			// Enregistrement automatique.
+			$request->getSession()->set("serverId", $server->getId());
 		}
 
 		try
