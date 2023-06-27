@@ -14,7 +14,21 @@ import { sendRemoteAction } from "../functions";
 $( "#actions ul:first-of-type li, .switch span" ).on( "click", ( event ) =>
 {
 	// Requête classique en fonction du bouton.
-	sendRemoteAction( $( event.target ).attr( "data-action" ) );
+	const target = $( event.target ).is( "span" ) ? $( event.target ).parent().parent() : $( event.target );
+	const action = target.attr( "data-action" );
+
+	if ( action )
+	{
+		sendRemoteAction( target.attr( "data-route" ), target.attr( "data-token" ) );
+	}
+} );
+
+$( "#actions ul:first-of-type li:first-of-type" ).on( "dblclick", ( event ) =>
+{
+	// Requête d'arrêt forcée
+	const target = $( event.target );
+
+	sendRemoteAction( target.attr( "data-route" ), target.attr( "data-token" ) );
 } );
 
 //
