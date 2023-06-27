@@ -25,23 +25,23 @@
 
 		{# Actions de la section #}
 		<ul>
-			<li data-action="shutdown">
+			<li data-action="shutdown" data-token="{{ csrf_token("server_shutdown") }}" data-route="{{ path("app_server_action", {name: "shutdown"}) }}">
 				{# Arrêter le serveur #}
 				{{ t("global.shutdown")|trans }}
-				<em>{{ t("global.force")|trans }}</em>
+				<em data-token="{{ csrf_token("server_force") }}" data-route="{{ path("app_server_action", {name: "force"}) }}">{{ t("global.force")|trans }}</em>
 			</li>
 
-			<li data-action="restart">
+			<li data-action="restart" data-token="{{ csrf_token("server_restart") }}" data-route="{{ path("app_server_action", {name: "restart"}) }}">
 				{# Redémarrer le serveur #}
 				{{ t("global.restart")|trans }}
 			</li>
 
-			<li data-action="update">
+			<li data-action="update" data-token="{{ csrf_token("server_update") }}" data-route="{{ path("app_server_action", {name: "update"}) }}">
 				{# Mettre à jour le serveur #}
 				{{ t("global.update")|trans }}
 			</li>
 
-			<li data-action="service">
+			<li data-action="service" data-token="{{ csrf_token("server_service") }}" data-route="{{ path("app_server_action", {name: "service"}) }}">
 				{# Passer en mode de maintenance #}
 				{{ t("global.service")|trans }}
 			</li>
@@ -51,7 +51,7 @@
 
 		{# Interrupteurs de la section #}
 		<ul>
-			<li data-action="flashlight">
+			<li data-action="flashlight" data-token="{{ csrf_token("server_flashlight") }}" data-route="{{ path("app_server_action", {name: "flashlight"}) }}">
 				{# Afficher ou non l'usage de la lampe torche #}
 				<span>{{ t("actions.switch.flashlight")|trans }}</span>
 
@@ -61,7 +61,7 @@
 				</label>
 			</li>
 
-			<li data-action="cheats">
+			<li data-action="cheats" data-token="{{ csrf_token("server_cheats") }}" data-route="{{ path("app_server_action", {name: "cheats"}) }}">
 				{# Autorise ou non l'utilisation des commandes de triche #}
 				<span>{{ t("actions.switch.cheats")|trans }}</span>
 
@@ -71,7 +71,7 @@
 				</label>
 			</li>
 
-			<li data-action="voice">
+			<li data-action="voice" data-token="{{ csrf_token("server_voice") }}" data-route="{{ path("app_server_action", {name: "voice"}) }}">
 				{# Autorise ou non les communications vocales #}
 				<span>{{ t("actions.switch.voice")|trans }}</span>
 

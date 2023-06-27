@@ -115,7 +115,7 @@
 		<h3>{{ t("header.search.title")|trans }}</h3>
 
 		<ul>
-			<li data-action="shutdown" data-route="{{ path("app_server_action", {name: "shutdown"}) }}" data-token="{{ csrf_token("server_shutdown") }}">
+			<li data-action="shutdown" data-token="{{ csrf_token("server_shutdown") }}" data-route="{{ path("app_server_action", {name: "shutdown"}) }}">
 				{# Arrêter le serveur #}
 				{{ t("global.shutdown")|trans }}
 				<em data-token="{{ csrf_token("server_force") }}" data-route="{{ path("app_server_action", {name: "force"}) }}">{{ t("global.force")|trans }}</em>
