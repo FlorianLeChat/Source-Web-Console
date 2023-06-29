@@ -19,7 +19,7 @@ $( "#actions ul:first-of-type li, .switch span" ).on( "click", ( event ) =>
 
 	if ( action )
 	{
-		sendRemoteAction( target.attr( "data-route" ), target.attr( "data-token" ) );
+		sendRemoteAction( target.attr( "data-token" ), target.attr( "data-route" ), target.attr( "data-action" ) );
 	}
 } );
 
@@ -27,8 +27,7 @@ $( "#actions ul:first-of-type li:first-of-type" ).on( "dblclick", ( event ) =>
 {
 	// Requête d'arrêt forcée
 	const target = $( event.target );
-
-	sendRemoteAction( target.attr( "data-route" ), target.attr( "data-token" ) );
+	sendRemoteAction( target.attr( "data-token" ), target.attr( "data-route" ), target.attr( "data-action" ) );
 } );
 
 //

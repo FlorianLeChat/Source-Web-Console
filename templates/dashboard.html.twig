@@ -115,23 +115,26 @@
 		<h3>{{ t("header.search.title")|trans }}</h3>
 
 		<ul>
-			<li data-action="shutdown" data-token="{{ csrf_token("server_shutdown") }}" data-route="{{ path("app_server_action", {name: "shutdown"}) }}">
+			<li data-action="shutdown" data-token="{{ csrf_token("server_shutdown") }}" data-route="{{ path("app_server_action") }}">
 				{# Arrêter le serveur #}
 				{{ t("global.shutdown")|trans }}
-				<em data-token="{{ csrf_token("server_force") }}" data-route="{{ path("app_server_action", {name: "force"}) }}">{{ t("global.force")|trans }}</em>
+
+				<em data-action="force" data-token="{{ csrf_token("server_force") }}" data-route="{{ path("app_server_action") }}">
+					{{ t("global.force")|trans }}
+				</em>
 			</li>
 
-			<li data-action="restart" data-token="{{ csrf_token("server_restart") }}" data-route="{{ path("app_server_action", {name: "restart"}) }}">
+			<li data-action="restart" data-token="{{ csrf_token("server_restart") }}" data-route="{{ path("app_server_action") }}">
 				{# Redémarrer le serveur #}
 				{{ t("global.restart")|trans }}
 			</li>
 
-			<li data-action="update" data-token="{{ csrf_token("server_update") }}" data-route="{{ path("app_server_action", {name: "update"}) }}">
+			<li data-action="update" data-token="{{ csrf_token("server_update") }}" data-route="{{ path("app_server_action") }}">
 				{# Mettre à jour le serveur #}
 				{{ t("global.update")|trans }}
 			</li>
 
-			<li data-action="service" data-token="{{ csrf_token("server_service") }}" data-route="{{ path("app_server_action", {name: "service"}) }}">
+			<li data-action="service" data-token="{{ csrf_token("server_service") }}" data-route="{{ path("app_server_action") }}">
 				{# Passer en mode de maintenance #}
 				{{ t("global.service")|trans }}
 			</li>

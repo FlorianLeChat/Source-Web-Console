@@ -155,7 +155,7 @@ $( "#actions li" ).on( "click", ( event ) =>
 
 	if ( action )
 	{
-		sendRemoteAction( target.attr( "data-route" ), target.attr( "data-token" ) );
+		sendRemoteAction( target.attr( "data-token" ), target.attr( "data-route" ), target.attr( "data-action" ) );
 	}
 } );
 
@@ -163,6 +163,5 @@ $( "#actions li:first-of-type" ).on( "dblclick", ( event ) =>
 {
 	// Requête d'arrêt forcée
 	const target = $( event.target );
-
-	sendRemoteAction( target.attr( "data-route" ), target.attr( "data-token" ) );
+	sendRemoteAction( target.attr( "data-token" ), target.attr( "data-route" ), target.attr( "data-action" ) );
 } );

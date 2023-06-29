@@ -62,14 +62,16 @@ class ActionsController extends AbstractController
 	//
 	// API vers l'exécution d'une action à distance sur le serveur.
 	//
-	#[Route("/api/server/action/{name?}/{value?}", name: "app_server_action", methods: ["POST"])]
+	#[Route("/api/server/action", name: "app_server_action", methods: ["POST"])]
 	#[IsGranted("IS_AUTHENTICATED")]
-	public function action(Request $request, ?string $name, ?string $value): Response
+	public function action(Request $request): Response
 	{
 		// TODO : imposer un délai entre chaque requête pour éviter les abus (https://symfony.com/doc/current/rate_limiter.html).
 
 		// On vérifie tout d'abord la validité du jeton CSRF.
-		if (!$this->isCsrfTokenValid("server_$name", $request->request->get("token")))
+		$action = $request->request->get("action");
+
+		if (!$this->isCsrfTokenValid("server_$action", $request->request->get("token")))
 		{
 			return new Response(
 				$this->translator->trans("form.server_check_failed"),
@@ -80,10 +82,11 @@ class ActionsController extends AbstractController
 		// On récupère ensuite le serveur sélectionné par l'utilisateur.
 		/** @var User */
 		$user = $this->getUser();
+		$value = $request->request->get("value");
 		$serverId = intval($request->getSession()->get("serverId", 0));
 		$repository = $this->entityManager->getRepository(Server::class);
 
-		if ($serverId === 0 || !$name)
+		if ($serverId === 0 || !$action)
 		{
 			return new Response(
 				$this->translator->trans("form.server_check_failed"),
@@ -100,7 +103,7 @@ class ActionsController extends AbstractController
 			$this->serverManager->connect($server->getAddress(), $server->getPort(), $server->getPassword());
 
 			// On détermine l'action doit être réalisée sur le serveur.
-			switch ($name)
+			switch ($action)
 			{
 				case "shutdown":
 				{
