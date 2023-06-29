@@ -5,12 +5,25 @@
 //
 namespace App\Controller;
 
+use App\Entity\Task;
+use App\Entity\Server;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TasksController extends AbstractController
 {
+	//
+	// Initialisation de certaines dépendances du contrôleur.
+	//
+	public function __construct(
+		private EntityManagerInterface $entityManager,
+	) {}
+
+	//
+	// Route vers la page des tâches planifiées.
+	//
 	#[Route("/tasks", name: "app_tasks_page")]
 	public function index(): Response
 	{
@@ -22,15 +35,17 @@ class TasksController extends AbstractController
 		}
 
 		// On inclut enfin les paramètres du moteur TWIG pour la création de la page.
+		/** @var User */
+		$user = $this->getUser();
+		$servers = $this->entityManager->getRepository(Server::class)->findBy(["client" => $user->getId()]);
+
 		return $this->render("tasks.html.twig", [
 
 			// Liste des tâches planifiées prévues.
-			// TODO : remplacer par la liste des tâches planifiées prévues.
-			"tasks_list" => [],
+			"tasks_list" => $this->entityManager->getRepository(Task::class)->findBy(["server" => $servers]),
 
 			// Liste des serveurs depuis la base de données.
-			// TODO : remplacer par la liste des serveurs appartenant à l'utilisateur.
-			"tasks_servers" => []
+			"tasks_servers" => $servers,
 
 		]);
 	}
