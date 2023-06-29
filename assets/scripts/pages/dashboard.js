@@ -122,7 +122,12 @@ async function retrieveRemoteData()
 
 		data.players.forEach( ( player ) =>
 		{
-			players.append( `<li>[${ player.index }] ${ player.name }</li>` );
+			const name = player.Name;
+
+			if ( name )
+			{
+				players.append( `<li>${ name }</li>` );
+			}
 		} );
 	}
 	else
