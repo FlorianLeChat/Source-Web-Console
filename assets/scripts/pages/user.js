@@ -90,11 +90,10 @@ $( "#actions input[type = submit]" ).on( "click", async ( event ) =>
 	// On vérifie si la requête a été effectuée avec succès.
 	if ( response.ok )
 	{
-		// Dans ce cas, on réinitialise enfin l'entièreté du formulaire
-		//  avant de le fermer au bout de 3 secondes.
+		// Dans ce cas, on actualise enfin la page après 3 secondes.
 		setTimeout( () =>
 		{
-			window.location.href = "";
+			window.location.reload();
 		}, 3000 );
 	}
 } );

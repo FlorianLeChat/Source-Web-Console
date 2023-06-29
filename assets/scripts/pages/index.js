@@ -52,7 +52,8 @@ register.find( "form" ).on( "submit", async ( event ) =>
 	{
 		// Dans le cas contraire, on réalise alors une requête AJAX
 		//  pour envoyer les informations au serveur.
-		const response = await fetch( register.parent().attr( "data-route" ), {
+		const parent = register.parent();
+		const response = await fetch( parent.attr( "data-route" ), {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded"
@@ -89,7 +90,7 @@ register.find( "form" ).on( "submit", async ( event ) =>
 			//  vers le tableau de bord au bout de 5 secondes.
 			setTimeout( () =>
 			{
-				window.location.href = "dashboard";
+				window.location.href = parent.attr( "data-redirect" );
 			}, 3000 );
 		}
 	}
@@ -162,7 +163,7 @@ login.find( "input[type = submit]" ).on( "click", async ( event ) =>
 		//  vers le tableau de bord au bout de 5 secondes.
 		setTimeout( () =>
 		{
-			window.location.href = "dashboard";
+			window.location.href = login.attr( "data-redirect" );
 		}, 3000 );
 	}
 } );
