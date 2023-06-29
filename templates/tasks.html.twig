@@ -5,7 +5,7 @@
 {% block javascript %}
 	<script>
 		// Libellé demandant la suppression ou non d'une tâche planifiée.
-		const edit_remove = "{{ t("tasks_edit_remove")|trans|escape("js") }}";
+		const edit_remove = "{{ t("tasks.edit_remove")|trans|escape("js") }}";
 	</script>
 {% endblock %}
 
@@ -14,7 +14,7 @@
 	{# Description de la page #}
 	<p>{{ t("tasks.description")|trans }}</p>
 
-	<section id="tasks">
+	<section id="tasks" data-add-route="{{ path("app_tasks_add") }}" data-remove-route="{{ path("app_tasks_remove") }}">
 		{# Titre de la section #}
 		<h2>{{ t("header.subtitle.tasks")|trans }}</h2>
 
@@ -32,14 +32,14 @@
 			{# Corps du tableau #}
 			<tbody>
 				{% for task in tasks_list %}
-					<tr data-task="{{ task.id }}" class="{{ task.state != "WAITING" ? "finished" : "" }}">
+					<tr data-task="{{ task.id }}" class="{{ task.state != "waiting" ? "finished" : "" }}">
 						<td>
 							{# Récupération de l'indice de la boucle principale #}
 							{% set indice = loop.index %}
 
 							{# Détermination de certaines informations du serveur #}
 							{% for server in tasks_servers %}
-								{% if server.id == task.server %}
+								{% if server.id == task.server.id %}
 									{# Construction de l'adresse IP #}
 									{% set address = server.address ~ ":" ~ server.port %}
 
@@ -56,7 +56,7 @@
 						<td>{{ task.date|date("H:m | d/m/Y") }}</td>
 
 						{# Action de déclenchement #}
-						<td>{{ t("global." ~ task["action"])|trans }}</td>
+						<td>{{ t("global." ~ task.action)|trans }}</td>
 					</tr>
 				{% endfor %}
 			</tbody>
@@ -92,6 +92,9 @@
 					<option value="service">{{ t("global.service")|trans }}</option>
 				</select>
 			</div>
+
+			{# Champs cachés pour les jetons de sécurité (CSRF) #}
+			<input type="hidden" name="token" value="{{ csrf_token("server_tasks") }}">
 
 			{# Validation finale #}
 			<input type="submit" value="{{ t("form.validate_button")|trans }}" />
