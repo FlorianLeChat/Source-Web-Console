@@ -71,7 +71,7 @@ class UserController extends AbstractController
 		if (!$this->isCsrfTokenValid("user_register", $request->request->get("token")))
 		{
 			return new Response(
-				$this->translator->trans("form.register.failed"),
+				$this->translator->trans("form.server_check_failed"),
 				Response::HTTP_BAD_REQUEST
 			);
 		}
@@ -148,7 +148,7 @@ class UserController extends AbstractController
 		if (!$this->isCsrfTokenValid("user_login", $request->request->get("token")))
 		{
 			return new Response(
-				$this->translator->trans("form.login.failed"),
+				$this->translator->trans("form.server_check_failed"),
 				Response::HTTP_BAD_REQUEST
 			);
 		}
@@ -208,7 +208,7 @@ class UserController extends AbstractController
 		if (!$this->isCsrfTokenValid("user_logout", $request->request->get("token")))
 		{
 			return new Response(
-				$this->translator->trans("form.login.failed"),
+				$this->translator->trans("form.server_check_failed"),
 				Response::HTTP_BAD_REQUEST
 			);
 		}
@@ -235,7 +235,7 @@ class UserController extends AbstractController
 		if (!$this->isCsrfTokenValid("user_contact", $request->request->get("token")))
 		{
 			return new Response(
-				$this->translator->trans("form.contact.failed"),
+				$this->translator->trans("form.server_check_failed"),
 				Response::HTTP_BAD_REQUEST
 			);
 		}
@@ -305,7 +305,7 @@ class UserController extends AbstractController
 		if (!$this->isCsrfTokenValid("user_update", $request->request->get("token")))
 		{
 			return new Response(
-				$this->translator->trans("form.login.failed"),
+				$this->translator->trans("form.server_check_failed"),
 				Response::HTTP_BAD_REQUEST
 			);
 		}
@@ -350,7 +350,7 @@ class UserController extends AbstractController
 		if (!$this->isCsrfTokenValid("user_login", $request->request->get("token")))
 		{
 			return new Response(
-				$this->translator->trans("form.login.failed"),
+				$this->translator->trans("form.server_check_failed"),
 				Response::HTTP_BAD_REQUEST
 			);
 		}
@@ -417,7 +417,7 @@ class UserController extends AbstractController
 		if (!$this->isCsrfTokenValid("user_remove", $request->request->get("token")))
 		{
 			return new Response(
-				$this->translator->trans("form.login.failed"),
+				$this->translator->trans("form.server_check_failed"),
 				Response::HTTP_BAD_REQUEST
 			);
 		}
@@ -444,7 +444,7 @@ class UserController extends AbstractController
 		if (!$this->isCsrfTokenValid("user_register", $request->request->get("token")))
 		{
 			return new Response(
-				$this->translator->trans("form.register.failed"),
+				$this->translator->trans("form.server_check_failed"),
 				Response::HTTP_BAD_REQUEST
 			);
 		}
