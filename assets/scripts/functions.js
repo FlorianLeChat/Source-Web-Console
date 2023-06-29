@@ -93,17 +93,23 @@ setInterval( () =>
 //
 // Permet d'envoyer les commandes et actions vers un serveur distant.
 //
-export async function sendRemoteAction( route, token, value )
+export async function sendRemoteAction( token, route, action, value )
 {
 	// On réalise d'abord la requête AJAX.
-	const response = await fetch( value ? `${ route }/${ value }` : route, {
+	const response = await fetch( route, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"
 		},
 		body: new URLSearchParams( {
 			// Jeton de sécurité (CSRF).
-			token
+			token,
+
+			// Action qui doit être réalisée à distance.
+			action,
+
+			// Valeur possiblement associée à une commande.
+			value
 		} )
 	} );
 

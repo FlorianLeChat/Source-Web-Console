@@ -25,7 +25,8 @@ $( "#controller button" ).on( "click", ( event ) =>
 	}
 
 	// On envoie ensuite le contenu au serveur distant.
-	sendRemoteAction( target.parent().attr( "data-route" ), input );
+	const parent = target.parent();
+	sendRemoteAction( input, parent.attr( "data-route" ), parent.attr( "data-action" ) );
 
 	// Une fois réalisée, on ajoute une entrée dans l'historique
 	//  des entrées juste au-dessous.
