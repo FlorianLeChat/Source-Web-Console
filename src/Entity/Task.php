@@ -30,6 +30,11 @@ class Task
 	#[ORM\Column(length: 10)]
 	private ?string $state = null;
 
+	public const STATE_ERROR = "error";
+	public const STATE_WAITING = "waiting";
+	public const STATE_RUNNING = "running";
+	public const STATE_FINISHED = "finished";
+
 	public function getId(): ?int
 	{
 		return $this->id;

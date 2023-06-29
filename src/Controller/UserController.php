@@ -168,9 +168,8 @@ class UserController extends AbstractController
 
 		// On vérifie également les informations de l'utilisateur.
 		$repository = $this->entityManager->getRepository(User::class);
-		$user = $repository->findOneBy(["username" => $username]);
 
-		if (!$user || !$this->hasher->isPasswordValid($user, $password))
+		if (!$this->hasher->isPasswordValid($user, $password) || !$user = $repository->findOneBy(["username" => $username]))
 		{
 			return new Response(
 				$this->translator->trans("form.login.invalid"),
@@ -370,9 +369,8 @@ class UserController extends AbstractController
 
 		// On vérifie également les informations de l'utilisateur.
 		$repository = $this->entityManager->getRepository(User::class);
-		$user = $repository->findOneBy(["username" => $username]);
 
-		if (!$user)
+		if (!$user = $repository->findOneBy(["username" => $username]))
 		{
 			return new Response(
 				$this->translator->trans("form.server_check_failed"),
