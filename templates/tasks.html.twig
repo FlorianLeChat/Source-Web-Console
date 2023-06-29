@@ -79,7 +79,7 @@
 			{# Date de déclenchement #}
 			<div>
 				<label for="date">{{ t("tasks.label.date")|trans }}</label>
-				<input type="datetime-local" name="date" />
+				<input type="datetime-local" name="date" min="{{ "now"|date("Y-m-d H:i") }}" max="{{ "+1 year"|date("Y-m-d H:i") }}" />
 			</div>
 
 			{# Action de réalisation #}
