@@ -18,13 +18,13 @@
 		<p class="error"></p>
 
 		{# Nom d'utilisateur #}
-		<label for="new_username">{{ t("form.register.username")|trans }}<span>*</span></label>
-		<input type="text" autocomplete="username" spellcheck="false" id="new_username" name="username" placeholder="johndoe" minlength="10" maxlength="50" required />
+		<label for="register_username">{{ t("form.register.username")|trans }}<span>*</span></label>
+		<input type="text" autocomplete="username" spellcheck="false" id="register_username" name="username" placeholder="johndoe" minlength="10" maxlength="50" required />
 		<span></span>
 
 		{# Mot de passe #}
-		<label for="new_password">{{ t("form.register.password")|trans }}<span>*</span></label>
-		<input type="password" autocomplete="new-password" spellcheck="false" id="new_password" name="password" placeholder="?JohnDoe2022!" minlength="10" maxlength="60" required />
+		<label for="register_password">{{ t("form.register.password")|trans }}<span>*</span></label>
+		<input type="password" autocomplete="new-password" spellcheck="false" id="register_password" name="password" placeholder="?JohnDoe2022!" minlength="10" maxlength="60" required />
 		<span></span>
 
 		{# Bouton d'affichage du mot de passe #}
@@ -32,8 +32,12 @@
 		<input type="checkbox" id="register_clear" /><br /><br />
 
 		{# Génération d'un mot de passe sécurisé #}
-		<label for="generation">{{ t("form.register.generation")|trans }}</label>
-		<input type="checkbox" id="generation" /><br /><br />
+		<label for="register_generation">{{ t("form.register.generation")|trans }}</label>
+		<input type="checkbox" id="register_generation" /><br /><br />
+
+		{# Se souvenir de la connexion #}
+		<label for="register_remember">{{ t("form.remember_me")|trans }}</label>
+		<input type="checkbox" id="register_remember" name="remember_me" /><br /><br />
 
 		{# Validation/annulation #}
 		<input type="reset" value="{{ t("form.cancel_button")|trans }}" />
@@ -69,10 +73,10 @@
 		{# Informations client (adresse IP & port) #}
 		<label>{{ t("form.register.client.title")|trans }}<span>*</span></label>
 
-		<input type="text" id="server_address" name="server_address" placeholder="51.75.125.244" minlength="5" maxlength="15" required />
+		<input type="text" name="address" placeholder="51.75.125.244" minlength="5" maxlength="15" required />
 		<span></span>
 
-		<input type="number" id="server_port" name="server_port" placeholder="27015" min="1" max="99999" required />
+		<input type="number" name="port" placeholder="27015" min="1" max="99999" required />
 		<span></span>
 
 		<em>{{ t("form.register.client.description")|trans }}</em>
@@ -82,7 +86,7 @@
 		{# Informations administrateur (mot de passe) #}
 		<label>{{ t("form.register.admin.title")|trans }}</label>
 
-		<input type="text" id="server_password" name="server_password" placeholder="a2D2ea4NE6e9As" />
+		<input type="text" name="password" placeholder="a2D2ea4NE6e9As" />
 
 		<em>{{ t("form.register.admin.description")|trans }}</em>
 
