@@ -19,7 +19,7 @@ class Server
 
 	#[ORM\ManyToOne(inversedBy: "servers")]
 	#[ORM\JoinColumn(nullable: false)]
-	private ?user $client = null;
+	private ?User $client = null;
 
 	#[ORM\Column(length: 15)]
 	#[Assert\Ip]
@@ -46,12 +46,12 @@ class Server
 		return $this->id;
 	}
 
-	public function getClient(): ?user
+	public function getClient(): ?User
 	{
 		return $this->client;
 	}
 
-	public function setClient(?user $client): self
+	public function setClient(?User $client): self
 	{
 		$this->client = $client;
 
