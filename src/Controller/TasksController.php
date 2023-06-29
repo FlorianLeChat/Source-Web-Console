@@ -50,7 +50,7 @@ class TasksController extends AbstractController
 		return $this->render("tasks.html.twig", [
 
 			// Liste des tâches planifiées prévues.
-			"tasks_list" => $this->entityManager->getRepository(Task::class)->findBy(["server" => $servers]),
+			"tasks_list" => $this->entityManager->getRepository(Task::class)->findBy(["server" => $servers], ["date" => "DESC"], 10),
 
 			// Liste des serveurs depuis la base de données.
 			"tasks_servers" => $servers,
@@ -75,15 +75,28 @@ class TasksController extends AbstractController
 		}
 
 		// On vérifie alors que le serveur existe bien et qu'il appartient à l'utilisateur.
-		/** @var User $user */
+		/** @var User */
 		$user = $this->getUser();
 		$serverId = intval($request->request->get("server", 0));
+		$serverRepository = $this->entityManager->getRepository(Server::class);
 
-		if (!$server = $this->entityManager->getRepository(Server::class)->findOneBy(["id" => $serverId, "client" => $user->getId()]))
+		if (!$server = $serverRepository->findOneBy(["id" => $serverId, "client" => $user->getId()]))
 		{
 			return new Response(
 				$this->translator->trans("form.server_check_failed"),
 				Response::HTTP_BAD_REQUEST
+			);
+		}
+
+		// On vérifie que l'utilisateur n'a pas déjà trop de tâches planifiées (non terminées).
+		$tasksRepository = $this->entityManager->getRepository(Task::class);
+		$servers = $serverRepository->findBy(["client" => $user->getId()]);
+
+		if ($tasksRepository->count(["server" => $servers, "state" => Task::STATE_WAITING]) >= 10)
+		{
+			return new Response(
+				$this->translator->trans("tasks.too_much"),
+				Response::HTTP_TOO_MANY_REQUESTS
 			);
 		}
 
@@ -117,7 +130,7 @@ class TasksController extends AbstractController
 
 		// On sauvegarde enfin la tâche planifiée dans la base de données
 		//  et on retourne une réponse de succès.
-		$this->entityManager->getRepository(Task::class)->save($task, true);
+		$tasksRepository->save($task, true);
 
 		return new Response(
 			$this->translator->trans("tasks.added"),
@@ -143,7 +156,7 @@ class TasksController extends AbstractController
 
 		// On vérifie alors que la tâche ainsi que le serveur existent bien
 		//  et qu'ils appartiennent à l'utilisateur.
-		/** @var User $user */
+		/** @var User */
 		$user = $this->getUser();
 
 		$taskId = intval($request->request->get("task", 0));
