@@ -1,0 +1,135 @@
+<?php
+
+//
+// Commande pour l'exécution des tâches planifiées.
+//  Source : https://symfony.com/doc/current/the-fast-track/fr/24-cron.html
+//
+namespace App\Command;
+
+use App\Entity\Task;
+use App\Service\ServerManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
+#[AsCommand("app:tasks:executor", "Runs scheduled tasks waiting to be executed")]
+class ScheduledTaskExecutor extends Command
+{
+	//
+	// Initialisation de certaines dépendances de la commande.
+	//
+	public function __construct(
+		private ServerManager $serverManager,
+		private EntityManagerInterface $entityManager
+	) {
+		parent::__construct();
+	}
+
+	//
+	// Exécution de la commande.
+	//
+	protected function execute(InputInterface $input, OutputInterface $output): int
+	{
+		// On récupère d'abord toutes les tâches planifiées en attente d'exécution
+		//  et dont la date est inférieure à la date actuelle.
+		$repository = $this->entityManager->getRepository(Task::class);
+		$query = $repository->createQueryBuilder("t");
+		$query->where($query->expr()->eq("t.state", ":state"))
+			->setParameter("state", Task::STATE_WAITING);
+		$query->andWhere($query->expr()->lt("t.date", ":today"))
+			->setParameter("today", new \DateTime(), \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE);
+
+		// On itère ensuite sur chaque tâche planifiée.
+		$io = new SymfonyStyle($input, $output);
+		$count = 0;
+
+		foreach ($query->getQuery()->getResult() as $task)
+		{
+			if ($task->getDate() > new \DateTime("now"))
+			{
+				// Si la date de la tâche est supérieure à la date actuelle, on passe à la suivante.
+				continue;
+			}
+
+			// On signale à Doctrine que la tâche est en cours d'exécution.
+			$io->text(sprintf("Executing task \"%d\"...", $task->getId()));
+
+			$task->setState(Task::STATE_RUNNING);
+			$repository->save($task);
+
+			try
+			{
+				// On tente alors de se connecter au serveur distant.
+				$server = $task->getServer();
+				$this->serverManager->connect($server->getAddress(), $server->getPort(), $server->getPassword());
+
+				$io->text("Connected to remote server.");
+
+				// On détermine l'action demandée dans la tâche planifiée.
+				switch ($task->getAction())
+				{
+					case "shutdown":
+					{
+						// Requête d'arrêt classique.
+						$io->text("Shutting down server...");
+						$this->serverManager->query->Rcon("sv_shutdown");
+					}
+
+					case "restart":
+					{
+						// Requête de redémarrage.
+						$io->text("Restarting service...");
+						$this->serverManager->query->Rcon("_restart");
+						break;
+					}
+
+					case "update":
+					{
+						// Requête de mise à jour.
+						$io->text("Updating service...");
+						$this->serverManager->query->Rcon("svc_update");
+						break;
+					}
+
+					case "service":
+					{
+						// Requête de mise en maintenance/verrouillage.
+						$io->text("Locking service...");
+						$this->serverManager->query->Rcon("sv_password \"" . bin2hex(random_bytes(10)) . "\"");
+						break;
+					}
+				}
+
+				// On signale à Doctrine que la tâche a été exécutée avec succès.
+				$io->text(sprintf("Task \"%d\" executed successfully.", $task->getId()));
+				$task->setState(Task::STATE_FINISHED);
+				$repository->save($task);
+			}
+			catch (\Exception $error)
+			{
+				// On signale à Doctrine que la tâche a échouée avec une erreur.
+				$io->text(sprintf("An error occured while executing task \"%d\". Message: \"%s\".", $task->getId(), $error->getMessage()));
+				$task->setState(Task::STATE_ERROR);
+				$repository->save($task);
+			}
+			finally
+			{
+				// On se déconnecte après du serveur distant une fois la tâche exécutée.
+				$this->serverManager->query->Disconnect();
+			}
+
+			$count++;
+		}
+
+		// On sauvegarde les changements dans la base de données.
+		$this->entityManager->flush();
+
+		$io->success(sprintf("Executed %d task(s).", $count));
+
+		// On retourne le code de succès de la commande.
+		return Command::SUCCESS;
+	}
+}
