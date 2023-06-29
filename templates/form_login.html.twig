@@ -10,13 +10,13 @@
 	<p class="error"></p>
 
 	{# Nom d'utilisateur #}
-	<label for="username">{{ t("form.login.username")|trans }}<span>*</span></label>
-	<input type="text" autocomplete="username" spellcheck="false" id="username" name="username" placeholder="johndoe" minlength="10" maxlength="30" required />
+	<label for="login_username">{{ t("form.login.username")|trans }}<span>*</span></label>
+	<input type="text" autocomplete="username" spellcheck="false" id="login_username" name="username" placeholder="johndoe" minlength="10" maxlength="30" required />
 	<span></span>
 
 	{# Mot de passe #}
-	<label for="password">{{ t("form.login.password")|trans }}<span>*</span></label>
-	<input type="password" autocomplete="current-password" spellcheck="false" id="password" name="password" placeholder="?JohnDoe2022!" minlength="10" maxlength="100" required />
+	<label for="login_password">{{ t("form.login.password")|trans }}<span>*</span></label>
+	<input type="password" autocomplete="current-password" spellcheck="false" id="login_password" name="password" placeholder="?JohnDoe2022!" minlength="10" maxlength="100" required />
 	<span></span>
 
 	{# Champ caché pour le jeton de sécurité (CSRF) #}
@@ -30,8 +30,8 @@
 	<input type="checkbox" id="login_clear" /><br /><br />
 
 	{# Se souvenir de la connexion #}
-	<label for="remember_me">{{ t("form.remember_me")|trans }}</label>
-	<input type="checkbox" id="remember_me" name="remember_me" /><br /><br />
+	<label for="login_remember">{{ t("form.remember_me")|trans }}</label>
+	<input type="checkbox" id="login_remember" name="remember_me" /><br /><br />
 
 	{# Validation/annulation #}
 	<input type="reset" value="{{ t("form.cancel_button")|trans }}" />

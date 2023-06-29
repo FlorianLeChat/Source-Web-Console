@@ -66,10 +66,13 @@ register.find( "form" ).on( "submit", async ( event ) =>
 				username: firstStep.find( "input[name = username]" ).val(),
 				password: firstStep.find( "input[name = password]" ).val(),
 
+				// Option de maintien de connexion.
+				_remember_me: firstStep.find( "input[name = remember_me]" ).is( ":checked" ),
+
 				// Informations du serveur.
-				server_address: lastStep.find( "input[name = server_address]" ).val(),
-				server_port: lastStep.find( "input[name = server_port]" ).val(),
-				server_password: lastStep.find( "input[name = server_password]" ).val()
+				server_address: lastStep.find( "input[name = address]" ).val(),
+				server_port: lastStep.find( "input[name = port]" ).val(),
+				server_password: lastStep.find( "input[name = password]" ).val()
 			} )
 		} );
 
@@ -144,7 +147,7 @@ login.find( "input[type = submit]" ).on( "click", async ( event ) =>
 			password: login.find( "input[name = password]" ).val(),
 
 			// Option de maintien de connexion.
-			_remember_me: login.find( "input[id = remember_me]" ).is( ":checked" )
+			_remember_me: login.find( "input[name = remember_me]" ).is( ":checked" )
 		} )
 	} );
 
