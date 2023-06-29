@@ -167,6 +167,7 @@ tasks:
         action: "Action plan"
     added: "The scheduled task for this server has been successfully created. The page will be refreshed automatically."
     removed: "The scheduled task for this server has been successfully deleted. The page will be refreshed automatically."
+    too_much: "You have saved too many unfinished scheduled tasks (10). Please delete one before adding another."
     edit_remove: "Do you want to delete this task?"
     description: "The scheduled tasks page is a semi-automatically working task. The page offers the creation of actions that can be executed later and repeatedly over time. Once saved, these tasks can be deleted but are automatically executed on your server at the date of the trigger."
 

@@ -167,6 +167,7 @@ tasks:
         action: "Action de réalisation"
     added: "La tâche planifiée pour ce serveur a été créée avec succès. La page va être rafraîchie automatiquement."
     removed: "La tâche planifiée pour ce serveur a été supprimée avec succès. La page va être rafraîchie automatiquement."
+    too_much: "Vous avez enregistré trop de tâches planifiées non terminées (>10). Veuillez en supprimer une avant d'en ajouter une nouvelle."
     edit_remove: "Voulez-vous supprimer cette tâche ?"
     description: "La page des tâches planifiées est une tâche fonctionnant de manière semi-automatique. La page propose la création d'actions qui peuvent être exécutées plus tard et de manière répétitives dans le temps. Une fois enregistrées, ces tâches peuvent être supprimées mais sont exécutées automatiquement à votre serveur à la date du déclenchement."
 
