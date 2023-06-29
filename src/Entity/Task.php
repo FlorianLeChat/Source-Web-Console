@@ -13,8 +13,8 @@ use App\Repository\TaskRepository;
 class Task
 {
 	#[ORM\Id]
-	#[ORM\GeneratedValue]
 	#[ORM\Column]
+	#[ORM\GeneratedValue]
 	private ?int $id = null;
 
 	#[ORM\ManyToOne(inversedBy: "date")]
