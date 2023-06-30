@@ -43,7 +43,7 @@ class LocaleSubscriber implements EventSubscriberInterface
 	{
 		return [
 			// On définit la priorité à 20 pour que l'écouteur
-			//  soit exécuté après celui de la classe IndexController.
+			//  soit exécuté après ceux des autres contrôleurs.
 			KernelEvents::REQUEST => [["onKernelRequest", 20]],
 		];
 	}
