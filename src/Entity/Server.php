@@ -7,7 +7,9 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ServerRepository;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: ServerRepository::class)]
 class Server
@@ -40,6 +42,18 @@ class Server
 
 	#[ORM\Column(nullable: true)]
 	private ?int $game = null;
+
+	#[ORM\OneToMany(mappedBy: "server", targetEntity: Task::class, orphanRemoval: true)]
+	private Collection $tasks;
+
+	#[ORM\OneToMany(mappedBy: "server", targetEntity: Event::class, orphanRemoval: true)]
+	private Collection $events;
+
+	public function __construct()
+	{
+		$this->tasks = new ArrayCollection();
+		$this->events = new ArrayCollection();
+	}
 
 	public const ACTION_SHUTDOWN = "shutdown";
 	public const ACTION_SHUTDOWN_FORCE = "force";
@@ -108,6 +122,64 @@ class Server
 	public function setGame(int $game): self
 	{
 		$this->game = $game;
+
+		return $this;
+	}
+
+	public function getTasks(): Collection
+	{
+		return $this->tasks;
+	}
+
+	public function addTask(Task $task): self
+	{
+		if (!$this->tasks->contains($task))
+		{
+			$this->tasks->add($task);
+			$task->setServer($this);
+		}
+
+		return $this;
+	}
+
+	public function removeTask(Task $task): self
+	{
+		if ($this->tasks->removeElement($task))
+		{
+			if ($task->getServer() === $this)
+			{
+				$task->setServer(null);
+			}
+		}
+
+		return $this;
+	}
+
+	public function getEvents(): Collection
+	{
+		return $this->events;
+	}
+
+	public function addEvent(Event $event): self
+	{
+		if (!$this->events->contains($event))
+		{
+			$this->events->add($event);
+			$event->setServer($this);
+		}
+
+		return $this;
+	}
+
+	public function removeEvent(Event $event): self
+	{
+		if ($this->events->removeElement($event))
+		{
+			if ($event->getServer() === $this)
+			{
+				$event->setServer(null);
+			}
+		}
 
 		return $this;
 	}
