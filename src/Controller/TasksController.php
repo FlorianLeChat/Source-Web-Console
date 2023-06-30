@@ -101,7 +101,7 @@ class TasksController extends AbstractController
 		}
 
 		// On vérifie ensuite que la date renseignée est valide.
-		$now = new \DateTime();
+		$now = new \DateTime("-1 day");
 		$date = new \DateTime($request->request->get("date"));
 		$future = new \DateTime("+1 year");
 

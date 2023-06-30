@@ -5,9 +5,11 @@
 //
 namespace App\Entity;
 
+use App\Entity\Server;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 use App\Repository\TaskRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TaskRepository::class)]
 class Task
@@ -22,12 +24,21 @@ class Task
 	private ?Server $server = null;
 
 	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
+	#[Assert\Type("\DateTimeInterface")]
+	#[Assert\NotNull]
+	#[Assert\NotBlank]
 	private ?\DateTimeInterface $date = null;
 
 	#[ORM\Column(length: 10)]
+	#[Assert\Choice([Server::ACTION_SHUTDOWN, Server::ACTION_RESTART, Server::ACTION_UPDATE, Server::ACTION_SERVICE])]
+	#[Assert\NotNull]
+	#[Assert\NotBlank]
 	private ?string $action = null;
 
 	#[ORM\Column(length: 10)]
+	#[Assert\Choice([Task::STATE_ERROR, Task::STATE_WAITING, Task::STATE_RUNNING, Task::STATE_FINISHED])]
+	#[Assert\NotNull]
+	#[Assert\NotBlank]
 	private ?string $state = null;
 
 	public const STATE_ERROR = "error";
@@ -69,7 +80,7 @@ class Task
 		return $this->action;
 	}
 
-	public function setAction(string $action): self
+	public function setAction(?string $action): self
 	{
 		$this->action = $action;
 
