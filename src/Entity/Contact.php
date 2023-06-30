@@ -26,6 +26,7 @@ class Contact
 	#[Assert\Length(min: 10, max: 100)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
+	#[Assert\NoSuspiciousCharacters]
 	private ?string $email = null;
 
 	#[ORM\Column(length: 255)]
@@ -38,6 +39,7 @@ class Contact
 	#[Assert\Length(min: 50, max: 5000)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
+	#[Assert\NoSuspiciousCharacters]
 	private ?string $content = null;
 
 	public function getId(): ?int
