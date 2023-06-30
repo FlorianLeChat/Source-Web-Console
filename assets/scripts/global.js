@@ -26,31 +26,16 @@ $( "input[type = password]" ).on( "keyup", ( event ) =>
 //
 // Permet de vérifier les informations obligatoires dans les formulaires.
 //
-$( "*[required]" ).on( "keyup", ( event ) =>
+$( "[required]" ).on( "input", ( event ) =>
 {
 	// On récupère le message d'erreur présent par défaut.
 	const element = $( event.target );
-	const error = element.parent().find( ".error" );
+	const error = element.siblings( ".error" );
 
 	// On vérifie par la suite si l'élément est valide ou non
 	//  aux yeux des vérifications HTML.
-	if ( !element[ 0 ].validity.valid )
+	if ( !element[ 0 ].checkValidity() )
 	{
-		// On récupère alors le libellé du champ de saisie.
-		//  Note : il doit se trouver techniquement juste avant le champ.
-		let label = element.prev().html();
-
-		if ( label === "" )
-		{
-			// S'il est invalide, on récupère tous les éléments précédents
-			//  et on fait un recherche jusqu'à trouver un libellé.
-			label = element.prevAll().filter( "label" ).html();
-		}
-
-		// On supprime ensuite les astérisques présents dans certains
-		//  libellés qui définissent si le champ est obligatoire.
-		label = label.replaceAll( "*", "" );
-
 		// On définit enfin le message d'erreur avant de l'afficher
 		//  progressivement avec une animation.
 		error.html( element[ 0 ].validationMessage );
@@ -68,7 +53,7 @@ $( "*[required]" ).on( "keyup", ( event ) =>
 //
 const contact = $( "#contact" );
 
-$( "footer" ).find( "a[href = \"javascript:void(0);\"]" ).on( "click", () =>
+$( "footer" ).on( "click", "a[href = \"javascript:void(0);\"]", () =>
 {
 	contact.fadeIn( 150 );
 } );
@@ -107,30 +92,23 @@ window.fetch = async ( url, options ) =>
 	return oldFetch( url, options );
 };
 
-$( "form[method=POST]" ).on( "submit", ( event ) =>
+$( "form[method=POST]" ).one( "submit", ( event ) =>
 {
-	// On vérifie tout d'abord si le formulaire possède déjà un
-	//  jeton d'authentification de Google reCAPTCHA.
-	if ( $( "input[name=recaptcha]" ).length > 0 )
-	{
-		return;
-	}
-
-	// On cesse alors le comportement par défaut du formulaire.
+	// On cesse d'abord le comportement par défaut du formulaire.
 	event.preventDefault();
-	event.stopImmediatePropagation();
 
 	// On attend ensuite que les services de reCAPTCHA soient chargés.
 	window.grecaptcha.ready( async () =>
 	{
-		// Une fois terminé, on exécute une requête de vérification
+		// Une fois terminé, on exécute après une requête de vérification
 		//  afin d'obtenir un jeton de vérification auprès de Google.
 		const token = await window.grecaptcha.execute( window.captcha_public_key );
 
 		// On insère enfin dynamiquement le jeton dans le formulaire
 		//  avant de cliquer une nouvelle fois sur le bouton de soumission.
-		$( event.target ).closest( "form" ).append( `<input type="hidden" name="recaptcha" value="${ token }">` );
-		$( event.target ).trigger( "click" );
+		const target = $( event.target );
+		target.closest( "form" ).append( `<input type="hidden" name="recaptcha" value="${ token }">` );
+		target.trigger( "submit" );
 	} );
 } );
 
@@ -148,21 +126,19 @@ $( window ).on( "scroll", () =>
 	const height = root.prop( "scrollHeight" ) - root.prop( "clientHeight" );
 
 	// Calcul du pourcentage du décalage avant affichage.
-	const offset = ( position / height ) * 100;
-
-	$( "footer div > div" ).css( "width", `${ offset }%` );
+	$( "footer div > div" ).width( `${ ( position / height ) * 100 }%` );
 } );
 
 //
 // Permet de gérer les mécanismes du formulaire de contact.
 //
-contact.find( "form" ).on( "submit", async ( event ) =>
+contact.on( "submit", "form", async ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
 
 	// On réalise alors la requête AJAX.
-	const response = await fetch( contact.attr( "data-route" ), {
+	const response = await fetch( contact.data( "route" ), {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"
@@ -233,8 +209,9 @@ search.on( "keyup", ( event ) =>
 {
 	// On récupère la recherche de l'utilisateur ainsi
 	//  que la liste des résultats possibles.
-	const content = $( event.target ).val();
-	const results = $( event.target ).next();
+	const target = $( event.target );
+	const content = target.val();
+	const results = target.next();
 
 	// On vide ensuite les résultats précédents.
 	results.empty();
@@ -245,7 +222,7 @@ search.on( "keyup", ( event ) =>
 	{
 		// Si l'entrée n'est pas vide et qu'elle semble correspondre
 		//  à une page mise en mémoire, on l'ajoute en tant que résultat.
-		if ( content !== "" && page.toLowerCase().match( content.toLowerCase() ) )
+		if ( content && page.toLowerCase().match( content.toLowerCase() ) )
 		{
 			results.append( `<li data-target="${ pages[ page ] }">${ page }</li>` );
 		}
@@ -255,5 +232,5 @@ search.on( "keyup", ( event ) =>
 $( "#search ul" ).on( "click", "li", ( event ) =>
 {
 	// On simule la présence d'un élément <a> en JavaScript.
-	window.location.href = $( event.target ).attr( "data-target" );
+	window.location.href = $( event.target ).data( "target" );
 } );

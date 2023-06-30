@@ -13,7 +13,7 @@ import { addQueuedNotification, sendRemoteAction } from "../functions";
 //
 $( "li[data-image]" ).each( ( indice, server ) =>
 {
-	const image = $( server ).attr( "data-image" );
+	const image = $( server ).data( "image" );
 
 	if ( !image.endsWith( "0_background.webp" ) )
 	{
@@ -33,21 +33,14 @@ $( "li[data-image]" ).each( ( indice, server ) =>
 //  sur le tableau de bord.
 //  Note : ce système peut largement être améliorable dans le futur.
 //
-let submitEdit = false;
-
-$( "[name = server_edit]" ).on( "click", ( event ) =>
+$( "[name = server_edit]" ).one( "click", ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
-	if ( submitEdit )
-	{
-		return;
-	}
-
-	// On cesse le comportement par défaut.
 	event.preventDefault();
 
-	// On récupère le parent de l'élément.
-	const parent = $( event.target ).parent();
+	// On récupère après le parent de l'élément.
+	const target = $( event.target );
+	const parent = target.parent();
 
 	// On demande ensuite à l'utilisateur s'il veut supprimer ou non
 	//  le serveur.
@@ -84,11 +77,8 @@ $( "[name = server_edit]" ).on( "click", ( event ) =>
 		}
 	}
 
-	// On force enfin la soumission du formulaire en indiquant
-	//  qu'on ne doit pas demander de nouveau les informations.
-	submitEdit = true;
-
-	$( event.target ).trigger( "click" );
+	// On force enfin la soumission du formulaire.
+	target.trigger( "submit" );
 } );
 
 //
@@ -99,7 +89,7 @@ let timer;
 async function retrieveRemoteData()
 {
 	// On réalise d'abord la requête AJAX.
-	const response = await fetch( $( "#servers" ).attr( "data-route" ) );
+	const response = await fetch( $( "#servers" ).data( "route" ) );
 
 	// On vérifie ensuite si la requête a été effectuée avec succès.
 	if ( response.ok )
@@ -152,21 +142,23 @@ timer = setInterval( () =>
 // Permet d'envoyer des requêtes d'action lors du clic sur l'un des
 //  boutons du tableau de bord.
 //
-$( "#actions li" ).on( "click", ( event ) =>
+const actions = $( "#actions" );
+
+actions.on( "click", "li", ( event ) =>
 {
 	// Requête classique d'action en fonction du bouton.
 	const target = $( event.target );
-	const action = target.attr( "data-action" );
+	const action = target.data( "action" );
 
 	if ( action )
 	{
-		sendRemoteAction( target.attr( "data-token" ), target.attr( "data-route" ), target.attr( "data-action" ) );
+		sendRemoteAction( target.data( "token" ), target.data( "route" ), target.data( "action" ) );
 	}
 } );
 
-$( "#actions li:first-of-type" ).on( "dblclick", ( event ) =>
+actions.on( "dblclick", "li:first-of-type", ( event ) =>
 {
 	// Requête d'arrêt forcée
 	const target = $( event.target );
-	sendRemoteAction( target.attr( "data-token" ), target.attr( "data-route" ), target.attr( "data-action" ) );
+	sendRemoteAction( target.data( "token" ), target.data( "route" ), target.data( "action" ) );
 } );

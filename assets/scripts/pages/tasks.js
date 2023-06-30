@@ -11,30 +11,31 @@ import { addQueuedNotification } from "../functions";
 // Permet d'envoyer les demandes de création de tâches planifiées
 //  vers la base de données.
 //
-$( "form input[type = submit]" ).on( "click", async ( event ) =>
+const tasks = $( "#tasks" );
+
+$( "form" ).on( "submit", async ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
 
 	// On réalise ensuite la requête AJAX.
-	const section = $( "#tasks" );
-	const response = await fetch( section.attr( "data-add-route" ), {
+	const response = await fetch( tasks.data( "add-route" ), {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"
 		},
 		body: new URLSearchParams( {
 			// Jeton de sécurité (CSRF).
-			token: section.find( "input[name = token]" ).val(),
+			token: $( "[name = token]" ).val(),
 
 			// Date de déclenchement de l'action (format horodatage).
-			date: $( "input[name = date]" ).val(),
+			date: $( "[name = date]" ).val(),
 
 			// Identifiant unique du serveur sélectionné.
-			server: $( "select[name = server] option:checked" ).attr( "data-server" ),
+			server: $( "[name = server] option:checked" ).data( "server" ),
 
 			// Nom de l'action qui doit être réalisé.
-			action: $( "select[name = action]" ).val()
+			action: $( "[name = action]" ).val()
 		} )
 	} );
 
@@ -63,21 +64,20 @@ $( "table tr:not([class = finished])" ).on( "click", async ( event ) =>
 	{
 		// On réalise ensuite la requête AJAX.
 		const target = $( event.target ).parent();
-		const section = $( "#tasks" );
-		const response = await fetch( section.attr( "data-remove-route" ), {
+		const response = await fetch( tasks.data( "remove-route" ), {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded"
 			},
 			body: new URLSearchParams( {
 				// Jeton de sécurité (CSRF).
-				token: section.find( "input[name = token]" ).val(),
+				token: $( "[name = token]" ).val(),
 
 				// Identifiant unique de la tâche sélectionnée.
-				task: target.attr( "data-task" ),
+				task: target.data( "task" ),
 
 				// Identifiant unique du serveur sélectionné.
-				server: target.find( "em" ).attr( "data-server" )
+				server: target.find( "em" ).data( "server" )
 			} )
 		} );
 

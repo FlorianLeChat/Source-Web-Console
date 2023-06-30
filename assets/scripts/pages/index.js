@@ -15,13 +15,13 @@ const login = $( "#login" );
 const header = $( "header li" );
 const register = $( "#register article" );
 
-header.first().find( "button" ).on( "click", () =>
+header.first().on( "click", "button", () =>
 {
 	// Inscription (première partie).
 	register.first().fadeIn( 150 );
 } );
 
-header.last().find( "button" ).on( "click", () =>
+header.last().on( "click", "button", () =>
 {
 	// Connexion.
 	login.fadeIn( 150 );
@@ -33,7 +33,7 @@ header.last().find( "button" ).on( "click", () =>
 const firstStep = register.first();
 const lastStep = register.last();
 
-register.find( "form" ).on( "submit", async ( event ) =>
+register.on( "submit", "form", async ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -53,26 +53,26 @@ register.find( "form" ).on( "submit", async ( event ) =>
 		// Dans le cas contraire, on réalise alors une requête AJAX
 		//  pour envoyer les informations au serveur.
 		const parent = register.parent();
-		const response = await fetch( parent.attr( "data-route" ), {
+		const response = await fetch( parent.data( "route" ), {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded"
 			},
 			body: new URLSearchParams( {
 				// Jeton de sécurité (CSRF).
-				token: register.find( "input[name = token]" ).val(),
+				token: register.find( "[name = token]" ).val(),
 
 				// Nom d'utilisateur et mot de passe du compte utilisateur.
-				username: firstStep.find( "input[name = username]" ).val(),
-				password: firstStep.find( "input[name = password]" ).val(),
+				username: firstStep.find( "[name = username]" ).val(),
+				password: firstStep.find( "[name = password]" ).val(),
 
 				// Option de maintien de connexion.
-				_remember_me: firstStep.find( "input[name = remember_me]" ).is( ":checked" ),
+				_remember_me: firstStep.find( "[name = remember_me]" ).is( ":checked" ),
 
 				// Informations du serveur.
-				server_address: lastStep.find( "input[name = address]" ).val(),
-				server_port: lastStep.find( "input[name = port]" ).val(),
-				server_password: lastStep.find( "input[name = password]" ).val()
+				server_address: lastStep.find( "[name = address]" ).val(),
+				server_port: lastStep.find( "[name = port]" ).val(),
+				server_password: lastStep.find( "[name = password]" ).val()
 			} )
 		} );
 
@@ -86,20 +86,19 @@ register.find( "form" ).on( "submit", async ( event ) =>
 			//  avant de fermer le second.
 			firstStep.find( "form" )[ 0 ].reset();
 			lastStep.find( "form" )[ 0 ].reset();
-
 			lastStep.fadeOut( 150 );
 
 			// On effectue enfin la redirection de l'utilisateur
 			//  vers le tableau de bord au bout de 5 secondes.
 			setTimeout( () =>
 			{
-				window.location.href = parent.attr( "data-redirect" );
+				window.location.href = parent.data( "redirect" );
 			}, 3000 );
 		}
 	}
 } );
 
-register.find( "input[type = reset]" ).on( "click", () =>
+register.on( "click", "[type = reset]", () =>
 {
 	// On vérifie d'abord si l'utilisateur se trouve ou non
 	//  à la première étape de l'inscription.
@@ -125,29 +124,29 @@ register.find( "input[type = reset]" ).on( "click", () =>
 //
 // Permet de gérer les mécanismes du formulaire de connexion.
 //
-login.find( "input[type = submit]" ).on( "click", async ( event ) =>
+login.on( "click", "[type = submit]", async ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
 
 	// On réalise ensuite la requête AJAX.
-	const response = await fetch( login.attr( "data-route" ), {
+	const response = await fetch( login.data( "route" ), {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"
 		},
 		body: new URLSearchParams( {
 			// Jeton de sécurité (CSRF).
-			token: login.find( "input[name = token]" ).val(),
+			token: login.find( "[name = token]" ).val(),
 
 			// Nom d'utilisateur.
-			username: login.find( "input[name = username]" ).val(),
+			username: login.find( "[name = username]" ).val(),
 
 			// Mot de passe.
-			password: login.find( "input[name = password]" ).val(),
+			password: login.find( "[name = password]" ).val(),
 
 			// Option de maintien de connexion.
-			_remember_me: login.find( "input[name = remember_me]" ).is( ":checked" )
+			_remember_me: login.find( "[name = remember_me]" ).is( ":checked" )
 		} )
 	} );
 
@@ -166,15 +165,15 @@ login.find( "input[type = submit]" ).on( "click", async ( event ) =>
 		//  vers le tableau de bord au bout de 5 secondes.
 		setTimeout( () =>
 		{
-			window.location.href = login.attr( "data-redirect" );
+			window.location.href = login.data( "redirect" );
 		}, 3000 );
 	}
 } );
 
-login.find( "input[type = reset]" ).on( "click", () =>
+login.on( "click", "[type = reset]", () =>
 {
 	// On cache le formulaire à la demande de l'utilisateur.
-	login.hide();
+	login.fadeOut( 150 );
 } );
 
 //
@@ -207,14 +206,14 @@ links.last().on( "click", async ( event ) =>
 	event.preventDefault();
 
 	// On réalise ensuite la requête AJAX.
-	const response = await fetch( $( event.target ).parent().attr( "data-route" ), {
+	const response = await fetch( $( event.target ).parent().data( "route" ), {
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"
 		},
 		body: new URLSearchParams( {
 			// Jeton de sécurité (CSRF).
-			token: login.find( "input[name = token]" ).val(),
+			token: login.find( "[name = token]" ).val(),
 
 			// Nom d'utilisateur associé au compte.
 			username: prompt( window.recover_password_username ),
@@ -232,23 +231,13 @@ links.last().on( "click", async ( event ) =>
 // Permet d'afficher en clair les mots de passe entrés dans les champs
 //  de saisies dédiés dans les différents formulaire.
 //
-$( "input[id *= clear]" ).on( "click", ( event ) =>
+$( "[id *= clear]" ).on( "click", ( event ) =>
 {
-	// On recherche le champ de saisie des mots de passe.
-	const input = $( event.target ).parent().find( "input[id *= password]" );
+	// On recherche d'abord le champ de saisie des mots de passe.
+	const input = $( event.target ).parent().find( "[id *= password]" );
 
-	// On vérifie ensuite son état actuel.
-	if ( input.attr( "type" ) === "password" )
-	{
-		// Alors on définit le type du champ en texte pour afficher
-		//  le contenu en clair sans les pointillés habituels.
-		input.attr( "type", "text" );
-	}
-	else
-	{
-		// Dans le cas contraire, on remet son état initial.
-		input.attr( "type", "password" );
-	}
+	// On bascule enfin le type du champ entre « password » et « text ».
+	input.attr( "type", ( input.attr( "type" ) === "password" ) ? "text" : "password" );
 } );
 
 //
@@ -258,13 +247,14 @@ $( "input[id *= clear]" ).on( "click", ( event ) =>
 const characters = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 let oldPassword = "";
 
-$( "#generation" ).on( "click", ( event ) =>
+$( "#register_generation" ).on( "click", ( event ) =>
 {
 	// On récupère le champ de saisie associé au formulaire.
-	const input = $( event.target ).parent().find( "input[id *= password]" );
+	const target = $( event.target );
+	const input = target.parent().find( "[id *= password]" );
 
 	// On vérifie alors si la boite est cochée ou non.
-	if ( $( event.target ).is( ":checked" ) )
+	if ( target.is( ":checked" ) )
 	{
 		// Si elle est coché, on génère aléatoirement un mot de passe
 		//  grâce à une série de caractères.
@@ -276,7 +266,7 @@ $( "#generation" ).on( "click", ( event ) =>
 			const random = Math.floor( Math.random() * characters.length );
 
 			// On l'ajoute ensuite dans le nouveau mot de passe généré.
-			newPassword += characters.substring( random, random + 1 );
+			newPassword += characters.charAt( random );
 		}
 
 		// On enregistre enfin l'ancien mot de passe en mémoire avant de
@@ -330,36 +320,11 @@ function updateInformation( forward )
 			// Dans ce cas, on cache progressivement l'image actuelle.
 			element.fadeOut( 200, () =>
 			{
-				// On vérifie ensuite si l'utilisateur demander d'avancer
-				//  ou de reculer dans les positions des images.
-				if ( forward )
-				{
-					// Pour avancer, on vérifie si on atteint pas le dépassement
-					//  du nombre d'images disponibles.
-					if ( indice >= length )
-					{
-						// Dans ce cas, on affiche la première image de la liste.
-						images.first().fadeIn( 150 );
-					}
-					else
-					{
-						// Dans le cas contraire, on affiche la suivante.
-						element.next().fadeIn( 150 );
-					}
-				}
-				// En cas de reculement, on vérifie la position actuelle
-				//  dans la liste.
-				else if ( indice === 0 )
-				{
-					// Si on atteint le début de la liste, on affiche la dernière
-					//  image disponible.
-					images.last().fadeIn( 150 );
-				}
-				else
-				{
-					// Dans le cas contraire, on affiche la précédente.
-					element.prev().fadeIn( 150 );
-				}
+				// On vérifie ensuite si l'utilisateur demande d'avancer
+				// ou de reculer dans les positions des images.
+				const nextIndex = forward ? indice + 1 : indice - 1;
+				const nextImage = images.eq( nextIndex >= 0 ? nextIndex % length : length );
+				nextImage.fadeIn( 150 );
 			} );
 		}
 	} );
@@ -375,27 +340,9 @@ function updateInformation( forward )
 			element.fadeOut( 200, () =>
 			{
 				// Mécanisme de précédent/suivant.
-				if ( forward )
-				{
-					// Texte suivant.
-					if ( indice >= length )
-					{
-						texts.first().fadeIn( 150 );
-					}
-					else
-					{
-						element.next().fadeIn( 150 );
-					}
-				}
-				// Texte précédent.
-				else if ( indice === 0 )
-				{
-					texts.last().fadeIn( 150 );
-				}
-				else
-				{
-					element.prev().fadeIn( 150 );
-				}
+				const nextIndex = forward ? indice + 1 : indice - 1;
+				const nextText = texts.eq( nextIndex >= 0 ? nextIndex % length : length );
+				nextText.fadeIn( 150 );
 
 				// Mise à jour des éléments de présentation.
 				displayInitialElements();
@@ -404,13 +351,13 @@ function updateInformation( forward )
 	} );
 }
 
-informations.find( "button" ).first().on( "click", () =>
+informations.on( "click", "button:first-of-type", () =>
 {
 	// Bouton pour voir l'information précédente.
 	updateInformation( false );
 } );
 
-informations.find( "button" ).last().on( "click", () =>
+informations.on( "click", "button:last-of-type", () =>
 {
 	// Bouton pour voir l'information suivante.
 	updateInformation( true );

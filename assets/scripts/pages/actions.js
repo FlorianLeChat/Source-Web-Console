@@ -14,12 +14,12 @@ import { sendRemoteAction } from "../functions";
 $( "#actions ul:first-of-type li, .switch span" ).on( "click", ( event ) =>
 {
 	// Requête classique en fonction du bouton.
-	const target = $( event.target ).is( "span" ) ? $( event.target ).parent().parent() : $( event.target );
-	const action = target.attr( "data-action" );
+	const target = $( event.target );
+	const element = target.is( "span" ) ? target.parent().parent() : target;
 
-	if ( action )
+	if ( element.data( "action" ) )
 	{
-		sendRemoteAction( target.attr( "data-token" ), target.attr( "data-route" ), target.attr( "data-action" ) );
+		sendRemoteAction( element.data( "token" ), element.data( "route" ), element.data( "action" ) );
 	}
 } );
 
@@ -27,7 +27,7 @@ $( "#actions ul:first-of-type li:first-of-type" ).on( "dblclick", ( event ) =>
 {
 	// Requête d'arrêt forcée
 	const target = $( event.target );
-	sendRemoteAction( target.attr( "data-token" ), target.attr( "data-route" ), target.attr( "data-action" ) );
+	sendRemoteAction( target.data( "token" ), target.data( "route" ), target.data( "action" ) );
 } );
 
 //
@@ -35,22 +35,24 @@ $( "#actions ul:first-of-type li:first-of-type" ).on( "dblclick", ( event ) =>
 //  des commandes personnalisées par défaut ou créées par l'utilisateur.
 //  Note : dans certains cas, on doit rafraîchir la page.
 //
-$( "#commands li[data-action = add]" ).on( "click", () =>
+const commands = $( "#commands" );
+
+commands.on( "click", "[data-action=add]", () =>
 {
 	// Ajout d'une commande personnalisée.
 	sendRemoteAction( `${ prompt( window.command_add_name ) }|${ prompt( window.command_add_content ) }`, "#ADD#" );
 	window.location.reload();
 } );
 
-$( "#commands button[data-action = remove]" ).on( "click", ( event ) =>
+commands.on( "click", "[data-action=remove]", ( event ) =>
 {
 	// Suppression de la commande personnalisée.
-	sendRemoteAction( $( event.target ).parent().attr( "data-command" ), "#REMOVE#" );
+	sendRemoteAction( $( event.target ).parent().data( "command" ), "#REMOVE#" );
 	window.location.reload();
 } );
 
-$( "#commands button[data-action = execute]" ).on( "click", ( event ) =>
+commands.on( "click", "[data-action=execute]", ( event ) =>
 {
 	// Exécution de la requête personnalisée.
-	sendRemoteAction( $( event.target ).parent().attr( "data-command" ), prompt( window.execute_value ) );
+	sendRemoteAction( $( event.target ).parent().data( "command" ), prompt( window.execute_value ) );
 } );
