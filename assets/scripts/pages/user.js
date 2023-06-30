@@ -20,7 +20,7 @@ $( "#account input[data-action]" ).on( "click", async ( event ) =>
 	//  son compte utilisateur.
 	const action = $( event.target ).attr( "data-action" );
 
-	if ( action === "remove" && !confirm( edit_remove ) )
+	if ( action === "remove" && !confirm( window.edit_remove ) )
 	{
 		return;
 	}

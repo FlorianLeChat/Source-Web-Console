@@ -14,7 +14,7 @@ $( "input[type = password]" ).on( "keyup", ( event ) =>
 	{
 		// Si les majuscules sont activées, on insère dynamiquement
 		//  un nouvel élément HTML après le champ de saisie.
-		$( event.target ).next().after( `<p class="capslock">${ capslock_enabled }</p>` );
+		$( event.target ).next().after( `<p class="capslock">${ window.capslock_enabled }</p>` );
 	}
 	else
 	{

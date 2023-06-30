@@ -5,11 +5,11 @@
 {% block javascript %}
 	<script>
 		// Libellé demandant d'entrer une valeur pour une commande.
-		const execute_value = "{{ t("actions.commands.value")|trans|escape("js") }}";
+		window.execute_value = "{{ t("actions.commands.value")|trans|escape("js") }}";
 
 		// Libellés demandant le nom et le contenue d'une nouvelle commande personnalisée.
-		const command_add_name = "{{ t("actions.add.name")|trans|escape("js") }}";
-		const command_add_content = "{{ t("actions.add.content")|trans|escape("js") }}";
+		window.command_add_name = "{{ t("actions.add.name")|trans|escape("js") }}";
+		window.command_add_content = "{{ t("actions.add.content")|trans|escape("js") }}";
 	</script>
 {% endblock %}
 

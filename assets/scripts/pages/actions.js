@@ -38,7 +38,7 @@ $( "#actions ul:first-of-type li:first-of-type" ).on( "dblclick", ( event ) =>
 $( "#commands li[data-action = add]" ).on( "click", () =>
 {
 	// Ajout d'une commande personnalisée.
-	sendRemoteAction( `${ prompt( command_add_name ) }|${ prompt( command_add_content ) }`, "#ADD#" );
+	sendRemoteAction( `${ prompt( window.command_add_name ) }|${ prompt( window.command_add_content ) }`, "#ADD#" );
 	window.location.reload();
 } );
 
@@ -52,5 +52,5 @@ $( "#commands button[data-action = remove]" ).on( "click", ( event ) =>
 $( "#commands button[data-action = execute]" ).on( "click", ( event ) =>
 {
 	// Exécution de la requête personnalisée.
-	sendRemoteAction( $( event.target ).parent().attr( "data-command" ), prompt( execute_value ) );
+	sendRemoteAction( $( event.target ).parent().attr( "data-command" ), prompt( window.execute_value ) );
 } );

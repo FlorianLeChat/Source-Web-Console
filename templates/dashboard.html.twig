@@ -5,12 +5,12 @@
 {% block javascript %}
 	<script>
 		// Libellé demandant la suppression ou non du serveur actuel.
-		const edit_remove = "{{ t("dashboard.edit.remove")|trans|escape("js") }}";
+		window.editRemove = "{{ t("dashboard.edit.remove")|trans|escape("js") }}";
 
 		// Libellés demandant le changement de l'adresse IP/port et le mot de passe du serveur.
-		const edit_address = "{{ t("dashboard.edit.address")|trans|escape("js") }}";
-		const edit_port = "{{ t("dashboard.edit.port")|trans|escape("js") }}";
-		const edit_password = "{{ t("dashboard.edit.password")|trans|escape("js") }}";
+		window.edit_address = "{{ t("dashboard.edit.address")|trans|escape("js") }}";
+		window.edit_port = "{{ t("dashboard.edit.port")|trans|escape("js") }}";
+		window.edit_password = "{{ t("dashboard.edit.password")|trans|escape("js") }}";
 	</script>
 {% endblock %}
 
