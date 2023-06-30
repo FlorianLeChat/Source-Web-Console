@@ -39,15 +39,17 @@ $( "[name = server_edit]" ).one( "click", ( event ) =>
 	event.preventDefault();
 
 	// On récupère après le parent de l'élément.
-	const target = $( event.target );
-	const parent = target.parent();
+	const parent = $( event.target ).parent();
 
 	// On demande ensuite à l'utilisateur s'il veut supprimer ou non
 	//  le serveur.
-	if ( confirm( window.editRemove ) )
+	if ( confirm( window.edit_remove ) )
 	{
 		// Ajout de l'action de suppression.
 		parent.append( "<input type=\"hidden\" name=\"action\" value=\"delete\" />" );
+
+		// Suppression du premier jeton CSRF (pour l'édition).
+		parent.find( "[name=token]" ).first().remove();
 	}
 	else
 	{
@@ -75,10 +77,13 @@ $( "[name = server_edit]" ).one( "click", ( event ) =>
 			// Mot de passe valide.
 			parent.append( `<input type="hidden" name="password" value="${ password }" />` );
 		}
+
+		// Suppression du dernier jeton CSRF (pour la suppression).
+		parent.find( "[name=token]" ).last().remove();
 	}
 
 	// On force enfin la soumission du formulaire.
-	target.trigger( "submit" );
+	parent.trigger( "click" );
 } );
 
 //

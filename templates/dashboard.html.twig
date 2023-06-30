@@ -5,7 +5,7 @@
 {% block javascript %}
 	<script>
 		// Libellé demandant la suppression ou non du serveur actuel.
-		window.editRemove = "{{ t("dashboard.edit.remove")|trans|escape("js") }}";
+		window.edit_remove = "{{ t("dashboard.edit.remove")|trans|escape("js") }}";
 
 		// Libellés demandant le changement de l'adresse IP/port et le mot de passe du serveur.
 		window.edit_address = "{{ t("dashboard.edit.address")|trans|escape("js") }}";
@@ -38,6 +38,7 @@
 					<form method="POST">
 						<input type="hidden" name="id" value="{{ server.id }}" />
 						<input type="hidden" name="token" value="{{ csrf_token("server_edit") }}">
+						<input type="hidden" name="token" value="{{ csrf_token("server_delete") }}">
 
 						<button type="submit" name="server_edit">
 							<i class="bi bi-pencil-square"></i>
