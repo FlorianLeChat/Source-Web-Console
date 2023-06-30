@@ -15,7 +15,6 @@
 		"space-in-parens": ["error", "always"],
 		"object-curly-newline": ["error", { "ObjectExpression": { "consistent": true } }],
 		"no-restricted-globals": "off",
-		"no-prototype-builtins": "off",
 		"array-bracket-spacing": ["error", "always"],
 		"template-curly-spacing": ["error", "always"],
 		"computed-property-spacing": ["error", "always"]
