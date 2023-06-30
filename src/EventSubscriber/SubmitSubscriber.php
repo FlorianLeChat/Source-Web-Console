@@ -53,10 +53,7 @@ class SubmitSubscriber implements EventSubscriberInterface
 			// On vérifie après si la requête a réussie ou non.
 			if ($response->getStatusCode() !== 200)
 			{
-				$event->setResponse(new Response(
-					$this->translator->trans("form.server_check_failed"),
-					Response::HTTP_INTERNAL_SERVER_ERROR
-				));
+				$event->setResponse(new Response(status: Response::HTTP_INTERNAL_SERVER_ERROR));
 			}
 
 			// Si elle a réussie, on vérifie le contenu de la réponse.
@@ -66,10 +63,7 @@ class SubmitSubscriber implements EventSubscriberInterface
 			{
 				// On envoie une réponse d'erreur si le jeton est invalide
 				//  ou si le score reCAPTCHA est trop faible.
-				$event->setResponse(new Response(
-					$this->translator->trans("form.server_check_failed"),
-					Response::HTTP_FORBIDDEN
-				));
+				$event->setResponse(new Response(status: Response::HTTP_FORBIDDEN));
 			}
 		}
 	}
