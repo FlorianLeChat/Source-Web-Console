@@ -11,7 +11,7 @@ import { addQueuedNotification } from "../functions";
 // Permet d'enregistrer ou de mettre à jour les données du
 //  serveur de stockage FTP.
 //
-$( "form input[type = submit]" ).on( "click", ( event ) =>
+$( "form" ).on( "submit", ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -20,22 +20,22 @@ $( "form input[type = submit]" ).on( "click", ( event ) =>
 	$.post( "includes/controllers/server_storage.php", {
 
 		// Action qui doit être réalisée (insertion, mise à jour ou connexion).
-		ftp_action: $( event.target ).attr( "data-action" ),
+		ftp_action: $( event.target ).data( "action" ),
 
 		// Adresse IP du serveur FTP.
-		ftp_address: $( "input[name = ftp_address]" ).val(),
+		ftp_address: $( "[name = ftp_address]" ).val(),
 
 		// Port de communication du serveur FTP.
-		ftp_port: $( "input[name = ftp_port]" ).val(),
+		ftp_port: $( "[name = ftp_port]" ).val(),
 
 		// Protocole de transmission du serveur FTP.
-		ftp_protocol: $( "select[name = ftp_protocol] option:checked" ).val(),
+		ftp_protocol: $( "[name = ftp_protocol] option:checked" ).val(),
 
 		// Nom d'utilisateur du serveur FTP.
-		ftp_user: $( "input[name = ftp_user]" ).val(),
+		ftp_user: $( "[name = ftp_user]" ).val(),
 
 		// Mot de passe du serveur FTP.
-		ftp_password: $( "input[name = ftp_password]" ).val()
+		ftp_password: $( "[name = ftp_password]" ).val()
 
 	} )
 		.done( ( data ) =>
@@ -43,7 +43,7 @@ $( "form input[type = submit]" ).on( "click", ( event ) =>
 			// Une fois terminée, on affiche la notification d'information
 			//  à l'utilisateur pour lui indiquer si la requête a été envoyée
 			//  ou non avec succès au serveur distant.
-			if ( data !== "" )
+			if ( data )
 			{
 				addQueuedNotification( data, 3 );
 			}
@@ -59,22 +59,24 @@ $( "form input[type = submit]" ).on( "click", ( event ) =>
 // Permet de mettre à jour les informations présentes dans le fichier
 //  de configuration du serveur distant.
 //
-$( "button[data-type]" ).on( "click", ( event ) =>
+$( "[data-type]" ).on( "click", ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
 
 	// On réalise ensuite la requête AJAX.
+	const target = $( event.target );
+
 	$.post( "includes/controllers/server_storage.php", {
 
 		// Action qui doit être réalisée (insertion, mise à jour ou connexion).
 		ftp_action: "connexion",
 
 		// Type de modification qui doivent être effectué.
-		ftp_type: $( event.target ).attr( "data-type" ),
+		ftp_type: target.data( "type" ),
 
 		// Valeur indiquée par l'utilisateur.
-		ftp_value: $( event.target ).prev().val()
+		ftp_value: target.prev().val()
 
 	} )
 		.done( ( data ) =>
@@ -82,7 +84,7 @@ $( "button[data-type]" ).on( "click", ( event ) =>
 			// Une fois terminée, on affiche la notification d'information
 			//  à l'utilisateur pour lui indiquer si la requête a été envoyée
 			//  ou non avec succès au serveur distant.
-			if ( data !== "" )
+			if ( data )
 			{
 				addQueuedNotification( data, 3 );
 			}

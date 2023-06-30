@@ -11,14 +11,17 @@ import { addQueuedNotification } from "../functions";
 // Permet d'envoyer les demandes de modification ou de suppression
 //  des informations d'authentification vers le serveur.
 //
-$( "#account input[data-action]" ).on( "click", async ( event ) =>
+const account = $( "#account" );
+
+account.on( "click", "[data-action]", async ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
 
 	// On vérifie après si l'utilisateur veut réellement supprimer
 	//  son compte utilisateur.
-	const action = $( event.target ).attr( "data-action" );
+	const target = $( event.target );
+	const action = target.data( "action" );
 
 	if ( action === "remove" && !confirm( window.edit_remove ) )
 	{
@@ -26,21 +29,20 @@ $( "#account input[data-action]" ).on( "click", async ( event ) =>
 	}
 
 	// On réalise alors la requête AJAX.
-	const form = $( "#account" );
-	const response = await fetch( $( event.target ).attr( "data-route" ), {
+	const response = await fetch( target.data( "route" ), {
 		method: action === "update" ? "PUT" : "DELETE",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"
 		},
 		body: new URLSearchParams( {
 			// Jeton de sécurité (CSRF).
-			token: form.find( `input[name = token-${ action }]` ).val(),
+			token: account.find( `[name = token-${ action }]` ).val(),
 
 			// Valeur du nouveau nom d'utilisateur.
-			username: form.find( "input[name = username]" ).val(),
+			username: account.find( "[name = username]" ).val(),
 
 			// Valeur du nouveau mot de passe.
-			password: form.find( "input[name = password]" ).val()
+			password: account.find( "[name = password]" ).val()
 		} )
 	} );
 
@@ -51,7 +53,7 @@ $( "#account input[data-action]" ).on( "click", async ( event ) =>
 	//  mise à jour des informations.
 	if ( action === "update" )
 	{
-		$( event.target ).parent().parent()[ 0 ].reset();
+		target.closest( "form" )[ 0 ].reset();
 	}
 } );
 
@@ -59,28 +61,29 @@ $( "#account input[data-action]" ).on( "click", async ( event ) =>
 // Permet d'envoyer les demandes de déconnexion et de reconnexion
 //  au compte utilisateur.
 //
-$( "#actions input[type = submit]" ).on( "click", async ( event ) =>
+const actions = $( "#actions" );
+
+actions.on( "click", "[type = submit]", async ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
 
 	// On réalise ensuite la requête AJAX.
-	const form = $( "#actions" );
 	const target = $( event.target );
-	const response = await fetch( target.attr( "data-route" ), {
+	const response = await fetch( target.data( "route" ), {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"
 		},
 		body: new URLSearchParams( {
 			// Jeton de sécurité (CSRF).
-			token: form.find( `input[name = token-${ target.attr( "data-action" ) }]` ).val(),
+			token: actions.find( `[name = token-${ target.data( "action" ) }]` ).val(),
 
 			// Valeur du nouveau nom d'utilisateur.
-			username: form.find( "input[name = username]" ).val(),
+			username: actions.find( "[name = username]" ).val(),
 
 			// Valeur du nouveau mot de passe.
-			password: form.find( "input[name = password]" ).val()
+			password: actions.find( "[name = password]" ).val()
 		} )
 	} );
 
@@ -102,36 +105,39 @@ $( "#actions input[type = submit]" ).on( "click", async ( event ) =>
 // Permet de modifier le comportement par défaut de la seconde
 //  partie du formulaire d'inscription (oui c'est du recyclage).
 //
-$( "#register input[type = submit]" ).attr( "data-action", "insert" );
+const register = $( "#register" );
+const submit = register.find( "input[type = submit]" );
+submit.data( "action", "insert" );
 
 //
 // Permet d'envoyer les demandes d'ajout d'un nouveau serveur dans
 //  la base de données.
 //
-$( "#register input[type = submit]" ).on( "click", async ( event ) =>
+submit.on( "click", async ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
 
 	// On réalise ensuite la requête AJAX.
-	const form = $( event.target ).parent();
-	const response = await fetch( $( "#register" ).attr( "data-route" ), {
+	const target = $( event.target );
+	const form = target.parent();
+	const response = await fetch( register.data( "route" ), {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"
 		},
 		body: new URLSearchParams( {
 			// Jeton de sécurité (CSRF).
-			token: form.find( "input[name = token]" ).val(),
+			token: form.find( "[name = token]" ).val(),
 
 			// Nom d'utilisateur et mot de passe du compte utilisateur.
-			username: form.find( "input[name = username]" ).val(),
-			password: form.find( "input[name = password]" ).val(),
+			username: form.find( "[name = username]" ).val(),
+			password: form.find( "[name = password]" ).val(),
 
 			// Informations du serveur.
-			server_address: form.find( "input[name = server_address]" ).val(),
-			server_port: form.find( "input[name = server_port]" ).val(),
-			server_password: form.find( "input[name = server_password]" ).val()
+			server_address: form.find( "[name = server_address]" ).val(),
+			server_port: form.find( "[name = server_port]" ).val(),
+			server_password: form.find( "[name = server_password]" ).val()
 		} )
 	} );
 
@@ -142,6 +148,6 @@ $( "#register input[type = submit]" ).on( "click", async ( event ) =>
 	if ( response.ok )
 	{
 		// Dans ce cas, on réinitialise enfin l'entièreté du formulaire.
-		$( event.target ).parent()[ 0 ].reset();
+		target.closest( "form" )[ 0 ].reset();
 	}
 } );

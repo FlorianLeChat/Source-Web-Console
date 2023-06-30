@@ -117,7 +117,7 @@ export async function sendRemoteAction( token, route, action, value )
 	//  si nécessaire en fonction du résultat de la requête.
 	const text = await response.text();
 
-	if ( text !== "" )
+	if ( text )
 	{
 		addQueuedNotification( text, response.ok ? 3 : 1 );
 	}
