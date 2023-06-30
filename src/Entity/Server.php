@@ -41,6 +41,12 @@ class Server
 	#[ORM\Column(nullable: true)]
 	private ?int $game = null;
 
+	public const ACTION_SHUTDOWN = "shutdown";
+	public const ACTION_SHUTDOWN_FORCE = "force";
+	public const ACTION_RESTART = "restart";
+	public const ACTION_UPDATE = "update";
+	public const ACTION_SERVICE = "service";
+
 	public function getId(): ?int
 	{
 		return $this->id;
