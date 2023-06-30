@@ -182,13 +182,13 @@ class DashboardController extends AbstractController
 			return new JsonResponse([
 
 				// État du serveur.
-				"state" => $this->translator->trans("dashboard.state." . ($details["Password"] ? "service" : "running"), ["%gamemode%" => $details["ModDesc"]]),
+				"state" => $this->translator->trans(sprintf("dashboard.state.%s", $details["Password"] ? "service" : "running"), ["%gamemode%" => $details["ModDesc"]]),
 
 				// Carte/environnement.
 				"map" => $details["Map"],
 
 				// Nombre de joueurs humains et robots.
-				"count" => $details["Players"] . "/" . $details["MaxPlayers"] . " [" . $details["Bots"] . "]",
+				"count" => sprintf("%d/%d [%d]", $details["Players"], $details["MaxPlayers"], $details["Bots"]),
 
 				// Liste des joueurs
 				"players" => $this->serverManager->query->GetPlayers()

@@ -166,7 +166,7 @@ class ActionsController extends AbstractController
 				case Server::ACTION_SERVICE:
 				{
 					// Requête de mise en maintenance/verrouillage.
-					$this->serverManager->query->Rcon("sv_password \"" . bin2hex(random_bytes(10)) . "\"");
+					$this->serverManager->query->Rcon(sprintf("sv_password \"%s\"", bin2hex(random_bytes(15))));
 					break;
 				}
 

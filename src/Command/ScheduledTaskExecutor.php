@@ -99,7 +99,7 @@ class ScheduledTaskExecutor extends Command
 					{
 						// Requête de mise en maintenance/verrouillage.
 						$io->text("Locking server...");
-						$this->serverManager->query->Rcon("sv_password \"" . bin2hex(random_bytes(10)) . "\"");
+						$this->serverManager->query->Rcon(sprintf("sv_password \"%s\"", bin2hex(random_bytes(15))));
 						break;
 					}
 				}
