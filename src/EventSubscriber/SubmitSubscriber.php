@@ -48,7 +48,7 @@ class SubmitSubscriber implements EventSubscriberInterface
 
 			// On envoie ensuite une requête à l'API Google reCAPTCHA pour vérifier
 			//  si le jeton est valide ou non.
-			$response = $this->client->request("POST", "https://www.google.com/recaptcha/api/siteverify?secret=" .  $this->recaptchaKey . "&response=$token");
+			$response = $this->client->request("POST", sprintf("https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s", $this->recaptchaKey, $token));
 
 			// On vérifie après si la requête a réussie ou non.
 			if ($response->getStatusCode() !== 200)
