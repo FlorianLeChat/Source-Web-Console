@@ -152,13 +152,13 @@
 			{% for logs in dashboard_logs %}
 				<li>
 					{# Icône représentative de la tâche #}
-					<i class="bi bi-check-square-fill" data-type="{{ logs["action_type"] }}"></i>
+					<i class="bi bi-check-square-fill" data-type="{{ logs.action }}"></i>
 
 					{# Heure de l'actionnement #}
-					<span>{{ logs["timestamp"]|date("H:m:s (d/m)") }}</span>
+					<span>{{ logs.date|date("H:m:s (d/m)") }}</span>
 
 					{# Titre de l'action #}
-					<em>{{ t("global_" ~ logs["action_type"] ~ "_title")|trans|default(logs["action_type"]|capitalize) }}</em>
+					<em>{{ t("global." ~ logs.action)|trans|default(logs.action|capitalize) }}</em>
 				</li>
 			{% endfor %}
 		</ul>

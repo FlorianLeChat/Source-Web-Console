@@ -252,9 +252,9 @@ main
 		ul
 		{
 			// Liste détaillée.
-			height: 10rem;
 			padding: 0.25rem;
 			overflow: auto;
+			max-height: 13rem;
 
 			li
 			{

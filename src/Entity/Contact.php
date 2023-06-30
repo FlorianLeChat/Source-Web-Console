@@ -19,7 +19,7 @@ class Contact
 	private ?int $id = null;
 
 	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
-	private ?\DateTimeInterface $timestamp = null;
+	private ?\DateTimeInterface $date = null;
 
 	#[ORM\Column(length: 100)]
 	#[Assert\Email]
@@ -47,14 +47,14 @@ class Contact
 		return $this->id;
 	}
 
-	public function getTimestamp(): ?\DateTimeInterface
+	public function getDate(): ?\DateTimeInterface
 	{
-		return $this->timestamp;
+		return $this->date;
 	}
 
-	public function setTimestamp(\DateTimeInterface $timestamp): self
+	public function setDate(\DateTimeInterface $date): self
 	{
-		$this->timestamp = $timestamp;
+		$this->date = $date;
 
 		return $this;
 	}
