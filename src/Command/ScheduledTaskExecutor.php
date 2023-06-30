@@ -7,6 +7,7 @@
 namespace App\Command;
 
 use App\Entity\Task;
+use App\Entity\Server;
 use App\Service\ServerManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -71,33 +72,33 @@ class ScheduledTaskExecutor extends Command
 				// On détermine l'action demandée dans la tâche planifiée.
 				switch ($task->getAction())
 				{
-					case "shutdown":
+					case Server::ACTION_SHUTDOWN:
 					{
 						// Requête d'arrêt classique.
 						$io->text("Shutting down server...");
 						$this->serverManager->query->Rcon("sv_shutdown");
 					}
 
-					case "restart":
+					case Server::ACTION_RESTART:
 					{
 						// Requête de redémarrage.
-						$io->text("Restarting service...");
+						$io->text("Restarting server...");
 						$this->serverManager->query->Rcon("_restart");
 						break;
 					}
 
-					case "update":
+					case Server::ACTION_UPDATE:
 					{
 						// Requête de mise à jour.
-						$io->text("Updating service...");
+						$io->text("Updating server...");
 						$this->serverManager->query->Rcon("svc_update");
 						break;
 					}
 
-					case "service":
+					case Server::ACTION_SERVICE:
 					{
 						// Requête de mise en maintenance/verrouillage.
-						$io->text("Locking service...");
+						$io->text("Locking server...");
 						$this->serverManager->query->Rcon("sv_password \"" . bin2hex(random_bytes(10)) . "\"");
 						break;
 					}

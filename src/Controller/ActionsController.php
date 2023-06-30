@@ -105,35 +105,35 @@ class ActionsController extends AbstractController
 			// On détermine l'action doit être réalisée sur le serveur.
 			switch ($action)
 			{
-				case "shutdown":
+				case Server::ACTION_SHUTDOWN:
 				{
 					// Requête d'arrêt classique.
 					$this->serverManager->query->Rcon("sv_shutdown");
 					break;
 				}
 
-				case "force":
+				case Server::ACTION_SHUTDOWN_FORCE:
 				{
 					// Requête d'arrêt forcée.
 					$this->serverManager->query->Rcon("quit");
 					break;
 				}
 
-				case "restart":
+				case Server::ACTION_RESTART:
 				{
 					// Requête de redémarrage.
 					$this->serverManager->query->Rcon("_restart");
 					break;
 				}
 
-				case "update":
+				case Server::ACTION_UPDATE:
 				{
 					// Requête de mise à jour.
 					$this->serverManager->query->Rcon("svc_update");
 					break;
 				}
 
-				case "service":
+				case Server::ACTION_SERVICE:
 				{
 					// Requête de mise en maintenance/verrouillage.
 					$this->serverManager->query->Rcon("sv_password \"" . bin2hex(random_bytes(10)) . "\"");
