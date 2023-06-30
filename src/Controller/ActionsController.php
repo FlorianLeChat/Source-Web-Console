@@ -31,13 +31,43 @@ class ActionsController extends AbstractController
 	// Route vers la page des actions et des commandes.
 	//
 	#[Route("/actions", name: "app_actions_page")]
-	public function index(): Response
+	public function index(Request $request): Response
 	{
 		// On vérifie d'abord que l'utilisateur est bien connecté avant d'accéder
 		//  à la page, sinon on le redirige vers la page d'accueil.
 		if (!$this->isGranted("IS_AUTHENTICATED"))
 		{
 			return $this->redirectToRoute("app_index_page");
+		}
+
+		// On récupère ensuite l'identifiant unique du serveur sélectionné
+		//  précédemment par l'utilisateur.
+		$serverId = intval($request->getSession()->get("serverId", 0));
+
+		if ($serverId !== 0)
+		{
+			// Si un serveur est sélectionné, on récupère les informations
+			//  le concernant.
+			/** @var User */
+			$user = $this->getUser();
+			$server = $this->entityManager->getRepository(Server::class)->findOneBy(["id" => $serverId, "client" => $user->getId()]);
+
+			try
+			{
+				// On tente après d'établir une connexion avec le serveur.
+				$this->serverManager->connect($server->getAddress(), $server->getPort(), $server->getPassword());
+
+				// En cas de réussite, on récupère toutes les informations
+				//	disponibles et fournies par le module d'administration.
+				$rules = $this->serverManager->query->GetRules();
+			}
+			catch (\Exception) {}
+			finally
+			{
+				// Si tout se passe bien, on libère le socket réseau pour
+				//	d'autres scripts du site.
+				$this->serverManager->query->Disconnect();
+			}
 		}
 
 		// On inclut enfin les paramètres du moteur TWIG pour la création de la page.
