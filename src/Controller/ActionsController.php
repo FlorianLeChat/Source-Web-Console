@@ -6,6 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Event;
 use App\Entity\Server;
 use App\Service\ServerManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -219,6 +220,14 @@ class ActionsController extends AbstractController
 					break;
 				}
 			}
+
+			// On enregistre l'action réalisée dans les événements journalisés.
+			$event = new Event();
+			$event->setServer($server);
+			$event->setDate(new \DateTime());
+			$event->setAction($action);
+
+			$this->entityManager->getRepository(Event::class)->save($event, true);
 
 			// On envoie par la suite la réponse au client.
 			return new Response(

@@ -6,6 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Event;
 use App\Entity\Server;
 use App\Service\ServerManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -47,6 +48,7 @@ class DashboardController extends AbstractController
 		//  l'action de l'utilisateur.
 		/** @var User */
 		$user = $this->getUser();
+		$cacheId = intval($request->getSession()->get("serverId", 0));
 		$serverId = intval($request->request->get("id", 0));
 		$repository = $this->entityManager->getRepository(Server::class);
 
@@ -130,7 +132,7 @@ class DashboardController extends AbstractController
 		return $this->render("dashboard.html.twig", [
 
 			// Récupération de l'historique des actions et commandes.
-			"dashboard_logs" => [],
+			"dashboard_logs" => $this->entityManager->getRepository(Event::class)->findBy(["server" => $cacheId], ["id" => "DESC"], 3),
 
 			// Liste des serveurs depuis la base de données.
 			"dashboard_servers" => $repository->findBy(["client" => $user->getId()])
