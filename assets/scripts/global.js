@@ -74,49 +74,64 @@ $( "footer" ).find( "a[href = \"javascript:void(0);\"]" ).on( "click", () =>
 } );
 
 //
-$( window ).ajaxSend( ( _event, _request, settings ) =>
+// Permet de générer un jeton d'authentification pour les services
+//  de Google reCAPTCHA lors de l'envoi d'un formulaire au travers
+//  de l'API Fetch ou via une soumission classique.
+//
+const oldFetch = window.fetch;
+
+window.fetch = async ( url, options ) =>
 {
-	// On vérifie d'abord si la requête est de type POST.
-	//  Note : seules les requêtes de soumission doivent être surveillées.
-	if ( settings.type !== "POST" )
+	// On vérifie d'abord si la requête est une requête issue
+	//  d'un formulaire quelconque.
+	if ( options && options.method !== "GET" )
+	{
+		// On génère alors une nouvelle promesse qui attendra
+		//  que le jeton de vérification soit récupéré.
+		const token = new Promise( ( resolve ) =>
+		{
+			// On attend ensuite que les services de reCAPTCHA soient chargés.
+			window.grecaptcha.ready( async () =>
+			{
+				// Une fois terminé, on exécute après une requête de vérification
+				//  afin d'obtenir un jeton de vérification auprès de Google.
+				resolve( await window.grecaptcha.execute( window.captcha_public_key ) );
+			} );
+		} );
+
+		// On ajoute le jeton de vérification à la requête.
+		options.body.append( "recaptcha", await token );
+	}
+
+	// On retourne enfin la requête originale.
+	return oldFetch( url, options );
+};
+
+$( "form[method=POST]" ).on( "submit", ( event ) =>
+{
+	// On vérifie tout d'abord si le formulaire possède déjà un
+	//  jeton d'authentification de Google reCAPTCHA.
+	if ( $( "input[name=recaptcha]" ).length > 0 )
 	{
 		return;
 	}
 
-	// On met en mémoire la fonction de retour utilisée par la requête.
-	const callback = settings.xhr;
+	// On cesse alors le comportement par défaut du formulaire.
+	event.preventDefault();
+	event.stopImmediatePropagation();
 
-	settings.xhr = () =>
+	// On attend ensuite que les services de reCAPTCHA soient chargés.
+	window.grecaptcha.ready( async () =>
 	{
-		// On récupère par la même occasion certaines données de la requête.
-		const request = callback();
-		const sender = request.send;
+		// Une fois terminé, on exécute une requête de vérification
+		//  afin d'obtenir un jeton de vérification auprès de Google.
+		const token = await window.grecaptcha.execute( window.captcha_public_key );
 
-		// On redéfinit après la fonction de retour de la requête.
-		request.send = ( ...parameters ) =>
-		{
-			// On attend ensuite que les services de reCAPTCHA soient chargés.
-			grecaptcha.ready( async () =>
-			{
-				// Une fois terminé, on exécute alors une requête de vérification
-				//  afin d'obtenir un jeton de vérification auprès de Google.
-				const token = await grecaptcha.execute( captcha_public_key );
-
-				// On ajoute par la suite le jeton aux paramètres de la requête.
-				parameters[ 0 ] += `&recaptcha=${ token }`;
-
-				// On vérifie l'état de la requête avant de l'exécuter de nouveau
-				//  avec les paramètres modifiés.
-				if ( request.readyState === 1 )
-				{
-					sender.apply( request, parameters );
-				}
-			} );
-		};
-
-		// On retourne enfin la requête modifiée.
-		return request;
-	};
+		// On insère enfin dynamiquement le jeton dans le formulaire
+		//  avant de cliquer une nouvelle fois sur le bouton de soumission.
+		$( event.target ).closest( "form" ).append( `<input type="hidden" name="recaptcha" value="${ token }">` );
+		$( event.target ).trigger( "click" );
+	} );
 } );
 
 //
