@@ -48,7 +48,7 @@ class DashboardController extends AbstractController
 		/** @var User */
 		$user = $this->getUser();
 		$serverId = intval($request->request->get("id", 0));
-		$serverRepository = $this->entityManager->getRepository(Server::class);
+		$repository = $this->entityManager->getRepository(Server::class);
 
 		if ($serverId !== 0 && $request->getMethod() === "POST")
 		{
@@ -81,7 +81,7 @@ class DashboardController extends AbstractController
 				case "edit":
 				{
 					// Vérification de l'existence et de l'appartenance du serveur à l'utilisateur.
-					if (!$server = $serverRepository->findOneBy(["id" => $serverId, "client" => $user->getId()]))
+					if (!$server = $repository->findOneBy(["id" => $serverId, "client" => $user->getId()]))
 					{
 						return new Response(status: Response::HTTP_UNAUTHORIZED);
 					}
@@ -104,7 +104,7 @@ class DashboardController extends AbstractController
 					}
 
 					// Sauvegarde dans la base de données.
-					$serverRepository->save($server, true);
+					$repository->save($server, true);
 
 					break;
 				}
@@ -113,13 +113,13 @@ class DashboardController extends AbstractController
 				case "delete":
 				{
 					// Vérification de l'existence et de l'appartenance du serveur à l'utilisateur.
-					if (!$server = $serverRepository->findOneBy(["id" => $serverId, "client" => $user->getId()]))
+					if (!$server = $repository->findOneBy(["id" => $serverId, "client" => $user->getId()]))
 					{
 						return new Response(status: Response::HTTP_UNAUTHORIZED);
 					}
 
 					// Suppression dans la base de données.
-					$serverRepository->remove($server, true);
+					$repository->remove($server, true);
 
 					break;
 				}
@@ -127,16 +127,13 @@ class DashboardController extends AbstractController
 		}
 
 		// On inclut enfin les paramètres du moteur TWIG pour la création de la page.
-		/** @var User */
-		$user = $this->getUser();
-
 		return $this->render("dashboard.html.twig", [
 
 			// Récupération de l'historique des actions et commandes.
 			"dashboard_logs" => [],
 
 			// Liste des serveurs depuis la base de données.
-			"dashboard_servers" => $serverRepository->findBy(["client" => $user->getId()])
+			"dashboard_servers" => $repository->findBy(["client" => $user->getId()])
 
 		]);
 	}
