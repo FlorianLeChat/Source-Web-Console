@@ -217,10 +217,10 @@ links.last().on( "click", async ( event ) =>
 			token: login.find( "input[name = token]" ).val(),
 
 			// Nom d'utilisateur associé au compte.
-			username: prompt( recover_password_username ),
+			username: prompt( window.recover_password_username ),
 
 			// Nouveau mot de passe.
-			password: prompt( recover_password_password )
+			password: prompt( window.recover_password_password )
 		} )
 	} );
 

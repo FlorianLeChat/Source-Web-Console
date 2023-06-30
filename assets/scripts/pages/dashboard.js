@@ -51,7 +51,7 @@ $( "[name = server_edit]" ).on( "click", ( event ) =>
 
 	// On demande ensuite à l'utilisateur s'il veut supprimer ou non
 	//  le serveur.
-	if ( confirm( edit_remove ) )
+	if ( confirm( window.editRemove ) )
 	{
 		// Ajout de l'action de suppression.
 		parent.append( "<input type=\"hidden\" name=\"action\" value=\"delete\" />" );
@@ -59,9 +59,9 @@ $( "[name = server_edit]" ).on( "click", ( event ) =>
 	else
 	{
 		// Adresse IP, port et mot de passe du serveur.
-		const address = prompt( edit_address );
-		const port = prompt( edit_port );
-		const password = prompt( edit_password );
+		const address = prompt( window.edit_address );
+		const port = prompt( window.edit_port );
+		const password = prompt( window.edit_password );
 
 		parent.append( "<input type=\"hidden\" name=\"action\" value=\"edit\" />" );
 

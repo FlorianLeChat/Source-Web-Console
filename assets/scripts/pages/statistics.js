@@ -30,7 +30,7 @@ for ( let indice = 0; indice <= 24; indice++ )
 //
 const playerChart = $( "#player_count" );
 
-new Chart(
+Chart(
 	playerChart,
 	{
 		type: "line",
@@ -63,7 +63,7 @@ new Chart(
 				x: {
 					// Axe X : heure UTC sous format international ISO.
 					type: "time",
-					labels: labels,
+					labels,
 					grid: {
 						color: "#797979"
 					},
@@ -84,7 +84,7 @@ new Chart(
 					},
 					title: {
 						display: true,
-						text: utc_time,
+						text: window.utc_time,
 						color: "#f59a23",
 						font: {
 							size: 20,
@@ -104,14 +104,14 @@ new Chart(
 					ticks: {
 						color: "#f59a23",
 						font: {
-							size: 16,
+							size: 16
 						},
 						stepSize: 2,
 						beginAtZero: true
 					},
 					title: {
 						display: true,
-						text: player_count,
+						text: window.player_count,
 						color: "#f59a23",
 						font: {
 							size: 20,
@@ -123,20 +123,20 @@ new Chart(
 				}
 			}
 		}
-	} );
+	}
+);
 
 //
 // Permet de créer un graphique pour illustrer les statistiques
 //  d'utilisation du serveur en fonction du temps.
 //
-const server_usage = $( "#server_usage" );
-
-new Chart( server_usage,
+Chart(
+	$( "#server_usage" ),
 	{
 		type: "bar",
 		data: {
 			type: "time",
-			labels: labels,
+			labels,
 			grid: {
 				color: "#797979"
 			},
@@ -147,12 +147,12 @@ new Chart( server_usage,
 			datasets: [
 				// Données brutes transmises par la base de données.
 				{
-					label: cpu_usage,
+					label: window.cpu_usage,
 					backgroundColor: "#ed431d",
 					data: [ 12.4, 12.68, 25, 35, 24, 12, 10, 8, 6, 1, 36, 45, 75, 89, 100, 98, 64, 54, 62, 56, 68, 72, 41, 35, 43 ]
 				},
 				{
-					label: ram_usage,
+					label: window.ram_usage,
 					backgroundColor: "#016fa0",
 					data: [ 25, 26, 27, 28, 26, 25, 24, 23, 26, 27, 30, 23, 27, 28, 35, 41, 38, 36, 33, 31, 25, 36, 26, 27, 30 ]
 				}
@@ -178,7 +178,7 @@ new Chart( server_usage,
 				x: {
 					// Axe X : heure UTC sous format international ISO.
 					type: "time",
-					labels: labels,
+					labels,
 					grid: {
 						color: "#797979"
 					},
@@ -199,7 +199,7 @@ new Chart( server_usage,
 					},
 					title: {
 						display: true,
-						text: utc_time,
+						text: window.utc_time,
 						color: "#f59a23",
 						font: {
 							size: 20,
@@ -219,14 +219,14 @@ new Chart( server_usage,
 					ticks: {
 						color: "#f59a23",
 						font: {
-							size: 16,
+							size: 16
 						},
 						stepSize: 5,
 						beginAtZero: true
 					},
 					title: {
 						display: true,
-						text: usage_percent,
+						text: window.usage_percent,
 						color: "#f59a23",
 						font: {
 							size: 20,

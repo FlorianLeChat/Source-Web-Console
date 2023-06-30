@@ -6,11 +6,11 @@ export default function sendAnalytics()
 {
 	window.dataLayer = window.dataLayer || [];
 
-	function gtag()
+	function gtag( ...args )
 	{
-		dataLayer.push( arguments );
+		window.dataLayer.push( ...args );
 	}
 
 	gtag( "js", new Date() );
-	gtag( "config", analytics_identifier );
+	gtag( "config", window.analytics_identifier );
 }

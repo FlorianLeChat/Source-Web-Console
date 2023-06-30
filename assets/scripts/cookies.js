@@ -6,7 +6,6 @@
 import "vanilla-cookieconsent";
 import sendAnalytics from "./analytics";
 
-
 if ( window.location.search !== "legal" )
 {
 	// On initialise le mécanisme de consentement.
@@ -73,7 +72,7 @@ if ( window.location.search !== "legal" )
 						{
 							// En-tête de la fenêtre.
 							title: "Cookie Usage 📢",
-							description: "I use cookies to provide basic website functionality and to enhance your online experience. For each category, you can choose to accept or decline cookies whenever you want. For more details about cookies and other sensitive data, please read the full <a href=\"legal\" class=\"cc-link\">privacy policy</a>.",
+							description: "I use cookies to provide basic website functionality and to enhance your online experience. For each category, you can choose to accept or decline cookies whenever you want. For more details about cookies and other sensitive data, please read the full <a href=\"legal\" class=\"cc-link\">privacy policy</a>."
 						},
 						{
 							// Première option.

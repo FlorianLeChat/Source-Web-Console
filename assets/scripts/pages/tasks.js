@@ -59,7 +59,7 @@ $( "form input[type = submit]" ).on( "click", async ( event ) =>
 $( "table tr:not([class = finished])" ).on( "click", async ( event ) =>
 {
 	// On vérifie si l'utilisateur demande a supprimer la tâche.
-	if ( confirm( edit_remove ) )
+	if ( confirm( window.edit_remove ) )
 	{
 		// On réalise ensuite la requête AJAX.
 		const target = $( event.target ).parent();
