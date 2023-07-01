@@ -20,6 +20,9 @@ security:
                 samesite: strict
                 token_provider:
                     doctrine: true
+    role_hierarchy:
+        ROLE_DONOR: ROLE_USER
+        ROLE_ADMIN: [ROLE_USER, ROLE_DONOR]
 
 when@test:
     security:

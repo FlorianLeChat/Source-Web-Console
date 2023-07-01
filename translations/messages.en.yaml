@@ -189,6 +189,7 @@ user:
     actions: "Account actions"
     updated: "Your personal account information has been updated in the database."
     removed: "Your user account has been successfully deleted. Please refresh the page to be redirected to the home page."
+    too_much: "You have reached the maximum number of servers allowed per user account. Please delete an existing server before adding a new one, or consider purchasing a donor account."
     reconnect: "Reconnect"
     disconnect: "Disconnect"
     edit_remove: "You want to delete your user account? Please note that the deletion is final and irreversible."

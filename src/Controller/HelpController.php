@@ -23,7 +23,7 @@ class HelpController extends AbstractController
 		return $this->render("help.html.twig", [
 
 			// Nombre d'utilisateurs donateurs.
-			"help_donators_count" => $userRepository->count(["roles" => "ROLE_DONATOR"]),
+			"help_donators_count" => $userRepository->count(["roles" => "ROLE_DONOR"]),
 
 			// Nombre de serveurs enregistrés.
 			"help_servers_count" => $entityManager->getRepository(Server::class)->count([]),
