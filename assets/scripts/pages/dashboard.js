@@ -87,6 +87,37 @@ $( "[name = server_edit]" ).one( "click", ( event ) =>
 } );
 
 //
+// Permet de défiler la liste des serveurs enregistrés.
+//
+const servers = $( "#servers" );
+
+servers.on( "click", "button[type=button]", ( event ) =>
+{
+	// On récupère d'abord l'élément cible ainsi que l'élément
+	//  qui contient le nombre de pages.
+	const target = $( event.target );
+	const label = target.parent().siblings( "span" );
+
+	// On récupère ensuite le nombre de pages actuel ainsi que
+	//  le nombre de pages maximum.
+	let [ current, maximum ] = label.text().split( "/" ).map( ( num ) => parseInt( num, 10 ) );
+	maximum = maximum || 1;
+
+	// On modifie enfin le nombre de pages actuel en fonction
+	//  de l'élément cible et on met à jour le nombre de pages
+	//  actuel.
+	current = target.hasClass( "bi bi-chevron-left" ) ? Math.max( 1, current - 1 ) : Math.min( maximum, current + 1 );
+
+	label.text( `${ current } / ${ maximum }` );
+
+	// On récupère enfin les éléments à afficher et on les affiche
+	//  par groupe de 4.
+	const elements = servers.find( "li" ).slice( ( current - 1 ) * 4, current * 4 );
+	servers.find( ":not(.hidden)" ).addClass( "hidden" );
+	elements.removeClass( "hidden" );
+} );
+
+//
 // Permet de faire la récupération des informations générales du serveur.
 //
 let timer;
@@ -94,7 +125,7 @@ let timer;
 async function retrieveRemoteData()
 {
 	// On réalise d'abord la requête AJAX.
-	const response = await fetch( $( "#servers" ).data( "route" ) );
+	const response = await fetch( servers.data( "route" ) );
 
 	// On vérifie ensuite si la requête a été effectuée avec succès.
 	if ( response.ok )
