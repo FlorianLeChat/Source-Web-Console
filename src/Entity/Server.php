@@ -25,7 +25,7 @@ class Server
 
 	#[ORM\Column(length: 15)]
 	#[Assert\Ip]
-	#[Assert\Length(min: 5, max: 15)]
+	#[Assert\Length(min: 7, max: 15)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
 	private ?string $address = null;

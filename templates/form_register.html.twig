@@ -73,7 +73,7 @@
 		{# Informations client (adresse IP & port) #}
 		<label>{{ t("form.register.client.title")|trans }}<span>*</span></label>
 
-		<input type="text" name="address" placeholder="51.75.125.244" minlength="5" maxlength="15" required />
+		<input type="text" name="address" placeholder="51.75.125.244" minlength="7" maxlength="15" pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$" required>
 		<span></span>
 
 		<input type="number" name="port" placeholder="27015" min="1" max="99999" required />
