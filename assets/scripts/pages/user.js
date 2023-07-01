@@ -135,9 +135,9 @@ submit.on( "click", async ( event ) =>
 			password: form.find( "[name = password]" ).val(),
 
 			// Informations du serveur.
-			server_address: form.find( "[name = server_address]" ).val(),
-			server_port: form.find( "[name = server_port]" ).val(),
-			server_password: form.find( "[name = server_password]" ).val()
+			server_address: form.find( "[name = address]" ).val(),
+			server_port: form.find( "[name = port]" ).val(),
+			server_password: form.find( "[name = password]" ).val()
 		} )
 	} );
 
