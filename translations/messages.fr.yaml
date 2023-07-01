@@ -189,6 +189,7 @@ user:
     actions: "Actions du compte"
     updated: "Les informations personnelles de votre compte ont bien été mises à jour dans la base de données."
     removed: "Votre compte utilisateur a été supprimé avec succès. Veuillez rafraîchir la page pour être redirigé vers la page d'accueil."
+    too_much: "Vous avez atteint le nombre maximal de serveurs autorisés par compte utilisateur. Veuillez en supprimer un avant d'en ajouter un nouveau ou considérer l'achat d'un compte donateur."
     reconnect: "Se reconnecter"
     disconnect: "Se déconnecter"
     edit_remove: "Vous voulez supprimer votre compte utilisateur ? Attention, la suppression est définitive et irréversible."
@@ -227,7 +228,7 @@ help:
         donators: "Donateurs"
     answer:
         1: "L'inscription sur le site se fait sur la page d'accueil du site. Sur cette page, vous retrouverez la présentation des fonctionnalités ainsi qu'un moyen afin de procéder à votre inscription et à votre connexion. L'inscription se fait en deux étapes : d'abord vous devez renseigner vos informations personnelles afin de créer un compte utilisateurs, dans un second temps vous serez invité à remplir des informations sur l'un de vos serveurs de jeux. Ces informations seront ensuite traités pour l'affichage des données sur le tableau de bord."
-        2: "Lors de votre inscription au site, votre compte est automatiquement défini en tant qu'utilisateur classique et vous possédez d'or et déjà d'un grands nombres de fonctionnalités disponibles. Cependant, si vous réalisez une donation unique d'un montant que vous voulez, vous aurez la possibilité de débloquer des avantages et des fonctionnalités supplémentairs pour améliorer votre expérience d'utilisateurs."
+        2: "Lors de votre inscription au site, votre compte est automatiquement défini en tant qu'utilisateur classique et vous possédez d'or et déjà d'un grands nombres de fonctionnalités disponibles. Cependant, si vous réalisez une donation unique d'un montant que vous voulez, vous aurez la possibilité de débloquer des avantages et des fonctionnalités supplémentaires pour améliorer votre expérience d'utilisateurs."
         3: "Le site actuel et les sites concurrents sont possèdent plusieurs différences. D'abord, les sites concurrents ne peuvent pas être accessibles sans compte utilisateur et sans avoir déjà acheté un service chez leurs infrastructures. Cela signifie que l'accès à leur panneau d'administration dépend d'une souscription à leurs services, notre site est alors totalement gratuit d'utilisateur. La seconde est que notre site utilise les dernières versions de communication entre nos serveurs et vos infrastructures afin de faciliter la rapidité d'exécution de toutes vos actions."
     question:
         1: "Comment s'inscrire sur le site ?"

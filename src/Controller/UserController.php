@@ -448,9 +448,22 @@ class UserController extends AbstractController
 			);
 		}
 
+		// On vérifie après si l'utilisateur n'a pas déjà atteint
+		//  la limite de serveurs pour son compte.
+		/** @var User */
+		$user = $this->getUser();
+		$repository = $this->entityManager->getRepository(Server::class);
+
+		if ($repository->count(["client" => $user]) >= ($this->isGranted("ROLE_DONOR") ? 10 : 3))
+		{
+			return new Response(
+				$this->translator->trans("user.too_much"),
+				Response::HTTP_TOO_MANY_REQUESTS
+			);
+		}
+
 		// On enregistre ensuite les informations du nouveau serveur.
 		$server = new Server();
-
 		$server->setAddress($address = $request->request->get("server_address"));
 		$server->setPort($port = intval($request->request->get("server_port")));
 		$server->setPassword($password = $request->request->get("server_password"));
@@ -474,7 +487,7 @@ class UserController extends AbstractController
 		}
 
 		// On enregistre alors les informations dans la base de données.
-		$this->entityManager->getRepository(Server::class)->save($server, true);
+		$repository->save($server, true);
 
 		// On envoie enfin la réponse au client.
 		return new Response(
