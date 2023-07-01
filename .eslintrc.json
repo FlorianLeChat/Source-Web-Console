@@ -17,7 +17,8 @@
 		"no-restricted-globals": "off",
 		"array-bracket-spacing": ["error", "always"],
 		"template-curly-spacing": ["error", "always"],
-		"computed-property-spacing": ["error", "always"]
+		"computed-property-spacing": ["error", "always"],
+		"import/no-extraneous-dependencies": "off"
 	},
 	"env": {
 		"es6": true,
