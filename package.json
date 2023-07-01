@@ -18,7 +18,7 @@
         "sass": "~1.62",
         "jquery": "~3.7",
         "core-js": "~3.30",
-        "webpack": "~5.85",
+        "webpack": "~5.88",
         "chart.js": "~4.3",
         "flag-icons": "~6.7",
         "file-loader": "~6.2",
