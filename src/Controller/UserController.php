@@ -83,6 +83,7 @@ class UserController extends AbstractController
 		$user->setUsername($username = $request->request->get("username"));
 		$user->setPassword($this->hasher->hashPassword($user, $request->request->get("password", "")));
 		$user->setAddress($request->getClientIp());
+		$user->setRoles(["ROLE_USER"]);
 
 		$server->setAddress($address = $request->request->get("server_address"));
 		$server->setPort($port = intval($request->request->get("server_port")));
