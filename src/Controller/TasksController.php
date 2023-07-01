@@ -134,7 +134,7 @@ class TasksController extends AbstractController
 
 		return new Response(
 			$this->translator->trans("tasks.added"),
-			Response::HTTP_OK
+			Response::HTTP_CREATED
 		);
 	}
 
