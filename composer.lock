@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6f68fbc59a84844d30fc0d012d94aabf",
+    "content-hash": "1feb9b7ce867052b09f9a11d13ceaeba",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -4186,16 +4186,16 @@
         },
         {
             "name": "symfony/intl",
-            "version": "v6.3.0",
+            "version": "v6.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/intl.git",
-                "reference": "49c7d14fc0465813e85b7cbbda49844af208d95a"
+                "reference": "fdf4aff85fff2cc681cc45936b6b2a52731acc23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/intl/zipball/49c7d14fc0465813e85b7cbbda49844af208d95a",
-                "reference": "49c7d14fc0465813e85b7cbbda49844af208d95a",
+                "url": "https://api.github.com/repos/symfony/intl/zipball/fdf4aff85fff2cc681cc45936b6b2a52731acc23",
+                "reference": "fdf4aff85fff2cc681cc45936b6b2a52731acc23",
                 "shasum": ""
             },
             "require": {
@@ -4247,7 +4247,7 @@
                 "localization"
             ],
             "support": {
-                "source": "https://github.com/symfony/intl/tree/v6.3.0"
+                "source": "https://github.com/symfony/intl/tree/v6.3.1"
             },
             "funding": [
                 {
@@ -4263,7 +4263,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-04-24T14:22:26+00:00"
+            "time": "2023-06-21T12:08:28+00:00"
         },
         {
             "name": "symfony/mailer",
