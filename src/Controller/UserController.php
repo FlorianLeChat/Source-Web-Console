@@ -127,7 +127,7 @@ class UserController extends AbstractController
 		// On envoie enfin la réponse au client.
 		return new Response(
 			$this->translator->trans("form.register.success"),
-			Response::HTTP_OK
+			Response::HTTP_CREATED
 		);
 	}
 
@@ -241,10 +241,10 @@ class UserController extends AbstractController
 
 		// On créé ensuite un nouvel objet de type "Contact".
 		$contact = new Contact();
+		$contact->setDate(new \DateTime());
 		$contact->setEmail($email = $request->request->get("email"));
 		$contact->setSubject($subject = $request->request->get("subject"));
 		$contact->setContent($content = $request->request->get("content"));
-		$contact->setTimestamp(new \DateTime());
 
 		// On vérifie alors si les informations sont valides.
 		if (count($this->validator->validate($contact)) > 0)
@@ -289,7 +289,7 @@ class UserController extends AbstractController
 		// On envoie enfin la réponse au client.
 		return new Response(
 			$this->translator->trans("form.contact.success"),
-			Response::HTTP_OK
+			Response::HTTP_CREATED
 		);
 	}
 
@@ -335,7 +335,7 @@ class UserController extends AbstractController
 		// On envoie enfin la réponse au client.
 		return new Response(
 			$this->translator->trans("user.updated"),
-			Response::HTTP_OK
+			Response::HTTP_CREATED
 		);
 	}
 
@@ -400,7 +400,7 @@ class UserController extends AbstractController
 		// On envoie enfin la réponse au client.
 		return new Response(
 			$this->translator->trans("user.updated"),
-			Response::HTTP_OK
+			Response::HTTP_CREATED
 		);
 	}
 
@@ -478,7 +478,7 @@ class UserController extends AbstractController
 		// On envoie enfin la réponse au client.
 		return new Response(
 			$this->translator->trans("user.insert"),
-			Response::HTTP_OK
+			Response::HTTP_CREATED
 		);
 	}
 }
