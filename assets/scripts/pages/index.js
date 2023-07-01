@@ -321,7 +321,7 @@ function updateInformation( forward )
 			element.fadeOut( 200, () =>
 			{
 				// On vérifie ensuite si l'utilisateur demande d'avancer
-				// ou de reculer dans les positions des images.
+				//  ou de reculer dans les positions des images.
 				const nextIndex = forward ? indice + 1 : indice - 1;
 				const nextImage = images.eq( nextIndex >= 0 ? nextIndex % length : length );
 				nextImage.fadeIn( 150 );

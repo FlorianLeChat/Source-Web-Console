@@ -26,7 +26,11 @@
 
 		<ul>
 			{% for server in dashboard_servers %}
-				<li data-image="{{ asset("build/images/games/" ~ server.game ?? 0 ~ "_background.webp") }}">
+				{# Récupération de l'indice de la boucle #}
+				{% set indice = loop.index %}
+
+				{# Informations générales de chaque serveur #}
+				<li data-image="{{ asset("build/images/games/" ~ server.game ?? 0 ~ "_background.webp") }}" class="{{ indice > 4 ? "hidden" : "" }}">
 					{# Construction de l'adresse IP #}
 					{% set address = server.address ~ ":" ~ server.port %}
 
@@ -59,14 +63,14 @@
 			{% endfor %}
 		</ul>
 
-		<button type="button" name="servers_list" value="0">
+		<button type="button">
 			{# Serveurs précédents #}
 			<i class="bi bi-chevron-left"></i>
 		</button>
 
-		<span>1 / {{ max(dashboard_servers|length // 3, 1) }}</span>
+		<span>1 / {{ max(dashboard_servers|length / 4, 1)|round(0, "ceil") }}</span>
 
-		<button type="button" name="servers_list" value="2">
+		<button type="button">
 			{# Serveurs suivants #}
 			<i class="bi bi-chevron-right"></i>
 		</button>
