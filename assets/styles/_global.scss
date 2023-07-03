@@ -650,13 +650,18 @@ header
 
 	&.show
 	{
-		// Apparition/disparition de l'élément
-		//  avec des transitions.
+		// Apparition de l'élément avec une transition.
 		gap: 0.75rem;
 		display: flex;
-		animation: fadeIn 500ms, fadeOut 500ms 4.75s;
+		animation: fadeIn 500ms;
 		visibility: visible;
 		align-items: center;
+	}
+
+	&.hide
+	{
+		// Disparition de l'élément avec une transition.
+		animation: fadeOut 500ms;
 	}
 
 	@keyframes fadeIn

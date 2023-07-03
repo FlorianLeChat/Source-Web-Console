@@ -2,8 +2,11 @@
 // Permet d'afficher des notifications textuelles après une action.
 //  Source : https://www.w3schools.com/howto/howto_js_snackbar.asp
 //
+const notifications = $( "#notifications" );
 const messageQueue = {};
+let isInBounds = false;
 let counter = 1;
+let timer;
 
 export function addQueuedNotification( text, type )
 {
@@ -17,54 +20,95 @@ function processNotification( text, type )
 {
 	// On vérifie tout d'abord si une notification est déjà
 	//  actuellement visible.
-	const notification = $( "#notifications" );
-
-	if ( notification.is( ":visible" ) )
+	if ( notifications.is( ":visible" ) )
 	{
 		return false;
 	}
 
 	// On apparaître ensuite le bloc avant de définir
 	//  le texte passé en paramètre de la fonction.
-	notification.find( "span" ).text( text );
-	notification.addClass( "show" );
+	notifications.find( "span" ).text( text );
+	notifications.addClass( "show" );
 
 	// On récupère après l'icône associé au conteneur.
-	const icon = notification.find( "i" );
+	const icon = notifications.find( "i" );
 
 	// On vérifie alors le type de notification.
 	if ( type === 1 )
 	{
 		// Cette notification est une erreur.
-		notification.addClass( "error" );
+		notifications.addClass( "error" );
 		icon.addClass( "bi-exclamation-octagon-fill" );
 	}
 	else if ( type === 2 )
 	{
 		// Cette notification est une validation.
-		notification.addClass( "success" );
+		notifications.addClass( "success" );
 		icon.addClass( "bi-check-square-fill" );
 	}
 	else if ( type === 3 )
 	{
 		// Cette notification est une information.
-		notification.addClass( "info" );
+		notifications.addClass( "info" );
 		icon.addClass( "bi-info-square-fill" );
 	}
 
-	setTimeout( () =>
+	setInterval( () =>
 	{
-		// Après 5 secondes d'affichage, on supprime toutes
-		//  les classes associées aux éléments pour les faire
-		//  disparaître progressivement.
-		icon.removeAttr( "class" );
-		notification.removeAttr( "class" );
-	}, 5000 );
+		// On vérifie si la souris est actuellement dans la zone
+		//  de la notification pour ne pas la supprimer.
+		if ( isInBounds )
+		{
+			// Si c'est le cas, alors on supprime le minuteur
+			//  pour ne pas supprimer la notification.
+			if ( timer )
+			{
+				clearTimeout( timer );
+				timer = undefined;
+			}
 
-	// On retourne cette variable pour signifier à la file
+			return;
+		}
+
+		// Dans le cas contraire, on attend 5 secondes avant
+		//  de supprimer la notification avec une animation.
+		if ( !timer )
+		{
+			timer = setTimeout( () =>
+			{
+				// Déclenchement de l'animation de sortie.
+				notifications.addClass( "hide" );
+
+				setTimeout( () =>
+				{
+					// Suppression de la notification.
+					icon.removeAttr( "class" );
+					notifications.removeAttr( "class" );
+
+					// Suppression du minuteur.
+					clearTimeout( timer );
+					timer = undefined;
+				}, 250 );
+			}, 4750 );
+		}
+	}, 500 );
+
+	// On retourne enfin cette variable pour signifier à la file
 	//  d'attente que la notification a été créée avec succès.
 	return true;
 }
+
+notifications.on( "mouseenter", () =>
+{
+	// Entrée de la souris dans la zone de la notification.
+	isInBounds = true;
+} );
+
+notifications.on( "mouseleave", () =>
+{
+	// Sortie de la souris de la zone de la notification.
+	isInBounds = false;
+} );
 
 setInterval( () =>
 {
