@@ -76,24 +76,39 @@ register.on( "submit", "form", async ( event ) =>
 			} )
 		} );
 
-		// On affiche après un message de confirmation ou d'erreur.
-		addQueuedNotification( await response.text(), response.ok ? 2 : 1 );
-
 		// On vérifie si la requête a été effectuée avec succès.
-		if ( response.ok )
+		if ( response.status === 202 )
 		{
-			// Si c'est le cas, on réinitialise les deux formulaires
-			//  avant de fermer le second.
-			firstStep.find( "form" )[ 0 ].reset();
-			lastStep.find( "form" )[ 0 ].reset();
-			lastStep.fadeOut( 150 );
+			// Si c'est un code HTTP 202, alors il s'agit d'une réponse
+			//  suite à une demande de création d'un compte à usage unique.
+			const data = await response.json();
 
-			// On effectue enfin la redirection de l'utilisateur
-			//  vers le tableau de bord au bout de 5 secondes.
-			setTimeout( () =>
+			navigator.clipboard.writeText( data.link ).then( () =>
 			{
-				window.location.href = parent.data( "redirect" );
-			}, 3000 );
+				addQueuedNotification( data.message, 3 );
+			} );
+		}
+		else
+		{
+			// Dans l'autre cas (réussite avec code HTTP 201 ou erreur),
+			//  on affiche après un message de confirmation ou d'erreur.
+			addQueuedNotification( await response.text(), response.ok ? 2 : 1 );
+
+			if ( response.ok )
+			{
+				// En cas de réussite, on réinitialise les deux formulaires
+				//  avant de fermer le second.
+				firstStep.find( "form" )[ 0 ].reset();
+				lastStep.find( "form" )[ 0 ].reset();
+				lastStep.fadeOut( 150 );
+
+				// On effectue enfin la redirection de l'utilisateur
+				//  vers le tableau de bord au bout de 5 secondes.
+				setTimeout( () =>
+				{
+					window.location.href = parent.data( "redirect" );
+				}, 3000 );
+			}
 		}
 	}
 } );
@@ -196,7 +211,9 @@ links.eq( 1 ).on( "click", () =>
 	login.fadeOut( 150, () =>
 	{
 		// Redirection vers la connexion unique.
-		register.first().fadeIn( 150 );
+		addQueuedNotification( window.onetime_info, 3 );
+
+		register.last().fadeIn( 150 );
 	} );
 } );
 

@@ -35,7 +35,7 @@ class SubmitSubscriber implements EventSubscriberInterface
 		// On récupère tout d'abord la requête associée à l'événement.
 		$request = $event->getRequest();
 
-		if ($request->getMethod() !== "GET")
+		if (!$request->isMethod("GET"))
 		{
 			// Si la requête n'utilise pas la méthode « GET », on vérifie alors si
 			//  le jeton reCAPTCHA est présent dans la requête.

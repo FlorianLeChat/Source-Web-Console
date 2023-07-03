@@ -4,6 +4,9 @@
 {# Injection de code JavaScript #}
 {% block javascript %}
 	<script>
+		// Libellé informant l'utilisateur des modalités de l'accès à usage unique.
+		window.onetime_info = "{{ t("form.register.onetime.info")|trans|escape("js") }}";
+
 		// Libellé demandant le nom d'utilisateur pour une récupération de compte.
 		window.recover_password_username = "{{ t("form.login.username")|trans|escape("js") }}";
 

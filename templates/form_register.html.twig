@@ -27,13 +27,13 @@
 		<input type="password" autocomplete="new-password" spellcheck="false" id="register_password" name="password" placeholder="?JohnDoe2022!" minlength="10" maxlength="60" required />
 		<span></span>
 
-		{# Bouton d'affichage du mot de passe #}
-		<label for="register_clear">{{ t("form.clear_password")|trans }}</label>
-		<input type="checkbox" id="register_clear" /><br /><br />
-
 		{# Génération d'un mot de passe sécurisé #}
 		<label for="register_generation">{{ t("form.register.generation")|trans }}</label>
 		<input type="checkbox" id="register_generation" /><br /><br />
+
+		{# Bouton d'affichage du mot de passe #}
+		<label for="register_clear">{{ t("form.clear_password")|trans }}</label>
+		<input type="checkbox" id="register_clear" /><br /><br />
 
 		{# Se souvenir de la connexion #}
 		<label for="register_remember">{{ t("form.remember_me")|trans }}</label>
