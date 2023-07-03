@@ -31,14 +31,14 @@ class ActionsController extends AbstractController
 	//
 	// Route vers la page des actions et des commandes.
 	//
-	#[Route("/actions", name: "app_actions_page")]
+	#[Route("/actions", name: "actions_page")]
 	public function index(Request $request): Response
 	{
 		// On vérifie d'abord que l'utilisateur est bien connecté avant d'accéder
 		//  à la page, sinon on le redirige vers la page d'accueil.
 		if (!$this->isGranted("IS_AUTHENTICATED"))
 		{
-			return $this->redirectToRoute("app_index_page");
+			return $this->redirectToRoute("index_page");
 		}
 
 		// On récupère ensuite l'identifiant unique du serveur sélectionné
@@ -93,7 +93,7 @@ class ActionsController extends AbstractController
 	//
 	// API vers l'exécution d'une action à distance sur le serveur.
 	//
-	#[Route("/api/server/action", name: "app_server_action", methods: ["POST"])]
+	#[Route("/api/server/action", name: "server_action", methods: ["POST"])]
 	#[IsGranted("IS_AUTHENTICATED")]
 	public function action(Request $request): Response
 	{

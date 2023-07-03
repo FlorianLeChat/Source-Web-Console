@@ -19,7 +19,7 @@
 			un utilisateur est déjà connecté à son compte. #}
 		{% if app.user %}
 			{# Accès au tableau de bord #}
-			<li><a href="{{ path("app_dashboard_page") }}">{{ t("header.subtitle.dashboard")|trans }}</a></li>
+			<li><a href="{{ path("dashboard_page") }}">{{ t("header.subtitle.dashboard")|trans }}</a></li>
 		{% else %}
 			{# Formulaire d'inscription #}
 			<li><button type="button">{{ t("index.register")|trans }}</button></li>
@@ -94,12 +94,12 @@
 	</section>
 
 	{# Formulaire d'inscription #}
-	<section id="register" data-route="{{ path("app_user_register") }}" data-redirect="{{ path("app_dashboard_page") }}">
+	<section id="register" data-route="{{ path("user_register") }}" data-redirect="{{ path("dashboard_page") }}">
 		{% include("form_register.html.twig") %}
 	</section>
 
 	{# Formulaire de connexion #}
-	<section id="login" data-route="{{ path("app_user_login") }}" data-redirect="{{ path("app_dashboard_page") }}">
+	<section id="login" data-route="{{ path("user_login") }}" data-redirect="{{ path("dashboard_page") }}">
 		{% include("form_login.html.twig") %}
 	</section>
 {% endblock %}

@@ -32,14 +32,14 @@ class TasksController extends AbstractController
 	//
 	// Route vers la page des tâches planifiées.
 	//
-	#[Route("/tasks", name: "app_tasks_page")]
+	#[Route("/tasks", name: "tasks_page")]
 	public function index(): Response
 	{
 		// On vérifie d'abord que l'utilisateur est bien connecté avant d'accéder
 		//  à la page, sinon on le redirige vers la page d'accueil.
 		if (!$this->isGranted("IS_AUTHENTICATED"))
 		{
-			return $this->redirectToRoute("app_index_page");
+			return $this->redirectToRoute("index_page");
 		}
 
 		// On inclut enfin les paramètres du moteur TWIG pour la création de la page.
@@ -61,7 +61,7 @@ class TasksController extends AbstractController
 	//
 	// API vers l'ajout d'une nouvelle tâche planifiée.
 	//
-	#[Route("/api/task/add", name: "app_tasks_add", methods: ["POST"])]
+	#[Route("/api/task/add", name: "tasks_add", methods: ["POST"])]
 	#[IsGranted("IS_AUTHENTICATED")]
 	public function add(Request $request): Response
 	{
@@ -141,7 +141,7 @@ class TasksController extends AbstractController
 	//
 	// API vers la suppression d'une tâche planifiée existante.
 	//
-	#[Route("/api/task/remove", name: "app_tasks_remove", methods: ["POST"])]
+	#[Route("/api/task/remove", name: "tasks_remove", methods: ["POST"])]
 	#[IsGranted("IS_AUTHENTICATED")]
 	public function remove(Request $request): Response
 	{

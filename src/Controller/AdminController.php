@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminController extends AbstractController
 {
-	#[Route("/admin", name: "app_admin_page")]
+	#[Route("/admin", name: "admin_page")]
 	#[IsGranted("ROLE_ADMIN")]
 	public function index(EntityManagerInterface $entityManager): Response
 	{
@@ -21,7 +21,7 @@ class AdminController extends AbstractController
 		//  à la page, sinon on le redirige vers la page d'accueil.
 		if (!$this->isGranted("IS_AUTHENTICATED"))
 		{
-			return $this->redirectToRoute("app_index_page");
+			return $this->redirectToRoute("index_page");
 		}
 
 		// On récupère ensuite la connexion à la base de données avant
