@@ -82,6 +82,7 @@ class UserController extends AbstractController
 
 		$user->setUsername($username = $request->request->get("username"));
 		$user->setPassword($this->hasher->hashPassword($user, $request->request->get("password", "")));
+		$user->setCreatedAt(new \DateTime());
 		$user->setAddress($request->getClientIp());
 		$user->setRoles(["ROLE_USER"]);
 
