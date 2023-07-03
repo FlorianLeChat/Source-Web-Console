@@ -205,6 +205,15 @@ links.last().on( "click", async ( event ) =>
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
 
+	// On récupère après les nouvelles informations de connexion.
+	const username = prompt( window.recover_password_username );
+	const password = prompt( window.recover_password_password );
+
+	if ( !username || !password )
+	{
+		return;
+	}
+
 	// On réalise ensuite la requête AJAX.
 	const response = await fetch( $( event.target ).parent().data( "route" ), {
 		method: "PUT",
@@ -216,10 +225,10 @@ links.last().on( "click", async ( event ) =>
 			token: login.find( "[name = token]" ).val(),
 
 			// Nom d'utilisateur associé au compte.
-			username: prompt( window.recover_password_username ),
+			username,
 
 			// Nouveau mot de passe.
-			password: prompt( window.recover_password_password )
+			password
 		} )
 	} );
 
