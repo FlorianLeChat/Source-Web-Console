@@ -160,8 +160,10 @@ async function retrieveRemoteData()
 	{
 		// Dans le cas contraire, on affiche enfin un message d'erreur
 		//  avant de supprimer le minuteur.
-		clearInterval( timer );
 		addQueuedNotification( await response.text(), 1 );
+
+		clearInterval( timer );
+		timer = undefined;
 	}
 }
 
