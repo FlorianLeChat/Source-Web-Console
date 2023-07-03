@@ -5,6 +5,7 @@
 //
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
@@ -35,6 +36,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	#[Assert\NotBlank]
 	#[Assert\NotCompromisedPassword]
 	private ?string $password = null;
+
+	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $createdAt = null;
 
 	#[ORM\Column(length: 45)]
 	private ?string $address = null;
@@ -83,6 +87,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 		return $this;
 	}
+
+	public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
 
 	public function getAddress(): ?string
 	{
