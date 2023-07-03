@@ -45,7 +45,9 @@ form:
         server: "Server information"
         failed: "An internal error occurred when you registered on the website."
         success: "Your user account has been successfully created. You will be redirected automatically in a few seconds."
-        onetime: "Your one-time access has been successfully created. You will be able to keep this access during your session. Once expired, you will have to recreate an access again. Please note that this method has limited features."
+        onetime:
+            info: "Complete this registration form to provide your server details. Your data will be stored for 24 hours. You will receive a one-time link to your account."
+            success: "Your one-time 24-hour access has been successfully created. Your access link has been saved to your clipboard. Please note that this mode has limited features."
         username: "Choose a username"
         password: "Choose a password"
         generation: "Generate a secure password"

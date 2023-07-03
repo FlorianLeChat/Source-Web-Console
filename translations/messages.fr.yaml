@@ -45,7 +45,9 @@ form:
         server: "Informations du serveur"
         failed: "Une erreur interne s'est produite lors de votre inscription au site."
         success: "Votre compte utilisateur a été créé avec succès. Vous allez être redirigé automatiquement dans quelques secondes."
-        onetime: "Votre accès unique a été créé avec succès. Vous conserverez son accès tout au long de votre session. Une fois terminée, vous devrez de nouveau recréer un accès. Attention ce mode possède des fonctionnalités restreintes."
+        onetime:
+            info: "Utilisez ce formulaire d'inscription pour renseigner les informations de votre serveur. Vos données seront enregistrées pour une durée de 24 heures. Vous recevrez un lien à usage unique pour vous connecter à votre compte."
+            success: "Votre accès unique d'une durée de 24 heures a été créé avec succès. Votre lien d'accès a été enregistré dans votre presse-papiers. Attention ce mode possède des fonctionnalités restreintes."
         username: "Saisissez votre nom d'utilisateur"
         password: "Saisissez votre mot de passe"
         generation: "Générer un mot de passe sécurisé"

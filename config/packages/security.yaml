@@ -20,6 +20,11 @@ security:
                 samesite: strict
                 token_provider:
                     doctrine: true
+            login_link:
+                max_uses: 1
+                lifetime: 86400
+                check_route: user_onetime
+                signature_properties: ["id", "username"]
     role_hierarchy:
         ROLE_DONOR: ROLE_USER
         ROLE_ADMIN: [ROLE_USER, ROLE_DONOR]

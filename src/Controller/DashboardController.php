@@ -52,7 +52,7 @@ class DashboardController extends AbstractController
 		$serverId = intval($request->request->get("id", 0));
 		$repository = $this->entityManager->getRepository(Server::class);
 
-		if ($serverId !== 0 && $request->getMethod() === "POST")
+		if ($serverId !== 0 && $request->isMethod("POST"))
 		{
 			// On vérifie également la validité du jeton CSRF.
 			$action = $request->request->get("action", "none");

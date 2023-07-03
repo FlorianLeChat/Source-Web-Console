@@ -22,8 +22,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Http\LoginLink\LoginLinkHandlerInterface;
 
 class UserController extends AbstractController
 {
@@ -36,6 +38,7 @@ class UserController extends AbstractController
 		private ValidatorInterface $validator,
 		private TranslatorInterface $translator,
 		private EntityManagerInterface $entityManager,
+		private LoginLinkHandlerInterface $loginLinkHandler,
 		private UserPasswordHasherInterface $hasher
 	) {}
 
@@ -57,15 +60,26 @@ class UserController extends AbstractController
 	}
 
 	//
+	// API vers le mécanisme de création d'un accès unique.
+	//  Source : https://symfony.com/doc/current/security/login_link.html
+	//
+	#[Route("/onetime", name: "user_onetime", methods: ["GET"])]
+	public function check()
+	{
+		// Note : cette fonction ne doit pas être appelée directement par l'utilisateur,
+		//  mais par le mécanisme de connexion à usage unique.
+		return $this->redirectToRoute("index_page");
+	}
+
+	//
 	// API vers le mécanisme de création de compte.
 	//  Source : https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
 	//
 	#[Route("/api/user/register", name: "user_register", methods: ["POST"])]
-	public function register(Request $request): Response
+	public function register(Request $request): Response|JsonResponse
 	{
 		// TODO : imposer une limite de création par IP.
 		// TODO : ajouter la possibilité de créer un compte via Google.
-		// TODO : ajouter la possibilité de se souvenir de la connexion après création de compte.
 
 		// On vérifie tout d'abord la validité du jeton CSRF.
 		if (!$this->isCsrfTokenValid("user_register", $request->request->get("token")))
@@ -111,26 +125,63 @@ class UserController extends AbstractController
 		}
 
 		// On vérifie également si les informations sont valides.
-		if (count($this->validator->validate($user)) > 0 || count($this->validator->validate($server)) > 0)
+		$oneTime = false;
+		$userValidated = count($this->validator->validate($user)) === 0;
+		$serverValidated = count($this->validator->validate($server)) === 0;
+
+		if ($serverValidated)
 		{
-			return new Response(
-				$this->translator->trans("form.server_check_failed"),
-				Response::HTTP_BAD_REQUEST
-			);
+			// On vérifie si l'utilisateur tente de créer un compte à usage unique.
+			if (empty($user->getUsername()) && empty($user->getPassword()))
+			{
+				// Si c'est le cas et si les informations utilisateur sont vides,
+				//  on indique que l'utilisateur cherche à créer un compte à usage unique.
+				$oneTime = true;
+
+				// On génère alors un nom d'utilisateur et un mot de passe aléatoire.
+				//  Note : le mot de passe ne sera jamais utilisé, mais il est nécessaire
+				//   pour que le mécanisme de connexion fonctionne.
+				$user->setUsername("temp_" . bin2hex(random_bytes(10)));
+				$user->setPassword($this->hasher->hashPassword($user, bin2hex(random_bytes(30))));
+
+				// On génère un lien de connexion à usage unique.
+				$details = $this->loginLinkHandler->createLoginLink($user);
+				$link = $details->getUrl();
+			}
+			elseif (!$userValidated)
+			{
+				// Dans le cas inverse, on renvoie l'erreur traditionnelle.
+				return new Response(
+					$this->translator->trans("form.server_check_failed"),
+					Response::HTTP_BAD_REQUEST
+				);
+			}
 		}
 
 		// On enregistre après les informations dans la base de données.
 		$repository->save($user);
 		$this->entityManager->getRepository(Server::class)->save($server, true);
 
-		// On authentifie alors l'utilisateur.
-		$this->security->login($user, "form_login");
-
 		// On envoie enfin la réponse au client.
-		return new Response(
-			$this->translator->trans("form.register.success"),
-			Response::HTTP_CREATED
-		);
+		if ($oneTime)
+		{
+			// Réponse spécifique pour les comptes à usage unique.
+			return new JsonResponse([
+				"link" => $link,
+				"message" => $this->translator->trans("form.register.onetime.success")
+			], Response::HTTP_ACCEPTED);
+		}
+		else
+		{
+			// Authentification de l'utilisateur.
+			$this->security->login($user, "remember_me");
+
+			// Réponse classique pour les comptes normaux.
+			return new Response(
+				$this->translator->trans("form.register.success"),
+				Response::HTTP_CREATED
+			);
+		}
 	}
 
 	//
@@ -142,9 +193,7 @@ class UserController extends AbstractController
 	{
 		// TODO : imposer une limite de connexion par IP (https://symfony.com/doc/current/security.html#limiting-login-attempts).
 		// TODO : ajouter la possibilité de se connecter via Token (https://symfony.com/doc/current/security/access_token.html).
-		// TODO : ajouter la possibilité de se connecter via lien de connexion (https://symfony.com/doc/current/security/login_link.html).
 		// TODO : ajouter la possibilité de se connecter via Google.
-		// TODO : tester le "souvenir de la connexion" après authentification (en production).
 
 		// On vérifie tout d'abord la validité du jeton CSRF.
 		if (!$this->isCsrfTokenValid("user_login", $request->request->get("token")))
@@ -180,7 +229,7 @@ class UserController extends AbstractController
 		}
 
 		// On authentifie alors l'utilisateur.
-		$this->security->login($user);
+		$this->security->login($user, "remember_me");
 
 		// On met à jour après l'adresse IP de l'utilisateur
 		//  dans la base de données.
@@ -261,7 +310,7 @@ class UserController extends AbstractController
 		$this->entityManager->getRepository(Contact::class)->save($contact, true);
 
 		// On génère le courriel de confirmation qui sera envoyé à l'utilisateur.
-        $email = (new Email())
+		$email = (new Email())
 			->to($email)
 			->text($this->translator->trans("form.contact.mailing", [$content]))
 			->subject($subject);
