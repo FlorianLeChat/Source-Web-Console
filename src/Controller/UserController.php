@@ -95,15 +95,15 @@ class UserController extends AbstractController
 		$server = new Server();
 
 		$user->setUsername($username = $request->request->get("username"));
-		$user->setPassword($this->hasher->hashPassword($user, $request->request->get("password", "")));
+		$user->setPassword($this->hasher->hashPassword($user, $password = $request->request->get("password", "")));
 		$user->setCreatedAt(new \DateTime());
 		$user->setAddress($request->getClientIp());
 		$user->setRoles(["ROLE_USER"]);
 
-		$server->setAddress($address = $request->request->get("server_address"));
-		$server->setPort($port = intval($request->request->get("server_port")));
-		$server->setPassword($password = $request->request->get("server_password"));
-		$server->setGame($this->serverManager->getGameIDByAddress($address, $port));
+		$server->setAddress($serverAddress = $request->request->get("server_address"));
+		$server->setPort($serverPort = intval($request->request->get("server_port")));
+		$server->setPassword($serverPassword = $request->request->get("server_password"));
+		$server->setGame($this->serverManager->getGameIDByAddress($serverAddress, $serverPort));
 		$server->setClient($user);
 
 		// On vérifie ensuite si le nom d'utilisateur n'est pas déjà utilisé.
@@ -119,9 +119,9 @@ class UserController extends AbstractController
 
 		// On chiffre le mot de passe administrateur s'il est renseigné
 		//  pour des raisons de sécurité évidentes.
-		if (!empty($password))
+		if (!empty($serverPassword))
 		{
-			$server->setPassword($this->serverManager->encryptPassword($password));
+			$server->setPassword($this->serverManager->encryptPassword($serverPassword));
 		}
 
 		// On vérifie également si les informations sont valides.
@@ -132,7 +132,7 @@ class UserController extends AbstractController
 		if ($serverValidated)
 		{
 			// On vérifie si l'utilisateur tente de créer un compte à usage unique.
-			if (empty($user->getUsername()) && empty($user->getPassword()))
+			if (empty($username) && empty($password))
 			{
 				// Si c'est le cas et si les informations utilisateur sont vides,
 				//  on indique que l'utilisateur cherche à créer un compte à usage unique.
