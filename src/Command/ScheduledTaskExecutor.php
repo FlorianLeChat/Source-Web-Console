@@ -40,7 +40,7 @@ class ScheduledTaskExecutor extends Command
 		$query = $repository->createQueryBuilder("t");
 		$query->where($query->expr()->eq("t.state", ":state"))
 			->setParameter("state", Task::STATE_WAITING);
-		$query->andWhere($query->expr()->lt("t.date", ":today"))
+		$query->andWhere($query->expr()->lte("t.date", ":today"))
 			->setParameter("today", new \DateTime(), \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE);
 
 		// On itère ensuite sur chaque tâche planifiée.
@@ -49,15 +49,8 @@ class ScheduledTaskExecutor extends Command
 
 		foreach ($query->getQuery()->getResult() as $task)
 		{
-			if ($task->getDate() > new \DateTime("now"))
-			{
-				// Si la date de la tâche est supérieure à la date actuelle, on passe à la suivante.
-				continue;
-			}
-
 			// On signale à Doctrine que la tâche est en cours d'exécution.
 			$io->text(sprintf("Executing task \"%d\"...", $task->getId()));
-
 			$task->setState(Task::STATE_RUNNING);
 			$repository->save($task);
 
@@ -112,7 +105,7 @@ class ScheduledTaskExecutor extends Command
 			catch (\Exception $error)
 			{
 				// On signale à Doctrine que la tâche a échouée avec une erreur.
-				$io->text(sprintf("An error occured while executing task \"%d\". Message: \"%s\".", $task->getId(), $error->getMessage()));
+				$io->text(sprintf("An error occurred while executing task \"%d\". Message: \"%s\".", $task->getId(), $error->getMessage()));
 				$task->setState(Task::STATE_ERROR);
 				$repository->save($task);
 			}
