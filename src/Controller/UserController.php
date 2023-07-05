@@ -61,7 +61,6 @@ class UserController extends AbstractController
 
 	//
 	// API vers le mécanisme de création d'un accès unique.
-	//  Source : https://symfony.com/doc/current/security/login_link.html
 	//
 	#[Route("/onetime", name: "user_onetime", methods: ["GET"])]
 	public function check()
@@ -73,7 +72,6 @@ class UserController extends AbstractController
 
 	//
 	// API vers le mécanisme de création de compte.
-	//  Source : https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
 	//
 	#[Route("/api/user/register", name: "user_register", methods: ["POST"])]
 	public function register(Request $request): Response|JsonResponse
@@ -186,7 +184,6 @@ class UserController extends AbstractController
 
 	//
 	// API vers le mécanisme d'authentification de l'utilisateur.
-	//  Source : https://symfony.com/doc/current/security.html#login-programmatically
 	//
 	#[Route("/api/user/login", name: "user_login", methods: ["POST"])]
 	public function login(Request $request): Response
@@ -248,7 +245,6 @@ class UserController extends AbstractController
 
 	//
 	// API vers le mécanisme de déconnexion de l'utilisateur.
-	//  Source : https://symfony.com/doc/current/security.html#logout-programmatically
 	//
 	#[Route("/api/user/logout", name: "user_logout", methods: ["POST"])]
 	#[IsGranted("IS_AUTHENTICATED")]
