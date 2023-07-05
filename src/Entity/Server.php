@@ -49,10 +49,14 @@ class Server
 	#[ORM\OneToMany(mappedBy: "server", targetEntity: Event::class, orphanRemoval: true)]
 	private Collection $events;
 
+	#[ORM\OneToMany(mappedBy: "server", targetEntity: Stats::class, orphanRemoval: true)]
+	private Collection $stats;
+
 	public function __construct()
 	{
 		$this->tasks = new ArrayCollection();
 		$this->events = new ArrayCollection();
+		$this->stats = new ArrayCollection();
 	}
 
 	public const ACTION_SHUTDOWN = "shutdown";
@@ -178,6 +182,35 @@ class Server
 			if ($event->getServer() === $this)
 			{
 				$event->setServer(null);
+			}
+		}
+
+		return $this;
+	}
+
+	public function getStats(): Collection
+	{
+		return $this->stats;
+	}
+
+	public function addStat(Stats $stat): static
+	{
+		if (!$this->stats->contains($stat))
+		{
+			$this->stats->add($stat);
+			$stat->setServer($this);
+		}
+
+		return $this;
+	}
+
+	public function removeStat(Stats $stat): static
+	{
+		if ($this->stats->removeElement($stat))
+		{
+			if ($stat->getServer() === $this)
+			{
+				$stat->setServer(null);
 			}
 		}
 
