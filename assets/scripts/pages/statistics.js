@@ -40,7 +40,7 @@ const playerChart = new Chart(
 			datasets: [
 				// Données brutes transmises par la base de données.
 				{
-					data: [ 12, 4, 1, 0, 0, 0, 1, 3, 5, 1, 2, 4, 5, 6, 4, 15, 16, 18, 23, 45, 24, 26, 45, 34, 24 ],
+					data: window.player_count_data,
 					fill: true,
 					borderWidth: 3,
 					borderColor: "#f59a23",
@@ -151,14 +151,14 @@ const serverChart = new Chart(
 			datasets: [
 				// Données brutes transmises par la base de données.
 				{
+					data: window.cpu_usage_data,
 					label: window.cpu_usage,
-					backgroundColor: "#ed431d",
-					data: [ 12.4, 12.68, 25, 35, 24, 12, 10, 8, 6, 1, 36, 45, 75, 89, 100, 98, 64, 54, 62, 56, 68, 72, 41, 35, 43 ]
+					backgroundColor: "#ed431d"
 				},
 				{
-					label: window.ram_usage,
-					backgroundColor: "#016fa0",
-					data: [ 25, 26, 27, 28, 26, 25, 24, 23, 26, 27, 30, 23, 27, 28, 35, 41, 38, 36, 33, 31, 25, 36, 26, 27, 30 ]
+					data: window.tick_rate_data,
+					label: window.tick_rate,
+					backgroundColor: "#016fa0"
 				}
 			]
 		},

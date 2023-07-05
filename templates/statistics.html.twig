@@ -13,11 +13,20 @@
 		// Texte pour le pourcentage d'utilisation du processeur.
 		window.cpu_usage = "{{ t("statistics.axis.cpu")|trans|escape("js") }}";
 
-		// Texte pour le taux de rafraîchissement du serveur (FPS ou Tickrate).
-		window.fps_usage = "{{ t("statistics.axis.fps")|trans|escape("js") }}";
+		// Texte pour le taux de rafraîchissement du serveur (tickrate).
+		window.tick_rate = "{{ t("statistics.axis.tick")|trans|escape("js") }}";
 
 		// Texte pour le pourcentage d'utilisation des ressources matérielles.
-		window.usage_percent = "{{ statistics_phrases["statistics_axis_usage"]|escape("js") }}";
+		window.usage_percent = "{{ t("statistics.axis.usage")|trans|escape("js") }}";
+
+		// Données du nombre de joueurs connectés.
+		window.player_count_data = {{ player_count_data|json_encode|raw }};
+
+		// Données d'utilisation du processeur du serveur (en %).
+		window.cpu_usage_data = {{ cpu_usage_data|json_encode|raw }};
+
+		// Données du taux de rafraîchissement du serveur (tickrate).
+		window.tick_rate_data = {{ tick_rate_data|json_encode|raw }};
 	</script>
 {% endblock %}
 
