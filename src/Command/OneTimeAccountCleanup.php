@@ -2,7 +2,6 @@
 
 //
 // Commande pour supprimer les comptes temporaires expirés.
-//  Source : https://symfony.com/doc/current/the-fast-track/fr/24-cron.html
 //
 namespace App\Command;
 
