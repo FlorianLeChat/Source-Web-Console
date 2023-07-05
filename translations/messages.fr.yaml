@@ -178,7 +178,7 @@ statistics:
     axis:
         utc: "Heure UTC"
         cpu: "Processeur (en %)"
-        ram: "Mémoire vive (en %)"
+        tick: "Tick (FPS)"
         usage: "Pourcentage d'utilisation"
         players: "Nombre de joueurs"
     description: "La page des statistiques est une page permettant de visualiser les informations collectées automatiquement par l'infrastructure du site. Ces informations sont bien évidemment rendues anonymes et enregistrées en toute sécurité pour pouvoir les visualiser."
