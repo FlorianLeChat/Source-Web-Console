@@ -3,6 +3,10 @@ import "../../styles/desktop/statistics.scss";
 import "../../styles/phone/statistics.scss";
 import "../../styles/tablet/statistics.scss";
 
+// Importation des dépendances externes.
+import Chart from "chart.js/auto";
+import "chartjs-adapter-date-fns";
+
 //
 // Permet de générer les libellés présents sur les graphiques.
 //  Note : ils sont créés en partant de 24 heures en arrière.
@@ -28,10 +32,8 @@ for ( let indice = 0; indice <= 24; indice++ )
 // Permet de créer un graphique pour illustrer le nombre total
 //  de joueurs en fonction du temps.
 //
-const playerChart = $( "#player_count" );
-
-Chart(
-	playerChart,
+const playerChart = new Chart(
+	$( "#player_count" ),
 	{
 		type: "line",
 		data: {
@@ -126,11 +128,13 @@ Chart(
 	}
 );
 
+playerChart.update();
+
 //
 // Permet de créer un graphique pour illustrer les statistiques
 //  d'utilisation du serveur en fonction du temps.
 //
-Chart(
+const serverChart = new Chart(
 	$( "#server_usage" ),
 	{
 		type: "bar",
@@ -240,3 +244,5 @@ Chart(
 		}
 	}
 );
+
+serverChart.update();

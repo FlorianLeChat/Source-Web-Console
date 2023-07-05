@@ -5,16 +5,16 @@
 {% block javascript %}
 	<script>
 		// Texte d'affichage pour la tranche d'heures entre 0 et 24.
-		window.utc_time = "{{ statistics_phrases["statistics_axis_utc"]|escape("js") }}";
+		window.utc_time = "{{ t("statistics.axis.utc")|trans|escape("js") }}";
 
 		// Texte pour l'affichage du nombre de joueurs/clients.
-		window.player_count = "{{ statistics_phrases["statistics_axis_players"]|escape("js") }}";
+		window.player_count = "{{ t("statistics.axis.players")|trans|escape("js") }}";
 
 		// Texte pour le pourcentage d'utilisation du processeur.
-		window.cpu_usage = "{{ statistics_phrases["statistics_axis_cpu"]|escape("js") }}";
+		window.cpu_usage = "{{ t("statistics.axis.cpu")|trans|escape("js") }}";
 
-		// Texte pour le pourcentage d'utilisateur de la mémoire.
-		window.ram_usage = "{{ statistics_phrases["statistics_axis_ram"]|escape("js") }}";
+		// Texte pour le taux de rafraîchissement du serveur (FPS ou Tickrate).
+		window.fps_usage = "{{ t("statistics.axis.fps")|trans|escape("js") }}";
 
 		// Texte pour le pourcentage d'utilisation des ressources matérielles.
 		window.usage_percent = "{{ statistics_phrases["statistics_axis_usage"]|escape("js") }}";
@@ -24,12 +24,12 @@
 {# Contenu de la page demandé #}
 {% block content %}
 	{# Description de la page #}
-	<p>{{ statistics_phrases["statistics_description"] }}</p>
+	<p>{{ t("statistics.description")|trans }}</p>
 
 	{# Liste des graphiques #}
 	<section id="charts">
 		{# Titre de la section #}
-		<h2>{{ header_phrases["header_subtitle_statistics"] }}</h2>
+		<h2>{{ t("header.subtitle.statistics")|trans }}</h2>
 
 		{# Graphique du nombre de joueurs #}
 		<canvas id="player_count"></canvas>
@@ -44,6 +44,6 @@
 		<article></article>
 
 		{# Message d'information à l'utilisateur #}
-		<p>{{ statistics_phrases["statistics_orientation"] }}</p>
+		<p>{{ t("statistics.orientation")|trans }}</p>
 	</section>
 {% endblock %}
