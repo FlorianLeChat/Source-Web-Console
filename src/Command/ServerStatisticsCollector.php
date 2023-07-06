@@ -33,13 +33,27 @@ class ServerStatisticsCollector extends Command
 	//
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
-		// On récupère d'abord tous les serveurs enregistrés.
+		// On récupère d'abord toutes les statistiques enregistrées
+		//  datant d'au moins un jour.
+		$repository = $this->entityManager->getRepository(Stats::class);
+		$query = $repository->createQueryBuilder("s");
+		$query->where($query->expr()->lte("s.date", ":past"))
+			->setParameter("past", new \DateTime("-1 day"), \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE);
+
+		// On itère ensuite sur chacune d'entre elles pour les supprimer.
+		$io = new SymfonyStyle($input, $output);
+
+		foreach ($query->getQuery()->getResult() as $stats)
+		{
+			$io->info(sprintf("Removing old statistics from server \"%s\"...", $stats->getServer()->getAddress()));
+			$repository->remove($stats);
+		}
+
+		// On récupère alors tous les serveurs enregistrés.
 		$servers = $this->entityManager->getRepository(Server::class)->findAll();
 
-		// On itère ensuite sur chacun d'entre eux.
-		$io = new SymfonyStyle($input, $output);
+		// On itère après sur chacun d'entre eux.
 		$count = 0;
-		$repository = $this->entityManager->getRepository(Stats::class);
 
 		foreach ($servers as $server)
 		{
@@ -61,7 +75,7 @@ class ServerStatisticsCollector extends Command
 				//  exploitables pour après.
 				$data = array_values($data);
 
-				// On créé alors une nouvelle entité de statistiques avant
+				// On créé également une nouvelle entité de statistiques avant
 				//  de la sauvegarder dans la base de données via Doctrine.
 				$stats = new Stats();
 				$stats->setServer($server);
@@ -73,7 +87,7 @@ class ServerStatisticsCollector extends Command
 				$io->text(sprintf("Gathering statistics from server \"%s\"...", $server->getAddress()));
 				$repository->save($stats);
 
-				// On incrémente après le compteur de serveurs traités.
+				// On incrémente dans ce cas le compteur de serveurs traités.
 				$count++;
 			}
 			catch (\Exception $error)
