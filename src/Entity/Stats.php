@@ -13,13 +13,13 @@ use App\Repository\StatsRepository;
 class Stats
 {
 	#[ORM\Id]
-	#[ORM\GeneratedValue]
 	#[ORM\Column]
+	#[ORM\GeneratedValue]
 	private ?int $id = null;
 
 	#[ORM\ManyToOne(inversedBy: "stats")]
 	#[ORM\JoinColumn(nullable: false)]
-	private ?server $server = null;
+	private ?Server $server = null;
 
 	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
 	private ?\DateTimeInterface $date = null;
@@ -38,12 +38,12 @@ class Stats
 		return $this->id;
 	}
 
-	public function getServer(): ?server
+	public function getServer(): ?Server
 	{
 		return $this->server;
 	}
 
-	public function setServer(?server $server): static
+	public function setServer(?Server $server): static
 	{
 		$this->server = $server;
 
