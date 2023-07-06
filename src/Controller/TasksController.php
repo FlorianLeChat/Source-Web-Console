@@ -45,17 +45,22 @@ class TasksController extends AbstractController
 		// On inclut enfin les paramètres du moteur TWIG pour la création de la page.
 		/** @var User */
 		$user = $this->getUser();
-		$servers = $this->entityManager->getRepository(Server::class)->findBy(["client" => $user->getId()]);
+		$servers = $this->entityManager->getRepository(Server::class)->findBy(
+			["client" => $user->getId()]
+		);
 
-		return $this->render("tasks.html.twig", [
+		return $this->render("tasks.html.twig",
+			[
+				// Liste des tâches planifiées prévues.
+				"tasks_list" => $this->entityManager->getRepository(Task::class)->findBy(
+					["server" => $servers],
+					["date" => "DESC"],
+				10),
 
-			// Liste des tâches planifiées prévues.
-			"tasks_list" => $this->entityManager->getRepository(Task::class)->findBy(["server" => $servers], ["date" => "DESC"], 10),
-
-			// Liste des serveurs depuis la base de données.
-			"tasks_servers" => $servers,
-
-		]);
+				// Liste des serveurs depuis la base de données.
+				"tasks_servers" => $servers,
+			]
+		);
 	}
 
 	//
@@ -164,7 +169,9 @@ class TasksController extends AbstractController
 		$repository = $this->entityManager->getRepository(Task::class);
 
 		$task = $repository->findOneBy(["id" => $taskId, "server" => $serverId]);
-		$server = $this->entityManager->getRepository(Server::class)->findOneBy(["id" => $serverId, "client" => $user->getId()]);
+		$server = $this->entityManager->getRepository(Server::class)->findOneBy(
+			["id" => $serverId, "client" => $user->getId()]
+		);
 
 		if (!$task || !$server)
 		{

@@ -132,7 +132,10 @@ class DashboardController extends AbstractController
 		return $this->render("dashboard.html.twig", [
 
 			// Récupération de l'historique des actions et commandes.
-			"dashboard_logs" => $this->entityManager->getRepository(Event::class)->findBy(["server" => $cacheId], ["id" => "DESC"], 3),
+			"dashboard_logs" => $this->entityManager->getRepository(Event::class)->findBy(
+				["server" => $cacheId],
+				["id" => "DESC"],
+			3),
 
 			// Liste des serveurs depuis la base de données.
 			"dashboard_servers" => $repository->findBy(["client" => $user->getId()])
@@ -184,7 +187,10 @@ class DashboardController extends AbstractController
 			return new JsonResponse([
 
 				// État du serveur.
-				"state" => $this->translator->trans(sprintf("dashboard.state.%s", $details["Password"] ? "service" : "running"), ["%gamemode%" => $details["ModDesc"]]),
+				"state" => $this->translator->trans(
+					sprintf("dashboard.state.%s", $details["Password"] ? "service" : "running"),
+					["%gamemode%" => $details["ModDesc"]]
+				),
 
 				// Carte/environnement.
 				"map" => $details["Map"],
