@@ -26,21 +26,21 @@ class AdminController extends AbstractController
 
 		// On récupère ensuite la connexion à la base de données avant
 		//  de récupérer toutes les tables de la base de données.
-        $doctrine = $entityManager->getConnection();
-        $result = $doctrine->executeQuery("SHOW TABLES;");
+		$doctrine = $entityManager->getConnection();
+		$result = $doctrine->executeQuery("SHOW TABLES;");
 
 		// On inclut enfin les paramètres du moteur TWIG pour la
 		//  création de la page.
-		return $this->render("admin.html.twig", [
+		return $this->render("admin.html.twig",
+			[
+				// TODO : ajouter EasyAdmin pour la gestion des tables.
 
-			// TODO : ajouter EasyAdmin pour la gestion des tables.
+				// Génération de toutes les tables de la base de données.
+				"admin_tables" => $result->fetchAllAssociative(),
 
-			// Génération de toutes les tables de la base de données.
-			"admin_tables" => $result->fetchAllAssociative(),
-
-			// Code HTML de l'affichage des tables.
-			"admin_result" => ""
-
-		]);
+				// Code HTML de l'affichage des tables.
+				"admin_result" => ""
+			]
+		);
 	}
 }

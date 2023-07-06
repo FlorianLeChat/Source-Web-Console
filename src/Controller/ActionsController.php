@@ -51,7 +51,9 @@ class ActionsController extends AbstractController
 			//  le concernant.
 			/** @var User */
 			$user = $this->getUser();
-			$server = $this->entityManager->getRepository(Server::class)->findOneBy(["id" => $serverId, "client" => $user->getId()]);
+			$server = $this->entityManager->getRepository(Server::class)->findOneBy(
+				["id" => $serverId, "client" => $user->getId()]
+			);
 
 			try
 			{
@@ -72,22 +74,22 @@ class ActionsController extends AbstractController
 		}
 
 		// On inclut enfin les paramètres du moteur TWIG pour la création de la page.
-		return $this->render("actions.html.twig", [
+		return $this->render("actions.html.twig",
+			[
+				// État actuel de la restriction de la lampe torche.
+				"actions_value_flashlight" => $rules["mp_flashlight"] ?? "",
 
-			// État actuel de la restriction de la lampe torche.
-			"actions_value_flashlight" => $rules["mp_flashlight"] ?? "",
+				// État actuel de la restriction des logiciels de triche.
+				"actions_value_cheats" => $rules["sv_cheats"] ?? "0",
 
-			// État actuel de la restriction des logiciels de triche.
-			"actions_value_cheats" => $rules["sv_cheats"] ?? "0",
+				// État actuel de la restriction des communications vocales.
+				"actions_value_voice" => $rules["sv_voiceenable"] ?? "0",
 
-			// État actuel de la restriction des communications vocales.
-			"actions_value_voice" => $rules["sv_voiceenable"] ?? "0",
-
-			// Liste des commandes personnalisées.
-			// TODO : récupérer les commandes personnalisées.
-			"actions_custom_commands" => []
-
-		]);
+				// Liste des commandes personnalisées.
+				// TODO : récupérer les commandes personnalisées.
+				"actions_custom_commands" => []
+			]
+		);
 	}
 
 	//
