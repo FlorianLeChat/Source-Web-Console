@@ -19,51 +19,28 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class StatsRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Stats::class);
-    }
+	public function __construct(ManagerRegistry $registry)
+	{
+		parent::__construct($registry, Stats::class);
+	}
 
-    public function save(Stats $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
+	public function save(Stats $entity, bool $flush = false): void
+	{
+		$this->getEntityManager()->persist($entity);
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
+		if ($flush)
+		{
+			$this->getEntityManager()->flush();
+		}
+	}
 
-    public function remove(Stats $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
+	public function remove(Stats $entity, bool $flush = false): void
+	{
+		$this->getEntityManager()->remove($entity);
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-//    /**
-//     * @return Stats[] Returns an array of Stats objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Stats
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+		if ($flush)
+		{
+			$this->getEntityManager()->flush();
+		}
+	}
 }
