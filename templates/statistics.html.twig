@@ -19,6 +19,9 @@
 		// Texte pour le pourcentage d'utilisation des ressources matérielles.
 		window.usage_percent = "{{ t("statistics.axis.usage")|trans|escape("js") }}";
 
+		// Heures de récupération des données.
+		window.time_data = {{ time_data|json_encode|raw }};
+
 		// Données du nombre de joueurs connectés.
 		window.player_count_data = {{ player_count_data|json_encode|raw }};
 

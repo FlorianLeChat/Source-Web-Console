@@ -27,10 +27,10 @@ class Stats
 	#[ORM\Column(type: Types::SMALLINT)]
 	private ?int $playerCount = null;
 
-	#[ORM\Column(type: Types::SMALLINT)]
+	#[ORM\Column(type: Types::FLOAT)]
 	private ?int $cpuUsage = null;
 
-	#[ORM\Column(type: Types::SMALLINT)]
+	#[ORM\Column(type: Types::FLOAT)]
 	private ?int $tickRate = null;
 
 	public function getId(): ?int
@@ -74,24 +74,24 @@ class Stats
 		return $this;
 	}
 
-	public function getCpuUsage(): ?int
+	public function getCpuUsage(): ?float
 	{
 		return $this->cpuUsage;
 	}
 
-	public function setCpuUsage(int $cpuUsage): static
+	public function setCpuUsage(float $cpuUsage): static
 	{
 		$this->cpuUsage = $cpuUsage;
 
 		return $this;
 	}
 
-	public function getTickRate(): ?int
+	public function getTickRate(): ?float
 	{
 		return $this->tickRate;
 	}
 
-	public function setTickRate(int $tickRate): static
+	public function setTickRate(float $tickRate): static
 	{
 		$this->tickRate = $tickRate;
 

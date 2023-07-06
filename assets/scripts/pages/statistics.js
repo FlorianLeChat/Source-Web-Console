@@ -8,27 +8,6 @@ import Chart from "chart.js/auto";
 import "chartjs-adapter-date-fns";
 
 //
-// Permet de générer les libellés présents sur les graphiques.
-//  Note : ils sont créés en partant de 24 heures en arrière.
-//
-const dateNow = Date.now(); // Horodatage immédiat.
-const timeOffset = 3600 * 1000; // Représentation d'une journée en secondes.
-
-const labels = []; // Enregistrement des libellés.
-let dateBack = new Date( dateNow - ( 86400 * 1000 ) ); // Création de la date 24 heures en arrière.
-dateBack.setMinutes( 0, 0, 0 ); // Réinitialisation des minutes/secondes et millisecondes.
-dateBack = dateBack.getTime(); // Récupération de l'horodatage final.
-
-for ( let indice = 0; indice <= 24; indice++ )
-{
-	// On itère 24 fois pour créer toutes les heures partant
-	//  de 24 heures en arrière jusqu'à maintenant.
-	const date = new Date( dateBack + timeOffset * indice );
-
-	labels.push( date.toISOString() );
-}
-
-//
 // Permet de créer un graphique pour illustrer le nombre total
 //  de joueurs en fonction du temps.
 //
@@ -65,7 +44,7 @@ const playerChart = new Chart(
 				x: {
 					// Axe X : heure UTC sous format international ISO.
 					type: "time",
-					labels,
+					labels: window.time_data,
 					grid: {
 						color: "#797979"
 					},
@@ -140,7 +119,7 @@ const serverChart = new Chart(
 		type: "bar",
 		data: {
 			type: "time",
-			labels,
+			labels: window.time_data,
 			grid: {
 				color: "#797979"
 			},
@@ -182,7 +161,7 @@ const serverChart = new Chart(
 				x: {
 					// Axe X : heure UTC sous format international ISO.
 					type: "time",
-					labels,
+					labels: window.time_data,
 					grid: {
 						color: "#797979"
 					},
