@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f6014c6f044e3bdc3a671702e21a006d",
+    "content-hash": "b2cf064730744dc5a27858865aa230e3",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -7255,25 +7255,27 @@
         },
         {
             "name": "xpaw/php-source-query-class",
-            "version": "2.1.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xPaw/PHP-Source-Query.git",
-                "reference": "673e572233c3ab4b70b302d648ebaf5a8d9ba32b"
+                "reference": "ce9c8f423e4b8a7c867160d91c2b058350d74940"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xPaw/PHP-Source-Query/zipball/673e572233c3ab4b70b302d648ebaf5a8d9ba32b",
-                "reference": "673e572233c3ab4b70b302d648ebaf5a8d9ba32b",
+                "url": "https://api.github.com/repos/xPaw/PHP-Source-Query/zipball/ce9c8f423e4b8a7c867160d91c2b058350d74940",
+                "reference": "ce9c8f423e4b8a7c867160d91c2b058350d74940",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.4"
             },
             "require-dev": {
-                "phpunit/phpunit": "9.2",
-                "vimeo/psalm": "^3.12"
+                "phpstan/phpstan": "^0.12.83",
+                "phpunit/phpunit": "^9.5",
+                "vimeo/psalm": "^4.7"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -7298,15 +7300,9 @@
                 "team fortress"
             ],
             "support": {
-                "source": "https://github.com/xPaw/PHP-Source-Query/tree/2.1.0"
+                "source": "https://github.com/xPaw/PHP-Source-Query/tree/master"
             },
-            "funding": [
-                {
-                    "url": "https://github.com/xPaw",
-                    "type": "github"
-                }
-            ],
-            "time": "2020-12-04T08:20:42+00:00"
+            "time": "2022-12-26T19:42:13+00:00"
         }
     ],
     "packages-dev": [
@@ -9451,7 +9447,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "xpaw/php-source-query-class": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
