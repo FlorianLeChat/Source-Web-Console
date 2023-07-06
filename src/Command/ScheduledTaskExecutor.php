@@ -100,11 +100,14 @@ class ScheduledTaskExecutor extends Command
 				$io->text(sprintf("Task \"%d\" executed successfully.", $task->getId()));
 				$task->setState(Task::STATE_FINISHED);
 				$repository->save($task);
+
+				// On incrémente après le compteur de tâches exécutées.
+				$count++;
 			}
 			catch (\Exception $error)
 			{
 				// On signale à Doctrine que la tâche a échouée avec une erreur.
-				$io->text(sprintf("An error occurred while executing task \"%d\". Message: \"%s\".", $task->getId(), $error->getMessage()));
+				$io->error(sprintf("An error occurred while executing task \"%d\". Message: \"%s\".", $task->getId(), $error->getMessage()));
 				$task->setState(Task::STATE_ERROR);
 				$repository->save($task);
 			}
@@ -113,8 +116,6 @@ class ScheduledTaskExecutor extends Command
 				// On se déconnecte après du serveur distant une fois la tâche exécutée.
 				$this->serverManager->query->Disconnect();
 			}
-
-			$count++;
 		}
 
 		// On sauvegarde les changements dans la base de données.
@@ -122,7 +123,7 @@ class ScheduledTaskExecutor extends Command
 
 		$io->success(sprintf("Executed %d task(s).", $count));
 
-		// On retourne le code de succès de la commande.
+		// On retourne enfin le code de succès de la commande.
 		return Command::SUCCESS;
 	}
 }
