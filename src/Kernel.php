@@ -9,12 +9,12 @@ class Kernel extends BaseKernel
 {
 	use MicroKernelTrait;
 
-    public function boot(): void
-    {
+	public function boot(): void
+	{
 		// Appel de la méthode provenant de la classe parente.
-        parent::boot();
+		parent::boot();
 
 		// Définition du fuseau horaire pour l'ensemble de l'application.
-        date_default_timezone_set($this->getContainer()->getParameter("app.timezone"));
-    }
+		date_default_timezone_set($this->getContainer()->getParameter("app.timezone"));
+	}
 }

@@ -31,10 +31,10 @@ class LocaleSubscriber implements EventSubscriberInterface
 		{
 			// Dans le cas contraire, on tente alors d'utiliser la langue du navigateur
 			//  ou la langue par défaut si les informations ne sont pas disponibles.
-			$locale = substr($request->request->get("language", $request->server->get("HTTP_ACCEPT_LANGUAGE", self::DEFAULT_LOCALE)), 0, 2);
+			$locale = $request->request->get("language", $request->server->get("HTTP_ACCEPT_LANGUAGE", self::DEFAULT_LOCALE));
 
 			// On définit enfin la langue préférée de l'utilisateur dans la requête.
-			$request->setLocale($session->get("_locale", $locale));
+			$request->setLocale($session->get("_locale", substr($locale, 0, 2)));
 		}
 	}
 

@@ -22,7 +22,7 @@ readonly class ServerManager
 	//
 	// Initialisation de certaines variables du service.
 	//
-    public function __construct(
+	public function __construct(
 		public SourceQuery $query,
 		private HttpClientInterface $client,
 		private ContainerBagInterface $parameters,
@@ -123,7 +123,9 @@ readonly class ServerManager
 
 			// On fait une requête à l'API Steam pour récupérer
 			//  les informations nécessaires.
-			$response = $this->client->request("GET", "https://store.steampowered.com/api/appdetails?appids=$identifier");
+			$response = $this->client->request("GET",
+				sprintf("https://store.steampowered.com/api/appdetails?appids=%s", $identifier)
+			);
 
 			// On vérifie après si la requête a réussie ou non.
 			if ($response->getStatusCode() !== 200)
@@ -181,7 +183,9 @@ readonly class ServerManager
 
 			// On fait une requête à l'API Steam pour récupérer
 			//  les informations nécessaires.
-			$response = $this->client->request("GET", "https://api.steampowered.com/ISteamApps/GetServersAtAddress/v1/?addr=$address:$port");
+			$response = $this->client->request("GET",
+				sprintf("https://api.steampowered.com/ISteamApps/GetServersAtAddress/v1/?addr=%s:%d", $address, $port)
+			);
 
 			// On vérifie après si la requête a réussie ou non.
 			if ($response->getStatusCode() !== 200)

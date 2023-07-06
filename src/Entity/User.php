@@ -38,7 +38,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	private ?string $password = null;
 
 	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $createdAt = null;
+	private ?\DateTimeInterface $createdAt = null;
 
 	#[ORM\Column(length: 45)]
 	private ?string $address = null;
@@ -89,16 +89,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	}
 
 	public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
+	{
+		return $this->createdAt;
+	}
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): static
-    {
-        $this->createdAt = $createdAt;
+	public function setCreatedAt(\DateTimeInterface $createdAt): static
+	{
+		$this->createdAt = $createdAt;
 
-        return $this;
-    }
+		return $this;
+	}
 
 	public function getAddress(): ?string
 	{
