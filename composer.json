@@ -22,7 +22,7 @@
 
         "phpseclib/phpseclib": "~3.0",
         "phpstan/phpdoc-parser": "~1.1",
-        "xpaw/php-source-query-class": "~2.1",
+        "xpaw/php-source-query-class": "dev-master",
         "phpdocumentor/reflection-docblock": "~5.3",
 
         "ext-ctype": "*",
