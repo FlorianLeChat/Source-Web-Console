@@ -18,6 +18,7 @@ header:
         user: "User account"
         admin: "Administration"
         tasks: "Scheduled tasks"
+        events: "Logged events"
         console: "Interactive console"
         actions: "Actions and commands"
         dashboard: "Dashboard"
@@ -89,6 +90,15 @@ form:
     validate_button: "Validate"
     capslock_warning: "The caps lock keys are activated."
     server_check_failed: "The information provided did not allow this query to be completed."
+
+admin:
+    misc: "Miscellaneous"
+    home: "Home"
+    pages: "Pages"
+    users: "Users"
+    servers: "Servers"
+    code_source: "Source code"
+    public_website: "Public website"
 
 legal:
     tips: "You are on the legal notice page of the website. You can find all the legal information available by using this website. They are only available in French."
