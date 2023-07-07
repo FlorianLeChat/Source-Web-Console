@@ -9,7 +9,6 @@ Encore
 	.setOutputPath( "public/build/" )
 	.setPublicPath( "/build" )
 	.addEntry( "actions", "./assets/scripts/pages/actions.js" )
-	.addEntry( "admin", "./assets/scripts/pages/admin.js" )
 	.addEntry( "configuration", "./assets/scripts/pages/configuration.js" )
 	.addEntry( "console", "./assets/scripts/pages/console.js" )
 	.addEntry( "dashboard", "./assets/scripts/pages/dashboard.js" )
