@@ -5,7 +5,6 @@
 //
 namespace App\Entity;
 
-use App\Entity\Server;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 use App\Repository\TaskRepository;
