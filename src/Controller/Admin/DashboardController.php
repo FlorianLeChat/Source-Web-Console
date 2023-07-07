@@ -55,8 +55,13 @@ class DashboardController extends AbstractDashboardController
 	//
 	public function configureUserMenu(UserInterface $user): UserMenu
 	{
-		return parent::configureUserMenu($user)
-			->displayUserAvatar(false);
+		return UserMenu::new()
+			->setName($user->getUserIdentifier())
+			->setMenuItems([
+				MenuItem::section(),
+				MenuItem::linkToUrl("user.disconnect", "fa-solid fa-right-from-bracket", "api/user/logout"),
+			])
+			->displayUserName();
 	}
 
 	//
@@ -92,7 +97,7 @@ class DashboardController extends AbstractDashboardController
 			MenuItem::section("admin.misc"),
 			MenuItem::linkToUrl("admin.public_website", "fa-solid fa-globe", "https://console.florian-dev.fr/"),
 			MenuItem::linkToUrl("admin.code_source", "fa-brands fa-github", "https://github.com/FlorianLeChat/Source-Web-Console"),
-			MenuItem::linkToRoute("user.disconnect", "fa-solid fa-right-from-bracket", "user_logout"),
+			MenuItem::linkToUrl("user.disconnect", "fa-solid fa-right-from-bracket", "api/user/logout"),
 		];
 	}
 }
