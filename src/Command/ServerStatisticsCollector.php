@@ -5,8 +5,8 @@
 //
 namespace App\Command;
 
-use App\Entity\Server;
 use App\Entity\Stats;
+use App\Entity\Server;
 use App\Service\ServerManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
