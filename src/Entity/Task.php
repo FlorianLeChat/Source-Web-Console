@@ -19,7 +19,7 @@ class Task
 	#[ORM\GeneratedValue]
 	private ?int $id = null;
 
-	#[ORM\ManyToOne(inversedBy: "date")]
+	#[ORM\ManyToOne(inversedBy: "tasks")]
 	#[ORM\JoinColumn(nullable: false)]
 	private ?Server $server = null;
 
