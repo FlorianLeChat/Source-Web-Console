@@ -18,6 +18,7 @@ header:
         user: "Compte utilisateur"
         admin: "Administration"
         tasks: "Tâches planifiées"
+        events: "Événements journalisés"
         console: "Console interactive"
         actions: "Actions et commandes"
         dashboard: "Tableau de bord"
@@ -89,6 +90,15 @@ form:
     validate_button: "Valider"
     capslock_warning: "Les touches majuscules sont activées."
     server_check_failed: "Les données renseignées n'ont pas permis de réaliser cette requête."
+
+admin:
+    misc: "Divers"
+    home: "Accueil"
+    pages: "Pages"
+    users: "Utilisateurs"
+    servers: "Serveurs"
+    code_source: "Code source"
+    public_website: "Site public"
 
 legal:
     tips: "Vous êtes sur la page des mentions légales du site. Vous pouvez retrouver toutes les informations juridiques disponibles en utilisant ce site Internet. Elles sont uniquement disponibles en français."

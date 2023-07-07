@@ -1,5 +1,5 @@
-{# Nom de la route utilisée par Symfony ou par EasyAdmin #}
-{% set route_name = (app.request.get("routeName") ?? app.current_route)|split("_")[0] %}
+{# Nom de la route utilisée par Symfony #}
+{% set route_name = app.current_route|split("_")[0] %}
 
 <!DOCTYPE html>
 <html lang="{{ app.request.locale ?? app.request.defaultLocale }}" prefix="og: http://ogp.me/ns#">
