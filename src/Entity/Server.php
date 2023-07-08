@@ -52,6 +52,12 @@ class Server
 	#[ORM\OneToMany(mappedBy: "server", targetEntity: Stats::class, orphanRemoval: true)]
 	private Collection $stats;
 
+	public const ACTION_SHUTDOWN = "shutdown";
+	public const ACTION_SHUTDOWN_FORCE = "force";
+	public const ACTION_RESTART = "restart";
+	public const ACTION_UPDATE = "update";
+	public const ACTION_SERVICE = "service";
+
 	public function __construct()
 	{
 		$this->tasks = new ArrayCollection();
@@ -59,11 +65,10 @@ class Server
 		$this->stats = new ArrayCollection();
 	}
 
-	public const ACTION_SHUTDOWN = "shutdown";
-	public const ACTION_SHUTDOWN_FORCE = "force";
-	public const ACTION_RESTART = "restart";
-	public const ACTION_UPDATE = "update";
-	public const ACTION_SERVICE = "service";
+	public function __toString(): string
+	{
+		return "[#{$this->id}] {$this->address}:{$this->port}";
+	}
 
 	public function getId(): ?int
 	{
