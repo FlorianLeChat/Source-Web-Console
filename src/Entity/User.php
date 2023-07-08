@@ -54,6 +54,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 		$this->servers = new ArrayCollection();
 	}
 
+	public function __toString(): string
+	{
+		return "[#{$this->id}] {$this->username}";
+	}
+
 	public function getId(): ?int
 	{
 		return $this->id;
@@ -126,7 +131,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 	public function eraseCredentials()
 	{
-		// If you store any temporary, sensitive data on the user, clear it here
 		// $this->plainPassword = null;
 	}
 
