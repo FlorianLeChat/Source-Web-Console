@@ -93,6 +93,7 @@ admin:
     pages: "Pages"
     users: "Utilisateurs"
     servers: "Serveurs"
+    description: "Bienvenue sur l'interface d'administration du site. Vous pouvez gérer facilement l'ensemble des données utilisées par le site, comme par exemple les utilisateurs, les serveurs, les tâches planifiées, les messages de contact, les statistiques, les événements journalisés, etc."
     code_source: "Code source"
     public_website: "Site public"
 
