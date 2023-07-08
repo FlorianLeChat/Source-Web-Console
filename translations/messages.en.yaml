@@ -207,6 +207,7 @@ user:
 
 dashboard:
     tips: "You are on the dashboard. On this page you can see the global state of your server and perform some quick actions. This way, you have an eye on your entire infrastructure."
+    users: "Users list"
     state:
         map: "Current map"
         info: "Information"

@@ -207,6 +207,7 @@ user:
 
 dashboard:
     tips: "Vous êtes sur le tableau de bord. Sur cette page, vous pouvez voir l'état général de votre serveur ainsi que réaliser certaines actions rapides. De cette manière, vous avez un oeil sur l'ensemble de votre infrastructure."
+    users: "Liste des utilisateurs"
     state:
         map: "Carte actuelle"
         info: "Information"
