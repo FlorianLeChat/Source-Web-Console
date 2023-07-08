@@ -15,7 +15,9 @@ class LocaleSubscriber implements EventSubscriberInterface
 	// Définition de la langue par défaut.
 	private const DEFAULT_LOCALE = "en";
 
+	//
 	// Définition de la langue actuelle de la session.
+	//
 	public function onKernelRequest(RequestEvent $event)
 	{
 		// On récupère d'abord les données de la requête et de la session.
@@ -41,13 +43,15 @@ class LocaleSubscriber implements EventSubscriberInterface
 		$request->setLocale($session->get("_locale"));
 	}
 
-	// Définition des écouteurs d'événements.
+	//
+	// Déclaration des écouteurs d'événements.
+	//
 	public static function getSubscribedEvents()
 	{
 		return [
 			// On définit la priorité à 20 pour que l'écouteur
 			//  soit exécuté après ceux des autres contrôleurs.
-			KernelEvents::REQUEST => [["onKernelRequest", 20]],
+			KernelEvents::REQUEST => ["onKernelRequest", 20]
 		];
 	}
 }
