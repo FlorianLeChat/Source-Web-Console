@@ -11,18 +11,26 @@ use App\Entity\Event;
 use App\Entity\Stats;
 use App\Entity\Server;
 use App\Entity\Contact;
+use Symfony\Component\Intl\Languages;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Locale;
 use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
 class DashboardController extends AbstractDashboardController
 {
+	//
+	// Initialisation de certaines dépendances du contrôleur.
+	//
+	public function __construct(private TranslatorInterface $translator) {}
+
 	//
 	// Route vers la page de l'administration.
 	//
@@ -39,11 +47,11 @@ class DashboardController extends AbstractDashboardController
 	public function configureDashboard(): Dashboard
 	{
 		return Dashboard::new()
-			->setTitle("Source Web Console")
+			->setTitle($this->translator->trans("head.title"))
 			->setLocales(
 				[
-					Locale::new("en", icon: "fa fa-language"),
-					Locale::new("fr", icon: "fa fa-language")
+					Locale::new("en", ucfirst(Languages::getName("en")), "fa fa-language"),
+					Locale::new("fr", ucfirst(Languages::getName("fr")), "fa fa-language")
 				]
 			)
 			->setFaviconPath("build/favicons/512x512.webp")
@@ -73,7 +81,7 @@ class DashboardController extends AbstractDashboardController
 			// Utilisateurs.
 			MenuItem::section("admin.users"),
 			MenuItem::linkToCrud("footer.contact", "fa-solid fa-envelope", Contact::class),
-			MenuItem::linkToCrud("dashboard.players", "fa-solid fa-users", User::class),
+			MenuItem::linkToCrud("dashboard.users", "fa-solid fa-users", User::class),
 
 			// Serveurs.
 			MenuItem::section("admin.servers"),
