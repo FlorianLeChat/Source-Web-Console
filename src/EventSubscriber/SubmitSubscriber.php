@@ -29,13 +29,15 @@ class SubmitSubscriber implements EventSubscriberInterface
 		$this->recaptchaKey = $this->parameters->get("app.recaptcha_private_key");
 	}
 
+	//
 	// Définition de la langue actuelle de la session.
+	//
 	public function onKernelRequest(RequestEvent $event)
 	{
 		// On récupère tout d'abord la requête associée à l'événement.
 		$request = $event->getRequest();
 
-		if (!$request->isMethod("GET"))
+		if (!$request->isMethod("GET") && $request->attributes->get("_route") !== "admin_page")
 		{
 			// Si la requête n'utilise pas la méthode « GET », on vérifie alors si
 			//  le jeton reCAPTCHA est présent dans la requête.
@@ -70,13 +72,15 @@ class SubmitSubscriber implements EventSubscriberInterface
 		}
 	}
 
-	// Définition des écouteurs d'événements.
+	//
+	// Déclaration des écouteurs d'événements.
+	//
 	public static function getSubscribedEvents()
 	{
 		return [
 			// On définit la priorité à 10 pour que l'écouteur
 			//  soit exécuté après ceux des autres contrôleurs.
-			KernelEvents::REQUEST => [["onKernelRequest", 10]],
+			KernelEvents::REQUEST => ["onKernelRequest", 10]
 		];
 	}
 }
