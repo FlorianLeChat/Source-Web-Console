@@ -3,17 +3,17 @@ services:
         autowire: true
         autoconfigure: true
     App\:
-        resource: "../src/"
         exclude:
             - "../src/Entity/"
             - "../src/Kernel.php"
             - "../src/DependencyInjection/"
-    xPaw\SourceQuery\SourceQuery:
-    App\EventSubscriber\LocaleSubscriber:
-        arguments: ["%kernel.default_locale%"]
+        resource: "../src/"
     App\Twig\AppRuntime:
         tags: ["twig.runtime"]
         arguments: ["@translator"]
+    xPaw\SourceQuery\SourceQuery:
+    App\EventSubscriber\LocaleSubscriber:
+        arguments: ["%kernel.default_locale%"]
     Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler:
         arguments:
             - "mysql:dbname=%env(DATABASE_NAME)%; host=%env(DATABASE_HOST)%; port=%env(DATABASE_PORT)%"
