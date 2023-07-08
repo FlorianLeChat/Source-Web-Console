@@ -25,6 +25,8 @@ security:
                 lifetime: 86400
                 check_route: user_onetime
                 signature_properties: ["id", "username"]
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
     role_hierarchy:
         ROLE_DONOR: ROLE_USER
         ROLE_ADMIN: [ROLE_USER, ROLE_DONOR]
