@@ -258,7 +258,7 @@
 							{% for code in get_languages() %}
 								<li>
 									{# Création du bouton avec les informations #}
-									<button type="submit" name="language" value="{{ code }}">
+									<button type="submit" name="_locale" value="{{ code }}">
 										{% if code == "en" %}
 											{# Le drapeau britannique possède un code ISO différent #}
 											<i class="fi fi-gb"></i>
