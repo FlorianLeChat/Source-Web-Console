@@ -268,7 +268,7 @@
 										{% endif %}
 
 										{# Affichage du nom de la langue #}
-										<span>{{ t("language." ~ code)|trans }}</span>
+										<span>{{ get_language_name(code)|capitalize }}</span>
 									</button>
 								</li>
 							{% endfor %}

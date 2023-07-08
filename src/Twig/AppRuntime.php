@@ -7,18 +7,28 @@
 namespace App\Twig;
 
 use App\Service\ServerManager;
+use Symfony\Component\Intl\Languages;
 use Twig\Extension\RuntimeExtensionInterface;
 use Symfony\Component\Translation\DataCollectorTranslator as Translator;
 
 class AppRuntime implements RuntimeExtensionInterface
 {
 	// Injection des dépendances.
-	public function __construct(private Translator $translator, private ServerManager $serverManager) {}
+	public function __construct(
+		private Translator $translator,
+		private ServerManager $serverManager
+	) {}
 
 	// Récupération des langues disponibles.
 	public function getLanguages()
 	{
 		return $this->translator->getFallbackLocales();
+	}
+
+	// Récupération du nom d'une langue par son code ISO 639-1.
+	public function getLanguageName(string $locale): string
+	{
+		return Languages::getName($locale);
 	}
 
 	// Récupération du nom d'un jeu par son identifiant unique.
