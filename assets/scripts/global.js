@@ -106,9 +106,8 @@ $( "form[method=POST]" ).one( "submit", ( event ) =>
 
 		// On insère enfin dynamiquement le jeton dans le formulaire
 		//  avant de cliquer une nouvelle fois sur le bouton de soumission.
-		const target = $( event.target );
-		target.closest( "form" ).append( `<input type="hidden" name="recaptcha" value="${ token }">` );
-		target.trigger( "submit" );
+		$( event.target ).append( `<input type="hidden" name="recaptcha" value="${ token }">` );
+		$( event.originalEvent.submitter ).trigger( "click" );
 	} );
 } );
 
