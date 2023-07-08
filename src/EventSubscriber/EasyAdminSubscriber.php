@@ -16,27 +16,27 @@ class EasyAdminSubscriber implements EventSubscriberInterface
 	//
 	// Initialisation de certaines dépendances de l'écouteur.
 	//
-    public function __construct(private UserPasswordHasherInterface $hasher) {}
+	public function __construct(private UserPasswordHasherInterface $hasher) {}
 
 	//
 	// Hashage du mot de passe de l'utilisateur avant sa persistance
 	//  ou son actualisation.
 	//
-    public function hashUserPassword(BeforeEntityUpdatedEvent|BeforeEntityPersistedEvent $event)
-    {
+	public function hashUserPassword(BeforeEntityUpdatedEvent|BeforeEntityPersistedEvent $event)
+	{
 		// On vérifie que l'entité concernée est bien de classe
 		//  des utilisateurs.
-        $entity = $event->getEntityInstance();
+		$entity = $event->getEntityInstance();
 
-        if (!($entity instanceof User))
+		if (!($entity instanceof User))
 		{
-            return;
-        }
+			return;
+		}
 
 		// Dans ce cas, on hash enfin le mot de passe de l'utilisateur
 		//  comme lors d'une inscription ou d'une modification.
 		$entity->setPassword($this->hasher->hashPassword($entity, $entity->getPassword()));
-    }
+	}
 
 	//
 	// Déclaration des écouteurs d'événements.

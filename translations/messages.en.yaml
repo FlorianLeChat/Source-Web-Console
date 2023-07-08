@@ -93,6 +93,7 @@ admin:
     pages: "Pages"
     users: "Users"
     servers: "Servers"
+    description: "Welcome to the website administration interface. You can easily manage all data used by the whole website, like users, servers, scheduled tasks, contact messages, statistics, logged events and much more."
     code_source: "Source code"
     public_website: "Public website"
 

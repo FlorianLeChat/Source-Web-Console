@@ -1,2 +1,12 @@
 {# Modèle de base #}
 {% extends "@EasyAdmin/page/content.html.twig" %}
+
+{# Titre de la page #}
+{% block content_title %}
+	{{ t("head.title")|trans }}
+{% endblock %}
+
+{# Contenu de la page #}
+{% block main %}
+	{{ t("admin.description")|trans }}
+{% endblock %}
