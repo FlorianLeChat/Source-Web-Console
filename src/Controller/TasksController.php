@@ -46,7 +46,7 @@ class TasksController extends AbstractController
 		/** @var User */
 		$user = $this->getUser();
 		$servers = $this->entityManager->getRepository(Server::class)->findBy(
-			["client" => $user->getId()]
+			["user" => $user->getId()]
 		);
 
 		return $this->render("tasks.html.twig",
@@ -85,7 +85,7 @@ class TasksController extends AbstractController
 		$serverId = intval($request->request->get("server", 0));
 		$serverRepository = $this->entityManager->getRepository(Server::class);
 
-		if (!$server = $serverRepository->findOneBy(["id" => $serverId, "client" => $user->getId()]))
+		if (!$server = $serverRepository->findOneBy(["id" => $serverId, "user" => $user->getId()]))
 		{
 			return new Response(
 				$this->translator->trans("form.server_check_failed"),
@@ -95,7 +95,7 @@ class TasksController extends AbstractController
 
 		// On vérifie que l'utilisateur n'a pas déjà trop de tâches planifiées (non terminées).
 		$tasksRepository = $this->entityManager->getRepository(Task::class);
-		$servers = $serverRepository->findBy(["client" => $user->getId()]);
+		$servers = $serverRepository->findBy(["user" => $user->getId()]);
 
 		if ($tasksRepository->count(["server" => $servers, "state" => Task::STATE_WAITING]) >= 10)
 		{
@@ -170,7 +170,7 @@ class TasksController extends AbstractController
 
 		$task = $repository->findOneBy(["id" => $taskId, "server" => $serverId]);
 		$server = $this->entityManager->getRepository(Server::class)->findOneBy(
-			["id" => $serverId, "client" => $user->getId()]
+			["id" => $serverId, "user" => $user->getId()]
 		);
 
 		if (!$task || !$server)

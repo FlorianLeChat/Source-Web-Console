@@ -22,7 +22,7 @@ class ServerCrudController extends AbstractCrudController
 		//  dans le formulaire de création et de modification des serveurs.
 		$fields = parent::configureFields($pageName);
 
-		array_splice($fields, 1, 0, [AssociationField::new("client")]);
+		array_splice($fields, 1, 0, [AssociationField::new("user")]);
 
 		return $fields;
 	}

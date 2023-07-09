@@ -52,7 +52,7 @@ class ActionsController extends AbstractController
 			/** @var User */
 			$user = $this->getUser();
 			$server = $this->entityManager->getRepository(Server::class)->findOneBy(
-				["id" => $serverId, "client" => $user->getId()]
+				["id" => $serverId, "user" => $user->getId()]
 			);
 
 			try
@@ -128,7 +128,7 @@ class ActionsController extends AbstractController
 		}
 
 		// On récupère alors les données du serveur.
-		$server = $repository->findOneBy(["id" => $serverId, "client" => $user->getId()]);
+		$server = $repository->findOneBy(["id" => $serverId, "user" => $user->getId()]);
 
 		try
 		{
