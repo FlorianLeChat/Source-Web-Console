@@ -102,7 +102,7 @@ class UserController extends AbstractController
 		$server->setPort($serverPort = intval($request->request->get("server_port")));
 		$server->setPassword($serverPassword = $request->request->get("server_password"));
 		$server->setGame($this->serverManager->getGameIDByAddress($serverAddress, $serverPort));
-		$server->setClient($user);
+		$server->setUser($user);
 
 		// On vérifie ensuite si le nom d'utilisateur n'est pas déjà utilisé.
 		$repository = $this->entityManager->getRepository(User::class);
@@ -512,7 +512,7 @@ class UserController extends AbstractController
 		$user = $this->getUser();
 		$repository = $this->entityManager->getRepository(Server::class);
 
-		if ($repository->count(["client" => $user]) >= ($this->isGranted("ROLE_DONOR") ? 10 : 3))
+		if ($repository->count(["user" => $user]) >= ($this->isGranted("ROLE_DONOR") ? 10 : 3))
 		{
 			return new Response(
 				$this->translator->trans("user.too_much"),
@@ -526,7 +526,7 @@ class UserController extends AbstractController
 		$server->setPort($port = intval($request->request->get("server_port")));
 		$server->setPassword($password = $request->request->get("server_password"));
 		$server->setGame($this->serverManager->getGameIDByAddress($address, $port));
-		$server->setClient($this->getUser());
+		$server->setUser($this->getUser());
 
 		// On chiffre le mot de passe administrateur s'il est renseigné
 		//  pour des raisons de sécurité évidentes.

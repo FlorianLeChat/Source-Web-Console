@@ -46,7 +46,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	#[ORM\Column]
 	private array $roles = [];
 
-	#[ORM\OneToMany(mappedBy: "client", targetEntity: Server::class, orphanRemoval: true)]
+	#[ORM\OneToMany(mappedBy: "user", targetEntity: Server::class, orphanRemoval: true)]
 	private Collection $servers;
 
 	#[ORM\OneToMany(mappedBy: "user", targetEntity: Command::class, orphanRemoval: true)]
@@ -148,7 +148,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 		if (!$this->servers->contains($server))
 		{
 			$this->servers->add($server);
-			$server->setClient($this);
+			$server->setUser($this);
 		}
 
 		return $this;
@@ -158,9 +158,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	{
 		if ($this->servers->removeElement($server))
 		{
-			if ($server->getClient() === $this)
+			if ($server->getUser() === $this)
 			{
-				$server->setClient(null);
+				$server->setUser(null);
 			}
 		}
 

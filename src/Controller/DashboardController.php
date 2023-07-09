@@ -83,7 +83,7 @@ class DashboardController extends AbstractController
 				case "edit":
 				{
 					// Vérification de l'existence et de l'appartenance du serveur à l'utilisateur.
-					if (!$server = $repository->findOneBy(["id" => $serverId, "client" => $user->getId()]))
+					if (!$server = $repository->findOneBy(["id" => $serverId, "user" => $user->getId()]))
 					{
 						return new Response(status: Response::HTTP_UNAUTHORIZED);
 					}
@@ -115,7 +115,7 @@ class DashboardController extends AbstractController
 				case "delete":
 				{
 					// Vérification de l'existence et de l'appartenance du serveur à l'utilisateur.
-					if (!$server = $repository->findOneBy(["id" => $serverId, "client" => $user->getId()]))
+					if (!$server = $repository->findOneBy(["id" => $serverId, "user" => $user->getId()]))
 					{
 						return new Response(status: Response::HTTP_UNAUTHORIZED);
 					}
@@ -138,7 +138,7 @@ class DashboardController extends AbstractController
 			3),
 
 			// Liste des serveurs depuis la base de données.
-			"dashboard_servers" => $repository->findBy(["client" => $user->getId()])
+			"dashboard_servers" => $repository->findBy(["user" => $user->getId()])
 
 		]);
 	}
@@ -162,12 +162,12 @@ class DashboardController extends AbstractController
 		if ($serverId !== 0)
 		{
 			// Serveur sélectionné par l'utilisateur.
-			$server = $repository->findOneBy(["id" => $serverId, "client" => $user->getId()]);
+			$server = $repository->findOneBy(["id" => $serverId, "user" => $user->getId()]);
 		}
 		else
 		{
 			// Serveur par défaut.
-			$server = $repository->findOneBy(["client" => $user->getId()], ["id" => "ASC"]);
+			$server = $repository->findOneBy(["user" => $user->getId()], ["id" => "ASC"]);
 
 			// Enregistrement automatique.
 			$request->getSession()->set("serverId", $server->getId());
