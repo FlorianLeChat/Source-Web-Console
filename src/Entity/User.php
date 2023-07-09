@@ -49,9 +49,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	#[ORM\OneToMany(mappedBy: "client", targetEntity: Server::class, orphanRemoval: true)]
 	private Collection $servers;
 
+	#[ORM\OneToMany(mappedBy: "user", targetEntity: Command::class, orphanRemoval: true)]
+	private Collection $commands;
+
 	public function __construct()
 	{
 		$this->servers = new ArrayCollection();
+		$this->commands = new ArrayCollection();
 	}
 
 	public function __toString(): string
@@ -157,6 +161,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 			if ($server->getClient() === $this)
 			{
 				$server->setClient(null);
+			}
+		}
+
+		return $this;
+	}
+
+	public function getCommands(): Collection
+	{
+		return $this->commands;
+	}
+
+	public function addCommand(Command $command): static
+	{
+		if (!$this->commands->contains($command))
+		{
+			$this->commands->add($command);
+			$command->setUser($this);
+		}
+
+		return $this;
+	}
+
+	public function removeCommand(Command $command): static
+	{
+		if ($this->commands->removeElement($command))
+		{
+			if ($command->getUser() === $this)
+			{
+				$command->setUser(null);
 			}
 		}
 
