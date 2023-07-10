@@ -22,12 +22,10 @@ class ConfigurationController extends AbstractController
 		}
 
 		// On inclut enfin les paramètres du moteur TWIG pour la création de la page.
-		return $this->render("configuration.html.twig",
-			[
-				// Identifiants du serveur de stockage.
-				// TODO : remplacer par les identifiants du serveur de stockage.
-				"configuration_credentials" => []
-			]
-		);
+		return $this->render("configuration.html.twig", [
+			// Identifiants du serveur de stockage.
+			// TODO : remplacer par les identifiants du serveur de stockage.
+			"configuration_credentials" => []
+		]);
 	}
 }

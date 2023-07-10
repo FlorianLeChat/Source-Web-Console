@@ -49,11 +49,9 @@ class ActionsController extends AbstractController
 		{
 			// Si un serveur est sélectionné, on récupère les informations
 			//  le concernant.
-			/** @var User */
-			$user = $this->getUser();
-			$server = $this->entityManager->getRepository(Server::class)->findOneBy(
-				["id" => $serverId, "user" => $user->getId()]
-			);
+			$server = $this->entityManager->getRepository(Server::class)->findOneBy([
+				"id" => $serverId, "user" => $this->getUser()
+			]);
 
 			try
 			{
@@ -113,11 +111,7 @@ class ActionsController extends AbstractController
 		}
 
 		// On récupère ensuite le serveur sélectionné par l'utilisateur.
-		/** @var User */
-		$user = $this->getUser();
-		$value = $request->request->get("value");
 		$serverId = intval($request->getSession()->get("serverId", 0));
-		$repository = $this->entityManager->getRepository(Server::class);
 
 		if ($serverId === 0 || !$action)
 		{
@@ -128,7 +122,10 @@ class ActionsController extends AbstractController
 		}
 
 		// On récupère alors les données du serveur.
-		$server = $repository->findOneBy(["id" => $serverId, "user" => $user->getId()]);
+		$value = $request->request->get("value");
+		$server = $this->entityManager->getRepository(Server::class)->findOneBy([
+			"id" => $serverId, "user" => $this->getUser()
+		]);
 
 		try
 		{
