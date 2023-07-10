@@ -7,9 +7,12 @@
 		// Libellé demandant d'entrer une valeur pour une commande.
 		window.execute_value = "{{ t("actions.commands.value")|trans|escape("js") }}";
 
-		// Libellés demandant le nom et le contenue d'une nouvelle commande personnalisée.
-		window.command_add_name = "{{ t("actions.add.name")|trans|escape("js") }}";
+		// Libellés demandant le titre et le contenue d'une nouvelle commande personnalisée.
+		window.command_add_title = "{{ t("actions.add.title")|trans|escape("js") }}";
 		window.command_add_content = "{{ t("actions.add.content")|trans|escape("js") }}";
+
+		// Libellé demandant la suppression ou non d'une commande personnalisée.
+		window.edit_remove = "{{ t("actions.edit_remove")|trans|escape("js") }}";
 	</script>
 {% endblock %}
 
@@ -93,21 +96,21 @@
 
 		{# Commandes de la section #}
 		<ul>
-			<li data-command="level">
+			<li data-command="level" data-token="{{ csrf_token("server_level") }}" data-route="{{ path("server_action") }}">
 				{# Changement de carte/environnement #}
 				<span>{{ t("actions.commands.level")|trans }}</span>
 
 				<button type="button" data-action="execute">{{ t("actions.execute_command")|trans }}</button>
 			</li>
 
-			<li data-command="password">
+			<li data-command="password" data-token="{{ csrf_token("server_password") }}" data-route="{{ path("server_action") }}">
 				{# Modification du mot de passe #}
 				<span>{{ t("actions.commands.password")|trans }}</span>
 
 				<button type="button" data-action="execute">{{ t("actions.execute_command")|trans }}</button>
 			</li>
 
-			<li data-command="gravity">
+			<li data-command="gravity" data-token="{{ csrf_token("server_gravity") }}" data-route="{{ path("server_action") }}">
 				{# Modification de la gravité applicable à la carte #}
 				<span>{{ t("actions.commands.gravity")|trans }}</span>
 
@@ -115,21 +118,26 @@
 			</li>
 
 			{% for command in actions_custom_commands %}
-				<li data-command="{{ command["command_id"] }}">
+				<li data-command="{{ command.id }}">
 					{# Contenu HTML de la commande HTML #}
-					<span>{{ command["name"] }}</span>
+					<span>{{ command.title }}</span>
 
-					<button type="button" data-action="remove">{{ t("actions.remove_command")|trans }}</button>
-					<button type="button" data-action="execute">{{ t("actions.execute_command")|trans }}</button>
+					<button type="button" data-action="remove" data-token="{{ csrf_token("command_remove") }}" data-route="{{ path("command_remove") }}">
+						{{ t("actions.remove_command")|trans }}
+					</button>
+
+					<button type="button" data-action="execute" data-token="{{ csrf_token("server_action") }}" data-route="{{ path("server_action") }}">
+						{{ t("actions.execute_command")|trans }}
+					</button>
 				</li>
 			{% endfor %}
 
 			{% if actions_custom_commands|length < 2 %}
-				<li data-action="add">
+				<li data-action="add" data-token="{{ csrf_token("command_add") }}" data-route="{{ path("command_add") }}">
 					{# Ajout d'une commande personnalisée #}
 					<span>{{ t("actions.add_command")|trans }}</span>
 
-					{{ t("actions.remaining")|trans|format(2 - actions_custom_commands|length) }}
+					<em>{{ t("actions.remaining")|trans|format(2 - actions_custom_commands|length) }}</em>
 				</li>
 			{% endif %}
 		</ul>

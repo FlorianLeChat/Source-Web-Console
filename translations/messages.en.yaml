@@ -140,19 +140,23 @@ configuration:
 
 actions:
     add:
-        name: "Enter the label of the new custom command."
+        title: "Enter the title of the new custom command."
         content: "Enter the content of the custom command."
     tips: "You are on the actions page. Here you can find all available actions, switches and commands that can be executed remotely on your server."
+    added: "The custom command for this server has been successfully created. The page will be refreshed automatically."
     switch:
         voice: "Allow the flashlight"
         cheats: "Allow cheating"
         flashlight: "Lock the server"
+    removed: "The custom command for this server has been successfully deleted. The page will be refreshed automatically."
     commands:
         level: "Change the current map"
         value: "Type a value to execute the command."
         gravity: "Change the gravity level"
         password: "Change the password"
-    remaining: "*%d remaining*"
+    too_much: "You have saved too many custom commands (2). Please delete one before adding another."
+    remaining: "%d remaining"
+    edit_remove: "Do you want to delete this command?"
     description: "The actions page is a page that allows you to send quick and personalized actions. The presence of switches allows you to activate or deactivate certain server features. Finally, the custom commands allow to modify the general behavior of the server."
     add_command: "Add a command..."
     actions_title: "Actions"

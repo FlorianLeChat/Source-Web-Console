@@ -5,7 +5,7 @@ import "../../styles/tablet/actions.scss";
 
 // Importation des fonctions et constantes communes.
 import "../global";
-import { sendRemoteAction } from "../functions";
+import { sendRemoteAction, addQueuedNotification } from "../functions";
 
 //
 // Permet d'envoyer des requêtes d'action lors du clic sur l'un des
@@ -33,22 +33,89 @@ $( "#actions ul:first-of-type li:first-of-type" ).on( "dblclick", ( event ) =>
 //
 // Permet de gérer les demandes d'ajout, exécution ou de suppression
 //  des commandes personnalisées par défaut ou créées par l'utilisateur.
-//  Note : dans certains cas, on doit rafraîchir la page.
 //
 const commands = $( "#commands" );
 
-commands.on( "click", "[data-action=add]", () =>
+commands.on( "click", "[data-action=add]", async ( event ) =>
 {
-	// Ajout d'une commande personnalisée.
-	sendRemoteAction( `${ prompt( window.command_add_name ) }|${ prompt( window.command_add_content ) }`, "#ADD#" );
-	window.location.reload();
+	// On récupère d'abord les informations de la nouvelle
+	//  commande personnalisée.
+	const title = prompt( window.command_add_title );
+	const content = prompt( window.command_add_content );
+
+	if ( !title || !content )
+	{
+		return;
+	}
+
+	// On réalise ensuite la requête AJAX.
+	const target = $( event.target );
+	const element = ( target.is( "em" ) || target.is( "span" ) ) ? target.parent() : target;
+	const response = await fetch( element.data( "route" ), {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded"
+		},
+		body: new URLSearchParams( {
+			// Jeton de sécurité (CSRF).
+			token: element.data( "token" ),
+
+			// Titre de la commande personnalisée.
+			title,
+
+			// Contenu de la commande personnalisée.
+			content
+		} )
+	} );
+
+	// On affiche après un message de confirmation ou d'erreur.
+	addQueuedNotification( await response.text(), response.ok ? 3 : 1 );
+
+	// On vérifie si la requête a été effectuée avec succès.
+	if ( response.ok )
+	{
+		// Dans ce cas, on actualise enfin la page après 3 secondes.
+		setTimeout( () =>
+		{
+			window.location.reload();
+		}, 3000 );
+	}
 } );
 
-commands.on( "click", "[data-action=remove]", ( event ) =>
+commands.on( "click", "[data-action=remove]", async ( event ) =>
 {
-	// Suppression de la commande personnalisée.
-	sendRemoteAction( $( event.target ).parent().data( "command" ), "#REMOVE#" );
-	window.location.reload();
+	// On vérifie si l'utilisateur demande a supprimer la commande.
+	if ( confirm( window.edit_remove ) )
+	{
+		// On réalise ensuite la requête AJAX.
+		const target = $( event.target );
+		const response = await fetch( target.data( "route" ), {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded"
+			},
+			body: new URLSearchParams( {
+				// Jeton de sécurité (CSRF).
+				token: target.data( "token" ),
+
+				// Identifiant unique de la commande personnalisée.
+				id: target.parent().data( "command" )
+			} )
+		} );
+
+		// On affiche après un message de confirmation ou d'erreur.
+		addQueuedNotification( await response.text(), response.ok ? 3 : 1 );
+
+		// On vérifie si la requête a été effectuée avec succès.
+		if ( response.ok )
+		{
+			// Dans ce cas, on actualise enfin la page après 3 secondes.
+			setTimeout( () =>
+			{
+				window.location.reload();
+			}, 3000 );
+		}
+	}
 } );
 
 commands.on( "click", "[data-action=execute]", ( event ) =>
