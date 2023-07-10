@@ -83,7 +83,7 @@ class DashboardController extends AbstractController
 				case "edit":
 				{
 					// Vérification de l'existence et de l'appartenance du serveur à l'utilisateur.
-					if (!$server = $repository->findOneBy(["id" => $serverId, "user" => $user->getId()]))
+					if (!$server = $repository->findOneBy(["id" => $serverId, "user" => $user]))
 					{
 						return new Response(status: Response::HTTP_UNAUTHORIZED);
 					}
@@ -115,7 +115,7 @@ class DashboardController extends AbstractController
 				case "delete":
 				{
 					// Vérification de l'existence et de l'appartenance du serveur à l'utilisateur.
-					if (!$server = $repository->findOneBy(["id" => $serverId, "user" => $user->getId()]))
+					if (!$server = $repository->findOneBy(["id" => $serverId, "user" => $user]))
 					{
 						return new Response(status: Response::HTTP_UNAUTHORIZED);
 					}
@@ -130,7 +130,6 @@ class DashboardController extends AbstractController
 
 		// On inclut enfin les paramètres du moteur TWIG pour la création de la page.
 		return $this->render("dashboard.html.twig", [
-
 			// Récupération de l'historique des actions et commandes.
 			"dashboard_logs" => $this->entityManager->getRepository(Event::class)->findBy(
 				["server" => $cacheId],
@@ -138,8 +137,7 @@ class DashboardController extends AbstractController
 			3),
 
 			// Liste des serveurs depuis la base de données.
-			"dashboard_servers" => $repository->findBy(["user" => $user->getId()])
-
+			"dashboard_servers" => $repository->findBy(["user" => $user])
 		]);
 	}
 
@@ -162,12 +160,12 @@ class DashboardController extends AbstractController
 		if ($serverId !== 0)
 		{
 			// Serveur sélectionné par l'utilisateur.
-			$server = $repository->findOneBy(["id" => $serverId, "user" => $user->getId()]);
+			$server = $repository->findOneBy(["id" => $serverId, "user" => $user]);
 		}
 		else
 		{
 			// Serveur par défaut.
-			$server = $repository->findOneBy(["user" => $user->getId()], ["id" => "ASC"]);
+			$server = $repository->findOneBy(["user" => $user], ["id" => "ASC"]);
 
 			// Enregistrement automatique.
 			$request->getSession()->set("serverId", $server->getId());

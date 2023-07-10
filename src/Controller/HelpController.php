@@ -21,20 +21,18 @@ class HelpController extends AbstractController
 		// On inclut les paramètres du moteur TWIG pour la création de la page.
 		$repository = $entityManager->getRepository(User::class);
 
-		return $this->render("help.html.twig",
-			[
-				// Nombre d'utilisateurs donateurs.
-				"help_donators_count" => $repository->count(["roles" => "ROLE_DONOR"]),
+		return $this->render("help.html.twig", [
+			// Nombre d'utilisateurs donateurs.
+			"help_donators_count" => $repository->count(["roles" => "ROLE_DONOR"]),
 
-				// Nombre de serveurs enregistrés.
-				"help_servers_count" => $entityManager->getRepository(Server::class)->count([]),
+			// Nombre de serveurs enregistrés.
+			"help_servers_count" => $entityManager->getRepository(Server::class)->count([]),
 
-				// Nombre de comptes utilisateurs.
-				"help_users_count" => $repository->count([]),
+			// Nombre de comptes utilisateurs.
+			"help_users_count" => $repository->count([]),
 
-				// Nombre de requêtes réalisées.
-				"help_requests_count" => $entityManager->getRepository(Event::class)->count([]),
-			]
-		);
+			// Nombre de requêtes réalisées.
+			"help_requests_count" => $entityManager->getRepository(Event::class)->count([])
+		]);
 	}
 }

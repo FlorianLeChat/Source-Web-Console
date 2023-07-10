@@ -43,24 +43,20 @@ class TasksController extends AbstractController
 		}
 
 		// On inclut enfin les paramètres du moteur TWIG pour la création de la page.
-		/** @var User */
-		$user = $this->getUser();
-		$servers = $this->entityManager->getRepository(Server::class)->findBy(
-			["user" => $user->getId()]
-		);
+		$servers = $this->entityManager->getRepository(Server::class)->findBy([
+			"user" => $this->getUser()
+		]);
 
-		return $this->render("tasks.html.twig",
-			[
-				// Liste des tâches planifiées prévues.
-				"tasks_list" => $this->entityManager->getRepository(Task::class)->findBy(
-					["server" => $servers],
-					["date" => "DESC"],
-				10),
+		return $this->render("tasks.html.twig", [
+			// Liste des tâches planifiées prévues.
+			"tasks_list" => $this->entityManager->getRepository(Task::class)->findBy(
+				["server" => $servers],
+				["date" => "DESC"],
+			10),
 
-				// Liste des serveurs depuis la base de données.
-				"tasks_servers" => $servers,
-			]
-		);
+			// Liste des serveurs depuis la base de données.
+			"tasks_servers" => $servers
+		]);
 	}
 
 	//
@@ -85,7 +81,7 @@ class TasksController extends AbstractController
 		$serverId = intval($request->request->get("server", 0));
 		$serverRepository = $this->entityManager->getRepository(Server::class);
 
-		if (!$server = $serverRepository->findOneBy(["id" => $serverId, "user" => $user->getId()]))
+		if (!$server = $serverRepository->findOneBy(["id" => $serverId, "user" => $user]))
 		{
 			return new Response(
 				$this->translator->trans("form.server_check_failed"),
@@ -95,7 +91,7 @@ class TasksController extends AbstractController
 
 		// On vérifie que l'utilisateur n'a pas déjà trop de tâches planifiées (non terminées).
 		$tasksRepository = $this->entityManager->getRepository(Task::class);
-		$servers = $serverRepository->findBy(["user" => $user->getId()]);
+		$servers = $serverRepository->findBy(["user" => $user]);
 
 		if ($tasksRepository->count(["server" => $servers, "state" => Task::STATE_WAITING]) >= 10)
 		{
@@ -161,17 +157,14 @@ class TasksController extends AbstractController
 
 		// On vérifie alors que la tâche ainsi que le serveur existent bien
 		//  et qu'ils appartiennent à l'utilisateur.
-		/** @var User */
-		$user = $this->getUser();
-
 		$taskId = intval($request->request->get("task", 0));
 		$serverId = intval($request->request->get("server", 0));
 		$repository = $this->entityManager->getRepository(Task::class);
 
 		$task = $repository->findOneBy(["id" => $taskId, "server" => $serverId]);
-		$server = $this->entityManager->getRepository(Server::class)->findOneBy(
-			["id" => $serverId, "user" => $user->getId()]
-		);
+		$server = $this->entityManager->getRepository(Server::class)->findOneBy([
+			"id" => $serverId, "user" => $this->getUser()
+		]);
 
 		if (!$task || !$server)
 		{

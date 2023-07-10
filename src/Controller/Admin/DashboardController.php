@@ -45,12 +45,10 @@ class DashboardController extends AbstractDashboardController
 	{
 		return Dashboard::new()
 			->setTitle($this->translator->trans("head.title"))
-			->setLocales(
-				[
-					Locale::new("en", ucfirst(Languages::getName("en")), "fa fa-language"),
-					Locale::new("fr", ucfirst(Languages::getName("fr")), "fa fa-language")
-				]
-			)
+			->setLocales([
+				Locale::new("en", ucfirst(Languages::getName("en")), "fa fa-language"),
+				Locale::new("fr", ucfirst(Languages::getName("fr")), "fa fa-language")
+			])
 			->setFaviconPath("build/favicons/512x512.webp")
 			->generateRelativeUrls();
 	}
