@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Event;
 use App\Entity\Server;
+use App\Entity\Command;
 use App\Service\ServerManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ActionsController extends AbstractController
@@ -24,6 +26,7 @@ class ActionsController extends AbstractController
 	//
 	public function __construct(
 		private ServerManager $serverManager,
+		private ValidatorInterface $validator,
 		private TranslatorInterface $translator,
 		private EntityManagerInterface $entityManager
 	) {}
@@ -72,22 +75,19 @@ class ActionsController extends AbstractController
 		}
 
 		// On inclut enfin les paramètres du moteur TWIG pour la création de la page.
-		return $this->render("actions.html.twig",
-			[
-				// État actuel de la restriction de la lampe torche.
-				"actions_value_flashlight" => $rules["mp_flashlight"] ?? "",
+		return $this->render("actions.html.twig", [
+			// État actuel de la restriction de la lampe torche.
+			"actions_value_flashlight" => $rules["mp_flashlight"] ?? "0",
 
-				// État actuel de la restriction des logiciels de triche.
-				"actions_value_cheats" => $rules["sv_cheats"] ?? "0",
+			// État actuel de la restriction des logiciels de triche.
+			"actions_value_cheats" => $rules["sv_cheats"] ?? "0",
 
-				// État actuel de la restriction des communications vocales.
-				"actions_value_voice" => $rules["sv_voiceenable"] ?? "0",
+			// État actuel de la restriction des communications vocales.
+			"actions_value_voice" => $rules["sv_voiceenable"] ?? "0",
 
-				// Liste des commandes personnalisées.
-				// TODO : récupérer les commandes personnalisées.
-				"actions_custom_commands" => []
-			]
-		);
+			// Liste des commandes personnalisées.
+			"actions_custom_commands" => $this->entityManager->getRepository(Command::class)->findAll()
+		]);
 	}
 
 	//
@@ -248,5 +248,101 @@ class ActionsController extends AbstractController
 			//	pour d'autres scripts du site.
 			$this->serverManager->query->Disconnect();
 		}
+	}
+
+	//
+	// API vers l'ajout d'une nouvelle commande personnalisée.
+	//
+	#[Route("/api/command/add", name: "command_add", methods: ["POST"])]
+	#[IsGranted("IS_AUTHENTICATED")]
+	public function add(Request $request): Response
+	{
+		// On vérifie tout d'abord la validité du jeton CSRF.
+		if (!$this->isCsrfTokenValid("command_add", $request->request->get("token")))
+		{
+			return new Response(
+				$this->translator->trans("form.server_check_failed"),
+				Response::HTTP_BAD_REQUEST
+			);
+		}
+
+		// On vérifie ensuite que l'utilisateur n'a pas déjà trop commandes
+		//  personnalisées.
+		/** @var User */
+		$user = $this->getUser();
+		$repository = $this->entityManager->getRepository(Command::class);
+
+		if ($repository->count(["user" => $user]) === 2)
+		{
+			return new Response(
+				$this->translator->trans("actions.too_much"),
+				Response::HTTP_TOO_MANY_REQUESTS
+			);
+		}
+
+		// On vérifie après que les informations de la commande personnalisée
+		//  sont valides.
+		$command = new Command();
+		$command->setUser($user);
+		$command->setTitle($request->request->get("title"));
+		$command->setContent($request->request->get("content"));
+
+		if (count($this->validator->validate($command)) > 0)
+		{
+			return new Response(
+				$this->translator->trans("form.server_check_failed"),
+				Response::HTTP_BAD_REQUEST
+			);
+		}
+
+		// On sauvegarde enfin la commande personnalisée dans la
+		//  base de données et on retourne une réponse de succès.
+		$repository->save($command, true);
+
+		return new Response(
+			$this->translator->trans("actions.added"),
+			Response::HTTP_CREATED
+		);
+	}
+
+	//
+	// API vers la suppression d'une commande personnalisée.
+	//
+	#[Route("/api/command/remove", name: "command_remove", methods: ["POST"])]
+	#[IsGranted("IS_AUTHENTICATED")]
+	public function remove(Request $request): Response
+	{
+		// On vérifie tout d'abord la validité du jeton CSRF.
+		if (!$this->isCsrfTokenValid("command_remove", $request->request->get("token")))
+		{
+			return new Response(
+				$this->translator->trans("form.server_check_failed"),
+				Response::HTTP_BAD_REQUEST
+			);
+		}
+
+		// On vérifie alors que la commande existe bien et qu'elle appartient
+		//  bien à l'utilisateur.
+		$repository = $this->entityManager->getRepository(Command::class);
+		$command = $repository->findOneBy([
+			"id" => intval($request->request->get("id", 0)), "user" => $this->getUser()
+		]);
+
+		if (!$command)
+		{
+			return new Response(
+				$this->translator->trans("form.server_check_failed"),
+				Response::HTTP_BAD_REQUEST
+			);
+		}
+
+		// On supprime enfin la commande personnalisée dans la base de données
+		//  et on retourne une réponse de succès.
+		$repository->remove($command, true);
+
+		return new Response(
+			$this->translator->trans("actions.removed"),
+			Response::HTTP_OK
+		);
 	}
 }

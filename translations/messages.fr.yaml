@@ -140,19 +140,23 @@ configuration:
 
 actions:
     add:
-        name: "Entrez l'intitulé de la nouvelle commande personnalisée."
+        title: "Entrez le titre de la nouvelle commande personnalisée."
         content: "Entrez le contenu de la commande personnalisée."
     tips: "Vous êtes sur la page des actions. Vous pourrez retrouver ici toutes les actions, interrupteurs et commandes disponibles qui peuvent être exécutés à distance sur votre serveur."
+    added: "La commande personnalisée a été créée avec succès. La page va être rafraîchie automatiquement."
     switch:
         voice: "Autoriser les voix par IP"
         cheats: "Autoriser la triche"
         flashlight: "Autoriser la lampe torche"
+    removed: "La commande personnalisée a été supprimée avec succès. La page va être rafraîchie automatiquement."
     commands:
         level: "Changer la carte actuelle"
         value: "Entrez la valeur pour exécuter la commande."
         gravity: "Modifier le niveau de gravité"
         password: "Modifier le mot de passe"
-    remaining: "*%d restante(s)*"
+    too_much: "Vous avez enregistré trop de commandes personnalisées (2). Veuillez en supprimer une avant d'en ajouter une nouvelle."
+    remaining: "%d restante(s)"
+    edit_remove: "Voulez-vous supprimer cette commande ?"
     description: "La page des actions est une page qui permet l'envoi d'actions rapides et personnalisées. La présence d'interrupteurs permet d'activer ou de désactiver certaines fonctionnalités du serveur. Enfin, les commandes personnalisées permettent de modifier le comportement général du serveur."
     add_command: "Ajouter une commande..."
     actions_title: "Actions"
@@ -176,7 +180,7 @@ tasks:
         action: "Action de réalisation"
     added: "La tâche planifiée pour ce serveur a été créée avec succès. La page va être rafraîchie automatiquement."
     removed: "La tâche planifiée pour ce serveur a été supprimée avec succès. La page va être rafraîchie automatiquement."
-    too_much: "Vous avez enregistré trop de tâches planifiées non terminées (>10). Veuillez en supprimer une avant d'en ajouter une nouvelle."
+    too_much: "Vous avez enregistré trop de tâches planifiées non terminées (10). Veuillez en supprimer une avant d'en ajouter une nouvelle."
     edit_remove: "Voulez-vous supprimer cette tâche ?"
     description: "La page des tâches planifiées est une tâche fonctionnant de manière semi-automatique. La page propose la création d'actions qui peuvent être exécutées plus tard et de manière répétitives dans le temps. Une fois enregistrées, ces tâches peuvent être supprimées mais sont exécutées automatiquement à votre serveur à la date du déclenchement."
 
