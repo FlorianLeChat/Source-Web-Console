@@ -120,6 +120,15 @@ commands.on( "click", "[data-action=remove]", async ( event ) =>
 
 commands.on( "click", "[data-action=execute]", ( event ) =>
 {
-	// Exécution de la requête personnalisée.
-	sendRemoteAction( $( event.target ).parent().data( "command" ), prompt( window.execute_value ) );
+	// Exécution de la commande personnalisée.
+	const target = $( event.target );
+	const parent = target.parent();
+	const element = parent.data( "route" ) ? parent : target;
+
+	sendRemoteAction(
+		element.data( "token" ),
+		element.data( "route" ),
+		element.data( "command" ),
+		prompt( window.execute_value )
+	);
 } );
