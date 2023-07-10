@@ -21,6 +21,7 @@ header:
         events: "Logged events"
         console: "Interactive console"
         actions: "Actions and commands"
+        commands: "Custom commands"
         dashboard: "Dashboard"
         statistics: "Statistics"
         configuration: "Configuration"

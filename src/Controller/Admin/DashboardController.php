@@ -11,6 +11,7 @@ use App\Entity\Event;
 use App\Entity\Stats;
 use App\Entity\Server;
 use App\Entity\Contact;
+use App\Entity\Command;
 use Symfony\Component\Intl\Languages;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -77,6 +78,7 @@ class DashboardController extends AbstractDashboardController
 			MenuItem::section("admin.users"),
 			MenuItem::linkToCrud("footer.contact", "fa-solid fa-envelope", Contact::class),
 			MenuItem::linkToCrud("dashboard.users", "fa-solid fa-users", User::class),
+			MenuItem::linkToCrud("header.subtitle.commands", "fa-solid fa-bolt", Command::class),
 
 			// Serveurs.
 			MenuItem::section("admin.servers"),
