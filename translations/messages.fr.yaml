@@ -21,6 +21,7 @@ header:
         events: "Événements journalisés"
         console: "Console interactive"
         actions: "Actions et commandes"
+        commands: "Commandes personnalisées"
         dashboard: "Tableau de bord"
         statistics: "Statistiques"
         configuration: "Configuration"
