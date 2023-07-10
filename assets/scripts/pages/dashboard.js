@@ -58,7 +58,7 @@ $( "[name = server_edit]" ).one( "click", ( event ) =>
 		const port = prompt( window.edit_port );
 		const password = prompt( window.edit_password );
 
-		if ( !address && !port && !password )
+		if ( !address || !port || !password )
 		{
 			return;
 		}
