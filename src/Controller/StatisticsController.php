@@ -28,36 +28,18 @@ class StatisticsController extends AbstractController
 		$repository = $entityManager->getRepository(Stats::class);
 		$statistics = $repository->findBy(["server" => intval($request->getSession()->get("serverId", 0))]);
 
-		return $this->render("statistics.html.twig",
-			[
-				// Heures de récupération des données.
-				"time_data" => array_map(function($value)
-					{
-						return $value->getDate()->format(\DateTime::ATOM);
-					}, $statistics
-				),
+		return $this->render("statistics.html.twig", [
+			// Heures de récupération des données.
+			"time_data" => array_map(fn($value) => $value->getDate()->format(\DateTime::ATOM), $statistics),
 
-				// Données du nombre de joueurs connectés.
-				"player_count_data" => array_map(function($value)
-					{
-						return $value->getPlayerCount();
-					}, $statistics
-				),
+			// Données du nombre de joueurs connectés.
+			"player_count_data" => array_map(fn($value) => $value->getPlayerCount(), $statistics),
 
-				// Données d'utilisation du processeur du serveur (en %).
-				"cpu_usage_data" => array_map(function($value)
-					{
-						return $value->getCpuUsage();
-					}, $statistics
-				),
+			// Données d'utilisation du processeur du serveur (en %).
+			"cpu_usage_data" => array_map(fn($value) => $value->getCpuUsage(), $statistics),
 
-				// Données du taux de rafraîchissement du serveur (tickrate).
-				"tick_rate_data" => array_map(function($value)
-					{
-						return $value->getTickRate();
-					}, $statistics
-				)
-			]
-		);
+			// Données du taux de rafraîchissement du serveur (tickrate).
+			"tick_rate_data" => array_map(fn($value) => $value->getTickRate(), $statistics)
+		]);
 	}
 }
