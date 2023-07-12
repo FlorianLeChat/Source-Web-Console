@@ -1,4 +1,11 @@
 {
+	"consentModal": {
+		"title": "Voulez-vous un cookie ?",
+		"description": "Notre site Internet utilise des cookies de suivi pour comprendre comment vous interagissez avec lui. Le suivi ne sera activé que si vous l'acceptez explicitement.",
+		"acceptAllBtn": "Tout accepter",
+		"acceptNecessaryBtn": "Tout refuser",
+		"showPreferencesBtn": "Gérer les préférences"
+	},
 	"preferencesModal": {
 		"title": "Préférences en matière de cookies",
 		"acceptAllBtn": "Tout accepter",
