@@ -71,6 +71,12 @@ window.fetch = async ( url, options ) =>
 	//  d'un formulaire quelconque.
 	if ( options && options.method !== "GET" )
 	{
+		// On vérifie si les services de reCAPTCHA sont disponibles.
+		if ( typeof window.grecaptcha === "undefined" )
+		{
+			return addQueuedNotification( window.window.recaptcha_error, 1 );
+		}
+
 		// On génère alors une nouvelle promesse qui attendra
 		//  que le jeton de vérification soit récupéré.
 		const token = new Promise( ( resolve ) =>
@@ -96,6 +102,13 @@ $( "form[method=POST]" ).one( "submit", ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut du formulaire.
 	event.preventDefault();
+
+	// On vérifie si les services de reCAPTCHA sont disponibles.
+	if ( typeof window.grecaptcha === "undefined" )
+	{
+		addQueuedNotification( window.window.recaptcha_error, 1 );
+		return;
+	}
 
 	// On attend ensuite que les services de reCAPTCHA soient chargés.
 	window.grecaptcha.ready( async () =>

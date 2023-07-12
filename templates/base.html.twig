@@ -37,6 +37,9 @@
 
 		{# Scripts JavaScript #}
 		<script>
+			// Message indiquant à l'utilisateur que les services Google sont indisponibles.
+			window.recaptcha_error = "{{ t("global.recaptcha_error")|trans|escape("js") }}";
+
 			// Message signalant à l'utilisateur que les majuscules sont activées.
 			window.capslock_enabled = "{{ t("form.capslock_warning")|trans|escape("js") }}";
 
