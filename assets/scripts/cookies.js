@@ -9,7 +9,7 @@ import sendAnalytics from "./analytics";
 if ( window.location.search !== "legal" )
 {
 	// On force l'utilisation du thème sombre pour la fenêtre.
-	$( "body" ).addClass( "c_darkmode" );
+	$( "html" ).addClass( "cc--darkmode" );
 
 	// On lance le mécanisme de consentement des cookies.
 	run(
