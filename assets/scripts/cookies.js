@@ -50,7 +50,7 @@ if ( window.location.search !== "legal" )
 			// Configuration des traductions.
 			language: {
 				default: "en",
-				autoDetect: "browser",
+				autoDetect: "document",
 				translations: {
 					en: "locales/en.json",
 					fr: "locales/fr.json"
