@@ -4,7 +4,7 @@
 //  Source : https://cookieconsent.orestbida.com/reference/configuration-reference.html
 //
 import { run } from "vanilla-cookieconsent";
-import sendAnalytics from "./analytics";
+import { sendAnalytics, setupRecaptcha } from "./analytics";
 
 if ( window.location.search !== "legal" )
 {
@@ -22,6 +22,11 @@ if ( window.location.search !== "legal" )
 
 			// Disparition du mécanisme pour les robots.
 			hideFromBots: true,
+
+			// Paramètres internes des cookies.
+			cookie: {
+				name: "SYMFONY_ANALYTICS"
+			},
 
 			// Paramètres de l'interface utilisateur.
 			guiOptions: {
@@ -44,6 +49,15 @@ if ( window.location.search !== "legal" )
 							}
 						]
 					}
+				},
+				security: {
+					autoClear: {
+						cookies: [
+							{
+								name: /^(OTZ|__Secure-ENID|SOCS|CONSENT|AEC)/
+							}
+						]
+					}
 				}
 			},
 
@@ -59,7 +73,22 @@ if ( window.location.search !== "legal" )
 
 			// Exécution des actions de consentement.
 			onConsent: ( { cookie } ) => (
-				cookie.categories.find( ( category ) => category === "analytics" ) && sendAnalytics()
+				cookie.categories.forEach( ( category ) =>
+				{
+					switch ( category )
+					{
+						case "analytics":
+							sendAnalytics();
+							break;
+
+						case "security":
+							setupRecaptcha();
+							break;
+
+						default:
+							break;
+					}
+				} )
 			),
 
 			// Exécution des actions de changement.

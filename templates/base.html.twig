@@ -28,13 +28,6 @@
 		{# Titre du document #}
 		<title>{{ t("head.title")|trans }}</title>
 
-		{# Pré-connexion des ressources externes #}
-		<link rel="preconnect" href="https://www.google.com" />
-		<link rel="preconnect" href="https://www.gstatic.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://www.google-analytics.com" />
-
 		{# Polices & feuilles de style CSS #}
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300" crossorigin="anonymous" />
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700" crossorigin="anonymous" />
@@ -43,9 +36,6 @@
 		{{ encore_entry_link_tags(route_name) }}
 
 		{# Scripts JavaScript #}
-		<script src="https://www.googletagmanager.com/gtag/js?id={{ global_analytics }}" crossorigin="anonymous" defer></script>
-		<script src="https://www.google.com/recaptcha/api.js?render={{ global_recaptcha }}" defer></script>
-
 		<script>
 			// Message signalant à l'utilisateur que les majuscules sont activées.
 			window.capslock_enabled = "{{ t("form.capslock_warning")|trans|escape("js") }}";
