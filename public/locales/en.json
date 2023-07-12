@@ -1,4 +1,11 @@
 {
+	"consentModal": {
+		"title": "Do you want a cookie?",
+		"description": "Our website uses tracking cookies to understand how you interact with it. The tracking will be enabled only if you accept explicitly.",
+		"acceptAllBtn": "Accept all",
+		"acceptNecessaryBtn": "Reject all",
+		"showPreferencesBtn": "Manage preferences"
+	},
 	"preferencesModal": {
 		"title": "Cookie preferences",
 		"acceptAllBtn": "Accept all",
