@@ -74,7 +74,7 @@ window.fetch = async ( url, options ) =>
 		// On vérifie si les services de reCAPTCHA sont disponibles.
 		if ( typeof window.grecaptcha === "undefined" )
 		{
-			return addQueuedNotification( window.window.recaptcha_error, 1 );
+			return addQueuedNotification( window.recaptcha_error, 1 );
 		}
 
 		// On génère alors une nouvelle promesse qui attendra
@@ -91,6 +91,7 @@ window.fetch = async ( url, options ) =>
 		} );
 
 		// On ajoute le jeton de vérification à la requête.
+		options.body = options.body || new FormData();
 		options.body.append( "recaptcha", await token );
 	}
 
@@ -106,7 +107,7 @@ $( "form[method=POST]" ).one( "submit", ( event ) =>
 	// On vérifie si les services de reCAPTCHA sont disponibles.
 	if ( typeof window.grecaptcha === "undefined" )
 	{
-		addQueuedNotification( window.window.recaptcha_error, 1 );
+		addQueuedNotification( window.recaptcha_error, 1 );
 		return;
 	}
 
