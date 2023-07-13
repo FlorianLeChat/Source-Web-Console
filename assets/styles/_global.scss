@@ -815,7 +815,7 @@ footer
 			margin-right: 0.25rem;
 		}
 
-		&:last-of-type
+		&:nth-last-of-type(2)
 		{
 			// Bouton de sélection de la langue.
 			float: right;
@@ -906,6 +906,38 @@ footer
 					// Affichage des langues disponibles.
 					display: block;
 				}
+
+				i
+				{
+					// Changement de la couleur de l'icône.
+					color: $background-color;
+					transition: color 250ms;
+				}
+			}
+		}
+
+		&:last-of-type
+		{
+			// Bouton de consentement des cookies.
+			float: right;
+			margin-right: 1rem;
+
+			&::after
+			{
+				// Astuce pour faire afficher le menu sans utiliser de
+				//  de code JavaScript (voir commentaire précédent).
+				top: -0.5rem;
+				left: -0.5rem;
+				right: -0.5rem;
+				bottom: -0.5rem;
+				content: "";
+				position: absolute;
+			}
+
+			&:hover
+			{
+				// Sélection de l'icône du consentement des cookies.
+				cursor: pointer;
 
 				i
 				{
