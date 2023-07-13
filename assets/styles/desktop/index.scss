@@ -249,3 +249,29 @@ main > a
 		}
 	}
 }
+
+// ------------------------------ //
+// Avertissement Google reCAPTCHA //
+// ------------------------------ //
+small
+{
+	left: 0.25rem;
+	bottom: $footer-height + 2rem;
+	position: absolute;
+
+	a
+	{
+		// Liens vers les politiques de confidentialité
+		//  et les conditions d'utilisation de Google.
+		transition: color 250ms, background-color 250ms;
+		text-decoration: underline;
+
+		&:hover
+		{
+			// Effet de sélection.
+			color: $box-color;
+			font-weight: bold;
+			background-color: $text-color;
+		}
+	}
+}
