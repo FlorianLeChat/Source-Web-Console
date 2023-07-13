@@ -104,7 +104,6 @@ legal:
 
 index:
     tips: "Vous êtes sur la page d'accueil du site. Vous pourrez retrouver la liste des fonctionnalités ainsi que la possibilité de vous inscrire et que de vous connecter à un compte utilisateur."
-    register: "Inscription"
     login: "Connexion"
     feature:
         title:
@@ -116,6 +115,8 @@ index:
             2: "À la place des solutions actuelles et concurrences, le site vous permettra d'exploiter le protocole de communication RCON sans aucun interruption ainsi que de façon rapide et facile d'accès. De plus, le site possède plusieurs optimisations pour réduire les temps d'accès et de chargement traditionnellement longs chez les hébergeurs les plus connus."
             3: "Le protocole de communication RCON subit plusieurs modifications et mises à jour chaque année pour rendre plus performant les interactions entre les tiers (nous) et l'API distant utilisé sur les serveurs de jeux. De ce fait, toutes les solutions actuelles sont parfois rendues obsolètes ou hors-service pendant des mois voir des années car les créateurs doivent réviser leurs outils de communication. Le site utilise de nouveaux moyens afin d'être presque indépendant aux mises à jour et de pouvoir continuer de fonctionner malgré des modifications importantes réalisées par Valve."
             4: "Grâce à l'utilisation de moyens modernes et performances des outils de communications RCON, la sécurisation et le chiffrement de bout en bout des données transmises et reçues par le site est maintenant possible. Toutes les informations sensibles que vous pourriez peut-être renseignées seront automatiquement chiffré au travers d'algorithme de type de militaire. Nous ne stockons jamais en clair les mots de passes, jamais."
+    register: "Inscription"
+    recaptcha: "Ce site est protégé par reCAPTCHA sur lequel s'appliquent les <a href=\"https://policies.google.com/privacy\">politiques de confidentialité</a> et les <a href=\"https://policies.google.com/terms\">conditions d'utilisation</a> de Google."
 
 configuration:
     tips: "Vous êtes sur la page de la configuration générale de votre serveur. Si vous indiquez les informations d'authentification de votre serveur FTP ou SFTP, le site peut proposer une configuration avancée de votre serveur en respectant l'anonymat et la sécurité des données sensibles."
