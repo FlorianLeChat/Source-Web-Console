@@ -204,20 +204,6 @@ $( "nav span, footer a[href *= target] span" ).each( ( _, page ) =>
 	pages[ $( page ).html() ] = $( page ).parent().attr( "href" );
 } );
 
-search.on( "focusout", () =>
-{
-	// La définition de l'opacité est une astuce qui permet aux
-	//  événements "click" de jQuery de pouvoir s'exécuter systématiquement
-	//  lorsque les résultats doivent être cachés.
-	search.next().css( "opacity", 0 );
-} );
-
-search.on( "focusin", () =>
-{
-	// Voir commentaire précédent.
-	search.next().css( "opacity", 1 );
-} );
-
 search.on( "keyup", ( event ) =>
 {
 	// On récupère la recherche de l'utilisateur ainsi
@@ -237,13 +223,25 @@ search.on( "keyup", ( event ) =>
 		//  à une page mise en mémoire, on l'ajoute en tant que résultat.
 		if ( content && page.toLowerCase().match( content.toLowerCase() ) )
 		{
-			results.append( `<li data-target="${ pages[ page ] }">${ page }</li>` );
+			results.append( `<option value="${ pages[ page ] }">${ page }</option>` );
 		}
 	} );
 } );
 
-$( "#search ul" ).on( "click", "li", ( event ) =>
+search.on( "input", () =>
 {
-	// On simule la présence d'un élément <a> en JavaScript.
-	window.location.href = $( event.target ).data( "target" );
+	// On récupère la recherche de l'utilisateur ainsi
+	//  que la liste des résultats possibles.
+	const value = search.val();
+	const options = search.next().children();
+
+	options.each( ( _, option ) =>
+	{
+		// Si l'entrée de l'utilisateur correspond à une page
+		//  mise en mémoire, on le redirige enfin vers celle-ci.
+		if ( $( option ).attr( "value" ) === value )
+		{
+			window.location.href = value;
+		}
+	} );
 } );
