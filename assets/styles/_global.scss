@@ -227,7 +227,7 @@ header
 			font-size: 1.25rem;
 		}
 
-		span
+		label
 		{
 			// Intitulé du champ de saisie.
 			top: 1.75rem;
@@ -259,7 +259,7 @@ header
 				box-shadow: inset 0 0 0 3px $text-color;
 			}
 
-			+ ul
+			+ datalist
 			{
 				// Résultats de la barre de recherche.
 				top: 6rem;
@@ -269,7 +269,7 @@ header
 				position: absolute;
 				background-color: $box-color;
 
-				li
+				option
 				{
 					// Résultat quelconque.
 					border: 1px solid $border-color;

@@ -86,11 +86,10 @@
 				<div id="search">
 					<i class="bi bi-search"></i>
 
-					<span>{{ t("header.search.title")|trans }}</span>
+					<label for="search">{{ t("header.search.title")|trans }}</label>
+					<input type="search" id="search" name="search" list="results" placeholder="{{ t("header.search.placeholder")|trans }}" autocomplete="off" maxlength="20" />
 
-					<input type="search" name="search" placeholder="{{ t("header.search.placeholder")|trans }}" autocomplete="off" maxlength="20" required />
-
-					<ul></ul>
+					<datalist id="results"></datalist>
 				</div>
 
 				{# État de connexion #}
