@@ -176,6 +176,308 @@ input, textarea, select
 	background-color: $text-color;
 }
 
+// Personnalisation de la bannière de consentement.
+//  Source : https://cookieconsent.orestbida.com/advanced/ui-customization.html#color-schemes
+#cc-main
+{
+	// Conteneur principal des éléments enfants.
+	font-family: inherit;
+
+	.cm
+	{
+		// Conteneur de la bannière de consentement.
+		background-color: $box-color;
+	}
+
+	.pm
+	{
+		// Conteneur du gestionnaire des préférences.
+		background-color: $box-color;
+	}
+
+	.pm__header, .pm__footer
+	{
+		// En-tête et pied de page du gestionnaire des préférences.
+		border-color: rgba($background-color, 0.25);
+	}
+
+	.pm__body
+	{
+		// Corps du gestionnaire des préférences.
+		&::-webkit-scrollbar
+		{
+			@extend ::-webkit-scrollbar;
+		}
+
+		&::-webkit-scrollbar-track
+		{
+			@extend ::-webkit-scrollbar-track;
+			background-color: $box-color;
+		}
+
+		&::-webkit-scrollbar-thumb
+		{
+			@extend ::-webkit-scrollbar-thumb;
+		}
+	}
+
+	.cm__title, .pm__title
+	{
+		// Titres de la bannière de consentement et
+		//  du gestionnaire des préférences.
+		@extend h3;
+		color: $text-color;
+		font-size: 1.5rem;
+	}
+
+	.cm__desc, .pm__section-desc
+	{
+		// Descriptions de la bannière de consentement et
+		//  du gestionnaire des préférences.
+		@extend p;
+		color: $background-color;
+	}
+
+	.pm__section:not(:first-child)
+	{
+		// Section pour plus d'informations.
+		color: $text-color;
+		border-color: rgba($background-color, 0.25);
+
+		&:hover
+		{
+			// Effet de survol.
+			color: $box-color;
+			background-color: $text-color;
+
+			.pm__section-desc
+			{
+				// Description de la section.
+				color: $box-color;
+			}
+		}
+	}
+
+	.pm__section--toggle
+	{
+		// Conteneurs généraux du gestionnaire des préférences.
+		color: $background-color;
+		background-color: $box-color;
+
+		.pm__section-desc-wrapper
+		{
+			// Conteneur contenant les descriptions des cookies.
+			border-color: rgba($background-color, 0.25);
+			background-color: $box-color;
+		}
+
+		.pm__section-arrow
+		{
+			// Flèches de chaque section.
+			background-color: $text-color;
+
+			svg
+			{
+				// Icône de la flèche.
+				stroke: $box-color;
+			}
+		}
+
+		button.pm__section-title
+		{
+			// Boutons de la bannière de consentement.
+			border-color: rgba($background-color, 0.25);
+			background-color: $box-color;
+
+			&:hover
+			{
+				// Effet de survol.
+				color: $box-color;
+				border-color: rgba($text-color, 0.25);
+				background-color: $text-color;
+
+				~ .pm__section-arrow
+				{
+					// Flèches de chaque section.
+					background-color: $box-color;
+
+					svg
+					{
+						// Icône de la flèche.
+						stroke: $text-color;
+					}
+				}
+			}
+		}
+	}
+
+	.pm__table-th, .pm__table-tr
+	{
+		// Textes du tableau de la liste des cookies.
+		color: $text-color;
+		font-weight: bold;
+
+		td
+		{
+			// Cellules du tableau de la liste des cookies.
+			color: $background-color;
+			font-weight: normal;
+		}
+
+		&:hover
+		{
+			// Effet de survol.
+			color: $box-color;
+			background-color: $text-color;
+
+			td
+			{
+				// Cellules du tableau.
+				color: $box-color;
+			}
+		}
+	}
+
+	.cm__btn, .pm__btn, .pm__close-btn
+	{
+		// Boutons d'acception, de refus ou de fermeture
+		//  de la bannière de consentement.
+		color: $background-color;
+		transition: color 250ms, background-color 250ms;
+		border-color: $background-color;
+		margin-bottom: 0.5rem;
+		text-transform: uppercase;
+		background-color: $box-color;
+
+		&[aria-label]
+		{
+			// Bouton de fermeture de la fenêtre modale.
+			margin: inherit;
+			background-color: $error-color;
+		}
+
+		&[data-role = necessary]
+		{
+			// Bouton d'acception des cookies nécessaires.
+			background-color: $error-color;
+		}
+
+		&[data-role = show], &[data-role = save]
+		{
+			// Boutons de sauvegarde ou d'ouverture du
+			//  gestionnaire de préférences.
+			background-color: $info-color;
+		}
+
+		&[data-role = all]
+		{
+			// Bouton d'acception de l'ensemble des cookies.
+			background-color: $validate-color;
+		}
+
+		&:hover
+		{
+			// Effet de survol.
+			border-color: $background-color;
+			background-color: $background-color;
+
+			&[aria-label] svg
+			{
+				// Icône du bouton de fermeture de la
+				//  fenêtre modale.
+				stroke: $error-color;
+			}
+
+			&[data-role = necessary]
+			{
+				// Bouton d'acception des cookies nécessaires.
+				color: $error-color;
+			}
+
+			&[data-role = show], &[data-role = save]
+			{
+				// Boutons de sauvegarde ou d'ouverture du
+				//  gestionnaire de préférences.
+				color: $info-color;
+			}
+
+			&[data-role = all]
+			{
+				// Bouton d'acception de l'ensemble des cookies.
+				color: $validate-color;
+			}
+		}
+	}
+
+	.cc__link, a:hover
+	{
+		// Effet de survol des liens du gestionnaire
+		//  des préférences.
+		color: $box-color;
+	}
+
+	.section__toggle
+	{
+		// Bascules du gestionnaire des préférences.
+		~ .toggle__icon
+		{
+			// Bascules inactives.
+			box-shadow: 0 0 0 1px rgba($background-color, 0.25);
+			background-color: $box-color;
+
+			.toggle__icon-circle
+			{
+				// Cercle de la bascule.
+				background-color: $background-color;
+
+				.toggle__icon-off svg
+				{
+					// Icône de la bascule.
+					stroke: $box-color;
+				}
+			}
+		}
+
+		&:checked ~ .toggle__icon
+		{
+			// Bascules actives.
+			box-shadow: 0 0 0 1px $text-color, 0 0 0 2px $box-color;
+			background-color: $text-color;
+
+			.toggle__icon-circle
+			{
+				// Cercle de la bascule.
+				background-color: $box-color;
+
+				.toggle__icon-on svg
+				{
+					// Icône de la bascule.
+					stroke: $text-color;
+				}
+			}
+		}
+
+		&:checked:disabled ~ .toggle__icon
+		{
+			// Bascules désactivées mais actives.
+			box-shadow: 0 0 0 1px rgba($text-color, 0.25), 0 0 0 2px rgba($box-color, 0.25);
+			background-color: rgba($text-color, 0.25);
+
+			.toggle__icon-circle
+			{
+				// Cercle de la bascule.
+				background-color: $box-color;
+
+				.toggle__icon-on svg
+				{
+					// Icône de la bascule.
+					stroke: rgba($text-color, 0.25);
+				}
+			}
+		}
+	}
+}
+
 // ------- //
 // En-tête //
 // ------- //
