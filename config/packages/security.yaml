@@ -26,6 +26,7 @@ security:
                 check_route: user_onetime
                 signature_properties: ["id", "username"]
     access_control:
+        - { path: ^/api, roles: ROLE_ADMIN }
         - { path: ^/admin, roles: ROLE_ADMIN }
     role_hierarchy:
         ROLE_DONOR: ROLE_USER
