@@ -5,22 +5,34 @@
 //
 namespace App\Entity;
 
+use ApiPlatform\Metadata\Get;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\IpUtils;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ApiResource(
+	security: "is_granted(\"ROLE_ADMIN\")",
+	operations: [
+		new Get(normalizationContext: ["groups" => "user"]),
+		new GetCollection(normalizationContext: ["groups" => "users"])
+	]
+)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
 	#[ORM\Id]
-	#[ORM\GeneratedValue]
 	#[ORM\Column]
+	#[ORM\GeneratedValue]
+	#[Groups(["users", "user"])]
 	private ?int $id = null;
 
 	#[ORM\Column(length: 30, unique: true)]
@@ -28,6 +40,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
 	#[Assert\NoSuspiciousCharacters]
+	#[Groups(["users", "user"])]
 	private ?string $username = null;
 
 	#[ORM\Column]
@@ -35,21 +48,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
 	#[Assert\NotCompromisedPassword]
+	#[Groups(["users", "user"])]
 	private ?string $password = null;
 
 	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
+	#[Groups(["users", "user"])]
 	private ?\DateTimeInterface $createdAt = null;
 
 	#[ORM\Column(length: 45)]
+	#[Groups(["users", "user"])]
 	private ?string $address = null;
 
 	#[ORM\Column]
+	#[Groups(["users", "user"])]
 	private array $roles = [];
 
 	#[ORM\OneToMany(mappedBy: "user", targetEntity: Server::class, orphanRemoval: true)]
+	#[Groups(["users", "user"])]
 	private Collection $servers;
 
 	#[ORM\OneToMany(mappedBy: "user", targetEntity: Command::class, orphanRemoval: true)]
+	#[Groups(["users", "user"])]
 	private Collection $commands;
 
 	public function __construct()
