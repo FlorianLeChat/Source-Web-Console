@@ -20,6 +20,8 @@
         "core-js": "~3.31",
         "webpack": "~5.88",
         "chart.js": "~4.3",
+        "ts-loader": "~9.4",
+        "typescript": "~5.1",
         "flag-icons": "~6.7",
         "file-loader": "~6.2",
         "webpack-cli": "~5.1",
@@ -30,7 +32,8 @@
         "regenerator-runtime": "~0.13",
         "eslint-config-airbnb": "~19.0",
         "vanilla-cookieconsent": "3.0.0-rc.15",
-        "chartjs-adapter-date-fns": "~3.0"
+        "chartjs-adapter-date-fns": "~3.0",
+        "fork-ts-checker-webpack-plugin": "~7.3"
     },
     "engines": {
         "node": ">=18.0",

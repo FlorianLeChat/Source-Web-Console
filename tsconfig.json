@@ -1,0 +1,33 @@
+{
+    "exclude": ["node_modules"],
+    "include": ["**/*.ts"],
+    "compilerOptions": {
+        "lib": ["dom", "dom.iterable", "esnext"],
+	    "paths": {
+			"@/*": ["./*"],
+		},
+        "noEmit": true,
+        "strict": true,
+        "target": "esnext",
+        "module": "esnext",
+        "allowJs": true,
+        "incremental": true,
+        "skipLibCheck": true,
+        "noImplicitAny": true,
+        "importHelpers": true,
+        "removeComments": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "isolatedModules": true,
+        "esModuleInterop": true,
+        "strictNullChecks": true,
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "noImplicitOverride": true,
+        "noUnusedParameters": true,
+        "strictFunctionTypes": true,
+        "noFallthroughCasesInSwitch": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}
