@@ -1,6 +1,3 @@
-// Importation des dépandances externes.
-import type JQuery from "jquery";
-
 // Importation du normalisateur TypeScript.
 import "@total-typescript/ts-reset";
 
@@ -76,16 +73,16 @@ $( "input[type = password]" ).on( "keyup", ( event ) =>
 $( "[required]" ).on( "input", ( event ) =>
 {
 	// On récupère le message d'erreur présent par défaut.
-	const element = $( event.target ) as JQuery<HTMLInputElement>;
-	const error = element.siblings( ".error" );
+	const element = event.target as HTMLInputElement;
+	const error = $( element ).siblings( ".error" );
 
 	// On vérifie par la suite si l'élément est valide ou non
 	//  aux yeux des vérifications HTML.
-	if ( !element[ 0 ].checkValidity() )
+	if ( !element.checkValidity() )
 	{
 		// On définit enfin le message d'erreur avant de l'afficher
 		//  progressivement avec une animation.
-		error.html( element[ 0 ].validationMessage );
+		error.html( element.validationMessage );
 		error.fadeIn( 200 );
 	}
 	else
@@ -121,7 +118,8 @@ window.fetch = async ( url, options ) =>
 		// On vérifie si les services de reCAPTCHA sont disponibles.
 		if ( typeof window.grecaptcha === "undefined" )
 		{
-			return addQueuedNotification( window.recaptcha_error, 1 );
+			addQueuedNotification( window.recaptcha_error, 1 );
+			return Promise.reject( new Error( window.recaptcha_error ) );
 		}
 
 		// On génère alors une nouvelle promesse qui attendra
