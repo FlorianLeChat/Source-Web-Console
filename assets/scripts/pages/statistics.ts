@@ -4,6 +4,7 @@ import "../../styles/phone/statistics.scss";
 import "../../styles/tablet/statistics.scss";
 
 // Importation des dépendances externes.
+import type JQuery from "jquery";
 import Chart from "chart.js/auto";
 import "chartjs-adapter-date-fns";
 
@@ -12,10 +13,11 @@ import "chartjs-adapter-date-fns";
 //  de joueurs en fonction du temps.
 //
 const playerChart = new Chart(
-	$( "#player_count" ),
+	$( "#player_count" ) as JQuery<HTMLCanvasElement>,
 	{
 		type: "line",
 		data: {
+			labels: window.time_data,
 			datasets: [
 				// Données brutes transmises par la base de données.
 				{
@@ -44,7 +46,6 @@ const playerChart = new Chart(
 				x: {
 					// Axe X : heure UTC sous format international ISO.
 					type: "time",
-					labels: window.time_data,
 					grid: {
 						color: "#797979"
 					},
@@ -60,8 +61,7 @@ const playerChart = new Chart(
 						font: {
 							size: 16
 						},
-						stepSize: 1,
-						beginAtZero: true
+						stepSize: 1
 					},
 					title: {
 						display: true,
@@ -72,13 +72,13 @@ const playerChart = new Chart(
 							family: "Roboto",
 							weight: "bold"
 						},
-						padding: { top: 15, left: 0, right: 0, bottom: 0 }
+						padding: { top: 15, bottom: 0 }
 					}
 				},
 				y: {
 					// Axe Y : nombre de joueurs compris entre 0 et 128 (limitation des serveurs).
 					max: 128,
-					labels: [ 0, 128 ],
+					labels: [ "0", "128" ],
 					grid: {
 						color: "#797979"
 					},
@@ -87,8 +87,7 @@ const playerChart = new Chart(
 						font: {
 							size: 16
 						},
-						stepSize: 2,
-						beginAtZero: true
+						stepSize: 2
 					},
 					title: {
 						display: true,
@@ -99,7 +98,7 @@ const playerChart = new Chart(
 							family: "Roboto",
 							weight: "bold"
 						},
-						padding: { top: 0, left: 0, right: 0, bottom: 10 }
+						padding: { top: 0, bottom: 10 }
 					}
 				}
 			}
@@ -114,19 +113,11 @@ playerChart.update();
 //  d'utilisation du serveur en fonction du temps.
 //
 const serverChart = new Chart(
-	$( "#server_usage" ),
+	$( "#server_usage" ) as JQuery<HTMLCanvasElement>,
 	{
 		type: "bar",
 		data: {
-			type: "time",
 			labels: window.time_data,
-			grid: {
-				color: "#797979"
-			},
-			time: {
-				unit: "hour",
-				tooltipFormat: "HH:mm - dd/MM/yyyy"
-			},
 			datasets: [
 				// Données brutes transmises par la base de données.
 				{
@@ -161,7 +152,6 @@ const serverChart = new Chart(
 				x: {
 					// Axe X : heure UTC sous format international ISO.
 					type: "time",
-					labels: window.time_data,
 					grid: {
 						color: "#797979"
 					},
@@ -177,8 +167,7 @@ const serverChart = new Chart(
 						font: {
 							size: 16
 						},
-						stepSize: 1,
-						beginAtZero: true
+						stepSize: 1
 					},
 					title: {
 						display: true,
@@ -189,13 +178,13 @@ const serverChart = new Chart(
 							family: "Roboto",
 							weight: "bold"
 						},
-						padding: { top: 15, left: 0, right: 0, bottom: 0 }
+						padding: { top: 15, bottom: 0 }
 					}
 				},
 				y: {
 					// Axe Y : charge d'utilisation du processeur et de la mémoire (comprise entre 0 et 100%).
 					max: 100,
-					labels: [ 0, 100 ],
+					labels: [ "0", "100" ],
 					grid: {
 						color: "#797979"
 					},
@@ -203,9 +192,7 @@ const serverChart = new Chart(
 						color: "#f59a23",
 						font: {
 							size: 16
-						},
-						stepSize: 5,
-						beginAtZero: true
+						}
 					},
 					title: {
 						display: true,
@@ -216,7 +203,7 @@ const serverChart = new Chart(
 							family: "Roboto",
 							weight: "bold"
 						},
-						padding: { top: 0, left: 0, right: 0, bottom: 10 }
+						padding: { top: 0, bottom: 10 }
 					}
 				}
 			}
