@@ -64,6 +64,7 @@ function processNotification( text: string, type: number )
 			if ( timer )
 			{
 				clearTimeout( timer );
+				isInBounds = false;
 				timer = undefined;
 			}
 
@@ -87,6 +88,7 @@ function processNotification( text: string, type: number )
 
 					// Suppression du minuteur.
 					clearTimeout( timer );
+					isInBounds = false;
 					timer = undefined;
 				}, 250 );
 			}, 4750 );

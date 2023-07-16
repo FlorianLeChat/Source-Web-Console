@@ -34,7 +34,8 @@
 		"import/no-extraneous-dependencies": "off",
 
 		"@typescript-eslint/no-shadow": "error",
-		"@typescript-eslint/no-unused-vars": "error"
+		"@typescript-eslint/no-unused-vars": "error",
+		"@typescript-eslint/no-dynamic-delete": "off" // https://github.com/typescript-eslint/typescript-eslint/issues/3504
 	},
 	"env": {
 		"es6": true,
