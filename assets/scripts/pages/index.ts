@@ -81,7 +81,7 @@ register.on( "submit", "form", async ( event ) =>
 		{
 			// Si c'est un code HTTP 202, alors il s'agit d'une réponse
 			//  suite à une demande de création d'un compte à usage unique.
-			const data = await response.json();
+			const data = await response.json() as { link: string, message: string; };
 
 			navigator.clipboard.writeText( data.link ).then( () =>
 			{
