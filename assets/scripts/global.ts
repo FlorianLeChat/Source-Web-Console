@@ -32,6 +32,9 @@ declare global
 
 		command_add_title: string;
 		command_add_content: string;
+
+		// Déclaration des données de l'API Google Analytics.
+		dataLayer: ( string | Date )[];
 	}
 }
 

@@ -13,6 +13,8 @@
     },
     "devDependencies": {
         "@babel/core": "~7.22",
+        "@types/jquery": "~3.5",
+        "@types/grecaptcha": "~3.0",
         "@babel/preset-env": "~7.22",
         "@symfony/webpack-encore": "~4.3",
         "sass": "~1.63",
