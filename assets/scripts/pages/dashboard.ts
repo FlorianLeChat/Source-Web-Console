@@ -136,7 +136,7 @@ async function retrieveRemoteData()
 	if ( response.ok )
 	{
 		// Une fois terminée, on récupère les données sous format JSON.
-		const data = await response.json();
+		const data = await response.json() as { state: string; map: string; count: number; players: { Name: string; }[]; };
 
 		// Affichage de l'état de fonctionnement.
 		$( "[data-field = state]" ).html( data.state );
@@ -151,7 +151,7 @@ async function retrieveRemoteData()
 		const players = $( "#players ul" );
 		players.empty();
 
-		data.players.forEach( ( player: { Name: string; } ) =>
+		data.players.forEach( ( player ) =>
 		{
 			const name = player.Name;
 
