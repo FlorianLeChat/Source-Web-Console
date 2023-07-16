@@ -11,10 +11,9 @@ export function sendAnalytics()
 	head.append( `<script src="${ url }" async></script>` );
 
 	// On ajoute enfin le script de configuration de Google Analytics.
-	window.dataLayer = window.dataLayer || [];
-
 	function gtag( ...args: ( string | Date )[] )
 	{
+		window.dataLayer = window.dataLayer ?? [];
 		window.dataLayer.push( ...args );
 	}
 
