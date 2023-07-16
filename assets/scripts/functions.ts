@@ -3,12 +3,12 @@
 //  Source : https://www.w3schools.com/howto/howto_js_snackbar.asp
 //
 const notifications = $( "#notifications" );
-const messageQueue = {};
+const messageQueue: { [ key: number ]: [ string, number ]; } = {};
 let isInBounds = false;
 let counter = 1;
-let timer;
+let timer: NodeJS.Timeout | undefined;
 
-export function addQueuedNotification( text, type )
+export function addQueuedNotification( text: string, type: number )
 {
 	// On ajoute la notification dans une file d'attente
 	//  afin d'être traitée les uns après les autres.
@@ -16,7 +16,7 @@ export function addQueuedNotification( text, type )
 	counter++;
 }
 
-function processNotification( text, type )
+function processNotification( text: string, type: number )
 {
 	// On vérifie tout d'abord si une notification est déjà
 	//  actuellement visible.
@@ -114,7 +114,7 @@ setInterval( () =>
 {
 	// On récupère d'abord toutes les clés disponibles dans
 	//  la file d'attente des notifications.
-	const keys = Object.keys( messageQueue );
+	const keys: number[] = Object.keys( messageQueue ).map( ( key ) => parseInt( key ) );
 
 	// On vérifie alors si la file n'est pas vide avant de
 	//  continuer son traitement.
@@ -137,7 +137,7 @@ setInterval( () =>
 //
 // Permet d'envoyer les commandes et actions vers un serveur distant.
 //
-export async function sendRemoteAction( token, route, action, value )
+export async function sendRemoteAction( token: string, route: string, action: string, value: string = "" )
 {
 	// On réalise d'abord la requête AJAX.
 	const response = await fetch( route, {
