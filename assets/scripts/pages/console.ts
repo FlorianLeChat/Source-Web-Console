@@ -16,7 +16,7 @@ $( "#controller" ).on( "click", "button", ( event ) =>
 	// On récupère le contenu de l'entrée utilisateur avant
 	//  de le vérifie pour la prochaine étape.
 	const target = $( event.target );
-	const input = target.prev().val().trim();
+	const input = target.prev().val() as string;
 
 	if ( !input )
 	{
