@@ -3,9 +3,6 @@
     "include": ["**/*.ts"],
     "compilerOptions": {
         "lib": ["dom", "dom.iterable", "esnext"],
-	    "paths": {
-			"@/*": ["./*"],
-		},
         "noEmit": true,
         "strict": true,
         "target": "esnext",
