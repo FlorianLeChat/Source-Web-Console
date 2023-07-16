@@ -29,7 +29,7 @@ export function sendAnalytics()
 export function setupRecaptcha()
 {
 	// On installe d'abord le script de Google reCAPTCHA.
-	const url = `https://www.google.com/recaptcha/api.js?render=${ window.captcha_public_key }`;
+	const url = `https://www.google.com/recaptcha/api.js?render=${ window.recaptcha_public_key }`;
 	head.append( `<script src="${ url }" async></script>` );
 
 	// On envoie enfin une requête de vérification afin de mesurer

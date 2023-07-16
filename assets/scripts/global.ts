@@ -121,7 +121,7 @@ window.fetch = async ( url, options ) =>
 			{
 				// Une fois terminé, on exécute après une requête de vérification
 				//  afin d'obtenir un jeton de vérification auprès de Google.
-				resolve( await window.grecaptcha.execute( window.captcha_public_key ) );
+				resolve( await window.grecaptcha.execute( window.recaptcha_public_key ) );
 			} );
 		} );
 
@@ -151,7 +151,7 @@ $( "form[method=POST]" ).one( "submit", ( event ) =>
 	{
 		// Une fois terminé, on exécute après une requête de vérification
 		//  afin d'obtenir un jeton de vérification auprès de Google.
-		const token = await window.grecaptcha.execute( window.captcha_public_key );
+		const token = await window.grecaptcha.execute( window.recaptcha_public_key );
 
 		// On insère enfin dynamiquement le jeton dans le formulaire
 		//  avant de cliquer une nouvelle fois sur le bouton de soumission.
