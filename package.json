@@ -46,7 +46,7 @@
     },
     "scripts": {
         "dev": "encore dev",
-        "lint": "eslint ./assets/scripts --config .eslintrc.json --ext .js",
+        "lint": "eslint ./assets/scripts --config .eslintrc.json --ext .ts",
         "watch": "encore dev --watch",
         "build": "encore production --progress",
         "dev-server": "encore dev-server"
