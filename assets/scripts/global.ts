@@ -29,7 +29,7 @@ $( "input[type = password]" ).on( "keyup", ( event ) =>
 $( "[required]" ).on( "input", ( event ) =>
 {
 	// On récupère le message d'erreur présent par défaut.
-	const element = $( event.target );
+	const element = $( event.target ) as JQuery<HTMLInputElement>;
 	const error = element.siblings( ".error" );
 
 	// On vérifie par la suite si l'élément est valide ou non
@@ -158,16 +158,16 @@ contact.on( "submit", "form", async ( event ) =>
 		},
 		body: new URLSearchParams( {
 			// Jeton de sécurité (CSRF).
-			token: contact.find( "input[name = token]" ).val(),
+			token: contact.find( "input[name = token]" ).val() as string,
 
 			// Adresse électronique.
-			email: contact.find( "input[name = email]" ).val(),
+			email: contact.find( "input[name = email]" ).val() as string,
 
 			// Sujet du message.
-			subject: contact.find( "option:selected" ).text(),
+			subject: contact.find( "option:selected" ).text() as string,
 
 			// Contenu du message.
-			content: contact.find( "textarea" ).val()
+			content: contact.find( "textarea" ).val() as string
 		} )
 	} );
 
@@ -209,7 +209,7 @@ search.on( "keyup", ( event ) =>
 	// On récupère la recherche de l'utilisateur ainsi
 	//  que la liste des résultats possibles.
 	const target = $( event.target );
-	const content = target.val();
+	const content = target.val() as string;
 	const results = target.next();
 
 	// On vide ensuite les résultats précédents.
@@ -232,7 +232,7 @@ search.on( "input", () =>
 {
 	// On récupère la recherche de l'utilisateur ainsi
 	//  que la liste des résultats possibles.
-	const value = search.val();
+	const value = search.val() as string;
 	const options = search.next().children();
 
 	options.each( ( _, option ) =>

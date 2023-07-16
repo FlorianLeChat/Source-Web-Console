@@ -36,13 +36,13 @@ account.on( "click", "[data-action]", async ( event ) =>
 		},
 		body: new URLSearchParams( {
 			// Jeton de sécurité (CSRF).
-			token: account.find( `[name = token-${ action }]` ).val(),
+			token: account.find( `[name = token-${ action }]` ).val() as string,
 
 			// Valeur du nouveau nom d'utilisateur.
-			username: account.find( "[name = username]" ).val(),
+			username: account.find( "[name = username]" ).val() as string,
 
 			// Valeur du nouveau mot de passe.
-			password: account.find( "[name = password]" ).val()
+			password: account.find( "[name = password]" ).val() as string
 		} )
 	} );
 
@@ -77,13 +77,13 @@ actions.on( "click", "[type = submit]", async ( event ) =>
 		},
 		body: new URLSearchParams( {
 			// Jeton de sécurité (CSRF).
-			token: actions.find( `[name = token-${ target.data( "action" ) }]` ).val(),
+			token: actions.find( `[name = token-${ target.data( "action" ) }]` ).val() as string,
 
 			// Valeur du nouveau nom d'utilisateur.
-			username: actions.find( "[name = username]" ).val(),
+			username: actions.find( "[name = username]" ).val() as string,
 
 			// Valeur du nouveau mot de passe.
-			password: actions.find( "[name = password]" ).val()
+			password: actions.find( "[name = password]" ).val() as string
 		} )
 	} );
 
@@ -128,16 +128,16 @@ submit.on( "click", async ( event ) =>
 		},
 		body: new URLSearchParams( {
 			// Jeton de sécurité (CSRF).
-			token: form.find( "[name = token]" ).val(),
+			token: form.find( "[name = token]" ).val() as string,
 
 			// Nom d'utilisateur et mot de passe du compte utilisateur.
-			username: form.find( "[name = username]" ).val(),
-			password: form.find( "[name = password]" ).val(),
+			username: form.find( "[name = username]" ).val() as string,
+			password: form.find( "[name = password]" ).val() as string,
 
 			// Informations du serveur.
-			server_address: form.find( "[name = address]" ).val(),
-			server_port: form.find( "[name = port]" ).val(),
-			server_password: form.find( "[name = password]" ).val()
+			server_address: form.find( "[name = address]" ).val() as string,
+			server_port: form.find( "[name = port]" ).val() as string,
+			server_password: form.find( "[name = password]" ).val() as string
 		} )
 	} );
 

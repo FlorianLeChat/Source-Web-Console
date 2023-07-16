@@ -26,16 +26,16 @@ $( "form" ).on( "submit", async ( event ) =>
 		},
 		body: new URLSearchParams( {
 			// Jeton de sécurité (CSRF).
-			token: $( "[name = token]" ).val(),
+			token: $( "[name = token]" ).val() as string,
 
 			// Date de déclenchement de l'action (format horodatage).
-			date: $( "[name = date]" ).val(),
+			date: $( "[name = date]" ).val() as string,
 
 			// Identifiant unique du serveur sélectionné.
-			server: $( "[name = server] option:checked" ).data( "server" ),
+			server: $( "[name = server] option:checked" ).data( "server" ) as string,
 
 			// Nom de l'action qui doit être réalisé.
-			action: $( "[name = action]" ).val()
+			action: $( "[name = action]" ).val() as string
 		} )
 	} );
 
@@ -71,7 +71,7 @@ $( "table tr:not([class = finished])" ).on( "click", async ( event ) =>
 			},
 			body: new URLSearchParams( {
 				// Jeton de sécurité (CSRF).
-				token: $( "[name = token]" ).val(),
+				token: $( "[name = token]" ).val() as string,
 
 				// Identifiant unique de la tâche sélectionnée.
 				task: target.data( "task" ),

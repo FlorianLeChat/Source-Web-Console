@@ -60,19 +60,19 @@ register.on( "submit", "form", async ( event ) =>
 			},
 			body: new URLSearchParams( {
 				// Jeton de sécurité (CSRF).
-				token: register.find( "[name = token]" ).val(),
+				token: register.find( "[name = token]" ).val() as string,
 
 				// Nom d'utilisateur et mot de passe du compte utilisateur.
-				username: firstStep.find( "[name = username]" ).val(),
-				password: firstStep.find( "[name = password]" ).val(),
+				username: firstStep.find( "[name = username]" ).val() as string,
+				password: firstStep.find( "[name = password]" ).val() as string,
 
 				// Option de maintien de connexion.
-				_remember_me: firstStep.find( "[name = remember_me]" ).is( ":checked" ),
+				_remember_me: firstStep.find( "[name = remember_me]" ).is( ":checked" ).toString(),
 
 				// Informations du serveur.
-				server_address: lastStep.find( "[name = address]" ).val(),
-				server_port: lastStep.find( "[name = port]" ).val(),
-				server_password: lastStep.find( "[name = password]" ).val()
+				server_address: lastStep.find( "[name = address]" ).val() as string,
+				server_port: lastStep.find( "[name = port]" ).val() as string,
+				server_password: lastStep.find( "[name = password]" ).val() as string
 			} )
 		} );
 
@@ -152,16 +152,16 @@ login.on( "click", "[type = submit]", async ( event ) =>
 		},
 		body: new URLSearchParams( {
 			// Jeton de sécurité (CSRF).
-			token: login.find( "[name = token]" ).val(),
+			token: login.find( "[name = token]" ).val() as string,
 
 			// Nom d'utilisateur.
-			username: login.find( "[name = username]" ).val(),
+			username: login.find( "[name = username]" ).val() as string,
 
 			// Mot de passe.
-			password: login.find( "[name = password]" ).val(),
+			password: login.find( "[name = password]" ).val() as string,
 
 			// Option de maintien de connexion.
-			_remember_me: login.find( "[name = remember_me]" ).is( ":checked" )
+			_remember_me: login.find( "[name = remember_me]" ).is( ":checked" ).toString()
 		} )
 	} );
 
@@ -239,7 +239,7 @@ links.last().on( "click", async ( event ) =>
 		},
 		body: new URLSearchParams( {
 			// Jeton de sécurité (CSRF).
-			token: login.find( "[name = token]" ).val(),
+			token: login.find( "[name = token]" ).val() as string,
 
 			// Nom d'utilisateur associé au compte.
 			username,
@@ -297,7 +297,7 @@ $( "#register_generation" ).on( "click", ( event ) =>
 
 		// On enregistre enfin l'ancien mot de passe en mémoire avant de
 		//  définir le mot de passe sécurisé dans le champ approprié.
-		oldPassword = input.val();
+		oldPassword = input.val() as string;
 
 		input.val( newPassword );
 	}
