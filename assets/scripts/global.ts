@@ -3,6 +3,38 @@ import "./cookies";
 import "./analytics";
 import { addQueuedNotification } from "./functions";
 
+// Déclaration du contexte global du navigateur.
+declare global
+{
+	interface Window
+	{
+		// Déclaration des traductions injectées par Twig.
+		edit_port: string;
+		edit_remove: string;
+		edit_address: string;
+		edit_password: string;
+
+		utc_time: string;
+		cpu_usage: string;
+		tick_rate: string;
+		player_count: string;
+		onetime_info: string;
+		execute_value: string;
+		usage_percent: string;
+		capslock_enabled: string;
+		analytics_identifier: string;
+
+		recover_password_username: string;
+		recover_password_password: string;
+
+		recaptcha_error: string;
+		recaptcha_public_key: string;
+
+		command_add_title: string;
+		command_add_content: string;
+	}
+}
+
 //
 // Permet d'afficher des messages d'avertissement lorsqu'un utilisateur
 //  entre un mot de passe avec les majuscules activées.
