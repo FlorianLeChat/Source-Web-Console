@@ -333,7 +333,7 @@ function displayInitialElements()
 }
 
 // Permet d'exécuter le mécanisme de défilement précédent/suivant.
-function updateInformation( forward )
+function updateInformation( forward: boolean )
 {
 	// Défilement des images.
 	images.each( ( indice, image ) =>

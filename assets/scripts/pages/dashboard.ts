@@ -125,7 +125,7 @@ servers.on( "click", "button[type=button]", ( event ) =>
 //
 // Permet de faire la récupération des informations générales du serveur.
 //
-let timer;
+let timer: NodeJS.Timer | undefined;
 
 async function retrieveRemoteData()
 {
@@ -151,7 +151,7 @@ async function retrieveRemoteData()
 		const players = $( "#players ul" );
 		players.empty();
 
-		data.players.forEach( ( player ) =>
+		data.players.forEach( ( player: { Name: string; } ) =>
 		{
 			const name = player.Name;
 
