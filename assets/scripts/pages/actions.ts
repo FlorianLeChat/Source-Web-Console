@@ -129,6 +129,6 @@ commands.on( "click", "[data-action=execute]", ( event ) =>
 		element.data( "token" ),
 		element.data( "route" ),
 		element.data( "command" ),
-		prompt( window.execute_value ) || ""
+		prompt( window.execute_value ) ?? ""
 	);
 } );
