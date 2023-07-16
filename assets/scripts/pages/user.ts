@@ -148,6 +148,7 @@ submit.on( "click", async ( event ) =>
 	if ( response.ok )
 	{
 		// Dans ce cas, on réinitialise enfin l'entièreté du formulaire.
-		target.closest( "form" )[ 0 ].reset();
+		const form = target.closest( "form" )[ 0 ] as HTMLFormElement;
+		form.reset();
 	}
 } );

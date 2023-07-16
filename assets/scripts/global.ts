@@ -45,7 +45,7 @@ declare global
 //
 $( "input[type = password]" ).on( "keyup", ( event ) =>
 {
-	if ( event.originalEvent.getModifierState( "CapsLock" ) )
+	if ( event.originalEvent?.getModifierState( "CapsLock" ) )
 	{
 		// Si les majuscules sont activées, on insère dynamiquement
 		//  un nouvel élément HTML après le champ de saisie.
@@ -156,7 +156,7 @@ $( "form[method=POST]" ).one( "submit", ( event ) =>
 		// On insère enfin dynamiquement le jeton dans le formulaire
 		//  avant de cliquer une nouvelle fois sur le bouton de soumission.
 		$( event.target ).append( `<input type="hidden" name="recaptcha" value="${ token }">` );
-		$( event.originalEvent.submitter ).trigger( "click" );
+		$( event.originalEvent?.submitter ).trigger( "click" );
 	} );
 } );
 
@@ -174,7 +174,10 @@ $( window ).on( "scroll", () =>
 	const height = root.prop( "scrollHeight" ) - root.prop( "clientHeight" );
 
 	// Calcul du pourcentage du décalage avant affichage.
-	$( "footer div > div" ).width( `${ ( position / height ) * 100 }%` );
+	if ( position )
+	{
+		$( "footer div > div" ).width( `${ ( position / height ) * 100 }%` );
+	}
 } );
 
 //
@@ -229,14 +232,15 @@ contact.find( "input[type = reset]" ).on( "click", () =>
 // Permet de faire fonctionner un petit moteur de recherche
 //  intégré pour accéder plus rapidement aux pages du site.
 //
-const pages = {};
+const pages: { [ key: string ]: string; } = {};
 const search = $( "#search input[name = search]" );
 
 $( "nav span, footer a[href *= target] span" ).each( ( _, page ) =>
 {
 	// Libellés des pages de la barre de navigation ainsi que ceux
 	//  présents dans le pied de page.
-	pages[ $( page ).html() ] = $( page ).parent().attr( "href" );
+	const route = $( page ) as JQuery<HTMLSpanElement>;
+	pages[ route.text() ] = $( page ).parent().attr( "href" ) as string;
 } );
 
 search.on( "keyup", ( event ) =>
