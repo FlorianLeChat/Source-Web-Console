@@ -1,6 +1,13 @@
 {
-	"ignorePatterns": ["*.config.js"],
-	"extends": ["airbnb"],
+	"parserOptions": {
+		"project": ["./tsconfig.json"]
+	},
+	"globals": {
+		"NodeJS": "readonly"
+	},
+	"extends": ["plugin:@typescript-eslint/recommended", "plugin:@typescript-eslint/strict", "airbnb"],
+	"plugins": ["@typescript-eslint"],
+	"parser": "@typescript-eslint/parser",
 	"rules": {
 		"indent": ["error", "tab", { "SwitchCase": 1 }],
 		"quotes": ["error", "double"],
@@ -8,9 +15,11 @@
 		"no-tabs": ["error", { "allowIndentationTabs": true }],
 		"eol-last": ["error", "never"],
 		"no-alert": "off",
+		"no-shadow": "off",
 		"no-plusplus": "off",
 		"brace-style": ["error", "allman"],
 		"comma-dangle": ["error", "never"],
+		"no-unused-vars": "off",
 		"linebreak-style": "off",
 		"space-in-parens": ["error", "always"],
 		"no-param-reassign": ["error", { "props": false }],
@@ -19,7 +28,13 @@
 		"array-bracket-spacing": ["error", "always"],
 		"template-curly-spacing": ["error", "always"],
 		"computed-property-spacing": ["error", "always"],
-		"import/no-extraneous-dependencies": "off"
+
+		"import/extensions": ["error", "never"],
+		"import/no-unresolved": ["error", { "ignore": ["analytics", "cookies", "global", "functions"] }],
+		"import/no-extraneous-dependencies": "off",
+
+		"@typescript-eslint/no-shadow": "error",
+		"@typescript-eslint/no-unused-vars": "error"
 	},
 	"env": {
 		"es6": true,
