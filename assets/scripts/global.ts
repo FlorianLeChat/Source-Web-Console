@@ -1,10 +1,13 @@
+// Importation des dépandances externes.
+import type JQuery from "jquery";
+
+// Importation du normalisateur TypeScript.
+import "@total-typescript/ts-reset";
+
 // Importation des fonctions et constantes communes.
 import "./cookies";
 import "./analytics";
 import { addQueuedNotification } from "./functions";
-
-// Importation du normalisateur TypeScript.
-import "@total-typescript/ts-reset";
 
 // Déclaration du contexte global du navigateur.
 declare global
@@ -117,7 +120,7 @@ window.fetch = async ( url, options ) =>
 
 		// On génère alors une nouvelle promesse qui attendra
 		//  que le jeton de vérification soit récupéré.
-		const token = new Promise( ( resolve ) =>
+		const token = new Promise<string>( ( resolve ) =>
 		{
 			// On attend ensuite que les services de reCAPTCHA soient chargés.
 			window.grecaptcha.ready( async () =>
@@ -129,7 +132,7 @@ window.fetch = async ( url, options ) =>
 		} );
 
 		// On ajoute le jeton de vérification à la requête.
-		options.body = options.body || new FormData();
+		options.body = ( options.body ?? new FormData() ) as FormData;
 		options.body.append( "recaptcha", await token );
 	}
 
@@ -159,7 +162,7 @@ $( "form[method=POST]" ).one( "submit", ( event ) =>
 		// On insère enfin dynamiquement le jeton dans le formulaire
 		//  avant de cliquer une nouvelle fois sur le bouton de soumission.
 		$( event.target ).append( `<input type="hidden" name="recaptcha" value="${ token }">` );
-		$( event.originalEvent?.submitter ).trigger( "click" );
+		$( ( event.originalEvent as SubmitEvent ).submitter as HTMLFormElement ).trigger( "click" );
 	} );
 } );
 
@@ -173,7 +176,7 @@ $( window ).on( "scroll", () =>
 	const root = $( document.documentElement );
 
 	// Calcul de la position actuelle du défilement.
-	const position = $( window ).scrollTop() || $( "body" ).scrollTop();
+	const position = $( window ).scrollTop() ?? $( "body" ).scrollTop();
 	const height = root.prop( "scrollHeight" ) - root.prop( "clientHeight" );
 
 	// Calcul du pourcentage du décalage avant affichage.
@@ -235,15 +238,15 @@ contact.find( "input[type = reset]" ).on( "click", () =>
 // Permet de faire fonctionner un petit moteur de recherche
 //  intégré pour accéder plus rapidement aux pages du site.
 //
-const pages: { [ key: string ]: string; } = {};
+const pages: Record<string, string> = {};
 const search = $( "#search input[name = search]" );
 
 $( "nav span, footer a[href *= target] span" ).each( ( _, page ) =>
 {
 	// Libellés des pages de la barre de navigation ainsi que ceux
 	//  présents dans le pied de page.
-	const route = $( page ) as JQuery<HTMLSpanElement>;
-	pages[ route.text() ] = $( page ).parent().attr( "href" ) as string;
+	const route = $( page );
+	pages[ route.text() ] = route.parent().attr( "href" ) ?? "";
 } );
 
 search.on( "keyup", ( event ) =>
