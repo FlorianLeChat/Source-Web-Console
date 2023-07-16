@@ -3,6 +3,9 @@ import "./cookies";
 import "./analytics";
 import { addQueuedNotification } from "./functions";
 
+// Importation du normalisateur TypeScript.
+import "@total-typescript/ts-reset";
+
 // Déclaration du contexte global du navigateur.
 declare global
 {
