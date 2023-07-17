@@ -16,5 +16,5 @@ services:
         arguments: ["%kernel.default_locale%"]
     Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler:
         arguments:
-            - "mysql:dbname=%env(DATABASE_NAME)%; host=%env(DATABASE_HOST)%; port=%env(DATABASE_PORT)%"
+            - "%env(DATABASE_TYPE)%:dbname=%env(DATABASE_NAME)%; host=%env(DATABASE_HOST)%; port=%env(DATABASE_PORT)%"
             - { db_username: "%env(DATABASE_USERNAME)%", db_password: "%env(DATABASE_PASSWORD)%" }
