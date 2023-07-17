@@ -101,7 +101,7 @@ servers.on( "click", "button[type=button]", ( event ) =>
 	// On récupère d'abord l'élément cible ainsi que l'élément
 	//  qui contient le nombre de pages.
 	const target = $( event.target );
-	const label = target.parent().siblings( "span" );
+	const label = servers.find( "> span" ).first();
 
 	// On récupère ensuite le nombre de pages actuel ainsi que
 	//  le nombre de pages maximum.
@@ -118,7 +118,7 @@ servers.on( "click", "button[type=button]", ( event ) =>
 	// On récupère enfin les éléments à afficher et on les affiche
 	//  par groupe de 4.
 	const elements = servers.find( "li" ).slice( ( current - 1 ) * 4, current * 4 );
-	servers.find( ":not(.hidden)" ).addClass( "hidden" );
+	servers.find( "li:not(.hidden)" ).addClass( "hidden" );
 	elements.removeClass( "hidden" );
 } );
 
