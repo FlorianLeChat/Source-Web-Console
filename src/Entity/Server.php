@@ -62,6 +62,9 @@ class Server
 	#[ORM\OneToMany(mappedBy: "server", targetEntity: Stats::class, orphanRemoval: true)]
 	private Collection $stats;
 
+	#[ORM\OneToOne(mappedBy: "server", cascade: ["persist", "remove"])]
+	private ?Storage $storage = null;
+
 	public const ACTION_SHUTDOWN = "shutdown";
 	public const ACTION_SHUTDOWN_FORCE = "force";
 	public const ACTION_RESTART = "restart";
@@ -228,6 +231,23 @@ class Server
 				$stat->setServer(null);
 			}
 		}
+
+		return $this;
+	}
+
+	public function getStorage(): ?Storage
+	{
+		return $this->storage;
+	}
+
+	public function setStorage(Storage $storage): static
+	{
+		if ($storage->getServer() !== $this)
+		{
+			$storage->setServer($this);
+		}
+
+		$this->storage = $storage;
 
 		return $this;
 	}
