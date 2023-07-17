@@ -11,15 +11,14 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TaskRepository;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TaskRepository::class)]
 #[ApiResource(
 	security: "is_granted(\"ROLE_ADMIN\")",
 	operations: [
-		new Get(normalizationContext: ["groups" => "task"]),
-		new GetCollection(normalizationContext: ["groups" => "tasks"])
+		new Get(),
+		new GetCollection()
 	]
 )]
 class Task
@@ -27,33 +26,28 @@ class Task
 	#[ORM\Id]
 	#[ORM\Column]
 	#[ORM\GeneratedValue]
-	#[Groups(["tasks", "task"])]
 	private ?int $id = null;
 
 	#[ORM\ManyToOne(inversedBy: "tasks")]
 	#[ORM\JoinColumn(nullable: false)]
-	#[Groups(["tasks", "task"])]
 	private ?Server $server = null;
 
 	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
 	#[Assert\Type("\DateTimeInterface")]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
-	#[Groups(["tasks", "task"])]
 	private ?\DateTimeInterface $date = null;
 
 	#[ORM\Column(length: 10)]
 	#[Assert\Choice([Server::ACTION_SHUTDOWN, Server::ACTION_RESTART, Server::ACTION_UPDATE, Server::ACTION_SERVICE])]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
-	#[Groups(["tasks", "task"])]
 	private ?string $action = null;
 
 	#[ORM\Column(length: 10)]
 	#[Assert\Choice([Task::STATE_ERROR, Task::STATE_WAITING, Task::STATE_RUNNING, Task::STATE_FINISHED])]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
-	#[Groups(["tasks", "task"])]
 	private ?string $state = null;
 
 	public const STATE_ERROR = "error";

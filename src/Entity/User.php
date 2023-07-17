@@ -23,8 +23,8 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[ApiResource(
 	security: "is_granted(\"ROLE_ADMIN\")",
 	operations: [
-		new Get(normalizationContext: ["groups" => "user"]),
-		new GetCollection(normalizationContext: ["groups" => "users"])
+		new Get(),
+		new GetCollection()
 	]
 )]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -32,7 +32,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	#[ORM\Id]
 	#[ORM\Column]
 	#[ORM\GeneratedValue]
-	#[Groups(["users", "user"])]
 	private ?int $id = null;
 
 	#[ORM\Column(length: 30, unique: true)]
@@ -40,7 +39,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
 	#[Assert\NoSuspiciousCharacters]
-	#[Groups(["users", "user"])]
 	private ?string $username = null;
 
 	#[ORM\Column]
@@ -48,27 +46,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
 	#[Assert\NotCompromisedPassword]
-	#[Groups(["users", "user"])]
 	private ?string $password = null;
 
 	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
-	#[Groups(["users", "user"])]
 	private ?\DateTimeInterface $createdAt = null;
 
 	#[ORM\Column(length: 45)]
-	#[Groups(["users", "user"])]
 	private ?string $address = null;
 
 	#[ORM\Column]
-	#[Groups(["users", "user"])]
 	private array $roles = [];
 
 	#[ORM\OneToMany(mappedBy: "user", targetEntity: Server::class, orphanRemoval: true)]
-	#[Groups(["users", "user"])]
 	private Collection $servers;
 
 	#[ORM\OneToMany(mappedBy: "user", targetEntity: Command::class, orphanRemoval: true)]
-	#[Groups(["users", "user"])]
 	private Collection $commands;
 
 	public function __construct()
