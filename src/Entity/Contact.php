@@ -11,15 +11,14 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ContactRepository;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 #[ApiResource(
 	security: "is_granted(\"ROLE_ADMIN\")",
 	operations: [
-		new Get(normalizationContext: ["groups" => "server"]),
-		new GetCollection(normalizationContext: ["groups" => "servers"])
+		new Get(),
+		new GetCollection()
 	]
 )]
 class Contact
@@ -27,11 +26,9 @@ class Contact
 	#[ORM\Id]
 	#[ORM\Column]
 	#[ORM\GeneratedValue]
-	#[Groups(["contacts", "contact"])]
 	private ?int $id = null;
 
 	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
-	#[Groups(["contacts", "contact"])]
 	private ?\DateTimeInterface $date = null;
 
 	#[ORM\Column(length: 100)]
@@ -40,14 +37,12 @@ class Contact
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
 	#[Assert\NoSuspiciousCharacters]
-	#[Groups(["contacts", "contact"])]
 	private ?string $email = null;
 
 	#[ORM\Column(length: 255)]
 	#[Assert\Length(min: 10, max: 255)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
-	#[Groups(["contacts", "contact"])]
 	private ?string $subject = null;
 
 	#[ORM\Column(length: 5000)]
@@ -55,7 +50,6 @@ class Contact
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
 	#[Assert\NoSuspiciousCharacters]
-	#[Groups(["contacts", "contact"])]
 	private ?string $content = null;
 
 	public function getId(): ?int

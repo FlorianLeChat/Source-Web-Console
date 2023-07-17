@@ -12,15 +12,14 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ServerRepository::class)]
 #[ApiResource(
 	security: "is_granted(\"ROLE_ADMIN\")",
 	operations: [
-		new Get(normalizationContext: ["groups" => "server"]),
-		new GetCollection(normalizationContext: ["groups" => "servers"])
+		new Get(),
+		new GetCollection()
 	]
 )]
 class Server
@@ -28,12 +27,10 @@ class Server
 	#[ORM\Id]
 	#[ORM\Column]
 	#[ORM\GeneratedValue]
-	#[Groups(["server", "servers"])]
 	private ?int $id = null;
 
 	#[ORM\ManyToOne(inversedBy: "servers")]
 	#[ORM\JoinColumn(nullable: false)]
-	#[Groups(["server", "servers"])]
 	private ?User $user = null;
 
 	#[ORM\Column(length: 15)]
@@ -41,35 +38,28 @@ class Server
 	#[Assert\Length(min: 7, max: 15)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
-	#[Groups(["server", "servers"])]
 	private ?string $address = null;
 
 	#[ORM\Column(length: 5)]
 	#[Assert\Length(min: 1, max: 5)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
-	#[Groups(["server", "servers"])]
 	private ?string $port = null;
 
 	#[ORM\Column(length: 255, nullable: true)]
 	#[Assert\Length(max: 255)]
-	#[Groups(["server", "servers"])]
 	private ?string $password = null;
 
 	#[ORM\Column(nullable: true)]
-	#[Groups(["server", "servers"])]
 	private ?int $game = null;
 
 	#[ORM\OneToMany(mappedBy: "server", targetEntity: Task::class, orphanRemoval: true)]
-	#[Groups(["server", "servers"])]
 	private Collection $tasks;
 
 	#[ORM\OneToMany(mappedBy: "server", targetEntity: Event::class, orphanRemoval: true)]
-	#[Groups(["server", "servers"])]
 	private Collection $events;
 
 	#[ORM\OneToMany(mappedBy: "server", targetEntity: Stats::class, orphanRemoval: true)]
-	#[Groups(["server", "servers"])]
 	private Collection $stats;
 
 	public const ACTION_SHUTDOWN = "shutdown";
@@ -81,8 +71,8 @@ class Server
 	public function __construct()
 	{
 		$this->tasks = new ArrayCollection();
-		$this->events = new ArrayCollection();
 		$this->stats = new ArrayCollection();
+		$this->events = new ArrayCollection();
 	}
 
 	public function __toString(): string
