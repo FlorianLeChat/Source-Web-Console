@@ -18,8 +18,6 @@ security:
                 secret: "%kernel.secret%"
                 lifetime: 604800
                 samesite: strict
-                token_provider:
-                    doctrine: true
             login_link:
                 max_uses: 1
                 lifetime: 86400
