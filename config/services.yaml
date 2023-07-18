@@ -14,7 +14,15 @@ services:
     xPaw\SourceQuery\SourceQuery:
     App\EventSubscriber\LocaleSubscriber:
         arguments: ["%kernel.default_locale%"]
-    Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler:
+    Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler:
         arguments:
-            - "%env(DATABASE_TYPE)%:dbname=%env(DATABASE_NAME)%; host=%env(DATABASE_HOST)%; port=%env(DATABASE_PORT)%"
-            - { db_username: "%env(DATABASE_USERNAME)%", db_password: "%env(DATABASE_PASSWORD)%" }
+            - "@Redis"
+            - { "prefix": "swc_sessions_" }
+    Redis:
+        class: Redis
+        calls:
+            - connect:
+                - "%env(REDIS_HOST)%"
+                - "%env(int:REDIS_PORT)%"
+            - auth:
+                - ["%env(REDIS_USERNAME)%", "%env(REDIS_PASSWORD)%"]
