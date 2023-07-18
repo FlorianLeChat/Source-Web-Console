@@ -4,8 +4,8 @@ namespace App\Service;
 
 use xPaw\SourceQuery\SourceQuery;
 use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
 readonly class ServerManager
@@ -24,6 +24,7 @@ readonly class ServerManager
 	//
 	public function __construct(
 		public SourceQuery $query,
+		private CacheInterface $cache,
 		private HttpClientInterface $client,
 		private ContainerBagInterface $parameters,
 	) {
@@ -110,12 +111,9 @@ readonly class ServerManager
 	//
 	public function getNameByGameID(int $identifier, string $fallback = ""): string
 	{
-		// On initialise d'abord le cache du système de fichiers.
-		$cache = new FilesystemAdapter();
-
-		// On vérifie ensuite si le nom du jeu est déjà enregistré
+		// On vérifie d'abord si le nom du jeu est déjà enregistré
 		// 	dans le cache de données.
-		return $cache->get($identifier, function (ItemInterface $item) use ($identifier, $fallback): string
+		return $this->cache->get("svc_game_$identifier", function (ItemInterface $item) use ($identifier, $fallback): string
 		{
 			// Si ce n'est pas le cas, on définit une durée de vie
 			// 	de persistance pour le cache.
@@ -170,12 +168,9 @@ readonly class ServerManager
 	//
 	public function getGameIDByAddress(string $address, int $port): int
 	{
-		// On initialise d'abord le cache du système de fichiers.
-		$cache = new FilesystemAdapter();
-
-		// On vérifie ensuite si le nom du jeu est déjà enregistré
+		// On vérifie d'abord si le nom du jeu est déjà enregistré
 		// 	dans le cache de données.
-		return $cache->get("$address-$port", function (ItemInterface $item) use ($address, $port): int
+		return $this->cache->get("swc_server_$address-$port", function (ItemInterface $item) use ($address, $port): int
 		{
 			// Si ce n'est pas le cas, on définit une durée de vie
 			// 	de persistance pour le cache.
