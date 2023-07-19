@@ -35,9 +35,9 @@ class LimiterSubscriber implements EventSubscriberInterface
 		// On vérifie ensuite si la requête est une requête API ou non
 		//  avant de créer le limiteur de requêtes.
 		$apiRoute = str_contains($request->getUri(), "/api/");
-        $limiter = $this->apiLimiter->create($request->getClientIp());
+		$limiter = $this->apiLimiter->create($request->getUser());
 
-        if ($apiRoute && !$limiter->consume(1)->isAccepted())
+		if ($apiRoute && !$limiter->consume(1)->isAccepted())
 		{
 			// Si l'utilisateur a dépassé la limite de requêtes autorisées,
 			//  on lui renvoie une réponse d'erreur.
@@ -45,7 +45,7 @@ class LimiterSubscriber implements EventSubscriberInterface
 				$this->translator->trans("global.too_many"),
 				Response::HTTP_TOO_MANY_REQUESTS
 			));
-        }
+		}
 	}
 
 	//
