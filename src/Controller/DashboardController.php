@@ -10,6 +10,8 @@ use App\Entity\Event;
 use App\Entity\Server;
 use App\Service\ServerManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,11 +23,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DashboardController extends AbstractController
 {
+	// Durée du cache pour les données en temps réel du serveur.
+	private const CACHE_LIFETIME = 10;
+
 	//
 	// Initialisation de certaines dépendances du contrôleur.
 	//
 	public function __construct(
 		private ServerManager $serverManager,
+		private CacheInterface $cache,
 		private ValidatorInterface $validator,
 		private TranslatorInterface $translator,
 		private EntityManagerInterface $entityManager,
@@ -166,54 +172,64 @@ class DashboardController extends AbstractController
 		{
 			// Serveur par défaut.
 			$server = $repository->findOneBy(["user" => $user], ["id" => "ASC"]);
+			$serverId = $server->getId();
 
 			// Enregistrement automatique.
-			$request->getSession()->set("serverId", $server->getId());
+			$request->getSession()->set("serverId", $serverId);
 		}
 
-		try
+		// On vérifie également si les données en temps réel du serveur
+		// 	sont déjà dans le cache de données.
+		return $this->cache->get("svc_data_$serverId", function (ItemInterface $item) use ($server): Response|JsonResponse
 		{
-			// On tente après d'établir une connexion avec le serveur.
-			$this->serverManager->connect($server->getAddress(), $server->getPort(), $server->getPassword());
+			// Si ce n'est pas le cas, on définit une durée de vie
+			// 	de persistance pour le cache.
+			$item->expiresAfter(self::CACHE_LIFETIME);
 
-			// En cas de réussite, on récupère toutes les informations
-			//	disponibles et fournies par le module d'administration.
-			$details = $this->serverManager->query->GetInfo();
+			try
+			{
+				// On tente après d'établir une connexion avec le serveur.
+				$this->serverManager->connect($server->getAddress(), $server->getPort(), $server->getPassword());
 
-			// On encode alors certaines de ces informations pour les
-			//	transmettre au client à travers le JavaScript.
-			return new JsonResponse([
+				// En cas de réussite, on récupère toutes les informations
+				//	disponibles et fournies par le module d'administration.
+				$details = $this->serverManager->query->GetInfo();
 
-				// État du serveur.
-				"state" => $this->translator->trans(
-					sprintf("dashboard.state.%s", $details["Password"] ? "service" : "running"),
-					["%gamemode%" => $details["ModDesc"]]
-				),
+				// On encode alors certaines de ces informations pour les
+				//	transmettre au client à travers le JavaScript.
+				return new JsonResponse([
 
-				// Carte/environnement.
-				"map" => $details["Map"],
+					// État du serveur.
+					"state" => $this->translator->trans(
+						sprintf("dashboard.state.%s", $details["Password"] ? "service" : "running"),
+						["%gamemode%" => $details["ModDesc"]]
+					),
 
-				// Nombre de joueurs humains et robots.
-				"count" => sprintf("%d/%d [%d]", $details["Players"], $details["MaxPlayers"], $details["Bots"]),
+					// Carte/environnement.
+					"map" => $details["Map"],
 
-				// Liste des joueurs
-				"players" => $this->serverManager->query->GetPlayers()
+					// Nombre de joueurs humains et robots.
+					"count" => sprintf("%d/%d [%d]", $details["Players"], $details["MaxPlayers"], $details["Bots"]),
 
-			], JsonResponse::HTTP_OK);
-		}
-		catch (\Exception $error)
-		{
-			// En cas d'erreur, on renvoie le message d'erreur à l'utilisateur.
-			return new Response(
-				$this->translator->trans("global.fatal_error", ["%error%" => $error->getMessage()]),
-				Response::HTTP_INTERNAL_SERVER_ERROR
-			);
-		}
-		finally
-		{
-			// Si tout se passe bien, on libère enfin le socket réseau
-			//	pour d'autres scripts du site.
-			$this->serverManager->query->Disconnect();
-		}
+					// Liste des joueurs
+					"players" => $this->serverManager->query->GetPlayers()
+
+				], JsonResponse::HTTP_OK);
+			}
+			catch (\Exception $error)
+			{
+				// En cas d'erreur, on renvoie le message d'erreur à l'utilisateur.
+				return new Response(
+					$this->translator->trans("global.fatal_error", ["%error%" => $error->getMessage()]),
+					Response::HTTP_INTERNAL_SERVER_ERROR
+				);
+			}
+			finally
+			{
+				// Si tout se passe bien, on libère enfin le socket réseau
+				//	pour d'autres scripts du site.
+				$this->serverManager->query->Disconnect();
+			}
+		});
 	}
 }
