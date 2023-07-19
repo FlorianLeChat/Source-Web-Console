@@ -154,8 +154,6 @@ class DashboardController extends AbstractController
 	#[IsGranted("IS_AUTHENTICATED")]
 	public function monitor(Request $request): Response|JsonResponse
 	{
-		// TODO : imposer un délai entre chaque requête pour éviter les abus (https://symfony.com/doc/current/rate_limiter.html).
-
 		// On récupère d'abord le premier serveur lié au compte de l'utilisateur
 		//  ou celui sélectionné par l'utilisateur.
 		/** @var User */

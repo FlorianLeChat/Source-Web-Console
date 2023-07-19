@@ -11,6 +11,7 @@
     <php>
         <ini name="display_errors" value="1" />
         <ini name="error_reporting" value="-1" />
+        <env name="LOCK_DSN" value="flock"/>
         <env name="DATABASE_URL" value="sqlite:///%kernel.project_dir%/var/data.db"/>
         <server name="APP_ENV" value="test" force="true" />
         <server name="SHELL_VERBOSITY" value="-1" />

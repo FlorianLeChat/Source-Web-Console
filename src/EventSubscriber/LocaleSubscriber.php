@@ -49,8 +49,6 @@ class LocaleSubscriber implements EventSubscriberInterface
 	public static function getSubscribedEvents()
 	{
 		return [
-			// On définit la priorité à 20 pour que l'écouteur
-			//  soit exécuté après ceux des autres contrôleurs.
 			KernelEvents::REQUEST => ["onKernelRequest", 20]
 		];
 	}

@@ -78,8 +78,6 @@ class SubmitSubscriber implements EventSubscriberInterface
 	public static function getSubscribedEvents()
 	{
 		return [
-			// On définit la priorité à 10 pour que l'écouteur
-			//  soit exécuté après ceux des autres contrôleurs.
 			KernelEvents::REQUEST => ["onKernelRequest", 10]
 		];
 	}

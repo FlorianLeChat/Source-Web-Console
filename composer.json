@@ -37,6 +37,7 @@
         "doctrine/doctrine-migrations-bundle": "~3.2",
 
         "symfony/flex": "~2.2",
+        "symfony/lock": "6.3.*",
         "symfony/form": "6.3.*",
         "symfony/intl": "6.3.*",
         "symfony/mime": "6.3.*",
@@ -55,6 +56,7 @@
         "symfony/translation": "6.3.*",
         "symfony/twig-bundle": "6.3.*",
         "symfony/http-client": "6.3.*",
+        "symfony/rate-limiter": "6.3.*",
         "symfony/property-info": "6.3.*",
         "symfony/monolog-bundle": "~3.0",
         "symfony/property-access": "6.3.*",
