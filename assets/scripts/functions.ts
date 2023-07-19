@@ -5,7 +5,7 @@
 const notifications = $( "#notifications" );
 const messageQueue: Record<number, [ string, number ]> = {};
 let isInBounds = false;
-let lastText = "";
+let lastText: string;
 let counter = 1;
 let timer: NodeJS.Timeout | undefined;
 

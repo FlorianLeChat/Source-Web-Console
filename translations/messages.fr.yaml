@@ -5,6 +5,7 @@ global:
     restart: "Redémarrer"
     service: "Maintenance"
     shutdown: "Arrêter"
+    too_many: "Veuillez patienter quelques instants avant de réaliser une nouvelle action."
     fatal_error: "Une erreur interne s'est produite lors de la récupération des informations du serveur. Veuillez rafraîchir la page pour relancer la surveillance. Message : « %error% »."
     action_success: "La requête demandée a été envoyée avec succès avec le serveur distant. Dans certains cas, il peut se produire des effets secondaires en fonction de la configuration de votre serveur."
     recaptcha_error: "Les services de vérification de Google reCAPTCHA sont actuellement indisponibles. Veuillez réessayer dans quelques instants."

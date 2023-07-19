@@ -97,8 +97,6 @@ class ActionsController extends AbstractController
 	#[IsGranted("IS_AUTHENTICATED")]
 	public function action(Request $request): Response
 	{
-		// TODO : imposer un délai entre chaque requête pour éviter les abus (https://symfony.com/doc/current/rate_limiter.html).
-
 		// On vérifie tout d'abord la validité du jeton CSRF.
 		$action = $request->request->get("action");
 
