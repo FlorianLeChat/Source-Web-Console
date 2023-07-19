@@ -5,6 +5,7 @@
 const notifications = $( "#notifications" );
 const messageQueue: Record<number, [ string, number ]> = {};
 let isInBounds = false;
+let lastText = "";
 let counter = 1;
 let timer: NodeJS.Timeout | undefined;
 
@@ -22,8 +23,18 @@ function processNotification( text: string, type: number )
 	//  actuellement visible.
 	if ( notifications.is( ":visible" ) )
 	{
+		// On vérifie également si le texte de la notification
+		//  n'est pas le même que le précédent pour éviter de
+		//  créer une notification inutilement.
+		if ( text === lastText )
+		{
+			return true;
+		}
+
 		return false;
 	}
+
+	lastText = text;
 
 	// On apparaître ensuite le bloc avant de définir
 	//  le texte passé en paramètre de la fonction.
