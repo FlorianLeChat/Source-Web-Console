@@ -52,7 +52,6 @@ class DashboardController extends AbstractController
 
 		// On récupère ensuite l'identifiant unique du serveur sélectionné par
 		//  l'action de l'utilisateur.
-		/** @var User */
 		$user = $this->getUser();
 		$cacheId = intval($request->getSession()->get("serverId", 0));
 		$serverId = intval($request->request->get("id", 0));
@@ -156,23 +155,21 @@ class DashboardController extends AbstractController
 	{
 		// On récupère d'abord le premier serveur lié au compte de l'utilisateur
 		//  ou celui sélectionné par l'utilisateur.
-		/** @var User */
 		$user = $this->getUser();
-		$serverId = intval($request->getSession()->get("serverId", 0));
 		$repository = $this->entityManager->getRepository(Server::class);
 
-		if ($serverId !== 0)
+		if ($serverId = intval($request->getSession()->get("serverId", 0)) !== 0)
 		{
 			// Serveur sélectionné par l'utilisateur.
 			$server = $repository->findOneBy(["id" => $serverId, "user" => $user]);
 		}
 		else
 		{
-			// Serveur par défaut.
+			// Premier serveur lié au compte de l'utilisateur.
 			$server = $repository->findOneBy(["user" => $user], ["id" => "ASC"]);
 			$serverId = $server->getId();
 
-			// Enregistrement automatique.
+			// Enregistrement de l'identifiant du serveur dans la session de l'utilisateur.
 			$request->getSession()->set("serverId", $serverId);
 		}
 

@@ -508,7 +508,6 @@ class UserController extends AbstractController
 
 		// On vérifie après si l'utilisateur n'a pas déjà atteint
 		//  la limite de serveurs pour son compte.
-		/** @var User */
 		$user = $this->getUser();
 		$repository = $this->entityManager->getRepository(Server::class);
 

@@ -76,7 +76,6 @@ class TasksController extends AbstractController
 		}
 
 		// On vérifie alors que le serveur existe bien et qu'il appartient à l'utilisateur.
-		/** @var User */
 		$user = $this->getUser();
 		$serverId = intval($request->request->get("server", 0));
 		$serverRepository = $this->entityManager->getRepository(Server::class);

@@ -46,9 +46,7 @@ class ActionsController extends AbstractController
 
 		// On récupère ensuite l'identifiant unique du serveur sélectionné
 		//  précédemment par l'utilisateur.
-		$serverId = intval($request->getSession()->get("serverId", 0));
-
-		if ($serverId !== 0)
+		if ($serverId = intval($request->getSession()->get("serverId", 0)) !== 0)
 		{
 			// Si un serveur est sélectionné, on récupère les informations
 			//  le concernant.
@@ -108,11 +106,19 @@ class ActionsController extends AbstractController
 			);
 		}
 
-		// On récupère ensuite le serveur sélectionné par l'utilisateur.
-		$serverId = intval($request->getSession()->get("serverId", 0));
-
-		if ($serverId === 0 || !$action)
+		// On récupère ensuite le serveur sélectionné ainsi que l'action
+		//  demandée par l'utilisateur.
+		if ($serverId = intval($request->getSession()->get("serverId", 0)) === 0)
 		{
+			// Aucun serveur n'est actuellement sélectionné.
+			return new Response(
+				$this->translator->trans("form.no_server_selected"),
+				Response::HTTP_BAD_REQUEST
+			);
+		}
+		elseif (!$action)
+		{
+			// Aucune action n'a été spécifiée ou n'est valide.
 			return new Response(
 				$this->translator->trans("form.server_check_failed"),
 				Response::HTTP_BAD_REQUEST
@@ -266,7 +272,6 @@ class ActionsController extends AbstractController
 
 		// On vérifie ensuite que l'utilisateur n'a pas déjà trop commandes
 		//  personnalisées.
-		/** @var User */
 		$user = $this->getUser();
 		$repository = $this->entityManager->getRepository(Command::class);
 
