@@ -11,48 +11,45 @@ import { addQueuedNotification } from "../functions";
 // Permet d'enregistrer ou de mettre à jour les données du
 //  serveur de stockage FTP.
 //
-$( "form" ).on( "submit", ( event ) =>
+const storage = $( "#storage" );
+
+$( "form" ).on( "submit", async ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
 
 	// On réalise ensuite la requête AJAX.
-	$.post( "includes/controllers/server_storage.php", {
+	const response = await fetch( storage.data( "route" ), {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded"
+		},
+		body: new URLSearchParams( {
+			// Jeton de sécurité (CSRF).
+			token: storage.data( "token" ),
 
-		// Action qui doit être réalisée (insertion, mise à jour ou connexion).
-		ftp_action: $( event.target ).data( "action" ),
+			// Action qui doit être réalisée (insertion, mise à jour ou connexion).
+			action: storage.data( "action" ),
 
-		// Adresse IP du serveur FTP.
-		ftp_address: $( "[name = ftp_address]" ).val(),
+			// Adresse IP du serveur FTP.
+			address: $( "[name = address]" ).val() as string,
 
-		// Port de communication du serveur FTP.
-		ftp_port: $( "[name = ftp_port]" ).val(),
+			// Port de communication du serveur FTP.
+			port: $( "[name = port]" ).val() as string,
 
-		// Protocole de transmission du serveur FTP.
-		ftp_protocol: $( "[name = ftp_protocol] option:checked" ).val(),
+			// Protocole de transmission du serveur FTP.
+			protocol: $( "[name = protocol] option:checked" ).val() as string,
 
-		// Nom d'utilisateur du serveur FTP.
-		ftp_user: $( "[name = ftp_user]" ).val(),
+			// Nom d'utilisateur du serveur FTP.
+			user: $( "[name = user]" ).val() as string,
 
-		// Mot de passe du serveur FTP.
-		ftp_password: $( "[name = ftp_password]" ).val()
-
-	} )
-		.done( ( data ) =>
-		{
-			// Une fois terminée, on affiche la notification d'information
-			//  à l'utilisateur pour lui indiquer si la requête a été envoyée
-			//  ou non avec succès au serveur distant.
-			if ( data )
-			{
-				addQueuedNotification( data, 3 );
-			}
+			// Mot de passe du serveur FTP.
+			password: $( "[name = password]" ).val() as string
 		} )
-		.fail( ( self ) =>
-		{
-			// Dans le cas contraire, on affiche un message d'erreur.
-			addQueuedNotification( self.responseText, 1 );
-		} );
+	} );
+
+	// On affiche enfin un message de confirmation ou d'erreur.
+	addQueuedNotification( await response.text(), response.ok ? 3 : 1 );
 } );
 
 //
