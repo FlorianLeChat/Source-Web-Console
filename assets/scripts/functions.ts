@@ -8,6 +8,7 @@ let isInBounds = false;
 let lastText: string;
 let counter = 1;
 let timer: NodeJS.Timeout | undefined;
+let loop: NodeJS.Timeout | undefined;
 
 export function addQueuedNotification( text: string, type: number )
 {
@@ -64,7 +65,7 @@ function processNotification( text: string, type: number )
 		icon.addClass( "bi-info-square-fill" );
 	}
 
-	setInterval( () =>
+	loop = setInterval( () =>
 	{
 		// On vérifie si la souris est actuellement dans la zone
 		//  de la notification pour ne pas la supprimer.
@@ -75,7 +76,6 @@ function processNotification( text: string, type: number )
 			if ( timer )
 			{
 				clearTimeout( timer );
-				isInBounds = false;
 				timer = undefined;
 			}
 
@@ -97,9 +97,13 @@ function processNotification( text: string, type: number )
 					icon.removeAttr( "class" );
 					notifications.removeAttr( "class" );
 
-					// Suppression du minuteur.
-					clearTimeout( timer );
+					// Suppression des minuteurs.
 					isInBounds = false;
+
+					clearTimeout( loop );
+					clearTimeout( timer );
+
+					loop = undefined;
 					timer = undefined;
 				}, 250 );
 			}, 4750 );
