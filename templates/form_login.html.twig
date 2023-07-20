@@ -19,9 +19,6 @@
 	<input type="password" autocomplete="current-password" spellcheck="false" id="login_password" name="password" placeholder="?JohnDoe2022!" minlength="10" maxlength="100" required />
 	<span></span>
 
-	{# Champ caché pour le jeton de sécurité (CSRF) #}
-	<input type="hidden" name="token" value="{{ csrf_token("user_login") }}">
-
 	{# Liens vers l'inscription, connexion unique ou la récupération de mot de passe. #}
 	<em data-route="{{ path("user_recover") }}">{{ t("form.login.links")|trans|raw }}</em>
 

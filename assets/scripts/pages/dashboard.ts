@@ -49,7 +49,7 @@ $( "[name = server_edit]" ).one( "click", ( event ) =>
 		parent.append( "<input type=\"hidden\" name=\"action\" value=\"delete\" />" );
 
 		// Suppression du premier jeton CSRF (pour l'édition).
-		parent.find( "[name=token]" ).first().remove();
+		parent.find( "[name = token]" ).first().remove();
 	}
 	else
 	{
@@ -84,7 +84,7 @@ $( "[name = server_edit]" ).one( "click", ( event ) =>
 		}
 
 		// Suppression du dernier jeton CSRF (pour la suppression).
-		parent.find( "[name=token]" ).last().remove();
+		parent.find( "[name = token]" ).last().remove();
 	}
 
 	// On force enfin la soumission du formulaire.

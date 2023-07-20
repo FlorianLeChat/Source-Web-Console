@@ -36,7 +36,7 @@ account.on( "click", "[data-action]", async ( event ) =>
 		},
 		body: new URLSearchParams( {
 			// Jeton de sécurité (CSRF).
-			token: account.find( `[name = token-${ action }]` ).val() as string,
+			token: target.data( "token" ),
 
 			// Valeur du nouveau nom d'utilisateur.
 			username: account.find( "[name = username]" ).val() as string,
@@ -77,7 +77,7 @@ actions.on( "click", "[type = submit]", async ( event ) =>
 		},
 		body: new URLSearchParams( {
 			// Jeton de sécurité (CSRF).
-			token: actions.find( `[name = token-${ target.data( "action" ) }]` ).val() as string,
+			token: target.data( "token" ),
 
 			// Valeur du nouveau nom d'utilisateur.
 			username: actions.find( "[name = username]" ).val() as string,
@@ -128,7 +128,7 @@ submit.on( "click", async ( event ) =>
 		},
 		body: new URLSearchParams( {
 			// Jeton de sécurité (CSRF).
-			token: form.find( "[name = token]" ).val() as string,
+			token: register.data( "token" ),
 
 			// Nom d'utilisateur et mot de passe du compte utilisateur.
 			username: form.find( "[name = username]" ).val() as string,

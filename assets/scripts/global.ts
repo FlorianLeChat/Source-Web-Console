@@ -206,7 +206,7 @@ contact.on( "submit", "form", async ( event ) =>
 		},
 		body: new URLSearchParams( {
 			// Jeton de sécurité (CSRF).
-			token: contact.find( "input[name = token]" ).val() as string,
+			token: contact.data( "token" ),
 
 			// Adresse électronique.
 			email: contact.find( "input[name = email]" ).val() as string,
