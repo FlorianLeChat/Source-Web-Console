@@ -5,7 +5,7 @@
 {% block javascript %}
 	<script>
 		// Libellé demandant la suppression ou non du compte utilisateur.
-		window.edit_remove = "{{ t("user.edit_remove")|trans }}";
+		window.edit_remove = "{{ t("user.edit_remove")|trans|escape("js") }}";
 	</script>
 {% endblock %}
 

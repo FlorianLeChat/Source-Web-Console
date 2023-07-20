@@ -40,10 +40,10 @@
 			window.capslock_enabled = "{{ t("form.capslock_warning")|trans|escape("js") }}";
 
 			// Clé de sécurité publique pour le service de Google reCAPTCHA.
-			window.recaptcha_public_key = "{{ global_recaptcha }}"
+			window.recaptcha_public_key = "{{ global_recaptcha|escape("js") }}"
 
 			// Identifiant unique pour les mesures de Google Analytics.
-			window.analytics_identifier = "{{ global_analytics }}"
+			window.analytics_identifier = "{{ global_analytics|escape("js") }}"
 		</script>
 
 		{# Injection de code JavaScript #}
