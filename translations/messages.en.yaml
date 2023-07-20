@@ -21,6 +21,7 @@ header:
         admin: "Administration"
         tasks: "Scheduled tasks"
         events: "Logged events"
+        storage: "Remote storage"
         console: "Interactive console"
         actions: "Actions and commands"
         commands: "Custom commands"

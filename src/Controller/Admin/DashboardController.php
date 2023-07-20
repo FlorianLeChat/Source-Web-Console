@@ -10,6 +10,7 @@ use App\Entity\Task;
 use App\Entity\Event;
 use App\Entity\Stats;
 use App\Entity\Server;
+use App\Entity\Storage;
 use App\Entity\Contact;
 use App\Entity\Command;
 use Symfony\Component\Intl\Languages;
@@ -86,6 +87,7 @@ class DashboardController extends AbstractDashboardController
 			MenuItem::linkToCrud("header.subtitle.events", "fa fa-comment", Event::class),
 			MenuItem::linkToCrud("header.subtitle.statistics", "fa-solid fa-chart-line", Stats::class),
 			MenuItem::linkToCrud("header.subtitle.tasks", "fa-solid fa-list-check", Task::class),
+			MenuItem::linkToCrud("header.subtitle.storage", "fa-solid fa-cloud-arrow-down", Storage::class),
 
 			// Pages.
 			MenuItem::section("admin.pages"),
