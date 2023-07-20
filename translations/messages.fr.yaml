@@ -21,6 +21,7 @@ header:
         admin: "Administration"
         tasks: "Tâches planifiées"
         events: "Événements journalisés"
+        storage: "Stockage distant"
         console: "Console interactive"
         actions: "Actions et commandes"
         commands: "Commandes personnalisées"
