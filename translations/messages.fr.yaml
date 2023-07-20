@@ -88,6 +88,7 @@ form:
     clear_password: "Afficher le mot de passe"
     validate_button: "Valider"
     capslock_warning: "Les touches majuscules sont activées."
+    no_selected_server: "Veuillez sélectionner un serveur dans le tableau de bord avant de réaliser cette requête."
     server_check_failed: "Les données renseignées n'ont pas permis de réaliser cette requête."
 
 admin:
