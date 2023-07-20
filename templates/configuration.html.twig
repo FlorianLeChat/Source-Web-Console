@@ -7,7 +7,7 @@
 	<p>{{ t("configuration.description")|trans }}</p>
 
 	{# Informations de connexion FTP #}
-	<section id="stockage">
+	<section id="storage" data-action="{{ configuration_credentials is not empty ? "update" : "insert" }}" data-route="{{ path("configuration_update") }}" data-token="{{ csrf_token("configuration_update") }}">
 		{# Titre de la section #}
 		<h2>{{ t("configuration.storage.title")|trans }}</h2>
 
@@ -20,29 +20,29 @@
 		{# Formulaire d'ajout d'un serveur #}
 		<form method="POST">
 			{# Adresse IP #}
-			<label for="ftp_address">{{ t("configuration.storage.address")|trans }}<span>*</span></label>
-			<input type="text" spellcheck="false" id="ftp_address" name="ftp_address" placeholder="51.75.125.244" minlength="7" maxlength="15" value="{{ configuration_credentials["host"] ?? "" }}" required />
+			<label for="address">{{ t("configuration.storage.address")|trans }}<span>*</span></label>
+			<input type="text" spellcheck="false" id="address" name="address" placeholder="51.75.125.244" minlength="7" maxlength="15" value="{{ configuration_credentials["host"] ?? "" }}" required />
 
 			{# Port de communication #}
-			<input type="text" spellcheck="false" id="ftp_port" name="ftp_port" placeholder="22" minlength="5" maxlength="5" value="{{ configuration_credentials["port"] ?? "" }}" required />
+			<input type="number" id="port" name="port" placeholder="22" min="1" max="99999" value="{{ configuration_credentials["port"] ?? "" }}" required />
 
 			{# Type de protocole #}
-			<label for="ftp_protocol">{{ t("configuration.storage.protocol")|trans }}<span>*</span></label>
-			<select id="ftp_protocol" name="ftp_protocol">
+			<label for="protocol">{{ t("configuration.storage.protocol")|trans }}<span>*</span></label>
+			<select id="protocol" name="protocol">
 				<option value="ftp" {{ configuration_credentials["protocol"] ?? "ftp" == "ftp" ? "selected" : "" }}>{{ t("configuration.storage.ftp")|trans }}</option>
 				<option value="sftp" {{ configuration_credentials["protocol"] ?? "" == "sftp" ? "selected" : "" }}>{{ t("configuration.storage.sftp")|trans }}</option>
 			</select>
 
 			{# Nom d'utilisateur #}
-			<label for="ftp_user">{{ t("configuration.storage.username")|trans }}<span>*</span></label>
-			<input type="text" autocomplete="username" spellcheck="false" id="ftp_user" name="ftp_user" placeholder="johndoe" value="{{ configuration_credentials["username"] ?? "" }}" required />
+			<label for="user">{{ t("configuration.storage.username")|trans }}<span>*</span></label>
+			<input type="text" autocomplete="username" spellcheck="false" id="user" name="user" placeholder="johndoe" value="{{ configuration_credentials["username"] ?? "" }}" required />
 
 			{# Mot de passe #}
-			<label for="ftp_password">{{ t("configuration.storage.password")|trans }}<span>*</span></label>
-			<input type="password" autocomplete="current-password" spellcheck="false" id="ftp_password" name="ftp_password" placeholder="?JohnDoe2022!" value="{{ configuration_credentials["password"] ?? "" }}" required />
+			<label for="password">{{ t("configuration.storage.password")|trans }}<span>*</span></label>
+			<input type="password" autocomplete="current-password" spellcheck="false" id="password" name="password" placeholder="?JohnDoe2022!" value="{{ configuration_credentials["password"] ?? "" }}" required />
 
 			{# Validation/Mise à jour #}
-			<input type="submit" data-action="{{ configuration_credentials is not empty ? "update" : "insert" }}" value="{{ configuration_credentials is not empty ? t("global.update")|trans : t("form.validate_button")|trans }}" />
+			<input type="submit" value="{{ configuration_credentials is not empty ? t("global.update")|trans : t("form.validate_button")|trans }}" />
 		</form>
 	</section>
 

@@ -33,7 +33,7 @@ main
 		@include navigation-bar;
 	}
 
-	#stockage
+	#storage
 	{
 		// Informations de connexion FTP.
 		color: $text-color;
@@ -90,7 +90,7 @@ main
 				}
 			}
 
-			input[type = text], input[type = password], select
+			input[type = text], input[type = number], input[type = password], select
 			{
 				// Champs et zones de saisies.
 				width: calc(100% - 2rem);
