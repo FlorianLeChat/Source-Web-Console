@@ -60,7 +60,7 @@ register.on( "submit", "form", async ( event ) =>
 			},
 			body: new URLSearchParams( {
 				// Jeton de sécurité (CSRF).
-				token: register.find( "[name = token]" ).val() as string,
+				token: parent.data( "token" ),
 
 				// Nom d'utilisateur et mot de passe du compte utilisateur.
 				username: firstStep.find( "[name = username]" ).val() as string,
@@ -152,7 +152,7 @@ login.on( "click", "[type = submit]", async ( event ) =>
 		},
 		body: new URLSearchParams( {
 			// Jeton de sécurité (CSRF).
-			token: login.find( "[name = token]" ).val() as string,
+			token: login.data( "token" ),
 
 			// Nom d'utilisateur.
 			username: login.find( "[name = username]" ).val() as string,
@@ -232,14 +232,15 @@ links.last().on( "click", async ( event ) =>
 	}
 
 	// On réalise ensuite la requête AJAX.
-	const response = await fetch( $( event.target ).parent().data( "route" ), {
+	const parent = $( event.target ).parent();
+	const response = await fetch( parent.data( "route" ), {
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"
 		},
 		body: new URLSearchParams( {
 			// Jeton de sécurité (CSRF).
-			token: login.find( "[name = token]" ).val() as string,
+			token: parent.data( "token" ),
 
 			// Nom d'utilisateur associé au compte.
 			username,

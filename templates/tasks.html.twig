@@ -14,7 +14,7 @@
 	{# Description de la page #}
 	<p>{{ t("tasks.description")|trans }}</p>
 
-	<section id="tasks" data-add-route="{{ path("tasks_add") }}" data-remove-route="{{ path("tasks_remove") }}">
+	<section id="tasks" data-add-route="{{ path("tasks_add") }}" data-remove-route="{{ path("tasks_remove") }}" data-token="{{ csrf_token("server_tasks") }}">
 		{# Titre de la section #}
 		<h2>{{ t("header.subtitle.tasks")|trans }}</h2>
 
@@ -92,9 +92,6 @@
 					<option value="service">{{ t("global.service")|trans }}</option>
 				</select>
 			</div>
-
-			{# Champs cachés pour les jetons de sécurité (CSRF) #}
-			<input type="hidden" name="token" value="{{ csrf_token("server_tasks") }}">
 
 			{# Validation finale #}
 			<input type="submit" value="{{ t("form.validate_button")|trans }}" />

@@ -90,9 +90,6 @@
 
 		<em>{{ t("form.register.admin.description")|trans }}</em>
 
-		{# Champ caché pour le jeton de sécurité (CSRF) #}
-		<input type="hidden" name="token" value="{{ csrf_token("user_register") }}">
-
 		{# Validation/annulation #}
 		<input type="reset" value="{{ t("form.cancel_button")|trans }}" />
 		<input type="submit" value="{{ t("form.validate_button")|trans }}" />

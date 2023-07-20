@@ -35,11 +35,8 @@
 
 			{# Suppression/mise à jour #}
 			<div>
-				<input type="hidden" name="token-remove" value="{{ csrf_token("user_remove") }}">
-				<input type="submit" data-action="remove" data-route="{{ path("user_remove") }}" value="{{ t("global.remove")|trans }}" />
-
-				<input type="hidden" name="token-update" value="{{ csrf_token("user_update") }}">
-				<input type="submit" data-action="update" data-route="{{ path("user_update") }}" value="{{ t("global.update")|trans }}" />
+				<input type="submit" data-action="remove" data-route="{{ path("user_remove") }}" data-token="{{ csrf_token("user_remove") }}" value="{{ t("global.remove")|trans }}" />
+				<input type="submit" data-action="update" data-route="{{ path("user_update") }}" data-token="{{ csrf_token("user_update") }}" value="{{ t("global.update")|trans }}" />
 			</div>
 		</form>
 	</section>
@@ -49,16 +46,14 @@
 		<h2>{{ t("user.actions")|trans }}</h2>
 
 		{# Bouton de déconnexion #}
-		<input type="hidden" name="token-logout" value="{{ csrf_token("user_logout") }}">
-		<input type="submit" data-action="logout" data-route="{{ path("user_logout") }}" value="{{ t("user.disconnect")|trans }}" />
+		<input type="submit" data-action="logout" data-route="{{ path("user_logout") }}" data-token="{{ csrf_token("user_logout") }}" value="{{ t("user.disconnect")|trans }}" />
 
 		{# Bouton de reconnexion #}
-		<input type="hidden" name="token-login" value="{{ csrf_token("user_login") }}">
-		<input type="submit" data-action="login" data-route="{{ path("user_login") }}" value="{{ t("user.reconnect")|trans }}" />
+		<input type="submit" data-action="login" data-route="{{ path("user_login") }}" data-token="{{ csrf_token("user_login") }}" value="{{ t("user.reconnect")|trans }}" />
 	</section>
 
 	{# Ajout d'un serveur #}
-	<section id="register" data-route="{{ path("server_new") }}">
+	<section id="register" data-route="{{ path("server_new") }}" data-token="{{ csrf_token("user_register") }}">
 		{% include("form_register.html.twig") %}
 	</section>
 {% endblock %}

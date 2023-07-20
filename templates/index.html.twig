@@ -97,12 +97,12 @@
 	</section>
 
 	{# Formulaire d'inscription #}
-	<section id="register" data-route="{{ path("user_register") }}" data-redirect="{{ path("dashboard_page") }}">
+	<section id="register" data-route="{{ path("user_register") }}" data-redirect="{{ path("dashboard_page") }}" data-token="{{ csrf_token("user_register") }}">
 		{% include("form_register.html.twig") %}
 	</section>
 
 	{# Formulaire de connexion #}
-	<section id="login" data-route="{{ path("user_login") }}" data-redirect="{{ path("dashboard_page") }}">
+	<section id="login" data-route="{{ path("user_login") }}" data-redirect="{{ path("dashboard_page") }}" data-token="{{ csrf_token("user_login") }}">
 		{% include("form_login.html.twig") %}
 	</section>
 

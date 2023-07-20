@@ -26,7 +26,7 @@ $( "form" ).on( "submit", async ( event ) =>
 		},
 		body: new URLSearchParams( {
 			// Jeton de sécurité (CSRF).
-			token: $( "[name = token]" ).val() as string,
+			token: tasks.data( "token" ),
 
 			// Date de déclenchement de l'action (format horodatage).
 			date: $( "[name = date]" ).val() as string,
@@ -71,7 +71,7 @@ $( "table tr:not([class = finished])" ).on( "click", async ( event ) =>
 			},
 			body: new URLSearchParams( {
 				// Jeton de sécurité (CSRF).
-				token: $( "[name = token]" ).val() as string,
+				token: tasks.data( "token" ),
 
 				// Identifiant unique de la tâche sélectionnée.
 				task: target.data( "task" ),
