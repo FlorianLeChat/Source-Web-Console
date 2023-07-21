@@ -129,6 +129,7 @@ configuration:
     loading:
         title: "Loading screen"
         description: "This parameter allows you to change the destination URL to the loading screen that should be displayed when automatically downloading resources."
+    updated: "The general configuration of your server has been successfully updated. The page will be refreshed automatically."
     storage:
         ftp: "File Transfer Protocol (FTP)"
         sftp: "Secure File Transfer Protocol (SFTP) over SSH"
