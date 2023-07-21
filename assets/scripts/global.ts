@@ -19,6 +19,7 @@ declare global
 
 		utc_time: string;
 		cpu_usage: string;
+		fps_usage: string;
 		tick_rate: string;
 		player_count: string;
 		onetime_info: string;

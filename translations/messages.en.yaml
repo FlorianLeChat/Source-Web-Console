@@ -196,7 +196,7 @@ statistics:
         utc: "UTC time"
         cpu: "CPU (in %)"
         tick: "Tick (FPS)"
-        usage: "Usage percentage"
+        usage: "Tick usage (FPS)"
         players: "Player count"
     description: "The statistics page is a page allowing to visualize the information collected automatically by the infrastructure of the website. This information is of course anonymized and saved in a safe place for viewing."
     orientation: "Please rotate your device."
