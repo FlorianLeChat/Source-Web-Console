@@ -12,7 +12,14 @@ let loop: NodeJS.Timeout | undefined;
 
 export function addQueuedNotification( text: string, type: number )
 {
-	// On ajoute la notification dans une file d'attente
+	// On vérifie d'abord si le texte de la notification n'est pas
+	//  vide ou si le texte n'est pas une page HTML.
+	if ( text.includes( "<!DOCTYPE html>" ) )
+	{
+		return;
+	}
+
+	// On ajoute enfin la notification dans une file d'attente
 	//  afin d'être traitée les uns après les autres.
 	messageQueue[ counter ] = [ text.substring( 0, 500 ), type ];
 	counter++;
