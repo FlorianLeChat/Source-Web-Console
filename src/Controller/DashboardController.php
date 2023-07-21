@@ -5,16 +5,17 @@
 //
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Entity\Event;
 use App\Entity\Server;
 use App\Service\ServerManager;
+use Symfony\Component\Yaml\Yaml;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -32,10 +33,23 @@ class DashboardController extends AbstractController
 	public function __construct(
 		private ServerManager $serverManager,
 		private CacheInterface $cache,
+		private KernelInterface $kernel,
 		private ValidatorInterface $validator,
 		private TranslatorInterface $translator,
 		private EntityManagerInterface $entityManager,
 	) {}
+
+	//
+	// Route vers la représentation JSON des traductions Symfony.
+	//
+	#[Route("/translations/{language}", name: "translations_page")]
+	public function translations(Request $request, ?string $language): JsonResponse
+	{
+		return new JsonResponse(
+			Yaml::parseFile(sprintf("%s/translations/messages.%s.yaml", $this->kernel->getProjectDir(), $language ?? $request->getLocale())),
+			JsonResponse::HTTP_OK
+		);
+	}
 
 	//
 	// Route vers la page du tableau de bord.

@@ -66,8 +66,8 @@ if ( window.location.search !== "legal" )
 				default: "en",
 				autoDetect: "document",
 				translations: {
-					en: "locales/en.json",
-					fr: "locales/fr.json"
+					en: "translations/en",
+					fr: "translations/fr"
 				}
 			},
 
