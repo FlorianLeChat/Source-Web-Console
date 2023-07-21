@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\StorageRepository;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: StorageRepository::class)]
 #[ApiResource(
@@ -31,18 +32,33 @@ class Storage
 	private ?Server $server = null;
 
 	#[ORM\Column(length: 15)]
+	#[Assert\Ip]
+	#[Assert\Length(min: 7, max: 15)]
+	#[Assert\NotNull]
+	#[Assert\NotBlank]
 	private ?string $address = null;
 
 	#[ORM\Column(length: 5)]
+	#[Assert\Length(min: 1, max: 5)]
+	#[Assert\NotNull]
+	#[Assert\NotBlank]
 	private ?string $port = null;
 
 	#[ORM\Column(length: 4)]
+	#[Assert\Choice(["ftp", "sftp"])]
+	#[Assert\NotNull]
+	#[Assert\NotBlank]
 	private ?string $protocol = null;
 
 	#[ORM\Column(length: 255)]
+	#[Assert\Length(max: 255)]
+	#[Assert\NotNull]
+	#[Assert\NotBlank]
+	#[Assert\NoSuspiciousCharacters]
 	private ?string $username = null;
 
 	#[ORM\Column(length: 255)]
+	#[Assert\Length(max: 255)]
 	private ?string $password = null;
 
 	public function getId(): ?int
@@ -67,7 +83,7 @@ class Storage
 		return $this->address;
 	}
 
-	public function setAddress(string $address): static
+	public function setAddress(?string $address): static
 	{
 		$this->address = $address;
 
@@ -79,7 +95,7 @@ class Storage
 		return $this->port;
 	}
 
-	public function setPort(string $port): static
+	public function setPort(?string $port): static
 	{
 		$this->port = $port;
 
@@ -91,7 +107,7 @@ class Storage
 		return $this->protocol;
 	}
 
-	public function setProtocol(string $protocol): static
+	public function setProtocol(?string $protocol): static
 	{
 		$this->protocol = $protocol;
 
@@ -103,7 +119,7 @@ class Storage
 		return $this->username;
 	}
 
-	public function setUsername(string $username): static
+	public function setUsername(?string $username): static
 	{
 		$this->username = $username;
 
@@ -115,7 +131,7 @@ class Storage
 		return $this->password;
 	}
 
-	public function setPassword(string $password): static
+	public function setPassword(?string $password): static
 	{
 		$this->password = $password;
 
