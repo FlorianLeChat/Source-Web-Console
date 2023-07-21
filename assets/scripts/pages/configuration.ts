@@ -41,15 +41,25 @@ $( "form" ).on( "submit", async ( event ) =>
 			protocol: $( "[name = protocol] option:checked" ).val() as string,
 
 			// Nom d'utilisateur du serveur FTP.
-			user: $( "[name = user]" ).val() as string,
+			username: $( "[name = username]" ).val() as string,
 
 			// Mot de passe du serveur FTP.
 			password: $( "[name = password]" ).val() as string
 		} )
 	} );
 
-	// On affiche enfin un message de confirmation ou d'erreur.
+	// On affiche après un message de confirmation ou d'erreur.
 	addQueuedNotification( await response.text(), response.ok ? 3 : 1 );
+
+	// On vérifie si la requête a été effectuée avec succès.
+	if ( response.ok )
+	{
+		// Dans ce cas, on actualise enfin la page après 3 secondes.
+		setTimeout( () =>
+		{
+			window.location.reload();
+		}, 3000 );
+	}
 } );
 
 //

@@ -129,6 +129,7 @@ configuration:
     loading:
         title: "Écran de chargement"
         description: "Ce paramètre permet de modifier l'URL de destination vers l'écran de chargement qui doit être affiché lors du téléchargement automatique des ressources."
+    updated: "La configuration générale de votre serveur a été mise à jour avec succès. La page va être rafraîchie automatiquement."
     storage:
         ftp: "Protocole de transfert de fichier (FTP)"
         sftp: "Protocole de transfert de fichier par SSH (SFTP)"
