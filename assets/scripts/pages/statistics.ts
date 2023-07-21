@@ -22,7 +22,7 @@ const playerChart = new Chart( "player_count", {
 				fill: true,
 				borderWidth: 3,
 				borderColor: "#f59a23",
-				hoverBorderColor: "#797979",
+				hoverBorderColor: "#f59a23",
 				hoverBackgroundColor: "#f2f2f2"
 			}
 		]
@@ -75,7 +75,6 @@ const playerChart = new Chart( "player_count", {
 			y: {
 				// Axe Y : nombre de joueurs compris entre 0 et 128 (limitation des serveurs).
 				max: 128,
-				labels: [ "0", "128" ],
 				grid: {
 					color: "#797979"
 				},
@@ -109,7 +108,7 @@ playerChart.update();
 //  d'utilisation du serveur en fonction du temps.
 //
 const serverChart = new Chart( "server_usage", {
-	type: "bar",
+	type: "line",
 	data: {
 		labels: window.time_data,
 		datasets: [
@@ -117,17 +116,30 @@ const serverChart = new Chart( "server_usage", {
 			{
 				data: window.cpu_usage_data,
 				label: window.cpu_usage,
-				backgroundColor: "#ed431d"
+				borderWidth: 3,
+				borderColor: "#ed431d",
+				backgroundColor: "#ed431d",
+				hoverBorderColor: "#ed431d",
+				hoverBackgroundColor: "#f2f2f2"
 			},
 			{
 				data: window.tick_rate_data,
 				label: window.tick_rate,
-				backgroundColor: "#016fa0"
+				borderWidth: 3,
+				borderColor: "#016fa0",
+				backgroundColor: "#016fa0",
+				hoverBorderColor: "#016fa0",
+				hoverBackgroundColor: "#f2f2f2"
 			}
 		]
 	},
 	options: {
 		responsive: true,
+		interaction: {
+			// Mode d'interaction avec l'axe X (sélection du point le plus proche).
+			mode: "nearest",
+			intersect: false
+		},
 		plugins: {
 			// Personnalisation de la légende du graphique.
 			legend: {
@@ -176,9 +188,8 @@ const serverChart = new Chart( "server_usage", {
 				}
 			},
 			y: {
-				// Axe Y : charge d'utilisation du processeur et de la mémoire (comprise entre 0 et 100%).
-				max: 100,
-				labels: [ "0", "100" ],
+				// Axe Y : taux de rafraîchissement (tickrate)
+				max: 128,
 				grid: {
 					color: "#797979"
 				},
@@ -190,7 +201,7 @@ const serverChart = new Chart( "server_usage", {
 				},
 				title: {
 					display: true,
-					text: window.usage_percent,
+					text: window.fps_usage,
 					color: "#f59a23",
 					font: {
 						size: 20,
