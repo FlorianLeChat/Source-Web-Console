@@ -5,7 +5,6 @@
 //
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Entity\Event;
 use App\Entity\Server;
 use App\Entity\Command;
