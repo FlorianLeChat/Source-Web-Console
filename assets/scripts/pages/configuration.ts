@@ -18,6 +18,10 @@ $( "form" ).on( "submit", async ( event ) =>
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
 
+	// On bloque également le bouton de soumission
+	//  pour éviter les abus.
+	storage.find( "[type = submit]" ).prop( "disabled", true );
+
 	// On réalise ensuite la requête AJAX.
 	const response = await fetch( storage.data( "route" ), {
 		method: "POST",
@@ -54,11 +58,16 @@ $( "form" ).on( "submit", async ( event ) =>
 	// On vérifie si la requête a été effectuée avec succès.
 	if ( response.ok )
 	{
-		// Dans ce cas, on actualise enfin la page après 3 secondes.
+		// Dans ce cas, on actualise alors la page après 3 secondes.
 		setTimeout( () =>
 		{
 			window.location.reload();
 		}, 3000 );
+	}
+	else
+	{
+		// On libère enfin le bouton de soumission en cas d'erreur.
+		storage.find( "[type = submit]" ).prop( "disabled", false );
 	}
 } );
 

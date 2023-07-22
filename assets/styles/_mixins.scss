@@ -52,6 +52,13 @@
 		font-weight: bold;
 		background-color: $background-color;
 	}
+
+	&:disabled
+	{
+		// Désactivation conditionnelle du bouton.
+		filter: opacity(0.5);
+		pointer-events: none;
+	}
 }
 
 // Permet d'appliquer automatiquement les modifications
@@ -74,6 +81,13 @@
 		color: $validate-color;
 		font-weight: bold;
 		background-color: $background-color;
+	}
+
+	&:disabled
+	{
+		// Désactivation conditionnelle du bouton.
+		filter: opacity(0.5);
+		pointer-events: none;
 	}
 }
 

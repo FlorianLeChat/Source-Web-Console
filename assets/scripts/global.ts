@@ -199,6 +199,11 @@ contact.on( "submit", "form", async ( event ) =>
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
 
+	// On bloque également les boutons de soumission et
+	//  de réinitialisation pour éviter les abus.
+	contact.find( "[type = submit]" ).prop( "disabled", true );
+	contact.find( "[type = reset]" ).prop( "disabled", true );
+
 	// On réalise alors la requête AJAX.
 	const response = await fetch( contact.data( "route" ), {
 		method: "POST",
@@ -226,10 +231,17 @@ contact.on( "submit", "form", async ( event ) =>
 	// On vérifie si la requête a été effectuée avec succès.
 	if ( response.ok )
 	{
-		// Dans ce cas, on réinitialise enfin l'entièreté du formulaire
+		// Dans ce cas, on réinitialise l'entièreté du formulaire
 		//  avant de le fermer.
 		contact.find( "form" )[ 0 ].reset();
 		contact.fadeOut( 150 );
+	}
+	else
+	{
+		// On libère enfin les boutons de soumission et
+		//  de réinitialisation en cas d'erreur.
+		contact.find( "[type = submit]" ).prop( "disabled", false );
+		contact.find( "[type = reset]" ).prop( "disabled", false );
 	}
 } );
 
