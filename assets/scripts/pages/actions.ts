@@ -11,7 +11,7 @@ import { sendRemoteAction, addQueuedNotification } from "../functions";
 // Permet d'envoyer des requêtes d'action lors du clic sur l'un des
 //  boutons présents (par défaut ou non) sur la page.
 //
-$( "#actions ul:first-of-type li, .switch span" ).on( "click", ( event ) =>
+$( "#actions ul:first-of-type li, .switch span" ).on( "click", async ( event ) =>
 {
 	// Requête classique en fonction du bouton.
 	const target = $( event.target );
@@ -19,15 +19,37 @@ $( "#actions ul:first-of-type li, .switch span" ).on( "click", ( event ) =>
 
 	if ( element.data( "action" ) )
 	{
-		sendRemoteAction( element.data( "token" ), element.data( "route" ), element.data( "action" ) );
+		// Blocage du bouton pour éviter les abus.
+		element.addClass( "disabled" );
+
+		// Exécution de la requête d'action.
+		const state = await sendRemoteAction( element.data( "token" ), element.data( "route" ), element.data( "action" ) );
+
+		if ( !state )
+		{
+			// Libération du bouton en cas d'erreur.
+			element.removeClass( "disabled" );
+		}
 	}
 } );
 
-$( "#actions ul:first-of-type li:first-of-type" ).on( "dblclick", ( event ) =>
+$( "#actions ul:first-of-type li:first-of-type" ).on( "dblclick", async ( event ) =>
 {
 	// Requête d'arrêt forcée
 	const target = $( event.target );
-	sendRemoteAction( target.data( "token" ), target.data( "route" ), target.data( "action" ) );
+	const parent = target.parent();
+
+	// Blocage du bouton pour éviter les abus.
+	parent.addClass( "disabled" );
+
+	// Exécution de la requête d'action.
+	const state = await sendRemoteAction( target.data( "token" ), target.data( "route" ), target.data( "action" ) );
+
+	if ( !state )
+	{
+		// Libération du bouton en cas d'erreur.
+		parent.removeClass( "disabled" );
+	}
 } );
 
 //
@@ -36,7 +58,7 @@ $( "#actions ul:first-of-type li:first-of-type" ).on( "dblclick", ( event ) =>
 //
 const commands = $( "#commands" );
 
-commands.on( "click", "[data-action=add]", async ( event ) =>
+commands.on( "click", "[data-action = add]", async ( event ) =>
 {
 	// On récupère d'abord les informations de la nouvelle
 	//  commande personnalisée.
@@ -91,7 +113,7 @@ commands.on( "click", "[data-action=add]", async ( event ) =>
 	}
 } );
 
-commands.on( "click", "[data-action=remove]", async ( event ) =>
+commands.on( "click", "[data-action = remove]", async ( event ) =>
 {
 	// On vérifie d'abord si l'utilisateur demande a supprimer la commande.
 	if ( confirm( window.edit_remove ) )
@@ -135,17 +157,27 @@ commands.on( "click", "[data-action=remove]", async ( event ) =>
 	}
 } );
 
-commands.on( "click", "[data-action=execute]", ( event ) =>
+commands.on( "click", "[data-action = execute]", async ( event ) =>
 {
 	// Exécution de la commande personnalisée.
 	const target = $( event.target );
 	const parent = target.parent();
 	const element = parent.data( "route" ) ? parent : target;
 
-	sendRemoteAction(
+	// Blocage du bouton pour éviter les abus.
+	element.prop( "disabled", true );
+
+	// Exécution de la requête d'action.
+	const state = await sendRemoteAction(
 		element.data( "token" ),
 		element.data( "route" ),
 		element.data( "command" ),
 		prompt( window.execute_value ) ?? ""
 	);
+
+	if ( !state )
+	{
+		// Libération du bouton en cas d'erreur.
+		element.prop( "disabled", false );
+	}
 } );

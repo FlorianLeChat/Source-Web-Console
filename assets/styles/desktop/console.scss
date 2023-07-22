@@ -77,6 +77,13 @@ main
 				color: $background-color;
 			}
 
+			&:disabled
+			{
+				// Désactivation conditionnelle du bouton.
+				filter: opacity(0.5);
+				pointer-events: none;
+			}
+
 			&::after
 			{
 				// Amélioration de la zone de sélection.
