@@ -68,16 +68,16 @@ register.on( "submit", "form", async ( event ) =>
 				token: parent.data( "token" ),
 
 				// Nom d'utilisateur et mot de passe du compte utilisateur.
-				username: firstStep.find( "[name = username]" ).val() as string,
-				password: firstStep.find( "[name = password]" ).val() as string,
+				username: firstStep.find( "[name = username]" ).val() as never,
+				password: firstStep.find( "[name = password]" ).val() as never,
 
 				// Option de maintien de connexion.
 				_remember_me: firstStep.find( "[name = remember_me]" ).is( ":checked" ).toString(),
 
 				// Informations du serveur.
-				server_address: lastStep.find( "[name = address]" ).val() as string,
-				server_port: lastStep.find( "[name = port]" ).val() as string,
-				server_password: lastStep.find( "[name = password]" ).val() as string
+				server_address: lastStep.find( "[name = address]" ).val() as never,
+				server_port: lastStep.find( "[name = port]" ).val() as never,
+				server_password: lastStep.find( "[name = password]" ).val() as never
 			} )
 		} );
 
@@ -172,10 +172,10 @@ login.on( "click", "[type = submit]", async ( event ) =>
 			token: login.data( "token" ),
 
 			// Nom d'utilisateur.
-			username: login.find( "[name = username]" ).val() as string,
+			username: login.find( "[name = username]" ).val() as never,
 
 			// Mot de passe.
-			password: login.find( "[name = password]" ).val() as string,
+			password: login.find( "[name = password]" ).val() as never,
 
 			// Option de maintien de connexion.
 			_remember_me: login.find( "[name = remember_me]" ).is( ":checked" ).toString()

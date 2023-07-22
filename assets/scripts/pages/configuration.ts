@@ -36,19 +36,19 @@ $( "form" ).on( "submit", async ( event ) =>
 			action: storage.data( "action" ),
 
 			// Adresse IP du serveur FTP.
-			address: $( "[name = address]" ).val() as string,
+			address: $( "[name = address]" ).val() as never,
 
 			// Port de communication du serveur FTP.
-			port: $( "[name = port]" ).val() as string,
+			port: $( "[name = port]" ).val() as never,
 
 			// Protocole de transmission du serveur FTP.
-			protocol: $( "[name = protocol] option:checked" ).val() as string,
+			protocol: $( "[name = protocol] option:checked" ).val() as never,
 
 			// Nom d'utilisateur du serveur FTP.
-			username: $( "[name = username]" ).val() as string,
+			username: $( "[name = username]" ).val() as never,
 
 			// Mot de passe du serveur FTP.
-			password: $( "[name = password]" ).val() as string
+			password: $( "[name = password]" ).val() as never
 		} )
 	} );
 

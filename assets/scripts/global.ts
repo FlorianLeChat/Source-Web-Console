@@ -215,13 +215,13 @@ contact.on( "submit", "form", async ( event ) =>
 			token: contact.data( "token" ),
 
 			// Adresse électronique.
-			email: contact.find( "input[name = email]" ).val() as string,
+			email: contact.find( "input[name = email]" ).val() as never,
 
 			// Sujet du message.
-			subject: contact.find( "option:selected" ).text() as string,
+			subject: contact.find( "option:selected" ).text() as never,
 
 			// Contenu du message.
-			content: contact.find( "textarea" ).val() as string
+			content: contact.find( "textarea" ).val() as never
 		} )
 	} );
 

@@ -33,13 +33,13 @@ $( "form" ).on( "submit", async ( event ) =>
 			token: tasks.data( "token" ),
 
 			// Date de déclenchement de l'action (format horodatage).
-			date: $( "[name = date]" ).val() as string,
+			date: $( "[name = date]" ).val() as never,
 
 			// Identifiant unique du serveur sélectionné.
-			server: $( "[name = server] option:checked" ).data( "server" ) as string,
+			server: $( "[name = server] option:checked" ).data( "server" ) as never,
 
 			// Nom de l'action qui doit être réalisé.
-			action: $( "[name = action]" ).val() as string
+			action: $( "[name = action]" ).val() as never
 		} )
 	} );
 
