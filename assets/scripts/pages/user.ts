@@ -42,10 +42,10 @@ account.on( "click", "[data-action]", async ( event ) =>
 			token: target.data( "token" ),
 
 			// Valeur du nouveau nom d'utilisateur.
-			username: account.find( "[name = username]" ).val() as string,
+			username: account.find( "[name = username]" ).val() as never,
 
 			// Valeur du nouveau mot de passe.
-			password: account.find( "[name = password]" ).val() as string
+			password: account.find( "[name = password]" ).val() as never
 		} )
 	} );
 
@@ -95,10 +95,10 @@ actions.on( "click", "[type = submit]", async ( event ) =>
 			token: target.data( "token" ),
 
 			// Valeur du nouveau nom d'utilisateur.
-			username: actions.find( "[name = username]" ).val() as string,
+			username: actions.find( "[name = username]" ).val() as never,
 
 			// Valeur du nouveau mot de passe.
-			password: actions.find( "[name = password]" ).val() as string
+			password: actions.find( "[name = password]" ).val() as never
 		} )
 	} );
 
@@ -154,13 +154,13 @@ submit.on( "click", async ( event ) =>
 			token: register.data( "token" ),
 
 			// Nom d'utilisateur et mot de passe du compte utilisateur.
-			username: form.find( "[name = username]" ).val() as string,
-			password: form.find( "[name = password]" ).val() as string,
+			username: form.find( "[name = username]" ).val() as never,
+			password: form.find( "[name = password]" ).val() as never,
 
 			// Informations du serveur.
-			server_address: form.find( "[name = address]" ).val() as string,
-			server_port: form.find( "[name = port]" ).val() as string,
-			server_password: form.find( "[name = password]" ).val() as string
+			server_address: form.find( "[name = address]" ).val() as never,
+			server_port: form.find( "[name = port]" ).val() as never,
+			server_password: form.find( "[name = password]" ).val() as never
 		} )
 	} );
 
