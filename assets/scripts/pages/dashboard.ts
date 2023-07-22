@@ -187,7 +187,7 @@ timer = setInterval( () =>
 //
 const actions = $( "#actions" );
 
-actions.on( "click", "li", ( event ) =>
+actions.on( "click", "li", async ( event ) =>
 {
 	// Requête classique d'action en fonction du bouton.
 	const target = $( event.target );
@@ -195,13 +195,35 @@ actions.on( "click", "li", ( event ) =>
 
 	if ( action )
 	{
-		sendRemoteAction( target.data( "token" ), target.data( "route" ), target.data( "action" ) );
+		// Blocage du bouton pour éviter les abus.
+		target.addClass( "disabled" );
+
+		// Exécution de la requête d'action.
+		const state = await sendRemoteAction( target.data( "token" ), target.data( "route" ), target.data( "action" ) );
+
+		if ( !state )
+		{
+			// Libération du bouton en cas d'erreur.
+			target.removeClass( "disabled" );
+		}
 	}
 } );
 
-actions.on( "dblclick", "li:first-of-type", ( event ) =>
+actions.on( "dblclick", "li:first-of-type", async ( event ) =>
 {
 	// Requête d'arrêt forcée
 	const target = $( event.target );
-	sendRemoteAction( target.data( "token" ), target.data( "route" ), target.data( "action" ) );
+	const parent = target.parent();
+
+	// Blocage du bouton pour éviter les abus.
+	parent.addClass( "disabled" );
+
+	// Exécution de la requête d'action.
+	const state = await sendRemoteAction( target.data( "token" ), target.data( "route" ), target.data( "action" ) );
+
+	if ( !state )
+	{
+		// Libération du bouton en cas d'erreur.
+		parent.removeClass( "disabled" );
+	}
 } );

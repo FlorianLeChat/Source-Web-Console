@@ -181,7 +181,7 @@ export async function sendRemoteAction( token: string, route: string, action: st
 		} )
 	} );
 
-	// On affiche enfin un message de confirmation ou d'erreur
+	// On affiche ensuite un message de confirmation ou d'erreur
 	//  si nécessaire en fonction du résultat de la requête.
 	const text = await response.text();
 
@@ -189,4 +189,7 @@ export async function sendRemoteAction( token: string, route: string, action: st
 	{
 		addQueuedNotification( text, response.ok ? 3 : 1 );
 	}
+
+	// On retourne enfin le résultat de la requête.
+	return response.ok;
 }

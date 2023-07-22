@@ -140,7 +140,7 @@ main
 					background-color: $background-color;
 				}
 
-				&:disabled
+				&.disabled
 				{
 					// Désactivation conditionnelle du bouton.
 					filter: opacity(0.5);
