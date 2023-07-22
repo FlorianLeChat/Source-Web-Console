@@ -28,6 +28,9 @@ account.on( "click", "[data-action]", async ( event ) =>
 		return;
 	}
 
+	// On bloque également le bouton de soumission pour éviter les abus.
+	account.find( "[type = submit]" ).prop( "disabled", true );
+
 	// On réalise alors la requête AJAX.
 	const response = await fetch( target.data( "route" ), {
 		method: action === "update" ? "PUT" : "DELETE",
@@ -49,11 +52,20 @@ account.on( "click", "[data-action]", async ( event ) =>
 	// On affiche ensuite un message de confirmation ou d'erreur.
 	addQueuedNotification( await response.text(), response.ok ? 3 : 1 );
 
-	// On réinitialise enfin le formulaire après une
-	//  mise à jour des informations.
-	if ( action === "update" )
+	// On vérifie si la requête a été effectuée avec succès.
+	if ( response.ok )
 	{
-		target.closest( "form" )[ 0 ].reset();
+		// On réinitialise alors le formulaire après une
+		//  mise à jour des informations.
+		if ( action === "update" )
+		{
+			target.closest( "form" )[ 0 ].reset();
+		}
+	}
+	else
+	{
+		// On libère enfin le bouton de soumission en cas d'erreur.
+		account.find( "[type = submit]" ).prop( "disabled", false );
 	}
 } );
 
@@ -67,6 +79,9 @@ actions.on( "click", "[type = submit]", async ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
+
+	// On bloque également le bouton de soumission pour éviter les abus.
+	actions.find( "[type = submit]" ).prop( "disabled", true );
 
 	// On réalise ensuite la requête AJAX.
 	const target = $( event.target );
@@ -93,11 +108,16 @@ actions.on( "click", "[type = submit]", async ( event ) =>
 	// On vérifie si la requête a été effectuée avec succès.
 	if ( response.ok )
 	{
-		// Dans ce cas, on actualise enfin la page après 3 secondes.
+		// Dans ce cas, on actualise alors la page après 3 secondes.
 		setTimeout( () =>
 		{
 			window.location.reload();
 		}, 3000 );
+	}
+	else
+	{
+		// On libère enfin le bouton de soumission en cas d'erreur.
+		actions.find( "[type = submit]" ).prop( "disabled", false );
 	}
 } );
 
@@ -117,6 +137,9 @@ submit.on( "click", async ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
+
+	// On bloque également le bouton de soumission pour éviter les abus.
+	register.find( "[type = submit]" ).prop( "disabled", true );
 
 	// On réalise ensuite la requête AJAX.
 	const target = $( event.target );
@@ -147,8 +170,13 @@ submit.on( "click", async ( event ) =>
 	// On vérifie si la requête a été effectuée avec succès.
 	if ( response.ok )
 	{
-		// Dans ce cas, on réinitialise enfin l'entièreté du formulaire.
+		// Dans ce cas, on réinitialise alors l'entièreté du formulaire.
 		const element = target.closest( "form" )[ 0 ] as HTMLFormElement;
 		element.reset();
+	}
+	else
+	{
+		// On libère enfin le bouton de soumission en cas d'erreur.
+		register.find( "[type = submit]" ).prop( "disabled", false );
 	}
 } );

@@ -50,6 +50,11 @@ register.on( "submit", "form", async ( event ) =>
 	}
 	else
 	{
+		// On bloque également les boutons de soumission et
+		//  de réinitialisation pour éviter les abus.
+		lastStep.find( "[type = submit]" ).prop( "disabled", true );
+		lastStep.find( "[type = reset]" ).prop( "disabled", true );
+
 		// Dans le cas contraire, on réalise alors une requête AJAX
 		//  pour envoyer les informations au serveur.
 		const parent = register.parent();
@@ -102,12 +107,19 @@ register.on( "submit", "form", async ( event ) =>
 				lastStep.find( "form" )[ 0 ].reset();
 				lastStep.fadeOut( 150 );
 
-				// On effectue enfin la redirection de l'utilisateur
+				// On effectue de suite la redirection de l'utilisateur
 				//  vers le tableau de bord au bout de 5 secondes.
 				setTimeout( () =>
 				{
 					window.location.href = parent.data( "redirect" );
 				}, 3000 );
+			}
+			else
+			{
+				// On libère enfin les boutons de soumission et
+				//  de réinitialisation en cas d'erreur.
+				lastStep.find( "[type = submit]" ).prop( "disabled", false );
+				lastStep.find( "[type = reset]" ).prop( "disabled", false );
 			}
 		}
 	}
@@ -144,6 +156,11 @@ login.on( "click", "[type = submit]", async ( event ) =>
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
 
+	// On bloque également les boutons de soumission et
+	//  de réinitialisation pour éviter les abus.
+	login.find( "[type = submit]" ).prop( "disabled", true );
+	login.find( "[type = reset]" ).prop( "disabled", true );
+
 	// On réalise ensuite la requête AJAX.
 	const response = await fetch( login.data( "route" ), {
 		method: "POST",
@@ -176,12 +193,19 @@ login.on( "click", "[type = submit]", async ( event ) =>
 		login.find( "form" )[ 0 ].reset();
 		login.fadeOut( 150 );
 
-		// On effectue enfin la redirection de l'utilisateur
+		// On effectue alors la redirection de l'utilisateur
 		//  vers le tableau de bord au bout de 5 secondes.
 		setTimeout( () =>
 		{
 			window.location.href = login.data( "redirect" );
 		}, 3000 );
+	}
+	else
+	{
+		// On libère enfin les boutons de soumission et
+		//  de réinitialisation en cas d'erreur.
+		login.find( "[type = submit]" ).prop( "disabled", false );
+		login.find( "[type = reset]" ).prop( "disabled", false );
 	}
 } );
 

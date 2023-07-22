@@ -48,9 +48,12 @@ commands.on( "click", "[data-action=add]", async ( event ) =>
 		return;
 	}
 
-	// On réalise ensuite la requête AJAX.
+	// On bloque également les boutons de soumission pour éviter les abus.
 	const target = $( event.target );
 	const element = ( target.is( "em" ) || target.is( "span" ) ) ? target.parent() : target;
+	element.prop( "disabled", true );
+
+	// On réalise ensuite la requête AJAX.
 	const response = await fetch( element.data( "route" ), {
 		method: "POST",
 		headers: {
@@ -74,19 +77,28 @@ commands.on( "click", "[data-action=add]", async ( event ) =>
 	// On vérifie si la requête a été effectuée avec succès.
 	if ( response.ok )
 	{
-		// Dans ce cas, on actualise enfin la page après 3 secondes.
+		// Dans ce cas, on actualise alors la page après 3 secondes.
 		setTimeout( () =>
 		{
 			window.location.reload();
 		}, 3000 );
 	}
+	else
+	{
+		// On libère enfin les boutons de soumission et
+		//  de réinitialisation en cas d'erreur.
+		element.prop( "disabled", false );
+	}
 } );
 
 commands.on( "click", "[data-action=remove]", async ( event ) =>
 {
-	// On vérifie si l'utilisateur demande a supprimer la commande.
+	// On vérifie d'abord si l'utilisateur demande a supprimer la commande.
 	if ( confirm( window.edit_remove ) )
 	{
+		// On bloque également les boutons de soumission pour éviter les abus.
+		commands.find( "[type = button]" ).prop( "disabled", true );
+
 		// On réalise ensuite la requête AJAX.
 		const target = $( event.target );
 		const response = await fetch( target.data( "route" ), {
@@ -109,11 +121,16 @@ commands.on( "click", "[data-action=remove]", async ( event ) =>
 		// On vérifie si la requête a été effectuée avec succès.
 		if ( response.ok )
 		{
-			// Dans ce cas, on actualise enfin la page après 3 secondes.
+			// Dans ce cas, on actualise alors la page après 3 secondes.
 			setTimeout( () =>
 			{
 				window.location.reload();
 			}, 3000 );
+		}
+		else
+		{
+			// On libère enfin les boutons de soumission en cas d'erreur.
+			commands.find( "[type = button]" ).prop( "disabled", false );
 		}
 	}
 } );
