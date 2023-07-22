@@ -122,6 +122,7 @@ index:
     recaptcha: "This site is protected by reCAPTCHA and the Google <a href=\"https://policies.google.com/privacy\">Privacy Policy</a> and <a href=\"https://policies.google.com/terms\">Terms of Service</a> apply."
 
 configuration:
+    path: "Please provide an absolute path to server configuration file (e.g. \"/path/to/cfg/server.cfg\" for Garry's Mod).."
     tips: "You are on the general configuration page for your server. If you provide your FTP or SFTP server authentication information, the website can offer advanced server configuration while respecting anonymity and sensitive data security."
     rcon:
         title: "Administration password"

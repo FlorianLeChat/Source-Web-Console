@@ -1,13 +1,21 @@
 {# Modèle de base #}
 {% extends "base.html.twig" %}
 
+{# Injection de code JavaScript #}
+{% block javascript %}
+	<script>
+		// Libellé demandant le chemin d'accès vers le fichier de configuration.
+		window.storage_path = "{{ t("configuration.path")|trans|escape("js") }}";
+	</script>
+{% endblock %}
+
 {# Contenu de la page demandé #}
 {% block content %}
 	{# Description de la page #}
 	<p>{{ t("configuration.description")|trans }}</p>
 
 	{# Informations de connexion FTP #}
-	<section id="storage" data-action="{{ configuration_credentials is not empty ? "update" : "insert" }}" data-route="{{ path("configuration_update") }}" data-token="{{ csrf_token("configuration_update") }}">
+	<section id="storage" data-route="{{ path("storage_update") }}" data-token="{{ csrf_token("storage_update") }}">
 		{# Titre de la section #}
 		<h2>{{ t("configuration.storage.title")|trans }}</h2>
 
@@ -47,7 +55,7 @@
 	</section>
 
 	{# Paramètres disponibles pour modification #}
-	<section id="parameters">
+	<section id="parameters" data-route="{{ path("configuration_update") }}">
 		{# Titre de la section #}
 		<h2>{{ t("configuration.settings.title")|trans }}</h2>
 
@@ -64,7 +72,7 @@
 				<input type="text" placeholder="<value>" />
 
 				{# Bouton de mise à jour #}
-				<button type="button" data-type="hostname">
+				<button type="button" data-type="hostname" data-token="{{ csrf_token("configuration_hostname") }}">
 					<i class="bi bi-cloud-upload-fill"></i>
 				</button>
 			</li>
@@ -80,7 +88,7 @@
 				<input type="text" placeholder="<value>" />
 
 				{# Bouton de mise à jour #}
-				<button type="button" data-type="loading">
+				<button type="button" data-type="loading" data-token="{{ csrf_token("configuration_loading") }}">
 					<i class="bi bi-cloud-upload-fill"></i>
 				</button>
 			</li>
@@ -96,7 +104,7 @@
 				<input type="text" placeholder="<value>" />
 
 				{# Bouton de mise à jour #}
-				<button type="button" data-type="password">
+				<button type="button" data-type="password" data-token="{{ csrf_token("configuration_password") }}">
 					<i class="bi bi-cloud-upload-fill"></i>
 				</button>
 			</li>

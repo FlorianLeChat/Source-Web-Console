@@ -122,6 +122,7 @@ index:
     recaptcha: "Ce site est protégé par reCAPTCHA sur lequel s'appliquent les <a href=\"https://policies.google.com/privacy\">politiques de confidentialité</a> et les <a href=\"https://policies.google.com/terms\">conditions d'utilisation</a> de Google."
 
 configuration:
+    path: "Indiquez le chemin d'accès absolu vers le fichier de configuration du serveur (exemple : « /chemin/vers/cfg/server.cfg » pour Garry's Mod)."
     tips: "Vous êtes sur la page de la configuration générale de votre serveur. Si vous indiquez les informations d'authentification de votre serveur FTP ou SFTP, le site peut proposer une configuration avancée de votre serveur en respectant l'anonymat et la sécurité des données sensibles."
     rcon:
         title: "Mot de passe d'administration"

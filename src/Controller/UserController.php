@@ -139,7 +139,7 @@ class UserController extends AbstractController
 				// On génère alors un nom d'utilisateur et un mot de passe aléatoire.
 				//  Note : le mot de passe ne sera jamais utilisé, mais il est nécessaire
 				//   pour que le mécanisme de connexion fonctionne.
-				$user->setUsername("temp_" . bin2hex(random_bytes(10)));
+				$user->setUsername(sprintf("temp_%s", bin2hex(random_bytes(10))));
 				$user->setPassword($this->hasher->hashPassword($user, bin2hex(random_bytes(30))));
 
 				// On génère un lien de connexion à usage unique.

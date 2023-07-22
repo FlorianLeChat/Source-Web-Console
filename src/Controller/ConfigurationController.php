@@ -56,12 +56,12 @@ class ConfigurationController extends AbstractController
 	//
 	// API vers l'ajout ou la mise à jour des informations de stockage.
 	//
-	#[Route("/api/server/storage", name: "configuration_update", methods: ["POST"])]
+	#[Route("/api/server/storage", name: "storage_update", methods: ["POST"])]
 	#[IsGranted("IS_AUTHENTICATED")]
-	public function add(Request $request): Response
+	public function storage(Request $request): Response
 	{
 		// On vérifie tout d'abord la validité du jeton CSRF.
-		if (!$this->isCsrfTokenValid("configuration_update", $request->request->get("token")))
+		if (!$this->isCsrfTokenValid("storage_update", $request->request->get("token")))
 		{
 			return new Response(
 				$this->translator->trans("form.server_check_failed"),
@@ -128,6 +128,89 @@ class ConfigurationController extends AbstractController
 		//  et on retourne une réponse de succès.
 		$repository->save($storage, true);
 
+		return new Response(
+			$this->translator->trans("configuration.updated"),
+			Response::HTTP_CREATED
+		);
+	}
+
+	//
+	// API vers la mise à jour de la configuration du serveur.
+	//
+	#[Route("/api/server/configuration", name: "configuration_update", methods: ["POST"])]
+	#[IsGranted("IS_AUTHENTICATED")]
+	public function configuration(Request $request): Response
+	{
+		// On vérifie tout d'abord la validité du jeton CSRF.
+		$type = $request->request->get("type", "none");
+
+		if (!$this->isCsrfTokenValid("configuration_$type", $request->request->get("token")))
+		{
+			return new Response(
+				$this->translator->trans("form.server_check_failed"),
+				Response::HTTP_BAD_REQUEST
+			);
+		}
+
+		// On vérifie alors que le serveur existe bien et qu'il appartient à l'utilisateur.
+		$repository = $this->entityManager->getRepository(Storage::class);
+		$server = $this->entityManager->getRepository(Server::class)->findOneBy([
+			"id" => intval($request->getSession()->get("serverId", 0)),
+			"user" => $this->getUser()
+		]);
+
+		if (!$server || !$storage = $repository->findOneBy(["server" => $server]))
+		{
+			return new Response(
+				$this->translator->trans("form.server_check_failed"),
+				Response::HTTP_BAD_REQUEST
+			);
+		}
+
+		// On tente après de se connecter au serveur de stockage avec les informations
+		//  de connexion fournies par l'utilisateur.
+		$stream = $this->serverManager->openFTPConnection($storage);
+
+		if (!$stream)
+		{
+			return new Response(
+				$this->translator->trans("form.server_check_failed"),
+				Response::HTTP_BAD_REQUEST
+			);
+		}
+
+		// On tente alors de récupérer le contenu du fichier de configuration.
+		$value = $request->request->get("value", "none");
+		$content = $this->serverManager->getFTPFileContents($stream, $path = $request->request->get("path", "none"));
+
+		switch ($type)
+		{
+			case "hostname":
+			{
+				// Édition du nom du serveur.
+				$content = preg_replace("/hostname \"(.*)\"/i", "hostname \"$value\"", $content);
+				break;
+			}
+
+			case "loading":
+			{
+				// Édition de l'écran de chargement.
+				$content = preg_replace("/sv_loadingurl \"(.*)\"/i", "sv_loadingurl \"$value\"", $content);
+				break;
+			}
+
+			case "password":
+			{
+				// Édition du mot de passe d'accès.
+				$content = preg_replace("/rcon_password \"(.*)\"/i", "rcon_password \"$value\"", $content);
+				break;
+			}
+		}
+
+		// On insère ensuite le nouveau contenu du fichier de configuration.
+		$this->serverManager->putFTPFileContents($stream, $path, $content);
+
+		// On retourne enfin une réponse de succès à l'utilisateur.
 		return new Response(
 			$this->translator->trans("configuration.updated"),
 			Response::HTTP_CREATED

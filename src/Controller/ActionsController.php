@@ -93,7 +93,7 @@ class ActionsController extends AbstractController
 	public function action(Request $request): Response
 	{
 		// On vérifie tout d'abord la validité du jeton CSRF.
-		$action = $request->request->get("action");
+		$action = $request->request->get("action", "none");
 
 		if (!$this->isCsrfTokenValid("server_$action", $request->request->get("token")))
 		{
@@ -115,17 +115,9 @@ class ActionsController extends AbstractController
 				Response::HTTP_BAD_REQUEST
 			);
 		}
-		elseif (!$action)
-		{
-			// Aucune action n'a été spécifiée ou n'est valide.
-			return new Response(
-				$this->translator->trans("form.server_check_failed"),
-				Response::HTTP_BAD_REQUEST
-			);
-		}
 
 		// On récupère alors les données du serveur.
-		$value = $request->request->get("value");
+		$value = $request->request->get("value", "none");
 		$server = $this->entityManager->getRepository(Server::class)->findOneBy([
 			"id" => $serverId, "user" => $this->getUser()
 		]);
