@@ -98,13 +98,13 @@ main
 				padding: 1rem;
 				box-sizing: border-box;
 
-				&[name = ftp_address]
+				&[name = address]
 				{
 					// Champ de l'adresse IP.
 					width: calc(70% - 1rem);
 				}
 
-				&[name = ftp_port]
+				&[name = port]
 				{
 					// Champ du port de communication.
 					width: calc(30% - 1rem);
