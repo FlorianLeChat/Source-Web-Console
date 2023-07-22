@@ -170,9 +170,10 @@ class DashboardController extends AbstractController
 		// On récupère d'abord le premier serveur lié au compte de l'utilisateur
 		//  ou celui sélectionné par l'utilisateur.
 		$user = $this->getUser();
+		$serverId = intval($request->getSession()->get("serverId", 0));
 		$repository = $this->entityManager->getRepository(Server::class);
 
-		if ($serverId = intval($request->getSession()->get("serverId", 0)) !== 0)
+		if ($serverId !== 0)
 		{
 			// Serveur sélectionné par l'utilisateur.
 			$server = $repository->findOneBy(["id" => $serverId, "user" => $user]);

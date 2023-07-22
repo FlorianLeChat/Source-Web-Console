@@ -45,7 +45,9 @@ class ActionsController extends AbstractController
 
 		// On récupère ensuite l'identifiant unique du serveur sélectionné
 		//  précédemment par l'utilisateur.
-		if ($serverId = intval($request->getSession()->get("serverId", 0)) !== 0)
+		$serverId = intval($request->getSession()->get("serverId", 0));
+
+		if ($serverId !== 0)
 		{
 			// Si un serveur est sélectionné, on récupère les informations
 			//  le concernant.
@@ -107,7 +109,9 @@ class ActionsController extends AbstractController
 
 		// On récupère ensuite le serveur sélectionné ainsi que l'action
 		//  demandée par l'utilisateur.
-		if ($serverId = intval($request->getSession()->get("serverId", 0)) === 0)
+		$serverId = intval($request->getSession()->get("serverId", 0));
+
+		if ($serverId === 0)
 		{
 			// Aucun serveur n'est actuellement sélectionné.
 			return new Response(
