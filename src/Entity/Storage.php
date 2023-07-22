@@ -61,6 +61,9 @@ class Storage
 	#[Assert\Length(max: 255)]
 	private ?string $password = null;
 
+	public const PROTOCOL_FTP = "ftp";
+	public const PROTOCOL_SFTP = "sftp";
+
 	public function getId(): ?int
 	{
 		return $this->id;

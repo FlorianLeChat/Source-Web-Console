@@ -32,9 +32,6 @@ $( "form" ).on( "submit", async ( event ) =>
 			// Jeton de sécurité (CSRF).
 			token: storage.data( "token" ),
 
-			// Action qui doit être réalisée (insertion, mise à jour ou connexion).
-			action: storage.data( "action" ),
-
 			// Adresse IP du serveur FTP.
 			address: $( "[name = address]" ).val() as never,
 
@@ -75,39 +72,64 @@ $( "form" ).on( "submit", async ( event ) =>
 // Permet de mettre à jour les informations présentes dans le fichier
 //  de configuration du serveur distant.
 //
-$( "[data-type]" ).on( "click", ( event ) =>
+const parameters = $( "#parameters" );
+
+$( "[data-type]" ).on( "click", async ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
 
+	// On récupère le chemin d'accès vers le fichier de
+	//  configuration du serveur distant.
+	const path = prompt( window.storage_path );
+
+	if ( !path )
+	{
+		return;
+	}
+
+	// On bloque également le bouton de soumission
+	//  pour éviter les abus.
+	parameters.find( "[type = button]" ).prop( "disabled", true );
+
 	// On réalise ensuite la requête AJAX.
 	const target = $( event.target );
+	const element = target.is( "i" ) ? target.parent() : target;
+	const response = await fetch( parameters.data( "route" ), {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded"
+		},
+		body: new URLSearchParams( {
+			// Jeton de sécurité (CSRF).
+			token: element.data( "token" ),
 
-	$.post( "includes/controllers/server_storage.php", {
+			// Type de modification qui doivent être effectué.
+			type: element.data( "type" ),
 
-		// Action qui doit être réalisée (insertion, mise à jour ou connexion).
-		ftp_action: "connexion",
+			// Chemin d'accès vers le fichier de configuration.
+			path,
 
-		// Type de modification qui doivent être effectué.
-		ftp_type: target.data( "type" ),
-
-		// Valeur indiquée par l'utilisateur.
-		ftp_value: target.prev().val()
-
-	} )
-		.done( ( data ) =>
-		{
-			// Une fois terminée, on affiche la notification d'information
-			//  à l'utilisateur pour lui indiquer si la requête a été envoyée
-			//  ou non avec succès au serveur distant.
-			if ( data )
-			{
-				addQueuedNotification( data, 3 );
-			}
+			// Valeur indiquée par l'utilisateur.
+			value: element.prev().val() as never
 		} )
-		.fail( ( self ) =>
+	} );
+
+	// On affiche après un message de confirmation ou d'erreur.
+	addQueuedNotification( await response.text(), response.ok ? 3 : 1 );
+
+	// On vérifie si la requête a été effectuée avec succès.
+	if ( response.ok )
+	{
+		// Dans ce cas, on actualise alors la page après 3 secondes.
+		setTimeout( () =>
 		{
-			// Dans le cas contraire, on affiche un message d'erreur.
-			addQueuedNotification( self.responseText, 1 );
-		} );
+			window.location.reload();
+		}, 3000 );
+	}
+	else
+	{
+		// On libère enfin le bouton de soumission en cas d'erreur.
+		parameters.find( "[type = button]" ).prop( "disabled", false );
+	}
 } );

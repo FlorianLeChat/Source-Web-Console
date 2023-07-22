@@ -21,6 +21,7 @@ declare global
 		cpu_usage: string;
 		fps_usage: string;
 		tick_rate: string;
+		storage_path: string;
 		player_count: string;
 		onetime_info: string;
 		execute_value: string;
