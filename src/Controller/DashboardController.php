@@ -199,7 +199,7 @@ class DashboardController extends AbstractController
 			try
 			{
 				// On tente après d'établir une connexion avec le serveur.
-				$this->serverManager->connect($server->getAddress(), $server->getPort(), $server->getPassword());
+				$this->serverManager->connect($server);
 
 				// En cas de réussite, on récupère toutes les informations
 				//	disponibles et fournies par le module d'administration.

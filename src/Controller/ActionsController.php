@@ -49,16 +49,12 @@ class ActionsController extends AbstractController
 
 		if ($serverId !== 0)
 		{
-			// Si un serveur est sélectionné, on récupère les informations
-			//  le concernant.
-			$server = $this->entityManager->getRepository(Server::class)->findOneBy([
-				"id" => $serverId, "user" => $this->getUser()
-			]);
-
 			try
 			{
 				// On tente après d'établir une connexion avec le serveur.
-				$this->serverManager->connect($server->getAddress(), $server->getPort(), $server->getPassword());
+				$this->serverManager->connect($this->entityManager->getRepository(Server::class)->findOneBy([
+					"id" => $serverId, "user" => $this->getUser()
+				]));
 
 				// En cas de réussite, on récupère toutes les informations
 				//	disponibles et fournies par le module d'administration.
@@ -137,7 +133,7 @@ class ActionsController extends AbstractController
 		try
 		{
 			// On tente après d'établir une connexion avec le serveur.
-			$this->serverManager->connect($server->getAddress(), $server->getPort(), $server->getPassword());
+			$this->serverManager->connect($server);
 
 			// On détermine l'action doit être réalisée sur le serveur.
 			switch ($action)

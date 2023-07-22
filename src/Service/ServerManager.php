@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Server;
 use xPaw\SourceQuery\SourceQuery;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\CacheInterface;
@@ -34,13 +35,13 @@ readonly class ServerManager
 	//
 	// Établissement de la connexion avec le serveur de jeu.
 	//
-	public function connect(string $address, int $port, string $password = ""): void
+	public function connect(Server $server)
 	{
 		// On établit la connexion avec les informations renseignées.
-		$this->query->Connect($address, $port, 1, SourceQuery::SOURCE);
+		$this->query->Connect($server->getAddress(), $server->getPort(), 1, SourceQuery::SOURCE);
 
 		// On vérifie alors si le mot de passe administrateur est indiqué.
-		if (!empty($password))
+		if (!empty($password = $server->getPassword()))
 		{
 			// On déchiffre enfin le mot de passe avant de le définir.
 			$this->query->SetRconPassword($this->decryptPassword($password));

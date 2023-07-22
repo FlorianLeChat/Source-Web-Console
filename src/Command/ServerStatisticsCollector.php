@@ -60,7 +60,7 @@ class ServerStatisticsCollector extends Command
 			try
 			{
 				// On tente alors d'établir une connexion avec le serveur.
-				$this->serverManager->connect($server->getAddress(), $server->getPort(), $server->getPassword());
+				$this->serverManager->connect($server);
 
 				// On filtre les données reçues pour ne garder que celles
 				//  qui nous intéressent pour les étapes suivantes.
