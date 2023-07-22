@@ -56,8 +56,7 @@ class ScheduledTaskExecutor extends Command
 			try
 			{
 				// On tente alors de se connecter au serveur distant.
-				$server = $task->getServer();
-				$this->serverManager->connect($server->getAddress(), $server->getPort(), $server->getPassword());
+				$this->serverManager->connect($task->getServer());
 
 				$io->text("Connected to remote server.");
 
