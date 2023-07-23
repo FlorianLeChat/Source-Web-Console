@@ -20,6 +20,7 @@
         "twig/twig": "3.6.*",
         "twig/extra-bundle": "3.6.*",
 
+        "react/datagram": "1.9.*",
         "api-platform/core": "3.1.*",
         "nelmio/cors-bundle": "2.3.*",
         "phpseclib/phpseclib": "3.0.*",
