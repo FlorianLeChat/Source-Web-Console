@@ -47,7 +47,7 @@ class ActionsController extends AbstractController
 		//  précédemment par l'utilisateur.
 		$serverId = intval($request->getSession()->get("serverId", 0));
 
-		if ($serverId !== 0)
+		if ($serverId === 0)
 		{
 			try
 			{
@@ -103,8 +103,7 @@ class ActionsController extends AbstractController
 			);
 		}
 
-		// On récupère ensuite le serveur sélectionné ainsi que l'action
-		//  demandée par l'utilisateur.
+		// On récupère ensuite le serveur sélectionné par l'utilisateur.
 		$serverId = intval($request->getSession()->get("serverId", 0));
 
 		if ($serverId === 0)
@@ -116,11 +115,18 @@ class ActionsController extends AbstractController
 			);
 		}
 
-		// On récupère alors les données du serveur.
-		$value = $request->request->get("value", "none");
+		// On vérifie alors que le serveur existe bien et qu'il appartient à l'utilisateur.
 		$server = $this->entityManager->getRepository(Server::class)->findOneBy([
 			"id" => $serverId, "user" => $this->getUser()
 		]);
+
+		if (!$server)
+		{
+			return new Response(
+				$this->translator->trans("form.server_check_failed"),
+				Response::HTTP_BAD_REQUEST
+			);
+		}
 
 		try
 		{
@@ -128,6 +134,8 @@ class ActionsController extends AbstractController
 			$this->serverManager->connect($server);
 
 			// On détermine l'action doit être réalisée sur le serveur.
+			$value = $request->request->get("value", "none");
+
 			switch ($action)
 			{
 				case Server::ACTION_SHUTDOWN:

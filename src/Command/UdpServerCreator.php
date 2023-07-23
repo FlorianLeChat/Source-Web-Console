@@ -8,12 +8,17 @@ namespace App\Command;
 
 use React\Datagram\Socket;
 use React\Datagram\Factory;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Filesystem\Path;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
 #[AsCommand("app:udp-creator", "Creates the UDP server used to communicate with game servers.")]
 class UdpServerCreator extends Command
@@ -21,8 +26,11 @@ class UdpServerCreator extends Command
 	//
 	// Initialisation de certaines dépendances de la commande.
 	//
-	public function __construct()
-	{
+	public function __construct(
+		private Finder $finder,
+		private Filesystem $filesystem,
+		private KernelInterface $kernel,
+	) {
 		parent::__construct();
 	}
 
@@ -48,16 +56,42 @@ class UdpServerCreator extends Command
 		$factory->createServer($input->getArgument("address"))->then(
 			function (Socket $server) use ($io): void
 			{
-				// Si le serveur a bien été créé, on affiche un message de succès.
+				// Si le serveur a bien été créé, on affiche ensuite un message de succès.
 				$io->success("UDP server successfully created.");
 
 				$server->on("message", function ($message, $address) use ($io): void
 				{
 					// Lorsque le serveur reçoit un message, on l'affiche dans la console.
-					$message = substr($message, 7);
-					$message = str_replace(["\0", "\r"], "", $message);
+					$message = str_replace(["\0", "\r"], "", substr($message, 7));
 
 					$io->info(sprintf("New message from remote server \"%s\":\n%s", $address, $message));
+
+					try
+					{
+						// On enregistre également ce même message dans un fichier texte.
+						$address = str_replace([".", ":"], "-", $address);
+						$path = Path::normalize(sprintf("%s/var/log/%s/", $this->kernel->getProjectDir(), $address));
+
+						$this->filesystem->mkdir($path);
+						$this->filesystem->appendToFile(sprintf("%s/%s.log", $path, date("Y-m-d")), $message);
+
+						// On supprime les anciens fichiers pour ne pas encombrer le serveur.
+						$this->finder->files()->in($path)->sortByName();
+
+						if ($this->finder->count() > 1)
+						{
+							foreach ($this->finder as $file)
+							{
+								$this->filesystem->remove($file->getRealPath());
+							}
+						}
+					}
+					catch (IOExceptionInterface $exception)
+					{
+						// En cas d'erreur dans l'enregistrement du message,
+						//  on affiche un message d'erreur.
+						$io->error(sprintf("An error occurred while creating log directory for remote server \"%s\": %s", $address, $exception->getMessage()));
+					}
 				});
 			},
 			function (\Exception $error) use ($io)
