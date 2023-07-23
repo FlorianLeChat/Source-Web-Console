@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Entity\Server;
 use App\Entity\Storage;
 use App\Service\ServerManager;
+use App\Service\StorageManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,6 +25,7 @@ class ConfigurationController extends AbstractController
 	//
 	public function __construct(
 		private ServerManager $serverManager,
+		private StorageManager $storageManager,
 		private ValidatorInterface $validator,
 		private TranslatorInterface $translator,
 		private EntityManagerInterface $entityManager,
@@ -169,7 +171,7 @@ class ConfigurationController extends AbstractController
 
 		// On tente après de se connecter au serveur de stockage avec les informations
 		//  de connexion fournies par l'utilisateur.
-		$stream = $this->serverManager->openFTPConnection($storage);
+		$stream = $this->storageManager->openConnection($storage);
 
 		if (!$stream)
 		{
@@ -181,7 +183,7 @@ class ConfigurationController extends AbstractController
 
 		// On tente alors de récupérer le contenu du fichier de configuration.
 		$value = $request->request->get("value", "none");
-		$content = $this->serverManager->getFTPFileContents($stream, $path = $request->request->get("path", "none"));
+		$content = $this->storageManager->getFileContents($stream, $path = $request->request->get("path", "none"));
 
 		switch ($type)
 		{
@@ -208,7 +210,7 @@ class ConfigurationController extends AbstractController
 		}
 
 		// On insère ensuite le nouveau contenu du fichier de configuration.
-		$this->serverManager->putFTPFileContents($stream, $path, $content);
+		$this->storageManager->putFileContents($stream, $path, $content);
 
 		// On retourne enfin une réponse de succès à l'utilisateur.
 		return new Response(
