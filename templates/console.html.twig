@@ -4,16 +4,16 @@
 {# Contenu de la page demandé #}
 {% block content %}
 	{# Description de la page #}
-	<p>{{ console_phrases["console_description"] }}</p>
+	<p>{{ t("console.description")|trans }}</p>
 
 	{# Contrôleur principal #}
 	<section id="controller" data-route="{{ path("server_action") }}">
 		{# Titre de la section #}
-		<h2>{{ console_phrases["console_controller_title"] }}</h2>
+		<h2>{{ t("console.controller.title")|trans }}</h2>
 
 		{# Champ de saisie #}
 		<div>
-			<input type="text" name="command" placeholder="{{ console_phrases["console_controller_placeholder"] }}" required />
+			<input type="text" name="command" placeholder="{{ t("console.controller.placeholder")|trans }}" required />
 
 			<button type="button" data-action="execute">
 				<i class="bi bi-send-fill"></i>
@@ -27,7 +27,7 @@
 	{# Terminal de la console #}
 	<section id="terminal">
 		{# Titre de la section #}
-		<h2>{{ console_phrases["console_terminal_title"] }}</h2>
+		<h2>{{ t("console.terminal_title")|trans }}</h2>
 
 		{# Liste des événements #}
 		<ul>
