@@ -15,7 +15,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-#[AsCommand("app:statistics:collector", "Gathers statistical data from all servers.")]
+#[AsCommand("app:statistics-collector", "Gathers statistical data from all servers.")]
 class ServerStatisticsCollector extends Command
 {
 	//
