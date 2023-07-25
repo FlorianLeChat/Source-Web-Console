@@ -7,7 +7,7 @@
 	<p>{{ t("console.description")|trans }}</p>
 
 	{# Contrôleur principal #}
-	<section id="controller" data-route="{{ path("server_action") }}">
+	<section id="controller">
 		{# Titre de la section #}
 		<h2>{{ t("console.controller.title")|trans }}</h2>
 
@@ -15,7 +15,7 @@
 		<div>
 			<input type="text" name="command" placeholder="{{ t("console.controller.placeholder")|trans }}" required />
 
-			<button type="button" data-action="execute">
+			<button type="button" data-command="0" data-action="execute" data-token="{{ csrf_token("server_0") }}" data-route="{{ path("server_action") }}">
 				<i class="bi bi-send-fill"></i>
 			</button>
 		</div>
@@ -25,20 +25,11 @@
 	</section>
 
 	{# Terminal de la console #}
-	<section id="terminal">
+	<section id="terminal" data-route="{{ path("console_live") }}">
 		{# Titre de la section #}
 		<h2>{{ t("console.terminal_title")|trans }}</h2>
 
 		{# Liste des événements #}
-		<ul>
-			{# Première ligne #}
-			<li>Lorem ipsum</li>
-
-			{# Deuxième ligne #}
-			<li>Lorem ipsum</li>
-
-			{# Troisième ligne #}
-			<li>Lorem ipsum</li>
-		</ul>
+		<ul></ul>
 	</section>
 {% endblock %}

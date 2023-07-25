@@ -174,6 +174,7 @@ actions:
 
 console:
     tips: "Vous êtes sur la page de la console interactive. Vous pourrez retrouver ici la visualisation en temps réel de ce qu'il se passe sur votre serveur. De plus, vous avez un certain libre arbitre pour envoyer des requêtes quelconque à votre serveur."
+    no_logs: "Aucun journal de sortie n'a été reçu pour ce serveur. Veuillez patienter quelques instants que le serveur fasse ses premières actions et assurez que le mot de passe administrateur est correctement renseigné."
     controller:
         title: "Contrôleur principal"
         placeholder: "Écrivez quelque chose..."

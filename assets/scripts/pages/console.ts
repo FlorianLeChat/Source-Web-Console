@@ -5,7 +5,7 @@ import "../../styles/tablet/console.scss";
 
 // Importation des fonctions et constantes communes.
 import "../global";
-import { sendRemoteAction } from "../functions";
+import { sendRemoteAction, addQueuedNotification } from "../functions";
 
 //
 // Permet d'envoyer les entrées utilisateurs personnalisées
@@ -16,7 +16,8 @@ $( "#controller" ).on( "click", "button", async ( event ) =>
 	// On récupère le contenu de l'entrée utilisateur avant
 	//  de le vérifie pour la prochaine étape.
 	const target = $( event.target );
-	const input = target.prev().val() as string;
+	const element = target.is( "i" ) ? target.parent() : target;
+	const input = element.prev().val() as string;
 
 	if ( !input )
 	{
@@ -25,25 +26,69 @@ $( "#controller" ).on( "click", "button", async ( event ) =>
 	}
 
 	// On bloque également le bouton pour éviter les abus.
-	target.prop( "disabled", true );
+	element.prop( "disabled", true );
 
 	// On envoie ensuite le contenu au serveur distant.
-	const parent = target.parent();
-	const state = await sendRemoteAction( input, parent.data( "route" ), parent.data( "action" ) );
+	const state = await sendRemoteAction( element.data( "token" ), element.data( "route" ), "0", input );
 
 	if ( state )
 	{
 		// Une fois réussie, on ajoute une entrée dans l'historique
 		//  des entrées juste au-dessous.
-		target.closest( "div" ).find( "ul" ).append( $( "<li></li>" ).text( input ) );
+		element.closest( "div" ).next().append( $( "<li></li>" ).text( input ) );
+	}
+
+	// On libère alors le bouton de soumission après l'envoi.
+	element.prop( "disabled", false );
+
+	// On réinitialise enfin le champ de saisie.
+	element.prev().val( "" );
+} );
+
+//
+// Permet de faire la récupération des informations générales du serveur.
+//
+const terminal = $( "#terminal" );
+let timer: NodeJS.Timer | undefined;
+
+async function retrieveRemoteLogs()
+{
+	// On réalise d'abord la requête AJAX.
+	const response = await fetch( terminal.data( "route" ) );
+
+	// On vérifie ensuite si la requête a été effectuée avec succès.
+	if ( response.ok )
+	{
+		// Une fois terminée, on récupère les données sous format JSON.
+		const data = await response.json() as string[];
+
+		// On affiche alors les journaux dans le terminal.
+		const list = terminal.find( "ul" );
+		list.empty();
+
+		data.forEach( ( line ) =>
+		{
+			list.append( `<li>${ line }</li>` );
+		} );
+
+		list.scrollTop( list.prop( "scrollHeight" ) );
 	}
 	else
 	{
-		// Dans le cas contraire, on libère alors le bouton de soumission
-		//  en cas d'erreur.
-		target.prop( "disabled", false );
-	}
+		// Dans le cas contraire, on affiche enfin un message d'erreur
+		//  avant de supprimer le minuteur.
+		addQueuedNotification( await response.text(), 1 );
 
-	// On réinitialise enfin le champ de saisie.
-	target.prev().val( "" );
-} );
+		clearInterval( timer );
+		timer = undefined;
+	}
+}
+
+// Récupération des journaux au démarrage.
+retrieveRemoteLogs();
+
+// Récupération des journaux toutes les 3 secondes.
+timer = setInterval( () =>
+{
+	retrieveRemoteLogs();
+}, 3000 );
