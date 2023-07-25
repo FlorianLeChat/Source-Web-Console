@@ -33,7 +33,7 @@ $( "li[data-image]" ).each( ( indice, server ) =>
 //  sur le tableau de bord.
 //  Note : ce système peut largement être améliorable dans le futur.
 //
-$( "[name = server_edit]" ).one( "click", ( event ) =>
+$( "[name = server_edit]" ).on( "click", ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
@@ -58,7 +58,7 @@ $( "[name = server_edit]" ).one( "click", ( event ) =>
 		const port = prompt( window.edit_port );
 		const password = prompt( window.edit_password );
 
-		if ( !address || !port || !password )
+		if ( !address && !port && !password )
 		{
 			return;
 		}
