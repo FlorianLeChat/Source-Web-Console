@@ -34,7 +34,7 @@ class Event
 	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
 	private ?\DateTimeInterface $date = null;
 
-	#[ORM\Column(length: 10)]
+	#[ORM\Column(length: 255)]
 	private ?string $action = null;
 
 	public function getId(): ?int
