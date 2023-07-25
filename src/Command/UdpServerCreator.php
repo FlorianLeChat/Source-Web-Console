@@ -20,17 +20,13 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
-#[AsCommand("app:udp-creator", "Creates the UDP server used to communicate with game servers.")]
+#[AsCommand("app:udp-server", "Creates the UDP server used to communicate with game servers.")]
 class UdpServerCreator extends Command
 {
 	//
 	// Initialisation de certaines dépendances de la commande.
 	//
-	public function __construct(
-		private Finder $finder,
-		private Filesystem $filesystem,
-		private KernelInterface $kernel,
-	) {
+	public function __construct(private KernelInterface $kernel) {
 		parent::__construct();
 	}
 
@@ -72,17 +68,19 @@ class UdpServerCreator extends Command
 						$address = str_replace([".", ":"], "-", $address);
 						$path = Path::normalize(sprintf("%s/var/log/%s/", $this->kernel->getProjectDir(), $address));
 
-						$this->filesystem->mkdir($path);
-						$this->filesystem->appendToFile(sprintf("%s/%s.log", $path, date("Y-m-d")), $message);
+						$filesystem = new Filesystem();
+						$filesystem->mkdir($path);
+						$filesystem->appendToFile(sprintf("%s/%s.log", $path, date("Y-m-d")), $message);
 
 						// On supprime les anciens fichiers pour ne pas encombrer le serveur.
-						$this->finder->files()->in($path)->sortByName();
+						$finder = new Finder();
+						$finder->files()->in($path)->sortByName();
 
-						if ($this->finder->count() > 1)
+						if ($finder->count() > 1)
 						{
-							foreach ($this->finder as $file)
+							foreach ($finder as $file)
 							{
-								$this->filesystem->remove($file->getRealPath());
+								$filesystem->remove($file->getRealPath());
 							}
 						}
 					}
