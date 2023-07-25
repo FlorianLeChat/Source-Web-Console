@@ -126,7 +126,7 @@
 						{{ t("actions.remove_command")|trans }}
 					</button>
 
-					<button type="button" data-action="execute" data-token="{{ csrf_token("server_action") }}" data-route="{{ path("server_action") }}">
+					<button type="button" data-action="execute" data-token="{{ csrf_token("server_" ~ command.id) }}" data-route="{{ path("server_action") }}">
 						{{ t("actions.execute_command")|trans }}
 					</button>
 				</li>

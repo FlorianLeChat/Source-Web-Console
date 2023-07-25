@@ -171,7 +171,7 @@ commands.on( "click", "[data-action = execute]", async ( event ) =>
 	const state = await sendRemoteAction(
 		element.data( "token" ),
 		element.data( "route" ),
-		element.data( "command" ),
+		element.parent().data( "command" ) ?? element.data( "command" ),
 		prompt( window.execute_value ) ?? ""
 	);
 

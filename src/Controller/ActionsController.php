@@ -47,7 +47,7 @@ class ActionsController extends AbstractController
 		//  précédemment par l'utilisateur.
 		$serverId = intval($request->getSession()->get("serverId", 0));
 
-		if ($serverId === 0)
+		if ($serverId !== 0)
 		{
 			try
 			{
@@ -108,7 +108,6 @@ class ActionsController extends AbstractController
 
 		if ($serverId === 0)
 		{
-			// Aucun serveur n'est actuellement sélectionné.
 			return new Response(
 				$this->translator->trans("form.no_server_selected"),
 				Response::HTTP_BAD_REQUEST
@@ -219,6 +218,34 @@ class ActionsController extends AbstractController
 				{
 					// Changement du niveau de gravité.
 					$this->serverManager->query->Rcon("sv_gravity \"$value\"");
+					break;
+				}
+
+				default:
+				{
+					// Si aucune action n'est trouvée, alors il s'agit probablement
+					//	d'une commande personnalisée. On tente dans ce cas de récupérer
+					//	les données de toutes les commandes pour trouver celles qui
+					//	correspondent à l'action.
+					$command = $this->entityManager->getRepository(Command::class)->findOneBy([
+						"id" => $action, "user" => $this->getUser()
+					]);
+
+					if ($command)
+					{
+						// Une commande personnalisée a été trouvée, on définit le
+						//  nom de la commande avant de l'exécuter.
+						$action = $command->getTitle();
+						$this->serverManager->query->Rcon($command->getContent() . " \"$value\"");
+					}
+					else
+					{
+						// Dans le cas contraire, c'est une commande inconnue provenant
+						//  de la console interactive
+						$action = $this->translator->trans("header.subtitle.console");
+						$this->serverManager->query->Rcon($value);
+					}
+
 					break;
 				}
 			}
