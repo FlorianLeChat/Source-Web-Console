@@ -42,10 +42,21 @@ class ServerStatisticsCollector extends Command
 
 		// On itère ensuite sur chacune d'entre elles pour les supprimer.
 		$io = new SymfonyStyle($input, $output);
+		$past = new \DateTime("-3 days");
 
 		foreach ($query->getQuery()->getResult() as $stats)
 		{
-			$io->info(sprintf("Removing old statistics from server \"%s\"...", $stats->getServer()->getAddress()));
+			$server = $stats->getServer();
+			$user = $server->getUser();
+			$address = $server->getAddress();
+
+			if (in_array("ROLE_DONOR", $user->getRoles()) && $stats->getDate() <= $past)
+			{
+				$io->info(sprintf("Skipping statistics deletion from server \"%s\" because expiration date is longer.", $address));
+				continue;
+			}
+
+			$io->info(sprintf("Removing old statistics from server \"%s\"...", $address));
 			$repository->remove($stats);
 		}
 
