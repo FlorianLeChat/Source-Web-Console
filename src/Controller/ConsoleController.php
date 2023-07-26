@@ -145,7 +145,7 @@ class ConsoleController extends AbstractController
 		// On récupère enfin les 100 dernières lignes du fichier des journaux d'événements
 		//  avant de les envoyer au client sous forme de réponse JSON.
 		return new JsonResponse(
-			array_slice(explode("\n", file_get_contents($path)), -100),
+			array_slice(explode("\n", file_get_contents($path)), $this->isGranted("ROLE_DONOR") ? -100 : -50),
 			Response::HTTP_OK
 		);
 	}
