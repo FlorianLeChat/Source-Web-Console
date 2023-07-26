@@ -162,7 +162,8 @@
 					<span>{{ logs.date|date("H:m:s (d/m)") }}</span>
 
 					{# Titre de l'action #}
-					<em>{{ t("global." ~ logs.action)|trans|default(logs.action|capitalize) }}</em>
+					{% set console = t("header.subtitle.console")|trans %}
+					<em>{{ logs.action == console ? console : t("global." ~ logs.action)|trans|default(logs.action|capitalize) }}</em>
 				</li>
 			{% endfor %}
 		</ul>
