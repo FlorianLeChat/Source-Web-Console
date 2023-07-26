@@ -10,6 +10,7 @@ use App\Entity\Server;
 use App\Entity\Contact;
 use App\Service\ServerManager;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Process\Process;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\IpUtils;
@@ -18,7 +19,9 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -34,6 +37,7 @@ class UserController extends AbstractController
 	//
 	public function __construct(
 		private Security $security,
+		private KernelInterface $kernel,
 		private ServerManager $serverManager,
 		private ValidatorInterface $validator,
 		private TranslatorInterface $translator,
@@ -76,7 +80,6 @@ class UserController extends AbstractController
 	#[Route("/api/user/register", name: "user_register", methods: ["POST"])]
 	public function register(Request $request): Response|JsonResponse
 	{
-		// TODO : imposer une limite de création par IP.
 		// TODO : ajouter la possibilité de créer un compte via Google.
 
 		// On vérifie tout d'abord la validité du jeton CSRF.
@@ -155,6 +158,15 @@ class UserController extends AbstractController
 				);
 			}
 		}
+
+		// On lance un processus de nettoyage des comptes inactifs en
+		//  arrière-plan le plus tôt possible.
+		$php = new PhpExecutableFinder();
+		$php = $php->find() ?? "php";
+
+		$process = new Process([$php, sprintf("%s/bin/console", $this->kernel->getProjectDir()), "app:account-cleanup"]);
+		$process->disableOutput();
+		$process->run();
 
 		// On enregistre après les informations dans la base de données.
 		$repository->save($user);
