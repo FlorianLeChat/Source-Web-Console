@@ -301,7 +301,7 @@ class ActionsController extends AbstractController
 		$user = $this->getUser();
 		$repository = $this->entityManager->getRepository(Command::class);
 
-		if ($repository->count(["user" => $user]) === 2)
+		if ($repository->count(["user" => $user]) >= ($this->isGranted("ROLE_DONOR") ? 2 : 1))
 		{
 			return new Response(
 				$this->translator->trans("actions.too_much"),
