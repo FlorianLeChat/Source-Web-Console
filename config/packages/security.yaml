@@ -24,6 +24,8 @@ security:
                 check_route: user_onetime
                 used_link_cache: "cache_pool"
                 signature_properties: ["id", "username"]
+            login_throttling:
+                max_attempts: 3
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
     role_hierarchy:
