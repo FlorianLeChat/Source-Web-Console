@@ -73,6 +73,7 @@ form:
             1: "I have an issue with the account registration"
             2: "I have an issue with logging into my account"
             3: "I have a question with my server administration"
+        too_much: "You can only send one contact message per day. Please try again tomorrow."
         description: "This form lets you send a support message to the website administrators. You will receive an answer by the email address you entered within a few hours/days. Any abuse will be prosecuted."
     login:
         links: "No account? <a href=\"javascript:void(0);\">Register</a> or switch to a <a href=\"javascript:void(0);\">one-shot login</a>.\nIf not, you may have <a href=\"javascript:void(0);\">lost your password</a>?"
