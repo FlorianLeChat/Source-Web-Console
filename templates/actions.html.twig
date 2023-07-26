@@ -132,7 +132,7 @@
 				</li>
 			{% endfor %}
 
-			{% if actions_custom_commands|length < 2 %}
+			{% if actions_custom_commands|length < (is_granted("ROLE_DONOR") ? 2 : 1) %}
 				<li data-action="add" data-token="{{ csrf_token("command_add") }}" data-route="{{ path("command_add") }}">
 					{# Ajout d'une commande personnalisée #}
 					<span>{{ t("actions.add_command")|trans }}</span>

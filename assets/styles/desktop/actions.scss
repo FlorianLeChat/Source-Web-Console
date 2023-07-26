@@ -379,7 +379,7 @@ main
 					}
 				}
 
-				&:last-of-type
+				&[data-action = add]
 				{
 					// Ajout d'une nouvelle commande.
 					cursor: pointer;
