@@ -200,8 +200,6 @@ class UserController extends AbstractController
 	#[Route("/api/user/login", name: "user_login", methods: ["POST"])]
 	public function login(Request $request): Response
 	{
-		// TODO : imposer une limite de connexion par IP (https://symfony.com/doc/current/security.html#limiting-login-attempts).
-		// TODO : ajouter la possibilité de se connecter via Token (https://symfony.com/doc/current/security/access_token.html).
 		// TODO : ajouter la possibilité de se connecter via Google.
 
 		// On vérifie tout d'abord la validité du jeton CSRF.
@@ -299,8 +297,6 @@ class UserController extends AbstractController
 	#[Route("/api/user/contact", name: "user_contact", methods: ["POST"])]
 	public function contact(Request $request, MailerInterface $mailer): Response
 	{
-		// TODO : imposer une limite d'envoi de messages par jour avec la même adresse IP.
-
 		// On vérifie tout d'abord la validité du jeton CSRF.
 		if (!$this->isCsrfTokenValid("user_contact", $request->request->get("token")))
 		{
@@ -326,8 +322,24 @@ class UserController extends AbstractController
 			);
 		}
 
+		// On vérifie si l'utilisateur n'a pas déjà envoyé un message aujourd'hui.
+		$repository = $this->entityManager->getRepository(Contact::class);
+		$query = $repository->createQueryBuilder("c");
+		$query->where($query->expr()->eq("c.email", ":email"))
+			->setParameter("email", $email);
+		$query->andWhere($query->expr()->gte("c.date", ":past"))
+			->setParameter("past", new \DateTime("-1 day"), \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE);
+
+		if ($query->getQuery()->getResult())
+		{
+			return new Response(
+				$this->translator->trans("form.contact.too_much"),
+				Response::HTTP_TOO_MANY_REQUESTS
+			);
+		}
+
 		// On enregistre après le message dans la base de données.
-		$this->entityManager->getRepository(Contact::class)->save($contact, true);
+		$repository->save($contact, true);
 
 		// On génère le courriel de confirmation qui sera envoyé à l'utilisateur.
 		$email = (new Email())
