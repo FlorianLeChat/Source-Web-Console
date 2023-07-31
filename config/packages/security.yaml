@@ -26,6 +26,9 @@ security:
                 signature_properties: ["id", "username"]
             login_throttling:
                 max_attempts: 3
+            custom_authenticators:
+                - App\Security\GoogleAuthenticator
+                - App\Security\GithubAuthenticator
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
     role_hierarchy:

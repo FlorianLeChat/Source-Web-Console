@@ -12,7 +12,7 @@ use phpseclib3\Net\SFTP;
 readonly class StorageManager
 {
 	//
-	// Initialisation de certaines variables du service.
+	// Initialisation de certaines dépendances du service.
 	//
 	public function __construct(private ServerManager $serverManager) {}
 
