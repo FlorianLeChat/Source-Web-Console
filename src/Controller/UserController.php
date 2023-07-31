@@ -20,8 +20,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\KernelInterface;
+use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Process\PhpExecutableFinder;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -37,12 +39,11 @@ class UserController extends AbstractController
 	//
 	public function __construct(
 		private Security $security,
-		private KernelInterface $kernel,
 		private ServerManager $serverManager,
+		private KernelInterface $kernel,
 		private ValidatorInterface $validator,
 		private TranslatorInterface $translator,
 		private EntityManagerInterface $entityManager,
-		private LoginLinkHandlerInterface $loginLinkHandler,
 		private UserPasswordHasherInterface $hasher
 	) {}
 
@@ -64,7 +65,7 @@ class UserController extends AbstractController
 	}
 
 	//
-	// API vers le mécanisme de création d'un accès unique.
+	// Route vers le mécanisme de création d'un accès unique.
 	//
 	#[Route("/onetime", name: "user_onetime", methods: ["GET"])]
 	public function check()
@@ -75,10 +76,40 @@ class UserController extends AbstractController
 	}
 
 	//
+	// Routes vers le mécanisme de connexion de l'utilisateur via Google.
+	//
+	#[Route("/oauth/google/connect", name: "user_google_connect", methods: ["GET"])]
+	public function googleConnect(ClientRegistry $clientRegistry): RedirectResponse
+	{
+        return $clientRegistry->getClient("google")->redirect([], []);
+	}
+
+	#[Route("/oauth/google/check", name: "user_google_check", methods: ["GET"])]
+	public function googleCheck(): void
+	{
+		throw new \Exception("Should not be reached!");
+	}
+
+	//
+	// Routes vers le mécanisme de connexion de l'utilisateur via GitHub.
+	//
+	#[Route("/oauth/github/connect", name: "user_github_connect", methods: ["GET"])]
+	public function githubConnect(ClientRegistry $clientRegistry): RedirectResponse
+	{
+        return $clientRegistry->getClient("github")->redirect([], []);
+	}
+
+	#[Route("/oauth/github/check", name: "user_github_check", methods: ["GET"])]
+	public function githubCheck(): void
+	{
+		throw new \Exception("Should not be reached!");
+	}
+
+	//
 	// API vers le mécanisme de création de compte.
 	//
 	#[Route("/api/user/register", name: "user_register", methods: ["POST"])]
-	public function register(Request $request): Response|JsonResponse
+	public function register(Request $request, LoginLinkHandlerInterface $loginLinkHandler): Response|JsonResponse
 	{
 		// TODO : ajouter la possibilité de créer un compte via Google.
 
@@ -146,7 +177,7 @@ class UserController extends AbstractController
 				$user->setPassword($this->hasher->hashPassword($user, bin2hex(random_bytes(30))));
 
 				// On génère un lien de connexion à usage unique.
-				$details = $this->loginLinkHandler->createLoginLink($user);
+				$details = $loginLinkHandler->createLoginLink($user);
 				$link = $details->getUrl();
 			}
 			elseif (!$userValidated)

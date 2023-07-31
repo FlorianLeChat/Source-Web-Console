@@ -24,7 +24,7 @@ readonly class ServerManager
 	private const ENCRYPTION_METHOD = "AES-256-CTR";
 
 	//
-	// Initialisation de certaines variables du service.
+	// Initialisation de certaines dépendances du service.
 	//
 	public function __construct(
 		public SourceQuery $query,

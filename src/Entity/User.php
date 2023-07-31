@@ -53,6 +53,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	#[ORM\Column(length: 45)]
 	private ?string $address = null;
 
+	#[ORM\Column(length: 255, nullable: true)]
+	private ?string $googleId = null;
+
+	#[ORM\Column(length: 255, nullable: true)]
+	private ?string $githubId = null;
+
 	#[ORM\Column]
 	private array $roles = [];
 
@@ -127,6 +133,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	public function setAddress(string $address): self
 	{
 		$this->address = IpUtils::anonymize($address);
+
+		return $this;
+	}
+
+	public function getGoogleId(): ?string
+	{
+		return $this->googleId;
+	}
+
+	public function setGoogleId(?string $googleId): static
+	{
+		$this->googleId = $googleId;
+
+		return $this;
+	}
+
+	public function getGithubId(): ?string
+	{
+		return $this->githubId;
+	}
+
+	public function setGithubId(?string $githubId): static
+	{
+		$this->githubId = $githubId;
 
 		return $this;
 	}
