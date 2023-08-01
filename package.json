@@ -19,7 +19,7 @@
         "@symfony/webpack-encore": "~4.3",
         "sass": "~1.64",
         "jquery": "~3.7",
-        "core-js": "~3.31",
+        "core-js": "~3.32",
         "webpack": "~5.88",
         "chart.js": "~4.3",
         "ts-loader": "~9.4",
