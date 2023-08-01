@@ -24,7 +24,7 @@
         "chart.js": "~4.3",
         "ts-loader": "~9.4",
         "typescript": "~5.1",
-        "flag-icons": "~6.7",
+        "flag-icons": "~6.9",
         "file-loader": "~6.2",
         "webpack-cli": "~5.1",
         "sass-loader": "~13.3",
