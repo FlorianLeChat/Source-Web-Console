@@ -37,7 +37,7 @@
         "chartjs-adapter-date-fns": "~3.0",
         "@typescript-eslint/parser": "~5.60",
         "@total-typescript/ts-reset": "~0.4",
-        "fork-ts-checker-webpack-plugin": "~7.3",
+        "fork-ts-checker-webpack-plugin": "~8.0",
         "@typescript-eslint/eslint-plugin": "~5.60"
     },
     "engines": {
