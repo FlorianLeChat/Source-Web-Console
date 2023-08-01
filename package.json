@@ -16,7 +16,7 @@
         "@types/jquery": "~3.5",
         "@types/grecaptcha": "~3.0",
         "@babel/preset-env": "~7.22",
-        "@symfony/webpack-encore": "~4.3",
+        "@symfony/webpack-encore": "~4.4",
         "sass": "~1.64",
         "jquery": "~3.7",
         "core-js": "~3.32",
