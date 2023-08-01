@@ -35,7 +35,6 @@
         "eslint-config-airbnb": "~19.0",
         "vanilla-cookieconsent": "3.0.0-rc.16",
         "chartjs-adapter-date-fns": "~3.0",
-        "@typescript-eslint/parser": "~6.2",
         "@total-typescript/ts-reset": "~0.4",
         "@typescript-eslint/eslint-plugin": "~6.2"
     },
