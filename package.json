@@ -33,7 +33,7 @@
         "webpack-notifier": "~1.15",
         "regenerator-runtime": "~0.13",
         "eslint-config-airbnb": "~19.0",
-        "vanilla-cookieconsent": "3.0.0-rc.15",
+        "vanilla-cookieconsent": "3.0.0-rc.16",
         "chartjs-adapter-date-fns": "~3.0",
         "@typescript-eslint/parser": "~5.60",
         "@total-typescript/ts-reset": "~0.4",
