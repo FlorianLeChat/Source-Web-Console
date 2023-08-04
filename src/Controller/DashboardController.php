@@ -22,7 +22,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class DashboardController extends AbstractController
+final class DashboardController extends AbstractController
 {
 	// Durée du cache pour les données en temps réel du serveur.
 	private const CACHE_LIFETIME = 10;

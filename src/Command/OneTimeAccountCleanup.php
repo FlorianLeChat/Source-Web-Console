@@ -14,7 +14,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand("app:account-cleanup", "Deletes expired temporary accounts from the database")]
-class OneTimeAccountCleanup extends Command
+final class OneTimeAccountCleanup extends Command
 {
 	//
 	// Initialisation de certaines dépendances de la commande.

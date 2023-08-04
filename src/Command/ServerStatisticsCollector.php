@@ -16,7 +16,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand("app:statistics-collector", "Gathers statistical data from all servers.")]
-class ServerStatisticsCollector extends Command
+final class ServerStatisticsCollector extends Command
 {
 	//
 	// Initialisation de certaines dépendances de la commande.

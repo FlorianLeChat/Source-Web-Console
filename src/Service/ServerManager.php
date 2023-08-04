@@ -12,7 +12,7 @@ use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
-readonly class ServerManager
+final readonly class ServerManager
 {
 	// Phrase unique pour le chiffrement symétrique.
 	private string $sslPhrase;

@@ -9,7 +9,7 @@ use App\Entity\Stats;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class StatsCrudController extends AbstractCrudController
+final class StatsCrudController extends AbstractCrudController
 {
 	public static function getEntityFqcn(): string
 	{

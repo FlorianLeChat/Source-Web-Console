@@ -9,7 +9,7 @@ use App\Entity\Task;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class TaskCrudController extends AbstractCrudController
+final class TaskCrudController extends AbstractCrudController
 {
 	public static function getEntityFqcn(): string
 	{

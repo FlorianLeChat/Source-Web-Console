@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class LocaleSubscriber implements EventSubscriberInterface
+final class LocaleSubscriber implements EventSubscriberInterface
 {
 	// Définition de la langue par défaut.
 	private const DEFAULT_LOCALE = "en";

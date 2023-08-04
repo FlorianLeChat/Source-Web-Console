@@ -19,7 +19,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class ConsoleController extends AbstractController
+final class ConsoleController extends AbstractController
 {
 	//
 	// Initialisation de certaines dépendances du contrôleur.

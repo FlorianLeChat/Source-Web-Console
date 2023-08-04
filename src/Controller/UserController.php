@@ -32,7 +32,7 @@ use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\LoginLink\LoginLinkHandlerInterface;
 
-class UserController extends AbstractController
+final class UserController extends AbstractController
 {
 	//
 	// Initialisation de certaines dépendances du contrôleur.

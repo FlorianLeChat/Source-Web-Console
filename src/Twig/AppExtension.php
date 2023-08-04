@@ -10,7 +10,7 @@ use Twig\TwigFunction;
 use App\Twig\AppRuntime;
 use Twig\Extension\AbstractExtension;
 
-class AppExtension extends AbstractExtension
+final class AppExtension extends AbstractExtension
 {
 	// Déclaration des fonctions et filtres Twig personnalisés.
 	public function getFunctions()

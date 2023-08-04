@@ -17,7 +17,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Stats[]    findAll()
  * @method Stats[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class StatsRepository extends ServiceEntityRepository
+final class StatsRepository extends ServiceEntityRepository
 {
 	public function __construct(private readonly ManagerRegistry $registry)
 	{

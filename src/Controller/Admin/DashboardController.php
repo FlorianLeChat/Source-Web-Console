@@ -24,7 +24,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
-class DashboardController extends AbstractDashboardController
+final class DashboardController extends AbstractDashboardController
 {
 	//
 	// Initialisation de certaines dépendances du contrôleur.

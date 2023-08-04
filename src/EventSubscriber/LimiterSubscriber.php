@@ -13,7 +13,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class LimiterSubscriber implements EventSubscriberInterface
+final class LimiterSubscriber implements EventSubscriberInterface
 {
 	//
 	// Initialisation de certaines variables de l'écouteur.

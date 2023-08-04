@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class StatisticsController extends AbstractController
+final class StatisticsController extends AbstractController
 {
 	#[Route("/statistics", name: "statistics_page")]
 	public function index(Request $request, EntityManagerInterface $entityManager): Response
