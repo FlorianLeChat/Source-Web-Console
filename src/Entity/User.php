@@ -54,10 +54,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	private ?string $address = null;
 
 	#[ORM\Column(length: 255, nullable: true)]
-	private ?string $googleId = null;
-
-	#[ORM\Column(length: 255, nullable: true)]
-	private ?string $githubId = null;
+	private ?string $token = null;
 
 	#[ORM\Column]
 	private array $roles = [];
@@ -137,26 +134,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 		return $this;
 	}
 
-	public function getGoogleId(): ?string
+	public function getToken(): ?string
 	{
-		return $this->googleId;
+		return $this->token;
 	}
 
-	public function setGoogleId(?string $googleId): static
+	public function setToken(?string $token): static
 	{
-		$this->googleId = $googleId;
-
-		return $this;
-	}
-
-	public function getGithubId(): ?string
-	{
-		return $this->githubId;
-	}
-
-	public function setGithubId(?string $githubId): static
-	{
-		$this->githubId = $githubId;
+		$this->token = $token;
 
 		return $this;
 	}
