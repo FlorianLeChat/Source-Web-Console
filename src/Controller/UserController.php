@@ -76,31 +76,18 @@ final class UserController extends AbstractController
 	}
 
 	//
-	// Routes vers le mécanisme de connexion de l'utilisateur via Google.
+	// Routes vers le mécanisme de connexion de l'utilisateur via le protocole OAuth2.
 	//
-	#[Route("/oauth/google/connect", name: "user_google_connect", methods: ["GET"])]
-	public function googleConnect(ClientRegistry $clientRegistry): RedirectResponse
+	#[Route("/oauth/{name}/connect", name: "user_oauth_connect")]
+	public function OAuthConnect(string $name, ClientRegistry $clientRegistry): RedirectResponse
 	{
-        return $clientRegistry->getClient("google")->redirect([], []);
+		$scopes = $name === "github" ? ["user"] : []; // https://github.com/thephpleague/oauth2-github/issues/24#issue-1689888969
+
+		return $clientRegistry->getClient($name)->redirect($scopes, []);
 	}
 
-	#[Route("/oauth/google/check", name: "user_google_check", methods: ["GET"])]
-	public function googleCheck(): void
-	{
-		throw new \Exception("Should not be reached!");
-	}
-
-	//
-	// Routes vers le mécanisme de connexion de l'utilisateur via GitHub.
-	//
-	#[Route("/oauth/github/connect", name: "user_github_connect", methods: ["GET"])]
-	public function githubConnect(ClientRegistry $clientRegistry): RedirectResponse
-	{
-        return $clientRegistry->getClient("github")->redirect([], []);
-	}
-
-	#[Route("/oauth/github/check", name: "user_github_check", methods: ["GET"])]
-	public function githubCheck(): void
+	#[Route("/oauth/{name}/check", name: "user_oauth_check")]
+	public function OAuthCheck(): void
 	{
 		throw new \Exception("Should not be reached!");
 	}

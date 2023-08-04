@@ -1,7 +1,7 @@
 <?php
 
 //
-// Authentification via les services Google.
+// Authentification via le protocole OAuth2.
 //
 namespace App\Security;
 
@@ -17,10 +17,11 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 
-final class GoogleAuthenticator extends OAuth2Authenticator
+final class OAuthAuthenticator extends OAuth2Authenticator
 {
 	//
 	// Initialisation de certaines dépendances du service.
@@ -29,6 +30,7 @@ final class GoogleAuthenticator extends OAuth2Authenticator
 		private readonly ClientRegistry $clientRegistry,
 		private readonly RouterInterface $router,
 		private readonly EntityManagerInterface $entityManager,
+		private readonly UserPasswordHasherInterface $hasher
 	) {}
 
 	//
@@ -36,7 +38,7 @@ final class GoogleAuthenticator extends OAuth2Authenticator
 	//
 	public function supports(Request $request): ?bool
 	{
-		return $request->attributes->get("_route") === "user_google_connect";
+		return $request->attributes->get("_route") === "user_oauth_check";
 	}
 
 	//
@@ -45,7 +47,8 @@ final class GoogleAuthenticator extends OAuth2Authenticator
 	public function authenticate(Request $request): Passport
 	{
 		// On récupère d'abord le jeton d'accès fourni par Google.
-		$client = $this->clientRegistry->getClient("google");
+		$api = $request->attributes->get("name");
+		$client = $this->clientRegistry->getClient($api);
 		$accessToken = $this->fetchAccessToken($client);
 
 		// On retourne alors le droit d'accès à l'utilisateur.
@@ -54,9 +57,9 @@ final class GoogleAuthenticator extends OAuth2Authenticator
 			{
 				// On tente de récupérer un utilisateur existant.
 				/** @var GoogleUser */
-				$googleUser = $client->fetchUserFromToken($accessToken);
+				$user = $client->fetchUserFromToken($accessToken);
 				$repository = $this->entityManager->getRepository(User::class);
-				$existingUser = $repository->findOneBy(["googleId" => $googleUser->getId()]);
+				$existingUser = $repository->findOneBy(["token" => $user->getId()]);
 				$clientAddress = $request->getClientIp();
 
 				if ($existingUser)
@@ -68,15 +71,16 @@ final class GoogleAuthenticator extends OAuth2Authenticator
 				else
 				{
 					// Dans le cas contraire, on crée un nouvel utilisateur
-					//  avec les informations fournies par Google.
-					$email = explode("@", $googleUser->getEmail());
+					//  avec les informations fournies par l'API.
+					$email = explode("@", $user->getEmail());
 
 					$existingUser = new User();
-					$existingUser->setUsername($email[0]);
+					$existingUser->setUsername(mb_substr($email[0], 0, 30));
+					$existingUser->setPassword($this->hasher->hashPassword($existingUser, $email[0]));
 					$existingUser->setCreatedAt(new \DateTime());
 					$existingUser->setAddress($clientAddress);
 					$existingUser->setRoles(["ROLE_USER"]);
-					$existingUser->setGoogleId($googleUser->getId());
+					$existingUser->setToken($user->getId());
 				}
 
 				// On enregistre les modifications dans la base de données
