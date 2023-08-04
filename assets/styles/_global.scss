@@ -612,6 +612,8 @@ header
 			right: 1rem;
 			color: $background-color;
 			position: absolute;
+			max-width: 7rem;
+			overflow-x: scroll;
 			text-align: center;
 		}
 
