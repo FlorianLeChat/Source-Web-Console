@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class LegalController extends AbstractController
+final class LegalController extends AbstractController
 {
 	#[Route("/legal", name: "legal_page")]
 	public function index(): Response

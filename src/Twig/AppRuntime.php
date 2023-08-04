@@ -11,7 +11,7 @@ use Symfony\Component\Intl\Languages;
 use Twig\Extension\RuntimeExtensionInterface;
 use Symfony\Component\Translation\DataCollectorTranslator as Translator;
 
-class AppRuntime implements RuntimeExtensionInterface
+final class AppRuntime implements RuntimeExtensionInterface
 {
 	// Injection des dépendances.
 	public function __construct(

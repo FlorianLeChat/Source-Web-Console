@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 
-class GoogleAuthenticator extends OAuth2Authenticator
+final class GoogleAuthenticator extends OAuth2Authenticator
 {
 	//
 	// Initialisation de certaines dépendances du service.

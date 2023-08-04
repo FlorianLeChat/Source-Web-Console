@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class HelpController extends AbstractController
+final class HelpController extends AbstractController
 {
 	#[Route("/help", name: "help_page")]
 	public function index(EntityManagerInterface $entityManager): Response

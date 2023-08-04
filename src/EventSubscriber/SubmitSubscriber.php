@@ -13,7 +13,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
-class SubmitSubscriber implements EventSubscriberInterface
+final class SubmitSubscriber implements EventSubscriberInterface
 {
 	// Clé privée de l'API Google reCAPTCHA.
 	private string $recaptchaKey;

@@ -21,7 +21,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
 #[AsCommand("app:udp-server", "Creates the UDP server used to communicate with game servers.")]
-class UdpServerCreator extends Command
+final class UdpServerCreator extends Command
 {
 	//
 	// Initialisation de certaines dépendances de la commande.

@@ -17,7 +17,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class TasksController extends AbstractController
+final class TasksController extends AbstractController
 {
 	//
 	// Initialisation de certaines dépendances du contrôleur.

@@ -11,7 +11,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class EasyAdminSubscriber implements EventSubscriberInterface
+final class EasyAdminSubscriber implements EventSubscriberInterface
 {
 	//
 	// Initialisation de certaines dépendances de l'écouteur.
