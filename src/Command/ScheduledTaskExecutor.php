@@ -22,8 +22,8 @@ class ScheduledTaskExecutor extends Command
 	// Initialisation de certaines dépendances de la commande.
 	//
 	public function __construct(
-		private ServerManager $serverManager,
-		private EntityManagerInterface $entityManager
+		private readonly ServerManager $serverManager,
+		private readonly EntityManagerInterface $entityManager
 	) {
 		parent::__construct();
 	}

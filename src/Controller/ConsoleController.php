@@ -25,11 +25,11 @@ class ConsoleController extends AbstractController
 	// Initialisation de certaines dépendances du contrôleur.
 	//
 	public function __construct(
-		private Filesystem $filesystem,
-		private ServerManager $serverManager,
-		private KernelInterface $kernel,
-		private TranslatorInterface $translator,
-		private EntityManagerInterface $entityManager,
+		private readonly Filesystem $filesystem,
+		private readonly ServerManager $serverManager,
+		private readonly KernelInterface $kernel,
+		private readonly TranslatorInterface $translator,
+		private readonly EntityManagerInterface $entityManager,
 	) {}
 
 	//

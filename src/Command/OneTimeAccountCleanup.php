@@ -19,7 +19,7 @@ class OneTimeAccountCleanup extends Command
 	//
 	// Initialisation de certaines dépendances de la commande.
 	//
-	public function __construct(private EntityManagerInterface $entityManager)
+	public function __construct(private readonly EntityManagerInterface $entityManager)
 	{
 		parent::__construct();
 	}

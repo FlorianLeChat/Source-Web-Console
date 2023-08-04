@@ -15,8 +15,8 @@ class AppRuntime implements RuntimeExtensionInterface
 {
 	// Injection des dépendances.
 	public function __construct(
-		private Translator $translator,
-		private ServerManager $serverManager
+		private readonly Translator $translator,
+		private readonly ServerManager $serverManager
 	) {}
 
 	// Récupération des langues disponibles.

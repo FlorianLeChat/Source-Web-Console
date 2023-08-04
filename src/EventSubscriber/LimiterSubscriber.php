@@ -19,9 +19,9 @@ class LimiterSubscriber implements EventSubscriberInterface
 	// Initialisation de certaines variables de l'écouteur.
 	//
 	public function __construct(
-		private RateLimiterFactory $apiLimiter,
-		private HttpClientInterface $client,
-		private TranslatorInterface $translator,
+		private readonly RateLimiterFactory $apiLimiter,
+		private readonly HttpClientInterface $client,
+		private readonly TranslatorInterface $translator,
 	) {}
 
 	//

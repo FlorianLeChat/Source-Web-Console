@@ -38,13 +38,13 @@ class UserController extends AbstractController
 	// Initialisation de certaines dépendances du contrôleur.
 	//
 	public function __construct(
-		private Security $security,
-		private ServerManager $serverManager,
-		private KernelInterface $kernel,
-		private ValidatorInterface $validator,
-		private TranslatorInterface $translator,
-		private EntityManagerInterface $entityManager,
-		private UserPasswordHasherInterface $hasher
+		private readonly Security $security,
+		private readonly ServerManager $serverManager,
+		private readonly KernelInterface $kernel,
+		private readonly ValidatorInterface $validator,
+		private readonly TranslatorInterface $translator,
+		private readonly EntityManagerInterface $entityManager,
+		private readonly UserPasswordHasherInterface $hasher
 	) {}
 
 	//

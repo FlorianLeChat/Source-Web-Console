@@ -26,7 +26,8 @@ class UdpServerCreator extends Command
 	//
 	// Initialisation de certaines dépendances de la commande.
 	//
-	public function __construct(private KernelInterface $kernel) {
+	public function __construct(private readonly KernelInterface $kernel)
+	{
 		parent::__construct();
 	}
 

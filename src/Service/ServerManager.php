@@ -27,10 +27,10 @@ readonly class ServerManager
 	// Initialisation de certaines dépendances du service.
 	//
 	public function __construct(
-		public SourceQuery $query,
-		private CacheInterface $cache,
-		private HttpClientInterface $client,
-		private ContainerBagInterface $parameters,
+		public readonly SourceQuery $query,
+		private readonly CacheInterface $cache,
+		private readonly HttpClientInterface $client,
+		private readonly ContainerBagInterface $parameters,
 	) {
 		$this->sslPhrase = $this->parameters->get("app.ssl_phrase");
 	}
