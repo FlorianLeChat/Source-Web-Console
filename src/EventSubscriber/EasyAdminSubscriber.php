@@ -16,7 +16,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
 	//
 	// Initialisation de certaines dépendances de l'écouteur.
 	//
-	public function __construct(private UserPasswordHasherInterface $hasher) {}
+	public function __construct(private readonly UserPasswordHasherInterface $hasher) {}
 
 	//
 	// Hashage du mot de passe de l'utilisateur avant sa persistance

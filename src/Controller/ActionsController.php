@@ -24,10 +24,10 @@ class ActionsController extends AbstractController
 	// Initialisation de certaines dépendances du contrôleur.
 	//
 	public function __construct(
-		private ServerManager $serverManager,
-		private ValidatorInterface $validator,
-		private TranslatorInterface $translator,
-		private EntityManagerInterface $entityManager
+		private readonly ServerManager $serverManager,
+		private readonly ValidatorInterface $validator,
+		private readonly TranslatorInterface $translator,
+		private readonly EntityManagerInterface $entityManager
 	) {}
 
 	//

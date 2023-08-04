@@ -26,9 +26,9 @@ class GithubAuthenticator extends OAuth2Authenticator
 	// Initialisation de certaines dépendances du service.
 	//
 	public function __construct(
-		private ClientRegistry $clientRegistry,
-		private RouterInterface $router,
-		private EntityManagerInterface $entityManager,
+		private readonly ClientRegistry $clientRegistry,
+		private readonly RouterInterface $router,
+		private readonly EntityManagerInterface $entityManager,
 	) {}
 
 	//

@@ -29,7 +29,7 @@ class DashboardController extends AbstractDashboardController
 	//
 	// Initialisation de certaines dépendances du contrôleur.
 	//
-	public function __construct(private TranslatorInterface $translator) {}
+	public function __construct(private readonly TranslatorInterface $translator) {}
 
 	//
 	// Route vers la page de l'administration.

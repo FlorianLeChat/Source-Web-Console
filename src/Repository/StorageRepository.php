@@ -19,7 +19,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class StorageRepository extends ServiceEntityRepository
 {
-	public function __construct(ManagerRegistry $registry)
+	public function __construct(private readonly ManagerRegistry $registry)
 	{
 		parent::__construct($registry, Storage::class);
 	}

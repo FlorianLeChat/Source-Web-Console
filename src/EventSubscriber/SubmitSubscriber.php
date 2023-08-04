@@ -22,9 +22,9 @@ class SubmitSubscriber implements EventSubscriberInterface
 	// Initialisation de certaines variables de l'écouteur.
 	//
 	public function __construct(
-		private HttpClientInterface $client,
-		private TranslatorInterface $translator,
-		private ContainerBagInterface $parameters,
+		private readonly HttpClientInterface $client,
+		private readonly TranslatorInterface $translator,
+		private readonly ContainerBagInterface $parameters,
 	) {
 		$this->recaptchaKey = $this->parameters->get("app.recaptcha_private_key");
 	}

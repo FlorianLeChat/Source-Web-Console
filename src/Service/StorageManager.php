@@ -14,7 +14,7 @@ readonly class StorageManager
 	//
 	// Initialisation de certaines dépendances du service.
 	//
-	public function __construct(private ServerManager $serverManager) {}
+	public function __construct(private readonly ServerManager $serverManager) {}
 
 	//
 	// Initialise une connexion FTP vers le serveur de stockage d'un serveur.
