@@ -14,9 +14,10 @@
 	header ul
 	{
 		// Centrage des boutons.
-		gap: 1rem;
 		display: flex;
 		position: initial;
+		flex-wrap: wrap;
+		column-gap: 1rem;
 		justify-content: center;
 
 		li

@@ -21,46 +21,77 @@ header
 		margin: 1rem;
 		position: absolute;
 
-		button
+		li
 		{
-			// Disposition et affichage.
-			color: $text-color;
-			width: 150px;
-			height: 44px;
-			padding: 0.5rem 1.5rem;
-			transition: color 250ms, background-color 250ms;
-			font-weight: bold;
-			border-radius: 0.5rem;
-			margin-bottom: 0.5rem;
-			text-transform: uppercase;
-			background-color: $box-color;
-
-			&:hover
+			button
 			{
-				// Effet de sélection.
-				color: $box-color;
-				background-color: $text-color;
+				// Disposition et affichage.
+				color: $text-color;
+				width: 150px;
+				height: 44px;
+				padding: 0.5rem 1.5rem;
+				transition: color 250ms, background-color 250ms;
+				font-weight: bold;
+				border-radius: 0.5rem;
+				margin-bottom: 0.5rem;
+				text-transform: uppercase;
+				background-color: $box-color;
+
+				&:hover
+				{
+					// Effet de sélection.
+					color: $box-color;
+					background-color: $text-color;
+				}
+
+				&::before
+				{
+					// Amélioration de la zone de sélection.
+					@extend %larger-touch-zone;
+				}
 			}
 
-			&::before
+			a
 			{
-				// Amélioration de la zone de sélection.
-				@extend %larger-touch-zone;
+				// Utilisation des règles originales.
+				@extend button;
+
+				// Modification de l'apparence par défaut.
+				width: auto;
+				height: 1.75rem;
+				display: flex;
+				text-align: center;
+				align-items: center;
+				justify-content: center;
 			}
-		}
 
-		a
-		{
-			// Utilisation des règles originales.
-			@extend button;
+			&:last-of-type
+			{
+				// Affichage des boutons de connexion vers
+				//  des plate-formes externes.
+				gap: 1rem;
+				display: flex;
+				justify-content: center;
 
-			// Modification de l'apparence par défaut.
-			width: auto;
-			height: 1.75rem;
-			display: flex;
-			text-align: center;
-			align-items: center;
-			justify-content: center;
+				a
+				{
+					// Lien de connexion vers chaque plate-forme.
+					display: inline-flex;
+
+					i
+					{
+						// Icône des plate-formes.
+						position: revert;
+						font-size: 1.25rem;
+					}
+
+					&:hover i
+					{
+						// Effet de sélection.
+						color: $box-color;
+					}
+				}
+			}
 		}
 	}
 }
@@ -140,11 +171,10 @@ main > a
 	top: calc(50% - $footer-height);
 	gap: 10vw;
 	left: 50%;
-	width: 80%;
+	width: clamp($html-min-width, 80%, 1440px);
 	margin: auto;
 	display: flex;
 	position: absolute;
-	max-width: 1440px;
 	transform: translate(-50%, -50%);
 	box-shadow: none;
 	align-items: center;
@@ -256,6 +286,7 @@ main > a
 small
 {
 	left: 0.25rem;
+	width: max(75%, $html-min-width / 2);
 	bottom: $footer-height + 2rem;
 	position: absolute;
 
