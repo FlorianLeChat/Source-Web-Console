@@ -29,6 +29,11 @@
 
 			{# Formulaire de connexion #}
 			<li><button type="button">{{ t("index.login")|trans }}</button></li>
+
+			<li>
+				<a href="{{ path("user_oauth_connect", {name: "google"}) }}"><i class="bi bi-google"></i></a>
+				<a href="{{ path("user_oauth_connect", {name: "github"}) }}"><i class="bi bi-github"></i></a>
+			</li>
 		{% endif %}
 	</ul>
 {% endblock %}

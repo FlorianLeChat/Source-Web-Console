@@ -21,7 +21,7 @@ header.first().on( "click", "button", () =>
 	register.first().fadeIn( 150 );
 } );
 
-header.last().on( "click", "button", () =>
+header.eq( 1 ).on( "click", "button", () =>
 {
 	// Connexion.
 	login.fadeIn( 150 );
