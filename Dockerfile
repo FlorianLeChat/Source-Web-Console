@@ -31,8 +31,11 @@ ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.12.0/wai
 RUN chmod +x /wait
 
 # Add startup commands to the entrypoint
-RUN echo "/wait && /usr/local/bin/php /app/bin/console doctrine:migrations:diff --no-interaction && \
-    /usr/local/bin/php /app/bin/console doctrine:migrations:migrate --no-interaction && \
+# https://symfony.com/doc/current/deployment.html / https://symfony.com/doc/current/setup/file_permissions.html
+RUN echo "/wait && /usr/local/bin/php /app/bin/console cache:clear && \
+	cd /app/var && chmod 777 cache/prod/ && chmod 777 log/ && \
+	/usr/local/bin/php /app/bin/console doctrine:migrations:diff --no-interaction && \
+	/usr/local/bin/php /app/bin/console doctrine:migrations:migrate --no-interaction && \
 	/usr/local/bin/php /app/bin/console app:udp-server 127.0.0.1:81 &" >> /opt/docker/provision/entrypoint.d/25-app.sh
 
 RUN chmod +x /opt/docker/provision/entrypoint.d/25-app.sh
@@ -49,7 +52,7 @@ RUN --mount=type=cache,target=/app/.composer \
 	composer install --no-dev --optimize-autoloader
 
 # Copy files from the previous stage
-COPY --from=0 --chown=www-data:www-data /usr/src/app ./
+COPY --from=0 /usr/src/app ./
 
 # Find and replace some default environment variables
 RUN sed -i "s/APP_ENV=dev/APP_ENV=prod/g" .env
