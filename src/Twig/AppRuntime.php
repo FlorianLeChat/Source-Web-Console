@@ -9,20 +9,26 @@ namespace App\Twig;
 use App\Service\ServerManager;
 use Symfony\Component\Intl\Languages;
 use Twig\Extension\RuntimeExtensionInterface;
-use Symfony\Component\Translation\DataCollectorTranslator as Translator;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 
 final class AppRuntime implements RuntimeExtensionInterface
 {
 	// Injection des dépendances.
 	public function __construct(
-		private readonly Translator $translator,
-		private readonly ServerManager $serverManager
+		private readonly TranslatorInterface $translator,
+		private readonly ServerManager $serverManager,
 	) {}
 
 	// Récupération des langues disponibles.
 	public function getLanguages()
 	{
-		return $this->translator->getFallbackLocales();
+		if ($this->translator instanceof Translator || method_exists($this->translator, "getFallbackLocales"))
+		{
+			return $this->translator->getFallbackLocales();
+		}
+
+		return [];
 	}
 
 	// Récupération du nom d'une langue par son code ISO 639-1.
