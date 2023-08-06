@@ -111,8 +111,10 @@
 		{% include("form_login.html.twig") %}
 	</section>
 
-	{# Avertissement de Google reCAPTCHA #}
-	<small>
-		{{ t("index.recaptcha")|trans|raw }}
-	</small>
+	{% if index_recaptcha_enabled %}
+		{# Avertissement de Google reCAPTCHA #}
+		<small>
+			{{ t("index.recaptcha")|trans|raw }}
+		</small>
+	{% endif %}
 {% endblock %}
