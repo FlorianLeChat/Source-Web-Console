@@ -20,7 +20,7 @@ RUN --mount=type=cache,target=/usr/src/app/.npm \
 COPY . .
 
 # Build all static assets
-RUN npm run dev
+RUN npm run build
 
 # Use an customized image of PHP 8.2 with Nginx
 # https://github.com/webdevops/Dockerfile/blob/master/docker/php-nginx/8.2-alpine/Dockerfile
