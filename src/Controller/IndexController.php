@@ -11,12 +11,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class IndexController extends AbstractController
 {
-	//
-	// Route vers la page d'accueil.
-	//
 	#[Route("/", name: "index_page")]
 	public function index(): Response
 	{
-		return $this->render("index.html.twig");
+		return $this->render("index.html.twig", [
+			// État d'activation des services Google reCAPTCHA.
+			"index_recaptcha_enabled" => $this->getParameter("app.recaptcha_enabled") === "true"
+		]);
 	}
 }
