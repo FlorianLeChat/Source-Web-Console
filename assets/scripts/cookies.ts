@@ -15,13 +15,13 @@ if ( window.location.search !== "legal" )
 	run(
 		{
 			// Activation automatique de la fenêtre de consentement.
-			autoShow: true,
+			autoShow: process.env.NODE_ENV === "production",
 
 			// Désactivation de l'interaction avec la page.
 			disablePageInteraction: true,
 
 			// Disparition du mécanisme pour les robots.
-			hideFromBots: true,
+			hideFromBots: process.env.NODE_ENV === "production",
 
 			// Paramètres internes des cookies.
 			cookie: {
@@ -89,11 +89,6 @@ if ( window.location.search !== "legal" )
 							break;
 					}
 				} )
-			),
-
-			// Exécution des actions de changement.
-			onChange: ( { cookie } ) => (
-				cookie.categories.find( ( category ) => category === "analytics" ) && sendAnalytics()
 			)
 		}
 	);

@@ -9,7 +9,7 @@ namespace App\Twig;
 use App\Service\ServerManager;
 use Symfony\Component\Intl\Languages;
 use Twig\Extension\RuntimeExtensionInterface;
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Symfony\Component\Translation\DataCollectorTranslator as Translator;
 
 final class AppRuntime implements RuntimeExtensionInterface
 {

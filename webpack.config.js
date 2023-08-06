@@ -1,9 +1,21 @@
+const path = require( "path" );
+const local = path.resolve( process.cwd(), ".env.local" );
 const Encore = require( "@symfony/webpack-encore" );
+const fileSystem = require( "fs" );
+
+require( "dotenv" ).config( { path: fileSystem.existsSync( local ) ? local : undefined } );
 
 if ( !Encore.isRuntimeEnvironmentConfigured() )
 {
 	Encore.configureRuntimeEnvironment( process.env.NODE_ENV || "dev" );
 }
+
+Encore.configureDefinePlugin( ( options ) =>
+{
+	// Définition des variables d'environnement personnalisées.
+	options[ "process.env.ANALYTICS_ENABLED" ] = JSON.stringify( process.env.ANALYTICS_ENABLED );
+	options[ "process.env.RECAPTCHA_ENABLED" ] = JSON.stringify( process.env.RECAPTCHA_ENABLED );
+} );
 
 Encore
 	.setOutputPath( "public/build/" )
