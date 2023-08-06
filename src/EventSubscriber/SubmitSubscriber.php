@@ -18,6 +18,9 @@ final class SubmitSubscriber implements EventSubscriberInterface
 	// Clé privée de l'API Google reCAPTCHA.
 	private string $recaptchaKey;
 
+	// État de fonctionnement de l'API Google reCAPTCHA.
+	private bool $recaptchaEnabled;
+
 	//
 	// Initialisation de certaines variables de l'écouteur.
 	//
@@ -27,6 +30,7 @@ final class SubmitSubscriber implements EventSubscriberInterface
 		private readonly ContainerBagInterface $parameters,
 	) {
 		$this->recaptchaKey = $this->parameters->get("app.recaptcha_private_key");
+		$this->recaptchaEnabled = $this->parameters->get("app.recaptcha_enabled") === "true";
 	}
 
 	//
@@ -34,7 +38,13 @@ final class SubmitSubscriber implements EventSubscriberInterface
 	//
 	public function onKernelRequest(RequestEvent $event)
 	{
-		// On récupère tout d'abord la requête associée à l'événement.
+		// On vérifie tout d'abord si le service Google reCAPTCHA est activé.
+		if (!$this->recaptchaEnabled)
+		{
+			return;
+		}
+
+		// On récupère alors la requête associée à l'événement.
 		$request = $event->getRequest();
 
 		if (!$request->isMethod("GET") && $request->attributes->get("_route") !== "admin_page")

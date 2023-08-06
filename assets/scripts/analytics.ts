@@ -6,7 +6,13 @@ const head = $( "head" );
 
 export function sendAnalytics()
 {
-	// On ajoute d'abord le script de Google Analytics.
+	// On vérifie d'abord si le service est activé ou non.
+	if ( process.env.ANALYTICS_ENABLED === "false" )
+	{
+		return;
+	}
+
+	// On ajoute ensuite le script de Google Analytics.
 	const url = `https://www.googletagmanager.com/gtag/js?id=${ window.analytics_identifier }`;
 	head.append( `<script src="${ url }" async></script>` );
 
@@ -27,7 +33,13 @@ export function sendAnalytics()
 //
 export function setupRecaptcha()
 {
-	// On installe d'abord le script de Google reCAPTCHA.
+	// On vérifie d'abord si le service est activé ou non.
+	if ( process.env.RECAPTCHA_ENABLED === "false" )
+	{
+		return;
+	}
+
+	// On installe ensuite le script de Google reCAPTCHA.
 	const url = `https://www.google.com/recaptcha/api.js?render=${ window.recaptcha_public_key }`;
 	head.append( `<script src="${ url }" async></script>` );
 
