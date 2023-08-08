@@ -32,12 +32,12 @@
         "normalize.css": "~8.0",
         "bootstrap-icons": "~1.10",
         "webpack-notifier": "~1.15",
-        "regenerator-runtime": "~0.13",
+        "regenerator-runtime": "~0.14",
         "eslint-config-airbnb": "~19.0",
         "vanilla-cookieconsent": "3.0.0-rc.16",
         "chartjs-adapter-date-fns": "~3.0",
         "@total-typescript/ts-reset": "~0.4",
-        "@typescript-eslint/eslint-plugin": "~6.2"
+        "@typescript-eslint/eslint-plugin": "~6.3"
     },
     "engines": {
         "node": ">=18.0",
