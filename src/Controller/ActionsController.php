@@ -109,7 +109,7 @@ final class ActionsController extends AbstractController
 		if ($serverId === 0)
 		{
 			return new Response(
-				$this->translator->trans("form.no_server_selected"),
+				$this->translator->trans("form.no_selected_server"),
 				Response::HTTP_BAD_REQUEST
 			);
 		}
