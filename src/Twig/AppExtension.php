@@ -16,6 +16,7 @@ final class AppExtension extends AbstractExtension
 	public function getFunctions()
 	{
 		return [
+			new TwigFunction("get_metadata", [AppRuntime::class, "getMetadata"]),
 			new TwigFunction("get_languages", [AppRuntime::class, "getLanguages"]),
 			new TwigFunction("get_language_name", [AppRuntime::class, "getLanguageName"]),
 			new TwigFunction("get_name_by_game_id", [AppRuntime::class, "getNameByGameID"]),
