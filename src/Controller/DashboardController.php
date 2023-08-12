@@ -180,11 +180,19 @@ final class DashboardController extends AbstractController
 		}
 		else
 		{
-			// Premier serveur lié au compte de l'utilisateur.
+			// Premier serveur lié au compte de l'utilisateur (si existant).
 			$server = $repository->findOneBy(["user" => $user], ["id" => "ASC"]);
-			$serverId = $server->getId();
+
+			if (!$server)
+			{
+				return new Response(
+					$this->translator->trans("form.no_selected_server"),
+					Response::HTTP_BAD_REQUEST
+				);
+			}
 
 			// Enregistrement de l'identifiant du serveur dans la session de l'utilisateur.
+			$serverId = $server->getId();
 			$request->getSession()->set("serverId", $serverId);
 		}
 
