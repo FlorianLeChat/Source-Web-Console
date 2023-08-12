@@ -219,6 +219,7 @@ user:
     description: "La page du compte utilisateur est une page où les utilisateurs authentifiés peuvent modifier leur nom d'utilisateur ainsi que leur mot de passe afin d'accéder à leur compte. De plus, l'utilisateur peut téléverser une photo de profil afin d'être reconnaissable sur les services de messageries internes au site."
     reconnected: "Vous avez été reconnecté à votre compte utilisateur. Vous allez être redirigé automatiquement dans quelques secondes."
     disconnected: "Vous êtes désormais déconnecté de votre compte utilisateur. Vous allez être redirigé automatiquement dans quelques secondes."
+    oauth_success: "Vous avez été authentifié avec succès. S'il s'agit de votre première connexion, veuillez ajouter un nouveau serveur à votre compte avant de continuer."
 
 dashboard:
     tips: "Vous êtes sur le tableau de bord. Sur cette page, vous pouvez voir l'état général de votre serveur ainsi que réaliser certaines actions rapides. De cette manière, vous avez un oeil sur l'ensemble de votre infrastructure."

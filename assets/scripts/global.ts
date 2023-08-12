@@ -24,6 +24,7 @@ declare global
 		storage_path: string;
 		player_count: string;
 		onetime_info: string;
+		oauth_success: string;
 		execute_value: string;
 		usage_percent: string;
 		capslock_enabled: string;
