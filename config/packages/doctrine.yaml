@@ -19,6 +19,7 @@ doctrine:
 when@test:
     doctrine:
         dbal:
+            url: sqlite:///%kernel.project_dir%/var/data.db
             dbname_suffix: "_test%env(default::TEST_TOKEN)%"
 
 when@prod:
