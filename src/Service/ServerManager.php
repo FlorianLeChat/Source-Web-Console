@@ -137,11 +137,11 @@ final readonly class ServerManager
 				return $fallback;
 			}
 
-			// On transforme par la suite ce résultat sous format JSON
-			//	en tableau associatif pour le manipuler.
-			$response = json_decode($response->getContent(), true);
+			// On récupère le résultat par la suite sous forme de tableau
+			//  associatif pour pouvoir le manipuler plus facilement.
+			$response = $response->toArray();
 
-			if (is_array($response) && count($response) > 0)
+			if (count($response) > 0)
 			{
 				// Si la réponse semble correcte, on vérifie si l'API indique
 				//	que la réponse est un succès et s'il existe les informations
@@ -194,11 +194,11 @@ final readonly class ServerManager
 				return 0;
 			}
 
-			// On transforme par la suite ce résultat sous format JSON
-			//	en tableau associatif pour le manipuler.
-			$response = json_decode($response->getContent(), true);
+			// On récupère le résultat par la suite sous forme de tableau
+			//  associatif pour pouvoir le manipuler plus facilement.
+			$response = $response->toArray();
 
-			if (is_array($response) && count($response) > 0)
+			if (count($response) > 0)
 			{
 				// Si la réponse semble correcte, on vérifie si l'API indique
 				//	que la réponse est un succès et s'il existe une liste

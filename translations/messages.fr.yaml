@@ -36,10 +36,6 @@ footer:
     contact: "Contact"
     support: "Assistance"
 
-head:
-    title: "Source Web Console"
-    description: "Interface d'administration en ligne pour serveurs multi-joueurs exécutant le moteur Source de Valve."
-
 form:
     register:
         server: "Informations du serveur"

@@ -71,9 +71,9 @@ final class SubmitSubscriber implements EventSubscriberInterface
 			}
 
 			// Si elle a réussie, on vérifie le contenu de la réponse.
-			$response = json_decode($response->getContent(), true);
+			$response = $response->toArray();
 
-			if (is_array($response) && ($response["success"] === false || $response["score"] < 0.7))
+			if ($response["success"] === false || $response["score"] < 0.7)
 			{
 				// On envoie une réponse d'erreur si le jeton est invalide
 				//  ou si le score reCAPTCHA est trop faible.

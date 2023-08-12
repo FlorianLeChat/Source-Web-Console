@@ -2,31 +2,34 @@
 {% set route_name = app.current_route|split("_")[0] %}
 
 <!DOCTYPE html>
-<html lang="{{ app.request.locale ?? app.request.defaultLocale }}" prefix="og: http://ogp.me/ns#">
+<html lang="{{ app.request.locale ?? app.request.defaultLocale }}">
 	{# En-tête du site #}
 	<head>
+		{# Récupération des méta-données du site #}
+		{% set meta = get_metadata() %}
+
 		{# Méta-données du document #}
 		<meta charset="utf-8" />
-		<meta name="author" content="Florian Trayon" />
-		<meta name="description" content="{{ t("head.description")|trans }}" />
-		<meta name="keywords" content="console, source, webadmin, panel, custom, gmod, csgo, rust" />
+		<meta name="author" content="{{ meta.author.name }}" />
+		<meta name="description" content="{{ meta.description }}" />
+		<meta name="keywords" content="{{ meta.keywords }}" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 		<meta name="theme-color" content="#f59a23" />
 
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content="{{ app.request.server.get("SYMFONY_DEFAULT_ROUTE_URL") }}" />
-		<meta property="og:title" content="{{ t("head.title")|trans }}" />
-		<meta property="og:description" content="{{ t("head.description")|trans }}" />
-		<meta property="og:image" content="https://opengraph.githubassets.com/13ba739f90d3b9a74a277a81e7412c17603348fc621cdf279c4fa521e625f1f9/FlorianLeChat/Source-Web-Console" />
+		<meta property="og:url" content="{{ meta.url }}" />
+		<meta property="og:title" content="{{ meta.title }}" />
+		<meta property="og:description" content="{{ meta.description }}" />
+		<meta property="og:image" content="{{ meta.banner }}" />
 
-		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content="{{ app.request.server.get("SYMFONY_DEFAULT_ROUTE_URL") }}" />
-		<meta property="twitter:title" content="{{ t("head.title")|trans }}" />
-		<meta property="twitter:description" content="{{ t("head.description")|trans }}" />
-		<meta property="twitter:image" content="https://opengraph.githubassets.com/13ba739f90d3b9a74a277a81e7412c17603348fc621cdf279c4fa521e625f1f9/FlorianLeChat/Source-Web-Console" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:creator" content="{{ meta.twitter }}" />
+		<meta name="twitter:title" content="{{ meta.title }}" />
+		<meta name="twitter:description" content="{{ meta.description }}" />
+		<meta name="twitter:image" content="{{ meta.banner }}" />
 
 		{# Titre du document #}
-		<title>{{ t("head.title")|trans }}</title>
+		<title>{{ meta.title }}</title>
 
 		{# Feuilles de style CSS #}
 		{{ encore_entry_link_tags(route_name) }}
@@ -60,6 +63,7 @@
 
 		<link rel="apple-touch-icon" href="{{ asset("build/favicons/180x180.webp") }}" />
 		<link rel="manifest" href="manifest.json" />
+		<link rel="author" href="https://github.com/FlorianLeChat/Source-Web-Console" />
 	</head>
 
 	<body>
