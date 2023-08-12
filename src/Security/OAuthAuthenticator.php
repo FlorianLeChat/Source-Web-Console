@@ -97,7 +97,7 @@ final class OAuthAuthenticator extends OAuth2Authenticator
 	//
 	public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
 	{
-		return new RedirectResponse($this->router->generate("dashboard_page"));
+		return new RedirectResponse($this->router->generate("user_page", ["OAuth" => true]));
 	}
 
 	//

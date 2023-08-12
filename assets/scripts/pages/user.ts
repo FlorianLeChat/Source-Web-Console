@@ -8,6 +8,15 @@ import "../global";
 import { addQueuedNotification } from "../functions";
 
 //
+// Permet d'ajouter un message de succès après une connexion
+//  via un fournisseur d'authentification externe (OAuth).
+//
+if ( window.location.search === "?OAuth=1" )
+{
+	addQueuedNotification( window.oauth_success, 3 );
+}
+
+//
 // Permet d'envoyer les demandes de modification ou de suppression
 //  des informations d'authentification vers le serveur.
 //

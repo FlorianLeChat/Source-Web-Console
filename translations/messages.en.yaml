@@ -219,6 +219,7 @@ user:
     description: "The user account page is a page where authenticated users can change their username and password to access their account. In addition, the user can upload a profile picture in order to be recognizable on the website's internal messaging services."
     reconnected: "You have been reconnected to your user account. You will be redirected automatically in a few seconds."
     disconnected: "You are now disconnected from your user account. You will be redirected automatically in a few seconds."
+    oauth_success: "You have been successfully authenticated. If this is your first connection, please add a new server to your account before continuing."
 
 dashboard:
     tips: "You are on the dashboard. On this page you can see the global state of your server and perform some quick actions. This way, you have an eye on your entire infrastructure."
