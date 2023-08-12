@@ -39,7 +39,6 @@ footer:
 head:
     title: "Source Web Console"
     description: "Interface d'administration en ligne pour serveurs multi-joueurs exécutant le moteur Source de Valve."
-    no_javascript: "Votre navigateur ne supporte pas ou refuse de charger le JavaScript."
 
 form:
     register:
