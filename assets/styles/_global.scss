@@ -91,20 +91,6 @@ button
 	box-shadow: 0.25rem 0.25rem 0.25rem $border-color;
 }
 
-noscript
-{
-	// Avertissement page sans JavaScript.
-	top: 1rem;
-	left: 1rem;
-	color: $background-color;
-	padding: 0.5rem;
-	z-index: 10;
-	position: fixed;
-	font-weight: bold;
-	margin-right: 1rem;
-	background-color: $error-color;
-}
-
 nav, section, article
 {
 	// Sections, articles et barre de navigation.
