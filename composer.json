@@ -128,6 +128,7 @@
         "symfony/debug-bundle": "6.3.*",
         "symfony/maker-bundle": "1.50.*",
         "symfony/phpunit-bridge": "6.3.*",
-        "symfony/web-profiler-bundle": "6.3.*"
+        "symfony/web-profiler-bundle": "6.3.*",
+        "doctrine/doctrine-fixtures-bundle": "3.4.*"
     }
 }
