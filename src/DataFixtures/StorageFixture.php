@@ -10,7 +10,7 @@ use App\Service\ServerManager;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
-class StatsFixture extends Fixture
+final class StorageFixture extends Fixture
 {
 	public function __construct(private readonly ServerManager $serverManager) {}
 

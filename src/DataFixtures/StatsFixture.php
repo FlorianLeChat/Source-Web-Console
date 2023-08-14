@@ -9,7 +9,7 @@ use App\Entity\Stats;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
-class StatsFixture extends Fixture
+final class StatsFixture extends Fixture
 {
 	public function load(ObjectManager $manager): void
 	{

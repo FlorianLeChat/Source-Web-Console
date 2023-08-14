@@ -9,7 +9,7 @@ use App\Entity\Command;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
-class CommandFixture extends Fixture
+final class CommandFixture extends Fixture
 {
 	public function load(ObjectManager $manager): void
 	{
