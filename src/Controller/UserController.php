@@ -98,8 +98,6 @@ final class UserController extends AbstractController
 	#[Route("/api/user/register", name: "user_register", methods: ["POST"])]
 	public function register(Request $request, LoginLinkHandlerInterface $loginLinkHandler): Response|JsonResponse
 	{
-		// TODO : ajouter la possibilité de créer un compte via Google.
-
 		// On vérifie tout d'abord la validité du jeton CSRF.
 		if (!$this->isCsrfTokenValid("user_register", $request->request->get("token")))
 		{
@@ -218,8 +216,6 @@ final class UserController extends AbstractController
 	#[Route("/api/user/login", name: "user_login", methods: ["POST"])]
 	public function login(Request $request): Response
 	{
-		// TODO : ajouter la possibilité de se connecter via Google.
-
 		// On vérifie tout d'abord la validité du jeton CSRF.
 		if (!$this->isCsrfTokenValid("user_login", $request->request->get("token")))
 		{
