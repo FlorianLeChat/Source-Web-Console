@@ -9,7 +9,7 @@ use App\Entity\Event;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
-class EventFixture extends Fixture
+final class EventFixture extends Fixture
 {
 	public function load(ObjectManager $manager): void
 	{

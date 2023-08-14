@@ -10,7 +10,7 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class ContactFixture extends Fixture
+final class ContactFixture extends Fixture
 {
 	public function __construct(private readonly TranslatorInterface $translator) {}
 

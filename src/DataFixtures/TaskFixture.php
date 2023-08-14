@@ -9,7 +9,7 @@ use App\Entity\Task;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
-class TaskFixture extends Fixture
+final class TaskFixture extends Fixture
 {
 	public function load(ObjectManager $manager): void
 	{
