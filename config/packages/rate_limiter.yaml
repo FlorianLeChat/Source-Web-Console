@@ -1,6 +1,12 @@
 framework:
     rate_limiter:
         api:
-            limit: 30
+            limit: 60
             policy: "sliding_window"
             interval: "1 minute"
+
+when@test:
+    framework:
+        rate_limiter:
+            api:
+                limit: 1000
