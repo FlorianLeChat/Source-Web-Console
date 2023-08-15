@@ -121,7 +121,6 @@ final class UserController extends AbstractController
 		$server->setAddress($serverAddress = $request->request->get("server_address"));
 		$server->setPort($serverPort = intval($request->request->get("server_port")));
 		$server->setPassword($serverPassword = $request->request->get("server_password"));
-		$server->setGame($this->serverManager->getGameIDByAddress($serverAddress, $serverPort));
 		$server->setUser($user);
 
 		// On vérifie ensuite si le nom d'utilisateur n'est pas déjà utilisé.
@@ -135,13 +134,6 @@ final class UserController extends AbstractController
 			);
 		}
 
-		// On chiffre le mot de passe administrateur s'il est renseigné
-		//  pour des raisons de sécurité évidentes.
-		if (!empty($serverPassword))
-		{
-			$server->setPassword($this->serverManager->encryptPassword($serverPassword));
-		}
-
 		// On vérifie également si les informations sont valides.
 		$oneTime = false;
 		$userValidated = count($this->validator->validate($user)) === 0;
@@ -149,6 +141,19 @@ final class UserController extends AbstractController
 
 		if ($serverValidated)
 		{
+			// On réalise certaines modifications sur les données reçues
+			//  après avoir passé la validation de Doctrine.
+			if (!empty($serverAddress) && !empty($serverPort))
+			{
+				// Récupération de l'identifiant unique du jeu.
+				$server->setGame($this->serverManager->getGameIDByAddress($serverAddress, $serverPort));
+			}
+			elseif (!empty($serverPassword))
+			{
+				// Chiffrement du mot de passe administrateur.
+				$server->setPassword($this->serverManager->encryptPassword($serverPassword));
+			}
+
 			// On vérifie si l'utilisateur tente de créer un compte à usage unique.
 			if (empty($username) && empty($password))
 			{
@@ -552,15 +557,7 @@ final class UserController extends AbstractController
 		$server->setAddress($address = $request->request->get("server_address"));
 		$server->setPort($port = intval($request->request->get("server_port")));
 		$server->setPassword($password = $request->request->get("server_password"));
-		$server->setGame($this->serverManager->getGameIDByAddress($address, $port));
 		$server->setUser($this->getUser());
-
-		// On chiffre le mot de passe administrateur s'il est renseigné
-		//  pour des raisons de sécurité évidentes.
-		if (!empty($password))
-		{
-			$server->setPassword($this->serverManager->encryptPassword($password));
-		}
 
 		// On vérifie également si les informations sont valides.
 		if (count($this->validator->validate($server)) > 0)
@@ -569,6 +566,19 @@ final class UserController extends AbstractController
 				$this->translator->trans("form.server_check_failed"),
 				Response::HTTP_BAD_REQUEST
 			);
+		}
+
+		// On réalise certaines modifications sur les données reçues
+		//  après avoir passé la validation de Doctrine.
+		if (!empty($address) && !empty($port))
+		{
+			// Récupération de l'identifiant unique du jeu.
+			$server->setGame($this->serverManager->getGameIDByAddress($address, $port));
+		}
+		elseif (!empty($password))
+		{
+			// Chiffrement du mot de passe administrateur.
+			$server->setPassword($this->serverManager->encryptPassword($password));
 		}
 
 		// On enregistre alors les informations dans la base de données.
