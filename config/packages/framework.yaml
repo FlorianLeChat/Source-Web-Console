@@ -10,6 +10,7 @@ when@test:
     framework:
         test: true
         session:
+            handler_id: null
             storage_factory_id: session.storage.factory.mock_file
 
 when@prod:
