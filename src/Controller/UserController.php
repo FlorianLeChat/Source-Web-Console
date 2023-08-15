@@ -67,7 +67,7 @@ final class UserController extends AbstractController
 	// Route vers le mécanisme de création d'un accès unique.
 	//
 	#[Route("/onetime", name: "user_onetime", methods: ["GET"])]
-	public function check()
+	public function OneTime()
 	{
 		// Note : cette fonction ne doit pas être appelée directement par l'utilisateur,
 		//  mais par le mécanisme de connexion à usage unique.
@@ -86,9 +86,11 @@ final class UserController extends AbstractController
 	}
 
 	#[Route("/oauth/{name}/check", name: "user_oauth_check")]
-	public function OAuthCheck(): void
+	public function OAuthCheck(): RedirectResponse
 	{
-		throw new \Exception("Should not be reached!");
+		// Note : cette fonction ne doit pas être appelée directement par l'utilisateur,
+		//  mais par le mécanisme de vérification du protocole OAuth2.
+		return $this->redirectToRoute("index_page");
 	}
 
 	//
