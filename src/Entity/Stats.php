@@ -38,10 +38,10 @@ class Stats
 	private ?int $playerCount = null;
 
 	#[ORM\Column(type: Types::FLOAT)]
-	private ?int $cpuUsage = null;
+	private ?float $cpuUsage = null;
 
 	#[ORM\Column(type: Types::FLOAT)]
-	private ?int $tickRate = null;
+	private ?float $tickRate = null;
 
 	public function getId(): ?int
 	{
