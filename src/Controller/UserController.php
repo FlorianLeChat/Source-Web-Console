@@ -28,7 +28,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\LoginLink\LoginLinkHandlerInterface;
 
@@ -363,7 +362,7 @@ final class UserController extends AbstractController
 			// On envoie le courriel à l'utilisateur.
 			$mailer->send($signedEmail ?? $email);
 		}
-		catch (TransportExceptionInterface $error)
+		catch (\Exception $error)
 		{
 			// En cas d'erreur, on renvoie le message d'erreur à l'utilisateur.
 			return new Response(
