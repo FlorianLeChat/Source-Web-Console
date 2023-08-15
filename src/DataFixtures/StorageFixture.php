@@ -9,19 +9,17 @@ use App\Entity\Storage;
 use App\Service\ServerManager;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-final class StorageFixture extends Fixture
+final class StorageFixture extends Fixture implements DependentFixtureInterface
 {
 	public function __construct(private readonly ServerManager $serverManager) {}
 
 	public function load(ObjectManager $manager): void
 	{
-		// Récupération d'une référence à un serveur.
-		$server = $this->getReference("server1");
-
 		// Création des informations de stockage.
 		$storage = new Storage();
-		$storage->setServer($server);
+		$storage->setServer($this->getReference("server0"));
 		$storage->setAddress("florian4016");
 		$storage->setPort("22");
 		$storage->setProtocol("sftp");
@@ -31,5 +29,12 @@ final class StorageFixture extends Fixture
 		// Sauvegarde des informations de stockage.
 		$manager->persist($storage);
 		$manager->flush();
+	}
+
+	public function getDependencies()
+	{
+		return [
+			ServerFixture::class
+		];
 	}
 }
