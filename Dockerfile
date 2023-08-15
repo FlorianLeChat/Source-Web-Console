@@ -34,8 +34,8 @@ RUN chmod +x /wait
 # https://symfony.com/doc/current/deployment.html / https://symfony.com/doc/current/setup/file_permissions.html
 RUN echo "/wait && /usr/local/bin/php /app/bin/console cache:clear && \
 	cd /app/var && chmod 777 cache/prod/ && chmod 777 log/ && \
-	/usr/local/bin/php /app/bin/console doctrine:migrations:diff --no-interaction && \
-	/usr/local/bin/php /app/bin/console doctrine:migrations:migrate --no-interaction && \
+	/usr/local/bin/php /app/bin/console doctrine:database:create --no-interaction && \
+	/usr/local/bin/php /app/bin/console doctrine:schema:create --no-interaction && \
 	/usr/local/bin/php /app/bin/console app:udp-server 127.0.0.1:81 &" >> /opt/docker/provision/entrypoint.d/25-app.sh
 
 RUN chmod +x /opt/docker/provision/entrypoint.d/25-app.sh
