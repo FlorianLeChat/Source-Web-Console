@@ -8,19 +8,17 @@ namespace App\DataFixtures;
 use App\Entity\Event;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-final class EventFixture extends Fixture
+final class EventFixture extends Fixture implements DependentFixtureInterface
 {
 	public function load(ObjectManager $manager): void
 	{
-		// Récupération d'une référence à un serveur.
-		$server = $this->getReference("server1");
-
 		// Création de 100 événements journalisés.
 		for ($i = 0; $i < 100; $i++)
 		{
 			$event = new Event();
-			$event->setServer($server);
+			$event->setServer($this->getReference("server" . rand(0, 2)));
 			$event->setDate(new \DateTime());
 			$event->setAction("Event #$i");
 
@@ -29,5 +27,12 @@ final class EventFixture extends Fixture
 
 		// Sauvegarde des événements journalisés.
 		$manager->flush();
+	}
+
+	public function getDependencies()
+	{
+		return [
+			ServerFixture::class
+		];
 	}
 }

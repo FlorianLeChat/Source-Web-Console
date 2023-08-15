@@ -9,8 +9,9 @@ use App\Entity\Server;
 use App\Service\ServerManager;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-final class ServerFixture extends Fixture
+final class ServerFixture extends Fixture implements DependentFixtureInterface
 {
 	public function __construct(private readonly ServerManager $serverManager) {}
 
@@ -24,6 +25,7 @@ final class ServerFixture extends Fixture
 		{
 			$server = new Server();
 			$server->setAddress("123.123.123.$i");
+			$server->setPort("27015");
 			$server->setPassword($this->serverManager->encryptPassword("florian4016"));
 			$server->setGame("4000");
 			$server->setUser($user);
@@ -36,5 +38,12 @@ final class ServerFixture extends Fixture
 
 		// Sauvegarde des serveurs.
 		$manager->flush();
+	}
+
+	public function getDependencies()
+	{
+		return [
+			UserFixture::class
+		];
 	}
 }
