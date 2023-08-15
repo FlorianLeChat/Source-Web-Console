@@ -104,7 +104,7 @@ final class DashboardController extends AbstractDashboardController
 			MenuItem::section("admin.misc"),
 			MenuItem::linkToUrl("admin.public_website", "fa-solid fa-globe", "https://console.florian-dev.fr/")->setLinkTarget("_blank"),
 			MenuItem::linkToUrl("admin.code_source", "fa-brands fa-github", "https://github.com/FlorianLeChat/Source-Web-Console")->setLinkTarget("_blank"),
-			MenuItem::linkToUrl("user.disconnect", "fa-solid fa-right-from-bracket", "api/user/logout")
+			MenuItem::linkToUrl("user.disconnect", "fa-solid fa-right-from-bracket", "user")
 		];
 	}
 }

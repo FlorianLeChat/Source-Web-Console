@@ -271,22 +271,11 @@ final class UserController extends AbstractController
 	//
 	// API vers le mécanisme de déconnexion de l'utilisateur.
 	//
-	#[Route("/api/user/logout", name: "user_logout", methods: ["GET", "POST"])]
+	#[Route("/api/user/logout", name: "user_logout", methods: ["POST"])]
 	#[IsGranted("IS_AUTHENTICATED")]
 	public function logout(Request $request): Response
 	{
-		// On vérifie tout d'abord si la méthode de la requête.
-		if ($request->isMethod("GET"))
-		{
-			// Si elle est de type GET, alors on déconnecte l'utilisateur
-			//  et on le redirige vers la page d'accueil comme dans un
-			//  mécanisme totalement traditionnel.
-			$this->security->logout(false);
-
-			return $this->redirectToRoute("index_page");
-		}
-
-		// Dans le cas contraire, on vérifie la validité du jeton CSRF.
+		// On vérifie tout d'abord la validité du jeton CSRF.
 		if (!$this->isCsrfTokenValid("user_logout", $request->request->get("token")))
 		{
 			return new Response(
