@@ -1,7 +1,12 @@
 <?php
 
+//
+// Tests du contrôleur de la page de l'espace utilisateur.
+//
 namespace App\Tests\Controller;
 
+use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -59,7 +64,6 @@ final class UserControllerTest extends WebTestCase
 
 		$this->assertResponseIsSuccessful();
 
-		// TODO : utiliser les formulaires HTML pour envoyer des requêtes.
 		// TODO : vérifier que le lien de confirmation est accessible.
 	}
 
@@ -285,7 +289,203 @@ final class UserControllerTest extends WebTestCase
 		$this->assertResponseIsSuccessful();
 	}
 
-	// TODO : #[Route("/api/user/recover", name: "user_recover", methods: ["PUT"])]
-	// TODO : #[Route("/api/user/remove", name: "user_remove", methods: ["DELETE"])]
-	// TODO : #[Route("/api/server/new", name: "server_new", methods: ["POST"])]
+	//
+	// Test de récupération valide de mot de passe d'un compte utilisateur.
+	//
+	public function testValidPasswordAccountRecover()
+	{
+		// Accès à la page d'accueil.
+		$router = static::getContainer()->get(UrlGeneratorInterface::class);
+		$crawler = $this->client->request("GET", $router->generate("index_page"));
+
+		// Envoi d'une requête de réinitialisation de mot de passe.
+		$this->client->xmlHttpRequest("PUT", $router->generate("user_recover"), [
+			"token" => $crawler->filter("#login")->attr("data-token"),
+			"username" => "florian4016",
+			"password" => "florian4017"
+		]);
+
+		$this->assertResponseIsSuccessful();
+
+		// Envoi d'une requête d'authentification.
+		$this->client->xmlHttpRequest("POST", $router->generate("user_login"), [
+			"token" => $crawler->filter("#login")->attr("data-token"),
+			"username" => "florian4016",
+			"password" => "florian4017"
+		]);
+
+		$this->assertResponseIsSuccessful();
+
+		// Test de l'accès à la page du compte utilisateur.
+		$crawler = $this->client->request("GET", $router->generate("user_page"));
+
+		$this->assertResponseIsSuccessful();
+	}
+
+	//
+	// Test de récupération invalide de mot de passe d'un compte utilisateur.
+	//
+	public function testInvalidPasswordAccountRecover()
+	{
+		// Accès à la page d'accueil.
+		$router = static::getContainer()->get(UrlGeneratorInterface::class);
+		$crawler = $this->client->request("GET", $router->generate("index_page"));
+
+		// Envoi d'une première requête de réinitialisation de mot de passe.
+		//  Note : le nom d'utilisateur n'existe pas.
+		$this->client->xmlHttpRequest("PUT", $router->generate("user_recover"), [
+			"token" => $crawler->filter("#login")->attr("data-token"),
+			"username" => "florian4017",
+			"password" => "florian4017"
+		]);
+
+		$this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+
+		// Envoi d'une deuxième requête de réinitialisation de mot de passe.
+		//  Note : l'adresse IP enregistré ne correspond pas à celle de la requête.
+		$this->client->xmlHttpRequest("PUT", $router->generate("user_recover"), [
+			"token" => $crawler->filter("#login")->attr("data-token"),
+			"username" => "florian4016",
+			"password" => "florian4016"
+		], server: [
+			// Modification de l'adresse IP de la requête.
+			"REMOTE_ADDR" => "123.123.123.123"
+		]);
+
+		$this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+	}
+
+	//
+	// Test de suppression d'un compte utilisateur.
+	//
+	public function testAccountDeletion()
+	{
+		// Accès à la page d'accueil.
+		$router = static::getContainer()->get(UrlGeneratorInterface::class);
+		$crawler = $this->client->request("GET", $router->generate("index_page"));
+
+		// Envoi d'une requête d'authentification.
+		$this->client->xmlHttpRequest("POST", $router->generate("user_login"), [
+			"token" => $crawler->filter("#login")->attr("data-token"),
+			"username" => "florian4016",
+			"password" => "florian4016"
+		]);
+
+		$this->assertResponseIsSuccessful();
+
+		// Test de l'accès à la page du compte utilisateur.
+		$crawler = $this->client->request("GET", $router->generate("user_page"));
+
+		$this->assertResponseIsSuccessful();
+
+		// Envoi d'une requête de suppression de compte.
+		$this->client->xmlHttpRequest("DELETE", $router->generate("user_remove"), [
+			"token" => $crawler->filter("input[data-action = remove]")->attr("data-token")
+		]);
+
+		$this->assertResponseIsSuccessful();
+
+		// Test de l'accès au tableau de bord.
+		//  Note : l'utilisateur n'a plus de compte.
+		$this->client->request("GET", $router->generate("dashboard_page"));
+
+		$this->assertResponseRedirects("/");
+	}
+
+	//
+	// Test d'ajout réussi d'un nouveau serveur à un compte utilisateur.
+	//
+	public function testValidAddNewServerToAccount()
+	{
+		// Initialisation du conteneur de services.
+		$container = static::getContainer();
+
+		// Accès à la page d'accueil.
+		$router = $container->get(UrlGeneratorInterface::class);
+		$crawler = $this->client->request("GET", $router->generate("index_page"));
+
+		// Modification du rôle de l'utilisateur.
+		$repository = $container->get(EntityManagerInterface::class)->getRepository(User::class);
+
+		$user = $repository->findOneBy(["username" => "florian4016"]);
+		$user->setRoles(["ROLE_DONOR"]);
+
+		$repository->save($user, true);
+
+		// Envoi d'une requête d'authentification.
+		$this->client->xmlHttpRequest("POST", $router->generate("user_login"), [
+			"token" => $crawler->filter("#login")->attr("data-token"),
+			"username" => "florian4016",
+			"password" => "florian4016"
+		]);
+
+		$this->assertResponseIsSuccessful();
+
+		// Test de l'accès à la page du compte utilisateur.
+		$crawler = $this->client->request("GET", $router->generate("user_page"));
+
+		$this->assertResponseIsSuccessful();
+
+		// Envoi de 7 requêtes d'ajout de serveur.
+		//  Note : l'utilisateur atteint la limite autorisée.
+		$token = $crawler->filter("#register")->attr("data-token");
+
+		for ($i = 0; $i < 7; $i++)
+		{
+			$this->client->xmlHttpRequest("POST", $router->generate("server_new"), [
+				"token" => $token,
+				"server_address" => "123.123.123.$i",
+				"server_port" => "27015",
+				"server_password" => "florian4016"
+			]);
+
+			$this->assertResponseIsSuccessful();
+		}
+
+		// Envoi d'une requête pour ajouter un 11ème serveur.
+		//  Note : un utilisateur donateur ne peut pas ajouter plus de 10 serveurs.
+		$this->client->xmlHttpRequest("POST", $router->generate("server_new"), [
+			"token" => $crawler->filter("#register")->attr("data-token"),
+			"server_address" => "123.123.123.123",
+			"server_port" => "27015",
+			"server_password" => "florian4016"
+		]);
+
+		$this->assertResponseStatusCodeSame(Response::HTTP_TOO_MANY_REQUESTS);
+	}
+
+	//
+	// Test d'ajout invalide d'un nouveau serveur à un compte utilisateur.
+	//
+	public function testInvalidAddNewServerToAccount()
+	{
+		// Accès à la page d'accueil.
+		$router = static::getContainer()->get(UrlGeneratorInterface::class);
+		$crawler = $this->client->request("GET", $router->generate("index_page"));
+
+		// Envoi d'une requête d'authentification.
+		$this->client->xmlHttpRequest("POST", $router->generate("user_login"), [
+			"token" => $crawler->filter("#login")->attr("data-token"),
+			"username" => "florian4016",
+			"password" => "florian4016"
+		]);
+
+		$this->assertResponseIsSuccessful();
+
+		// Test de l'accès à la page du compte utilisateur.
+		$crawler = $this->client->request("GET", $router->generate("user_page"));
+
+		$this->assertResponseIsSuccessful();
+
+		// Envoi d'une requête d'ajout de serveur.
+		//  Note : un utilisateur standard ne peut pas ajouter plus de 3 serveurs.
+		$this->client->xmlHttpRequest("POST", $router->generate("server_new"), [
+			"token" => $crawler->filter("#register")->attr("data-token"),
+			"server_address" => "123.123.123.123",
+			"server_port" => "27015",
+			"server_password" => "florian4016"
+		]);
+
+		$this->assertResponseStatusCodeSame(Response::HTTP_TOO_MANY_REQUESTS);
+	}
 }
