@@ -5,6 +5,7 @@ namespace App\Tests\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class UserControllerTest extends WebTestCase
 {
@@ -13,12 +14,15 @@ class UserControllerTest extends WebTestCase
 	//
 	public function testOneTimeAccountRegistration()
 	{
-		// Accès à la page d'accueil.
+		// Initialisation du client.
 		$client = static::createClient();
-		$crawler = $client->request("GET", "/");
+
+		// Accès à la page d'accueil.
+		$router = static::getContainer()->get(UrlGeneratorInterface::class);
+		$crawler = $client->request("GET", $router->generate("index_page"));
 
 		// Envoi d'une requête de création de compte.
-		$client->xmlHttpRequest("POST", "/api/user/register", [
+		$client->xmlHttpRequest("POST", $router->generate("user_register"), [
 			"token" => $crawler->filter("#register")->attr("data-token"),
 			"server_address" => "123.123.123.123",
 			"server_port" => "27015",
@@ -36,12 +40,15 @@ class UserControllerTest extends WebTestCase
 	//
 	public function testValidPermanentAccountRegistration()
 	{
-		// Accès à la page d'accueil.
+		// Initialisation du client.
 		$client = static::createClient();
-		$crawler = $client->request("GET", "/");
+
+		// Accès à la page d'accueil.
+		$router = static::getContainer()->get(UrlGeneratorInterface::class);
+		$crawler = $client->request("GET", $router->generate("index_page"));
 
 		// Envoi d'une requête de création de compte.
-		$client->xmlHttpRequest("POST", "/api/user/register", [
+		$client->xmlHttpRequest("POST", $router->generate("user_register"), [
 			"token" => $crawler->filter("#register")->attr("data-token"),
 			"username" => "florian4017",
 			"password" => "florian4017",
@@ -53,7 +60,7 @@ class UserControllerTest extends WebTestCase
 		$this->assertResponseIsSuccessful();
 
 		// Test de l'accès au tableau de bord.
-		$client->request("GET", "/dashboard");
+		$client->request("GET", $router->generate("dashboard_page"));
 
 		$this->assertResponseIsSuccessful();
 	}
@@ -63,13 +70,16 @@ class UserControllerTest extends WebTestCase
 	//
 	public function testInvalidPermanentAccountRegistration()
 	{
-		// Accès à la page d'accueil.
+		// Initialisation du client.
 		$client = static::createClient();
-		$crawler = $client->request("GET", "/");
+
+		// Accès à la page d'accueil.
+		$router = static::getContainer()->get(UrlGeneratorInterface::class);
+		$crawler = $client->request("GET", $router->generate("index_page"));
 
 		// Envoi d'une requête de création de compte.
 		//  Note : le nom d'utilisateur est déjà utilisé.
-		$client->xmlHttpRequest("POST", "/api/user/register", [
+		$client->xmlHttpRequest("POST", $router->generate("user_register"), [
 			"token" => $crawler->filter("#register")->attr("data-token"),
 			"username" => "florian4016",
 			"password" => "florian4016",
@@ -82,7 +92,7 @@ class UserControllerTest extends WebTestCase
 
 		// Test de l'accès au tableau de bord.
 		//  Note : l'utilisateur n'est pas authentifié.
-		$client->request("GET", "/dashboard");
+		$client->request("GET", $router->generate("dashboard_page"));
 
 		$this->assertResponseRedirects("/");
 	}
@@ -92,12 +102,15 @@ class UserControllerTest extends WebTestCase
 	//
 	public function testValidAccountLogin()
 	{
-		// Accès à la page d'accueil.
+		// Initialisation du client.
 		$client = static::createClient();
-		$crawler = $client->request("GET", "/");
+
+		// Accès à la page d'accueil.
+		$router = static::getContainer()->get(UrlGeneratorInterface::class);
+		$crawler = $client->request("GET", $router->generate("index_page"));
 
 		// Envoi d'une requête d'authentification.
-		$client->xmlHttpRequest("POST", "/api/user/login", [
+		$client->xmlHttpRequest("POST", $router->generate("user_login"), [
 			"token" => $crawler->filter("#login")->attr("data-token"),
 			"username" => "florian4016",
 			"password" => "florian4016"
@@ -111,7 +124,7 @@ class UserControllerTest extends WebTestCase
 		$this->assertResponseIsSuccessful();
 
 		// Envoi d'une requête de déconnexion.
-		$client->xmlHttpRequest("POST", "/api/user/logout", [
+		$client->xmlHttpRequest("POST", $router->generate("user_logout"), [
 			"token" => $crawler->filter("input[data-action = logout]")->attr("data-token")
 		]);
 
@@ -123,13 +136,16 @@ class UserControllerTest extends WebTestCase
 	//
 	public function testInvalidAccountLogin()
 	{
-		// Accès à la page d'accueil.
+		// Initialisation du client.
 		$client = static::createClient();
-		$crawler = $client->request("GET", "/");
+
+		// Accès à la page d'accueil.
+		$router = static::getContainer()->get(UrlGeneratorInterface::class);
+		$crawler = $client->request("GET", $router->generate("index_page"));
 
 		// Envoi d'une requête d'authentification.
 		//  Note : le mot de passe est incorrect.
-		$client->xmlHttpRequest("POST", "/api/user/login", [
+		$client->xmlHttpRequest("POST", $router->generate("user_login"), [
 			"token" => $crawler->filter("#login")->attr("data-token"),
 			"username" => "florian4016",
 			"password" => "florian4017"
@@ -139,7 +155,7 @@ class UserControllerTest extends WebTestCase
 
 		// Envoi d'une requête de déconnexion.
 		//  Note : l'utilisateur n'est pas authentifié.
-		$client->xmlHttpRequest("POST", "/api/user/logout");
+		$client->xmlHttpRequest("POST", $router->generate("user_logout"));
 
 		$this->assertResponseStatusCodeSame(Response::HTTP_UNAUTHORIZED);
 	}
@@ -149,17 +165,19 @@ class UserControllerTest extends WebTestCase
 	//
 	public function testValidContactMessageSending()
 	{
-		// Accès à la page d'accueil.
+		// Initialisation du client.
 		$client = static::createClient();
-		$crawler = $client->request("GET", "/");
-
-		// Récupération de l'interface de traduction.
 		$container = static::getContainer();
-        $translator = $container->get(TranslatorInterface::class);
+
+		// Accès à la page d'accueil.
+		$router = $container->get(UrlGeneratorInterface::class);
+		$crawler = $client->request("GET", $router->generate("index_page"));
 
 		// Envoi d'un premier message de contact.
 		//  Note : le serveur SMTP n'est pas renseigné.
-		$client->xmlHttpRequest("POST", "/api/user/contact", [
+		$translator = $container->get(TranslatorInterface::class);
+
+		$client->xmlHttpRequest("POST", $router->generate("user_contact"), [
 			"token" => $crawler->filter("#contact")->attr("data-token"),
 			"email" => "florian@gmail.com",
 			"subject" => $translator->trans("form.contact.subject.1"),
@@ -170,7 +188,7 @@ class UserControllerTest extends WebTestCase
 
 		// Envoi d'un deuxième message de contact.
 		//  Note : un seul message de contact autorisé par jour.
-		$client->xmlHttpRequest("POST", "/api/user/contact", [
+		$client->xmlHttpRequest("POST", $router->generate("user_contact"), [
 			"token" => $crawler->filter("#contact")->attr("data-token"),
 			"email" => "florian@gmail.com",
 			"subject" => $translator->trans("form.contact.subject.1"),
@@ -185,13 +203,16 @@ class UserControllerTest extends WebTestCase
 	//
 	public function testInvalidContactMessageSending()
 	{
-		// Accès à la page d'accueil.
+		// Initialisation du client.
 		$client = static::createClient();
-		$crawler = $client->request("GET", "/");
+
+		// Accès à la page d'accueil.
+		$router = static::getContainer()->get(UrlGeneratorInterface::class);
+		$crawler = $client->request("GET", $router->generate("index_page"));
 
 		// Envoi d'un message de contact.
 		//  Note : les données envoyées ne respectent pas les contraintes.
-		$client->xmlHttpRequest("POST", "/api/user/contact", [
+		$client->xmlHttpRequest("POST", $router->generate("user_contact"), [
 			"token" => $crawler->filter("#contact")->attr("data-token"),
 			"email" => "florian",
 			"subject" => "florian",
@@ -206,12 +227,15 @@ class UserControllerTest extends WebTestCase
 	//
 	public function testAccountUpdate()
 	{
-		// Accès à la page d'accueil.
+		// Initialisation du client.
 		$client = static::createClient();
-		$crawler = $client->request("GET", "/");
+
+		// Accès à la page d'accueil.
+		$router = static::getContainer()->get(UrlGeneratorInterface::class);
+		$crawler = $client->request("GET", $router->generate("index_page"));
 
 		// Envoi d'une requête d'authentification.
-		$client->xmlHttpRequest("POST", "/api/user/login", [
+		$client->xmlHttpRequest("POST", $router->generate("user_login"), [
 			"token" => $crawler->filter("#login")->attr("data-token"),
 			"username" => "florian4016",
 			"password" => "florian4016"
@@ -220,12 +244,12 @@ class UserControllerTest extends WebTestCase
 		$this->assertResponseIsSuccessful();
 
 		// Test de l'accès à la page du compte utilisateur.
-		$crawler = $client->request("GET", "/user");
+		$crawler = $client->request("GET", $router->generate("user_page"));
 
 		$this->assertResponseIsSuccessful();
 
 		// Envoi d'une requête de mise à jour.
-		$client->xmlHttpRequest("PUT", "/api/user/update", [
+		$client->xmlHttpRequest("PUT", $router->generate("user_update"), [
 			"token" => $crawler->filter("input[data-action = update]")->attr("data-token"),
 			"username" => "florian4018",
 			"password" => "florian4018"
@@ -234,7 +258,7 @@ class UserControllerTest extends WebTestCase
 		$this->assertResponseIsSuccessful();
 
 		// Envoi d'une requête de déconnexion.
-		$client->xmlHttpRequest("POST", "/api/user/logout", [
+		$client->xmlHttpRequest("POST", $router->generate("user_logout"), [
 			"token" => $crawler->filter("input[data-action = logout]")->attr("data-token")
 		]);
 
@@ -243,7 +267,7 @@ class UserControllerTest extends WebTestCase
 		// Envoi d'une requête d'authentification.
 		$crawler = $client->request("GET", "/");
 
-		$client->xmlHttpRequest("POST", "/api/user/login", [
+		$client->xmlHttpRequest("POST", $router->generate("user_login"), [
 			"token" => $crawler->filter("#login")->attr("data-token"),
 			"username" => "florian4018",
 			"password" => "florian4018"
