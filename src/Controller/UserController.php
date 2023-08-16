@@ -513,8 +513,8 @@ final class UserController extends AbstractController
 		}
 
 		// On supprime ensuite l'utilisateur de la base de données avant de le déconnecter.
-		$this->security->logout();
 		$this->entityManager->getRepository(User::class)->remove($this->getUser(), true);
+		$this->security->logout(false);
 
 		// On déconnecte enfin l'utilisateur.
 		return new Response(
