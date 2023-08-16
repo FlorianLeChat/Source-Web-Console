@@ -6,13 +6,13 @@
 namespace App\Tests\Controller;
 
 use App\Entity\User;
+use Symfony\Component\Process\Process;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class UserControllerTest extends WebTestCase
@@ -32,21 +32,22 @@ final class UserControllerTest extends WebTestCase
 		// Création du client.
 		$this->client = static::createClient();
 
-		// Lancement de l'application console.
-		$application = new Application($this->client->getKernel());
-		$application->setAutoExit(false);
-
 		// Exécution de la commande de réinitialisation.
-		$application->run(new ArrayInput([
-			"command" => "doctrine:fixtures:load",
-			"--env" => "test",
-			"--quiet" => true,
-			"--no-interaction" => true
-		]));
+		$php = new PhpExecutableFinder();
+		$process = new Process([
+			$php->find() ?? "php",
+			sprintf("%s/bin/console", $this->client->getKernel()->getProjectDir()),
+			"doctrine:fixtures:load",
+			"--env=test",
+			"--no-interaction"
+		]);
+
+		$process->disableOutput();
+		$process->run();
 	}
 
 	//
-	// Test de création d'un compte utilisateur à usage unique.
+	// Création d'un compte à usage unique.
 	//
 	public function testOneTimeAccountRegistration()
 	{
@@ -68,9 +69,9 @@ final class UserControllerTest extends WebTestCase
 	}
 
 	//
-	// Test de création valide d'un compte utilisateur permanent.
+	// Création réussie d'un compte utilisateur permanent.
 	//
-	public function testValidPermanentAccountRegistration()
+	public function testPermanentAccountRegistrationSuccess()
 	{
 		// Accès à la page d'accueil.
 		$router = static::getContainer()->get(UrlGeneratorInterface::class);
@@ -95,9 +96,9 @@ final class UserControllerTest extends WebTestCase
 	}
 
 	//
-	// Test de création invalide d'un compte utilisateur permanent.
+	// Création échouée d'un compte utilisateur permanent.
 	//
-	public function testInvalidPermanentAccountRegistration()
+	public function testPermanentAccountRegistrationFailure()
 	{
 		// Accès à la page d'accueil.
 		$router = static::getContainer()->get(UrlGeneratorInterface::class);
@@ -124,9 +125,9 @@ final class UserControllerTest extends WebTestCase
 	}
 
 	//
-	// Test d'une authentification réussie à un compte utilisateur.
+	// Authentification réussie à un compte utilisateur.
 	//
-	public function testValidAccountLogin()
+	public function testAccountLoginSuccess()
 	{
 		// Accès à la page d'accueil.
 		$router = static::getContainer()->get(UrlGeneratorInterface::class);
@@ -155,9 +156,9 @@ final class UserControllerTest extends WebTestCase
 	}
 
 	//
-	// Test d'une authentification échouée à un compte utilisateur.
+	// Authentification échouée à un compte utilisateur.
 	//
-	public function testInvalidAccountLogin()
+	public function testAccountLoginFailure()
 	{
 		// Accès à la page d'accueil.
 		$router = static::getContainer()->get(UrlGeneratorInterface::class);
@@ -181,9 +182,9 @@ final class UserControllerTest extends WebTestCase
 	}
 
 	//
-	// Test d'un envoi de message de contact valide.
+	// Envoi réussi d'un message de contact.
 	//
-	public function testValidContactMessageSending()
+	public function testContactMessageSendingSuccess()
 	{
 		// Initialisation du conteneur de services.
 		$container = static::getContainer();
@@ -218,9 +219,9 @@ final class UserControllerTest extends WebTestCase
 	}
 
 	//
-	// Test d'un envoi de message de contact invalide.
+	// Envoi échoué d'un message de contact.
 	//
-	public function testInvalidContactMessageSending()
+	public function testContactMessageSendingFailure()
 	{
 		// Accès à la page d'accueil.
 		$router = static::getContainer()->get(UrlGeneratorInterface::class);
@@ -239,7 +240,7 @@ final class UserControllerTest extends WebTestCase
 	}
 
 	//
-	// Test de mise à jour des informations d'un compte utilisateur.
+	// Mis à jour des informations d'un compte utilisateur.
 	//
 	public function testAccountUpdate()
 	{
@@ -290,9 +291,9 @@ final class UserControllerTest extends WebTestCase
 	}
 
 	//
-	// Test de récupération valide de mot de passe d'un compte utilisateur.
+	// Récupération réussie du mot de passe d'un compte utilisateur.
 	//
-	public function testValidPasswordAccountRecover()
+	public function testAccountPasswordRecoverSuccess()
 	{
 		// Accès à la page d'accueil.
 		$router = static::getContainer()->get(UrlGeneratorInterface::class);
@@ -323,9 +324,9 @@ final class UserControllerTest extends WebTestCase
 	}
 
 	//
-	// Test de récupération invalide de mot de passe d'un compte utilisateur.
+	// Récupération échouée du mot de passe d'un compte utilisateur.
 	//
-	public function testInvalidPasswordAccountRecover()
+	public function testAccountPasswordRecoverFailure()
 	{
 		// Accès à la page d'accueil.
 		$router = static::getContainer()->get(UrlGeneratorInterface::class);
@@ -356,7 +357,7 @@ final class UserControllerTest extends WebTestCase
 	}
 
 	//
-	// Test de suppression d'un compte utilisateur.
+	// Suppression d'un compte utilisateur.
 	//
 	public function testAccountDeletion()
 	{
@@ -393,9 +394,9 @@ final class UserControllerTest extends WebTestCase
 	}
 
 	//
-	// Test d'ajout réussi d'un nouveau serveur à un compte utilisateur.
+	// Ajout réussi d'un nouveau serveur à un compte utilisateur.
 	//
-	public function testValidAddNewServerToAccount()
+	public function testServerRegistrationSuccess()
 	{
 		// Initialisation du conteneur de services.
 		$container = static::getContainer();
@@ -455,9 +456,9 @@ final class UserControllerTest extends WebTestCase
 	}
 
 	//
-	// Test d'ajout invalide d'un nouveau serveur à un compte utilisateur.
+	// Ajout échoué d'un nouveau serveur à un compte utilisateur.
 	//
-	public function testInvalidAddNewServerToAccount()
+	public function testServerRegistrationFailure()
 	{
 		// Accès à la page d'accueil.
 		$router = static::getContainer()->get(UrlGeneratorInterface::class);
