@@ -184,9 +184,13 @@ final class UserController extends AbstractController
 		// On lance un processus de nettoyage des comptes inactifs en
 		//  arrière-plan le plus tôt possible.
 		$php = new PhpExecutableFinder();
-		$php = $php->find() ?? "php";
+		$process = new Process([
+			$php->find() ?? "php",
+			sprintf("%s/bin/console",
+			$this->kernel->getProjectDir()),
+			"app:account-cleanup"
+		]);
 
-		$process = new Process([$php, sprintf("%s/bin/console", $this->kernel->getProjectDir()), "app:account-cleanup"]);
 		$process->disableOutput();
 		$process->run();
 
