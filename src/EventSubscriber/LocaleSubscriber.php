@@ -20,23 +20,34 @@ final class LocaleSubscriber implements EventSubscriberInterface
 	//
 	public function onKernelRequest(RequestEvent $event)
 	{
-		// On récupère d'abord les données de la requête et de la session.
+		// On détermine d'abord la langue de la requête et du navigateur.
 		$request = $event->getRequest();
+		$requestLocale = $request->request->get("_locale", $request->query->get("_locale"));
+		$browserLocale = substr($request->server->get("HTTP_ACCEPT_LANGUAGE", self::DEFAULT_LOCALE), 0, 2);
+
+		// On vérifie ensuite si la route ne nécessite pas l'utilisation du
+		//  mécanisme de session.
+		if ($request->attributes->get("_stateless"))
+		{
+			// Si c'est le cas, on définit la langue de la requête en fonction
+			//  des informations récupérées précédemment.
+			$request->setLocale($requestLocale ?? $browserLocale);
+			return;
+		}
+
+		// On vérifie après si la langue de la requête est définie.
 		$session = $request->getSession();
 
-		// On vérifie ensuite si une langue est définie par l'utilisateur
-		//  au travers d'un formulaire ou d'un paramètre d'URL.
-		if ($locale = $request->request->get("_locale", $request->query->get("_locale")))
+		if ($requestLocale)
 		{
 			// Si c'est le cas, on l'enregistre alors dans la session.
-			$session->set("_locale", $locale);
+			$session->set("_locale", $requestLocale);
 		}
 		else if (!$session->get("_locale"))
 		{
 			// Dans le cas contraire et si aucune langue existe dans la session,
-			//  on récupère la langue du navigateur de l'utilisateur ou on utilise
-			//  la langue par défaut (arbitraire).
-			$session->set("_locale", substr($request->server->get("HTTP_ACCEPT_LANGUAGE", self::DEFAULT_LOCALE), 0, 2));
+			//  on récupère la langue du navigateur de l'utilisateur.
+			$session->set("_locale", $browserLocale);
 		}
 
 		// On définit enfin la langue de la requête.
