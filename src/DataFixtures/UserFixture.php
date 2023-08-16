@@ -21,7 +21,7 @@ final class UserFixture extends Fixture
 		$user->setUsername("florian4016");
 		$user->setPassword($this->hasher->hashPassword($user, "florian4016"));
 		$user->setCreatedAt(new \DateTime());
-		$user->setAddress("123.123.123.123");
+		$user->setAddress("127.0.0.0");
 		$user->setRoles(["ROLE_USER"]);
 
 		// Sauvegarde de l'utilisateur.
