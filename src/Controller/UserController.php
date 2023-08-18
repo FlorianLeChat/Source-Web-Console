@@ -120,7 +120,7 @@ final class UserController extends AbstractController
 		$user->setRoles(["ROLE_USER"]);
 
 		$server->setAddress($serverAddress = $request->request->get("server_address"));
-		$server->setPort($serverPort = intval($request->request->get("server_port")));
+		$server->setPort($serverPort = $request->request->get("server_port"));
 		$server->setPassword($serverPassword = $request->request->get("server_password"));
 		$server->setUser($user);
 
@@ -186,9 +186,8 @@ final class UserController extends AbstractController
 		//  arrière-plan le plus tôt possible.
 		$php = new PhpExecutableFinder();
 		$process = new Process([
-			$php->find() ?? "php",
-			sprintf("%s/bin/console",
-			$this->kernel->getProjectDir()),
+			$php->find(),
+			sprintf("%s/bin/console", $this->kernel->getProjectDir()),
 			"app:account-cleanup"
 		]);
 
@@ -204,7 +203,7 @@ final class UserController extends AbstractController
 		{
 			// Réponse spécifique pour les comptes à usage unique.
 			return new JsonResponse([
-				"link" => $link,
+				"link" => $link ?? "",
 				"message" => $this->translator->trans("form.register.onetime.success")
 			], Response::HTTP_ACCEPTED);
 		}
@@ -523,7 +522,9 @@ final class UserController extends AbstractController
 		}
 
 		// On supprime ensuite l'utilisateur de la base de données avant de le déconnecter.
-		$this->entityManager->getRepository(User::class)->remove($this->getUser(), true);
+		/** @var User */
+		$user = $this->getUser();
+		$this->entityManager->getRepository(User::class)->remove($user, true);
 		$this->security->logout(false);
 
 		// On déconnecte enfin l'utilisateur.
@@ -551,6 +552,7 @@ final class UserController extends AbstractController
 
 		// On vérifie après si l'utilisateur n'a pas déjà atteint
 		//  la limite de serveurs pour son compte.
+		/** @var User */
 		$user = $this->getUser();
 		$repository = $this->entityManager->getRepository(Server::class);
 
@@ -565,9 +567,9 @@ final class UserController extends AbstractController
 		// On enregistre ensuite les informations du nouveau serveur.
 		$server = new Server();
 		$server->setAddress($address = $request->request->get("server_address"));
-		$server->setPort($port = intval($request->request->get("server_port")));
+		$server->setPort($port = $request->request->get("server_port"));
 		$server->setPassword($password = $request->request->get("server_password"));
-		$server->setUser($this->getUser());
+		$server->setUser($user);
 
 		// On vérifie également si les informations sont valides.
 		if (count($this->validator->validate($server)) > 0)

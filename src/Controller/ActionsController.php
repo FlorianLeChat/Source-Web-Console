@@ -5,6 +5,7 @@
 //
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Event;
 use App\Entity\Server;
 use App\Entity\Command;
@@ -311,6 +312,7 @@ final class ActionsController extends AbstractController
 
 		// On vérifie après que les informations de la commande personnalisée
 		//  sont valides.
+		/** @var User $user */
 		$command = new Command();
 		$command->setUser($user);
 		$command->setTitle($request->request->get("title"));

@@ -94,9 +94,9 @@ final class ServerStatisticsCollector extends Command
 				$stats = new Stats();
 				$stats->setServer($server);
 				$stats->setDate(new \DateTime());
-				$stats->setPlayerCount($data[6]);
-				$stats->setCpuUsage($data[8]);
-				$stats->setTickRate($data[13]);
+				$stats->setPlayerCount(intval($data[6]));
+				$stats->setCpuUsage(floatval($data[8]));
+				$stats->setTickRate(floatval($data[13]));
 
 				$io->text(sprintf("Gathering statistics from server \"%s\"...", $server->getAddress()));
 				$repository->save($stats);
