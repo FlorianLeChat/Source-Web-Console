@@ -14,8 +14,10 @@
 		<!-- Exclusion des sauts de ligne en fin de fichier -->
 	    <exclude name="PSR2.Files.EndFileNewline" />
 
-		<!-- Exclusion des espaces au lieu des tabulations -->
+		<!-- Exclusion des espaces et caractères de terminaison
+			au lieu des tabulations -->
 	    <exclude name="Generic.WhiteSpace.DisallowTabIndent" />
+		<exclude name="Generic.Files.LineEndings.InvalidEOLChar" />
 
 		<!-- Exclusion des espaces, accolades et parenthèses sur la même ligne
 			des fonctions (une seule ligne) -->
@@ -48,13 +50,6 @@
 		<properties>
 			<property name="lineLimit" value="130" />
 			<property name="absoluteLineLimit" value="140" />
-		</properties>
-	</rule>
-
-	<!-- Utilisation des sauts de ligne CRLF (Windows) -->
-	<rule ref="Generic.Files.LineEndings">
-		<properties>
-			<property name="eolChar" value="\r\n" />
 		</properties>
 	</rule>
 
