@@ -67,7 +67,7 @@ final class UserController extends AbstractController
 	// Route vers le mécanisme de création d'un accès unique.
 	//
 	#[Route("/onetime", name: "user_onetime", methods: ["GET"])]
-	public function OneTime()
+	public function oneTime()
 	{
 		// Note : cette fonction ne doit pas être appelée directement par l'utilisateur,
 		//  mais par le mécanisme de connexion à usage unique.
@@ -76,11 +76,12 @@ final class UserController extends AbstractController
 
 	//
 	// Routes vers le mécanisme de connexion de l'utilisateur via le protocole OAuth2.
+	//  Note : https://github.com/thephpleague/oauth2-github/issues/24#issue-1689888969 (GitHub)
 	//
 	#[Route("/oauth/{name}/connect", name: "user_oauth_connect")]
 	public function OAuthConnect(string $name, ClientRegistry $clientRegistry): RedirectResponse
 	{
-		$scopes = $name === "github" ? ["user"] : []; // https://github.com/thephpleague/oauth2-github/issues/24#issue-1689888969
+		$scopes = $name === "github" ? ["user"] : [];
 
 		return $clientRegistry->getClient($name)->redirect($scopes, []);
 	}
@@ -364,7 +365,12 @@ final class UserController extends AbstractController
 		//  Source : https://symfony.com/doc/current/mailer.html#signing-messages
 		if (is_file($path = $this->getParameter("app.dkim_private_key")))
 		{
-			$signer = new DkimSigner($path, $this->getParameter("app.dkim_domain"), $this->getParameter("app.dkim_selector"));
+			$signer = new DkimSigner(
+				$path,
+				$this->getParameter("app.dkim_domain"),
+				$this->getParameter("app.dkim_selector")
+			);
+
 			$signedEmail = $signer->sign($email);
 		}
 

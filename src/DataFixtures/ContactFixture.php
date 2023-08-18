@@ -23,7 +23,8 @@ final class ContactFixture extends Fixture
 			$contact->setDate(new \DateTime("+$i days"));
 			$contact->setEmail("florian0$i@gmail.com");
 			$contact->setSubject($this->translator->trans("form.contact.subject.$i"));
-			$contact->setContent("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
+			$contact->setContent("Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+				sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
 
 			$manager->persist($contact);
 		}

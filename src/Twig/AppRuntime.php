@@ -40,9 +40,17 @@ final class AppRuntime implements RuntimeExtensionInterface
 
 			// On fait plusieurs requêtes à l'API GitHub pour récupérer
 			//	les informations du dépôt, de l'auteur et des changements.
-			$repository = $this->client->request("GET", "https://api.github.com/repos/FlorianLeChat/Source-Web-Console");
-			$author = $this->client->request("GET", "https://api.github.com/users/FlorianLeChat");
-			$commits = $this->client->request("GET", "https://api.github.com/repos/FlorianLeChat/Source-Web-Console/commits/master");
+			$repository = $this->client->request(
+				"GET", "https://api.github.com/repos/FlorianLeChat/Source-Web-Console"
+			);
+
+			$author = $this->client->request(
+				"GET", "https://api.github.com/users/FlorianLeChat"
+			);
+
+			$commits = $this->client->request(
+				"GET", "https://api.github.com/repos/FlorianLeChat/Source-Web-Console/commits/master"
+			);
 
 			// On vérifie après si les requêtes ont bien abouties.
 			if ($repository->getStatusCode() !== 200 || $author->getStatusCode() !== 200 || $commits->getStatusCode() !== 200)
@@ -69,7 +77,9 @@ final class AppRuntime implements RuntimeExtensionInterface
 						"name" => $author["name"],
 						"url" => $author["html_url"]
 					],
-					"banner" => sprintf("https://opengraph.githubassets.com/%s/%s", $commits["sha"], $repository["full_name"]),
+					"banner" => sprintf("https://opengraph.githubassets.com/%s/%s",
+						$commits["sha"], $repository["full_name"]
+					),
 					"twitter" => "@" . $author["twitter_username"],
 					"keywords" => implode(",", $repository["topics"]),
 					"description" => $repository["description"]
@@ -80,8 +90,6 @@ final class AppRuntime implements RuntimeExtensionInterface
 			//  n'ont pas abouties ou si les données ne sont pas valides.
 			return [];
 		});
-
-
 	}
 
 	// Récupération des langues disponibles.

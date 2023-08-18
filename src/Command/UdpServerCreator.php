@@ -2,7 +2,7 @@
 
 //
 // Commande pour créer le serveur UDP utilisé pour communiquer avec les serveurs de jeu.
-//  Sources : https://forums.nfoservers.com/viewtopic.php?t=10090 et https://github.com/koraktor/steam-condenser/issues/181#issuecomment-311964214
+//  Source : https://github.com/koraktor/steam-condenser/issues/181#issuecomment-311964214
 //
 namespace App\Command;
 
@@ -89,7 +89,10 @@ final class UdpServerCreator extends Command
 					{
 						// En cas d'erreur dans l'enregistrement du message,
 						//  on affiche un message d'erreur.
-						$io->error(sprintf("An error occurred while creating log directory for remote server \"%s\": %s", $address, $exception->getMessage()));
+						$io->error(sprintf(
+							"An error occurred while creating log directory for remote server \"%s\": %s",
+							$address, $exception->getMessage()
+						));
 					}
 				});
 			},

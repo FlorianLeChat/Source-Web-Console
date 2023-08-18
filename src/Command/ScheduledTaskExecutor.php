@@ -106,7 +106,10 @@ final class ScheduledTaskExecutor extends Command
 			catch (\Exception $error)
 			{
 				// On signale à Doctrine que la tâche a échouée avec une erreur.
-				$io->error(sprintf("An error occurred while executing task \"%d\". Message: \"%s\".", $task->getId(), $error->getMessage()));
+				$io->error(sprintf(
+					"An error occurred while executing task \"%d\". Message: \"%s\".",
+					$task->getId(), $error->getMessage()
+				));
 				$task->setState(Task::STATE_ERROR);
 				$repository->save($task);
 			}
