@@ -40,5 +40,9 @@ jobs:
         php bin/console --env=test doctrine:database:create --no-interaction
         php bin/console --env=test doctrine:schema:create --no-interaction
         php bin/console --env=test doctrine:fixtures:load --no-interaction
+    - name: Run PHP Code Sniffer
+      run: vendor/bin/phpcs -s
+    - name: Run PHPStan
+      run: vendor/bin/phpstan analyse
     - name: Execute tests with PHPUnit
       run: vendor/bin/phpunit
