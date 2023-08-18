@@ -46,7 +46,10 @@ final class DashboardController extends AbstractController
 	public function translations(Request $request, ?string $language): JsonResponse
 	{
 		return new JsonResponse(
-			Yaml::parseFile(sprintf("%s/translations/messages.%s.yaml", $this->kernel->getProjectDir(), $language ?? $request->getLocale())),
+			Yaml::parseFile(sprintf(
+				"%s/translations/messages.%s.yaml",
+				$this->kernel->getProjectDir(), $language ?? $request->getLocale()
+			)),
 			JsonResponse::HTTP_OK
 		);
 	}

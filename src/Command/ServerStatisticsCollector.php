@@ -52,7 +52,11 @@ final class ServerStatisticsCollector extends Command
 
 			if (in_array("ROLE_DONOR", $user->getRoles()) && $stats->getDate() <= $past)
 			{
-				$io->info(sprintf("Skipping statistics deletion from server \"%s\" because expiration date is longer.", $address));
+				$io->info(sprintf(
+					"Skipping statistics deletion from server \"%s\" because expiration date is longer.",
+					$address
+				));
+
 				continue;
 			}
 
@@ -77,10 +81,9 @@ final class ServerStatisticsCollector extends Command
 				//  qui nous intéressent pour les étapes suivantes.
 				$data = $this->serverManager->query->Rcon("stats");
 				$data = array_filter(explode(" ", str_replace("\n", " ", $data)), function($value)
-					{
-						return $value !== "" && $value !== "\n";
-					}
-				);
+				{
+					return $value !== "" && $value !== "\n";
+				});
 
 				// On arrange les valeurs des données pour les rendre plus
 				//  exploitables pour après.
@@ -104,7 +107,10 @@ final class ServerStatisticsCollector extends Command
 			catch (\Exception $error)
 			{
 				// Si une erreur survient, on l'affiche dans la console.
-				$io->error(sprintf("An error occurred while gathering statistics from server \"%s\". Message: \"%s\".", $server->getAddress(), $error->getMessage()));
+				$io->error(sprintf(
+					"An error occurred while gathering statistics from server \"%s\". Message: \"%s\".",
+					$server->getAddress(), $error->getMessage()
+				));
 			}
 			finally
 			{

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
+	<arg name="cache" value=".phpcs-cache" />
+	<arg name="colors" />
+	<arg name="basepath" value="." />
+	<arg name="tab-width" value="4" />
+	<arg name="extensions" value="php" />
+	<arg name="error-severity" value="1" />
+	<arg name="warning-severity" value="1" />
+
+	<!-- Utilisation de la norme PSR12 -->
+	<rule ref="PSR12">
+		<!-- Exclusion des sauts de ligne en fin de fichier -->
+	    <exclude name="PSR2.Files.EndFileNewline" />
+
+		<!-- Exclusion des espaces des signatures de fonctions -->
+        <exclude name="PSR2.Methods.FunctionCallSignature"/>
+
+		<!-- Exclusion des points-virgules dans les instructions switch-case -->
+		<exclude name="PSR2.ControlStructures.SwitchDeclaration" />
+
+		<!-- Exclusion des espaces au lieu des tabulations -->
+	    <exclude name="Generic.WhiteSpace.DisallowTabIndent" />
+
+		<!-- Exclusion des espaces avant les parenthèses -->
+		<exclude name="Squiz.ControlStructures.ControlSignature" />
+
+		<!-- Exclusion des accolades de début de fonction sur la même ligne -->
+		<exclude name="Squiz.Functions.MultiLineFunctionDeclaration" />
+
+		<!-- Exclusion des accolades de fin de fonction sur la même ligne -->
+		<exclude name="Squiz.WhiteSpace.ScopeClosingBrace" />
+	</rule>
+
+	<!-- Modification de la longueur des lignes -->
+	<rule ref="Generic.Files.LineLength">
+		<properties>
+			<property name="lineLimit" value="125" />
+			<property name="absoluteLineLimit" value="0" />
+		</properties>
+	</rule>
+
+	<!-- Utilisation des sauts de ligne CRLF -->
+	<rule ref="Generic.Files.LineEndings">
+		<properties>
+			<property name="eolChar" value="\r\n" />
+		</properties>
+	</rule>
+
+    <!-- Autorisation des tabulations au lieu des espaces -->
+	<rule ref="Generic.WhiteSpace.ScopeIndent">
+		<properties>
+			<property name="tabIndent" value="true" />
+		</properties>
+	</rule>
+
+	<!-- Répertoire à analyser -->
+	<file>bin/</file>
+	<file>config/</file>
+	<file>migrations/</file>
+	<file>public/</file>
+	<file>src/</file>
+	<file>tests/</file>
+</ruleset>

@@ -9,7 +9,7 @@ use FTP\Connection;
 use App\Entity\Storage;
 use phpseclib3\Net\SFTP;
 
-final readonly class StorageManager
+final class StorageManager
 {
 	//
 	// Initialisation de certaines dépendances du service.

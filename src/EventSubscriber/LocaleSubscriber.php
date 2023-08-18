@@ -43,7 +43,7 @@ final class LocaleSubscriber implements EventSubscriberInterface
 			// Si c'est le cas, on l'enregistre alors dans la session.
 			$session->set("_locale", $requestLocale);
 		}
-		else if (!$session->get("_locale"))
+		elseif (!$session->get("_locale"))
 		{
 			// Dans le cas contraire et si aucune langue existe dans la session,
 			//  on récupère la langue du navigateur de l'utilisateur.

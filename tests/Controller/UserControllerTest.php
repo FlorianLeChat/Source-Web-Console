@@ -201,7 +201,8 @@ final class UserControllerTest extends WebTestCase
 			"token" => $crawler->filter("#contact")->attr("data-token"),
 			"email" => "florian@gmail.com",
 			"subject" => $translator->trans("form.contact.subject.1"),
-			"content" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+			"content" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+				sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 		]);
 
 		$this->assertResponseStatusCodeSame(Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -212,7 +213,8 @@ final class UserControllerTest extends WebTestCase
 			"token" => $crawler->filter("#contact")->attr("data-token"),
 			"email" => "florian@gmail.com",
 			"subject" => $translator->trans("form.contact.subject.1"),
-			"content" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+			"content" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+				sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 		]);
 
 		$this->assertResponseStatusCodeSame(Response::HTTP_TOO_MANY_REQUESTS);
