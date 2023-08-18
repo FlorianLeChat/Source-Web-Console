@@ -80,6 +80,7 @@ final class AppRuntime implements RuntimeExtensionInterface
 					"banner" => sprintf("https://opengraph.githubassets.com/%s/%s",
 						$commits["sha"], $repository["full_name"]
 					),
+					"source" => $repository["html_url"],
 					"twitter" => "@" . $author["twitter_username"],
 					"keywords" => implode(",", $repository["topics"]),
 					"description" => $repository["description"]

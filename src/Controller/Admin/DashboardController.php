@@ -13,6 +13,7 @@ use App\Entity\Server;
 use App\Entity\Storage;
 use App\Entity\Contact;
 use App\Entity\Command;
+use App\Twig\AppRuntime;
 use Symfony\Component\Intl\Languages;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,7 +30,10 @@ final class DashboardController extends AbstractDashboardController
 	//
 	// Initialisation de certaines dépendances du contrôleur.
 	//
-	public function __construct(private readonly TranslatorInterface $translator) {}
+	public function __construct(
+		private readonly AppRuntime $runtime,
+		private readonly TranslatorInterface $translator
+	) {}
 
 	//
 	// Route vers la page de l'administration.
@@ -74,6 +78,9 @@ final class DashboardController extends AbstractDashboardController
 	//
 	public function configureMenuItems(): iterable
 	{
+		// Récupération des méta-données du site.
+		$metadata = $this->runtime->getMetadata();
+
 		return [
 			// Utilisateurs.
 			MenuItem::section("admin.users"),
@@ -102,9 +109,9 @@ final class DashboardController extends AbstractDashboardController
 
 			// Divers.
 			MenuItem::section("admin.misc"),
-			MenuItem::linkToUrl("admin.public_website", "fa-solid fa-globe", "https://console.florian-dev.fr/")
+			MenuItem::linkToUrl("admin.public_website", "fa-solid fa-globe", $metadata["url"])
 				->setLinkTarget("_blank"),
-			MenuItem::linkToUrl("admin.code_source", "fa-brands fa-github", "https://github.com/FlorianLeChat/Source-Web-Console")
+			MenuItem::linkToUrl("admin.code_source", "fa-brands fa-github", $metadata["source"])
 				->setLinkTarget("_blank"),
 			MenuItem::linkToUrl("user.disconnect", "fa-solid fa-right-from-bracket", "user")
 		];
