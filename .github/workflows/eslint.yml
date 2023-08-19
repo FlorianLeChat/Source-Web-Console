@@ -1,12 +1,6 @@
 name: ESLint
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-  schedule:
-    - cron: 0 6 * * 1
+on: workflow_call
 
 jobs:
   eslint:
@@ -19,7 +13,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
       - name: Install ESLint
         run: |
           npm install eslint@latest
