@@ -1,7 +1,5 @@
-// Importation des feuilles de style.
+// Importation de la feuille de style.
 import "../../styles/desktop/statistics.scss";
-import "../../styles/phone/statistics.scss";
-import "../../styles/tablet/statistics.scss";
 
 // Importation des dépendances externes.
 import Chart from "chart.js/auto";

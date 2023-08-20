@@ -1,7 +1,5 @@
-// Importation des feuilles de style.
+// Importation de la feuille de style.
 import "../../styles/desktop/user.scss";
-import "../../styles/phone/user.scss";
-import "../../styles/tablet/user.scss";
 
 // Importation des fonctions et constantes globales.
 import "../global";

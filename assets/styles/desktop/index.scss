@@ -306,3 +306,19 @@ small
 		}
 	}
 }
+
+// ---------------- //
+// Version tablette //
+// ---------------- //
+@media screen and (min-width: 769px) and (max-width: 1023px)
+{
+	@import "../tablet/help";
+}
+
+// -------------- //
+// Version mobile //
+// -------------- //
+@media screen and (max-width: 768px)
+{
+	@import "../phone/help";
+}
