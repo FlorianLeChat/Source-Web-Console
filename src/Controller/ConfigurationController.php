@@ -66,7 +66,7 @@ final class ConfigurationController extends AbstractController
 		if (!$this->isCsrfTokenValid("storage_update", $request->request->get("token")))
 		{
 			return new Response(
-				$this->translator->trans("form.server_check_failed"),
+				$this->translator->trans("form.csrf_token"),
 				Response::HTTP_BAD_REQUEST
 			);
 		}
@@ -149,7 +149,7 @@ final class ConfigurationController extends AbstractController
 		if (!$this->isCsrfTokenValid("configuration_$type", $request->request->get("token")))
 		{
 			return new Response(
-				$this->translator->trans("form.server_check_failed"),
+				$this->translator->trans("form.csrf_token"),
 				Response::HTTP_BAD_REQUEST
 			);
 		}
@@ -176,7 +176,7 @@ final class ConfigurationController extends AbstractController
 		if (!$stream)
 		{
 			return new Response(
-				$this->translator->trans("form.server_check_failed"),
+				$this->translator->trans("configuration.failed"),
 				Response::HTTP_BAD_REQUEST
 			);
 		}

@@ -99,7 +99,7 @@ final class ActionsController extends AbstractController
 		if (!$this->isCsrfTokenValid("server_$action", $request->request->get("token")))
 		{
 			return new Response(
-				$this->translator->trans("form.server_check_failed"),
+				$this->translator->trans("form.csrf_token"),
 				Response::HTTP_BAD_REQUEST
 			);
 		}
@@ -292,7 +292,7 @@ final class ActionsController extends AbstractController
 		if (!$this->isCsrfTokenValid("command_add", $request->request->get("token")))
 		{
 			return new Response(
-				$this->translator->trans("form.server_check_failed"),
+				$this->translator->trans("form.csrf_token"),
 				Response::HTTP_BAD_REQUEST
 			);
 		}
@@ -347,7 +347,7 @@ final class ActionsController extends AbstractController
 		if (!$this->isCsrfTokenValid("command_remove", $request->request->get("token")))
 		{
 			return new Response(
-				$this->translator->trans("form.server_check_failed"),
+				$this->translator->trans("form.csrf_token"),
 				Response::HTTP_BAD_REQUEST
 			);
 		}
