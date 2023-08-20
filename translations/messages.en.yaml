@@ -57,6 +57,8 @@ form:
         admin:
             title: "Enter administrator credentials"
             description: "The administrator password is used to connect to the server administration module API. This allows to perform actions and commands remotely without human intervention."
+        unknown_username: "The username provided is invalid or does not exist."
+        address_mismatch: "The IP address recorded at your last login does not match the one entered. Please contact support via the contact form."
     contact:
         email: "Enter your email address"
         failed: "An internal error occurred when sending your message to the website."
@@ -79,6 +81,7 @@ form:
         username: "Enter your username"
         password: "Enter your password"
         description: "This form provides you with the ability to connect to your user account using a combination of a username and a password defined during the registration process. You will also find the possibility to reset your password but also to connect through a unique access."
+    csrf_token: "The CSRF token is invalid. Please refresh the page and try again."
     remember_me: "Remember me"
     rgpd_warning: "By filling out this form, you tacitly agree to the processing of your personal data in compliance with national and European laws in effect (GDPR)."
     cancel_button: "Cancel"
@@ -126,6 +129,7 @@ configuration:
     loading:
         title: "Loading screen"
         description: "This parameter allows you to change the destination URL to the loading screen that should be displayed when automatically downloading resources."
+    failed: "An internal error occurred while updating your server. Please check that the information you provided is correct and try again."
     updated: "The general configuration of your server has been successfully updated. The page will be refreshed automatically."
     storage:
         ftp: "File Transfer Protocol (FTP)"

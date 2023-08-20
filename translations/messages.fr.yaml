@@ -57,6 +57,8 @@ form:
         admin:
             title: "Saisissez le mot de passe administrateur"
             description: "Le mot de passe administrateur permet de se connecter à l'API du module d'administration du serveur. Cela permet de réaliser des actions et commandes à distance sans l'intervention d'une personne."
+        unknown_username: "Le nom d'utilisateur renseigné est invalide ou n'existe pas."
+        address_mismatch: "L'adresse IP enregistrée à votre dernière connexion ne correspond pas à celle renseignée. Veuillez contacter le support via le formulaire de contact."
     contact:
         email: "Saisissez votre adresse électronique"
         failed: "Une erreur interne s'est produite lors de l'envoi de votre message au site Internet."
@@ -79,6 +81,7 @@ form:
         username: "Saisissez votre nom d'utilisateur"
         password: "Saisissez votre mot de passe"
         description: "Ce formulaire vous permet la connexion à votre compte utilisateur grâce à une combinaison d'un nom d'utilisateur et un mot de passe définie lors de l'inscription. Vous retrouverez également la possibilité de réinitialiser votre mot de passe mais également de vous connecter grâce à un accès unique."
+    csrf_token: "Le jeton CSRF est invalide. Veuillez rafraîchir la page et réessayer."
     remember_me: "Se souvenir de moi"
     rgpd_warning: "En remplissant ce formulaire, vous acceptez tacitement le traitement de vos données personnelles en respect des lois nationales et européennes en vigueur (RGPD)."
     cancel_button: "Annuler"
@@ -126,6 +129,7 @@ configuration:
     loading:
         title: "Écran de chargement"
         description: "Ce paramètre permet de modifier l'URL de destination vers l'écran de chargement qui doit être affiché lors du téléchargement automatique des ressources."
+    failed: "Une erreur de connexion s'est produite lors de la mise à jour de votre serveur. Veuillez vérifier que les informations renseignées sont correctes et réessayer."
     updated: "La configuration générale de votre serveur a été mise à jour avec succès. La page va être rafraîchie automatiquement."
     storage:
         ftp: "Protocole de transfert de fichier (FTP)"
