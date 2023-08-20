@@ -21,8 +21,8 @@ final class StorageFixture extends Fixture implements DependentFixtureInterface
 		$storage = new Storage();
 		$storage->setServer($this->getReference("server0"));
 		$storage->setAddress("florian4016");
-		$storage->setPort("22");
-		$storage->setProtocol("sftp");
+		$storage->setPort(22);
+		$storage->setProtocol(Storage::PROTOCOL_SFTP);
 		$storage->setUsername("florian4016");
 		$storage->setPassword($this->serverManager->encryptPassword("florian4016"));
 
