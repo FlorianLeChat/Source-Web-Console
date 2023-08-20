@@ -20,7 +20,7 @@
 	<span></span>
 
 	{# Liens vers l'inscription, connexion unique ou la récupération de mot de passe. #}
-	<em data-route="{{ path("user_recover") }}">{{ t("form.login.links")|trans|raw }}</em>
+	<em data-token="{{ csrf_token("user_recover") }}" data-route="{{ path("user_recover") }}">{{ t("form.login.links")|trans|raw }}</em>
 
 	{# Bouton d'affichage du mot de passe #}
 	<label for="login_clear">{{ t("form.clear_password")|trans }}</label>

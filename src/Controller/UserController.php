@@ -447,7 +447,7 @@ final class UserController extends AbstractController
 	public function recover(Request $request): Response
 	{
 		// On vérifie tout d'abord la validité du jeton CSRF.
-		if (!$this->isCsrfTokenValid("user_login", $request->request->get("token")))
+		if (!$this->isCsrfTokenValid("user_recover", $request->request->get("token")))
 		{
 			return new Response(
 				$this->translator->trans("form.server_check_failed"),
