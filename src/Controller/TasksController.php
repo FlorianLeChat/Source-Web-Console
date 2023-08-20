@@ -7,7 +7,6 @@ namespace App\Controller;
 
 use App\Entity\Task;
 use App\Entity\Server;
-use App\Service\ServerManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -99,23 +98,10 @@ final class TasksController extends AbstractController
 			);
 		}
 
-		// On vérifie ensuite que la date renseignée est valide.
-		$now = new \DateTime("-1 day");
-		$date = new \DateTime($request->request->get("date"));
-		$future = new \DateTime("+1 year");
-
-		if ($date < $now || $date > $future)
-		{
-			return new Response(
-				$this->translator->trans("form.server_check_failed"),
-				Response::HTTP_BAD_REQUEST
-			);
-		}
-
 		// On vérifie après que les informations de la tâche planifiée sont valides.
 		$task = new Task();
 		$task->setServer($server);
-		$task->setDate($date);
+		$task->setDate(new \DateTime($request->request->get("date")));
 		$task->setAction($request->request->get("action"));
 		$task->setState(Task::STATE_WAITING);
 

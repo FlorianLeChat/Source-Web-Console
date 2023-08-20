@@ -34,6 +34,7 @@ class Task
 
 	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
 	#[Assert\Type("\DateTimeInterface")]
+	#[Assert\Range(min: "-1 day", max: "+1 year")]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
 	private ?\DateTimeInterface $date = null;
@@ -77,7 +78,7 @@ class Task
 		return $this->date;
 	}
 
-	public function setDate(\DateTimeInterface $date): self
+	public function setDate(?\DateTimeInterface $date): self
 	{
 		$this->date = $date;
 
