@@ -79,7 +79,7 @@ final class UserController extends AbstractController
 	//  Note : https://github.com/thephpleague/oauth2-github/issues/24#issue-1689888969 (GitHub)
 	//
 	#[Route("/oauth/{name}/connect", name: "user_oauth_connect")]
-	public function OAuthConnect(string $name, ClientRegistry $clientRegistry): RedirectResponse
+	public function oAuthConnect(string $name, ClientRegistry $clientRegistry): RedirectResponse
 	{
 		$scopes = $name === "github" ? ["user"] : [];
 
@@ -87,7 +87,7 @@ final class UserController extends AbstractController
 	}
 
 	#[Route("/oauth/{name}/check", name: "user_oauth_check")]
-	public function OAuthCheck(): RedirectResponse
+	public function oAuthCheck(): RedirectResponse
 	{
 		// Note : cette fonction ne doit pas être appelée directement par l'utilisateur,
 		//  mais par le mécanisme de vérification du protocole OAuth2.
@@ -207,17 +207,15 @@ final class UserController extends AbstractController
 				"message" => $this->translator->trans("form.register.onetime.success")
 			], Response::HTTP_ACCEPTED);
 		}
-		else
-		{
-			// Authentification de l'utilisateur.
-			$this->security->login($user, "remember_me");
 
-			// Réponse classique pour les comptes normaux.
-			return new Response(
-				$this->translator->trans("form.register.success"),
-				Response::HTTP_CREATED
-			);
-		}
+        // Authentification de l'utilisateur puis réponse classique
+        //  pour les comptes normaux.
+        $this->security->login($user, "remember_me");
+
+        return new Response(
+            $this->translator->trans("form.register.success"),
+            Response::HTTP_CREATED
+        );
 	}
 
 	//

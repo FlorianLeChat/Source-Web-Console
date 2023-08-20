@@ -176,28 +176,24 @@ final class DashboardController extends AbstractController
 		$serverId = intval($request->getSession()->get("serverId", 0));
 		$repository = $this->entityManager->getRepository(Server::class);
 
-		if ($serverId !== 0)
-		{
-			// Serveur sélectionné par l'utilisateur.
-			$server = $repository->findOneBy(["id" => $serverId, "user" => $user]);
-		}
-		else
-		{
-			// Premier serveur lié au compte de l'utilisateur (si existant).
-			$server = $repository->findOneBy(["user" => $user], ["id" => "ASC"]);
+		$server = $repository->findOneBy(
+			$serverId !== 0 ? ["id" => $serverId, "user" => $user] : ["user" => $user],
+			["id" => "ASC"]
+		);
 
-			if (!$server)
-			{
-				return new Response(
-					$this->translator->trans("form.no_selected_server"),
-					Response::HTTP_BAD_REQUEST
-				);
-			}
-
-			// Enregistrement de l'identifiant du serveur dans la session de l'utilisateur.
-			$serverId = $server->getId();
-			$request->getSession()->set("serverId", $serverId);
+		// On vérifie dans ce cas qu'un serveur a bien été récupéré.
+		if (!$server)
+		{
+			return new Response(
+				$this->translator->trans("form.no_selected_server"),
+				Response::HTTP_BAD_REQUEST
+			);
 		}
+
+		// On enregistre ensuite l'identifiant du serveur dans la session
+		//  de l'utilisateur pour l'utiliser dans les autres pages.
+		$serverId = $server->getId();
+		$request->getSession()->set("serverId", $serverId);
 
 		// On vérifie également si les données en temps réel du serveur
 		// 	sont déjà dans le cache de données.
