@@ -40,7 +40,7 @@ class Server
 	#[Assert\NotBlank]
 	private ?string $address = null;
 
-	#[ORM\Column()]
+	#[ORM\Column]
 	#[Assert\Range(min: 1, max: 99999)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
