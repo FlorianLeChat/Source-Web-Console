@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -20,7 +19,6 @@ final class LimiterSubscriber implements EventSubscriberInterface
 	//
 	public function __construct(
 		private readonly RateLimiterFactory $apiLimiter,
-		private readonly HttpClientInterface $client,
 		private readonly TranslatorInterface $translator,
 	) {}
 

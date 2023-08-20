@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
@@ -26,7 +25,6 @@ final class SubmitSubscriber implements EventSubscriberInterface
 	//
 	public function __construct(
 		private readonly HttpClientInterface $client,
-		private readonly TranslatorInterface $translator,
 		private readonly ContainerBagInterface $parameters,
 	) {
 		$this->recaptchaKey = $this->parameters->get("app.recaptcha_private_key");

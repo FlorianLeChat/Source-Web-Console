@@ -35,7 +35,7 @@ final class UserControllerTest extends WebTestCase
 		// Exécution de la commande de réinitialisation.
 		$php = new PhpExecutableFinder();
 		$process = new Process([
-			$php->find() ?? "php",
+			$php->find(),
 			sprintf("%s/bin/console", $this->client->getKernel()->getProjectDir()),
 			"doctrine:fixtures:load",
 			"--env=test",

@@ -5,10 +5,7 @@
 //
 namespace App\Tests\Controller;
 
-use App\Entity\User;
 use Symfony\Component\Process\Process;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -34,7 +31,7 @@ final class TasksControllerTest extends WebTestCase
 		// Exécution de la commande de réinitialisation.
 		$php = new PhpExecutableFinder();
 		$process = new Process([
-			$php->find() ?? "php",
+			$php->find(),
 			sprintf("%s/bin/console", $this->client->getKernel()->getProjectDir()),
 			"doctrine:fixtures:load",
 			"--env=test",
