@@ -39,6 +39,5 @@ jobs:
       run: vendor/bin/phpcs -s
     - name: Run PHPStan
       run: vendor/bin/phpstan analyse
-      continue-on-error: true # https://github.com/phpstan/phpstan/issues/8593
     - name: Execute tests with PHPUnit
       run: vendor/bin/phpunit
