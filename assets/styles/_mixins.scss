@@ -125,7 +125,6 @@
 		font-size: 1.25rem;
 		box-shadow: 0.25rem 0.25rem 0.25rem $border;
 		transition: background-color 250ms;
-		user-select: none;
 		font-weight: bold;
 		border-radius: 0.5rem;
 		margin-bottom: 0.5rem;
@@ -173,11 +172,6 @@
 //  toutes les pages sur les terminaux mobiles.
 @mixin responsive-header-adaptation($text: $text-color, $box: $box-color)
 {
-	color: $text;
-	height: 6.25rem;
-	padding: 0.5rem;
-	background-color: $box;
-
 	img
 	{
 		// Disparition du logo du site.
@@ -187,25 +181,16 @@
 	h1
 	{
 		// Ajustement du titre de la page.
-		top: 0;
-		left: 1.5rem;
-		bottom: unset;
-		position: absolute;
-		font-size: revert;
+		font-size: 1.5rem;
 	}
 
 	h2
 	{
 		// Ajustement du sous-titre de la page.
-		top: 3rem;
-		left: 1.5rem;
-		width: 325px;
-		bottom: unset;
-		position: absolute;
-		font-size: revert;
+		font-size: 1.25rem;
 	}
 
-	div
+	div:last-of-type
 	{
 		// Disparition de la barre de recherche.
 		display: none;
