@@ -235,7 +235,10 @@ final class DashboardController extends AbstractController
 			}
 			catch (\Exception $error)
 			{
-				// En cas d'erreur, on renvoie le message d'erreur à l'utilisateur.
+				// En cas d'erreur, on force l'expiration du cache avant
+				//  de renvoyer le message d'erreur à l'utilisateur.
+				$item->expiresAfter(1);
+
 				return new Response(
 					$this->translator->trans("global.fatal_error", ["%error%" => $error->getMessage()]),
 					Response::HTTP_INTERNAL_SERVER_ERROR

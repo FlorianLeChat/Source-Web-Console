@@ -119,9 +119,9 @@ final class ServerManager
 		// 	dans le cache de données.
 		return $this->cache->get("svc_game_$identifier", function (ItemInterface $item) use ($identifier, $fallback): string
 		{
-			// Si ce n'est pas le cas, on définit une durée de vie
-			// 	de persistance pour le cache.
-			$item->expiresAfter(self::CACHE_LIFETIME);
+			// On indique ensuite une durée de vie de persistance
+			//  temporaire pour le cache en cas d'erreur.
+			$item->expiresAfter(1);
 
 			// On fait une requête à l'API Steam pour récupérer
 			//  les informations nécessaires.
@@ -155,7 +155,10 @@ final class ServerManager
 					return $fallback;
 				}
 
-				// Sinon, on retourne tout simplement le nom du jeu.
+				// Sinon, on définit la durée de vie de persistance définitive
+				//  du cache avant de retourner le nom du jeu.
+				$item->expiresAfter(self::CACHE_LIFETIME);
+
 				return $response["data"]["name"];
 			}
 
@@ -176,9 +179,9 @@ final class ServerManager
 		// 	dans le cache de données.
 		return $this->cache->get("swc_server_$address-$port", function (ItemInterface $item) use ($address, $port): int
 		{
-			// Si ce n'est pas le cas, on définit une durée de vie
-			// 	de persistance pour le cache.
-			$item->expiresAfter(self::CACHE_LIFETIME);
+			// On indique ensuite une durée de vie de persistance
+			//  temporaire pour le cache en cas d'erreur.
+			$item->expiresAfter(1);
 
 			// On fait une requête à l'API Steam pour récupérer
 			//  les informations nécessaires.
@@ -212,7 +215,10 @@ final class ServerManager
 					return 0;
 				}
 
-				// Dans le cas contraire, on retourne l'identifiant du jeu.
+				// Dans le cas contraire, on définit la durée de vie de persistance définitive
+				//  du cache avant de retourner l'identifiant du jeu.
+				$item->expiresAfter(self::CACHE_LIFETIME);
+
 				return $response["servers"][0]["appid"];
 			}
 

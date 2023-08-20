@@ -34,9 +34,9 @@ final class AppRuntime implements RuntimeExtensionInterface
 		// On vérifie d'abord si les méta-données sont déjà en cache.
 		return $this->cache->get("swc_metadata", function (ItemInterface $item): array
 		{
-			// Si ce n'est pas le cas, on définit une durée de vie
-			// 	de persistance pour le cache.
-			$item->expiresAfter(self::CACHE_LIFETIME);
+			// On indique ensuite une durée de vie de persistance
+			//  temporaire pour le cache en cas d'erreur.
+			$item->expiresAfter(1);
 
 			// On fait plusieurs requêtes à l'API GitHub pour récupérer
 			//	les informations du dépôt, de l'auteur et des changements.
@@ -68,6 +68,10 @@ final class AppRuntime implements RuntimeExtensionInterface
 
 			if (count($repository) > 0 && count($author) > 0 && count($commits) > 0)
 			{
+				// On définit alors la durée de vie de persistance définitive
+				//  pour le cache si les requêtes ont abouties.
+				$item->expiresAfter(self::CACHE_LIFETIME);
+
 				// On retourne dans ce cas un tableau contenant les méta-données
 				//  générales du site.
 				return [
