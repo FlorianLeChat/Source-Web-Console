@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ruleset xmlns="http://pmd.sf.net/ruleset/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+		 xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd"
+>
+	<rule ref="rulesets/design.xml">
+		<!-- Utilisation d'expressions try/catch vides -->
+		<exclude name="EmptyCatchBlock" />
+
+		<!-- Voir la règle définie « CouplingBetweenObjects » -->
+		<exclude name="CouplingBetweenObjects" />
+	</rule>
+
+	<!-- Augmentation du nombre de dépendances couplées à une classe -->
+	<rule ref="rulesets/design.xml/CouplingBetweenObjects">
+		<properties>
+			<property name="maximum" value="30" />
+		</properties>
+	</rule>
+
+	<rule ref="rulesets/naming.xml">
+		<!-- Voir la règle définie « ShortVariable » -->
+		<exclude name="ShortVariable" />
+	</rule>
+
+	<!-- Taille minimale de caractères d'une variable -->
+	<rule ref="rulesets/naming.xml/ShortVariable">
+		<properties>
+			<property name="minimum" value="2" />
+		</properties>
+	</rule>
+
+	<rule ref="rulesets/cleancode.xml">
+		<!-- Accès aux propriétés et méthodes statiques -->
+		<exclude name="StaticAccess" />
+
+		<!-- Utilisation de classe externe sans importation explicite -->
+		<exclude name="MissingImport" />
+
+		<!-- Utilisation de booléens comme paramètres -->
+		<exclude name="BooleanArgumentFlag" />
+
+		<!-- Assignement de variables dans des conditions -->
+		<exclude name="IfStatementAssignment" />
+	</rule>
+
+	<rule ref="rulesets/codesize.xml">
+		<!-- Exécution de méthodes ayant une complexité importante -->
+		<exclude name="NPathComplexity" />
+		<exclude name="CyclomaticComplexity" />
+
+		<!-- Voir la règle définie « TooManyPublicMethods » -->
+		<exclude name="TooManyPublicMethods" />
+
+		<!-- Voir les règles définies « ExcessiveClassLength » et « ExcessiveMethodLength » -->
+		<exclude name="ExcessiveClassLength" />
+		<exclude name="ExcessiveMethodLength" />
+	</rule>
+
+	<!-- Nombre de méthodes publiques d'une classe -->
+	<rule ref="rulesets/codesize.xml/TooManyPublicMethods">
+		<properties>
+			<property name="maxmethods" value="20" />
+		</properties>
+	</rule>
+
+	<!-- Taille maximale d'une classe et d'une méthode -->
+	<rule ref="rulesets/codesize.xml/ExcessiveClassLength">
+		<properties>
+			<property name="minimum" value="2000" />
+		</properties>
+	</rule>
+
+	<rule ref="rulesets/codesize.xml/ExcessiveMethodLength">
+		<properties>
+			<property name="minimum" value="200" />
+		</properties>
+	</rule>
+
+	<rule ref="rulesets/unusedcode.xml">
+		<!-- Passage de paramètres inutilisés -->
+		<exclude name="UnusedFormalParameter" />
+	</rule>
+
+	<rule ref="rulesets/controversial.xml" />
+</ruleset>

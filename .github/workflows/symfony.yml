@@ -28,8 +28,6 @@ jobs:
       run: |
         npm install
         composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-    - name: Build static assets
-      run: npm run build
     - name: Create database and load fixtures
       run: |
         php bin/console --env=test doctrine:database:create --no-interaction
@@ -38,6 +36,8 @@ jobs:
     - name: Run PHP Code Sniffer
       run: vendor/bin/phpcs -s
     - name: Run PHPStan
-      run: vendor/bin/phpstan analyse
+      run: vendor/bin/phpstan analyse --error-format=github
+    - name: Run PHP Mess Detector
+      run: vendor/bin/phpmd ./src github phpmd.xml.dist
     - name: Execute tests with PHPUnit
       run: vendor/bin/phpunit
