@@ -137,7 +137,7 @@ final class UserController extends AbstractController
 
 		// On vérifie également si les informations sont valides.
 		$oneTime = false;
-		$userValidated = count($this->validator->validate($user)) === 0;
+		$userValidated = count($violations = $this->validator->validate($user)) === 0;
 		$serverValidated = count($this->validator->validate($server)) === 0;
 
 		if ($serverValidated)
@@ -176,7 +176,7 @@ final class UserController extends AbstractController
 			{
 				// Dans le cas inverse, on renvoie l'erreur traditionnelle.
 				return new Response(
-					$this->translator->trans("form.server_check_failed"),
+					$violations->get(0)->getMessage(),
 					Response::HTTP_BAD_REQUEST
 				);
 			}
@@ -240,10 +240,10 @@ final class UserController extends AbstractController
 		$user->setUsername($username = $request->request->get("username"));
 		$user->setPassword($this->hasher->hashPassword($user, $password = $request->request->get("password", "")));
 
-		if (count($this->validator->validate($user)) > 0)
+		if (count($violations = $this->validator->validate($user)) > 0)
 		{
 			return new Response(
-				$this->translator->trans("form.server_check_failed"),
+				$violations->get(0)->getMessage(),
 				Response::HTTP_BAD_REQUEST
 			);
 		}
@@ -327,10 +327,10 @@ final class UserController extends AbstractController
 		$contact->setContent($content = $request->request->get("content"));
 
 		// On vérifie alors si les informations sont valides.
-		if (count($this->validator->validate($contact)) > 0)
+		if (count($violations = $this->validator->validate($contact)) > 0)
 		{
 			return new Response(
-				$this->translator->trans("form.server_check_failed"),
+				$violations->get(0)->getMessage(),
 				Response::HTTP_BAD_REQUEST
 			);
 		}
@@ -415,10 +415,10 @@ final class UserController extends AbstractController
 		$user->setUsername($username = $request->request->get("username"));
 		$user->setPassword($password = $request->request->get("password"));
 
-		if (count($this->validator->validate($user)) > 0)
+		if (count($violations = $this->validator->validate($user)) > 0)
 		{
 			return new Response(
-				$this->translator->trans("form.server_check_failed"),
+				$violations->get(0)->getMessage(),
 				Response::HTTP_BAD_REQUEST
 			);
 		}
@@ -460,10 +460,10 @@ final class UserController extends AbstractController
 		$user->setUsername($username = $request->request->get("username"));
 		$user->setPassword($password = $request->request->get("password"));
 
-		if (count($this->validator->validate($user)) > 0)
+		if (count($violations = $this->validator->validate($user)) > 0)
 		{
 			return new Response(
-				$this->translator->trans("form.server_check_failed"),
+				$violations->get(0)->getMessage(),
 				Response::HTTP_BAD_REQUEST
 			);
 		}
@@ -572,10 +572,10 @@ final class UserController extends AbstractController
 		$server->setUser($user);
 
 		// On vérifie également si les informations sont valides.
-		if (count($this->validator->validate($server)) > 0)
+		if (count($violations = $this->validator->validate($server)) > 0)
 		{
 			return new Response(
-				$this->translator->trans("form.server_check_failed"),
+				$violations->get(0)->getMessage(),
 				Response::HTTP_BAD_REQUEST
 			);
 		}
