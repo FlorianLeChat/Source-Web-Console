@@ -470,76 +470,76 @@ input, textarea, select
 // ------- //
 header
 {
+	gap: 1rem;
 	color: $text-color;
-	height: 6.25rem;
+	height: 6rem;
 	padding: 0.5rem;
-	user-select: none;
+	display: flex;
 	background-color: $box-color;
 
 	img
 	{
 		// Logo du site.
-		width: 12rem;
 		height: 100%;
 	}
 
-	h1
+	div:first-of-type
 	{
-		// Titre du site.
-		left: 1.5rem;
-		bottom: 3.5rem;
-		display: inline-block;
-		position: relative;
-		font-size: 2.5rem;
-	}
+		// Conteneur des titres.
+		display: flex;
+		margin-right: auto;
+		flex-direction: column;
+		justify-content: space-evenly;
 
-	h2
-	{
-		// Sous-titre du site.
-		right: 15.5rem;
-		bottom: 1rem;
-		display: inline-block;
-		position: relative;
-		font-size: 1.5rem;
-		font-style: italic;
-	}
-
-	#search
-	{
-		// Barre de recherche.
-		i
+		h1
 		{
-			// Icône de la barre de recherche.
-			top: 1.5rem;
-			right: 19.5rem;
-			position: absolute;
-			font-size: 1.25rem;
+			// Titre du site.
+			margin: 0;
+			font-size: 2.5rem;
 		}
+
+		h2
+		{
+			// Sous-titre du site.
+			margin: 0;
+			font-size: 1.5rem;
+			font-style: italic;
+		}
+	}
+
+	div:last-of-type
+	{
+		// Conteneur de la barre de recherche.
+		display: flex;
+		flex-direction: column;
+		justify-content: space-evenly;
 
 		label
 		{
 			// Intitulé du champ de saisie.
-			top: 1.75rem;
-			right: 12rem;
 			color: $background-color;
-			position: absolute;
+			text-align: center;
+
+			i
+			{
+				// Icône de la barre de recherche.
+				color: $text-color;
+				font-size: 1.25rem;
+				margin-right: 0.5rem;
+			}
 		}
 
 		input
 		{
 			// Champ de saisie de la barre de recherche.
-			top: 3.5rem;
-			right: 10rem;
 			height: 1.5rem;
 			padding: 0.25rem;
-			position: absolute;
 			transition: box-shadow 250ms;
 
 			&::placeholder
 			{
 				// Texte de remplissage par défaut.
 				left: 0.25rem;
-				position: relative;
 			}
 
 			&:focus
@@ -547,46 +547,21 @@ header
 				// Effet de sélection du champ.
 				box-shadow: inset 0 0 0 3px $text-color;
 			}
-
-			+ datalist
-			{
-				// Résultats de la barre de recherche.
-				top: 6rem;
-				right: 10rem;
-				width: 185px;
-				z-index: 1;
-				position: absolute;
-				background-color: $box-color;
-
-				option
-				{
-					// Résultat quelconque.
-					border: 1px solid $border-color;
-					padding: 0.5rem;
-					transition: color 250ms, background-color 250ms;
-
-					&:hover
-					{
-						// Effet de sélection.
-						color: $box-color;
-						cursor: pointer;
-						font-weight: bold;
-						background-color: $background-color;
-					}
-				}
-			}
 		}
 	}
 
 	a
 	{
-		// Compte utilisateur.
+		// Conteneur des informations du compte utilisateur.
+		gap: 0.25rem;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+
 		i
 		{
 			// Icône de l'état de connexion.
-			top: 1rem;
-			right: 3.25rem;
-			position: absolute;
 			font-size: 2rem;
 			transition: color 250ms;
 		}
@@ -594,12 +569,9 @@ header
 		span
 		{
 			// Identifiants du compte actuellement connecté.
-			top: 3.75rem;
-			right: 1rem;
 			color: $background-color;
-			position: absolute;
 			max-width: 7rem;
-			overflow-x: scroll;
+			overflow-x: auto;
 			text-align: center;
 		}
 
@@ -1049,7 +1021,6 @@ footer
 	z-index: 5;
 	position: fixed;
 	min-width: $html-min-width;
-	user-select: none;
 	background-color: $box-color;
 
 	ul li

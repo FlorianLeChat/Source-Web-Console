@@ -73,19 +73,24 @@
 				{# Logo du site #}
 				<img src="{{ asset("build/images/logo.svg") }}" alt="Logo" decoding="async" />
 
-				{# Titre du site #}
-				<h1>{{ t("header.title")|trans }}</h1>
-
-				{# Sous-titre du site #}
-				<h2>{{ t("header.subtitle." ~ route_name)|trans }}</h2>
+				{# Titres du site #}
+				<div>
+					<h1>{{ t("header.title")|trans }}</h1>
+					<h2>{{ t("header.subtitle." ~ route_name)|trans }}</h2>
+				</div>
 
 				{# Barre de recherche #}
-				<div id="search">
-					<i class="bi bi-search"></i>
+				<div>
+					{# Titre et icône de la barre #}
+					<label for="search">
+						<i class="bi bi-search"></i>
+						{{ t("header.search.title")|trans }}
+					</label>
 
-					<label for="search">{{ t("header.search.title")|trans }}</label>
+					{# Champ de recherche #}
 					<input type="search" id="search" name="search" list="results" placeholder="{{ t("header.search.placeholder")|trans }}" autocomplete="off" maxlength="20" />
 
+					{# Liste des résultats #}
 					<datalist id="results"></datalist>
 				</div>
 
