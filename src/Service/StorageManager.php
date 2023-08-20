@@ -48,6 +48,9 @@ final class StorageManager
 
 			return $stream;
 		}
+
+		// Protocole inconnu.
+		return null;
 	}
 
 	//

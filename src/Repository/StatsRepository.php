@@ -19,7 +19,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 final class StatsRepository extends ServiceEntityRepository
 {
-	public function __construct(private readonly ManagerRegistry $registry)
+	public function __construct(ManagerRegistry $registry)
 	{
 		parent::__construct($registry, Stats::class);
 	}
