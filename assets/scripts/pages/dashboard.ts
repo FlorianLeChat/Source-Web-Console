@@ -1,7 +1,5 @@
-// Importation des feuilles de style.
+// Importation de la feuille de style.
 import "../../styles/desktop/dashboard.scss";
-import "../../styles/phone/dashboard.scss";
-import "../../styles/tablet/dashboard.scss";
 
 // Importation des fonctions et constantes communes.
 import "../global";

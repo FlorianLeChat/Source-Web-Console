@@ -1,67 +1,56 @@
-// -------------- //
-// Version mobile //
-// -------------- //
-@media screen and (max-width: 768px)
+// ------- //
+// En-tête //
+// ------- //
+header ul
 {
-	// --------------- //
-	// Base de travail //
-	// --------------- //
-	@import "../desktop/index";
+	// Centrage des boutons.
+	display: flex;
+	position: initial;
+	flex-wrap: wrap;
+	column-gap: 1rem;
+	justify-content: center;
 
-	// ------- //
-	// En-tête //
-	// ------- //
-	header ul
+	li
 	{
-		// Centrage des boutons.
-		display: flex;
-		position: initial;
-		flex-wrap: wrap;
-		column-gap: 1rem;
-		justify-content: center;
+		// Disposition en ligne.
+		display: inline;
+	}
+}
 
-		li
-		{
-			// Disposition en ligne.
-			display: inline;
-		}
+// ----------------------------------- //
+// Lien vers le dépôt GitHub du projet //
+// ----------------------------------- //
+main > a
+{
+	// Suppression du lien et de l'icône.
+	display: none
+}
+
+// -------------------------------- //
+// Section : informations générales //
+// -------------------------------- //
+#informations
+{
+	// Modification de la disposition flex.
+	gap: 0;
+	flex-direction: column;
+
+	ul img
+	{
+		// Suppression de l'image de présentation.
+		display: none;
 	}
 
-	// ----------------------------------- //
-	// Lien vers le dépôt GitHub du projet //
-	// ----------------------------------- //
-	main > a
+	article
 	{
-		// Suppression du lien et de l'icône.
-		display: none
-	}
+		// Agrandissement du texte de présentation.
+		width: auto;
 
-	// -------------------------------- //
-	// Section : informations générales //
-	// -------------------------------- //
-	#informations
-	{
-		// Modification de la disposition flex.
-		gap: 0;
-		flex-direction: column;
-
-		ul img
+		img
 		{
-			// Suppression de l'image de présentation.
-			display: none;
-		}
-
-		article
-		{
-			// Agrandissement du texte de présentation.
+			// Dynamisation des dimensions du logo.
 			width: auto;
-
-			img
-			{
-				// Dynamisation des dimensions du logo.
-				width: auto;
-				max-width: 26rem;
-			}
+			max-width: 26rem;
 		}
 	}
 }

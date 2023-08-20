@@ -1,7 +1,5 @@
-// Importation des feuilles de style.
+// Importation de la feuille de style.
 import "../../styles/desktop/help.scss";
-import "../../styles/phone/help.scss";
-import "../../styles/tablet/help.scss";
 
 //
 // Permet de contrôler le mécanisme de basculement de la section
