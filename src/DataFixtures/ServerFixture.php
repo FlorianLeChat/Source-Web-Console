@@ -25,7 +25,7 @@ final class ServerFixture extends Fixture implements DependentFixtureInterface
 		{
 			$server = new Server();
 			$server->setAddress("123.123.123.$i");
-			$server->setPort("27015");
+			$server->setPort(27015);
 			$server->setPassword($this->serverManager->encryptPassword("florian4016"));
 			$server->setGame(4000);
 			$server->setUser($user);

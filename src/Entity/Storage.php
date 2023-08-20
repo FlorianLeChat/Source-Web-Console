@@ -38,11 +38,11 @@ class Storage
 	#[Assert\NotBlank]
 	private ?string $address = null;
 
-	#[ORM\Column(length: 5)]
-	#[Assert\Length(min: 1, max: 5)]
+	#[ORM\Column()]
+	#[Assert\Range(min: 1, max: 99999)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
-	private ?string $port = null;
+	private ?int $port = null;
 
 	#[ORM\Column(length: 4)]
 	#[Assert\Choice(["ftp", "sftp"])]
@@ -93,12 +93,12 @@ class Storage
 		return $this;
 	}
 
-	public function getPort(): ?string
+	public function getPort(): ?int
 	{
 		return $this->port;
 	}
 
-	public function setPort(?string $port): static
+	public function setPort(?int $port): static
 	{
 		$this->port = $port;
 

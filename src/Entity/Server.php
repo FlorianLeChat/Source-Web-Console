@@ -40,11 +40,11 @@ class Server
 	#[Assert\NotBlank]
 	private ?string $address = null;
 
-	#[ORM\Column(length: 5)]
-	#[Assert\Length(min: 1, max: 5)]
+	#[ORM\Column()]
+	#[Assert\Range(min: 1, max: 99999)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
-	private ?string $port = null;
+	private ?int $port = null;
 
 	#[ORM\Column(length: 255, nullable: true)]
 	#[Assert\Length(max: 255)]
@@ -112,12 +112,12 @@ class Server
 		return $this;
 	}
 
-	public function getPort(): ?string
+	public function getPort(): ?int
 	{
 		return $this->port;
 	}
 
-	public function setPort(?string $port): self
+	public function setPort(?int $port): self
 	{
 		$this->port = $port;
 
