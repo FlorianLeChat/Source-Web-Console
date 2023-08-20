@@ -118,10 +118,10 @@ final class ConfigurationController extends AbstractController
 		$password = $request->request->get("password");
 		$storage->setPassword(!empty($password) ? $this->serverManager->encryptPassword($password) : null);
 
-		if (count($this->validator->validate($storage)) > 0)
+		if (count($violations = $this->validator->validate($storage)) > 0)
 		{
 			return new Response(
-				$this->translator->trans("form.server_check_failed"),
+				$violations->get(0)->getMessage(),
 				Response::HTTP_BAD_REQUEST
 			);
 		}

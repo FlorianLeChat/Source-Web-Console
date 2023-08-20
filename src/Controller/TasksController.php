@@ -119,10 +119,10 @@ final class TasksController extends AbstractController
 		$task->setAction($request->request->get("action"));
 		$task->setState(Task::STATE_WAITING);
 
-		if (count($this->validator->validate($task)) > 0)
+		if (count($violations = $this->validator->validate($task)) > 0)
 		{
 			return new Response(
-				$this->translator->trans("form.server_check_failed"),
+				$violations->get(0)->getMessage(),
 				Response::HTTP_BAD_REQUEST
 			);
 		}
