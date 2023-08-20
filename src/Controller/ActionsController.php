@@ -232,20 +232,11 @@ final class ActionsController extends AbstractController
 						"id" => $action, "user" => $this->getUser()
 					]);
 
-					if ($command)
-					{
-						// Une commande personnalisée a été trouvée, on définit le
-						//  nom de la commande avant de l'exécuter.
-						$action = $command->getTitle();
-						$this->serverManager->query->Rcon($command->getContent() . " \"$value\"");
-					}
-					else
-					{
-						// Dans le cas contraire, c'est une commande inconnue provenant
-						//  de la console interactive
-						$action = $this->translator->trans("header.subtitle.console");
-						$this->serverManager->query->Rcon($value);
-					}
+					// On définit le nom de la commande si elle a été trouvée, sinon
+					//  on indique qu'il s'agit d'une commande issue de la console interactive.
+					$action = $command ?? $this->translator->trans("header.subtitle.console");
+
+					$this->serverManager->query->Rcon($command ? ($command->getContent() . " \"$value\"") : $value);
 
 					break;
 				}

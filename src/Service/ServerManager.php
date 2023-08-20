@@ -97,7 +97,7 @@ final class ServerManager
 		$password = substr($password, $length + 32);
 
 		// On récupère ensuite le mot de passe déchiffré.
-		$plain_text = openssl_decrypt($password, self::ENCRYPTION_METHOD, $this->sslPhrase, OPENSSL_RAW_DATA, $iv);
+		$plainText = openssl_decrypt($password, self::ENCRYPTION_METHOD, $this->sslPhrase, OPENSSL_RAW_DATA, $iv);
 
 		// On vérifie après si le mot de passe est valide.
 		$calcmac = hash_hmac("sha256", $password, $this->sslPhrase, true);
@@ -105,7 +105,7 @@ final class ServerManager
 		// On vérifie enfin si les deux clés de hachage sont identiques.
 		// 	Note : c'est une protection contre les attaques temporelles.
 		//	Source : https://en.wikipedia.org/wiki/Timing_attack
-		return hash_equals($hmac, $calcmac) ? $plain_text : "";
+		return hash_equals($hmac, $calcmac) ? $plainText : "";
 	}
 
 	//

@@ -65,23 +65,21 @@ final class OAuthAuthenticator extends OAuth2Authenticator
 				if ($existingUser)
 				{
 					// Si l'utilisateur existe déjà, on met à jour son adresse IP
-					//  dans la base de données.
-					$existingUser->setAddress($clientAddress);
+					//  dans la base de données et on le retourne.
+					return $existingUser->setAddress($clientAddress);
 				}
-				else
-				{
-					// Dans le cas contraire, on crée un nouvel utilisateur
-					//  avec les informations fournies par l'API.
-					$email = explode("@", $user->getEmail());
 
-					$existingUser = new User();
-					$existingUser->setUsername(mb_substr($email[0], 0, 30));
-					$existingUser->setPassword($this->hasher->hashPassword($existingUser, $email[0]));
-					$existingUser->setCreatedAt(new \DateTime());
-					$existingUser->setAddress($clientAddress);
-					$existingUser->setRoles(["ROLE_USER"]);
-					$existingUser->setToken($user->getId());
-				}
+				// Dans le cas contraire, on crée un nouvel utilisateur
+				//  avec les informations fournies par l'API.
+				$email = explode("@", $user->getEmail());
+
+				$existingUser = new User();
+				$existingUser->setUsername(mb_substr($email[0], 0, 30));
+				$existingUser->setPassword($this->hasher->hashPassword($existingUser, $email[0]));
+				$existingUser->setCreatedAt(new \DateTime());
+				$existingUser->setAddress($clientAddress);
+				$existingUser->setRoles(["ROLE_USER"]);
+				$existingUser->setToken($user->getId());
 
 				// On enregistre les modifications dans la base de données
 				//  et on retourne enfin l'utilisateur.
