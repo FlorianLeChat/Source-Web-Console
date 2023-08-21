@@ -71,9 +71,9 @@
 		<p class="error"></p>
 
 		{# Informations client (adresse IP & port) #}
-		<label>{{ t("form.register.client.title")|trans }}<span>*</span></label>
+		<label for="address">{{ t("form.register.client.title")|trans }}<span>*</span></label>
 
-		<input type="text" name="address" placeholder="51.75.125.244" minlength="7" maxlength="15" pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$" required>
+		<input type="text" autocomplete="off" spellcheck="false" id="address" name="address" placeholder="51.75.125.244" minlength="7" maxlength="15" pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$" required>
 		<span></span>
 
 		<input type="number" name="port" placeholder="27015" min="1" max="99999" required />
@@ -84,9 +84,9 @@
 		<hr />
 
 		{# Informations administrateur (mot de passe) #}
-		<label>{{ t("form.register.admin.title")|trans }}</label>
+		<label for="password">{{ t("form.register.admin.title")|trans }}</label>
 
-		<input type="text" name="password" placeholder="a2D2ea4NE6e9As" />
+		<input type="text" id="password" name="password" placeholder="a2D2ea4NE6e9As" />
 
 		<em>{{ t("form.register.admin.description")|trans }}</em>
 

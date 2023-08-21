@@ -62,7 +62,7 @@
 				<span>{{ t("actions.switch.flashlight")|trans }}</span>
 
 				<label class="switch">
-					<input type="checkbox" {{ actions_value_flashlight == "1" ? "checked" : "" }} />
+					<input type="checkbox" {{ actions_value_flashlight == "1" ? "checked" : "" }} name="flashlight" />
 					<span></span>
 				</label>
 			</li>
@@ -72,7 +72,7 @@
 				<span>{{ t("actions.switch.cheats")|trans }}</span>
 
 				<label class="switch">
-					<input type="checkbox" {{ actions_value_cheats == "1" ? "checked" : "" }} />
+					<input type="checkbox" {{ actions_value_cheats == "1" ? "checked" : "" }} name="cheats" />
 					<span></span>
 				</label>
 			</li>
@@ -82,7 +82,7 @@
 				<span>{{ t("actions.switch.voice")|trans }}</span>
 
 				<label class="switch">
-					<input type="checkbox" {{ actions_value_voice == "1" ? "checked" : "" }} />
+					<input type="checkbox" {{ actions_value_voice == "1" ? "checked" : "" }} name="voice" />
 					<span></span>
 				</label>
 			</li>
