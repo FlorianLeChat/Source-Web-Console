@@ -28,6 +28,8 @@ jobs:
       run: |
         npm install
         composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+    - name: Build static assets
+      run: npm run build
     - name: Create database and load fixtures
       run: |
         php bin/console --env=test doctrine:database:create --no-interaction
