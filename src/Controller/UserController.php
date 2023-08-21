@@ -67,7 +67,7 @@ final class UserController extends AbstractController
 	// Route vers le mécanisme de création d'un accès unique.
 	//
 	#[Route("/onetime", name: "user_onetime", methods: ["GET"])]
-	public function oneTime()
+	public function oneTime(): RedirectResponse
 	{
 		// Note : cette fonction ne doit pas être appelée directement par l'utilisateur,
 		//  mais par le mécanisme de connexion à usage unique.
