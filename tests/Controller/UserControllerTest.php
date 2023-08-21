@@ -303,7 +303,7 @@ final class UserControllerTest extends WebTestCase
 
 		// Envoi d'une requête de réinitialisation de mot de passe.
 		$this->client->xmlHttpRequest("PUT", $router->generate("user_recover"), [
-			"token" => $crawler->filter("#login")->attr("data-token"),
+			"token" => $crawler->filter("#login em[data-token]")->attr("data-token"),
 			"username" => "florian4016",
 			"password" => "florian4017"
 		]);

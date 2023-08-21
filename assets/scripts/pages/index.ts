@@ -80,44 +80,48 @@ register.on( "submit", "form", async ( event ) =>
 		} );
 
 		// On vérifie si la requête a été effectuée avec succès.
-		if ( response.status === 202 )
+		if ( response.ok )
 		{
-			// Si c'est un code HTTP 202, alors il s'agit d'une réponse
-			//  suite à une demande de création d'un compte à usage unique.
-			const data = await response.json() as { link: string, message: string; };
+			// En cas de réussite, on réinitialise les deux formulaires
+			//  avant de fermer le second.
+			firstStep.find( "form" )[ 0 ].reset();
+			lastStep.find( "form" )[ 0 ].reset();
+			lastStep.fadeOut( 150 );
 
-			navigator.clipboard.writeText( data.link ).then( () =>
+			// On vérifie le type de réponse envoyée par le serveur.
+			if ( response.status === 202 )
 			{
-				addQueuedNotification( data.message, 3 );
-			} );
-		}
-		else
-		{
-			// Dans l'autre cas (réussite avec code HTTP 201 ou erreur),
-			//  on affiche après un message de confirmation ou d'erreur.
-			addQueuedNotification( await response.text(), response.ok ? 2 : 1 );
+				// Si c'est un code HTTP 202, alors il s'agit d'une réponse
+				//  suite à une demande de création d'un compte à usage unique.
+				const data = await response.json() as { link: string, message: string; };
 
-			if ( response.ok )
-			{
-				// En cas de réussite, on réinitialise les deux formulaires
-				//  avant de fermer le second.
-				firstStep.find( "form" )[ 0 ].reset();
-				lastStep.find( "form" )[ 0 ].reset();
-				lastStep.fadeOut( 150 );
-
-				// On effectue de suite la redirection de l'utilisateur
-				//  vers le tableau de bord au bout de 5 secondes.
-				setTimeout( () =>
+				navigator.clipboard.writeText( data.link ).then( () =>
 				{
-					window.location.href = parent.data( "redirect" );
-				}, 3000 );
+					addQueuedNotification( data.message, 3 );
+				} );
 			}
 			else
 			{
-				// On libère enfin les boutons de soumission et
-				//  de réinitialisation en cas d'erreur.
-				lastStep.find( "[type = submit]" ).prop( "disabled", false );
-				lastStep.find( "[type = reset]" ).prop( "disabled", false );
+				// Dans l'autre cas (réussite avec code HTTP 201 ou erreur),
+				//  on affiche après un message de confirmation ou d'erreur.
+				addQueuedNotification( await response.text(), response.ok ? 2 : 1 );
+
+				if ( response.ok )
+				{
+					// On effectue de suite la redirection de l'utilisateur
+					//  vers le tableau de bord au bout de 5 secondes.
+					setTimeout( () =>
+					{
+						window.location.href = parent.data( "redirect" );
+					}, 3000 );
+				}
+				else
+				{
+					// On libère enfin les boutons de soumission et
+					//  de réinitialisation en cas d'erreur.
+					lastStep.find( "[type = submit]" ).prop( "disabled", false );
+					lastStep.find( "[type = reset]" ).prop( "disabled", false );
+				}
 			}
 		}
 	}
