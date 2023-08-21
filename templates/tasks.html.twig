@@ -67,7 +67,7 @@
 			{# Serveur concerné #}
 			<div>
 				<label for="server">{{ t("tasks.label.server")|trans }}</label>
-				<select name="server">
+				<select id="server" name="server">
 					{% for server in tasks_servers %}
 						<li>
 							<option data-server="{{ server.id }}">{{ server.address ~ ":" ~ server.port }}</option>
@@ -79,13 +79,13 @@
 			{# Date de déclenchement #}
 			<div>
 				<label for="date">{{ t("tasks.label.date")|trans }}</label>
-				<input type="datetime-local" name="date" min="{{ "now"|date("Y-m-d H:i") }}" max="{{ "+1 year"|date("Y-m-d H:i") }}" />
+				<input type="datetime-local" id="date" name="date" min="{{ "now"|date("Y-m-d H:i") }}" max="{{ "+1 year"|date("Y-m-d H:i") }}" />
 			</div>
 
 			{# Action de réalisation #}
 			<div>
 				<label for="action">{{ t("tasks.label.action")|trans }}</label>
-				<select name="action">
+				<select id="action" name="action">
 					<option value="shutdown">{{ t("global.shutdown")|trans }}</option>
 					<option value="restart">{{ t("global.restart")|trans }}</option>
 					<option value="update">{{ t("global.update")|trans }}</option>
