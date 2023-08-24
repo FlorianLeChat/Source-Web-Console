@@ -69,9 +69,8 @@ header
 			{
 				// Affichage des boutons de connexion vers
 				//  des plate-formes externes.
-				gap: 1rem;
 				display: flex;
-				justify-content: center;
+				justify-content: space-between;
 
 				a
 				{
