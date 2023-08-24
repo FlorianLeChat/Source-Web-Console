@@ -248,7 +248,7 @@ final class UserController extends AbstractController
 
 		// On vérifie également les informations de l'utilisateur.
 		$repository = $this->entityManager->getRepository(User::class);
-		$user = $repository->findOneBy(["username" => $username]);
+		$user = $repository->findOneBy(["username" => $username, "token" => null]);
 
 		if (!$user || !$this->hasher->isPasswordValid($user, $password))
 		{
