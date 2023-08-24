@@ -65,7 +65,41 @@ final class UserControllerTest extends WebTestCase
 
 		$this->assertResponseIsSuccessful();
 
-		// TODO : vérifier que le lien de confirmation est accessible.
+		// Récupération du lien de connexion et accès.
+		$link = json_decode($this->client->getResponse()->getContent(), true)["link"];
+
+		$this->client->request("GET", $link);
+		$this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
+
+		// Test de l'accès à la page d'accueil.
+		$this->client->request("GET", "/");
+
+		$this->assertResponseIsSuccessful();
+		$this->assertSelectorTextContains("header a", "Dashboard");
+
+		// Test de l'accès à la page du compte utilisateur.
+		$crawler = $this->client->request("GET", $router->generate("user_page"));
+
+		$this->assertResponseIsSuccessful();
+
+		// Envoi d'une requête de déconnexion.
+		$this->client->xmlHttpRequest("POST", $router->generate("user_logout"), [
+			"token" => $crawler->filter("input[data-action = logout]")->attr("data-token")
+		]);
+
+		$this->assertResponseIsSuccessful();
+
+		// Accès de nouveau au lien de connexion.
+		$this->client->request("GET", $link);
+
+		$this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
+
+		// Test de l'accès à la page d'accueil.
+		//  Note : le lien n'est plus valide (usage unique).
+		$this->client->request("GET", "/");
+
+		$this->assertResponseIsSuccessful();
+		$this->assertSelectorTextContains("header button:first-of-type", "Register");
 	}
 
 	//
@@ -430,12 +464,13 @@ final class UserControllerTest extends WebTestCase
 		$this->assertResponseIsSuccessful();
 
 		// Envoi de 7 requêtes d'ajout de serveur.
-		//  Note : l'utilisateur atteint la limite autorisée.
+		//  Note : l'utilisateur atteint la limite autorisée (10).
 		$token = $crawler->filter("#register")->attr("data-token");
+		$route = $router->generate("server_new");
 
 		for ($i = 0; $i < 7; $i++)
 		{
-			$this->client->xmlHttpRequest("POST", $router->generate("server_new"), [
+			$this->client->xmlHttpRequest("POST", $route, [
 				"token" => $token,
 				"server_address" => "123.123.123.$i",
 				"server_port" => "27015",
@@ -447,8 +482,8 @@ final class UserControllerTest extends WebTestCase
 
 		// Envoi d'une requête pour ajouter un 11ème serveur.
 		//  Note : un utilisateur donateur ne peut pas ajouter plus de 10 serveurs.
-		$this->client->xmlHttpRequest("POST", $router->generate("server_new"), [
-			"token" => $crawler->filter("#register")->attr("data-token"),
+		$this->client->xmlHttpRequest("POST", $route, [
+			"token" => $token,
 			"server_address" => "123.123.123.123",
 			"server_port" => "27015",
 			"server_password" => "florian4016"
