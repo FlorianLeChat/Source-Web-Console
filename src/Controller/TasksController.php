@@ -126,7 +126,7 @@ final class TasksController extends AbstractController
 	//
 	// API vers la suppression d'une tâche planifiée existante.
 	//
-	#[Route("/api/task/remove", name: "tasks_remove", methods: ["POST"])]
+	#[Route("/api/task/remove", name: "tasks_remove", methods: ["DELETE"])]
 	#[IsGranted("IS_AUTHENTICATED")]
 	public function remove(Request $request): Response
 	{

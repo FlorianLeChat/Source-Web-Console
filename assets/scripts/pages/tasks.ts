@@ -64,7 +64,7 @@ $( "form" ).on( "submit", async ( event ) =>
 // Permet de gérer les demandes de suppression de tâches planifiées
 //  dans la base de données.
 //
-$( "table tr:not([class = finished])" ).on( "click", async ( event ) =>
+$( "tbody tr:not([class = finished])" ).on( "click", async ( event ) =>
 {
 	// On vérifie si l'utilisateur demande a supprimer la tâche.
 	if ( confirm( window.edit_remove ) )
