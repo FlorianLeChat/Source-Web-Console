@@ -72,19 +72,19 @@ final class OAuthAuthenticator extends OAuth2Authenticator
 				//  avec les informations fournies par l'API.
 				$email = explode("@", $user->getEmail());
 
-				$user = new User();
-				$user->setUsername(mb_substr($email[0], 0, 30));
-				$user->setPassword($this->hasher->hashPassword($user, $email[0]));
-				$user->setCreatedAt(new \DateTime());
-				$user->setAddress($clientAddress);
-				$user->setRoles(["ROLE_USER"]);
-				$user->setToken($user->getId());
+				$existingUser = new User();
+				$existingUser->setUsername(mb_substr($email[0], 0, 30));
+				$existingUser->setPassword($this->hasher->hashPassword($existingUser, $email[0]));
+				$existingUser->setCreatedAt(new \DateTime());
+				$existingUser->setAddress($clientAddress);
+				$existingUser->setRoles(["ROLE_USER"]);
+				$existingUser->setToken($user->getId());
 
 				// On enregistre les modifications dans la base de données
 				//  et on retourne enfin l'utilisateur.
-				$repository->save($user, true);
+				$repository->save($existingUser, true);
 
-				return $user;
+				return $existingUser;
 			})
 		);
 	}
