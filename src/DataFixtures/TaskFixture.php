@@ -14,8 +14,8 @@ final class TaskFixture extends Fixture implements DependentFixtureInterface
 {
 	public function load(ObjectManager $manager): void
 	{
-		// Création de 10 tâches planifiées (1 par minute, sur 10 minutes).
-		for ($i = 0; $i < 10; $i++)
+		// Création de 5 tâches planifiées (1 par minute, sur 5 minutes).
+		for ($i = 0; $i < 5; $i++)
 		{
 			$task = new Task();
 			$task->setServer($this->getReference("server" . rand(0, 2)));
