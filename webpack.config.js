@@ -39,6 +39,10 @@ Encore
 	.enableForkedTypeScriptTypesChecking()
 	.enableSourceMaps( !Encore.isProduction() )
 	.enableVersioning( Encore.isProduction() )
+	.configureFilenames( {
+		js: "[name].[contenthash:8].min.js",
+		css: "[name].[contenthash:8].min.css"
+	} )
 	.configureManifestPlugin( ( options ) =>
 	{
 		options.fileName = "webpack-manifest.json";
