@@ -22,6 +22,9 @@ COPY . .
 # Build all static assets
 RUN npm run build
 
+# Remove all development dependencies
+RUN npm prune --production
+
 # Use an customized image of PHP 8.2 with Nginx
 # https://github.com/webdevops/Dockerfile/blob/master/docker/php-nginx/8.2-alpine/Dockerfile
 FROM webdevops/php-nginx:8.2-alpine
@@ -32,8 +35,7 @@ RUN chmod +x /wait
 
 # Add startup commands to the entrypoint
 # https://symfony.com/doc/current/deployment.html / https://symfony.com/doc/current/setup/file_permissions.html
-RUN echo "/wait && /usr/local/bin/php /app/bin/console cache:clear && \
-	cd /app/var && chmod 777 cache/prod/ && chmod 777 log/ && \
+RUN echo "/wait && /usr/local/bin/php /app/bin/console cache:clear && chmod 777 /app/var && \
 	/usr/local/bin/php /app/bin/console doctrine:database:create --no-interaction && \
 	/usr/local/bin/php /app/bin/console doctrine:schema:create --no-interaction && \
 	/usr/local/bin/php /app/bin/console app:udp-server 127.0.0.1:81 &" >> /opt/docker/provision/entrypoint.d/25-app.sh

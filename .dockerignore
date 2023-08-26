@@ -1,5 +1,4 @@
 **/*.md
-**/.env*.local
 **/.git*
 **/.dockerignore
 **/.editorconfig
