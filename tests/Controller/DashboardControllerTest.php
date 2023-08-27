@@ -66,9 +66,9 @@ final class DashboardControllerTest extends WebTestCase
 	}
 
 	//
-	// Surveillance réussie d'un serveur distant.
+	// Surveillance des données d'un serveur distant.
 	//
-	public function testServerMonitorSuccess()
+	public function testServerMonitor()
 	{
 		// Accès à la page d'accueil.
 		$router = static::getContainer()->get(UrlGeneratorInterface::class);
@@ -88,7 +88,7 @@ final class DashboardControllerTest extends WebTestCase
 
 		$this->assertResponseIsSuccessful();
 
-		// Test de surveillance du serveur par défaut (valide).
+		// Test de surveillance du serveur valide par défaut.
 		$this->client->request("GET", $router->generate("server_monitor"));
 
 		$this->assertResponseIsSuccessful();
@@ -99,7 +99,7 @@ final class DashboardControllerTest extends WebTestCase
 
 		$this->client->click($server);
 
-		// Test de surveillance du nouveau serveur (invalide).
+		// Test de surveillance du nouveau serveur invalide.
 		//  Note : le serveur n'existe pas donc la surveillance échoue.
 		$this->client->request("GET", $router->generate("server_monitor"));
 
