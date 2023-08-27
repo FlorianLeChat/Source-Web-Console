@@ -9,6 +9,8 @@ use App\Entity\Event;
 use App\Entity\Server;
 use App\Service\ServerManager;
 use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Filesystem\Path;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\CacheInterface;
@@ -43,13 +45,20 @@ final class DashboardController extends AbstractController
 	// Route vers la représentation JSON des traductions Symfony.
 	//
 	#[Route("/translations/{language}", name: "translations_page")]
-	public function translations(Request $request, ?string $language): JsonResponse
+	public function translations(string $language): Response|JsonResponse
 	{
+		// On vérifie d'abord que le fichier de traduction existe bien.
+		$finder = new Finder();
+		$finder->files()->in($this->kernel->getProjectDir() . "/translations/")->name("messages.$language.yaml");
+
+		if ($finder->count() === 0)
+		{
+			return new Response(status: Response::HTTP_NOT_FOUND);
+		}
+
+		// Dans ce cas, on retourne le contenu des traductions en JSON.
 		return new JsonResponse(
-			Yaml::parseFile(sprintf(
-				"%s/translations/messages.%s.yaml",
-				$this->kernel->getProjectDir(), $language ?? $request->getLocale()
-			)),
+			Yaml::parseFile(sprintf("%s/translations/messages.%s.yaml", $this->kernel->getProjectDir(), $language)),
 			JsonResponse::HTTP_OK
 		);
 	}
