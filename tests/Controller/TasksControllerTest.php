@@ -1,7 +1,7 @@
 <?php
 
 //
-// Tests du contrôleur de la page du tableau de bord.
+// Tests du contrôleur de la page des tâches planifiées.
 //
 namespace App\Tests\Controller;
 

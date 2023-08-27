@@ -20,7 +20,15 @@ final class ServerFixture extends Fixture implements DependentFixtureInterface
 		// Récupération d'une référence à l'utilisateur.
 		$user = $this->getReference("user");
 
-		// Création de 3 serveurs de test.
+		// Création d'un serveur valide et existant.
+		$server = new Server();
+		$server->setAddress("51.75.125.244");
+		$server->setPort(27015);
+		$server->setGame(4000);
+		$server->setUser($user);
+		$manager->persist($server);
+
+		// Création de 3 serveurs de test (invalides).
 		for ($i = 0; $i < 3; $i++)
 		{
 			$server = new Server();
