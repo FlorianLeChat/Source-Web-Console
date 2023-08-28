@@ -17,18 +17,14 @@ final class CommandFixture extends Fixture implements DependentFixtureInterface
 		// Récupération d'une référence à l'utilisateur.
 		$user = $this->getReference("user");
 
-		// Création de 2 commandes personnalisées.
-		for ($i = 0; $i < 2; $i++)
-		{
-			$command = new Command();
-			$command->setUser($user);
-			$command->setTitle("Command #$i");
-			$command->setContent("say $i");
+		// Création d'une commande personnalisée.
+		$command = new Command();
+		$command->setUser($user);
+		$command->setTitle("Command #1");
+		$command->setContent("say Hello World!");
 
-			$manager->persist($command);
-		}
-
-		// Sauvegarde des commandes personnalisées.
+		// Sauvegarde de la commande personnalisée.
+		$manager->persist($command);
 		$manager->flush();
 	}
 
