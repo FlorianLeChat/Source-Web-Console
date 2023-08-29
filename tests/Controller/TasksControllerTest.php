@@ -48,7 +48,7 @@ final class TasksControllerTest extends WebTestCase
 	//
 	// Ajout d'une tâche planifiée.
 	//
-	public function testAddScheduledTasks()
+	public function testAddScheduledTasks(): void
 	{
 		// Test de l'accès à la page des tâches planifiées.
 		$crawler = $this->client->request("GET", $this->router->generate("tasks_page"));
@@ -88,7 +88,7 @@ final class TasksControllerTest extends WebTestCase
 	//
 	// Suppression d'une tâche planifiée.
 	//
-	public function testDeleteScheduledTasks()
+	public function testDeleteScheduledTasks(): void
 	{
 		// Test de l'accès à la page des tâches planifiées.
 		$crawler = $this->client->request("GET", $this->router->generate("tasks_page"));

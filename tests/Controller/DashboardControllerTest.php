@@ -49,7 +49,7 @@ final class DashboardControllerTest extends WebTestCase
 	//
 	// Récupération des traductions d'une langue.
 	//
-	public function testFetchTranslations()
+	public function testFetchTranslations(): void
 	{
 		// Accès aux traductions anglaises.
 		$this->client->request("GET", $this->router->generate("translations_page", [
@@ -70,7 +70,7 @@ final class DashboardControllerTest extends WebTestCase
 	//
 	// Surveillance des données d'un serveur distant.
 	//
-	public function testServerMonitor()
+	public function testServerMonitor(): void
 	{
 		// Test de l'accès à la page du tableau de bord.
 		$crawler = $this->client->request("GET", $this->router->generate("dashboard_page"));
