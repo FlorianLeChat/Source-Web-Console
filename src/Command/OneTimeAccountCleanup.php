@@ -33,7 +33,7 @@ final class OneTimeAccountCleanup extends Command
 		$repository = $this->entityManager->getRepository(User::class);
 		$query = $repository->createQueryBuilder("u");
 		$query->where($query->expr()->like("u.username", ":name"))
-			->setParameter("name", "temp\_%");
+			->setParameter("name", "temp_%");
 		$query->andWhere($query->expr()->lte("u.createdAt", ":past"))
 			->setParameter("past", new \DateTime("-1 day"), \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE);
 
@@ -54,7 +54,7 @@ final class OneTimeAccountCleanup extends Command
 		// On sauvegarde après les changements dans la base de données.
 		$this->entityManager->flush();
 
-		$io->success(sprintf("Deleted %d expired temporary accounts.", $count));
+		$io->success(sprintf("Deleted %d expired temporary account(s).", $count));
 
 		// On retourne enfin le code de succès de la commande.
 		return Command::SUCCESS;
