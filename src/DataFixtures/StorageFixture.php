@@ -20,7 +20,7 @@ final class StorageFixture extends Fixture implements DependentFixtureInterface
 		// Création des informations de stockage.
 		$storage = new Storage();
 		$storage->setServer($this->getReference("server0"));
-		$storage->setAddress("florian4016");
+		$storage->setAddress("123.123.123.123");
 		$storage->setPort(22);
 		$storage->setProtocol(Storage::PROTOCOL_SFTP);
 		$storage->setUsername("florian4016");
