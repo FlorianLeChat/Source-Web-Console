@@ -123,7 +123,7 @@ final class ServerStatisticsCollector extends Command
 		// On synchronise également les changements dans la base de données.
 		$this->entityManager->flush();
 
-		$io->success(sprintf("Gathered statistics from %d servers.", $count));
+		$io->success(sprintf("Gathered statistics from %d server(s).", $count));
 
 		// On retourne enfin le code de succès de la commande.
 		return Command::SUCCESS;

@@ -16,7 +16,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand("app:tasks-executor", "Runs scheduled tasks waiting to be executed")]
-final class ScheduledTaskExecutor extends Command
+final class ScheduledTasksExecutor extends Command
 {
 	//
 	// Initialisation de certaines dépendances de la commande.

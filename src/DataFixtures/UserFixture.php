@@ -16,7 +16,8 @@ final class UserFixture extends Fixture
 
 	public function load(ObjectManager $manager): void
 	{
-		// Création d'un utilisateur de test.
+		// Création et sauvegarde d'un compte utilisateur
+		//  permanent pour les tests unitaires.
 		$user = new User();
 		$user->setUsername("florian4016");
 		$user->setPassword($this->hasher->hashPassword($user, "florian4016"));
@@ -24,11 +25,23 @@ final class UserFixture extends Fixture
 		$user->setAddress("127.0.0.0");
 		$user->setRoles(["ROLE_USER"]);
 
-		// Sauvegarde de l'utilisateur.
 		$manager->persist($user);
-		$manager->flush();
 
-		// Ajout d'une référence à l'utilisateur.
+		// Ajout d'une référence à l'utilisateur permanent.
 		$this->addReference("user", $user);
+
+		// Création et sauvegarde d'un compte utilisateur
+		//  temporaire pour les tests des commandes.
+		$user = new User();
+		$user->setUsername(sprintf("temp_%s", bin2hex(random_bytes(10))));
+		$user->setPassword($this->hasher->hashPassword($user, bin2hex(random_bytes(30))));
+		$user->setCreatedAt(new \DateTime("-1 week"));
+		$user->setAddress("127.0.0.0");
+		$user->setRoles(["ROLE_USER"]);
+
+		$manager->persist($user);
+
+		// Sauvegarde dans la base de données.
+		$manager->flush();
 	}
 }
