@@ -64,7 +64,7 @@ final class UserControllerTest extends WebTestCase
 	//
 	// Création d'un compte à usage unique.
 	//
-	public function testOneTimeAccountRegistration()
+	public function testOneTimeAccountRegistration(): void
 	{
 		// Accès à la page d'accueil.
 		$crawler = $this->client->request("GET", $this->router->generate("index_page"));
@@ -119,7 +119,7 @@ final class UserControllerTest extends WebTestCase
 	//
 	// Création d'un compte utilisateur permanent.
 	//
-	public function testPermanentAccountRegistration()
+	public function testPermanentAccountRegistration(): void
 	{
 		// Accès à la page du compte utilisateur pour déconnecter
 		//  l'utilisateur actuellement authentifié.
@@ -172,7 +172,7 @@ final class UserControllerTest extends WebTestCase
 	//
 	// Authentification à un compte utilisateur.
 	//
-	public function testAccountLogin()
+	public function testAccountLogin(): void
 	{
 		// Accès à la page d'accueil.
 		$this->router = static::getContainer()->get(UrlGeneratorInterface::class);
@@ -213,7 +213,7 @@ final class UserControllerTest extends WebTestCase
 	//
 	// Envoi d'un message de contact aux administrateurs du site.
 	//
-	public function testContactMessageSending()
+	public function testContactMessageSending(): void
 	{
 		// Accès à la page d'accueil.
 		$crawler = $this->client->request("GET", $this->router->generate("index_page"));
@@ -259,7 +259,7 @@ final class UserControllerTest extends WebTestCase
 	//
 	// Mis à jour des informations d'un compte utilisateur.
 	//
-	public function testAccountUpdate()
+	public function testAccountUpdate(): void
 	{
 		// Test de l'accès à la page du compte utilisateur.
 		$crawler = $this->client->request("GET", $this->router->generate("user_page"));
@@ -297,7 +297,7 @@ final class UserControllerTest extends WebTestCase
 	//
 	// Récupération du mot de passe d'un compte utilisateur.
 	//
-	public function testAccountPasswordRecover()
+	public function testAccountPasswordRecover(): void
 	{
 		// Accès à la page d'accueil.
 		$this->router = static::getContainer()->get(UrlGeneratorInterface::class);
@@ -353,7 +353,7 @@ final class UserControllerTest extends WebTestCase
 	//
 	// Suppression d'un compte utilisateur.
 	//
-	public function testAccountDeletion()
+	public function testAccountDeletion(): void
 	{
 		// Test de l'accès à la page du compte utilisateur.
 		$crawler = $this->client->request("GET", $this->router->generate("user_page"));
@@ -377,7 +377,7 @@ final class UserControllerTest extends WebTestCase
 	//
 	// Ajout d'un nouveau serveur à un compte utilisateur.
 	//
-	public function testServerRegistration()
+	public function testServerRegistration(): void
 	{
 		// Test de l'accès à la page du compte utilisateur.
 		$crawler = $this->client->request("GET", $this->router->generate("user_page"));

@@ -63,7 +63,7 @@ final class ActionsControllerTest extends WebTestCase
 	//
 	// Exécution d'une action à distance.
 	//
-	public function testServerAction()
+	public function testServerAction(): void
 	{
 		// Test de l'accès à la page du tableau de bord.
 		$crawler = $this->client->request("GET", $this->router->generate("dashboard_page"));
@@ -93,7 +93,7 @@ final class ActionsControllerTest extends WebTestCase
 	//
 	// Ajout d'une commande personnalisée.
 	//
-	public function testAddCustomCommand()
+	public function testAddCustomCommand(): void
 	{
 		// Modification du rôle de l'utilisateur.
 		$repository = $this->container->get(UserRepository::class);
@@ -123,7 +123,7 @@ final class ActionsControllerTest extends WebTestCase
 	//
 	// Suppression d'une commande personnalisée.
 	//
-	public function testRemoveCustomCommand()
+	public function testRemoveCustomCommand(): void
 	{
 		// Test de l'accès à la page des actions et des commandes.
 		$crawler = $this->client->request("GET", $this->router->generate("actions_page"));
