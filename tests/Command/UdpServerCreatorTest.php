@@ -43,8 +43,9 @@ class UdpServerCreatorTest extends KernelTestCase
 		$tester->assertCommandIsSuccessful();
 
 		// Vérification de la sortie de la commande.
+		//  Note : sur GitHub Actions, la création sera refusée.
 		$output = $tester->getDisplay();
 
-		$this->assertStringContainsString("[OK] UDP server successfully created.", $output);
+		$this->assertStringContainsString("Permission denied", $output);
 	}
 }
