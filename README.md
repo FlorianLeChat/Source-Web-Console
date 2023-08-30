@@ -4,15 +4,18 @@
 
 ## In French
 
-C'est un projet réalisé durant mes études afin de permettre de gérer les serveurs dédiés de jeu utilisant le protocole **[Source RCON](https://developer.valvesoftware.com/wiki/Source_RCON_Protocol)** à travers une interface graphique. Suite à la réalisation de mon premier projet, voir **[Portfolio](https://github.com/FlorianLeChat/Portfolio)**, le code s'est agrandi quantitativement et j'espère plus qualitativement.
+C'est un projet réalisé durant mes études afin de permettre de gérer les serveurs dédiés de jeu utilisant le protocole **[Source RCON](https://developer.valvesoftware.com/wiki/Source_RCON_Protocol)** à travers une interface graphique. La réalisation de ce projet est intervenue après celui de mon **[portfolio](https://github.com/FlorianLeChat/Portfolio)**, qui lui aussi a reçu une refonte graphique et technologique.
 
-Malgré tout, je pense qu'il reste encore énormément de points à améliorer pour ce projet et à cause des limitations imposées par les enseignants, l'utilisation d'outils modernes et de frameworks ont été complètement bannis. Le projet risque alors de recevoir beaucoup de modifications dans le futur jusqu'à l'abandon lorsque j'estimerais que cela ne vaut plus le coup de le maintenir en fonctionnement.
+À la fin de la première version du projet en utilisant seulement des langages et technologies natives d'Internet (branche `no-symfony`), la dernière version reprend le code d'origine tout en basculant sur le *framework* [Symfony](https://symfony.com/) pour profiter d'améliorations techniques, de performances mais aussi de sécurité. De plus, même si le souffre encore d'une dette technologique assez importante par l'absence de *framework* pour gérer la partie interface, le code d'origine a été migrée vers [TypeScript](https://www.typescriptlang.org/) pour une meilleure robustesse.
 
 <ins>Voici les exigences pour exécuter le site Internet</ins> :
 * PHP **8.2+**
-* MariaDB **10.5+**
+* Redis **7.2+**
+* MariaDB **10.11+**
 
-**La base de données est inclus dans le dépôt GitHub, donc vous pouvez aisément l'importer de votre côté afin de tester ce projet dans sa globalité. Une autre alternative est d'utiliser l'image Docker mise à disposition pour vous épargner l'installation longue et fastidieuse. 🐳**
+⚠️ [**LISEZ AVANT UTILISATION**] Ce projet est conçu pour fonctionner dans un environnement de production mais celui-ci doit être considéré comme une « preuve de concept » pour mes études concernant l'utilisation de technologies Internet natives pour communiquer avec le protocole RCON, si vous comptez utiliser ce genre de sites pour administrer votre serveur, je ne peux que vous conseiller l'excellent [**Pterodactyl**](https://pterodactyl.io/).
+
+**Une image Docker est aussi disponible pour tester ce projet pour les personnes les plus expérimentées ! 🐳**
 
 Par soucis de simplicité, l'entièreté du code est commentée dans ma langue natale (en français) mais il sera traduit dans un futur proche si des contributeurs étrangers viennent s'ajouter au projet.
 
@@ -20,14 +23,19 @@ ___
 
 ## In English
 
-This is a project I did during my studies to manage dedicated game servers using the **[Source RCON](https://developer.valvesoftware.com/wiki/Source_RCON_Protocol)** protocol through a web interface. Following the achievement of my first project, see **[Portfolio](https://github.com/FlorianLeChat/Portfolio)**, the code has grown quantitatively and I hope more qualitatively.
+This is a project made during my studies to manage dedicated game servers using the **[Source RCON](https://developer.valvesoftware.com/wiki/Source_RCON_Protocol)** protocol through a graphical interface. The realization of this project came after that of my **[portfolio](https://github.com/FlorianLeChat/Portfolio)**, which also received a graphic and technological overhaul.
 
-However, I think that there are still a lot of points to improve for this project and because of the limitations imposed by the teachers, the use of modern tools and frameworks have been completely banned. The project is then likely to receive a lot of modifications in the future until it is abandoned when I feel it is no longer worth keeping it running.
+Following the end of the first project version using only native Web languages and technologies (`no-symfony` branch), the latest version reuses the original code while migrating to the [Symfony](https://symfony.com/) framework to enjoy technical, performance and security improvements. Even though it still suffers from a significant technological debt due to the absence of a framework to manage the front-end, the original code has been migrated to [TypeScript](https://www.typescriptlang.org/) for greater robustness.
 
 <ins>Here are the requirements to run the website</ins>:
 * PHP **8.2+**
-* MariaDB **10.5+**
+* Redis **7.2+**
+* MariaDB **10.11+**
 
-**The database is included in the GitHub repository, so you can easily import it on your side to test this project globally. Another alternative is to use the available Docker image to save you a long and tedious installation. 🐳**
+⚠️ [**PLEASE READ BEFORE USING**] This project is intended to run in a production environment, but it should be considered as a "proof of concept" for my studies concerning the usage of native Web technologies to communicate with RCON protocol. If you intend to use this kind of website to manage your server, I advise you to consider using the excellent [**Pterodactyl**](https://pterodactyl.io/).
+
+**A Docker image is also available to test this project for the most skilled people! 🐳**
 
 To keep it simple, the whole code is commented in my native language (French) but it will be translated in the near future if foreign contributors come to the project.
+
+![image](https://github.com/FlorianLeChat/Source-Web-Console/assets/26360935/0aaed929-a530-4c41-bdbc-2e05eab82e9e)
