@@ -23,6 +23,7 @@ jobs:
         run: npx eslint ./assets/scripts
           --config .eslintrc.json
           --ext .ts
+          --report-unused-disable-directives
           --format @microsoft/eslint-formatter-sarif
           --output-file eslint-results.sarif
         continue-on-error: true
