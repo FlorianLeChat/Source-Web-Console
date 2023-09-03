@@ -170,8 +170,9 @@ if ( process.env.RECAPTCHA_ENABLED === "true" )
 
 			// On insère enfin dynamiquement le jeton dans le formulaire
 			//  avant de cliquer une nouvelle fois sur le bouton de soumission.
-			$( event.target ).append( `<input type="hidden" name="recaptcha" value="${ token }">` );
-			$( ( event.originalEvent as SubmitEvent ).submitter as HTMLFormElement ).trigger( "click" );
+			const target = $( event.target );
+			target.append( `<input type="hidden" name="recaptcha" value="${ token }">` );
+			target.trigger( "submit" );
 		} );
 	} );
 }
