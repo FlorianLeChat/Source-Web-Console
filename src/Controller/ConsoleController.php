@@ -47,6 +47,7 @@ final class ConsoleController extends AbstractController
 
 		// On récupère ensuite l'identifiant unique du serveur sélectionné
 		//  précédemment par l'utilisateur.
+		$address = $request->server->get("SERVER_ADDR", "127.0.0.1");
 		$serverId = intval($request->getSession()->get("serverId", 0));
 
 		if ($serverId !== 0)
@@ -61,7 +62,7 @@ final class ConsoleController extends AbstractController
 				// En cas de réussite, on définit le serveur comme étant
 				//  capable d'envoyer ses journaux d'événements au site.
 				$this->serverManager->query->Rcon("log on");
-				$this->serverManager->query->Rcon("logaddress_add 192.168.1.14:8001");
+				$this->serverManager->query->Rcon("logaddress_add $address:2004");
 			}
 			catch (\Exception) {}
 			finally
