@@ -6,10 +6,12 @@
 //
 namespace App\Command;
 
+use App\Entity\Server;
 use React\Datagram\Socket;
 use React\Datagram\Factory;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Filesystem\Path;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -26,8 +28,10 @@ final class UdpServerCreator extends Command
 	//
 	// Initialisation de certaines dépendances de la commande.
 	//
-	public function __construct(private readonly KernelInterface $kernel)
-	{
+	public function __construct(
+		private readonly KernelInterface $kernel,
+		private readonly EntityManagerInterface $entityManager
+	) {
 		parent::__construct();
 	}
 
@@ -58,10 +62,22 @@ final class UdpServerCreator extends Command
 
 				$server->on("message", function ($message, $address) use ($io): void
 				{
-					// Lorsque le serveur reçoit un message, on l'affiche dans la console.
+					// Lorsque le serveur reçoit un message, on vérifie s'il est enregistré
+					//  ou non dans la base de données.
 					$message = str_replace(["\0", "\r"], "", substr($message, 7));
+					$server = $this->entityManager->getRepository(Server::class)->findOneBy([
+						"address" => parse_url($address, PHP_URL_HOST)
+					]);
 
-					$io->info(sprintf("New message from remote server \"%s\":\n%s", $address, $message));
+					if (!$server)
+					{
+						// Si ce n'est pas le cas, on affiche un message d'erreur.
+						$io->warning("New message from unknown remote server \"$address\"");
+						return;
+					}
+
+					// Dans le cas contraire, on affiche un message d'information.
+					$io->info("New message from remote server \"$address\":\n$message");
 
 					try
 					{
