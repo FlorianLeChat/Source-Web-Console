@@ -54,7 +54,7 @@ final class OneTimeAccountCleanup extends Command
 		// On sauvegarde après les changements dans la base de données.
 		$this->entityManager->flush();
 
-		$io->success(sprintf("Deleted %d expired temporary account(s).", $count));
+		$io->success("Deleted $count expired temporary account(s).");
 
 		// On retourne enfin le code de succès de la commande.
 		return Command::SUCCESS;

@@ -123,7 +123,7 @@ final class ScheduledTasksExecutor extends Command
 		// On sauvegarde les changements dans la base de données.
 		$this->entityManager->flush();
 
-		$io->success(sprintf("Executed %d task(s).", $count));
+		$io->success("Executed $count task(s).");
 
 		// On retourne enfin le code de succès de la commande.
 		return Command::SUCCESS;

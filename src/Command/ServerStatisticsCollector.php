@@ -52,15 +52,11 @@ final class ServerStatisticsCollector extends Command
 
 			if (in_array("ROLE_DONOR", $user->getRoles()) && $stats->getDate() <= $past)
 			{
-				$io->info(sprintf(
-					"Skipping statistics deletion from server \"%s\" because expiration date is longer.",
-					$address
-				));
-
+				$io->info("Skipping statistics deletion from server \"$address\" because expiration date is longer.");
 				continue;
 			}
 
-			$io->info(sprintf("Removing old statistics from server \"%s\"...", $address));
+			$io->info("Removing old statistics from server \"$address\"...");
 			$repository->remove($stats);
 		}
 
@@ -123,7 +119,7 @@ final class ServerStatisticsCollector extends Command
 		// On synchronise également les changements dans la base de données.
 		$this->entityManager->flush();
 
-		$io->success(sprintf("Gathered statistics from %d server(s).", $count));
+		$io->success("Gathered statistics from $count server(s).");
 
 		// On retourne enfin le code de succès de la commande.
 		return Command::SUCCESS;
