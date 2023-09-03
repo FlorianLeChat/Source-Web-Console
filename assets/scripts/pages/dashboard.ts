@@ -36,8 +36,8 @@ $( "[name = server_edit]" ).on( "click", ( event ) =>
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
 
-	// On récupère après le parent de l'élément.
-	const parent = $( event.target ).parent();
+	// On récupère après le formulaire parent de l'élément.
+	const parent = $( event.target ).parent().parent();
 
 	// On demande ensuite à l'utilisateur s'il veut supprimer ou non
 	//  le serveur.
@@ -86,7 +86,7 @@ $( "[name = server_edit]" ).on( "click", ( event ) =>
 	}
 
 	// On force enfin la soumission du formulaire.
-	parent.trigger( "click" );
+	parent.trigger( "submit" );
 } );
 
 //
