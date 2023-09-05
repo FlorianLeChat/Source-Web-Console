@@ -290,7 +290,7 @@ $( "[id *= clear]" ).on( "click", ( event ) =>
 	const input = $( event.target ).parent().find( "[id *= password]" );
 
 	// On bascule enfin le type du champ entre « password » et « text ».
-	input.attr( "type", ( input.attr( "type" ) === "password" ) ? "text" : "password" );
+	input.attr( "type", input.attr( "type" ) === "password" ? "text" : "password" );
 } );
 
 //
