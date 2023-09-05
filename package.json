@@ -45,7 +45,7 @@
     },
     "scripts": {
         "dev": "encore dev",
-        "lint": "eslint ./assets/scripts --config .eslintrc.json --ext .ts --report-unused-disable-directives",
+        "lint": "eslint ./assets/scripts --fix --ext .ts --report-unused-disable-directives",
         "watch": "encore dev --watch",
         "build": "encore production --progress",
         "dev-server": "encore dev-server"
