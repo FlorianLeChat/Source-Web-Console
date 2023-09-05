@@ -23,6 +23,7 @@
         "core-js": "~3.32",
         "webpack": "~5.88",
         "chart.js": "~4.4",
+        "prettier": "~3.0",
         "ts-loader": "~9.4",
         "typescript": "~5.2",
         "flag-icons": "~6.11",
@@ -46,6 +47,7 @@
     "scripts": {
         "dev": "encore dev",
         "lint": "eslint ./assets/scripts --fix --ext .ts --report-unused-disable-directives",
+        "pretty": "prettier --write \"assets/scripts/pages/**\"",
         "watch": "encore dev --watch",
         "build": "encore production --progress",
         "dev-server": "encore dev-server"
