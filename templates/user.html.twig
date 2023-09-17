@@ -27,13 +27,13 @@
 			{# Nom d'utilisateur #}
 			<div>
 				<label for="username">{{ t("form.register.username")|trans }}<span>*</span></label>
-				<input type="text" autocomplete="username" spellcheck="false" id="username" name="username" placeholder="johndoe" minlength="10" maxlength="50" required />
+				<input type="text" autocomplete="username" autocapitalize="off" spellcheck="false" id="username" name="username" placeholder="johndoe" minlength="10" maxlength="50" required />
 			</div>
 
 			{# Mot de passe #}
 			<div>
 				<label for="userpass">{{ t("form.register.password")|trans }}<span>*</span></label>
-				<input type="password" autocomplete="current-password" spellcheck="false" id="userpass" name="password" placeholder="?JohnDoe2022!" minlength="10" maxlength="60" required />
+				<input type="password" autocomplete="current-password" autocapitalize="off" spellcheck="false" id="userpass" name="password" placeholder="?JohnDoe2022!" minlength="10" maxlength="60" required />
 			</div>
 
 			{# Suppression/mise à jour #}
