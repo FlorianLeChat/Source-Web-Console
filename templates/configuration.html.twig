@@ -29,7 +29,7 @@
 		<form method="POST">
 			{# Adresse IP #}
 			<label for="address">{{ t("configuration.storage.address")|trans }}<span>*</span></label>
-			<input type="text" autocomplete="off" spellcheck="false" id="address" name="address" placeholder="51.75.125.244" minlength="7" maxlength="15" value="{{ configuration_credentials.address|default() }}" required />
+			<input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" id="address" name="address" placeholder="51.75.125.244" minlength="7" maxlength="15" value="{{ configuration_credentials.address|default() }}" required />
 
 			{# Port de communication #}
 			<input type="number" id="port" name="port" placeholder="22" min="1" max="99999" value="{{ configuration_credentials.port|default() }}" required />
@@ -43,11 +43,11 @@
 
 			{# Nom d'utilisateur #}
 			<label for="username">{{ t("configuration.storage.username")|trans }}<span>*</span></label>
-			<input type="text" autocomplete="username" spellcheck="false" id="username" name="username" placeholder="johndoe" value="{{ configuration_credentials.username|default() }}" required />
+			<input type="text" autocomplete="username" autocapitalize="off" spellcheck="false" id="username" name="username" placeholder="johndoe" value="{{ configuration_credentials.username|default() }}" required />
 
 			{# Mot de passe #}
 			<label for="password">{{ t("configuration.storage.password")|trans }}</label>
-			<input type="password" autocomplete="current-password" spellcheck="false" id="password" name="password" placeholder="?JohnDoe2022!" />
+			<input type="password" autocomplete="current-password" autocapitalize="off" spellcheck="false" id="password" name="password" placeholder="?JohnDoe2022!" />
 
 			{# Validation/Mise à jour #}
 			<input type="submit" value="{{ configuration_credentials is not empty ? t("global.update")|trans : t("form.validate_button")|trans }}" />
@@ -69,7 +69,7 @@
 				<p>{{ t("configuration.hostname.description")|trans }}</p>
 
 				{# Champ de saisie du premier paramètre #}
-				<input type="text" autocomplete="off" spellcheck="false" name="hostname" placeholder="<value>" />
+				<input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" name="hostname" placeholder="<value>" />
 
 				{# Bouton de mise à jour #}
 				<button type="button" data-type="hostname" data-token="{{ csrf_token("configuration_hostname") }}">
@@ -85,7 +85,7 @@
 				<p>{{ t("configuration.loading.description")|trans }}</p>
 
 				{# Champ de saisie du deuxième paramètre #}
-				<input type="text" autocomplete="off" spellcheck="false" name="loading" placeholder="<value>" />
+				<input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" name="loading" placeholder="<value>" />
 
 				{# Bouton de mise à jour #}
 				<button type="button" data-type="loading" data-token="{{ csrf_token("configuration_loading") }}">
@@ -101,7 +101,7 @@
 				<p>{{ t("configuration.rcon.description")|trans }}</p>
 
 				{# Champ de saisie du troisième paramètre #}
-				<input type="text" autocomplete="off" spellcheck="false" name="rcon" placeholder="<value>" />
+				<input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" name="rcon" placeholder="<value>" />
 
 				{# Bouton de mise à jour #}
 				<button type="button" data-type="password" data-token="{{ csrf_token("configuration_password") }}">
