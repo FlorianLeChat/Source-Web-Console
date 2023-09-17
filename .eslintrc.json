@@ -15,14 +15,15 @@
 		"no-tabs": ["error", { "allowIndentationTabs": true }],
 		"eol-last": ["error", "never"],
 		"no-alert": "off",
-		"no-shadow": "off",
+		"no-shadow": "off", // -> @typescript-eslint/no-shadow
 		"no-plusplus": "off",
 		"brace-style": ["error", "allman"],
 		"comma-dangle": ["error", "never"],
-		"no-unused-vars": "off",
+		"no-unused-vars": "off", // -> @typescript-eslint/no-unused-vars
 		"linebreak-style": "off",
 		"space-in-parens": ["error", "always"],
 		"no-param-reassign": ["error", { "props": false }],
+		"operator-linebreak": ["error", "before", { "overrides": { "=": "after" } }],
 		"no-restricted-globals": "off",
 		"array-bracket-spacing": ["error", "always"],
 		"template-curly-spacing": ["error", "always"],

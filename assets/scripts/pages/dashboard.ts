@@ -66,19 +66,25 @@ $( "[name = server_edit]" ).on( "click", ( event ) =>
 		if ( address )
 		{
 			// Adresse IP valide.
-			parent.append( `<input type="hidden" name="address" value="${ address }" />` );
+			parent.append(
+				`<input type="hidden" name="address" value="${ address }" />`
+			);
 		}
 
 		if ( port )
 		{
 			// Port valide.
-			parent.append( `<input type="hidden" name="port" value="${ port }" />` );
+			parent.append(
+				`<input type="hidden" name="port" value="${ port }" />`
+			);
 		}
 
 		if ( password )
 		{
 			// Mot de passe valide.
-			parent.append( `<input type="hidden" name="password" value="${ password }" />` );
+			parent.append(
+				`<input type="hidden" name="password" value="${ password }" />`
+			);
 		}
 
 		// Suppression du dernier jeton CSRF (pour la suppression).
@@ -103,13 +109,18 @@ servers.on( "click", "button[type=button]", ( event ) =>
 
 	// On récupère ensuite le nombre de pages actuel ainsi que
 	//  le nombre de pages maximum.
-	let [ current, maximum ] = label.text().split( "/" ).map( ( num ) => parseInt( num, 10 ) );
+	let [ current, maximum ] = label
+		.text()
+		.split( "/" )
+		.map( ( num ) => parseInt( num, 10 ) );
 	maximum = maximum || 1;
 
 	// On modifie enfin le nombre de pages actuel en fonction
 	//  de l'élément cible et on met à jour le nombre de pages
 	//  actuel.
-	current = target.hasClass( "bi bi-chevron-left" ) ? Math.max( 1, current - 1 ) : Math.min( maximum, current + 1 );
+	current = target.hasClass( "bi bi-chevron-left" )
+		? Math.max( 1, current - 1 )
+		: Math.min( maximum, current + 1 );
 
 	label.text( `${ current } / ${ maximum }` );
 
@@ -134,8 +145,11 @@ async function retrieveRemoteData()
 	if ( response.ok )
 	{
 		// Une fois terminée, on récupère les données sous format JSON.
-		const data = await response.json() as {
-			state: string; map: string; count: number; players: { Name: string; }[];
+		const data = ( await response.json() ) as {
+			map: string;
+			state: string;
+			count: number;
+			players: { Name: string }[];
 		};
 
 		// Affichage de l'état de fonctionnement.
@@ -199,7 +213,11 @@ actions.on( "click", "li", async ( event ) =>
 		target.addClass( "disabled" );
 
 		// Exécution de la requête d'action.
-		const state = await sendRemoteAction( target.data( "token" ), target.data( "route" ), target.data( "action" ) );
+		const state = await sendRemoteAction(
+			target.data( "token" ),
+			target.data( "route" ),
+			target.data( "action" )
+		);
 
 		if ( !state )
 		{
@@ -219,7 +237,11 @@ actions.on( "dblclick", "li:first-of-type", async ( event ) =>
 	parent.addClass( "disabled" );
 
 	// Exécution de la requête d'action.
-	const state = await sendRemoteAction( target.data( "token" ), target.data( "route" ), target.data( "action" ) );
+	const state = await sendRemoteAction(
+		target.data( "token" ),
+		target.data( "route" ),
+		target.data( "action" )
+	);
 
 	if ( !state )
 	{

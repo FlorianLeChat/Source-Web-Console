@@ -21,7 +21,11 @@ $( "#actions ul:first-of-type li, .switch span" ).on( "click", async ( event ) =
 		element.addClass( "disabled" );
 
 		// Exécution de la requête d'action.
-		const state = await sendRemoteAction( element.data( "token" ), element.data( "route" ), element.data( "action" ) );
+		const state = await sendRemoteAction(
+			element.data( "token" ),
+			element.data( "route" ),
+			element.data( "action" )
+		);
 
 		if ( !state )
 		{
@@ -31,24 +35,31 @@ $( "#actions ul:first-of-type li, .switch span" ).on( "click", async ( event ) =
 	}
 } );
 
-$( "#actions ul:first-of-type li:first-of-type" ).on( "dblclick", async ( event ) =>
-{
-	// Requête d'arrêt forcée
-	const target = $( event.target );
-	const parent = target.parent();
-
-	// Blocage du bouton pour éviter les abus.
-	parent.addClass( "disabled" );
-
-	// Exécution de la requête d'action.
-	const state = await sendRemoteAction( target.data( "token" ), target.data( "route" ), target.data( "action" ) );
-
-	if ( !state )
+$( "#actions ul:first-of-type li:first-of-type" ).on(
+	"dblclick",
+	async ( event ) =>
 	{
-		// Libération du bouton en cas d'erreur.
-		parent.removeClass( "disabled" );
+		// Requête d'arrêt forcée
+		const target = $( event.target );
+		const parent = target.parent();
+
+		// Blocage du bouton pour éviter les abus.
+		parent.addClass( "disabled" );
+
+		// Exécution de la requête d'action.
+		const state = await sendRemoteAction(
+			target.data( "token" ),
+			target.data( "route" ),
+			target.data( "action" )
+		);
+
+		if ( !state )
+		{
+			// Libération du bouton en cas d'erreur.
+			parent.removeClass( "disabled" );
+		}
 	}
-} );
+);
 
 //
 // Permet de gérer les demandes d'ajout, exécution ou de suppression
@@ -70,7 +81,8 @@ commands.on( "click", "[data-action = add]", async ( event ) =>
 
 	// On bloque également les boutons de soumission pour éviter les abus.
 	const target = $( event.target );
-	const element = ( target.is( "em" ) || target.is( "span" ) ) ? target.parent() : target;
+	const element =
+		target.is( "em" ) || target.is( "span" ) ? target.parent() : target;
 	element.prop( "disabled", true );
 
 	// On réalise ensuite la requête AJAX.
