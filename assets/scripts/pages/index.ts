@@ -310,10 +310,11 @@ $( "[id *= clear]" ).on( "click", ( event ) =>
 } );
 
 //
-// Permet de générer un mot de passe pseudo-sécurisé pour l'utilisateur.
-//  Source : https://dev.to/code_mystery/random-password-generator-using-javascript-6a
+// Permet de générer un mot de passe aléatoire et sécurisé pour l'utilisateur.
+//  Source : https://stackoverflow.com/a/26528271
 //
-const characters = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const characters =
+	"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+=<>?";
 let oldPassword = "";
 
 $( "#register_generation" ).on( "click", ( event ) =>
@@ -325,18 +326,16 @@ $( "#register_generation" ).on( "click", ( event ) =>
 	// On vérifie alors si la boite est cochée ou non.
 	if ( target.is( ":checked" ) )
 	{
-		// Si elle est coché, on génère aléatoirement un mot de passe
-		//  grâce à une série de caractères.
-		let newPassword = "";
+		// Si elle est cachée, on génère aléatoirement des octets sécurisés.
+		const values = new Uint8Array( 15 );
+		crypto.getRandomValues( values );
 
-		for ( let indice = 0; indice <= 15; indice++ )
-		{
-			// On choisit un caractère aléatoirement dans la liste disponibles.
-			const random = Math.floor( Math.random() * characters.length );
-
-			// On l'ajoute ensuite dans le nouveau mot de passe généré.
-			newPassword += characters.charAt( random );
-		}
+		// On parcourt ensuite les octets générés pour les convertir
+		//  en caractères sécurisés.
+		const newPassword = values.reduce(
+			( password, value ) => password + characters[ value % characters.length ],
+			""
+		);
 
 		// On enregistre enfin l'ancien mot de passe en mémoire avant de
 		//  définir le mot de passe sécurisé dans le champ approprié.
