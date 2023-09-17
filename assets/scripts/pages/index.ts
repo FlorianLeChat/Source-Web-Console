@@ -70,12 +70,19 @@ register.on( "submit", "form", async ( event ) =>
 				password: firstStep.find( "[name = password]" ).val() as never,
 
 				// Option de maintien de connexion.
-				_remember_me: firstStep.find( "[name = remember_me]" ).is( ":checked" ).toString(),
+				_remember_me: firstStep
+					.find( "[name = remember_me]" )
+					.is( ":checked" )
+					.toString(),
 
 				// Informations du serveur.
-				server_address: lastStep.find( "[name = address]" ).val() as never,
+				server_address: lastStep
+					.find( "[name = address]" )
+					.val() as never,
 				server_port: lastStep.find( "[name = port]" ).val() as never,
-				server_password: lastStep.find( "[name = password]" ).val() as never
+				server_password: lastStep
+					.find( "[name = password]" )
+					.val() as never
 			} )
 		} );
 
@@ -93,7 +100,10 @@ register.on( "submit", "form", async ( event ) =>
 			{
 				// Si c'est un code HTTP 202, alors il s'agit d'une réponse
 				//  suite à une demande de création d'un compte à usage unique.
-				const data = await response.json() as { link: string, message: string; };
+				const data = ( await response.json() ) as {
+					link: string;
+					message: string;
+				};
 
 				navigator.clipboard.writeText( data.link ).then( () =>
 				{
@@ -104,7 +114,10 @@ register.on( "submit", "form", async ( event ) =>
 			{
 				// Dans l'autre cas (réussite avec code HTTP 201 ou erreur),
 				//  on affiche après un message de confirmation ou d'erreur.
-				addQueuedNotification( await response.text(), response.ok ? 2 : 1 );
+				addQueuedNotification(
+					await response.text(),
+					response.ok ? 2 : 1
+				);
 
 				if ( response.ok )
 				{
@@ -180,7 +193,10 @@ login.on( "click", "[type = submit]", async ( event ) =>
 			password: login.find( "[name = password]" ).val() as never,
 
 			// Option de maintien de connexion.
-			_remember_me: login.find( "[name = remember_me]" ).is( ":checked" ).toString()
+			_remember_me: login
+				.find( "[name = remember_me]" )
+				.is( ":checked" )
+				.toString()
 		} )
 	} );
 
@@ -376,7 +392,9 @@ function updateInformation( forward: boolean )
 				// On vérifie ensuite si l'utilisateur demande d'avancer
 				//  ou de reculer dans les positions des images.
 				const nextIndex = forward ? indice + 1 : indice - 1;
-				const nextImage = images.eq( nextIndex >= 0 ? nextIndex % length : length );
+				const nextImage = images.eq(
+					nextIndex >= 0 ? nextIndex % length : length
+				);
 				nextImage.fadeIn( 150 );
 			} );
 		}
@@ -394,7 +412,9 @@ function updateInformation( forward: boolean )
 			{
 				// Mécanisme de précédent/suivant.
 				const nextIndex = forward ? indice + 1 : indice - 1;
-				const nextText = texts.eq( nextIndex >= 0 ? nextIndex % length : length );
+				const nextText = texts.eq(
+					nextIndex >= 0 ? nextIndex % length : length
+				);
 				nextText.fadeIn( 150 );
 
 				// Mise à jour des éléments de présentation.

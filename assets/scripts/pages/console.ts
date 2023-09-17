@@ -27,7 +27,12 @@ $( "#controller" ).on( "click", "button", async ( event ) =>
 	element.prop( "disabled", true );
 
 	// On envoie ensuite le contenu au serveur distant.
-	const state = await sendRemoteAction( element.data( "token" ), element.data( "route" ), "0", input );
+	const state = await sendRemoteAction(
+		element.data( "token" ),
+		element.data( "route" ),
+		"0",
+		input
+	);
 
 	if ( state )
 	{
@@ -58,7 +63,7 @@ async function retrieveRemoteLogs()
 	if ( response.ok )
 	{
 		// Une fois terminée, on récupère les données sous format JSON.
-		const data = await response.json() as string[];
+		const data = ( await response.json() ) as string[];
 
 		// On affiche alors les journaux dans le terminal.
 		const list = terminal.find( "ul" );
