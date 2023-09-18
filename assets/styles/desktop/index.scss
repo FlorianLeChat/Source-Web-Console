@@ -100,6 +100,9 @@ header
 // ----------------------------------- //
 main > a
 {
+	position: fixed;
+	clip-path: polygon(0 0, 100% 0, 0 100%);
+
 	@media screen and (max-width: 320px)
 	{
 		// Suppression du logo GitHub sur les écrans
@@ -136,12 +139,8 @@ main > a
 	svg
 	{
 		// Délimitation de la zone cliquable.
-		top: 0;
-		left: 0;
 		fill: $box-color;
 		color: $text-color;
-		position: fixed;
-		clip-path: polygon(0 0, 100% 0, 0 100%)
 	}
 
 	@media (max-width: 768px)
