@@ -68,7 +68,7 @@ class ServerManagerTest extends KernelTestCase
 	{
 		// Récupération de certains noms de jeux existants.
 		$this->assertTrue($this->serverManager->getNameByGameID(240) === "Counter-Strike: Source");
-		$this->assertTrue($this->serverManager->getNameByGameID(730) === "Counter-Strike: Global Offensive");
+		$this->assertTrue($this->serverManager->getNameByGameID(730) === "Counter-Strike 2");
 		$this->assertTrue($this->serverManager->getNameByGameID(4000) === "Garry's Mod");
 
 		// Récupération d'un nom de jeu inexistant (avec et sans valeur par défaut).
@@ -82,7 +82,7 @@ class ServerManagerTest extends KernelTestCase
 	//
 	public function testGetGameIDByAddress()
 	{
-		// Récupération du jeu « Counter-Strike: Global Offensive ».
+		// Récupération du jeu « Counter-Strike 2 ».
 		$this->assertTrue($this->serverManager->getGameIDByAddress("216.52.148.47", 27015) === 730);
 
 		// Récupération du jeu « Garry's Mod ».
