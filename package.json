@@ -12,12 +12,12 @@
         "url": "https://github.com/FlorianLeChat/Source-Web-Console/issues"
     },
     "devDependencies": {
-        "@babel/core": "~7.22",
+        "@babel/core": "~7.23",
         "@types/jquery": "~3.5",
         "@types/grecaptcha": "~3.0",
         "@babel/preset-env": "~7.22",
         "@symfony/webpack-encore": "~4.4",
-        "sass": "~1.66",
+        "sass": "~1.68",
         "dotenv": "~16.3",
         "jquery": "~3.7",
         "core-js": "~3.32",
@@ -31,14 +31,14 @@
         "webpack-cli": "~5.1",
         "sass-loader": "~13.3",
         "normalize.css": "~8.0",
-        "bootstrap-icons": "~1.10",
+        "bootstrap-icons": "~1.11",
         "webpack-notifier": "~1.15",
         "regenerator-runtime": "~0.14",
         "eslint-config-airbnb": "~19.0",
         "vanilla-cookieconsent": "3.0.0-rc.16",
         "chartjs-adapter-date-fns": "~3.0",
         "@total-typescript/ts-reset": "~0.5",
-        "@typescript-eslint/eslint-plugin": "~6.5"
+        "@typescript-eslint/eslint-plugin": "~6.7"
     },
     "engines": {
         "node": ">=18.0",
