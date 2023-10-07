@@ -118,7 +118,7 @@ index:
             3: "The RCON communication protocol is subject to several modifications and updates every year to improve the performance of interactions between third parties (us) and the remote API used on game servers. As a result, all current solutions are sometimes rendered obsolete or out of service for months or even years as creators need to revise their communication tools. This website uses new ways to be practically independent from updates and to be able to continue to work despite major changes made by Valve."
             4: "Thanks to the use of modern, high-performance RCON communications tools, end-to-end security and encryption of data transmitted and received by the website is now possible. Any sensitive information you may enter will be automatically encrypted using a military-grade algorithm. We never store passwords in clear text, never."
     register: "Register"
-    recaptcha: "This site is protected by reCAPTCHA and the Google <a href=\"https://policies.google.com/privacy\">Privacy Policy</a> and <a href=\"https://policies.google.com/terms\">Terms of Service</a> apply."
+    recaptcha: "This site is protected by reCAPTCHA and the Google <a href=\"https://policies.google.com/privacy\" target=\"blank\">Privacy Policy</a> and <a href=\"https://policies.google.com/terms\" target=\"blank\">Terms of Service</a> apply."
 
 configuration:
     path: "Please provide an absolute path to server configuration file (e.g. \"/path/to/cfg/server.cfg\" for Garry's Mod).."
@@ -262,86 +262,86 @@ help:
 
 # https://cookieconsent.orestbida.com/advanced/language-configuration.html
 consentModal:
-    title: Do you want a cookie? 🍪
-    description: Our website uses tracking cookies to understand how you interact with it. The tracking will be enabled only if you accept explicitly.
-    acceptAllBtn: Accept all
-    acceptNecessaryBtn: Reject all
-    showPreferencesBtn: Manage preferences
+    title: "Do you want a cookie? 🍪"
+    description: "Our website uses tracking cookies to understand how you interact with it. The tracking will be enabled only if you accept explicitly."
+    acceptAllBtn: "Accept all"
+    acceptNecessaryBtn: "Reject all"
+    showPreferencesBtn: "Manage preferences"
 
 preferencesModal:
-    title: Cookie preferences
-    acceptAllBtn: Accept all
-    acceptNecessaryBtn: Reject all
-    savePreferencesBtn: Save preferences
-    closeIconLabel: Close
+    title: "Cookie preferences"
+    acceptAllBtn: "Accept all"
+    acceptNecessaryBtn: "Reject all"
+    savePreferencesBtn: "Save preferences"
+    closeIconLabel: "Close"
     sections:
     - title: "Cookie usage 📢"
-      description: We use cookies to ensure the basic functionalities of the website and to enhance your online experience.
-    - title: Strictly necessary cookies
-      description: These cookies are essential for the proper functioning of the website. Without these cookies, the website would not work properly.
-      linkedCategory: necessary
-      cookieTable:
-      headers:
-        name: Name
-        domain: Service
-        description: Description
-        expiration: Expiration
-        body:
-        - name: PHPSESSID
-          domain: PHP
-          description: Cookie set by <a href="https://www.php.net/">PHP</a>.
-          expiration: Expires at the end of the session.
-        - name: SYMFONY_COOKIE
-          domain: Cookie Consent
-          description: Cookie set by <a href="https://cookieconsent.orestbida.com/">Cookie Consent</a>.
-          expiration: Expires after 6 months.
-    - title: Performance and Analytics cookies
-      description: These cookies allow the website to remember the choices you have made in the past.
-      linkedCategory: analytics
+      description: "We use cookies to ensure the basic functionalities of the website and to enhance your online experience."
+    - title: "Strictly necessary cookies"
+      description: "These cookies are essential for the proper functioning of the website. Without these cookies, the website would not work properly."
+      linkedCategory: "necessary"
       cookieTable:
         headers:
-            name: Name
-            domain: Service
-            description: Description
-            expiration: Expiration
+            name: "Name"
+            domain: "Service"
+            description: "Description"
+            expiration: "Expiration"
         body:
-        - name: _ga
-          domain: Google Analytics
-          description: Cookie set by <a href="https://support.google.com/analytics/answer/10089681">Google Analytics</a>.
-          expiration: Expires after 12 days
-    - title: Security cookies
-      description: These cookies allow to authenticate users, prevent fraudulent use of login information and protect Internet users who interact with the website.
-      linkedCategory: security
+            - name: "PHPSESSID"
+              domain: "PHP"
+              description: "Cookie set by <a href=\"https://www.php.net/\" target=\"blank\">PHP</a>."
+              expiration: "Expires at the end of the session."
+            - name: "SYMFONY_COOKIE"
+              domain: "Cookie Consent"
+              description: "Cookie set by <a href=\"https://cookieconsent.orestbida.com/\" target=\"blank\">Cookie Consent</a>."
+              expiration: "Expires after 6 months."
+    - title: "Performance and Analytics cookies"
+      description: "These cookies allow the website to remember the choices you have made in the past."
+      linkedCategory: "analytics"
       cookieTable:
         headers:
-            name: Name
-            domain: Service
-            description: Description
-            expiration: Expiration
+            name: "Name"
+            domain: "Service"
+            description: "Description"
+            expiration: "Expiration"
         body:
-            - name: OTZ
-              domain: Google reCAPTCHA
-              description: Cookie set by <a href="https://www.google.com/recaptcha/about/">Google reCAPTCHA</a>.
-              expiration: Expires after 1 month.
-            - name: __Secure-ENID
-              domain: Google reCAPTCHA
-              description: Cookie set by <a href="https://www.google.com/recaptcha/about/">Google reCAPTCHA</a>.
-              expiration: Expires after 1 year.
-            - name: SOCS
-              domain: Google reCAPTCHA
-              description: Cookie set by <a href="https://www.google.com/recaptcha/about/">Google reCAPTCHA</a>.
-              expiration: Expires after 13 months.
-            - name: CONSENT
-              domain: Google reCAPTCHA
-              description: Cookie set by <a href="https://www.google.com/recaptcha/about/">Google reCAPTCHA</a>.
-              expiration: Expires after 2 years.
-            - name: DV
-              domain: Google reCAPTCHA
-              description: Cookie set by <a href="https://www.google.com/recaptcha/about/">Google reCAPTCHA</a>.
-              expiration: Expires after 1 day.
-            - name: AEC
-              domain: Google reCAPTCHA
-              description: Cookie set by <a href="https://www.google.com/recaptcha/about/">Google reCAPTCHA</a>.
-              expiration: Expires after 6 months.
-    - title: More information
-      description: For any queries in relation to our policy on cookies and your choices, please <a class="cc-link" href="#contact">contact us</a>.
+            - name: "_ga"
+              domain: "Google Analytics"
+              description: "Cookie set by <a href=\"https://support.google.com/analytics/answer/10089681\" target=\"blank\">Google Analytics</a>."
+              expiration: "Expires after 12 days"
+    - title: "Security cookies"
+      description: "These cookies allow to authenticate users, prevent fraudulent use of login information and protect Internet users who interact with the website."
+      linkedCategory: "security"
+      cookieTable:
+        headers:
+            name: "Name"
+            domain: "Service"
+            description: "Description"
+            expiration: "Expiration"
+        body:
+            - name: "OTZ"
+              domain: "Google reCAPTCHA"
+              description: "Cookie set by <a href=\"https://www.google.com/recaptcha/about/\" target=\"blank\">Google reCAPTCHA</a>."
+              expiration: "Expires after 1 month."
+            - name: "__Secure-ENID"
+              domain: "Google reCAPTCHA"
+              description: "Cookie set by <a href=\"https://www.google.com/recaptcha/about/\" target=\"blank\">Google reCAPTCHA</a>."
+              expiration: "Expires after 1 year."
+            - name: "SOCS"
+              domain: "Google reCAPTCHA"
+              description: "Cookie set by <a href=\"https://www.google.com/recaptcha/about/\" target=\"blank\">Google reCAPTCHA</a>."
+              expiration: "Expires after 13 months."
+            - name: "CONSENT"
+              domain: "Google reCAPTCHA"
+              description: "Cookie set by <a href=\"https://www.google.com/recaptcha/about/\" target=\"blank\">Google reCAPTCHA</a>."
+              expiration: "Expires after 2 years."
+            - name: "DV"
+              domain: "Google reCAPTCHA"
+              description: "Cookie set by <a href=\"https://www.google.com/recaptcha/about/\" target=\"blank\">Google reCAPTCHA</a>."
+              expiration: "Expires after 1 day."
+            - name: "AEC"
+              domain: "Google reCAPTCHA"
+              description: "Cookie set by <a href=\"https://www.google.com/recaptcha/about/\" target=\"blank\">Google reCAPTCHA</a>."
+              expiration: "Expires after 6 months."
+    - title: "More information"
+      description: "For any queries in relation to our policy on cookies and your choices, please contact us using our website support."
