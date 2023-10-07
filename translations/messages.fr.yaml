@@ -118,7 +118,7 @@ index:
             3: "Le protocole de communication RCON subit plusieurs modifications et mises à jour chaque année pour rendre plus performant les interactions entre les tiers (nous) et l'API distant utilisé sur les serveurs de jeux. De ce fait, toutes les solutions actuelles sont parfois rendues obsolètes ou hors-service pendant des mois voir des années car les créateurs doivent réviser leurs outils de communication. Le site utilise de nouveaux moyens afin d'être presque indépendant aux mises à jour et de pouvoir continuer de fonctionner malgré des modifications importantes réalisées par Valve."
             4: "Grâce à l'utilisation de moyens modernes et performances des outils de communications RCON, la sécurisation et le chiffrement de bout en bout des données transmises et reçues par le site est maintenant possible. Toutes les informations sensibles que vous pourriez peut-être renseignées seront automatiquement chiffré au travers d'algorithme de type de militaire. Nous ne stockons jamais en clair les mots de passes, jamais."
     register: "Inscription"
-    recaptcha: "Ce site est protégé par reCAPTCHA sur lequel s'appliquent les <a href=\"https://policies.google.com/privacy\">politiques de confidentialité</a> et les <a href=\"https://policies.google.com/terms\">conditions d'utilisation</a> de Google."
+    recaptcha: "Ce site est protégé par reCAPTCHA sur lequel s'appliquent les <a href=\"https://policies.google.com/privacy\" target=\"blank\">politiques de confidentialité</a> et les <a href=\"https://policies.google.com/terms\" target=\"blank\">conditions d'utilisation</a> de Google."
 
 configuration:
     path: "Indiquez le chemin d'accès absolu vers le fichier de configuration du serveur (exemple : « /chemin/vers/cfg/server.cfg » pour Garry's Mod)."
@@ -262,86 +262,86 @@ help:
 
 # https://cookieconsent.orestbida.com/advanced/language-configuration.html
 consentModal:
-    title: Voulez-vous un cookie ? 🍪
-    description: Notre site Internet utilise des cookies de suivi pour comprendre comment vous interagissez avec lui. Le suivi ne sera activé que si vous l'acceptez explicitement.
-    acceptAllBtn: Tout accepter
-    acceptNecessaryBtn: Tout refuser
-    showPreferencesBtn: Gérer les préférences
+    title: "Voulez-vous un cookie ? 🍪"
+    description: "Notre site Internet utilise des cookies de suivi pour comprendre comment vous interagissez avec lui. Le suivi ne sera activé que si vous l'acceptez explicitement."
+    acceptAllBtn: "Tout accepter"
+    acceptNecessaryBtn: "Tout refuser"
+    showPreferencesBtn: "Gérer les préférences"
 
 preferencesModal:
-    title: Préférences en matière de cookies
-    acceptAllBtn: Tout accepter
-    acceptNecessaryBtn: Tout refuser
-    savePreferencesBtn: Sauvegarder les préférences
-    closeIconLabel: Fermer
+    title: "Préférences en matière de cookies"
+    acceptAllBtn: "Tout accepter"
+    acceptNecessaryBtn: "Tout refuser"
+    savePreferencesBtn: "Sauvegarder les préférences"
+    closeIconLabel: "Fermer"
     sections:
     - title: "Utilisation des cookies 📢"
-      description: Nous utilisons des cookies pour assurer les fonctionnalités de base du site Internet et pour améliorer votre expérience en ligne.
-    - title: Cookies strictement nécessaires
-      description: Ces cookies sont essentiels au bon fonctionnement du site Internet. Sans ces cookies, le site ne fonctionnerait pas correctement.
-      linkedCategory: necessary
+      description: "Nous utilisons des cookies pour assurer les fonctionnalités de base du site Internet et pour améliorer votre expérience en ligne."
+    - title: "Cookies strictement nécessaires"
+      description: "Ces cookies sont essentiels au bon fonctionnement du site Internet. Sans ces cookies, le site ne fonctionnerait pas correctement."
+      linkedCategory: "necessary"
       cookieTable:
         headers:
-            name: Nom
-            domain: Service
-            description: Description
-            expiration: Expiration
-            body:
-                - name: PHPSESSID
-                  domain: PHP
-                  description: Cookie mis en place par <a href="https://www.php.net/">PHP</a>.
-                  expiration: Expire à la fin de la session.
-                - name: SYMFONY_COOKIE
-                  domain: Cookie Consent
-                  description: Cookie mis en place par <a href="https://cookieconsent.orestbida.com/">Cookie Consent</a>.
-                  expiration: Expire après 6 mois.
-    - title: Cookies de performance et d'analyse
-      description: Ces cookies permettent au site Internet de se souvenir des choix que vous avez faits dans le passé.
-      linkedCategory: analytics
-      cookieTable:
-        headers:
-            name: Nom
-            domain: Service
-            description: Description
-            expiration: Expiration
+            name: "Nom"
+            domain: "Service"
+            description: "Description"
+            expiration: "Expiration"
         body:
-            - name: _ga
-              domain: Google Analytics
-              description: Cookie mis en place par <a href="https://analytics.google.com/analytics/web/">Google Analytics</a>.
-              expiration: Expire après 2 ans.
-    - title: Cookies de sécurité
-      description: Ces cookies permettent d'authentifier les utilisateurs, d'empêcher l'utilisation frauduleuse des informations de connexion et de protéger les internautes qui interagissent avec le site Internet.
-      linkedCategory: security
+            - name: "PHPSESSID"
+              domain: "PHP"
+              description: "Cookie mis en place par <a href=\"https://www.php.net/\" target=\"blank\">PHP</a>."
+              expiration: "Expire à la fin de la session."
+            - name: "SYMFONY_COOKIE"
+              domain: "Cookie Consent"
+              description: "Cookie mis en place par <a href=\"https://cookieconsent.orestbida.com/\" target=\"blank\">Cookie Consent</a>."
+              expiration: "Expire après 6 mois."
+    - title: "Cookies de performance et d'analyse"
+      description: "Ces cookies permettent au site Internet de se souvenir des choix que vous avez faits dans le passé."
+      linkedCategory: "analytics"
       cookieTable:
         headers:
-            name: Nom
-            domain: Service
-            description: Description
-            expiration: Expiration
+            name: "Nom"
+            domain: "Service"
+            description: "Description"
+            expiration: "Expiration"
         body:
-            - name: OTZ
-              domain: Google reCAPTCHA
-              description: Cookie mis en place par <a href="https://www.google.com/recaptcha/about/">Google reCAPTCHA</a>.
-              expiration: Expire après 1 mois.
-            - name: __Secure-ENID
-              domain: Google reCAPTCHA
-              description: Cookie mis en place par <a href="https://www.google.com/recaptcha/about/">Google reCAPTCHA</a>.
-              expiration: Expire après 1 an.
-            - name: SOCS
-              domain: Google reCAPTCHA
-              description: Cookie mis en place par <a href="https://www.google.com/recaptcha/about/">Google reCAPTCHA</a>.
-              expiration: Expire après 13 mois.
-            - name: CONSENT
-              domain: Google reCAPTCHA
-              description: Cookie mis en place par <a href="https://www.google.com/recaptcha/about/">Google reCAPTCHA</a>.
-              expiration: Expire après 2 ans.
-            - name: DV
-              domain: Google reCAPTCHA
-              description: Cookie mis en place par <a href="https://www.google.com/recaptcha/about/">Google reCAPTCHA</a>.
-              expiration: Expire après 1 jour.
-            - name: AEC
-              domain: Google reCAPTCHA
-              description: Cookie mis en place par <a href="https://www.google.com/recaptcha/about/">Google reCAPTCHA</a>.
-              expiration: Expire après 6 mois.
-    - title: Plus d'informations
-      description: Pour toute question relative à notre politique en matière de cookies et à vos choix, veuillez <a class="cc-link" href="#contact">nous contacter</a>.
+            - name: "_ga"
+              domain: "Google Analytics"
+              description: "Cookie mis en place par <a href=\"https://analytics.google.com/analytics/web/\" target=\"blank\">Google Analytics</a>."
+              expiration: "Expire après 2 ans."
+    - title: "Cookies de sécurité"
+      description: "Ces cookies permettent d'authentifier les utilisateurs, d'empêcher l'utilisation frauduleuse des informations de connexion et de protéger les internautes qui interagissent avec le site Internet."
+      linkedCategory: "security"
+      cookieTable:
+        headers:
+            name: "Nom"
+            domain: "Service"
+            description: "Description"
+            expiration: "Expiration"
+        body:
+            - name: "OTZ"
+              domain: "Google reCAPTCHA"
+              description: "Cookie mis en place par <a href=\"https://www.google.com/recaptcha/about/\" target=\"blank\">Google reCAPTCHA</a>."
+              expiration: "Expire après 1 mois."
+            - name: "__Secure-ENID"
+              domain: "Google reCAPTCHA"
+              description: "Cookie mis en place par <a href=\"https://www.google.com/recaptcha/about/\" target=\"blank\">Google reCAPTCHA</a>."
+              expiration: "Expire après 1 an."
+            - name: "SOCS"
+              domain: "Google reCAPTCHA"
+              description: "Cookie mis en place par <a href=\"https://www.google.com/recaptcha/about/\" target=\"blank\">Google reCAPTCHA</a>."
+              expiration: "Expire après 13 mois."
+            - name: "CONSENT"
+              domain: "Google reCAPTCHA"
+              description: "Cookie mis en place par <a href=\"https://www.google.com/recaptcha/about/\" target=\"blank\">Google reCAPTCHA</a>."
+              expiration: "Expire après 2 ans."
+            - name: "DV"
+              domain: "Google reCAPTCHA"
+              description: "Cookie mis en place par <a href=\"https://www.google.com/recaptcha/about/\" target=\"blank\">Google reCAPTCHA</a>."
+              expiration: "Expire après 1 jour."
+            - name: "AEC"
+              domain: "Google reCAPTCHA"
+              description: "Cookie mis en place par <a href=\"https://www.google.com/recaptcha/about/\" target=\"blank\">Google reCAPTCHA</a>."
+              expiration: "Expire après 6 mois."
+    - title: "Plus d'informations"
+      description: "Pour toute question relative à notre politique en matière de cookies et à vos choix, veuillez nous contacter via le support du site."
