@@ -1,0 +1,18 @@
+when@prod:
+    sentry:
+        dsn: "%env(SENTRY_DSN)%"
+        options:
+            traces_sample_rate: 0.1
+        register_error_handler: false
+        register_error_listener: false
+
+    monolog:
+        handlers:
+            sentry:
+                type: sentry
+                level: !php/const Monolog\Logger::ERROR
+                hub_id: Sentry\State\HubInterface
+
+    services:
+        Monolog\Processor\PsrLogMessageProcessor:
+            tags: { name: monolog.processor, handler: sentry }
