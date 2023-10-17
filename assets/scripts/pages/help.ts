@@ -1,6 +1,9 @@
 // Importation de la feuille de style.
 import "../../styles/desktop/help.scss";
 
+// Importation des fonctions et constantes communes.
+import "../global";
+
 //
 // Permet de contrôler le mécanisme de basculement de la section
 //  des questions/réponses de la page.

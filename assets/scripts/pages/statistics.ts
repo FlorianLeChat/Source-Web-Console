@@ -1,6 +1,9 @@
 // Importation de la feuille de style.
 import "../../styles/desktop/statistics.scss";
 
+// Importation des fonctions et constantes communes.
+import "../global";
+
 // Importation des dépendances externes.
 import Chart from "chart.js/auto";
 import "chartjs-adapter-date-fns";
