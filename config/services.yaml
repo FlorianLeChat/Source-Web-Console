@@ -14,6 +14,11 @@ services:
     xPaw\SourceQuery\SourceQuery:
     App\EventSubscriber\LocaleSubscriber:
         arguments: ["%kernel.default_locale%"]
+    Sentry\Integration\IgnoreErrorsIntegration:
+        arguments:
+            $options:
+                ignore_exceptions:
+                    - Symfony\Component\HttpKernel\Exception\NotFoundHttpException
     Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler:
         arguments:
             - "@Redis"
