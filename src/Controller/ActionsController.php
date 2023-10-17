@@ -234,7 +234,7 @@ final class ActionsController extends AbstractController
 
 					// On définit le nom de la commande si elle a été trouvée, sinon
 					//  on indique qu'il s'agit d'une commande issue de la console interactive.
-					$action = $command ?? $this->translator->trans("header.subtitle.console");
+					$action = $command ?? "console";
 
 					$this->serverManager->query->Rcon($command ? ($command->getContent() . " \"$value\"") : $value);
 
