@@ -163,7 +163,7 @@
 
 					{# Titre de l'action #}
 					{% set console = t("header.subtitle.console")|trans %}
-					<em>{{ logs.action == console ? console : t("global." ~ logs.action)|trans|default(logs.action|capitalize) }}</em>
+					<em>{{ logs.action == "console" ? console : t("global." ~ logs.action)|trans|default(logs.action|capitalize) }}</em>
 				</li>
 			{% endfor %}
 		</ul>
