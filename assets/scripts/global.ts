@@ -7,10 +7,8 @@ import "./analytics";
 import { addQueuedNotification } from "./functions";
 
 // Déclaration du contexte global du navigateur.
-declare global
-{
-	interface Window
-	{
+declare global {
+	interface Window {
 		// Déclaration des traductions injectées par Twig.
 		edit_port: string;
 		edit_remove: string;
@@ -61,7 +59,9 @@ $( "input[type = password]" ).on( "keyup", ( event ) =>
 	{
 		// Si les majuscules sont activées, on insère dynamiquement
 		//  un nouvel élément HTML après le champ de saisie.
-		$( event.target ).next().after( `<p class="capslock">${ window.capslock_enabled }</p>` );
+		$( event.target )
+			.next()
+			.after( `<p class="capslock">${ window.capslock_enabled }</p>` );
 	}
 	else
 	{
@@ -136,7 +136,12 @@ if ( process.env.RECAPTCHA_ENABLED === "true" )
 				{
 					// Une fois terminé, on exécute après une requête de vérification
 					//  afin d'obtenir un jeton de vérification auprès de Google.
-					resolve( await window.grecaptcha.execute( window.recaptcha_public_key, { action: "submit" } ) );
+					resolve(
+						await window.grecaptcha.execute(
+							window.recaptcha_public_key,
+							{ action: "submit" }
+						)
+					);
 				} );
 			} );
 
@@ -149,7 +154,7 @@ if ( process.env.RECAPTCHA_ENABLED === "true" )
 		return oldFetch( url, options );
 	};
 
-	$( "form[method = POST]" ).one( "submit", ( event ) =>
+	$( "form[method = POST]" ).on( "submit", ( event ) =>
 	{
 		// On cesse d'abord le comportement par défaut du formulaire.
 		event.preventDefault();
@@ -161,18 +166,40 @@ if ( process.env.RECAPTCHA_ENABLED === "true" )
 			return;
 		}
 
+		// On supprime l'événement pour éviter de recommencer une nouvelle
+		//  fois ce processus.
+		$( "form[method = POST]" ).off();
+
 		// On attend ensuite que les services de reCAPTCHA soient chargés.
 		window.grecaptcha.ready( async () =>
 		{
 			// Une fois terminé, on exécute après une requête de vérification
 			//  afin d'obtenir un jeton de vérification auprès de Google.
-			const token = await window.grecaptcha.execute( window.recaptcha_public_key, { action: "submit" } );
+			const token = await window.grecaptcha.execute(
+				window.recaptcha_public_key,
+				{ action: "submit" }
+			);
 
-			// On insère enfin dynamiquement le jeton dans le formulaire
-			//  avant de cliquer une nouvelle fois sur le bouton de soumission.
+			// On insère alors dynamiquement le jeton dans le formulaire.
 			const target = $( event.target );
-			target.append( `<input type="hidden" name="recaptcha" value="${ token }">` );
-			target.trigger( "submit" );
+			target.append(
+				`<input type="hidden" name="recaptcha" value="${ token }">`
+			);
+
+			// On clique enfin sur le bouton de soumission du formulaire
+			//  ou on le soumet directement si l'événement n'est pas issu
+			//  d'un clic sur un bouton.
+			if ( event.originalEvent )
+			{
+				$(
+					( event.originalEvent as SubmitEvent )
+						.submitter as HTMLFormElement
+				).trigger( "click" );
+			}
+			else
+			{
+				target.trigger( "submit" );
+			}
 		} );
 	} );
 }
