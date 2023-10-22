@@ -1,88 +1,82 @@
 version: "3.9"
 
 networks:
-  source-web-console:
-    driver: bridge
-
-x-common-variables: &common-variables
-  MARIADB_DATABASE: source_web_console
-  MARIADB_PORT: 3306
-  MARIADB_USER: username
-  MARIADB_PASSWORD: password
-  MARIADB_ROOT_PASSWORD: password
-  MARIADB_ALLOW_EMPTY_PASSWORD: 1
+    source-web-console:
+        driver: bridge
 
 services:
-  # https://hub.docker.com/_/redis
-  redis:
-    image: redis:latest
-    restart: always
-    command: >
-      --requirepass password
-    networks:
-      - source-web-console
-    healthcheck:
-      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
-      retries: 3
-      timeout: 5s
+    # https://hub.docker.com/_/redis
+    redis:
+        image: redis:alpine
+        restart: always
+        volumes:
+            - ./docker/redis/config:/usr/local/etc/redis
+            - ./docker/redis/database:/data
+        networks:
+            - source-web-console
+        healthcheck:
+            test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+            retries: 3
+            timeout: 5s
 
-  # https://hub.docker.com/_/mariadb
-  mariadb:
-    image: mariadb:latest
-    restart: always
-    environment: *common-variables
-    networks:
-      - source-web-console
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "--silent"]
-      retries: 3
-      timeout: 5s
+    # https://hub.docker.com/_/mariadb
+    mariadb:
+        image: mariadb:latest
+        restart: always
+        volumes:
+            - ./docker/mysql/database:/var/lib/mysql
+        secrets:
+            - db_password
+            - db_root_password
+        environment:
+            MARIADB_DATABASE: source_web_console
+            MARIADB_PORT: 3306
+            MARIADB_USER: source_web_console
+            MARIADB_PASSWORD_FILE: /run/secrets/db_password
+            MARIADB_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+        networks:
+            - source-web-console
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "--silent"]
+            retries: 3
+            timeout: 5s
 
-  # https://hub.docker.com/_/phpmyadmin
-  phpmyadmin:
-    image: phpmyadmin:latest
-    restart: always
-    depends_on:
-      - mariadb
-    ports:
-      - 8080:80
-    environment:
-      - PMA_HOST=mariadb
-    networks:
-      - source-web-console
+    # https://github.com/FlorianLeChat/Source-Web-Console
+    php:
+        image: source-web-console
+        restart: always
+        depends_on:
+            - redis
+            - mariadb
+        networks:
+            - source-web-console
+        healthcheck:
+            test: curl -f http://127.0.0.1:9000/ 2>&1 | grep "Connection reset by peer" || curl -f http://localhost
+            retries: 3
+            timeout: 5s
+        deploy:
+            resources:
+                limits:
+                    cpus: "1"
+                    memory: 512M
+                reservations:
+                    cpus: "0.25"
+                    memory: 128M
+            restart_policy:
+                window: 60s
+                condition: on-failure
+                max_attempts: 5
+        build:
+            args:
+                - VERSION
+                - MANAGER
+            context: .
+            dockerfile: ./Dockerfile
+        ports:
+            - 80:80
 
-  # https://github.com/FlorianLeChat/Source-Web-Console
-  php-nginx:
-    image: sourcewebconsole
-    restart: always
-    depends_on:
-      - redis
-      - mariadb
-      - phpmyadmin
-    environment:
-      - WAIT_HOSTS=cache:6379, database:3306
-      - WEB_DOCUMENT_ROOT=/app/public
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost"]
-      retries: 3
-      timeout: 5s
-    deploy:
-      resources:
-        limits:
-          cpus: "1"
-          memory: 512M
-        reservations:
-          cpus: "0.25"
-          memory: 128M
-      restart_policy:
-        window: 60s
-        condition: on-failure
-        max_attempts: 5
-    build:
-      args: *common-variables
-      context: .
-      dockerfile: ./Dockerfile
-    networks:
-      - source-web-console
-    ports:
-      - 80:80
+secrets:
+    db_password:
+        file: ./docker/mysql/config/db_password.txt
+    db_root_password:
+        file: ./docker/mysql/config/db_root_password.txt
