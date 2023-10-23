@@ -36,17 +36,19 @@ FROM php:${VERSION}
 # Install dependencies
 ARG MANAGER=apt
 RUN if [ $MANAGER = "apt" ]; then \
-        apt update && apt install git zip unzip libzip-dev cron -y && \
-		pecl install redis; \
+        apt update && apt install git cron -y; \
     else \
 		echo https://dl-4.alpinelinux.org/alpine/latest-stable/community/ >> /etc/apk/repositories && \
 		apk update && \
-        apk add --no-cache git zip unzip libzip-dev cron && \
-		pecl install redis; \
+        apk add --no-cache git; \
     fi
 
 # Install some PHP extensions
-RUN docker-php-ext-install zip pdo_mysql && docker-php-ext-enable redis
+RUN curl -sSLf \
+        -o /usr/local/bin/install-php-extensions \
+        https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions && \
+    chmod +x /usr/local/bin/install-php-extensions && \
+    install-php-extensions zip pdo_mysql pdo_pgsql redis opcache intl
 
 # Install Composer for dependency management
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
