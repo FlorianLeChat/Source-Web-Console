@@ -78,8 +78,13 @@ COPY --from=0 --chown=www-data:www-data /usr/src/app ./
 # Set the document root to the public folder
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
-RUN sed -ri -e "s!/var/www/html!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/sites-available/*.conf
-RUN sed -ri -e "s!/var/www/!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+ARG VERSION
+RUN if [ $VERSION = "8.2-apache" ]; then \
+		sed -ri -e "s!/var/www/html!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/sites-available/*.conf && \
+		sed -ri -e "s!/var/www/!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf && \
+		a2enmod rewrite; \
+    fi
+
 # Add wait script to wait for other services to be ready
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.12.1/wait /wait
 RUN chmod +x /wait
