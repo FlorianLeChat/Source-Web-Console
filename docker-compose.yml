@@ -1,8 +1,12 @@
 version: "3.9"
 
 networks:
-    source-web-console:
-        driver: bridge
+    source_web_console:
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.18.0.0/16
+                  gateway: 172.18.0.1
 
 services:
     # https://hub.docker.com/_/redis
@@ -13,7 +17,8 @@ services:
             - ./docker/redis/config:/usr/local/etc/redis
             - ./docker/redis/database:/data
         networks:
-            - source-web-console
+            source_web_console:
+                ipv4_address: 172.18.0.2
         healthcheck:
             test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
             retries: 3
@@ -35,7 +40,8 @@ services:
             MARIADB_PASSWORD_FILE: /run/secrets/db_password
             MARIADB_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
         networks:
-            - source-web-console
+            source_web_console:
+                ipv4_address: 172.18.0.3
         healthcheck:
             test: ["CMD", "mysqladmin", "ping", "--silent"]
             retries: 3
@@ -49,7 +55,8 @@ services:
             - redis
             - mariadb
         networks:
-            - source-web-console
+            source_web_console:
+                ipv4_address: 172.18.0.4
         environment:
             - WAIT_HOSTS=redis:6379, mariadb:3306
         healthcheck:
