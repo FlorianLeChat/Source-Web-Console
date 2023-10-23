@@ -80,12 +80,16 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
 RUN sed -ri -e "s!/var/www/html!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/sites-available/*.conf
 RUN sed -ri -e "s!/var/www/!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+# Add wait script to wait for other services to be ready
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.12.1/wait /wait
+RUN chmod +x /wait
 
 # Change current user to www-data
 USER www-data
 
 # Find and replace some default environment variables
 RUN sed -i "s/APP_ENV=dev/APP_ENV=prod/g" .env
+RUN sed -i "s/SENTRY_DSN=https:\/\/url.to.sentry.io\/1234567890/SENTRY_DSN=/" .env
 
 RUN sed -i "s/DATABASE_HOST=127.0.0.1/DATABASE_HOST=mariadb/g" .env
 RUN sed -i "s/REDIS_HOST=127.0.0.1/REDIS_HOST=redis/g" .env
@@ -93,7 +97,7 @@ RUN sed -i "s/REDIS_HOST=127.0.0.1/REDIS_HOST=redis/g" .env
 RUN sed -i "s/DATABASE_USERNAME=username/DATABASE_USERNAME=source_web_console/g" .env
 RUN sed -i "s/REDIS_USERNAME=username/REDIS_USERNAME=default/g" .env
 
-RUN sed -i "s/DATABASE_PASSWORD=password/DATABASE_PASSWORD=$(cat /usr/src/app/docker/config/db_password.txt | tr -d '\n')/g" .env
+RUN sed -i "s/DATABASE_PASSWORD=password/DATABASE_PASSWORD=$(cat /var/www/html/docker/mysql/config/db_password.txt | tr -d '\n')/g" .env
 
 # Dump autoloader class to optimize performance
 # https://symfony.com/doc/current/deployment.html
@@ -106,13 +110,13 @@ RUN if [ -f "docker/php.ini" ]; then mv "docker/php.ini" "$PHP_INI_DIR/php.ini";
 # https://symfony.com/doc/current/deployment.html / https://symfony.com/doc/current/setup/file_permissions.html
 ARG VERSION
 RUN if [ $VERSION = "8.2-apache" ]; then \
-		echo "mkdir -p var/cache var/log && /usr/local/bin/php ./bin/console cache:clear && \
+		echo "/wait && mkdir -p var/cache var/log && /usr/local/bin/php ./bin/console cache:clear && \
 		/usr/local/bin/php ./bin/console doctrine:database:create --no-interaction --if-not-exists && \
 		/usr/local/bin/php ./bin/console doctrine:schema:create --no-interaction && \
 		/usr/local/bin/php /app/bin/console app:udp-server 127.0.0.1:81 & \
 		apache2-foreground" >> docker/entrypoint.sh; \
     else \
-		echo "mkdir -p var/cache var/log && /usr/local/bin/php ./bin/console cache:clear && \
+		echo "/wait && mkdir -p var/cache var/log && /usr/local/bin/php ./bin/console cache:clear && \
 		/usr/local/bin/php ./bin/console doctrine:database:create --no-interaction --if-not-exists && \
 		/usr/local/bin/php ./bin/console doctrine:schema:create --no-interaction && \
 		/usr/local/bin/php /app/bin/console app:udp-server 127.0.0.1:81 & \
