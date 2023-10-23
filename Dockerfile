@@ -128,6 +128,6 @@ RUN if [ $VERSION = "8.2-apache" ]; then \
 		php-fpm" >> docker/entrypoint.sh; \
 	fi
 
-RUN chmod +x docker/entrypoint.sh
+RUN mkdir docker && chmod +x docker/entrypoint.sh
 
 CMD ["docker/entrypoint.sh"]
