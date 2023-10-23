@@ -115,19 +115,19 @@ RUN if [ -f "docker/php.ini" ]; then mv "docker/php.ini" "$PHP_INI_DIR/php.ini";
 # https://symfony.com/doc/current/deployment.html / https://symfony.com/doc/current/setup/file_permissions.html
 ARG VERSION
 RUN if [ $VERSION = "8.2-apache" ]; then \
-		echo "/wait && mkdir -p var/cache var/log && /usr/local/bin/php ./bin/console cache:clear && \
+		echo "/wait && mkdir -p docker var/cache var/log && /usr/local/bin/php ./bin/console cache:clear && \
 		/usr/local/bin/php ./bin/console doctrine:database:create --no-interaction --if-not-exists && \
 		/usr/local/bin/php ./bin/console doctrine:schema:create --no-interaction && \
 		/usr/local/bin/php /app/bin/console app:udp-server 127.0.0.1:81 & \
 		apache2-foreground" >> docker/entrypoint.sh; \
     else \
-		echo "/wait && mkdir -p var/cache var/log && /usr/local/bin/php ./bin/console cache:clear && \
+		echo "/wait && mkdir -p docker var/cache var/log && /usr/local/bin/php ./bin/console cache:clear && \
 		/usr/local/bin/php ./bin/console doctrine:database:create --no-interaction --if-not-exists && \
 		/usr/local/bin/php ./bin/console doctrine:schema:create --no-interaction && \
 		/usr/local/bin/php /app/bin/console app:udp-server 127.0.0.1:81 & \
 		php-fpm" >> docker/entrypoint.sh; \
 	fi
 
-RUN mkdir docker && chmod +x docker/entrypoint.sh
+RUN chmod +x docker/entrypoint.sh
 
 CMD ["docker/entrypoint.sh"]
