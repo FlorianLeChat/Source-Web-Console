@@ -36,19 +36,19 @@ FROM php:${VERSION}
 # Install dependencies
 ARG MANAGER=apt
 RUN if [ $MANAGER = "apt" ]; then \
-        apt update && apt install git cron -y; \
-    else \
+		apt update && apt install git cron -y; \
+	else \
 		echo https://dl-4.alpinelinux.org/alpine/latest-stable/community/ >> /etc/apk/repositories && \
 		apk update && \
-        apk add --no-cache git; \
-    fi
+		apk add --no-cache git; \
+	fi
 
 # Install some PHP extensions
 RUN curl -sSLf \
-        -o /usr/local/bin/install-php-extensions \
-        https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions && \
-    chmod +x /usr/local/bin/install-php-extensions && \
-    install-php-extensions zip pdo_mysql pdo_pgsql redis opcache intl
+		-o /usr/local/bin/install-php-extensions \
+		https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions && \
+	chmod +x /usr/local/bin/install-php-extensions && \
+	install-php-extensions zip pdo_mysql pdo_pgsql redis opcache intl
 
 # Install Composer for dependency management
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
@@ -83,7 +83,7 @@ RUN if [ $VERSION = "8.2-apache" ]; then \
 		sed -ri -e "s!/var/www/html!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/sites-available/*.conf && \
 		sed -ri -e "s!/var/www/!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf && \
 		a2enmod rewrite; \
-    fi
+	fi
 
 # Add wait script to wait for other services to be ready
 ADD https://github.com/ufoscout/docker-compose-wait/releases/latest/download/wait /wait
@@ -100,33 +100,30 @@ RUN sed -i "s/DATABASE_HOST=127.0.0.1/DATABASE_HOST=mariadb/g" .env
 RUN sed -i "s/REDIS_HOST=127.0.0.1/REDIS_HOST=redis/g" .env
 
 RUN sed -i "s/DATABASE_USERNAME=username/DATABASE_USERNAME=source_web_console/g" .env
-RUN sed -i "s/REDIS_USERNAME=username/REDIS_USERNAME=default/g" .env
-
-RUN sed -i "s/DATABASE_PASSWORD=password/DATABASE_PASSWORD=$(cat /run/secrets/db_password | tr -d '\n')/g" .env
-
-# Dump autoloader class to optimize performance
-# https://symfony.com/doc/current/deployment.html
-RUN COMPOSER_ALLOW_SUPERUSER=1 composer dump-env prod
 
 # Use the PHP custom configuration (if exists)
 RUN if [ -f "docker/php.ini" ]; then mv "docker/php.ini" "$PHP_INI_DIR/php.ini"; fi
 
 # Use the PHP custom entrypoint
 # https://symfony.com/doc/current/deployment.html / https://symfony.com/doc/current/setup/file_permissions.html
-RUN mkdir docker
+RUN mkdir -p docker
 
 ARG VERSION
 RUN if [ $VERSION = "8.2-apache" ]; then \
-		echo "/wait && mkdir -p var/cache var/log && /usr/local/bin/php ./bin/console cache:clear && \
-		/usr/local/bin/php ./bin/console doctrine:database:create --no-interaction --if-not-exists && \
-		/usr/local/bin/php ./bin/console doctrine:schema:create --no-interaction && \
-		/usr/local/bin/php /app/bin/console app:udp-server 127.0.0.1:81 & \
+		echo "/wait && mkdir -p var/cache var/log && \
+		sed -i \"s/DATABASE_PASSWORD=password/DATABASE_PASSWORD=$(cat /run/secrets/db_password)/g\" .env && \
+		/usr/local/bin/php bin/console cache:clear && COMPOSER_ALLOW_SUPERUSER=1 composer dump-env prod && \
+		/usr/local/bin/php bin/console doctrine:database:create --no-interaction --if-not-exists && \
+		/usr/local/bin/php bin/console doctrine:schema:create --no-interaction && \
+		/usr/local/bin/php bin/console app:udp-server 127.0.0.1:81 & \
 		apache2-foreground" >> docker/entrypoint.sh; \
-    else \
-		echo "/wait && mkdir -p var/cache var/log && /usr/local/bin/php ./bin/console cache:clear && \
-		/usr/local/bin/php ./bin/console doctrine:database:create --no-interaction --if-not-exists && \
-		/usr/local/bin/php ./bin/console doctrine:schema:create --no-interaction && \
-		/usr/local/bin/php /app/bin/console app:udp-server 127.0.0.1:81 & \
+	else \
+		echo "/wait && mkdir -p var/cache var/log && \
+		sed -i \"s/DATABASE_PASSWORD=password/DATABASE_PASSWORD=$(cat /run/secrets/db_password)/g\" .env && \
+		/usr/local/bin/php bin/console cache:clear && COMPOSER_ALLOW_SUPERUSER=1 composer dump-env prod && \
+		/usr/local/bin/php bin/console doctrine:database:create --no-interaction --if-not-exists && \
+		/usr/local/bin/php bin/console doctrine:schema:create --no-interaction && \
+		/usr/local/bin/php bin/console app:udp-server 127.0.0.1:81 & \
 		php-fpm" >> docker/entrypoint.sh; \
 	fi
 
