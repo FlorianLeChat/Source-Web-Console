@@ -57,6 +57,8 @@ services:
         networks:
             source_web_console:
                 ipv4_address: 172.18.0.4
+        secrets:
+            - db_password
         environment:
             - WAIT_HOSTS=redis:6379, mariadb:3306
         healthcheck:
