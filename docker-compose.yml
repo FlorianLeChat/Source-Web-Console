@@ -43,7 +43,7 @@ services:
             source_web_console:
                 ipv4_address: 172.18.0.3
         healthcheck:
-            test: ["CMD", "mysqladmin", "ping", "--silent"]
+            test: ["CMD", "mariadb-admin", "ping", "--silent"]
             retries: 3
             timeout: 5s
 
