@@ -69,8 +69,8 @@ RUN --mount=type=cache,target=.composer \
 
 # Add some cronjobs for Symfony custom commands
 # https://github.com/webdevops/Dockerfile/issues/280#issuecomment-1311681838
-RUN echo "* * * * * /usr/local/bin/php ./bin/console app:tasks-executor > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
-RUN echo "0 * * * * /usr/local/bin/php ./bin/console app:statistics-collector > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
+RUN echo "* * * * * /usr/local/bin/php bin/console app:tasks-executor > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
+RUN echo "0 * * * * /usr/local/bin/php bin/console app:statistics-collector > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
 
 # Copy files from the previous stage
 COPY --from=0 --chown=www-data:www-data /usr/src/app ./
@@ -110,21 +110,21 @@ RUN mkdir -p docker
 
 ARG VERSION
 RUN if [ $VERSION = "8.2-apache" ]; then \
-		echo "/wait && mkdir -p var/cache var/log && \
-		sed -i \"s/DATABASE_PASSWORD=password/DATABASE_PASSWORD=$(cat /run/secrets/db_password)/g\" .env && \
+		echo '/wait && mkdir -p var/cache var/log && \
+		sed -i "s/DATABASE_PASSWORD=password/DATABASE_PASSWORD=$(cat /run/secrets/db_password)/g" .env && \
 		/usr/local/bin/php bin/console cache:clear && COMPOSER_ALLOW_SUPERUSER=1 composer dump-env prod && \
 		/usr/local/bin/php bin/console doctrine:database:create --no-interaction --if-not-exists && \
 		/usr/local/bin/php bin/console doctrine:schema:create --no-interaction && \
 		/usr/local/bin/php bin/console app:udp-server 127.0.0.1:81 & \
-		apache2-foreground" >> docker/entrypoint.sh; \
+		apache2-foreground' >> docker/entrypoint.sh; \
 	else \
-		echo "/wait && mkdir -p var/cache var/log && \
-		sed -i \"s/DATABASE_PASSWORD=password/DATABASE_PASSWORD=$(cat /run/secrets/db_password)/g\" .env && \
+		echo '/wait && mkdir -p var/cache var/log && \
+		sed -i "s/DATABASE_PASSWORD=password/DATABASE_PASSWORD=$(cat /run/secrets/db_password)/g" .env && \
 		/usr/local/bin/php bin/console cache:clear && COMPOSER_ALLOW_SUPERUSER=1 composer dump-env prod && \
 		/usr/local/bin/php bin/console doctrine:database:create --no-interaction --if-not-exists && \
 		/usr/local/bin/php bin/console doctrine:schema:create --no-interaction && \
 		/usr/local/bin/php bin/console app:udp-server 127.0.0.1:81 & \
-		php-fpm" >> docker/entrypoint.sh; \
+		php-fpm' >> docker/entrypoint.sh; \
 	fi
 
 RUN chmod +x docker/entrypoint.sh
