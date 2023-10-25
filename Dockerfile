@@ -89,6 +89,9 @@ RUN if [ $VERSION = "8.2-apache" ]; then \
 ADD https://github.com/ufoscout/docker-compose-wait/releases/latest/download/wait /wait
 RUN chmod +x /wait
 
+# Use the PHP custom configuration (if exists)
+RUN if [ -f "docker/php.ini" ]; then mv "docker/php.ini" "$PHP_INI_DIR/php.ini"; fi
+
 # Change current user to www-data
 USER www-data
 
@@ -100,9 +103,6 @@ RUN sed -i "s/DATABASE_HOST=127.0.0.1/DATABASE_HOST=mariadb/g" .env
 RUN sed -i "s/REDIS_HOST=127.0.0.1/REDIS_HOST=redis/g" .env
 
 RUN sed -i "s/DATABASE_USERNAME=username/DATABASE_USERNAME=source_web_console/g" .env
-
-# Use the PHP custom configuration (if exists)
-RUN if [ -f "docker/php.ini" ]; then mv "docker/php.ini" "$PHP_INI_DIR/php.ini"; fi
 
 # Use the PHP custom entrypoint
 # https://symfony.com/doc/current/deployment.html / https://symfony.com/doc/current/setup/file_permissions.html
