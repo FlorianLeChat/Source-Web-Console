@@ -52,7 +52,6 @@ services:
     # https://github.com/FlorianLeChat/Source-Web-Console
     php:
         image: source-web-console
-        restart: always
         depends_on:
             - redis
             - mariadb
