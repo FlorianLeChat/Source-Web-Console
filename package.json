@@ -18,6 +18,7 @@
         "@babel/preset-env": "~7.22",
         "@symfony/webpack-encore": "~4.4",
         "sass": "~1.68",
+        "husky": "~8.0",
         "dotenv": "~16.3",
         "jquery": "~3.7",
         "core-js": "~3.32",
@@ -30,6 +31,7 @@
         "file-loader": "~6.2",
         "webpack-cli": "~5.1",
         "sass-loader": "~13.3",
+        "lint-staged": "~12.0",
         "normalize.css": "~8.0",
         "bootstrap-icons": "~1.11",
         "webpack-notifier": "~1.15",
@@ -46,11 +48,13 @@
     },
     "scripts": {
         "dev": "encore dev",
-        "lint": "eslint ./assets/scripts --fix --ext .ts --report-unused-disable-directives",
+        "lint": "eslint ./assets/scripts --fix --ext .ts",
         "pretty": "prettier --write \"assets/scripts/pages/**\"",
         "watch": "encore dev --watch",
         "build": "encore production --progress",
-        "dev-server": "encore dev-server"
+        "prepare": "husky install",
+        "dev-server": "encore dev-server",
+        "lint-staged": "lint-staged"
     },
     "browserslist": [
         "defaults"
