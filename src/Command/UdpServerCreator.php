@@ -60,6 +60,13 @@ final class UdpServerCreator extends Command
 				// Si le serveur a bien été créé, on affiche ensuite un message de succès.
 				$io->success("UDP server successfully created.");
 
+				if ($this->kernel->getEnvironment() === "test")
+				{
+					// En plein environnement de test, on ferme le serveur immédiatement
+					//  pour éviter de bloquer les tests.
+					$server->close();
+				}
+
 				$server->on("message", function ($message, $address) use ($io): void
 				{
 					// Lorsque le serveur reçoit un message, on vérifie s'il est enregistré
