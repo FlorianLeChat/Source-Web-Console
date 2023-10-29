@@ -1,12 +1,4 @@
-version: "3.9"
-
-networks:
-    source_web_console:
-        ipam:
-            driver: default
-            config:
-                - subnet: 172.18.0.0/16
-                  gateway: 172.18.0.1
+version: "3.8"
 
 services:
     # https://hub.docker.com/_/redis
@@ -18,13 +10,12 @@ services:
         volumes:
             - ./docker/redis/config:/usr/local/etc/redis
             - ./docker/redis/database:/data
-        networks:
-            source_web_console:
-                ipv4_address: 172.18.0.2
         healthcheck:
             test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
             retries: 3
             timeout: 5s
+        ports:
+            - 6379:6379
 
     # https://hub.docker.com/_/mariadb
     mariadb:
@@ -41,13 +32,12 @@ services:
             MARIADB_USER: source_web_console
             MARIADB_PASSWORD_FILE: /run/secrets/db_password
             MARIADB_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
-        networks:
-            source_web_console:
-                ipv4_address: 172.18.0.3
         healthcheck:
             test: ["CMD", "mariadb-admin", "ping", "--silent"]
             retries: 3
             timeout: 5s
+        ports:
+            - 3306:3306
 
     # https://github.com/FlorianLeChat/Source-Web-Console
     php:
@@ -55,9 +45,6 @@ services:
         depends_on:
             - redis
             - mariadb
-        networks:
-            source_web_console:
-                ipv4_address: 172.18.0.4
         secrets:
             - db_password
         environment:
