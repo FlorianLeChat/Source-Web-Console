@@ -1,62 +1,62 @@
 {
-    "name": "source-web-console",
-    "author": "Florian Trayon (https://github.com/FlorianLeChat)",
-    "license": "MIT",
-    "private": true,
-    "version": "1.0.0",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/FlorianLeChat/Source-Web-Console.git"
-    },
-    "bugs": {
-        "url": "https://github.com/FlorianLeChat/Source-Web-Console/issues"
-    },
-    "devDependencies": {
-        "@babel/core": "~7.23",
-        "@types/jquery": "~3.5",
-        "@types/grecaptcha": "~3.0",
-        "@babel/preset-env": "~7.22",
-        "@symfony/webpack-encore": "~4.4",
-        "sass": "~1.68",
-        "husky": "~8.0",
-        "dotenv": "~16.3",
-        "jquery": "~3.7",
-        "core-js": "~3.32",
-        "webpack": "~5.88",
-        "chart.js": "~4.4",
-        "prettier": "~3.0",
-        "ts-loader": "~9.4",
-        "typescript": "~5.2",
-        "flag-icons": "~6.11",
-        "file-loader": "~6.2",
-        "webpack-cli": "~5.1",
-        "sass-loader": "~13.3",
-        "lint-staged": "~12.0",
-        "normalize.css": "~8.0",
-        "bootstrap-icons": "~1.11",
-        "webpack-notifier": "~1.15",
-        "regenerator-runtime": "~0.14",
-        "eslint-config-airbnb": "~19.0",
-        "vanilla-cookieconsent": "3.0.0-rc.16",
-        "chartjs-adapter-date-fns": "~3.0",
-        "@total-typescript/ts-reset": "~0.5",
-        "@typescript-eslint/eslint-plugin": "~6.7"
-    },
-    "engines": {
-        "node": ">=18.0",
-        "npm": ">=8.6"
-    },
-    "scripts": {
-        "dev": "encore dev",
-        "lint": "eslint ./assets/scripts --fix --ext .ts",
-        "pretty": "prettier --write \"assets/scripts/pages/**\"",
-        "watch": "encore dev --watch",
-        "build": "encore production --progress",
-        "prepare": "husky install",
-        "dev-server": "encore dev-server",
-        "lint-staged": "lint-staged"
-    },
-    "browserslist": [
-        "defaults"
-    ]
+  "name": "source-web-console",
+  "author": "Florian Trayon (https://github.com/FlorianLeChat)",
+  "license": "MIT",
+  "private": true,
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FlorianLeChat/Source-Web-Console.git"
+  },
+  "bugs": {
+    "url": "https://github.com/FlorianLeChat/Source-Web-Console/issues"
+  },
+  "devDependencies": {
+    "@babel/core": "~7.23",
+    "@types/jquery": "~3.5",
+    "@types/grecaptcha": "~3.0",
+    "@babel/preset-env": "~7.22",
+    "@symfony/webpack-encore": "~4.4",
+    "sass": "~1.68",
+    "husky": "~8.0",
+    "dotenv": "~16.3",
+    "jquery": "~3.7",
+    "core-js": "~3.32",
+    "webpack": "~5.88",
+    "chart.js": "~4.4",
+    "prettier": "~3.0",
+    "ts-loader": "~9.4",
+    "typescript": "~5.2",
+    "flag-icons": "~6.11",
+    "file-loader": "~6.2",
+    "webpack-cli": "~5.1",
+    "sass-loader": "~13.3",
+    "lint-staged": "~12.0",
+    "normalize.css": "~8.0",
+    "bootstrap-icons": "~1.11",
+    "webpack-notifier": "~1.15",
+    "regenerator-runtime": "~0.14",
+    "eslint-config-airbnb": "~19.0",
+    "vanilla-cookieconsent": "3.0.0-rc.16",
+    "chartjs-adapter-date-fns": "~3.0",
+    "@total-typescript/ts-reset": "~0.5",
+    "@typescript-eslint/eslint-plugin": "~6.7"
+  },
+  "engines": {
+    "node": ">=20.5",
+    "npm": ">=10.1"
+  },
+  "scripts": {
+    "dev": "encore dev",
+    "lint": "eslint ./assets/scripts --fix --ext .ts",
+    "pretty": "prettier --write \"assets/scripts/pages/**\"",
+    "watch": "encore dev --watch",
+    "build": "encore production --progress",
+    "prepare": "husky install",
+    "dev-server": "encore dev-server",
+    "lint-staged": "lint-staged"
+  },
+  "browserslist": [
+    "defaults"
+  ]
 }
