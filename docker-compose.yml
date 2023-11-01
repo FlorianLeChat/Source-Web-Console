@@ -1,5 +1,9 @@
 version: "3.8"
 
+networks:
+    source_web_console:
+        driver: bridge
+
 services:
     # https://hub.docker.com/_/redis
     redis:
@@ -10,6 +14,8 @@ services:
         volumes:
             - ./docker/redis/config:/usr/local/etc/redis
             - ./docker/redis/database:/data
+        networks:
+            - source_web_console
         healthcheck:
             test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
             retries: 3
@@ -32,6 +38,8 @@ services:
             MARIADB_USER: source_web_console
             MARIADB_PASSWORD_FILE: /run/secrets/db_password
             MARIADB_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+        networks:
+            - source_web_console
         healthcheck:
             test: ["CMD", "mariadb-admin", "ping", "--silent"]
             retries: 3
@@ -50,6 +58,8 @@ services:
             - db_password
         environment:
             - WAIT_HOSTS=redis:6379, mariadb:3306
+        networks:
+            - source_web_console
         healthcheck:
             test: curl -f http://127.0.0.1:9000/ 2>&1 | grep "Connection reset by peer" || curl -f http://localhost
             retries: 3
