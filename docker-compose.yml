@@ -42,6 +42,7 @@ services:
     # https://github.com/FlorianLeChat/Source-Web-Console
     php:
         image: source-web-console
+        restart: always
         depends_on:
             - redis
             - mariadb
@@ -61,10 +62,6 @@ services:
                 reservations:
                     cpus: "0.25"
                     memory: 128M
-            restart_policy:
-                window: 60s
-                condition: on-failure
-                max_attempts: 5
         build:
             args:
                 - VERSION
