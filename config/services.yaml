@@ -19,6 +19,8 @@ services:
             $options:
                 ignore_exceptions:
                     - Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+                    - Symfony\Component\Security\Core\Exception\AccessDeniedException
+                    - Symfony\Component\HttpKernel\Exception\InsufficientAuthenticationException
     Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler:
         arguments:
             - "@Redis"
