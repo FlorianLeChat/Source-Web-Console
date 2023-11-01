@@ -7,6 +7,7 @@ namespace App\Service;
 
 use App\Entity\Server;
 use xPaw\SourceQuery\SourceQuery;
+use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -126,7 +127,7 @@ final class ServerManager
 			// On fait une requête à l'API Steam pour récupérer
 			//  les informations nécessaires.
 			$response = $this->client->request(
-				"GET", "https://store.steampowered.com/api/appdetails?appids=$identifier"
+				"GET", "https://store.steampowered.com/app/$identifier/"
 			);
 
 			// On vérifie après si la requête a réussie ou non.
@@ -137,21 +138,21 @@ final class ServerManager
 				return $fallback;
 			}
 
-			// On récupère le résultat par la suite sous forme de tableau
-			//  associatif pour pouvoir le manipuler plus facilement.
-			$response = $response->toArray();
+			// On récupère le résultat par la suite sous forme de chaîne
+			//  de caractères pour pouvoir le manipuler plus facilement.
+			$response = $response->getContent();
 
-			if (count($response) > 0)
+			if (strlen($response) > 0)
 			{
-				// Si la réponse semble correcte, on vérifie si l'API indique
-				//	que la réponse est un succès et s'il existe les informations
-				// 	attendues initialement.
-				$response = $response[$identifier];
+				// Si la réponse semble correcte, on récupère le nom du jeu
+				//  dans le titre de la page HTML.
+				$crawler = new Crawler($response);
+				$title = $crawler->filter("title")->text();
 
-				if ($response["success"] === false)
+				if (!str_ends_with($title, " on Steam"))
 				{
-					// Si l'API indique que la réponse est un échec, on renvoie
-					// 	également la valeur de secours.
+					// Si le titre de la page HTML est vide, on renvoie également
+					//  la valeur de secours.
 					return $fallback;
 				}
 
@@ -159,7 +160,7 @@ final class ServerManager
 				//  du cache avant de retourner le nom du jeu.
 				$item->expiresAfter(self::CACHE_LIFETIME);
 
-				return $response["data"]["name"];
+				return str_replace(" on Steam", "", $title);
 			}
 
 			// On retourne enfin le résultat par défaut si la requête a échouée
