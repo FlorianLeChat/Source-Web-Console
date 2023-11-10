@@ -25,7 +25,7 @@ if ( window.location.search !== "legal" )
 
 			// Paramètres internes des cookies.
 			cookie: {
-				name: "SYMFONY_ANALYTICS"
+				name: "SYMFONY_COOKIE"
 			},
 
 			// Paramètres de l'interface utilisateur.
