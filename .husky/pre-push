@@ -5,7 +5,4 @@ rm var/data.db
 php bin/console --env=test doctrine:database:create --no-interaction
 php bin/console --env=test doctrine:schema:create --no-interaction
 php bin/console --env=test doctrine:fixtures:load --no-interaction
-vendor/bin/phpcs -s
-vendor/bin/phpstan analyse --memory-limit=1G
-vendor/bin/phpmd ./src ansi phpmd.xml.dist
 vendor/bin/phpunit

@@ -31,8 +31,7 @@ final class DashboardController extends AbstractDashboardController
 	// Initialisation de certaines dépendances du contrôleur.
 	//
 	public function __construct(
-		private readonly AppRuntime $runtime,
-		private readonly TranslatorInterface $translator
+		private readonly AppRuntime $runtime
 	) {}
 
 	//
