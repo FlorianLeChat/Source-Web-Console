@@ -41,7 +41,13 @@ final class DashboardController extends AbstractDashboardController
 	#[Route("/admin", name: "admin_page")]
 	public function index(): Response
 	{
-		return $this->render("admin.html.twig");
+		// Récupération des méta-données du site.
+		$metadata = $this->runtime->getMetadata();
+
+		// Affichage de la page.
+		return $this->render("admin.html.twig", [
+			"title" => $metadata["title"]
+		]);
 	}
 
 	//
@@ -49,8 +55,12 @@ final class DashboardController extends AbstractDashboardController
 	//
 	public function configureDashboard(): Dashboard
 	{
+		// Récupération des méta-données du site.
+		$metadata = $this->runtime->getMetadata();
+
+		// Génération du tableau de bord.
 		return Dashboard::new()
-			->setTitle($this->translator->trans("head.title"))
+			->setTitle($metadata["title"])
 			->setLocales([
 				Locale::new("en", ucfirst(Languages::getName("en")), "fa fa-language"),
 				Locale::new("fr", ucfirst(Languages::getName("fr")), "fa fa-language")
