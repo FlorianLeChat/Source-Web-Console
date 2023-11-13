@@ -69,6 +69,7 @@ header
 			{
 				// Affichage des boutons de connexion vers
 				//  des plate-formes externes.
+				gap: 1rem;
 				display: flex;
 				justify-content: space-between;
 
@@ -310,7 +311,7 @@ small
 // ---------------- //
 @media screen and (min-width: 769px) and (max-width: 1023px)
 {
-	@import "../tablet/help";
+	@import "../tablet/index";
 }
 
 // -------------- //
@@ -318,5 +319,5 @@ small
 // -------------- //
 @media screen and (max-width: 768px)
 {
-	@import "../phone/help";
+	@import "../phone/index";
 }

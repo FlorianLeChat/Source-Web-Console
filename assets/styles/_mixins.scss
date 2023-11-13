@@ -172,27 +172,42 @@
 //  toutes les pages sur les terminaux mobiles.
 @mixin responsive-header-adaptation($text: $text-color, $box: $box-color)
 {
+	// Ajustement de la disposition de l'en-tête.
+	justify-content: space-evenly;
+
 	img
 	{
 		// Disparition du logo du site.
 		display: none;
 	}
 
-	h1
+	div:first-of-type
 	{
-		// Ajustement du titre de la page.
-		font-size: 1.5rem;
-	}
+		// Conteneur du titre et du sous-titre.
+		margin-right: 0;
 
-	h2
-	{
-		// Ajustement du sous-titre de la page.
-		font-size: 1.25rem;
+		h1
+		{
+			// Ajustement du titre de la page.
+			font-size: 1.5rem;
+		}
+
+		h2
+		{
+			// Ajustement du sous-titre de la page.
+			font-size: 1.25rem;
+		}
 	}
 
 	div:last-of-type
 	{
 		// Disparition de la barre de recherche.
+		display: none;
+	}
+
+	a span
+	{
+		// Disparition de l'identifiant de l'utilisateur.
 		display: none;
 	}
 }
