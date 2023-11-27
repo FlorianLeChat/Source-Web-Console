@@ -75,7 +75,6 @@ services:
         build:
             args:
                 - VERSION
-                - MANAGER
             context: .
             dockerfile: ./Dockerfile
         ports:
