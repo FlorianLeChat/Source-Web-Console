@@ -39,7 +39,7 @@ final class AppRuntime implements RuntimeExtensionInterface
 			$item->expiresAfter(1);
 
 			// On fait plusieurs requêtes à l'API GitHub pour récupérer
-			//	les informations du dépôt, de l'auteur et des changements.
+			//  les informations du dépôt, de l'auteur et des changements.
 			$repository = $this->client->request(
 				"GET", "https://api.github.com/repos/FlorianLeChat/Source-Web-Console"
 			);
@@ -56,7 +56,7 @@ final class AppRuntime implements RuntimeExtensionInterface
 			if ($repository->getStatusCode() !== 200 || $author->getStatusCode() !== 200 || $commits->getStatusCode() !== 200)
 			{
 				// Si ce n'est pas le cas, on renvoie juste un tableau vide
-				//	pour éviter de provoquer des erreurs.
+				//  pour éviter de provoquer des erreurs.
 				return [];
 			}
 

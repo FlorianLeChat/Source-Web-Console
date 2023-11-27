@@ -63,8 +63,8 @@ final class ServerManager
 		$iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length(self::ENCRYPTION_METHOD));
 
 		// On utilise ensuite la fonction de OpenSSL pour chiffrer
-		//	le mot de passe avec la phrase unique ainsi que le
-		//	vecteur d'initialisation créés précédemment.
+		//  le mot de passe avec la phrase unique ainsi que le
+		//  vecteur d'initialisation créés précédemment.
 		$password = openssl_encrypt($password, self::ENCRYPTION_METHOD, $this->sslPhrase, OPENSSL_RAW_DATA, $iv);
 
 		// On utilise après la fonction pour créer une clé de hachage
@@ -105,14 +105,14 @@ final class ServerManager
 
 		// On vérifie enfin si les deux clés de hachage sont identiques.
 		// 	Note : c'est une protection contre les attaques temporelles.
-		//	Source : https://en.wikipedia.org/wiki/Timing_attack
+		//  Source : https://en.wikipedia.org/wiki/Timing_attack
 		return hash_equals($hmac, $calcmac) ? $plainText : "";
 	}
 
 	//
 	// Détermine le nom complet du jeu utilisé par un serveur à partir de sa
 	//  plate-forme ou son numéro d'identification unique.
-	//	Source : https://github.com/BrakeValve/dataflow/issues/5 (non officielle)
+	//  Source : https://github.com/BrakeValve/dataflow/issues/5 (non officielle)
 	//
 	public function getNameByGameID(int $identifier, string $fallback = ""): string
 	{
@@ -134,7 +134,7 @@ final class ServerManager
 			if ($response->getStatusCode() !== 200)
 			{
 				// Si la requête a échouée, on renvoie alors la valeur
-				//	de secours.
+				//  de secours.
 				return $fallback;
 			}
 
@@ -182,7 +182,7 @@ final class ServerManager
 			if ($response->getStatusCode() !== 200)
 			{
 				// Si ce n'est pas le cas, on renvoie juste que le serveur
-				//	utilise un jeu qui n'est pas sur la plate-forme Steam.
+				//  utilise un jeu qui n'est pas sur la plate-forme Steam.
 				return 0;
 			}
 
@@ -193,7 +193,7 @@ final class ServerManager
 			if (count($response) > 0)
 			{
 				// Si la réponse semble correcte, on vérifie si l'API indique
-				//	que la réponse est un succès et s'il existe une liste
+				//  que la réponse est un succès et s'il existe une liste
 				//  d'informations comme attendu.
 				$response = $response["response"];
 
@@ -212,7 +212,7 @@ final class ServerManager
 			}
 
 			// On retourne enfin le résultat par défaut si la requête a échouée
-			//	quelque part ou si la réponse n'est pas conforme.
+			//  quelque part ou si la réponse n'est pas conforme.
 			return 0;
 		});
 	}

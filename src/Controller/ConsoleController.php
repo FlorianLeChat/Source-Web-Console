@@ -68,7 +68,7 @@ final class ConsoleController extends AbstractController
 			finally
 			{
 				// Si tout se passe bien, on libère le socket réseau pour
-				//	d'autres scripts du site.
+				//  d'autres scripts du site.
 				$this->serverManager->query->Disconnect();
 			}
 		}

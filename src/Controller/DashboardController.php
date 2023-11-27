@@ -218,11 +218,11 @@ final class DashboardController extends AbstractController
 				$this->serverManager->connect($server);
 
 				// En cas de réussite, on récupère toutes les informations
-				//	disponibles et fournies par le module d'administration.
+				//  disponibles et fournies par le module d'administration.
 				$details = $this->serverManager->query->GetInfo();
 
 				// On encode alors certaines de ces informations pour les
-				//	transmettre au client à travers le JavaScript.
+				//  transmettre au client à travers le JavaScript.
 				return new JsonResponse([
 
 					// État du serveur.
@@ -256,7 +256,7 @@ final class DashboardController extends AbstractController
 			finally
 			{
 				// Si tout se passe bien, on libère enfin le socket réseau
-				//	pour d'autres scripts du site.
+				//  pour d'autres scripts du site.
 				$this->serverManager->query->Disconnect();
 			}
 		});
