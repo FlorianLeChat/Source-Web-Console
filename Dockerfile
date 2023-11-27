@@ -2,7 +2,7 @@
 
 # Use an customized image of Node.js
 # https://hub.docker.com/_/node
-ARG VERSION=8.2-apache
+ARG VERSION=apache
 FROM node:lts-alpine
 
 # Set the working directory to the website files
@@ -31,8 +31,7 @@ RUN npm prune --production
 FROM php:${VERSION}
 
 # Install dependencies
-ARG MANAGER=apt
-RUN if [ $MANAGER = "apt" ]; then \
+RUN if [ $VERSION = "apache" ]; then \
 		apt update && apt install git cron -y; \
 	else \
 		echo https://dl-4.alpinelinux.org/alpine/latest-stable/community/ >> /etc/apk/repositories && \
@@ -76,7 +75,7 @@ COPY --from=0 --chown=www-data:www-data /usr/src/app ./
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
 ARG VERSION
-RUN if [ $VERSION = "8.2-apache" ]; then \
+RUN if [ $VERSION = "apache" ]; then \
 		sed -ri -e "s!/var/www/html!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/sites-available/*.conf && \
 		sed -ri -e "s!/var/www/!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf && \
 		a2enmod rewrite; \
@@ -106,7 +105,7 @@ RUN sed -i "s/DATABASE_USERNAME=username/DATABASE_USERNAME=source_web_console/g"
 RUN mkdir -p docker
 
 ARG VERSION
-RUN if [ $VERSION = "8.2-apache" ]; then \
+RUN if [ $VERSION = "apache" ]; then \
 		echo '/wait && mkdir -p var/cache var/log && \
 		sed -i "s/DATABASE_PASSWORD=password/DATABASE_PASSWORD=$(cat /run/secrets/db_password)/g" .env && \
 		/usr/local/bin/php bin/console cache:clear && composer dump-env prod && \
