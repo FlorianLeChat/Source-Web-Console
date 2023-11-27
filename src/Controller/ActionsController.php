@@ -58,14 +58,14 @@ final class ActionsController extends AbstractController
 				]));
 
 				// En cas de réussite, on récupère toutes les informations
-				//	disponibles et fournies par le module d'administration.
+				//  disponibles et fournies par le module d'administration.
 				$rules = $this->serverManager->query->GetRules();
 			}
 			catch (\Exception) {}
 			finally
 			{
 				// Si tout se passe bien, on libère le socket réseau pour
-				//	d'autres scripts du site.
+				//  d'autres scripts du site.
 				$this->serverManager->query->Disconnect();
 			}
 		}
@@ -225,9 +225,9 @@ final class ActionsController extends AbstractController
 				default:
 				{
 					// Si aucune action n'est trouvée, alors il s'agit probablement
-					//	d'une commande personnalisée. On tente dans ce cas de récupérer
-					//	les données de toutes les commandes pour trouver celles qui
-					//	correspondent à l'action.
+					//  d'une commande personnalisée. On tente dans ce cas de récupérer
+					//  les données de toutes les commandes pour trouver celles qui
+					//  correspondent à l'action.
 					$command = $this->entityManager->getRepository(Command::class)->findOneBy([
 						"id" => $action, "user" => $this->getUser()
 					]);
@@ -267,7 +267,7 @@ final class ActionsController extends AbstractController
 		finally
 		{
 			// Si tout se passe bien, on libère enfin le socket réseau
-			//	pour d'autres scripts du site.
+			//  pour d'autres scripts du site.
 			$this->serverManager->query->Disconnect();
 		}
 	}
