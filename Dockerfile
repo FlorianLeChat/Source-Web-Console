@@ -31,6 +31,7 @@ RUN npm prune --production
 FROM php:${VERSION}
 
 # Install dependencies
+ARG VERSION
 RUN if [ $VERSION = "apache" ]; then \
 		apt update && apt install git cron -y; \
 	else \
