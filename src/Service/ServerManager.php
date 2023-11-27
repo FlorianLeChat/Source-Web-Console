@@ -142,30 +142,18 @@ final class ServerManager
 			//  de caractères pour pouvoir le manipuler plus facilement.
 			$response = $response->getContent();
 
-			if (strlen($response) > 0)
+			try
 			{
-				// Si la réponse semble correcte, on récupère le nom du jeu
-				//  dans le titre de la page HTML.
-				$crawler = new Crawler($response);
-				$title = $crawler->filter("title")->text();
-
-				if (!str_ends_with($title, " on Steam"))
-				{
-					// Si le titre de la page HTML est vide, on renvoie également
-					//  la valeur de secours.
-					return $fallback;
-				}
-
-				// Sinon, on définit la durée de vie de persistance définitive
-				//  du cache avant de retourner le nom du jeu.
-				$item->expiresAfter(self::CACHE_LIFETIME);
-
-				return str_replace(" on Steam", "", $title);
+				// On tente de récupérer égalemeent nom du jeu dans
+				//   l'un des titres de la page HTML.
+				return ( new Crawler($response) )->filter("div#appHubAppName")->text();
 			}
-
-			// On retourne enfin le résultat par défaut si la requête a échouée
-			//	quelque part ou si la réponse n'est pas conforme.
-			return $fallback;
+			catch (\Exception)
+			{
+				// On retourne enfin le résultat par défaut si la requête a
+				//  échouée quelque part ou si la réponse n'est pas conforme.
+				return $fallback;
+			}
 		});
 	}
 
