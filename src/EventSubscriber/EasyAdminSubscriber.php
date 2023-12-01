@@ -22,7 +22,7 @@ final class EasyAdminSubscriber implements EventSubscriberInterface
 	// Hashage du mot de passe de l'utilisateur avant sa persistance
 	//  ou son actualisation.
 	//
-	public function hashUserPassword(BeforeEntityUpdatedEvent|BeforeEntityPersistedEvent $event)
+	public function hashUserPassword(BeforeEntityUpdatedEvent|BeforeEntityPersistedEvent $event): void
 	{
 		// On vérifie que l'entité concernée est bien de classe
 		//  des utilisateurs.

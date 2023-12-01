@@ -29,7 +29,7 @@ final class AppRuntime implements RuntimeExtensionInterface
 	) {}
 
 	// Récupération des matadonnées du site.
-	public function getMetadata()
+	public function getMetadata(): mixed
 	{
 		// On vérifie d'abord si les méta-données sont déjà en cache.
 		return $this->cache->get("swc_metadata", function (ItemInterface $item): array
@@ -98,7 +98,7 @@ final class AppRuntime implements RuntimeExtensionInterface
 	}
 
 	// Récupération des langues disponibles.
-	public function getLanguages()
+	public function getLanguages(): mixed
 	{
 		if ($this->translator instanceof Translator || method_exists($this->translator, "getFallbackLocales"))
 		{

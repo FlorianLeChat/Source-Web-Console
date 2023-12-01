@@ -34,7 +34,7 @@ final class SubmitSubscriber implements EventSubscriberInterface
 	//
 	// Définition de la langue actuelle de la session.
 	//
-	public function onKernelRequest(RequestEvent $event)
+	public function onKernelRequest(RequestEvent $event): void
 	{
 		// On vérifie tout d'abord si le service Google reCAPTCHA est activé.
 		if (!$this->recaptchaEnabled)

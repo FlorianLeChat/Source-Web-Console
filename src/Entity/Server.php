@@ -53,12 +53,15 @@ class Server
 	#[ORM\Column(nullable: true)]
 	private ?int $game = null;
 
+	/** @var Collection<int, Task> */
 	#[ORM\OneToMany(mappedBy: "server", targetEntity: Task::class, orphanRemoval: true)]
 	private Collection $tasks;
 
+	/** @var Collection<int, Event> */
 	#[ORM\OneToMany(mappedBy: "server", targetEntity: Event::class, orphanRemoval: true)]
 	private Collection $events;
 
+	/** @var Collection<int, Stats> */
 	#[ORM\OneToMany(mappedBy: "server", targetEntity: Stats::class, orphanRemoval: true)]
 	private Collection $stats;
 
@@ -148,7 +151,8 @@ class Server
 		return $this;
 	}
 
-	public function getTasks(): Collection
+	/** @return Collection<int, Task> */
+	public function getTasks()
 	{
 		return $this->tasks;
 	}
@@ -177,7 +181,8 @@ class Server
 		return $this;
 	}
 
-	public function getEvents(): Collection
+	/** @return Collection<int, Event> */
+	public function getEvents()
 	{
 		return $this->events;
 	}
@@ -206,7 +211,8 @@ class Server
 		return $this;
 	}
 
-	public function getStats(): Collection
+	/** @return Collection<int, Stats> */
+	public function getStats()
 	{
 		return $this->stats;
 	}

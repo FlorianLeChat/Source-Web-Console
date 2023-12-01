@@ -25,7 +25,7 @@ final class LimiterSubscriber implements EventSubscriberInterface
 	//
 	// Définition de la langue actuelle de la session.
 	//
-	public function onKernelRequest(RequestEvent $event)
+	public function onKernelRequest(RequestEvent $event): void
 	{
 		// On récupère tout d'abord la requête associée à l'événement.
 		$request = $event->getRequest();
