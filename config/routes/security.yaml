@@ -1,0 +1,3 @@
+_security_logout:
+    type: service
+    resource: security.route_loader.logout
