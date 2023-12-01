@@ -39,7 +39,7 @@ final class ServerManager
 	//
 	// Établissement de la connexion avec le serveur de jeu.
 	//
-	public function connect(Server $server)
+	public function connect(Server $server): void
 	{
 		// On établit la connexion avec les informations renseignées.
 		$this->query->Connect($server->getAddress(), $server->getPort(), 1, SourceQuery::SOURCE);
@@ -144,7 +144,7 @@ final class ServerManager
 
 			try
 			{
-				// On tente de récupérer égalemeent nom du jeu dans
+				// On tente de récupérer également le nom du jeu dans
 				//   l'un des titres de la page HTML.
 				return ( new Crawler($response) )->filter("div#appHubAppName")->text();
 			}

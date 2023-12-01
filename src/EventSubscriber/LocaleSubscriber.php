@@ -18,7 +18,7 @@ final class LocaleSubscriber implements EventSubscriberInterface
 	//
 	// Définition de la langue actuelle de la session.
 	//
-	public function onKernelRequest(RequestEvent $event)
+	public function onKernelRequest(RequestEvent $event): void
 	{
 		// On détermine d'abord la langue de la requête et du navigateur.
 		$request = $event->getRequest();

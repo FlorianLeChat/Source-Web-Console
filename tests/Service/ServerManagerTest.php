@@ -64,7 +64,7 @@ class ServerManagerTest extends KernelTestCase
 	// Récupération du nom d'un jeu à partir de son numéro
 	//  d'identification unique.
 	//
-	public function testGetNameByGameID()
+	public function testGetNameByGameID(): void
 	{
 		// Récupération de certains noms de jeux existants.
 		$this->assertTrue($this->serverManager->getNameByGameID(240) === "Counter-Strike: Source");
@@ -80,7 +80,7 @@ class ServerManagerTest extends KernelTestCase
 	// Récupération du numéro d'identification unique d'un jeu
 	//  utilisé par l'adresse IP d'un serveur.
 	//
-	public function testGetGameIDByAddress()
+	public function testGetGameIDByAddress(): void
 	{
 		// Récupération du jeu « Counter-Strike 2 ».
 		$this->assertTrue($this->serverManager->getGameIDByAddress("216.52.148.47", 27015) === 730);

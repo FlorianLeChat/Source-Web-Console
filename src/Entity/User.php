@@ -56,12 +56,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	#[ORM\Column(length: 255, nullable: true)]
 	private ?string $token = null;
 
+	/** @var array<mixed> */
 	#[ORM\Column]
 	private array $roles = [];
 
+	/** @var Collection<int, Server> */
 	#[ORM\OneToMany(mappedBy: "user", targetEntity: Server::class, orphanRemoval: true)]
 	private Collection $servers;
 
+	/** @var Collection<int, Command> */
 	#[ORM\OneToMany(mappedBy: "user", targetEntity: Command::class, orphanRemoval: true)]
 	private Collection $commands;
 
@@ -151,7 +154,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 		return array_unique($this->roles);
 	}
 
-	public function setRoles(array $roles): self
+	public function setRoles(mixed $roles): self
 	{
 		$this->roles = $roles;
 
@@ -163,7 +166,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 		// $this->plainPassword = null;
 	}
 
-	public function getServers(): Collection
+	/** @return Collection<int, Server> */
+	public function getServers()
 	{
 		return $this->servers;
 	}
@@ -192,7 +196,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 		return $this;
 	}
 
-	public function getCommands(): Collection
+	/** @return Collection<int, Command> */
+	public function getCommands()
 	{
 		return $this->commands;
 	}
