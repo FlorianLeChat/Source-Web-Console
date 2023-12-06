@@ -9,7 +9,7 @@ C'est un projet réalisé durant mes études afin de permettre de gérer les ser
 À la fin de la première version du projet en utilisant seulement des langages et technologies natives d'Internet (branche `no-symfony`), la dernière version reprend le code d'origine tout en basculant sur le *framework* [Symfony](https://symfony.com/) pour profiter d'améliorations techniques, de performances mais aussi de sécurité. De plus, même si le souffre encore d'une dette technologique assez importante par l'absence de *framework* pour gérer la partie interface, le code d'origine a été migrée vers [TypeScript](https://www.typescriptlang.org/) pour une meilleure robustesse.
 
 <ins>Voici les exigences pour exécuter le site Internet</ins> :
-* [**Toute** version de PHP maintenue](https://www.php.net/supported-versions.php)
+* [**Toute** version de PHP avec un support actif](https://www.php.net/supported-versions.php)
 * [**Toute** version de NodeJS LTS maintenue](https://github.com/nodejs/release#release-schedule)
 * [**Toute** version de Redis maintenue](https://docs.redis.com/latest/rs/installing-upgrading/install/plan-deployment/supported-platforms/)
 * [**Toute** bases de données supportée par Doctrine ORM](https://www.doctrine-project.org/projects/doctrine-dbal/en/current/reference/platforms.html)
@@ -29,7 +29,7 @@ This is a project made during my studies to manage dedicated game servers using 
 Following the end of the first project version using only native Web languages and technologies (`no-symfony` branch), the latest version reuses the original code while migrating to the [Symfony](https://symfony.com/) framework to enjoy technical, performance and security improvements. Even though it still suffers from a significant technological debt due to the absence of a framework to manage the front-end, the original code has been migrated to [TypeScript](https://www.typescriptlang.org/) for greater robustness.
 
 <ins>Here are the requirements to run the website</ins>:
-* [**Any** maintained PHP versions](https://www.php.net/supported-versions.php)
+* [**Any** maintained PHP with active support](https://www.php.net/supported-versions.php)
 * [**Any** maintained NodeJS LTS versions](https://github.com/nodejs/release#release-schedule)
 * [**Any** maintained Redis versions](https://docs.redis.com/latest/rs/installing-upgrading/install/plan-deployment/supported-platforms/)
 * [**Any** databases supported by Doctrine ORM](https://www.doctrine-project.org/projects/doctrine-dbal/en/current/reference/platforms.html)
