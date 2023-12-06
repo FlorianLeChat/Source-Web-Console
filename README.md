@@ -29,7 +29,7 @@ This is a project made during my studies to manage dedicated game servers using 
 Following the end of the first project version using only native Web languages and technologies (`no-symfony` branch), the latest version reuses the original code while migrating to the [Symfony](https://symfony.com/) framework to enjoy technical, performance and security improvements. Even though it still suffers from a significant technological debt due to the absence of a framework to manage the front-end, the original code has been migrated to [TypeScript](https://www.typescriptlang.org/) for greater robustness.
 
 <ins>Here are the requirements to run the website</ins>:
-* [**Any** maintained PHP with active support](https://www.php.net/supported-versions.php)
+* [**Any** maintained PHP versions with active support](https://www.php.net/supported-versions.php)
 * [**Any** maintained NodeJS LTS versions](https://github.com/nodejs/release#release-schedule)
 * [**Any** maintained Redis versions](https://docs.redis.com/latest/rs/installing-upgrading/install/plan-deployment/supported-platforms/)
 * [**Any** databases supported by Doctrine ORM](https://www.doctrine-project.org/projects/doctrine-dbal/en/current/reference/platforms.html)
