@@ -41,7 +41,7 @@ final class EasyAdminSubscriber implements EventSubscriberInterface
 	//
 	// Déclaration des écouteurs d'événements.
 	//
-	public static function getSubscribedEvents()
+	public static function getSubscribedEvents(): array
 	{
 		return [
 			BeforeEntityUpdatedEvent::class => ["hashUserPassword"],

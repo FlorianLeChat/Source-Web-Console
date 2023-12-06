@@ -83,7 +83,7 @@ final class SubmitSubscriber implements EventSubscriberInterface
 	//
 	// Déclaration des écouteurs d'événements.
 	//
-	public static function getSubscribedEvents()
+	public static function getSubscribedEvents(): array
 	{
 		return [
 			KernelEvents::REQUEST => ["onKernelRequest", 10]

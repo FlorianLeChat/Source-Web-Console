@@ -13,7 +13,7 @@ use Twig\Extension\AbstractExtension;
 final class AppExtension extends AbstractExtension
 {
 	// Déclaration des fonctions et filtres Twig personnalisés.
-	public function getFunctions()
+	public function getFunctions(): array
 	{
 		return [
 			new TwigFunction("get_metadata", [AppRuntime::class, "getMetadata"]),
