@@ -43,5 +43,7 @@ jobs:
       run: vendor/bin/phpcs -s
     - name: Run PHPStan
       run: vendor/bin/phpstan analyse --error-format=github
+    - name: Run PHP Mess Detector
+      run: vendor/bin/phpmd ./src github phpmd.xml.dist
     - name: Execute tests with PHPUnit
       run: vendor/bin/phpunit
