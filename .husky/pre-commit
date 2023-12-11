@@ -4,3 +4,4 @@
 npm.cmd run lint-staged
 vendor/bin/phpcs -s
 vendor/bin/phpstan analyse --memory-limit=1G
+vendor/bin/phpmd ./src ansi phpmd.xml.dist
