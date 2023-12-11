@@ -33,11 +33,7 @@ FROM php:${VERSION}
 # Install dependencies
 ARG VERSION
 RUN if [ $VERSION = "apache" ]; then \
-		apt update && apt install git cron -y; \
-	else \
-		echo https://dl-4.alpinelinux.org/alpine/latest-stable/community/ >> /etc/apk/repositories && \
-		apk update && \
-		apk add --no-cache git; \
+		apt update && apt install cron -y; \
 	fi
 
 # Install some PHP extensions
