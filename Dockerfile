@@ -107,7 +107,7 @@ RUN if [ $VERSION = "apache" ]; then \
 		sed -i "s/DATABASE_PASSWORD=password/DATABASE_PASSWORD=$(cat /run/secrets/db_password)/g" .env && \
 		/usr/local/bin/php bin/console cache:clear && composer dump-env prod && \
 		/usr/local/bin/php bin/console doctrine:database:create --no-interaction --if-not-exists && \
-		/usr/local/bin/php bin/console doctrine:schema:create --no-interaction && \
+		/usr/local/bin/php bin/console doctrine:schema:update --complete --force && \
 		/usr/local/bin/php bin/console app:udp-server 127.0.0.1:2004 & \
 		apache2-foreground' > docker/entrypoint.sh; \
 	else \
@@ -115,7 +115,7 @@ RUN if [ $VERSION = "apache" ]; then \
 		sed -i "s/DATABASE_PASSWORD=password/DATABASE_PASSWORD=$(cat /run/secrets/db_password)/g" .env && \
 		/usr/local/bin/php bin/console cache:clear && composer dump-env prod && \
 		/usr/local/bin/php bin/console doctrine:database:create --no-interaction --if-not-exists && \
-		/usr/local/bin/php bin/console doctrine:schema:create --no-interaction && \
+		/usr/local/bin/php bin/console doctrine:schema:update --complete --force && \
 		/usr/local/bin/php bin/console app:udp-server 127.0.0.1:2004 & \
 		php-fpm' > docker/entrypoint.sh; \
 	fi
