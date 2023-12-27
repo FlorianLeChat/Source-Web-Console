@@ -86,7 +86,7 @@ $( "[required]" ).on( "input", ( event ) =>
 		// On définit enfin le message d'erreur avant de l'afficher
 		//  progressivement avec une animation.
 		error.html( element.validationMessage );
-		error.fadeIn( 200 );
+		error.fadeIn( 200 ).css( "display", "block" );
 	}
 	else
 	{

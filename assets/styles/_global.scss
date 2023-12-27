@@ -52,7 +52,7 @@ ul, ol
 	@extend %reset-list-style;
 }
 
-p, em
+p, em, output
 {
 	// Paragraphes et textes.
 	line-height: 1.375;
@@ -632,7 +632,7 @@ header
 		}
 	}
 
-	p, em
+	em, output
 	{
 		// Descriptions du formulaire.
 		margin: 0 5% 1rem 5%;
@@ -646,7 +646,7 @@ header
 		border-radius: 0.5rem;
 		background-color: $box-color;
 
-		p.error, p.success
+		output.error, output.success
 		{
 			// Message d'erreur.
 			color: $error-color;
@@ -659,7 +659,7 @@ header
 			text-transform: uppercase;
 		}
 
-		p.success
+		output.success
 		{
 			// Message de succès.
 			color: $validate-color;
