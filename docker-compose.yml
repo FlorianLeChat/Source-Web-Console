@@ -43,7 +43,7 @@ services:
         networks:
             - source_web_console
         healthcheck:
-            test: ["CMD", "mariadb-admin", "ping", "--silent"]
+            test: ["CMD", "healthcheck.sh", "--su-mysql", "--connect", "--innodb_initialized"]
             retries: 3
             timeout: 5s
         ports:
