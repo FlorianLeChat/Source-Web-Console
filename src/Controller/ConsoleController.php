@@ -45,19 +45,19 @@ final class ConsoleController extends AbstractController
 			return $this->redirectToRoute("index_page");
 		}
 
-		// On récupère ensuite l'identifiant unique du serveur sélectionné
-		//  précédemment par l'utilisateur.
+		// On récupère ensuite les informations du serveur sélectionné précédemment
+		//  par l'utilisateur.
 		$address = $request->server->get("SERVER_ADDR", "127.0.0.1");
-		$serverId = intval($request->getSession()->get("serverId", 0));
+		$server = $this->entityManager->getRepository(Server::class)->findOneBy([
+			"id" => intval($request->getSession()->get("serverId", 0)), "user" => $this->getUser()
+		]);
 
-		if ($serverId !== 0)
+		if ($server)
 		{
 			try
 			{
 				// On tente après d'établir une connexion avec le serveur.
-				$this->serverManager->connect($this->entityManager->getRepository(Server::class)->findOneBy([
-					"id" => $serverId, "user" => $this->getUser()
-				]));
+				$this->serverManager->connect($server);
 
 				// En cas de réussite, on définit le serveur comme étant
 				//  capable d'envoyer ses journaux d'événements au site.

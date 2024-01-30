@@ -44,18 +44,18 @@ final class ActionsController extends AbstractController
 			return $this->redirectToRoute("index_page");
 		}
 
-		// On récupère ensuite l'identifiant unique du serveur sélectionné
-		//  précédemment par l'utilisateur.
-		$serverId = intval($request->getSession()->get("serverId", 0));
+		// On récupère ensuite les informations du serveur sélectionné précédemment
+		//  par l'utilisateur.
+		$server = $this->entityManager->getRepository(Server::class)->findOneBy([
+			"id" => intval($request->getSession()->get("serverId", 0)), "user" => $this->getUser()
+		]);
 
-		if ($serverId !== 0)
+		if ($server)
 		{
 			try
 			{
 				// On tente après d'établir une connexion avec le serveur.
-				$this->serverManager->connect($this->entityManager->getRepository(Server::class)->findOneBy([
-					"id" => $serverId, "user" => $this->getUser()
-				]));
+				$this->serverManager->connect($server);
 
 				// En cas de réussite, on récupère toutes les informations
 				//  disponibles et fournies par le module d'administration.
