@@ -38,8 +38,12 @@ services:
             MARIADB_DATABASE: source_web_console
             MARIADB_PORT: 3306
             MARIADB_USER: source_web_console
-            MARIADB_PASSWORD_FILE: /run/secrets/db_password
-            MARIADB_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+            # > Default credentials (for test image)
+            MARIADB_PASSWORD: password
+            MARIADB_ROOT_PASSWORD: password
+            # > Custom credentials with secrets (for production image)
+            # MARIADB_PASSWORD_FILE: /run/secrets/db_password
+            # MARIADB_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
         networks:
             - source_web_console
         healthcheck:
