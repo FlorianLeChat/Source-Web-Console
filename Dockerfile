@@ -104,7 +104,9 @@ RUN mkdir -p docker
 ARG VERSION
 RUN if [ $VERSION = "apache" ]; then \
 		echo '/wait && mkdir -p var/cache var/log && \
-		sed -i "s/DATABASE_PASSWORD=password/DATABASE_PASSWORD=$(cat /run/secrets/db_password)/g" .env && \
+		if [ -f "/run/secrets/db_password" ]; then \
+			sed -i "s/DATABASE_PASSWORD=password/DATABASE_PASSWORD=$(cat /run/secrets/db_password)/g" .env; \
+		fi && \
 		/usr/local/bin/php bin/console cache:clear && composer dump-env prod && \
 		/usr/local/bin/php bin/console doctrine:database:create --no-interaction --if-not-exists && \
 		/usr/local/bin/php bin/console doctrine:schema:update --complete --force && \
@@ -112,7 +114,9 @@ RUN if [ $VERSION = "apache" ]; then \
 		apache2-foreground' > docker/entrypoint.sh; \
 	else \
 		echo '/wait && mkdir -p var/cache var/log && \
-		sed -i "s/DATABASE_PASSWORD=password/DATABASE_PASSWORD=$(cat /run/secrets/db_password)/g" .env && \
+		if [ -f "/run/secrets/db_password" ]; then \
+			sed -i "s/DATABASE_PASSWORD=password/DATABASE_PASSWORD=$(cat /run/secrets/db_password)/g" .env; \
+		fi && \
 		/usr/local/bin/php bin/console cache:clear && composer dump-env prod && \
 		/usr/local/bin/php bin/console doctrine:database:create --no-interaction --if-not-exists && \
 		/usr/local/bin/php bin/console doctrine:schema:update --complete --force && \
