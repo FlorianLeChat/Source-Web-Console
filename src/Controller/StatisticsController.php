@@ -6,6 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\Stats;
+use App\Entity\Server;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,9 +25,14 @@ final class StatisticsController extends AbstractController
 			return $this->redirectToRoute("index_page");
 		}
 
+		// On récupère ensuite les informations du serveur sélectionné précédemment
+		//  par l'utilisateur.
+		$server = $entityManager->getRepository(Server::class)->findOneBy([
+			"id" => intval($request->getSession()->get("serverId", 0)), "user" => $this->getUser()
+		]);
+
 		// On affiche enfin la page des statistiques.
-		$repository = $entityManager->getRepository(Stats::class);
-		$statistics = $repository->findBy(["server" => intval($request->getSession()->get("serverId", 0))]);
+		$statistics = $server ? $entityManager->getRepository(Stats::class)->findBy(["server" => $server->getId()]) : [];
 
 		return $this->render("statistics.html.twig", [
 			// Heures de récupération des données.
