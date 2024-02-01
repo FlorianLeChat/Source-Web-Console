@@ -332,7 +332,6 @@ input, textarea, select
 		color: $background-color;
 		transition: color 250ms, background-color 250ms;
 		border-color: $background-color;
-		margin-bottom: 0.5rem;
 		text-transform: uppercase;
 		background-color: $box-color;
 
@@ -401,6 +400,42 @@ input, textarea, select
 		// Effet de survol des liens du gestionnaire
 		//  des préférences.
 		color: $box-color;
+	}
+
+	.cm--cloud .cm__btns
+	{
+		// Boutons de la bannière de consentement.
+		border-left: transparent;
+	}
+
+	.cm__footer
+	{
+		// Pied de page de la bannière de consentement.
+		color: $background-color;
+		position: relative;
+		border-color: rgba($background-color, 0.25);
+		background-color: $box-color;
+
+		a
+		{
+			// Lien vers les pages légales.
+			color: $background-color;
+			transition: color 150ms, background-color 150ms;
+
+			&:hover
+			{
+				// Effet de sélection.
+				color: $box-color;
+				font-weight: bold;
+				background-color: $text-color;
+			}
+
+			&::after
+			{
+				// Amélioration de la zone de sélection.
+				@extend %larger-touch-zone;
+			}
+		}
 	}
 
 	.section__toggle
