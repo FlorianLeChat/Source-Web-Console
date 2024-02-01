@@ -31,7 +31,8 @@ if ( window.location.search !== "legal" )
 			// Paramètres de l'interface utilisateur.
 			guiOptions: {
 				consentModal: {
-					position: "bottom right"
+					layout: "cloud inline",
+					position: "bottom center"
 				}
 			},
 
