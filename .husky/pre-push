@@ -1,6 +1,3 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
 rm var/data.db
 php bin/console --env=test doctrine:database:create --no-interaction
 php bin/console --env=test doctrine:schema:create --no-interaction
