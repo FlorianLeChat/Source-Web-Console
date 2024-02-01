@@ -52,7 +52,7 @@
     "pretty": "prettier --write \"assets/scripts/pages/**\"",
     "watch": "encore dev --watch",
     "build": "encore production --progress",
-    "prepare": "husky install",
+    "prepare": "husky",
     "dev-server": "encore dev-server",
     "lint-staged": "lint-staged"
   },
