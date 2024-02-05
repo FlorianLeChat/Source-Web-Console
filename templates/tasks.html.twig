@@ -69,9 +69,7 @@
 				<label for="server">{{ t("tasks.label.server")|trans }}</label>
 				<select id="server" name="server">
 					{% for server in tasks_servers %}
-						<li>
-							<option data-server="{{ server.id }}">{{ server.address ~ ":" ~ server.port }}</option>
-						</li>
+						<option data-server="{{ server.id }}">{{ server.address ~ ":" ~ server.port }}</option>
 					{% endfor %}
 				</select>
 			</div>
