@@ -53,7 +53,7 @@
 						</td>
 
 						{# Date de déclenchement #}
-						<td>{{ task.date|date("H:m | d/m/Y") }}</td>
+						<td><time datetime="{{task.date|date("Y-m-d\\TH:i:sP")}}">{{ task.date|date("H:m | d/m/Y") }}</time></td>
 
 						{# Action de déclenchement #}
 						<td>{{ t("global." ~ task.action)|trans }}</td>
