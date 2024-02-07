@@ -8,17 +8,21 @@ C'est un projet réalisé durant mes études afin de permettre de gérer les ser
 
 À la fin de la première version du projet en utilisant seulement des langages et technologies natives d'Internet (branche `no-symfony`), la dernière version reprend le code d'origine tout en basculant sur le *framework* [Symfony](https://symfony.com/) pour profiter d'améliorations techniques, de performances mais aussi de sécurité. De plus, même si le souffre encore d'une dette technologique assez importante par l'absence de *framework* pour gérer la partie interface, le code d'origine a été migrée vers [TypeScript](https://www.typescriptlang.org/) pour une meilleure robustesse.
 
-<ins>Voici les exigences pour exécuter le site Internet</ins> :
-* [**Toute** version de PHP avec un support actif](https://www.php.net/supported-versions.php)
-* [**Toute** version de NodeJS LTS maintenue](https://github.com/nodejs/release#release-schedule)
-* [**Toute** version de Redis maintenue](https://docs.redis.com/latest/rs/installing-upgrading/install/plan-deployment/supported-platforms/)
-* [**Toute** bases de données supportée par Doctrine ORM](https://www.doctrine-project.org/projects/doctrine-dbal/en/current/reference/platforms.html)
+> [!NOTE]
+> Voici les exigences pour exécuter le site Internet :
+> * [**Toute** version de PHP avec un support actif](https://www.php.net/supported-versions.php)
+> * [**Toute** version de NodeJS LTS maintenue](https://github.com/nodejs/release#release-schedule)
+> * [**Toute** version de Redis maintenue](https://docs.redis.com/latest/rs/installing-upgrading/install/plan-deployment/supported-platforms/)
+> * [**Toute** base de données supportée par Doctrine ORM](https://www.doctrine-project.org/projects/doctrine-dbal/en/current/reference/platforms.html)
 
-⚠️ [**LISEZ AVANT UTILISATION**] Ce projet est conçu pour fonctionner dans un environnement de production mais celui-ci doit être considéré comme une « preuve de concept » pour mes études concernant l'utilisation de technologies Internet natives pour communiquer avec le protocole RCON, si vous comptez utiliser ce genre de sites pour administrer votre serveur, je ne peux que vous conseiller l'excellent [**Pterodactyl**](https://pterodactyl.io/).
+> [!TIP]
+> Pour essayer le projet, il suffit d'installer l'ensemble des dépendances nécessaires avec la commande `composer install` (nécessite [Composer](https://getcomposer.org/download/)), d'installer [MariaDB](https://mariadb.org/download/) / [Redis](https://redis.io/download/) / [NodeJS](https://nodejs.org/en/download), puis de lancer un serveur local HTTP utilisant PHP comme [WAMP](https://www.wampserver.com/) (Windows) ou [XAMPP](https://www.apachefriends.org/index.html) (Linux/MacOS). Une image Docker est aussi disponible pour tester ce projet pour les personnes les plus expérimentées ! 🐳
 
-**Une image Docker est aussi disponible pour tester ce projet pour les personnes les plus expérimentées ! 🐳**
+> [!WARNING]
+> L'entièreté du code de ce projet est commenté dans ma langue natale (en français) et n'est pas voué à être traduit en anglais par soucis de simplicité de développement.
 
-Par soucis de simplicité, l'entièreté du code est commentée dans ma langue natale (en français) mais il sera traduit dans un futur proche si des contributeurs étrangers viennent s'ajouter au projet.
+> [!CAUTION]
+> Ce projet est conçu pour fonctionner dans un environnement de production mais celui-ci doit être considéré comme une « preuve de concept » pour mes études concernant l'utilisation de technologies Internet natives pour communiquer avec le protocole RCON, si vous comptez utiliser ce genre de sites pour administrer votre serveur, je ne peux que vous conseiller l'excellent [**Pterodactyl**](https://pterodactyl.io/).
 
 ___
 
@@ -28,16 +32,20 @@ This is a project made during my studies to manage dedicated game servers using 
 
 Following the end of the first project version using only native Web languages and technologies (`no-symfony` branch), the latest version reuses the original code while migrating to the [Symfony](https://symfony.com/) framework to enjoy technical, performance and security improvements. Even though it still suffers from a significant technological debt due to the absence of a framework to manage the front-end, the original code has been migrated to [TypeScript](https://www.typescriptlang.org/) for greater robustness.
 
-<ins>Here are the requirements to run the website</ins>:
-* [**Any** maintained PHP versions with active support](https://www.php.net/supported-versions.php)
-* [**Any** maintained NodeJS LTS versions](https://github.com/nodejs/release#release-schedule)
-* [**Any** maintained Redis versions](https://docs.redis.com/latest/rs/installing-upgrading/install/plan-deployment/supported-platforms/)
-* [**Any** databases supported by Doctrine ORM](https://www.doctrine-project.org/projects/doctrine-dbal/en/current/reference/platforms.html)
+> [!NOTE]
+> Here are the requirements to run the website:
+> * [**Any** maintained PHP versions with active support](https://www.php.net/supported-versions.php)
+> * [**Any** maintained NodeJS LTS versions](https://github.com/nodejs/release#release-schedule)
+> * [**Any** maintained Redis versions](https://docs.redis.com/latest/rs/installing-upgrading/install/plan-deployment/supported-platforms/)
+> * [**Any** databases supported by Doctrine ORM](https://www.doctrine-project.org/projects/doctrine-dbal/en/current/reference/platforms.html)
 
-⚠️ [**PLEASE READ BEFORE USING**] This project is intended to run in a production environment, but it should be considered as a "proof of concept" for my studies concerning the usage of native Web technologies to communicate with RCON protocol. If you intend to use this kind of website to manage your server, I advise you to consider using the excellent [**Pterodactyl**](https://pterodactyl.io/).
+> [!TIP]
+> To test the project, you simply have to install all the necessary dependencies with `composer install` command (requires [Composer](https://getcomposer.org/download/)), install [MariaDB](https://mariadb.org/download/) / [Redis](https://redis.io/download/) / [NodeJS](https://nodejs.org/en/download), then launch a local HTTP server running PHP such as [WAMP](https://www.wampserver.com/) (Windows) or [XAMPP](https://www.apachefriends.org/index.html) (Linux/MacOS). A Docker image is also available to test this project for more experienced people! 🐳
 
-**A Docker image is also available to test this project for the most skilled people! 🐳**
+> [!WARNING]
+> The whole code of this project is commented in my native language (in French) and will not be translated in English for easier programming.
 
-To keep it simple, the whole code is commented in my native language (French) but it will be translated in the near future if foreign contributors come to the project.
+> [!CAUTION]
+> This project is intended to run in a production environment, but it should be considered as a "proof of concept" for my studies concerning the usage of native Web technologies to communicate with RCON protocol. If you intend to use this kind of website to manage your server, I advise you to consider using the excellent [**Pterodactyl**](https://pterodactyl.io/).
 
 ![image](https://github.com/FlorianLeChat/Source-Web-Console/assets/26360935/0aaed929-a530-4c41-bdbc-2e05eab82e9e)
