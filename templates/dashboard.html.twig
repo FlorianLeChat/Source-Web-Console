@@ -44,7 +44,7 @@
 						<input type="hidden" name="token" value="{{ csrf_token("server_edit") }}">
 						<input type="hidden" name="token" value="{{ csrf_token("server_delete") }}">
 
-						<button type="submit" name="server_edit">
+						<button type="submit" name="server_edit" title="{{ t("global.update")|trans }}">
 							<i class="bi bi-pencil-square"></i>
 						</button>
 					</form>
@@ -55,7 +55,7 @@
 						<input type="hidden" name="token" value="{{ csrf_token("server_connect") }}">
 						<input type="hidden" name="action" value="connect" />
 
-						<button type="submit" name="server_connect">
+						<button type="submit" name="server_connect" title="{{ t("global.update")|trans }}">
 							<i class="bi bi-plug"></i>
 						</button>
 					</form>
@@ -63,14 +63,14 @@
 			{% endfor %}
 		</ul>
 
-		<button type="button">
+		<button type="button" title="{{ t("index.feature.previous")|trans }}">
 			{# Serveurs précédents #}
 			<i class="bi bi-chevron-left"></i>
 		</button>
 
 		<span>1 / {{ max(dashboard_servers|length / 4, 1)|round(0, "ceil") }}</span>
 
-		<button type="button">
+		<button type="button" title="{{ t("index.feature.next")|trans }}">
 			{# Serveurs suivants #}
 			<i class="bi bi-chevron-right"></i>
 		</button>
