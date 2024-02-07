@@ -71,7 +71,7 @@
 		<header>
 			{% block header %}
 				{# Logo du site #}
-				<img src="{{ asset("build/images/logo.svg") }}" alt="Logo" decoding="async" />
+				<img src="{{ asset("build/images/logo.svg") }}" alt="Logo" loading="lazy" decoding="async" />
 
 				{# Titres du site #}
 				<div>
@@ -230,7 +230,7 @@
 
 				<li>
 					{# Bouton du formulaire de contact #}
-					<a href="javascript:void(0);">
+					<a href="#">
 						<i class="bi bi-envelope"></i>
 						<span>{{ t("footer.contact")|trans }}</span>
 					</a>

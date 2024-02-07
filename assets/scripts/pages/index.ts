@@ -233,10 +233,13 @@ login.on( "click", "[type = reset]", () =>
 // Permet de gérer les liens de redirection présents dans le
 //  formulaire de connexion.
 //
-const links = login.find( "a[href = \"javascript:void(0);\"]" );
+const links = login.find( "a[href = \"#\"]" );
 
-links.first().on( "click", () =>
+links.first().on( "click", ( event ) =>
 {
+	// Suppression du comportement par défaut.
+	event.preventDefault();
+
 	login.fadeOut( 150, () =>
 	{
 		// Redirection vers l'inscription.
@@ -244,8 +247,11 @@ links.first().on( "click", () =>
 	} );
 } );
 
-links.eq( 1 ).on( "click", () =>
+links.eq( 1 ).on( "click", ( event ) =>
 {
+	// Suppression du comportement par défaut.
+	event.preventDefault();
+
 	login.fadeOut( 150, () =>
 	{
 		// Redirection vers la connexion unique.

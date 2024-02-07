@@ -100,8 +100,10 @@ $( "[required]" ).on( "input", ( event ) =>
 //
 const contact = $( "#contact" );
 
-$( "footer" ).on( "click", "a[href = \"javascript:void(0);\"]", () =>
+$( "footer" ).on( "click", "a[href = \"#\"]", ( event ) =>
 {
+	event.preventDefault();
+
 	contact.fadeIn( 150 );
 } );
 
