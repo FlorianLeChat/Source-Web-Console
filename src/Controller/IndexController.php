@@ -16,7 +16,13 @@ final class IndexController extends AbstractController
 	{
 		return $this->render("index.html.twig", [
 			// État d'activation des services Google reCAPTCHA.
-			"index_recaptcha_enabled" => $this->getParameter("app.recaptcha_enabled") === "true"
+			"index_recaptcha_enabled" => $this->getParameter("app.recaptcha_enabled") === "true",
+
+			// État d'activation de l'authentification via les services Google.
+			"index_google_client_enabled" => $this->getParameter("app.google_client_enabled") === "true",
+
+			// État d'activation de l'authentification via les services GitHub.
+			"index_github_client_enabled" => $this->getParameter("app.github_client_enabled") === "true",
 		]);
 	}
 }

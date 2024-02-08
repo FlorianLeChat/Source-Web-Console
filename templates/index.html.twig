@@ -31,8 +31,8 @@
 			<li><button type="button">{{ t("index.login")|trans }}</button></li>
 
 			<li>
-				<a href="{{ path("user_oauth_connect", {name: "google"}) }}" title="Google"><i class="bi bi-google"></i></a>
-				<a href="{{ path("user_oauth_connect", {name: "github"}) }}" title="GitHub"><i class="bi bi-github"></i></a>
+				<a href="{{ path("user_oauth_connect", {name: "google"}) }}" title="Google" {{ index_google_client_enabled ? "" : "class=\"disabled\"" }}><i class="bi bi-google"></i></a>
+				<a href="{{ path("user_oauth_connect", {name: "github"}) }}" title="GitHub" {{ index_github_client_enabled ? "" : "class=\"disabled\"" }}><i class="bi bi-github"></i></a>
 			</li>
 		{% endif %}
 	</ul>

@@ -6,4 +6,6 @@ parameters:
     app.dkim_private_key: "%env(DKIM_PRIVATE_KEY)%"
     app.recaptcha_enabled: "%env(RECAPTCHA_ENABLED)%"
     app.recaptcha_private_key: "%env(RECAPTCHA_PRIVATE_KEY)%"
+    app.google_client_enabled: "%env(GOOGLE_CLIENT_ENABLED)%"
+    app.github_client_enabled: "%env(GITHUB_CLIENT_ENABLED)%"
     .container.dumper.inline_factories: true
