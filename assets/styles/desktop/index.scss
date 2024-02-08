@@ -85,6 +85,13 @@ header
 						font-size: 1.25rem;
 					}
 
+					&.disabled
+					{
+						// Désactivation conditionnelle du bouton.
+						filter: opacity(0.5);
+						pointer-events: none;
+					}
+
 					&:hover i
 					{
 						// Effet de sélection.
