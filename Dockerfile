@@ -55,8 +55,10 @@ WORKDIR /var/www/html
 # Copy only files required to install dependencies
 COPY --chown=www-data:www-data composer*.json ./
 
-# Install all dependencies
+# Install all dependencies (with root privileges)
 # Use cache mount to speed up installation of existing dependencies
+# https://github.com/composer/composer/issues/11839#issuecomment-1934505185
+ENV COMPOSER_ALLOW_SUPERUSER 1
 RUN --mount=type=cache,target=.composer \
 	composer install --no-dev --optimize-autoloader
 
