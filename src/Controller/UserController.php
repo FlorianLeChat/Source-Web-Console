@@ -114,7 +114,7 @@ final class UserController extends AbstractController
 		$server = new Server();
 
 		$user->setUsername($username = $request->request->get("username"));
-		$user->setPassword($this->hasher->hashPassword($user, $password = $request->request->get("password", "")));
+		$user->setPassword($password = $request->request->get("password", ""));
 		$user->setCreatedAt(new \DateTime());
 		$user->setAddress($request->getClientIp());
 		$user->setRoles(["ROLE_USER"]);
@@ -194,7 +194,9 @@ final class UserController extends AbstractController
 		$process->disableOutput();
 		$process->run();
 
-		// On enregistre après les informations dans la base de données.
+		// On chiffre après le mot de passe de l'utilisateur avant de l'enregistrer
+		//  dans la base de données.
+		$user->setPassword($this->hasher->hashPassword($user, $password));
 		$repository->save($user);
 		$this->entityManager->getRepository(Server::class)->save($server, true);
 
@@ -236,7 +238,7 @@ final class UserController extends AbstractController
 		// On vérifie ensuite si les informations sont valides.
 		$user = new User();
 		$user->setUsername($username = $request->request->get("username"));
-		$user->setPassword($this->hasher->hashPassword($user, $password = $request->request->get("password", "")));
+		$user->setPassword($password = $request->request->get("password"));
 
 		if (count($violations = $this->validator->validate($user)) > 0)
 		{
