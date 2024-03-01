@@ -22,7 +22,7 @@ final class ServerFixture extends Fixture implements DependentFixtureInterface
 
 		// Création d'un serveur valide et existant.
 		$server = new Server();
-		$server->setAddress("208.103.169.233");
+		$server->setAddress("145.239.211.147");
 		$server->setPort(27015);
 		$server->setGame(4000);
 		$server->setUser($user);
