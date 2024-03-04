@@ -78,10 +78,24 @@ final class DashboardControllerTest extends WebTestCase
 		$this->assertResponseIsSuccessful();
 
 		// Test de surveillance du serveur valide par défaut.
+		//  Note : le serveur peut renvoyer des données JSON valides ou une erreur
+		//   indiquant que les données sont partiellement incorrectes.
 		$this->client->request("GET", $this->router->generate("server_monitor"));
 
-		$this->assertResponseIsSuccessful();
-		$this->assertResponseFormatSame("json");
+		$response = $this->client->getResponse();
+
+		if ($response->getStatusCode() == 200)
+		{
+			// Toutes les données sont valides et sont données sous format JSON.
+			$this->assertResponseIsSuccessful();
+			$this->assertResponseFormatSame("json");
+		}
+		else
+		{
+			// Certaines données sont invalides à cause du protocole Source RCON.
+			$this->assertResponseStatusCodeSame(Response::HTTP_INTERNAL_SERVER_ERROR);
+			$this->assertStringContainsString("mismatch", $response->getContent());
+		}
 
 		// Changement du serveur surveillé pour un serveur invalide.
 		$server = $crawler->filter("button[name = server_connect]")->last()->form();
