@@ -6,6 +6,20 @@ import "../global";
 import { addQueuedNotification } from "../functions";
 
 //
+// Permet de lancer la vidéo en arrière-plan seulement sur les
+//  ordinateurs et les tablettes afin d'économiser la bande passante.
+//
+if ( window.matchMedia( "(min-width: 769px)" ).matches )
+{
+	// Basculement des attributs de la balise vidéo.
+	const video = $( "source" );
+	video.attr( "src", video.data( "src" ) );
+
+	// Chargement et lancement de la vidéo.
+	$( "video" ).trigger( "load" );
+}
+
+//
 // Permet de gérer les ouvertures/fermetures de certains
 //  formulaires de la page d'accueil.
 //
