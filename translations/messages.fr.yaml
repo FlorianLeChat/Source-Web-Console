@@ -64,7 +64,7 @@ form:
         failed: "Une erreur interne s'est produite lors de l'envoi de votre message au site Internet."
         success: "Le message à été envoyé avec succès. Vous recevrez une réponse dans les plus brefs délais."
         content: "Indiquez le contenu de votre message"
-        mailing: "Votre message d'assistance à bien été envoyé. Vous receverez une réponse sous 24 heures.\n\nVoici le récapitulatif de votre message :\n\n%s"
+        mailing: "Votre message d'assistance à bien été envoyé. Vous recevrez une réponse sous 24 heures.\n\nVoici le récapitulatif de votre message :\n\n%s"
         subject:
             default: "Sélectionnez le sujet du contact"
             1: "J'ai un problème avec l'inscription d'un compte"
@@ -223,7 +223,7 @@ user:
     oauth_success: "Vous avez été authentifié avec succès. S'il s'agit de votre première connexion, veuillez ajouter un nouveau serveur à votre compte avant de continuer."
 
 dashboard:
-    tips: "Vous êtes sur le tableau de bord. Sur cette page, vous pouvez voir l'état général de votre serveur ainsi que réaliser certaines actions rapides. De cette manière, vous avez un oeil sur l'ensemble de votre infrastructure."
+    tips: "Vous êtes sur le tableau de bord. Sur cette page, vous pouvez voir l'état général de votre serveur ainsi que réaliser certaines actions rapides. De cette manière, vous avez un œil sur l'ensemble de votre infrastructure."
     users: "Liste des utilisateurs"
     state:
         map: "Carte actuelle"
