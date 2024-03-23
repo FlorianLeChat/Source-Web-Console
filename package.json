@@ -56,7 +56,8 @@
     "build": "encore production --progress",
     "prepare": "husky",
     "dev-server": "encore dev-server",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "check-spell": "cspell translations/** --show-context --show-suggestions"
   },
   "browserslist": [
     "defaults"
