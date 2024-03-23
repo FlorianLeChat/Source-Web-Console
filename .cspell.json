@@ -1,0 +1,18 @@
+{
+	"import": ["./node_modules/@cspell/dict-fr-fr/cspell-ext.json"],
+	"version": "0.2",
+	"language": "fr, en",
+	"words": [
+		"recaptcha",
+		"csrf",
+		"rgpd",
+		"capslock",
+		"RCON",
+		"rcon",
+		"nodata",
+		"gamemode",
+		"PHPSESSID",
+		"SYMFONY",
+		"RGPD"
+	]
+}
