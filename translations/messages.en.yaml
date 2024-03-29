@@ -105,20 +105,20 @@ legal:
     tips: "You are on the legal notice page of the website. You can find all the legal information available by using this website. They are only available in French."
 
 index:
-    next: "Next"
     tips: "You are on the website's home page. You can find a list of features here, along with the ability to register and connect to a user account."
     login: "Login"
     feature:
+        next: "Next"
         title:
             2: "Powerful"
             3: "Modern"
             4: "Secure"
+        previous: "Previous"
         description:
             1: "Welcome to the online administration interface for multiplayer servers running Valve Corporation's Source engine. The website offers several powerful and easy-to-use tools to easily manage your servers. It is compatible with popular games like <strong>Garry's Mod</strong>, <strong>Minecraft</strong> et <strong>Counter-Strike : Global Offensive</strong>!"
             2: "Unlike other competing solutions, this website allows you to use the RCON communication protocol without interruption and in a fast and easy way. Additionally, the website has several optimizations to reduce access and loading times, which are traditionally long with the most famous hosts."
             3: "The RCON communication protocol is subject to several modifications and updates every year to improve the performance of interactions between third parties (us) and the remote API used on game servers. As a result, all current solutions are sometimes rendered obsolete or out of service for months or even years as creators need to revise their communication tools. This website uses new ways to be practically independent from updates and to be able to continue to work despite major changes made by Valve."
             4: "Thanks to the use of modern, high-performance RCON communications tools, end-to-end security and encryption of data transmitted and received by the website is now possible. Any sensitive information you may enter will be automatically encrypted using a military-grade algorithm. We never store passwords in clear text, never."
-    previous: "Previous"
     register: "Register"
     recaptcha: "This site is protected by reCAPTCHA and the Google <a href=\"https://policies.google.com/privacy\" target=\"blank\">Privacy Policy</a> and <a href=\"https://policies.google.com/terms\" target=\"blank\">Terms of Service</a> apply."
 

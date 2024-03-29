@@ -105,20 +105,20 @@ legal:
     tips: "Vous êtes sur la page des mentions légales du site. Vous pouvez retrouver toutes les informations juridiques disponibles en utilisant ce site Internet. Elles sont uniquement disponibles en français."
 
 index:
-    next: "Suivant"
     tips: "Vous êtes sur la page d'accueil du site. Vous pourrez retrouver la liste des fonctionnalités ainsi que la possibilité de vous inscrire et que de vous connecter à un compte utilisateur."
     login: "Connexion"
     feature:
+        next: "Suivant"
         title:
             2: "Performant"
             3: "Moderne"
             4: "Sécurisé"
+        previous: "Précédent"
         description:
             1: "Bienvenue sur l'interface d'administration en ligne pour serveurs multi-joueurs exécutant le moteur Source de Valve Corporation. Le site propose plusieurs outils performants et simples d'utilisation pour gérer facilement ses serveurs. Il est compatible avec les jeux populaires du moment comme <strong>Garry's Mod</strong>, <strong>Minecraft</strong> et <strong>Counter-Strike : Global Offensive</strong> !"
             2: "À la place des solutions actuelles et concurrences, le site vous permettra d'exploiter le protocole de communication RCON sans aucun interruption ainsi que de façon rapide et facile d'accès. De plus, le site possède plusieurs optimisations pour réduire les temps d'accès et de chargement traditionnellement longs chez les hébergeurs les plus connus."
             3: "Le protocole de communication RCON subit plusieurs modifications et mises à jour chaque année pour rendre plus performant les interactions entre les tiers (nous) et l'API distant utilisé sur les serveurs de jeux. De ce fait, toutes les solutions actuelles sont parfois rendues obsolètes ou hors-service pendant des mois voir des années car les créateurs doivent réviser leurs outils de communication. Le site utilise de nouveaux moyens afin d'être presque indépendant aux mises à jour et de pouvoir continuer de fonctionner malgré des modifications importantes réalisées par Valve."
             4: "Grâce à l'utilisation de moyens modernes et performances des outils de communications RCON, la sécurisation et le chiffrement de bout en bout des données transmises et reçues par le site est maintenant possible. Toutes les informations sensibles que vous pourriez peut-être renseignées seront automatiquement chiffré au travers d'algorithme de type de militaire. Nous ne stockons jamais en clair les mots de passes, jamais."
-    previous: "Précédent"
     register: "Inscription"
     recaptcha: "Ce site est protégé par reCAPTCHA sur lequel s'appliquent les <a href=\"https://policies.google.com/privacy\" target=\"blank\">politiques de confidentialité</a> et les <a href=\"https://policies.google.com/terms\" target=\"blank\">conditions d'utilisation</a> de Google."
 
