@@ -3,6 +3,7 @@
 /.env.local.php
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
+/docker-compose.override.yml
 /public/bundles/
 /docker/mysql/database/
 /docker/redis/database/
