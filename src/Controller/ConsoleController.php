@@ -62,7 +62,7 @@ final class ConsoleController extends AbstractController
 				// En cas de réussite, on définit le serveur comme étant
 				//  capable d'envoyer ses journaux d'événements au site.
 				$this->serverManager->query->Rcon("log on");
-				$this->serverManager->query->Rcon("logaddress_add $address:2004");
+				$this->serverManager->query->Rcon("logaddress_add $address:8443");
 			}
 			catch (\Exception) {}
 			finally
