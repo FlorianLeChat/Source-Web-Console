@@ -16,7 +16,7 @@ C'est un projet réalisé durant mes études afin de permettre de gérer les ser
 > * [**Toute** base de données supportée par Doctrine ORM](https://www.doctrine-project.org/projects/doctrine-dbal/en/current/reference/platforms.html)
 
 > [!TIP]
-> Pour essayer le projet, il suffit d'installer l'ensemble des dépendances nécessaires avec la commande `composer install` (nécessite [Composer](https://getcomposer.org/download/)), d'installer [MariaDB](https://mariadb.org/download/) / [Redis](https://redis.io/download/) / [NodeJS](https://nodejs.org/en/download), puis de lancer un serveur local HTTP utilisant PHP comme [WAMP](https://www.wampserver.com/) (Windows) ou [XAMPP](https://www.apachefriends.org/index.html) (Linux/MacOS). Une image Docker est aussi disponible pour tester ce projet pour les personnes les plus expérimentées ! 🐳
+> Pour essayer le projet, vous devez être en posession de [Docker](https://www.docker.com/). Une fois installé, il suffit de lancer l'image Docker de développement à l'aide de la commande `docker compose up --detach --build`. Lorsque le conteneur Docker est prêt, utilisez la commande `npm run watch` pour compiler automatiquement les fichiers *TypeScript* et *SASS* lors de chacune de vos modifications. Le site devrait être accessible à l'adresse suivante : http://localhost:8000/.
 
 > [!WARNING]
 > L'entièreté du code de ce projet est commenté dans ma langue natale (en français) et n'est pas voué à être traduit en anglais par soucis de simplicité de développement.
@@ -40,7 +40,7 @@ Following the end of the first project version using only native Web languages a
 > * [**Any** databases supported by Doctrine ORM](https://www.doctrine-project.org/projects/doctrine-dbal/en/current/reference/platforms.html)
 
 > [!TIP]
-> To test the project, you simply have to install all the necessary dependencies with `composer install` command (requires [Composer](https://getcomposer.org/download/)), install [MariaDB](https://mariadb.org/download/) / [Redis](https://redis.io/download/) / [NodeJS](https://nodejs.org/en/download), then launch a local HTTP server running PHP such as [WAMP](https://www.wampserver.com/) (Windows) or [XAMPP](https://www.apachefriends.org/index.html) (Linux/MacOS). A Docker image is also available to test this project for more experienced people! 🐳
+> To try the project, you must have [Docker](https://www.docker.com/) installed. Once installed, simply start the development Docker image with `docker compose up --detach --build` command. When the Docker container is ready, run the `npm run watch` command to automatically compile all *TypeScript* and *SASS* files each time you make changes. The website should be available at http://localhost:8000/.
 
 > [!WARNING]
 > The whole code of this project is commented in my native language (in French) and will not be translated in English for easier programming.
