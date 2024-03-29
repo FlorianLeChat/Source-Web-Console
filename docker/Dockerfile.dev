@@ -2,10 +2,10 @@
 
 # Use an customized image of PHP
 # https://hub.docker.com/_/php
-FROM php:apache
+FROM php:alpine
 
 # Install dependencies
-RUN apt update && apt install cron -y
+RUN apk update && apk add --no-cache bash
 
 # Install some PHP extensions
 RUN curl -sSLf -o /usr/local/bin/install-php-extensions \
@@ -36,21 +36,19 @@ RUN echo "0 * * * * /usr/local/bin/php /var/www/html/bin/console app:statistics-
 # Copy the remaining files AFTER installing dependencies
 COPY --chown=www-data:www-data . .
 
-# Set the document root to the public folder
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
-RUN sed -ri -e "s!/var/www/html!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/sites-available/*.conf && \
-	sed -ri -e "s!/var/www/!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf && \
-	a2enmod rewrite
-
 # Add wait script to wait for other services to be ready
 ADD https://github.com/ufoscout/docker-compose-wait/releases/latest/download/wait /wait
 RUN chmod +x /wait
 
+# Install Symfony CLI
+RUN curl -1sLf https://dl.cloudsmith.io/public/symfony/stable/setup.alpine.sh | bash && \
+	apk add symfony-cli
+
 # Use the default or custom PHP configuration (if exists)
 RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini && \
-    if [ -f "docker/php.ini" ]; then \
-    	mv "docker/php.ini" "$PHP_INI_DIR/php.ini"; \
-    fi
+	if [ -f "docker/php.ini" ]; then \
+		mv "docker/php.ini" "$PHP_INI_DIR/php.ini"; \
+	fi
 
 # Change current user to www-data
 USER www-data
@@ -61,6 +59,6 @@ RUN mkdir -p docker && echo '/wait && mkdir -p var/cache var/log && \
 	/usr/local/bin/php bin/console doctrine:database:create --no-interaction --if-not-exists && \
 	/usr/local/bin/php bin/console doctrine:schema:update --complete --force && \
 	/usr/local/bin/php bin/console app:udp-server 127.0.0.1:8443 & \
-	apache2-foreground' > docker/entrypoint.sh && chmod +x docker/entrypoint.sh
+	symfony server:start' > docker/entrypoint.sh && chmod +x docker/entrypoint.sh
 
 CMD ["docker/entrypoint.sh"]

@@ -103,7 +103,7 @@ services:
                     memory: 128M
         build:
             context: .
-            dockerfile: ./docker/Dockerfile-${APP_ENV}
+            dockerfile: ./docker/Dockerfile.${APP_ENV}
         ports:
-            - "80:80"
+            - "8000:8000"
             - "8443:8443/udp"
