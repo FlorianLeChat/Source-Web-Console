@@ -4,6 +4,8 @@
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
+/docker/mysql/database/
+/docker/redis/database/
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
