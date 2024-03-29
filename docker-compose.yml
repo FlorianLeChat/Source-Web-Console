@@ -12,7 +12,7 @@ services:
         image: redis:alpine
         restart: always
         command: >
-            --requirepass password --maxmemory 128mb --maxmemory-policy allkeys-lru
+            --requirepass ${REDIS_PASSWORD} --maxmemory 128mb --maxmemory-policy allkeys-lru
         volumes:
             - ./docker/redis/config:/usr/local/etc/redis
             - ./docker/redis/database:/data
@@ -23,7 +23,7 @@ services:
             retries: 3
             timeout: 5s
         ports:
-            - 6379:6379
+            - "6379:${REDIS_PORT}"
 
     # https://hub.docker.com/_/mariadb
     mariadb:
@@ -31,19 +31,12 @@ services:
         restart: always
         volumes:
             - ./docker/mysql/database:/var/lib/mysql
-        secrets:
-            - db_password
-            - db_root_password
         environment:
-            MARIADB_DATABASE: source_web_console
-            MARIADB_PORT: 3306
-            MARIADB_USER: source_web_console
-            # > Default credentials (for test image)
-            MARIADB_PASSWORD: password
-            MARIADB_ROOT_PASSWORD: password
-            # > Custom credentials with secrets (for production image)
-            # MARIADB_PASSWORD_FILE: /run/secrets/db_password
-            # MARIADB_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+            MARIADB_DATABASE: ${DATABASE_NAME}
+            MARIADB_PORT: ${DATABASE_PORT}
+            MARIADB_USER: ${DATABASE_USERNAME}
+            MARIADB_PASSWORD: ${DATABASE_PASSWORD}
+            MARIADB_RANDOM_ROOT_PASSWORD: 1
         networks:
             - source_web_console
         healthcheck:
@@ -51,19 +44,49 @@ services:
             retries: 3
             timeout: 5s
         ports:
-            - 3306:3306
+            - "3306:${DATABASE_PORT}"
+
+    # https://hub.docker.com/_/phpmyadmin
+    phpmyadmin:
+        image: phpmyadmin:latest
+        restart: always
+        depends_on:
+            - mariadb
+        environment:
+            - MEMORY_LIMIT=64M
+            - PMA_HOST=${DATABASE_HOST}
+            - PMA_PORT=${DATABASE_PORT}
+            - PMA_USER=${DATABASE_USERNAME}
+            - PMA_PASSWORD=${DATABASE_PASSWORD}
+        networks:
+            - source_web_console
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://localhost:8080"]
+            retries: 3
+            timeout: 5s
+        deploy:
+            resources:
+                limits:
+                    cpus: "1"
+                    memory: 128M
+                reservations:
+                    cpus: "0.25"
+                    memory: 32M
+        ports:
+            - "8080:80"
 
     # https://github.com/FlorianLeChat/Source-Web-Console
     php:
         image: source-web-console
         restart: always
+        volumes:
+            - ./public/build:/var/www/html/public/build
+            - ./docker/mysql/database:/var/lib/mysql
         depends_on:
             - redis
             - mariadb
-        secrets:
-            - db_password
         environment:
-            - WAIT_HOSTS=redis:6379, mariadb:3306
+            - WAIT_HOSTS=redis:${REDIS_PORT}, mariadb:${DATABASE_PORT}
         networks:
             - source_web_console
         healthcheck:
@@ -79,15 +102,8 @@ services:
                     cpus: "0.25"
                     memory: 128M
         build:
-            args:
-                - VERSION
             context: .
-            dockerfile: ./Dockerfile
+            dockerfile: ./docker/Dockerfile-${APP_ENV}
         ports:
-            - 80:80
-
-secrets:
-    db_password:
-        file: ./docker/mysql/config/db_password.txt
-    db_root_password:
-        file: ./docker/mysql/config/db_root_password.txt
+            - "80:80"
+            - "8443:8443/udp"
