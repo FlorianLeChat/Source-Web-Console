@@ -60,7 +60,7 @@ USER www-data
 RUN mkdir -p docker && echo '/wait && mkdir -p var/cache var/log && \
 	/usr/local/bin/php bin/console doctrine:database:create --no-interaction --if-not-exists && \
 	/usr/local/bin/php bin/console doctrine:schema:update --complete --force && \
-	/usr/local/bin/php bin/console app:udp-server 127.0.0.1:2004 & \
+	/usr/local/bin/php bin/console app:udp-server 127.0.0.1:8443 & \
 	apache2-foreground' > docker/entrypoint.sh && chmod +x docker/entrypoint.sh
 
 CMD ["docker/entrypoint.sh"]
