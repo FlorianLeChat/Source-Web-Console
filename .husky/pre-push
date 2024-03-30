@@ -1,5 +1,5 @@
 npx.cmd cspell translations/** --no-summary --no-progress --no-must-find-files
-rm var/data.db
+rm -f var/data.db
 php bin/console --env=test doctrine:database:create --no-interaction
 php bin/console --env=test doctrine:schema:create --no-interaction
 php bin/console --env=test doctrine:fixtures:load --no-interaction
