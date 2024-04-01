@@ -68,7 +68,7 @@ RUN --mount=type=cache,target=.composer composer install --no-dev --optimize-aut
 
 # Use the PHP custom entrypoint
 # https://symfony.com/doc/current/deployment.html / https://symfony.com/doc/current/setup/file_permissions.html
-RUN mkdir -p docker && echo '/wait && mkdir -p var/cache var/log && \
+RUN echo '/wait && mkdir -p var/cache var/log && \
 	/usr/local/bin/php bin/console cache:clear && composer dump-env prod && \
 	/usr/local/bin/php bin/console doctrine:database:create --no-interaction --if-not-exists && \
 	/usr/local/bin/php bin/console doctrine:schema:update --complete --force && \
