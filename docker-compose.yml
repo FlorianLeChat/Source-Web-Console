@@ -53,7 +53,6 @@ services:
         depends_on:
             - mariadb
         environment:
-            MEMORY_LIMIT: 64M
             PMA_HOST: ${DATABASE_HOST}
             PMA_PORT: ${DATABASE_PORT}
             PMA_USER: ${DATABASE_USERNAME}
