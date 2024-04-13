@@ -1,7 +1,5 @@
 name: source-web-console
 
-version: "3.8"
-
 networks:
     source_web_console:
         driver: bridge
