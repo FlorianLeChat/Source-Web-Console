@@ -29,6 +29,9 @@ RUN npm prune --production
 # https://hub.docker.com/_/php
 FROM php:fpm-alpine
 
+# Install system dependencies
+RUN apk update && apk add --no-cache supercronic
+
 # Install some PHP extensions
 RUN curl -sSLf -o /usr/local/bin/install-php-extensions \
 		https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions && \
@@ -43,8 +46,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 # Add some cronjobs for Symfony custom commands
 # https://github.com/webdevops/Dockerfile/issues/280#issuecomment-1311681838
-RUN echo "* * * * * /usr/local/bin/php /var/www/html/bin/console app:tasks-executor > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
-RUN echo "0 * * * * /usr/local/bin/php /var/www/html/bin/console app:statistics-collector > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
+RUN echo "* * * * * /usr/local/bin/php /var/www/html/bin/console app:tasks-executor > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data
+RUN echo "0 * * * * /usr/local/bin/php /var/www/html/bin/console app:statistics-collector > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data
 
 # Add wait script to wait for other services to be ready
 ADD https://github.com/ufoscout/docker-compose-wait/releases/latest/download/wait /wait
@@ -68,7 +71,7 @@ RUN --mount=type=cache,target=.composer composer install --no-dev --optimize-aut
 
 # Use the PHP custom entrypoint
 # https://symfony.com/doc/current/deployment.html / https://symfony.com/doc/current/setup/file_permissions.html
-RUN echo '/wait && mkdir -p var/cache var/log && \
+RUN echo '/wait && mkdir -p var/cache var/log && supercronic /etc/crontabs/www-data \
 	/usr/local/bin/php bin/console cache:clear && composer dump-env prod && \
 	/usr/local/bin/php bin/console doctrine:database:create --no-interaction --if-not-exists && \
 	/usr/local/bin/php bin/console doctrine:schema:update --complete --force && \
