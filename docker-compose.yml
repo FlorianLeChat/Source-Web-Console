@@ -73,9 +73,6 @@ services:
                 - action: sync
                   path: .
                   target: /var/www/html
-        volumes:
-            - ./public/build:/var/www/html/public/build
-            - ./docker/mysql/database:/var/lib/mysql
         depends_on:
             - redis
             - mariadb
