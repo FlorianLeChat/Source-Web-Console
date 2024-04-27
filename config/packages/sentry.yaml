@@ -4,7 +4,7 @@ when@prod:
         options:
             integrations:
                 - Sentry\Integration\IgnoreErrorsIntegration
-            traces_sample_rate: 0.1
+            traces_sample_rate: 0.01
         register_error_handler: false
         register_error_listener: false
 
