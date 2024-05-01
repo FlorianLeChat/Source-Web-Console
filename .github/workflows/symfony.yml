@@ -36,7 +36,7 @@ jobs:
       run: npm run build
     - name: Create database and load fixtures
       run: |
-        php bin/console --env=test doctrine:database:create --no-interaction
+        touch var/data.db
         php bin/console --env=test doctrine:schema:create --no-interaction
         php bin/console --env=test doctrine:fixtures:load --no-interaction
     - name: Run PHP Code Sniffer
