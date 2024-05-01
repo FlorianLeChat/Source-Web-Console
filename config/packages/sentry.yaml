@@ -4,6 +4,13 @@ when@prod:
         options:
             integrations:
                 - Sentry\Integration\IgnoreErrorsIntegration
+            ignore_exceptions:
+                - Symfony\Component\ErrorHandler\Error\FatalError
+                - Symfony\Component\Debug\Exception\FatalErrorException
+                - Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+                - Symfony\Component\HttpKernel\Exception\InsufficientAuthenticationException
+                - Symfony\Component\Security\Core\Exception\AccessDeniedException
+                - Symfony\Component\Security\Core\Exception\InsufficientAuthenticationException
             traces_sample_rate: 0.01
         register_error_handler: false
         register_error_listener: false
