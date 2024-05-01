@@ -36,6 +36,7 @@ jobs:
       run: npm run build
     - name: Create database and load fixtures
       run: |
+        mkdir -p var
         touch var/data.db
         php bin/console --env=test doctrine:schema:create --no-interaction
         php bin/console --env=test doctrine:fixtures:load --no-interaction
