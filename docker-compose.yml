@@ -81,7 +81,7 @@ services:
         networks:
             - source_web_console
         healthcheck:
-            test: curl -f http://127.0.0.1:9000/ 2>&1 | grep "Connection reset by peer" || curl -f http://localhost
+            test: curl -f http://127.0.0.1:9000/ 2>&1 | grep "Connection reset by peer" || curl -f http://localhost:8000/
             retries: 3
             timeout: 5s
         build:
