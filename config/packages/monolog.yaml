@@ -12,18 +12,18 @@ when@dev:
                 channels: ["!event"]
             console:
                 type: console
-                process_psr_3_messages: false
                 channels: ["!event", "!doctrine", "!console"]
+                process_psr_3_messages: false
 
 when@test:
     monolog:
         handlers:
             main:
                 type: fingers_crossed
-                action_level: error
                 handler: nested
-                excluded_http_codes: [404, 405]
                 channels: ["!event"]
+                action_level: error
+                excluded_http_codes: [404, 405]
             nested:
                 type: stream
                 path: "%kernel.logs_dir%/%kernel.environment%.log"
@@ -34,10 +34,10 @@ when@prod:
         handlers:
             main:
                 type: fingers_crossed
-                action_level: error
                 handler: nested
-                excluded_http_codes: [404, 405]
                 buffer_size: 50
+                action_level: error
+                excluded_http_codes: [404, 405]
             nested:
                 type: stream
                 path: php://stderr
@@ -45,9 +45,10 @@ when@prod:
                 formatter: monolog.formatter.json
             console:
                 type: console
-                process_psr_3_messages: false
                 channels: ["!event", "!doctrine"]
+                process_psr_3_messages: false
             deprecation:
                 type: stream
-                channels: [deprecation]
                 path: php://stderr
+                channels: [deprecation]
+                formatter: monolog.formatter.json

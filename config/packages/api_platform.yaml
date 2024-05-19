@@ -15,4 +15,5 @@ api_platform:
             standard_put: true
             rfc_7807_compliant_errors: true
     keep_legacy_inflector: false
+    use_symfony_listeners: true
     event_listeners_backward_compatibility_layer: false
