@@ -2,3 +2,4 @@ twig:
     globals:
         global_analytics: "%env(ANALYTICS_TAG)%"
         global_recaptcha: "%env(RECAPTCHA_PUBLIC_KEY)%"
+    file_name_pattern: "*.twig"
