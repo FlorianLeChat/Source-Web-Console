@@ -1,9 +1,5 @@
 name: source-web-console
 
-networks:
-    source_web_console:
-        driver: bridge
-
 services:
     # https://hub.docker.com/_/redis
     redis:
@@ -14,8 +10,6 @@ services:
         volumes:
             - ./docker/redis/config:/usr/local/etc/redis
             - ./docker/redis/database:/data
-        networks:
-            - source_web_console
         healthcheck:
             test: redis-cli --raw incr ping
             retries: 3
@@ -35,8 +29,6 @@ services:
             MARIADB_USER: ${DATABASE_USERNAME}
             MARIADB_PASSWORD: ${DATABASE_PASSWORD}
             MARIADB_RANDOM_ROOT_PASSWORD: 1
-        networks:
-            - source_web_console
         healthcheck:
             test: healthcheck.sh --su-mysql --connect --innodb_initialized
             retries: 3
@@ -55,8 +47,6 @@ services:
             PMA_PORT: ${DATABASE_PORT}
             PMA_USER: ${DATABASE_USERNAME}
             PMA_PASSWORD: ${DATABASE_PASSWORD}
-        networks:
-            - source_web_console
         healthcheck:
             test: curl -f http://localhost
             retries: 3
@@ -78,8 +68,6 @@ services:
             - mariadb
         environment:
             - WAIT_HOSTS=redis:${REDIS_PORT}, mariadb:${DATABASE_PORT}
-        networks:
-            - source_web_console
         healthcheck:
             test: curl -f http://127.0.0.1:9000/ 2>&1 | grep "Connection reset by peer" || curl -f http://localhost:8000/
             retries: 3
