@@ -269,6 +269,13 @@ final class UserController extends AbstractController
 		$user = $this->getUser();
 		$user->setAddress($request->getClientIp());
 
+		if ($this->hasher->needsRehash($user))
+		{
+			// Mise à jour du hachage du mot de passe de l'utilisateur
+			//  si nécessaire.
+			$user->setPassword($this->hasher->hashPassword($user, $password));
+		}
+
 		$repository->save($user, true);
 
 		// On envoie enfin la réponse au client.
