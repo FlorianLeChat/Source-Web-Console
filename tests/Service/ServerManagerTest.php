@@ -83,7 +83,7 @@ class ServerManagerTest extends KernelTestCase
 	public function testGetGameIDByAddress(): void
 	{
 		// Récupération du jeu « Counter-Strike 2 ».
-		$this->assertTrue($this->serverManager->getGameIDByAddress("216.52.148.47", 27015) === 730);
+		$this->assertTrue($this->serverManager->getGameIDByAddress("178.32.80.148", 27015) === 730);
 
 		// Récupération du jeu « Garry's Mod ».
 		$this->assertTrue($this->serverManager->getGameIDByAddress("145.239.211.147", 27015) === 4000);
