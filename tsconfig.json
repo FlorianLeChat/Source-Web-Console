@@ -7,8 +7,9 @@
 		"strict": true,
 		"target": "esnext",
 		"module": "esnext",
-		"allowJs": true,
 		"outDir": "./var",
+		"allowJs": true,
+		"checkJs": true,
 		"incremental": true,
 		"skipLibCheck": true,
 		"noImplicitAny": true,
@@ -24,6 +25,7 @@
 		"noImplicitOverride": true,
 		"noUnusedParameters": true,
 		"strictFunctionTypes": true,
+		"verbatimModuleSyntax": true,
 		"noFallthroughCasesInSwitch": true,
 		"allowSyntheticDefaultImports": true,
 		"forceConsistentCasingInFileNames": true
