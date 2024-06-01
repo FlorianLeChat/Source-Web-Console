@@ -17,10 +17,10 @@
     "@types/grecaptcha": "~3.0",
     "@babel/preset-env": "~7.24",
     "@symfony/webpack-encore": "~4.6",
-    "sass": "~1.76",
+    "sass": "~1.77",
     "husky": "~9.0",
     "dotenv": "~16.4",
-    "cspell": "~8.7",
+    "cspell": "~8.8",
     "jquery": "~3.7",
     "core-js": "~3.37",
     "webpack": "~5.91",
@@ -42,7 +42,7 @@
     "vanilla-cookieconsent": "3.0.1",
     "chartjs-adapter-date-fns": "~3.0",
     "@total-typescript/ts-reset": "~0.5",
-    "@typescript-eslint/eslint-plugin": "~7.8"
+    "@typescript-eslint/eslint-plugin": "~7.11"
   },
   "engines": {
     "node": ">=18.0",
