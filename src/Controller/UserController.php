@@ -149,7 +149,8 @@ final class UserController extends AbstractController
 				// Récupération de l'identifiant unique du jeu.
 				$server->setGame($this->serverManager->getGameIDByAddress($serverAddress, $serverPort));
 			}
-			elseif (!empty($serverPassword))
+
+			if (!empty($serverPassword))
 			{
 				// Chiffrement du mot de passe administrateur.
 				$server->setPassword($this->serverManager->encryptPassword($serverPassword));
@@ -594,7 +595,8 @@ final class UserController extends AbstractController
 			// Récupération de l'identifiant unique du jeu.
 			$server->setGame($this->serverManager->getGameIDByAddress($address, $port));
 		}
-		elseif (!empty($password))
+
+		if (!empty($password))
 		{
 			// Chiffrement du mot de passe administrateur.
 			$server->setPassword($this->serverManager->encryptPassword($password));
