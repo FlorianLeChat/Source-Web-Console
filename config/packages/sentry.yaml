@@ -2,8 +2,6 @@ when@prod:
     sentry:
         dsn: "%env(SENTRY_DSN)%"
         options:
-            integrations:
-                - Sentry\Integration\IgnoreErrorsIntegration
             ignore_exceptions:
                 - Symfony\Component\ErrorHandler\Error\FatalError
                 - Symfony\Component\Debug\Exception\FatalErrorException
