@@ -22,7 +22,7 @@
 
         "react/datagram": "1.9.*",
         "api-platform/core": "3.3.*",
-        "nelmio/cors-bundle": "2.4.*",
+        "nelmio/cors-bundle": "2.5.*",
         "phpseclib/phpseclib": "3.0.*",
         "league/oauth2-google": "4.0.*",
         "league/oauth2-github": "3.1.*",
