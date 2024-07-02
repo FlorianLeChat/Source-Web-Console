@@ -23,6 +23,7 @@ services:
         restart: always
         volumes:
             - ./docker/mysql/database:/var/lib/mysql
+        command: [ "--collation-server=utf8mb4_unicode_ci" ]
         environment:
             MARIADB_DATABASE: ${DATABASE_NAME}
             MARIADB_PORT: ${DATABASE_PORT}
