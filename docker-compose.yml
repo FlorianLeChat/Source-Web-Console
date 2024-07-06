@@ -25,10 +25,12 @@ services:
             - ./docker/mysql/database:/var/lib/mysql
         command: [ "--collation-server=utf8mb4_unicode_ci" ]
         environment:
+            TZ: ${APP_TIMEZONE}
             MARIADB_DATABASE: ${DATABASE_NAME}
             MARIADB_PORT: ${DATABASE_PORT}
             MARIADB_USER: ${DATABASE_USERNAME}
             MARIADB_PASSWORD: ${DATABASE_PASSWORD}
+            MARIADB_INITDB_SKIP_TZINFO: true
             MARIADB_RANDOM_ROOT_PASSWORD: 1
         healthcheck:
             test: healthcheck.sh --su-mysql --connect --innodb_initialized
