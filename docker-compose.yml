@@ -57,6 +57,22 @@ services:
         ports:
             - "8080:80"
 
+    # https://hub.docker.com/_/varnish
+    varnish:
+        image: varnish:alpine
+        depends_on:
+            - php
+        volumes:
+            - ./docker/default.vcl:/etc/varnish/default.vcl:ro
+        environment:
+            VARNISH_SIZE: 128m
+        healthcheck:
+            test: wget -O - http://localhost
+            retries: 3
+            timeout: 5s
+        ports:
+            - "8081:80"
+
     # https://github.com/FlorianLeChat/Source-Web-Console
     php:
         image: source-web-console
