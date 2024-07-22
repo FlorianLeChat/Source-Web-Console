@@ -6,8 +6,6 @@ backend default {
 }
 
 sub vcl_recv {
-	set req.backend_hint = vdir.backend();
-
 	if (req.http.Cookie) {
 		set req.http.Cookie = ";" + req.http.Cookie;
 		set req.http.Cookie = regsuball(req.http.Cookie, "; +", ";");
