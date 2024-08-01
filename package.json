@@ -31,7 +31,6 @@
     "flag-icons": "~7.2",
     "file-loader": "~6.2",
     "webpack-cli": "~5.1",
-    "sass-loader": "~16.0",
     "lint-staged": "~15.2",
     "normalize.css": "~8.0",
     "bootstrap-icons": "~1.11",
