@@ -1,4 +1,4 @@
-npx.cmd cspell translations/** --no-summary --no-progress --no-must-find-files
+cspell translations/** --no-summary --no-progress --no-must-find-files
 rm -f var/data.db
 touch var/data.db
 php bin/console --env=test doctrine:schema:create --no-interaction
