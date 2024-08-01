@@ -12,18 +12,18 @@
     "url": "https://github.com/FlorianLeChat/Source-Web-Console/issues"
   },
   "devDependencies": {
-    "@babel/core": "~7.24",
+    "@babel/core": "~7.25",
     "@types/jquery": "~3.5",
     "@types/grecaptcha": "~3.0",
-    "@babel/preset-env": "~7.24",
+    "@babel/preset-env": "~7.25",
     "@symfony/webpack-encore": "~4.6",
     "sass": "~1.77",
-    "husky": "~9.0",
+    "husky": "~9.1",
     "dotenv": "~16.4",
-    "cspell": "~8.9",
+    "cspell": "~8.13",
     "jquery": "~3.7",
     "core-js": "~3.37",
-    "webpack": "~5.92",
+    "webpack": "~5.93",
     "chart.js": "~4.4",
     "prettier": "~3.3",
     "ts-loader": "~9.5",
@@ -31,7 +31,7 @@
     "flag-icons": "~7.2",
     "file-loader": "~6.2",
     "webpack-cli": "~5.1",
-    "sass-loader": "~14.2",
+    "sass-loader": "~16.0",
     "lint-staged": "~15.2",
     "normalize.css": "~8.0",
     "bootstrap-icons": "~1.11",
@@ -42,7 +42,7 @@
     "vanilla-cookieconsent": "3.0.1",
     "chartjs-adapter-date-fns": "~3.0",
     "@total-typescript/ts-reset": "~0.5",
-    "@typescript-eslint/eslint-plugin": "~7.14"
+    "@typescript-eslint/eslint-plugin": "~8.0"
   },
   "engines": {
     "node": ">=18.0",
