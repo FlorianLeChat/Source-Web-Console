@@ -5,7 +5,7 @@
 FROM php:alpine
 
 # Install system dependencies
-RUN apk update && apk add --no-cache bash supercronic
+RUN apk update && apk add --no-cache nodejs npm bash supercronic
 
 # Install some PHP extensions
 RUN curl -sSLf -o /usr/local/bin/install-php-extensions \
@@ -40,10 +40,16 @@ RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini && \
 		mv "docker/php.ini" "$PHP_INI_DIR/php.ini"; \
 	fi
 
+# Install all NPM dependencies
+# Use cache mount to speed up installation of existing dependencies
+RUN --mount=type=cache,target=.npm \
+	npm set cache .npm && \
+	npm install && chown -R www-data:www-data ./node_modules
+
 # Change current user to www-data
 USER www-data
 
-# Install all dependencies
+# Install all Composer dependencies
 # Use cache mount to speed up installation of existing dependencies
 RUN --mount=type=cache,target=.composer composer install
 
@@ -53,6 +59,6 @@ RUN echo '/wait && mkdir -p var/cache var/log && supercronic /etc/crontabs/www-d
 	/usr/local/bin/php bin/console doctrine:database:create --no-interaction --if-not-exists && \
 	/usr/local/bin/php bin/console doctrine:schema:update --complete --force && \
 	/usr/local/bin/php bin/console app:udp-server 127.0.0.1:8443 & \
-	symfony server:start' > docker/entrypoint.sh && chmod +x docker/entrypoint.sh
+	npm run watch & symfony server:start' > docker/entrypoint.sh && chmod +x docker/entrypoint.sh
 
 CMD ["docker/entrypoint.sh"]
