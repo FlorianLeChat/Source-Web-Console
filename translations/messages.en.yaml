@@ -8,7 +8,7 @@ global:
     too_many: "Please wait a few moments before performing a new action."
     fatal_error: "An internal error occurred while retrieving information from the server. Please refresh the page to restart the monitoring. Message: \"%error%\"."
     action_success: "The desired request has been successfully sent to the remote server. In some cases, there may be side effects depending on your server configuration."
-    recaptcha_error: "Google reCAPTCHA verification services are currently unavailable. If security cookies are disabled, some website features may not work properly."
+    recaptcha_error: "Google reCAPTCHA verification services are currently disabled or unavailable. If security cookies have been disabled, some website features may not work properly."
 
 header:
     title: "Administration"

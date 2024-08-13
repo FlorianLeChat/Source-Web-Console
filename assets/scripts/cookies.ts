@@ -12,85 +12,87 @@ if ( window.location.search !== "legal" )
 	$( "html" ).addClass( "cc--darkmode" );
 
 	// On lance le mécanisme de consentement des cookies.
-	run(
+	run( {
+		// Activation automatique de la fenêtre de consentement.
+		autoShow: process.env.NODE_ENV === "production",
+
+		// Désactivation de l'interaction avec la page.
+		disablePageInteraction: true,
+
+		// Disparition du mécanisme pour les robots.
+		hideFromBots: process.env.NODE_ENV === "production",
+
+		// Paramètres internes des cookies.
+		cookie: {
+			name: "SYMFONY_COOKIE"
+		},
+
+		// Paramètres de l'interface utilisateur.
+		guiOptions: {
+			consentModal: {
+				layout: "cloud inline",
+				position: "bottom center"
+			}
+		},
+
+		// Configuration des catégories de cookies.
+		categories: {
+			necessary: {
+				enabled: true,
+				readOnly: true
+			},
+			analytics: {
+				autoClear: {
+					cookies: [
+						{
+							name: /^(_ga|_gid)/
+						}
+					]
+				}
+			},
+			security: {
+				autoClear: {
+					cookies: [
+						{
+							name: /^(OTZ|__Secure-ENID|SOCS|CONSENT|AEC)/
+						}
+					]
+				}
+			}
+		},
+
+		// Configuration des traductions.
+		language: {
+			default: "en",
+			autoDetect: "document",
+			translations: {
+				en: "translations/en",
+				fr: "translations/fr"
+			}
+		},
+
+		// Exécution des actions de changement.
+		onChange: () =>
 		{
-			// Activation automatique de la fenêtre de consentement.
-			autoShow: process.env.NODE_ENV === "production",
+			window.location.reload();
+		},
 
-			// Désactivation de l'interaction avec la page.
-			disablePageInteraction: true,
+		// Exécution des actions de consentement.
+		onConsent: ( { cookie } ) => cookie.categories.forEach( ( category ) =>
+		{
+			switch ( category )
+			{
+				case "analytics":
+					sendAnalytics();
+					break;
 
-			// Disparition du mécanisme pour les robots.
-			hideFromBots: process.env.NODE_ENV === "production",
+				case "security":
+					setupRecaptcha();
+					break;
 
-			// Paramètres internes des cookies.
-			cookie: {
-				name: "SYMFONY_COOKIE"
-			},
-
-			// Paramètres de l'interface utilisateur.
-			guiOptions: {
-				consentModal: {
-					layout: "cloud inline",
-					position: "bottom center"
-				}
-			},
-
-			// Configuration des catégories de cookies.
-			categories: {
-				necessary: {
-					enabled: true,
-					readOnly: true
-				},
-				analytics: {
-					autoClear: {
-						cookies: [
-							{
-								name: /^(_ga|_gid)/
-							}
-						]
-					}
-				},
-				security: {
-					autoClear: {
-						cookies: [
-							{
-								name: /^(OTZ|__Secure-ENID|SOCS|CONSENT|AEC)/
-							}
-						]
-					}
-				}
-			},
-
-			// Configuration des traductions.
-			language: {
-				default: "en",
-				autoDetect: "document",
-				translations: {
-					en: "translations/en",
-					fr: "translations/fr"
-				}
-			},
-
-			// Exécution des actions de consentement.
-			onConsent: ( { cookie } ) => (
-				cookie.categories.forEach( ( category ) =>
-				{
-					switch ( category )
-					{
-						case "analytics":
-							sendAnalytics();
-							break;
-
-						case "security":
-							setupRecaptcha();
-							break;
-
-						default:
-							break;
-					}
-				} )
-			)
-		}
-	);
+				default:
+					break;
+			}
+		} )
+	} );
 }
