@@ -56,11 +56,47 @@ final class DashboardController extends AbstractController
 			return new Response(status: Response::HTTP_NOT_FOUND);
 		}
 
-		// Dans ce cas, on retourne le contenu des traductions en JSON.
-		return new JsonResponse(
-			Yaml::parseFile(sprintf("%s/translations/messages.%s.yaml", $this->kernel->getProjectDir(), $language)),
-			JsonResponse::HTTP_OK
+		// On charge ensuite le contenu du fichier YAML de traduction
+		//  pour le convertir en tableau associatif.
+		$translations = Yaml::parseFile(sprintf("%s/translations/messages.%s.yaml", $this->kernel->getProjectDir(), $language));
+
+		// On détermine si les services Google reCAPTCHA et Google Analytics
+		//  sont activés pour afficher les sections correspondantes dans les
+		//  consentements des cookies.
+		$isAnalyticsEnabled = $this->getParameter("app.analytics_enabled") === "true";
+		$isRecaptchaEnabled = $this->getParameter("app.recaptcha_enabled") === "true";
+
+		// On filtre ensuite les sections des préférences des cookies en fonction
+		//  de l'activation des services Google reCAPTCHA et Google Analytics.
+		$translations["preferencesModal"]["sections"] = array_filter(
+			$translations["preferencesModal"]["sections"],
+			function ($section) use ($isAnalyticsEnabled, $isRecaptchaEnabled)
+			{
+				// Google Analytics.
+				$category = $section["linkedCategory"] ?? "";
+
+				if ($category === "analytics" && !$isAnalyticsEnabled)
+				{
+					return false;
+				}
+
+				// Google reCAPTCHA.
+				if ($category === "security" && !$isRecaptchaEnabled)
+				{
+					return false;
+				}
+
+				// Autres sections.
+				return true;
+			}
 		);
+
+		// On effectue par la même occasion une nouvelle indexation des sections
+		//  pour éviter les clés manquantes dans le tableau associatif.
+		$translations["preferencesModal"]["sections"] = array_values($translations["preferencesModal"]["sections"]);
+
+		// On retourne enfin le contenu des traductions au format JSON.
+		return new JsonResponse($translations, JsonResponse::HTTP_OK);
 	}
 
 	//
