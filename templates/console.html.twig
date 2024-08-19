@@ -15,7 +15,7 @@
 		<div>
 			<input type="text" name="command" placeholder="{{ t("console.controller.placeholder")|trans }}" required />
 
-			<button type="button" title="{{ t("global.update")|trans }}" data-command="0" data-action="execute" data-token="{{ csrf_token("server_0") }}" data-route="{{ path("server_action") }}">
+			<button type="button" title="{{ t("global.update")|trans }}" aria-label="{{ t("global.update")|trans }}" data-command="0" data-action="execute" data-token="{{ csrf_token("server_0") }}" data-route="{{ path("server_action") }}">
 				<i class="bi bi-send-fill"></i>
 			</button>
 		</div>
