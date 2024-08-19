@@ -72,7 +72,7 @@
 				<input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" name="hostname" placeholder="<value>" />
 
 				{# Bouton de mise à jour #}
-				<button type="button" title="{{ t("global.update")|trans }}" data-type="hostname" data-token="{{ csrf_token("configuration_hostname") }}">
+				<button type="button" title="{{ t("global.update")|trans }}" aria-label="{{ t("global.update")|trans }}" data-type="hostname" data-token="{{ csrf_token("configuration_hostname") }}">
 					<i class="bi bi-cloud-upload-fill"></i>
 				</button>
 			</li>
@@ -88,7 +88,7 @@
 				<input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" name="loading" placeholder="<value>" />
 
 				{# Bouton de mise à jour #}
-				<button type="button" title="{{ t("global.update")|trans }}" data-type="loading" data-token="{{ csrf_token("configuration_loading") }}">
+				<button type="button" title="{{ t("global.update")|trans }}" aria-label="{{ t("global.update")|trans }}" data-type="loading" data-token="{{ csrf_token("configuration_loading") }}">
 					<i class="bi bi-cloud-upload-fill"></i>
 				</button>
 			</li>
@@ -104,7 +104,7 @@
 				<input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" name="rcon" placeholder="<value>" />
 
 				{# Bouton de mise à jour #}
-				<button type="button" title="{{ t("global.update")|trans }}" data-type="password" data-token="{{ csrf_token("configuration_password") }}">
+				<button type="button" title="{{ t("global.update")|trans }}" aria-label="{{ t("global.update")|trans }}" data-type="password" data-token="{{ csrf_token("configuration_password") }}">
 					<i class="bi bi-cloud-upload-fill"></i>
 				</button>
 			</li>
