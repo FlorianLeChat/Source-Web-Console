@@ -33,8 +33,7 @@ FROM php:fpm-alpine
 RUN apk update && apk add --no-cache supercronic
 
 # Install some PHP extensions
-RUN curl -sSLf -o /usr/local/bin/install-php-extensions \
-		https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions && \
+RUN curl -sSLf -o /usr/local/bin/install-php-extensions https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions && \
 	chmod +x /usr/local/bin/install-php-extensions && \
 	install-php-extensions zip pdo_mysql pdo_pgsql redis opcache intl
 

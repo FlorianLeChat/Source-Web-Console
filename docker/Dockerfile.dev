@@ -8,8 +8,7 @@ FROM php:alpine
 RUN apk update && apk add --no-cache nodejs npm bash supercronic
 
 # Install some PHP extensions
-RUN curl -sSLf -o /usr/local/bin/install-php-extensions \
-		https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions && \
+RUN curl -sSLf -o /usr/local/bin/install-php-extensions https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions && \
 	chmod +x /usr/local/bin/install-php-extensions && \
 	install-php-extensions zip pdo_mysql pdo_pgsql redis opcache intl
 
@@ -35,7 +34,7 @@ RUN curl -1sLf https://dl.cloudsmith.io/public/symfony/stable/setup.alpine.sh | 
 COPY --chown=www-data:www-data . .
 
 # Use the default or custom PHP configuration (if exists)
-RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini && \
+RUN mv $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini && \
 	if [ -f "docker/php.ini" ]; then \
 		mv "docker/php.ini" "$PHP_INI_DIR/php.ini"; \
 	fi
@@ -48,6 +47,10 @@ RUN --mount=type=cache,target=.npm \
 
 # Change current user to www-data
 USER www-data
+
+# Find and replace some default environment variables
+RUN sed -i "s#APP_SECRET=secret#APP_SECRET=$(openssl rand -base64 32)#g" .env
+RUN sed -i "s#SSL_PHRASE=passphrase#SSL_PHRASE=$(tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 30)#g" .env
 
 # Install all Composer dependencies
 # Use cache mount to speed up installation of existing dependencies
