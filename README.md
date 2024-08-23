@@ -9,15 +9,13 @@ C'est un projet réalisé durant mes études afin de permettre de gérer les ser
 À la fin de la première version du projet en utilisant seulement des langages et technologies natives d'Internet (branche `no-symfony`), la dernière version reprend le code d'origine tout en basculant sur le *framework* [Symfony](https://symfony.com/) pour profiter d'améliorations techniques, de performances mais aussi de sécurité. De plus, même si le souffre encore d'une dette technologique assez importante par l'absence de *framework* pour gérer la partie interface, le code d'origine a été migrée vers [TypeScript](https://www.typescriptlang.org/) pour une meilleure robustesse.
 
 > [!TIP]
-> Pour tester le projet, vous devez être en posession de [Docker](https://www.docker.com/). Une fois installé, il suffit de lancer l'image Docker de développement à l'aide de la commande `docker compose up --detach --build`. Lorsque le conteneur Docker est prêt, utilisez la commande `npm run watch` pour compiler automatiquement les fichiers *TypeScript* et *SASS* lors de chacune de vos modifications. Le site devrait être accessible à l'adresse suivante : http://localhost:8000/. Si vous souhaitez travailler sur le projet avec Docker, vous devez utiliser la commande `docker compose watch --no-up` pour que vos changements locaux soient automatiquement synchronisés avec le conteneur. 🐳
+> Voir le fichier [SETUP.md](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/SETUP.md) pour consulter les instructions d'installation.
 
-> [!WARNING]
+> [!IMPORTANT]
 > L'entièreté du code de ce projet est commenté dans ma langue natale (en français) et n'est pas voué à être traduit en anglais par soucis de simplicité de développement.
 
 > [!CAUTION]
 > Ce projet est conçu pour fonctionner dans un environnement de production mais celui-ci doit être considéré comme une « preuve de concept » pour mes études concernant l'utilisation de technologies Internet natives pour communiquer avec le protocole RCON, si vous comptez utiliser ce genre de sites pour administrer votre serveur, je ne peux que vous conseiller l'excellent [**Pterodactyl**](https://pterodactyl.io/).
-
-___
 
 ## In English
 
@@ -26,9 +24,9 @@ This is a project made during my studies to manage dedicated game servers using 
 Following the end of the first project version using only native Web languages and technologies (`no-symfony` branch), the latest version reuses the original code while migrating to the [Symfony](https://symfony.com/) framework to enjoy technical, performance and security improvements. Even though it still suffers from a significant technological debt due to the absence of a framework to manage the front-end, the original code has been migrated to [TypeScript](https://www.typescriptlang.org/) for greater robustness.
 
 > [!TIP]
-> To try the project, you must have [Docker](https://www.docker.com/) installed. Once installed, simply start the development Docker image with `docker compose up --detach --build` command. When the Docker container is ready, run the `npm run watch` command to automatically compile all *TypeScript* and *SASS* files each time you make changes. The website should be available at http://localhost:8000/. If you want to work on the project with Docker, you need to use `docker compose watch --no-up` to automatically synchronize your local changes with the container. 🐳
+> See the [SETUP.md](https://github.com/FlorianLeChat/Simple-File-Storage/blob/master/SETUP.md) file for setup instructions.
 
-> [!WARNING]
+> [!IMPORTANT]
 > The whole code of this project is commented in my native language (in French) and will not be translated in English for easier programming.
 
 > [!CAUTION]
