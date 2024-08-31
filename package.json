@@ -23,7 +23,7 @@
     "cspell": "~8.13",
     "jquery": "~3.7",
     "core-js": "~3.37",
-    "webpack": "~5.93",
+    "webpack": "~5.94",
     "chart.js": "~4.4",
     "prettier": "~3.3",
     "ts-loader": "~9.5",
