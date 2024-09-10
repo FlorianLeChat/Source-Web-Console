@@ -17,7 +17,7 @@
     "require": {
         "php": ">=8.2",
 
-        "twig/twig": "3.12.*",
+        "twig/twig": "3.14.*",
         "twig/extra-bundle": "3.12.*",
 
         "react/datagram": "1.9.*",
