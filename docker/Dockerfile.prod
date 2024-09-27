@@ -14,7 +14,7 @@ COPY --chown=node:node package*.json .
 # Use cache mount to speed up installation of existing dependencies
 RUN --mount=type=cache,target=.npm \
 	npm set cache .npm && \
-	npm install
+	npm ci
 
 # Copy the remaining files AFTER installing dependencies
 COPY --chown=node:node . .
