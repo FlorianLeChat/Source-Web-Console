@@ -59,4 +59,5 @@ jobs:
     - name: Run PHP Mess Detector
       run: vendor/bin/phpmd ./src github phpmd.xml.dist
     - name: Execute tests with PHPUnit
+      if: matrix.php-version != '8.4' # https://github.com/symfony/symfony/issues/49069
       run: vendor/bin/phpunit
