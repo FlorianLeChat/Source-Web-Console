@@ -40,9 +40,6 @@ RUN install-php-extensions zip pdo_mysql pdo_pgsql redis opcache intl @composer
 # Set the working directory to the website files
 WORKDIR /var/www/html
 
-# Install Composer for dependency management
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
-
 # Add some cronjobs for Symfony custom commands
 # https://github.com/webdevops/Dockerfile/issues/280#issuecomment-1311681838
 RUN echo "* * * * * /usr/local/bin/php /var/www/html/bin/console app:tasks-executor > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data
