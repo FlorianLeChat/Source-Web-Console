@@ -50,7 +50,7 @@ Encore
 	.configureBabelPresetEnv( ( config ) =>
 	{
 		config.useBuiltIns = "usage";
-		config.corejs = "3.35";
+		config.corejs = "3.39";
 	} )
 	.copyFiles( [
 		{ from: "./assets/favicons", to: "favicons/[path][name].[ext]" }, // https://github.com/symfony/webpack-encore/issues/796#issuecomment-653091438
