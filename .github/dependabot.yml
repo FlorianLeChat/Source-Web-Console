@@ -24,9 +24,6 @@ updates:
       dependencies:
         patterns:
           - "*"
-    ignore:
-      # https://github.com/symfony/symfony/issues/49069
-      - dependency-name: "phpunit/phpunit"
 
   # Maintain dependencies for npm
   - package-ecosystem: "npm"
