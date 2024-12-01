@@ -5,6 +5,7 @@
 //
 namespace App\DataFixtures;
 
+use App\Entity\User;
 use App\Entity\Command;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -15,7 +16,7 @@ final class CommandFixture extends Fixture implements DependentFixtureInterface
 	public function load(ObjectManager $manager): void
 	{
 		// Récupération d'une référence à l'utilisateur.
-		$user = $this->getReference("user");
+		$user = $this->getReference("user", User::class);
 
 		// Création d'une commande personnalisée.
 		$command = new Command();
@@ -28,7 +29,7 @@ final class CommandFixture extends Fixture implements DependentFixtureInterface
 		$manager->flush();
 	}
 
-	public function getDependencies()
+	public function getDependencies(): array
 	{
 		return [
 			UserFixture::class

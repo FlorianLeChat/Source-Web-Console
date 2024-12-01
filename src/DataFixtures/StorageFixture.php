@@ -5,6 +5,7 @@
 //
 namespace App\DataFixtures;
 
+use App\Entity\Server;
 use App\Entity\Storage;
 use App\Service\ServerManager;
 use Doctrine\Persistence\ObjectManager;
@@ -19,7 +20,7 @@ final class StorageFixture extends Fixture implements DependentFixtureInterface
 	{
 		// Création des informations de stockage.
 		$storage = new Storage();
-		$storage->setServer($this->getReference("server0"));
+		$storage->setServer($this->getReference("server0", Server::class));
 		$storage->setAddress("123.123.123.123");
 		$storage->setPort(22);
 		$storage->setProtocol(Storage::PROTOCOL_SFTP);
@@ -31,7 +32,7 @@ final class StorageFixture extends Fixture implements DependentFixtureInterface
 		$manager->flush();
 	}
 
-	public function getDependencies()
+	public function getDependencies(): array
 	{
 		return [
 			ServerFixture::class
