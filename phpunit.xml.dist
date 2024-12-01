@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit colors="true" bootstrap="tests/bootstrap.php" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd">
+<phpunit colors="true" bootstrap="tests/bootstrap.php" backupGlobals="false" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd" cacheDirectory=".phpunit.cache">
 	<php>
 		<ini name="display_errors" value="1" />
 		<ini name="error_reporting" value="-1" />
@@ -9,7 +9,7 @@
 		<server name="KERNEL_CLASS" value="App\Kernel" />
 		<server name="SHELL_VERBOSITY" value="-1" />
 		<server name="SYMFONY_PHPUNIT_REMOVE" value="" />
-		<server name="SYMFONY_PHPUNIT_VERSION" value="9.6" />
+		<server name="SYMFONY_PHPUNIT_VERSION" value="11.4" />
 		<server name="SYMFONY_DEPRECATIONS_HELPER" value="disabled" />
 	</php>
 
@@ -19,13 +19,9 @@
 		</testsuite>
 	</testsuites>
 
-	<coverage processUncoveredFiles="true">
+	<source>
 		<include>
 			<directory suffix=".php">src</directory>
 		</include>
-	</coverage>
-
-	<listeners>
-		<listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
-	</listeners>
+	</source>
 </phpunit>
