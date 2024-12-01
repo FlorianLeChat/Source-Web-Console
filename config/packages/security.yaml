@@ -15,7 +15,6 @@ security:
             provider: app_user_provider
             remember_me:
                 secure: true
-                secret: "%kernel.secret%"
                 lifetime: 604800
                 samesite: strict
             login_link:
