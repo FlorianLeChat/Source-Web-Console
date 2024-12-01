@@ -5,6 +5,7 @@
 //
 namespace App\DataFixtures;
 
+use App\Entity\User;
 use App\Entity\Server;
 use App\Service\ServerManager;
 use Doctrine\Persistence\ObjectManager;
@@ -18,7 +19,7 @@ final class ServerFixture extends Fixture implements DependentFixtureInterface
 	public function load(ObjectManager $manager): void
 	{
 		// Récupération d'une référence à l'utilisateur.
-		$user = $this->getReference("user");
+		$user = $this->getReference("user", User::class);
 
 		// Création d'un serveur valide et existant.
 		$server = new Server();
@@ -49,7 +50,7 @@ final class ServerFixture extends Fixture implements DependentFixtureInterface
 		$manager->flush();
 	}
 
-	public function getDependencies()
+	public function getDependencies(): array
 	{
 		return [
 			UserFixture::class

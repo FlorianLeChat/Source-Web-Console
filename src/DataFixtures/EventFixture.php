@@ -6,6 +6,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Event;
+use App\Entity\Server;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -18,7 +19,7 @@ final class EventFixture extends Fixture implements DependentFixtureInterface
 		for ($i = 0; $i < 100; $i++)
 		{
 			$event = new Event();
-			$event->setServer($this->getReference("server" . rand(0, 2)));
+			$event->setServer($this->getReference("server" . rand(0, 2), Server::class));
 			$event->setDate(new \DateTime());
 			$event->setAction("Event #$i");
 
@@ -29,7 +30,7 @@ final class EventFixture extends Fixture implements DependentFixtureInterface
 		$manager->flush();
 	}
 
-	public function getDependencies()
+	public function getDependencies(): array
 	{
 		return [
 			ServerFixture::class

@@ -6,6 +6,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Stats;
+use App\Entity\Server;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -15,7 +16,7 @@ final class StatsFixture extends Fixture implements DependentFixtureInterface
 	public function load(ObjectManager $manager): void
 	{
 		// Récupération d'une référence à un serveur.
-		$server = $this->getReference("server0");
+		$server = $this->getReference("server0", Server::class);
 
 		// Création de 24 statistiques (1 par heure, sur 24 heures).
 		for ($i = 0; $i < 24; $i++)
@@ -35,7 +36,7 @@ final class StatsFixture extends Fixture implements DependentFixtureInterface
 		$manager->flush();
 	}
 
-	public function getDependencies()
+	public function getDependencies(): array
 	{
 		return [
 			ServerFixture::class
