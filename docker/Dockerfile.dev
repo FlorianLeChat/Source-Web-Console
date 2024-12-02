@@ -4,41 +4,37 @@
 # https://hub.docker.com/_/php
 FROM php:alpine
 
-# Install system dependencies
-RUN apk add --no-cache nodejs npm bash supercronic
-
-# Install some PHP extensions
+# Install system and PHP dependencies
+# https://xdebug.org/docs/all_settings#mode
 ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
-RUN install-php-extensions zip pdo_mysql pdo_pgsql redis intl xdebug @composer
-
-# Configure Xdebug for remote debugging
-# https://xdebug.org/docs/all_settings#mode
-RUN echo "xdebug.mode=develop,debug" >> $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini && \
-	echo "xdebug.client_port=9003" >> $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini && \
-	echo "xdebug.log=/tmp/xdebug.log" >> $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini && \
-	echo "xdebug.start_with_request=yes" >> $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini && \
-	echo "xdebug.client_host=host.docker.internal" >> $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini
+RUN apk add --no-cache bash nodejs npm supercronic && \
+	install-php-extensions zip pdo_mysql pdo_pgsql redis intl xdebug @composer && \
+	echo "xdebug.mode=develop,debug" >> "$PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini" && \
+	echo "xdebug.client_port=9003" >> "$PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini" && \
+	echo "xdebug.log=/tmp/xdebug.log" >> "$PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini" && \
+	echo "xdebug.start_with_request=yes" >> "$PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini" && \
+	echo "xdebug.client_host=host.docker.internal" >> "$PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini"
 
 # Set the working directory to the website files
 WORKDIR /var/www/html
 
 # Add some cronjobs for Symfony custom commands
 # https://github.com/webdevops/Dockerfile/issues/280#issuecomment-1311681838
-RUN echo "* * * * * /usr/local/bin/php /var/www/html/bin/console app:tasks-executor > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data
-RUN echo "0 * * * * /usr/local/bin/php /var/www/html/bin/console app:statistics-collector > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data
+RUN echo "* * * * * /usr/local/bin/php /var/www/html/bin/console app:tasks-executor > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data && \
+	echo "0 * * * * /usr/local/bin/php /var/www/html/bin/console app:statistics-collector > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data
 
 # Add wait script to wait for other services to be ready
 ADD --chmod=0755 https://github.com/ufoscout/docker-compose-wait/releases/latest/download/wait /wait
 
 # Install Symfony CLI
-RUN curl -1sLf https://dl.cloudsmith.io/public/symfony/stable/setup.alpine.sh | bash && apk add symfony-cli
+RUN curl -1sLf https://dl.cloudsmith.io/public/symfony/stable/setup.alpine.sh | bash && apk add --no-cache symfony-cli
 
 # Copy all files to the working directory
 COPY --chown=www-data:www-data . .
 
 # Use the default or custom PHP configuration (if exists)
-RUN mv $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini && \
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini" && \
 	if [ -f "docker/php.ini" ]; then \
 		mv "docker/php.ini" "$PHP_INI_DIR/php.ini"; \
 	fi
@@ -53,8 +49,8 @@ RUN --mount=type=cache,target=.npm \
 USER www-data
 
 # Find and replace some default environment variables
-RUN sed -i "s#APP_SECRET=secret#APP_SECRET=$(openssl rand -base64 32)#g" .env
-RUN sed -i "s#SSL_PHRASE=passphrase#SSL_PHRASE=$(tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 30)#g" .env
+RUN sed -i "s#APP_SECRET=secret#APP_SECRET=$(openssl rand -base64 32)#g" .env && \
+	sed -i "s#SSL_PHRASE=passphrase#SSL_PHRASE=$(tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 30)#g" .env
 
 # Install all Composer dependencies
 # Use cache mount to speed up installation of existing dependencies
