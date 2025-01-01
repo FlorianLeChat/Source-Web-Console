@@ -17,8 +17,8 @@
     "require": {
         "php": ">=8.2",
 
-        "twig/twig": "3.16.*",
-        "twig/extra-bundle": "3.16.*",
+        "twig/twig": "3.18.*",
+        "twig/extra-bundle": "3.18.*",
 
         "react/datagram": "1.10.*",
         "api-platform/core": "4.0.*",
@@ -28,7 +28,7 @@
         "league/oauth2-github": "3.1.*",
         "phpstan/phpdoc-parser": "2.0.*",
         "sentry/sentry-symfony": "5.1.*",
-        "easycorp/easyadmin-bundle": "4.18.*",
+        "easycorp/easyadmin-bundle": "4.20.*",
         "xpaw/php-source-query-class": "dev-master",
         "phpdocumentor/reflection-docblock": "5.6.*",
         "knpuniversity/oauth2-client-bundle": "2.18.*",
@@ -68,7 +68,7 @@
         "symfony/property-info": "7.2.*",
         "symfony/monolog-bundle": "3.10.*",
         "symfony/property-access": "7.2.*",
-        "symfony/security-bundle": "7.2.*",
+        "symfony/security-bundle": "7.2.0",
         "symfony/framework-bundle": "7.2.*",
         "symfony/expression-language": "7.2.*",
         "symfony/webpack-encore-bundle": "*"
@@ -126,7 +126,7 @@
     },
     "require-dev": {
         "phpmd/phpmd": "2.15.*",
-        "phpunit/phpunit": "11.4.*",
+        "phpunit/phpunit": "11.5.*",
         "phpstan/phpstan": "1.12.*",
         "symfony/stopwatch": "7.2.*",
         "symfony/debug-bundle": "7.2.*",
@@ -137,6 +137,6 @@
         "squizlabs/php_codesniffer": "3.11.*",
         "phpstan/extension-installer": "1.4.*",
         "symfony/web-profiler-bundle": "7.2.*",
-        "doctrine/doctrine-fixtures-bundle": "3.7.*"
+        "doctrine/doctrine-fixtures-bundle": "4.0.*"
     }
 }
