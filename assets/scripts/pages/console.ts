@@ -52,7 +52,7 @@ $( "#controller" ).on( "click", "button", async ( event ) =>
 // Permet de faire la récupération des informations générales du serveur.
 //
 const terminal = $( "#terminal" );
-let timer: NodeJS.Timer | undefined;
+let timer: NodeJS.Timeout | undefined;
 
 async function retrieveRemoteLogs()
 {
