@@ -134,7 +134,7 @@ servers.on( "click", "button[type=button]", ( event ) =>
 //
 // Permet de faire la récupération des informations générales du serveur.
 //
-let timer: NodeJS.Timer | undefined;
+let timer: NodeJS.Timeout | undefined;
 
 async function retrieveRemoteData()
 {
