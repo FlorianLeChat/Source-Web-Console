@@ -42,6 +42,7 @@
     "vanilla-cookieconsent": "3.0.1",
     "chartjs-adapter-date-fns": "~3.0",
     "@total-typescript/ts-reset": "~0.6",
+    "fork-ts-checker-webpack-plugin": "~9.0",
     "@typescript-eslint/eslint-plugin": "~8.19"
   },
   "engines": {
