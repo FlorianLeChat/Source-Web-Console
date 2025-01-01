@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2a3332279503fedefc58b7becf7f950d",
+    "content-hash": "8930a4654d7d9b1f6b166e835e2c5256",
     "packages": [
         {
             "name": "api-platform/core",
@@ -7882,16 +7882,16 @@
         },
         {
             "name": "symfony/security-bundle",
-            "version": "v7.2.2",
+            "version": "v7.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-bundle.git",
-                "reference": "e7b04b503a4eb49307b9997ac9370f403c2f5198"
+                "reference": "4bed2029576bf02a6915c5a58bc8a174af338e6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-bundle/zipball/e7b04b503a4eb49307b9997ac9370f403c2f5198",
-                "reference": "e7b04b503a4eb49307b9997ac9370f403c2f5198",
+                "url": "https://api.github.com/repos/symfony/security-bundle/zipball/4bed2029576bf02a6915c5a58bc8a174af338e6f",
+                "reference": "4bed2029576bf02a6915c5a58bc8a174af338e6f",
                 "shasum": ""
             },
             "require": {
@@ -7968,7 +7968,7 @@
             "description": "Provides a tight integration of the Security component into the Symfony full-stack framework",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/security-bundle/tree/v7.2.2"
+                "source": "https://github.com/symfony/security-bundle/tree/v7.2.0"
             },
             "funding": [
                 {
@@ -7984,7 +7984,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-30T18:55:54+00:00"
+            "time": "2024-10-23T08:31:32+00:00"
         },
         {
             "name": "symfony/security-core",
