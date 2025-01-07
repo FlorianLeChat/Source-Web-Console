@@ -24,7 +24,7 @@ This is a project made during my studies to manage dedicated game servers using 
 Following the end of the first project version using only native Web languages and technologies (`no-symfony` branch), the latest version reuses the original code while migrating to the [Symfony](https://symfony.com/) framework to enjoy technical, performance and security improvements. Even though it still suffers from a significant technological debt due to the absence of a framework to manage the front-end, the original code has been migrated to [TypeScript](https://www.typescriptlang.org/) for greater robustness.
 
 > [!TIP]
-> See the [SETUP.md](https://github.com/FlorianLeChat/Simple-File-Storage/blob/master/SETUP.md) file for setup instructions.
+> See the [SETUP.md](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/SETUP.md) file for setup instructions.
 
 > [!IMPORTANT]
 > The whole code of this project is commented in my native language (in French) and will not be translated in English for easier programming.
