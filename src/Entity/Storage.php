@@ -5,21 +5,11 @@
 //
 namespace App\Entity;
 
-use ApiPlatform\Metadata\Get;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\StorageRepository;
-use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\GetCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: StorageRepository::class)]
-#[ApiResource(
-	security: "is_granted(\"ROLE_ADMIN\")",
-	operations: [
-		new Get(),
-		new GetCollection()
-	]
-)]
 class Storage
 {
 	#[ORM\Id]
