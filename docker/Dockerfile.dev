@@ -61,7 +61,7 @@ RUN --mount=type=cache,target=.composer composer install
 RUN echo '/wait && mkdir -p var/cache var/log && supercronic /etc/crontabs/www-data & \
 	/usr/local/bin/php bin/console doctrine:database:create --no-interaction --if-not-exists && \
 	/usr/local/bin/php bin/console doctrine:schema:update --complete --force && \
-	/usr/local/bin/php bin/console app:udp-server 127.0.0.1:8443 & \
-	npm run watch & symfony server:start --allow-all-ip' > docker/entrypoint.sh && chmod +x docker/entrypoint.sh
+	/usr/local/bin/php bin/console app:udp-server 127.0.0.1:8443 & npm run watch & \
+	symfony server:stop && symfony server:start --allow-all-ip' > docker/entrypoint.sh && chmod +x docker/entrypoint.sh
 
 CMD ["docker/entrypoint.sh"]
