@@ -5,21 +5,11 @@
 //
 namespace App\Entity;
 
-use ApiPlatform\Metadata\Get;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CommandRepository;
-use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\GetCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CommandRepository::class)]
-#[ApiResource(
-	security: "is_granted(\"ROLE_ADMIN\")",
-    operations: [
-        new Get(),
-        new GetCollection()
-    ]
-)]
 class Command
 {
 	#[ORM\Id]

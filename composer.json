@@ -21,7 +21,6 @@
         "twig/extra-bundle": "3.18.*",
 
         "react/datagram": "1.10.*",
-        "api-platform/core": "4.0.*",
         "nelmio/cors-bundle": "2.5.*",
         "phpseclib/phpseclib": "3.0.*",
         "league/oauth2-google": "4.0.*",

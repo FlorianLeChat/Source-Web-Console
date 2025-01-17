@@ -5,22 +5,12 @@
 //
 namespace App\Entity;
 
-use ApiPlatform\Metadata\Get;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TaskRepository;
-use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\GetCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TaskRepository::class)]
-#[ApiResource(
-	security: "is_granted(\"ROLE_ADMIN\")",
-	operations: [
-		new Get(),
-		new GetCollection()
-	]
-)]
 class Task
 {
 	#[ORM\Id]
