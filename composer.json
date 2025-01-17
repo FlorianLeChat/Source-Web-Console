@@ -29,7 +29,6 @@
         "sentry/sentry-symfony": "5.1.*",
         "easycorp/easyadmin-bundle": "4.20.*",
         "xpaw/php-source-query-class": "dev-master",
-        "phpdocumentor/reflection-docblock": "5.6.*",
         "knpuniversity/oauth2-client-bundle": "2.18.*",
 
         "ext-ctype": "*",
@@ -116,9 +115,7 @@
         "phpmd/phpmd": "2.15.*",
         "phpunit/phpunit": "11.5.*",
         "phpstan/phpstan": "1.12.*",
-        "symfony/stopwatch": "7.2.*",
         "symfony/debug-bundle": "7.2.*",
-        "symfony/maker-bundle": "1.61.*",
         "symfony/phpunit-bridge": "7.2.*",
         "phpstan/phpstan-symfony": "1.4.*",
         "phpstan/phpstan-doctrine": "1.5.*",
