@@ -23,7 +23,7 @@
 - Générer un *hash* en base64 avec la commande `openssl rand -base64 32` (nécessite [OpenSSL](https://openssl-library.org/source/)) ;
 - Modifier la [variable d'environnement](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) `APP_SECRET` avec la valeur générée à l'étape précédente ;
 - *(Facultatif)* Exécuter la commande `php bin/console doctrine:database:create --no-interaction --if-not-exists` pour créer la base de données ;
-- Exécuter la commande `php doctrine:schema:update --complete --force` pour créer les tables dans la base de données ;
+- Exécuter la commande `php doctrine:schema:update --force` pour créer les tables dans la base de données ;
 - Démarrer le serveur local Symfony avec la commande `symfony server:start` ;
 - Dans un deuxième terminal, exécuter la commande `npm run watch` pour lancer la compilation automatique des fichiers *TypeScript* et *SASS* ;
 - Dans un troisième terminal, exécuter la commande `php bin/console app:udp-server 127.0.0.1:8443` pour enregistrer les journaux d'événements des serveurs distants (**votre pare-feu et/ou votre routeur doivent être correctement configurés**) ;
@@ -50,7 +50,7 @@
 - Exécuter la commande `php bin/console cache:clear` pour vider le cache de fichiers utilisé par Symfony ;
 - Exécuter la commande `composer dump-env prod` pour transformer les variables d'environnement en variables statiques utilisables par PHP ;
 - *(Facultatif)* Exécuter la commande `php bin/console doctrine:database:create --no-interaction --if-not-exists` pour créer une base de données ;
-- Exécuter la commande `php doctrine:schema:update --complete --force` pour créer les tables dans la base de données ;
+- Exécuter la commande `php doctrine:schema:update --force` pour créer les tables dans la base de données ;
 - Utiliser un serveur Web pour servir les scripts PHP et les fichiers statiques générés dans les étapes précédentes ;
 - Exécuter la commande `php bin/console app:udp-server 127.0.0.1:8443` pour enregistrer les journaux d'événements des serveurs distants (**votre pare-feu et/ou votre routeur doivent être correctement configurés**) ;
 - Configurer une tâche planifiée pour exécuter la commande `php bin/console app:tasks-executor` pour l'[exécution des tâches planifiées des serveurs distants](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/src/Command/ScheduledTasksExecutor.php) ;
@@ -87,7 +87,7 @@
 - Generate a base64 hash using `openssl rand -base64 32` (requires [OpenSSL](https://openssl-library.org/source/)) ;
 - Set `APP_SECRET` [environment variable](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) with value generated in the previous step ;
 - *(Optional)* Run `php bin/console doctrine:database:create --no-interaction --if-not-exists` to create a database ;
-- Run `php doctrine:schema:update --complete --force` to create tables in the database ;
+- Run `php doctrine:schema:update --force` to create tables in the database ;
 - Start local Symfony server with `symfony server:start` ;
 - In a second terminal, run `npm run watch` to start automatic compilation of *TypeScript* and *SASS* files ;
 - In a third terminal, run `php bin/console app:udp-server 127.0.0.1:8443` to log event data from remote servers (**firewall and/or router must be properly configured**) ;
@@ -114,7 +114,7 @@
 - Run `php bin/console cache:clear` to clear Symfony's file cache ;
 - Run `composer dump-env prod` to convert environment variables into static variables usable by PHP ;
 - *(Optional)* Run `php bin/console doctrine:database:create --no-interaction --if-not-exists` to create a database ;
-- Run `php doctrine:schema:update --complete --force` to create tables in the database ;
+- Run `php doctrine:schema:update --force` to create tables in the database ;
 - Use a web server to serve PHP scripts and static files generated in previous steps ;
 - Run `php bin/console app:udp-server 127.0.0.1:8443` to log event data from remote servers (**firewall and/or router must be properly configured**) ;
 - Configure a scheduled task to run `php bin/console app:tasks-executor` for [executing scheduled tasks on remote servers](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/src/Command/ScheduledTasksExecutor.php) ;
