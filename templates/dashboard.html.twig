@@ -30,7 +30,7 @@
 				{% set indice = loop.index %}
 
 				{# Informations générales de chaque serveur #}
-				<li data-image="{{ asset("build/images/games/" ~ server.game ?? 0 ~ "_background.webp") }}" class="{{ indice > 4 ? "hidden" : "" }}">
+				<li data-image="{{ asset("build/images/games/" ~ (server.game ?? 0) ~ "_background.webp") }}" class="{{ indice > 4 ? "hidden" : "" }}">
 					{# Construction de l'adresse IP #}
 					{% set address = server.address ~ ":" ~ server.port %}
 

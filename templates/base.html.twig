@@ -2,7 +2,7 @@
 {% set route_name = app.current_route|split("_")[0] %}
 
 <!DOCTYPE html>
-<html lang="{{ app.request.locale ?? app.request.defaultLocale }}">
+<html lang="{{ (app.request.locale ?? app.request.defaultLocale) }}">
 	{# En-tête du site #}
 	<head>
 		{# Récupération des méta-données du site #}
