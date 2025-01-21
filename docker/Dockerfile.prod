@@ -63,11 +63,11 @@ RUN --mount=type=cache,target=.composer composer install --no-dev --optimize-aut
 
 # Use the PHP custom entrypoint
 # https://symfony.com/doc/current/deployment.html / https://symfony.com/doc/current/setup/file_permissions.html
-RUN echo '/wait && mkdir -p var/cache var/log && supercronic /etc/crontabs/www-data & \
+RUN echo '/wait && mkdir -p var/cache var/log && \
 	/usr/local/bin/php bin/console cache:clear && composer dump-env prod && \
 	/usr/local/bin/php bin/console doctrine:database:create --no-interaction --if-not-exists && \
 	/usr/local/bin/php bin/console doctrine:schema:update --force && \
 	/usr/local/bin/php bin/console app:udp-server 127.0.0.1:8443 & \
-	php-fpm' > docker/entrypoint.sh && chmod +x docker/entrypoint.sh
+	supercronic /etc/crontabs/www-data & php-fpm' > docker/entrypoint.sh && chmod +x docker/entrypoint.sh
 
 CMD ["docker/entrypoint.sh"]
