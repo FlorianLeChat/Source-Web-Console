@@ -10,7 +10,6 @@ doctrine:
                 dir: "%kernel.project_dir%/src/Entity"
                 alias: App
                 prefix: "App\\Entity"
-        auto_mapping: false
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         controller_resolver:
         validate_xml_mapping: true
