@@ -68,6 +68,7 @@
         "symfony/property-access": "7.2.*",
         "symfony/security-bundle": "7.2.*",
         "symfony/framework-bundle": "7.2.*",
+        "symfony/ux-twig-component": "2.22.*",
         "symfony/expression-language": "7.2.*",
         "symfony/webpack-encore-bundle": "*"
     },
