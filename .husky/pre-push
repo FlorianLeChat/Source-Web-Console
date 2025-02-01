@@ -1,4 +1,4 @@
-export VERSION=$(sentry-cli releases propose-version)
+export VERSION=$(git rev-parse HEAD)
 dotenv -e .env.local -e .env sentry-cli releases new "$VERSION" || true
 cspell translations/** --no-summary --no-progress --no-must-find-files
 rm -f var/data.db
