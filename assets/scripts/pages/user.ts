@@ -39,7 +39,7 @@ account.on( "click", "[data-action]", async ( event ) =>
 	account.find( "[type = submit]" ).prop( "disabled", true );
 
 	// On réalise alors la requête AJAX.
-	const response = await fetch( target.data( "route" ), {
+	const response = await window.proxyFetch( target.data( "route" ), {
 		method: action === "update" ? "PUT" : "DELETE",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"
@@ -92,7 +92,7 @@ actions.on( "click", "[type = submit]", async ( event ) =>
 
 	// On réalise ensuite la requête AJAX.
 	const target = $( event.target );
-	const response = await fetch( target.data( "route" ), {
+	const response = await window.proxyFetch( target.data( "route" ), {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"
@@ -151,7 +151,7 @@ submit.on( "click", async ( event ) =>
 	// On réalise ensuite la requête AJAX.
 	const target = $( event.target );
 	const form = target.parent();
-	const response = await fetch( register.data( "route" ), {
+	const response = await window.proxyFetch( register.data( "route" ), {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"

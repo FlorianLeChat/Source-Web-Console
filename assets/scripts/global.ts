@@ -9,6 +9,9 @@ import { addQueuedNotification } from "./functions";
 // Déclaration du contexte global du navigateur.
 declare global {
 	interface Window {
+		// Méthode fetch avec prise en charge de reCAPTCHA.
+		proxyFetch: typeof fetch;
+
 		// Déclaration des traductions injectées par Twig.
 		edit_port: string;
 		edit_remove: string;
@@ -114,9 +117,7 @@ $( "footer" ).on( "click", "a[href = \"#\"]", ( event ) =>
 //
 if ( process.env.RECAPTCHA_ENABLED === "true" )
 {
-	const oldFetch = window.fetch;
-
-	window.fetch = async ( url, options ) =>
+	window.proxyFetch = async ( url, options ) =>
 	{
 		// On vérifie d'abord si la requête est une requête issue
 		//  d'un formulaire quelconque.
@@ -153,7 +154,7 @@ if ( process.env.RECAPTCHA_ENABLED === "true" )
 		}
 
 		// On retourne enfin la requête originale.
-		return oldFetch( url, options );
+		return fetch( url, options );
 	};
 
 	$( "form[method = POST]" ).on( "submit", ( event ) =>
@@ -240,7 +241,7 @@ contact.on( "submit", "form", async ( event ) =>
 	contact.find( "[type = reset]" ).prop( "disabled", true );
 
 	// On réalise alors la requête AJAX.
-	const response = await fetch( contact.data( "route" ), {
+	const response = await window.proxyFetch( contact.data( "route" ), {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"

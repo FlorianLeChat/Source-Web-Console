@@ -21,7 +21,7 @@ $( "form" ).on( "submit", async ( event ) =>
 	storage.find( "[type = submit]" ).prop( "disabled", true );
 
 	// On réalise ensuite la requête AJAX.
-	const response = await fetch( storage.data( "route" ), {
+	const response = await window.proxyFetch( storage.data( "route" ), {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"
@@ -93,7 +93,7 @@ $( "[data-type]" ).on( "click", async ( event ) =>
 	// On réalise ensuite la requête AJAX.
 	const target = $( event.target );
 	const element = target.is( "i" ) ? target.parent() : target;
-	const response = await fetch( parameters.data( "route" ), {
+	const response = await window.proxyFetch( parameters.data( "route" ), {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"

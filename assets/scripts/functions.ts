@@ -164,7 +164,7 @@ setInterval( () =>
 export async function sendRemoteAction( token: string, route: string, action: string, value = "" )
 {
 	// On réalise d'abord la requête AJAX.
-	const response = await fetch( route, {
+	const response = await window.proxyFetch( route, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"

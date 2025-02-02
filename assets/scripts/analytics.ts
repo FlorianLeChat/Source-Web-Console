@@ -49,7 +49,7 @@ export function setupRecaptcha()
 	{
 		if ( typeof window.grecaptcha !== "undefined" )
 		{
-			fetch( "", { method: "POST" } );
+			window.proxyFetch( "", { method: "POST" } );
 			clearInterval( timer );
 		}
 	}, 1000 );
