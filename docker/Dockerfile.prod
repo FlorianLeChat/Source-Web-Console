@@ -70,7 +70,7 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
 # Change current user to www-data
 USER www-data
 
-# Install all dependencies
+# Install all Composer dependencies
 # Use cache mount to speed up installation of existing dependencies
 RUN --mount=type=cache,target=.composer composer install --no-dev --optimize-autoloader
 
