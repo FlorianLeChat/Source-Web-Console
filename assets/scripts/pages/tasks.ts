@@ -21,7 +21,7 @@ $( "form" ).on( "submit", async ( event ) =>
 	tasks.find( "[type = submit]" ).prop( "disabled", true );
 
 	// On réalise ensuite la requête AJAX.
-	const response = await fetch( tasks.data( "add-route" ), {
+	const response = await window.proxyFetch( tasks.data( "add-route" ), {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"
@@ -71,7 +71,7 @@ $( "tbody tr:not([class = finished])" ).on( "click", async ( event ) =>
 	{
 		// On réalise ensuite la requête AJAX.
 		const target = $( event.target ).parent();
-		const response = await fetch( tasks.data( "remove-route" ), {
+		const response = await window.proxyFetch( tasks.data( "remove-route" ), {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded"

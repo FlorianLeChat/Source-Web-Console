@@ -139,7 +139,7 @@ let timer: NodeJS.Timeout | undefined;
 async function retrieveRemoteData()
 {
 	// On réalise d'abord la requête AJAX.
-	const response = await fetch( servers.data( "route" ) );
+	const response = await window.proxyFetch( servers.data( "route" ) );
 
 	// On vérifie ensuite si la requête a été effectuée avec succès.
 	if ( response.ok )

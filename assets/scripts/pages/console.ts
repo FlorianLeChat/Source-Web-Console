@@ -57,7 +57,7 @@ let timer: NodeJS.Timeout | undefined;
 async function retrieveRemoteLogs()
 {
 	// On réalise d'abord la requête AJAX.
-	const response = await fetch( terminal.data( "route" ) );
+	const response = await window.proxyFetch( terminal.data( "route" ) );
 
 	// On vérifie ensuite si la requête a été effectuée avec succès.
 	if ( response.ok )

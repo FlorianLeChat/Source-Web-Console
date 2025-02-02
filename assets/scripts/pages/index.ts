@@ -70,7 +70,7 @@ register.on( "submit", "form", async ( event ) =>
 		// Dans le cas contraire, on réalise alors une requête AJAX
 		//  pour envoyer les informations au serveur.
 		const parent = register.parent();
-		const response = await fetch( parent.data( "route" ), {
+		const response = await window.proxyFetch( parent.data( "route" ), {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded"
@@ -187,7 +187,7 @@ login.on( "click", "[type = submit]", async ( event ) =>
 	login.find( "[type = reset]" ).prop( "disabled", true );
 
 	// On réalise ensuite la requête AJAX.
-	const response = await fetch( login.data( "route" ), {
+	const response = await window.proxyFetch( login.data( "route" ), {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"
@@ -291,7 +291,7 @@ links.last().on( "click", async ( event ) =>
 
 	// On réalise ensuite la requête AJAX.
 	const parent = $( event.target ).parent();
-	const response = await fetch( parent.data( "route" ), {
+	const response = await window.proxyFetch( parent.data( "route" ), {
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"

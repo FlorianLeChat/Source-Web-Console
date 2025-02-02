@@ -86,7 +86,7 @@ commands.on( "click", "[data-action = add]", async ( event ) =>
 	element.prop( "disabled", true );
 
 	// On réalise ensuite la requête AJAX.
-	const response = await fetch( element.data( "route" ), {
+	const response = await window.proxyFetch( element.data( "route" ), {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded"
@@ -133,7 +133,7 @@ commands.on( "click", "[data-action = remove]", async ( event ) =>
 
 		// On réalise ensuite la requête AJAX.
 		const target = $( event.target );
-		const response = await fetch( target.data( "route" ), {
+		const response = await window.proxyFetch( target.data( "route" ), {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded"
