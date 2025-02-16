@@ -5,10 +5,11 @@
 /config/secrets/prod/prod.decrypt.private.php
 /docker-compose.override.yml
 /public/bundles/
+/var/
+/logs/
+/vendor/
 /docker/mysql/database/
 /docker/redis/database/
-/var/
-/vendor/
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###

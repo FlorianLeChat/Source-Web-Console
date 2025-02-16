@@ -66,6 +66,8 @@ services:
                 - action: sync
                   path: .
                   target: /var/www/html
+        volumes:
+            - ./logs:/var/www/html/var/log
         depends_on:
             - redis
             - mariadb
