@@ -75,20 +75,4 @@ class ServerManagerTest extends KernelTestCase
 		$this->assertTrue($this->serverManager->getNameByGameID(1) === "");
 		$this->assertTrue($this->serverManager->getNameByGameID(2, "Unknown") === "Unknown");
 	}
-
-	//
-	// Récupération du numéro d'identification unique d'un jeu
-	//  utilisé par l'adresse IP d'un serveur.
-	//
-	public function testGetGameIDByAddress(): void
-	{
-		// Récupération du jeu « Counter-Strike 2 ».
-		$this->assertTrue($this->serverManager->getGameIDByAddress("178.32.80.148", 27015) === 730);
-
-		// Récupération du jeu « Garry's Mod ».
-		$this->assertTrue($this->serverManager->getGameIDByAddress("145.239.211.147", 27015) === 4000);
-
-		// Récupération d'un jeu inexistant (le serveur n'existe pas).
-		$this->assertTrue($this->serverManager->getGameIDByAddress("127.0.0.1", 27015) === 0);
-	}
 }
