@@ -1,6 +1,6 @@
 {
 	"exclude": ["node_modules"],
-	"include": ["**/*.ts"],
+	"include": ["**/eslint.config.mjs", "**/*.ts"],
 	"compilerOptions": {
 		"lib": ["dom", "dom.iterable", "esnext"],
 		"noEmit": true,
@@ -20,7 +20,7 @@
 		"isolatedModules": true,
 		"esModuleInterop": true,
 		"strictNullChecks": true,
-		"moduleResolution": "node",
+		"moduleResolution": "bundler",
 		"resolveJsonModule": true,
 		"noImplicitOverride": true,
 		"noUnusedParameters": true,
