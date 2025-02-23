@@ -329,8 +329,7 @@ $( "[id *= clear]" ).on( "click", ( event ) =>
 // Permet de générer un mot de passe aléatoire et sécurisé pour l'utilisateur.
 //  Source : https://stackoverflow.com/a/26528271
 //
-const characters =
-	"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+=<>?";
+const characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+=<>?";
 let oldPassword = "";
 
 $( "#register_generation" ).on( "click", ( event ) =>

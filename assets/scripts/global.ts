@@ -7,8 +7,10 @@ import "./analytics";
 import { addQueuedNotification } from "./functions";
 
 // Déclaration du contexte global du navigateur.
-declare global {
-	interface Window {
+declare global
+{
+	interface Window
+	{
 		// Méthode fetch avec prise en charge de reCAPTCHA.
 		proxyFetch: typeof fetch;
 
@@ -319,7 +321,7 @@ search.on( "keyup", ( event ) =>
 	{
 		// Si l'entrée n'est pas vide et qu'elle semble correspondre
 		//  à une page mise en mémoire, on l'ajoute en tant que résultat.
-		if ( content && page.toLowerCase().match( content.toLowerCase() ) )
+		if ( content && page.toLowerCase().includes( content.toLowerCase() ) )
 		{
 			results.append( `<option value="${ pages[ page ] }">${ page }</option>` );
 		}
