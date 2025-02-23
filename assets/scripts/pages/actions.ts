@@ -81,8 +81,7 @@ commands.on( "click", "[data-action = add]", async ( event ) =>
 
 	// On bloque également les boutons de soumission pour éviter les abus.
 	const target = $( event.target );
-	const element =
-		target.is( "em" ) || target.is( "span" ) ? target.parent() : target;
+	const element = target.is( "em" ) || target.is( "span" ) ? target.parent() : target;
 	element.prop( "disabled", true );
 
 	// On réalise ensuite la requête AJAX.
