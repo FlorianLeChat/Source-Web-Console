@@ -1,9 +1,7 @@
 import eslint from "@eslint/js";
 import tslint from "typescript-eslint";
 import globals from "globals";
-import tsParser from "@typescript-eslint/parser";
 import stylistic from "@stylistic/eslint-plugin";
-import typescriptEslint from "@typescript-eslint/eslint-plugin";
 
 export default tslint.config(
 	eslint.configs.recommended,
@@ -12,17 +10,13 @@ export default tslint.config(
 	stylistic.configs.recommended,
 	{
 		plugins: {
-			"@stylistic": stylistic,
-			"@typescript-eslint": typescriptEslint
+			"@stylistic": stylistic
 		},
 		languageOptions: {
-			parser: tsParser,
 			globals: {
 				...globals.node,
 				...globals.browser
 			},
-			sourceType: "script",
-			ecmaVersion: "latest",
 			parserOptions: {
 				project: [ "./tsconfig.json" ]
 			}
