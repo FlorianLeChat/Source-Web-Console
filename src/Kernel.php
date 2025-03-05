@@ -17,4 +17,10 @@ final class Kernel extends BaseKernel
 		// Définition du fuseau horaire pour l'ensemble de l'application.
 		date_default_timezone_set($this->getContainer()->getParameter("app.timezone"));
 	}
+
+	public function getLogDir(): string
+	{
+		// Modification de l'emplacement des journaux d'événements.
+		return $this->getProjectDir() . "/logs";
+	}
 }
