@@ -208,6 +208,11 @@ if ( process.env.RECAPTCHA_ENABLED === "true" )
 		} );
 	} );
 }
+else
+{
+	// Utilisation de la méthode originale si reCAPTCHA n'est pas activé.
+	window.proxyFetch = fetch;
+}
 
 //
 // Permet d'indiquer la position de défilement actuelle de l'utilisateur.
