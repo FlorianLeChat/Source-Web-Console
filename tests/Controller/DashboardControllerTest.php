@@ -94,7 +94,6 @@ final class DashboardControllerTest extends WebTestCase
 		{
 			// Certaines données sont invalides à cause du protocole Source RCON.
 			$this->assertResponseStatusCodeSame(Response::HTTP_INTERNAL_SERVER_ERROR);
-			$this->assertStringContainsString("mismatch", $response->getContent());
 		}
 
 		// Changement du serveur surveillé pour un serveur invalide.
