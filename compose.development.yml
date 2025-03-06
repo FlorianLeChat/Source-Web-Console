@@ -1,0 +1,87 @@
+name: source-web-console
+
+services:
+    # https://hub.docker.com/_/redis
+    redis:
+        image: redis:alpine
+        command: >
+            --requirepass ${REDIS_PASSWORD} --maxmemory 128mb --maxmemory-policy allkeys-lru
+        volumes:
+            - ./docker/services/cache:/data
+        healthcheck:
+            test: redis-cli --raw incr ping
+            retries: 3
+            timeout: 5s
+        ports:
+            - "${REDIS_PORT}:${REDIS_PORT}"
+
+    # https://hub.docker.com/_/mariadb
+    mariadb:
+        image: mariadb:latest
+        volumes:
+            - ./docker/services/database:/var/lib/mysql
+        command: [ "--collation-server=utf8mb4_unicode_ci" ]
+        environment:
+            TZ: ${APP_TIMEZONE}
+            MARIADB_DATABASE: ${DATABASE_NAME}
+            MARIADB_PORT: ${DATABASE_PORT}
+            MARIADB_USER: ${DATABASE_USERNAME}
+            MARIADB_PASSWORD: ${DATABASE_PASSWORD}
+            MARIADB_INITDB_SKIP_TZINFO: true
+            MARIADB_RANDOM_ROOT_PASSWORD: 1
+        healthcheck:
+            test: healthcheck.sh --su-mysql --connect --innodb_initialized
+            retries: 3
+            timeout: 5s
+        ports:
+            - "${DATABASE_PORT}:${DATABASE_PORT}"
+
+    # https://hub.docker.com/_/phpmyadmin
+    phpmyadmin:
+        image: phpmyadmin:latest
+        depends_on:
+            - mariadb
+        environment:
+            PMA_HOST: ${DATABASE_HOST}
+            PMA_PORT: ${DATABASE_PORT}
+            PMA_USER: ${DATABASE_USERNAME}
+            PMA_PASSWORD: ${DATABASE_PASSWORD}
+        healthcheck:
+            test: curl -f http://localhost
+            retries: 3
+            timeout: 5s
+        ports:
+            - "8080:80"
+
+    # https://github.com/FlorianLeChat/Source-Web-Console
+    php:
+        image: source-web-console
+        command: ./docker/scripts/development/entrypoint.sh
+        develop:
+            watch:
+                - path: .
+                  action: sync
+                  target: /var/www/html
+                  ignore:
+                    - vendor/
+                    - node_modules/
+                - path: composer.lock
+                  action: rebuild
+                - path: package-lock.json
+                  action: rebuild
+        depends_on:
+            - redis
+            - mariadb
+        environment:
+            TZ: ${APP_TIMEZONE}
+            WAIT_HOSTS: redis:${REDIS_PORT}, mariadb:${DATABASE_PORT}
+        healthcheck:
+            test: curl -f http://localhost:8000/
+            retries: 3
+            timeout: 5s
+        build:
+            context: .
+            dockerfile: ./docker/scripts/development/Dockerfile
+        ports:
+            - "8000:8000"
+            - "8443:8443/udp"

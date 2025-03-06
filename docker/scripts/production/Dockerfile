@@ -70,17 +70,5 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
 # Change current user to www-data
 USER www-data
 
-# Install all Composer dependencies
-# Use cache mount to speed up installation of existing dependencies
-RUN --mount=type=cache,target=.composer composer install --no-dev --optimize-autoloader
-
-# Use the PHP custom entrypoint
-# https://symfony.com/doc/current/deployment.html / https://symfony.com/doc/current/setup/file_permissions.html
-RUN echo '/wait && mkdir -p var/cache var/log && \
-	/usr/local/bin/php bin/console cache:clear && composer dump-env prod && \
-	/usr/local/bin/php bin/console doctrine:database:create --no-interaction --if-not-exists && \
-	/usr/local/bin/php bin/console doctrine:schema:update --force && \
-	/usr/local/bin/php bin/console app:udp-server 127.0.0.1:8443 & \
-	supercronic /etc/crontabs/www-data & php-fpm' > docker/entrypoint.sh && chmod +x docker/entrypoint.sh
-
-CMD ["docker/entrypoint.sh"]
+# Make the entrypoint script executable
+RUN chmod +x ./docker/scripts/production/entrypoint.sh
