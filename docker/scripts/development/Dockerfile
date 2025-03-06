@@ -36,29 +36,5 @@ COPY --chown=www-data:www-data . .
 # Use the default development PHP configuration
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
-# Install all NPM dependencies
-# Use cache mount to speed up installation of existing dependencies
-RUN --mount=type=cache,target=.npm \
-	npm set cache .npm && \
-	npm ci && chown -R www-data:www-data ./node_modules
-
 # Change current user to www-data
 USER www-data
-
-# Find and replace some default environment variables
-RUN sed -i "s#APP_SECRET=secret#APP_SECRET=$(openssl rand -base64 32)#g" .env && \
-	sed -i "s#SSL_PHRASE=passphrase#SSL_PHRASE=$(tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 30)#g" .env
-
-# Install all Composer dependencies
-# Use cache mount to speed up installation of existing dependencies
-RUN --mount=type=cache,target=.composer composer install
-
-# Use the PHP custom entrypoint
-# https://symfony.com/doc/current/deployment.html / https://symfony.com/doc/current/setup/file_permissions.html
-RUN echo '/wait && mkdir -p var/cache var/log && \
-	/usr/local/bin/php bin/console doctrine:database:create --no-interaction --if-not-exists && \
-	/usr/local/bin/php bin/console doctrine:schema:update --force && \
-	/usr/local/bin/php bin/console app:udp-server 127.0.0.1:8443 & npm run watch & supercronic /etc/crontabs/www-data & \
-	rm -rf ~/.symfony5/ && symfony server:start --allow-all-ip' > docker/entrypoint.sh && chmod +x docker/entrypoint.sh
-
-CMD ["docker/entrypoint.sh"]

@@ -8,21 +8,20 @@ services:
         command: >
             --requirepass ${REDIS_PASSWORD} --maxmemory 128mb --maxmemory-policy allkeys-lru
         volumes:
-            - ./docker/redis/config:/usr/local/etc/redis
-            - ./docker/redis/database:/data
+            - ./docker/services/cache:/data
         healthcheck:
             test: redis-cli --raw incr ping
             retries: 3
             timeout: 5s
-        ports:
-            - "6379:${REDIS_PORT}"
+        expose:
+            - "${REDIS_PORT}"
 
     # https://hub.docker.com/_/mariadb
     mariadb:
         image: mariadb:latest
         restart: always
         volumes:
-            - ./docker/mysql/database:/var/lib/mysql
+            - ./docker/services/database:/var/lib/mysql
         command: [ "--collation-server=utf8mb4_unicode_ci" ]
         environment:
             TZ: ${APP_TIMEZONE}
@@ -36,8 +35,8 @@ services:
             test: healthcheck.sh --su-mysql --connect --innodb_initialized
             retries: 3
             timeout: 5s
-        ports:
-            - "3306:${DATABASE_PORT}"
+        expose:
+            - "${DATABASE_PORT}"
 
     # https://hub.docker.com/_/phpmyadmin
     phpmyadmin:
@@ -61,25 +60,22 @@ services:
     php:
         image: source-web-console
         restart: always
-        develop:
-            watch:
-                - action: sync
-                  path: .
-                  target: /var/www/html
+        command: ./docker/scripts/production/entrypoint.sh
         volumes:
-            - ./logs:/var/www/html/var/log
+            - ./logs:/var/www/html/logs
         depends_on:
             - redis
             - mariadb
         environment:
-            - WAIT_HOSTS=redis:${REDIS_PORT}, mariadb:${DATABASE_PORT}
+            TZ: ${APP_TIMEZONE}
+            WAIT_HOSTS: redis:${REDIS_PORT}, mariadb:${DATABASE_PORT}
         healthcheck:
-            test: curl -f http://127.0.0.1:9000/ 2>&1 | grep "Connection reset by peer" || curl -f http://localhost:8000/
+            test: curl -f http://127.0.0.1:9000/ 2>&1 | grep "Connection reset by peer"
             retries: 3
             timeout: 5s
         build:
             context: .
-            dockerfile: ./docker/Dockerfile.${APP_ENV}
+            dockerfile: ./docker/scripts/production/Dockerfile
         ports:
-            - "8000:8000"
+            - "9000:9000"
             - "8443:8443/udp"

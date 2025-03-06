@@ -3,8 +3,6 @@
 **/.dockerignore
 **/.editorconfig
 **/.gitattributes
-**/build
-**/bundles
 **/node_modules
 **/var
 **/vendor
