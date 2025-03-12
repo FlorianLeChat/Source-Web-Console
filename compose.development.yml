@@ -69,6 +69,8 @@ services:
                   action: rebuild
                 - path: package-lock.json
                   action: rebuild
+        volumes:
+            - ./logs:/var/www/html/logs
         depends_on:
             - redis
             - mariadb
