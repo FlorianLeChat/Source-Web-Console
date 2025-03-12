@@ -4,6 +4,7 @@
 **/build
 **/bundles
 **/docker/services
+**/logs
 **/node_modules
 **/tests
 **/var
