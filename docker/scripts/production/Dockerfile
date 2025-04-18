@@ -51,9 +51,9 @@ COPY --from=0 --chown=www-data:www-data /usr/src/app ./
 # Use the default production PHP configuration with some modifications
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
 	# Cache a filesystem path to real path mapping for 10 minutes
-	sed -i "s/^;realpath_cache_ttl=120/realpath_cache_ttl=600/g" "$PHP_INI_DIR/php.ini" && \
+	sed -i "s/;realpath_cache_ttl = 120/realpath_cache_ttl = 600/g" "$PHP_INI_DIR/php.ini" && \
 	# Don't expose PHP version to HTTP response headers
-	sed -i "s/expose_php=On/expose_php=Off/g" "$PHP_INI_DIR/php.ini" && \
+	sed -i "s/expose_php = On/expose_php = Off/g" "$PHP_INI_DIR/php.ini" && \
 	# Make PHP sessions more strict/secure and unavailable to JavaScript
 	sed -i "s/session.use_strict_mode = 0/session.use_strict_mode = 1/g" "$PHP_INI_DIR/php.ini" && \
 	sed -i "s/;session.cookie_secure =/session.cookie_secure = 1/g" "$PHP_INI_DIR/php.ini" && \
