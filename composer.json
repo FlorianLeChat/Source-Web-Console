@@ -34,7 +34,7 @@
         "ext-iconv": "*",
 
         "doctrine/annotations": "2.0.*",
-        "doctrine/doctrine-bundle": "2.13.*",
+        "doctrine/doctrine-bundle": "2.14.*",
         "doctrine/doctrine-migrations-bundle": "3.4.*",
 
         "symfony/flex": "2.5.*",
@@ -67,7 +67,7 @@
         "symfony/property-access": "7.2.*",
         "symfony/security-bundle": "7.2.*",
         "symfony/framework-bundle": "7.2.*",
-        "symfony/ux-twig-component": "2.23.*",
+        "symfony/ux-twig-component": "2.24.*",
         "symfony/expression-language": "7.2.*",
         "symfony/webpack-encore-bundle": "*"
     },
