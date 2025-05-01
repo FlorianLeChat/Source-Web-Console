@@ -36,3 +36,6 @@ updates:
       dependencies:
         patterns:
           - "*"
+    ignore:
+       # https://github.com/symfony/webpack-encore/issues/1359
+       - dependency-name: "webpack-cli"
