@@ -10,7 +10,7 @@
 ### Développement local
 
 - Installer [PHP LTS](https://www.php.net/downloads.php) (>8.2 ou plus) ;
-- Installer [NodeJS LTS](https://nodejs.org/) (>18 ou plus) ;
+- Installer [NodeJS LTS](https://nodejs.org/) (>20 ou plus) ;
 - Installer [Symfony CLI](https://symfony.com/download) ;
 - Installer les extensions PHP additionnelles suivantes : `zip`, `pdo_mysql`, `pdo_pgsql`, `redis`, `opcache`, `intl` ;
 - Installer les dépendances du projet avec les commandes `composer install` et `npm install` ;
@@ -33,7 +33,7 @@
 ### Déploiement en production
 
 - Installer [PHP LTS](https://www.php.net/downloads.php) (>8.2 ou plus) ;
-- Installer [NodeJS LTS](https://nodejs.org/) (>18 ou plus) ;
+- Installer [NodeJS LTS](https://nodejs.org/) (>20 ou plus) ;
 - Installer les extensions PHP additionnelles suivantes : `zip`, `pdo_mysql`, `pdo_pgsql`, `redis`, `opcache`, `intl` ;
 - Installer les dépendances du projet avec les commandes `composer install --no-dev --optimize-autoloader` et `npm install` ;
 - Modifier la [variable d'environnement](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) `APP_ENV` sur `prod` ;
@@ -74,7 +74,7 @@
 ### Local Development
 
 - Install [PHP LTS](https://www.php.net/downloads.php) (>8.2 or higher) ;
-- Install [NodeJS LTS](https://nodejs.org/) (>18 or higher) ;
+- Install [NodeJS LTS](https://nodejs.org/) (>20 or higher) ;
 - Install [Symfony CLI](https://symfony.com/download) ;
 - Install the following additional PHP extensions: `zip`, `pdo_mysql`, `pdo_pgsql`, `redis`, `opcache`, `intl` ;
 - Install project dependencies using `composer install` and `npm install` ;
@@ -97,7 +97,7 @@
 ### Production Deployment
 
 - Install [PHP LTS](https://www.php.net/downloads.php) (>8.2 or higher) ;
-- Install [NodeJS LTS](https://nodejs.org/) (>18 or higher) ;
+- Install [NodeJS LTS](https://nodejs.org/) (>20 or higher) ;
 - Install the following additional PHP extensions: `zip`, `pdo_mysql`, `pdo_pgsql`, `redis`, `opcache`, `intl` ;
 - Install project dependencies with `composer install --no-dev --optimize-autoloader` and `npm install` ;
 - Set `APP_ENV` [environment variable](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) to `prod` ;
