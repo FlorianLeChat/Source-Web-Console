@@ -42,9 +42,6 @@ WORKDIR /var/www/html
 RUN echo "* * * * * /usr/local/bin/php /var/www/html/bin/console app:tasks-executor > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data && \
 	echo "0 * * * * /usr/local/bin/php /var/www/html/bin/console app:statistics-collector > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data
 
-# Add wait script to wait for other services to be ready
-ADD --chmod=0755 https://github.com/ufoscout/docker-compose-wait/releases/latest/download/wait /wait
-
 # Copy files from the previous stage
 COPY --from=0 --chown=www-data:www-data /usr/src/app ./
 
