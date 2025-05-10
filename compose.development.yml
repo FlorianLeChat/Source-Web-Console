@@ -40,7 +40,8 @@ services:
     phpmyadmin:
         image: phpmyadmin:latest
         depends_on:
-            - mariadb
+            mariadb:
+                condition: service_healthy
         environment:
             PMA_HOST: ${DATABASE_HOST}
             PMA_PORT: ${DATABASE_PORT}
@@ -72,11 +73,12 @@ services:
         volumes:
             - ./logs:/var/www/html/logs
         depends_on:
-            - redis
-            - mariadb
+            redis:
+                condition: service_healthy
+            mariadb:
+                condition: service_healthy
         environment:
             TZ: ${APP_TIMEZONE}
-            WAIT_HOSTS: redis:${REDIS_PORT}, mariadb:${DATABASE_PORT}
         healthcheck:
             test: curl -f http://localhost:8000/
             retries: 3

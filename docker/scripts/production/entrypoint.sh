@@ -4,9 +4,6 @@
 sed -i "s#APP_SECRET=secret#APP_SECRET=$(openssl rand -base64 32)#g" .env && \
 sed -i "s#SSL_PHRASE=passphrase#SSL_PHRASE=$(tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 30)#g" .env
 
-# Wait for external services to be ready
-/wait
-
 # Install Composer dependencies
 composer install --no-dev --optimize-autoloader
 
