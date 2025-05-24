@@ -3,7 +3,7 @@
 ## Installation
 
 > [!WARNING]
-> L'installation **sans** Docker nécessite d'avoir une base de données [MySQL](https://www.mysql.com/downloads/) ou [MariaDB](https://mariadb.org/download/) pour la gestion des données du site Internet. Vous devez également être en possession d'un serveur SMTP (si possible avec le protocole DKIM configuré) pour l'envoi des courriels de création/connexion des comptes utilisateurs. Enfin, le site Internet traite un grand volume de données et utilise [Redis](https://redis.io/downloads/) comme solution de mise en cache pour enregistrer temporairement les données les plus fréquemment consultées.
+> L'installation **sans** Docker nécessite d'avoir une base de données [compatible avec Doctrine](https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/introduction.html#introduction) pour la gestion des données du site Internet. Vous devez également être en possession d'un serveur SMTP (si possible avec le protocole DKIM configuré) pour l'envoi des courriels de création/connexion des comptes utilisateurs. Enfin, le site Internet traite un grand volume de données et utilise [Redis](https://redis.io/downloads/) comme solution de mise en cache pour enregistrer temporairement les données les plus fréquemment consultées.
 >
 > Le déploiement en environnement de production (**avec ou sans Docker**) nécessite un serveur Web déjà configuré comme [Nginx](https://nginx.org/en/), [Apache](https://httpd.apache.org/) ou [Caddy](https://caddyserver.com/) pour servir les scripts PHP.
 
@@ -12,7 +12,7 @@
 - Installer [PHP LTS](https://www.php.net/downloads.php) (>8.2 ou plus) ;
 - Installer [NodeJS LTS](https://nodejs.org/) (>20 ou plus) ;
 - Installer [Symfony CLI](https://symfony.com/download) ;
-- Installer les extensions PHP additionnelles suivantes : `zip`, `pdo_mysql`, `pdo_pgsql`, `redis`, `opcache`, `intl` ;
+- Installer les extensions PHP additionnelles suivantes : `zip`, `pdo_mysql`, `pdo_pgsql`, `pdo_oci`, `redis`, `opcache`, `intl`, `xdebug`, `bcmath`, `excimer` ;
 - Installer les dépendances du projet avec les commandes `composer install` et `npm install` ;
 - Modifier les [variables d'environnement](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) pour la connexion à la base de données (`DATABASE_...`) ;
 - Modifier les [variables d'environnement](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) pour la connexion au serveur de cache (`REDIS_...`) ;
@@ -34,7 +34,7 @@
 
 - Installer [PHP LTS](https://www.php.net/downloads.php) (>8.2 ou plus) ;
 - Installer [NodeJS LTS](https://nodejs.org/) (>20 ou plus) ;
-- Installer les extensions PHP additionnelles suivantes : `zip`, `pdo_mysql`, `pdo_pgsql`, `redis`, `opcache`, `intl` ;
+- Installer les extensions PHP additionnelles suivantes : `zip`, `pdo_mysql`, `pdo_pgsql`, `pdo_oci`, `redis`, `opcache`, `intl`, `bcmath`, `excimer` ;
 - Installer les dépendances du projet avec les commandes `composer install --no-dev --optimize-autoloader` et `npm install` ;
 - Modifier la [variable d'environnement](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) `APP_ENV` sur `prod` ;
 - Modifier les [variables d'environnement](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) pour la connexion à la base de données (`DATABASE_...`) ;
@@ -67,7 +67,7 @@
 ## Setup
 
 > [!WARNING]
-> Installation **without** Docker requires having a [MySQL](https://www.mysql.com/downloads/) or [MariaDB](https://mariadb.org/download/) database for managing website data. You must also have access to an SMTP server (preferably with the DKIM protocol configured) for sending emails related to user account creation/login. Finally, the website processes a large volume of data and uses [Redis](https://redis.io/downloads/) as a caching solution to temporarily store the most frequently accessed data.
+> Installation **without** Docker requires having a [Doctrine-compatible database](https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/introduction.html#introduction) for managing website data. You must also have access to an SMTP server (preferably with the DKIM protocol configured) for sending emails related to user account creation/login. Finally, the website processes a large volume of data and uses [Redis](https://redis.io/downloads/) as a caching solution to temporarily store the most frequently accessed data.
 >
 > Deployment in a production environment (**with or without Docker**) requires a pre-configured web server such as [Nginx](https://nginx.org/en/), [Apache](https://httpd.apache.org/), or [Caddy](https://caddyserver.com/) to serve PHP scripts.
 
@@ -76,7 +76,7 @@
 - Install [PHP LTS](https://www.php.net/downloads.php) (>8.2 or higher) ;
 - Install [NodeJS LTS](https://nodejs.org/) (>20 or higher) ;
 - Install [Symfony CLI](https://symfony.com/download) ;
-- Install the following additional PHP extensions: `zip`, `pdo_mysql`, `pdo_pgsql`, `redis`, `opcache`, `intl` ;
+- Install the following additional PHP extensions: `zip`, `pdo_mysql`, `pdo_pgsql`, `pdo_oci`, `redis`, `opcache`, `intl`, `xdebug`, `bcmath`, `excimer` ;
 - Install project dependencies using `composer install` and `npm install` ;
 - Set [environment variables](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) for database connection (`DATABASE_...`) ;
 - Set [environment variables](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) for cache server connection (`REDIS_...`) ;
@@ -98,7 +98,7 @@
 
 - Install [PHP LTS](https://www.php.net/downloads.php) (>8.2 or higher) ;
 - Install [NodeJS LTS](https://nodejs.org/) (>20 or higher) ;
-- Install the following additional PHP extensions: `zip`, `pdo_mysql`, `pdo_pgsql`, `redis`, `opcache`, `intl` ;
+- Install the following additional PHP extensions: `zip`, `pdo_mysql`, `pdo_pgsql`, `pdo_oci`, `redis`, `opcache`, `intl`, `bcmath`, `excimer` ;
 - Install project dependencies with `composer install --no-dev --optimize-autoloader` and `npm install` ;
 - Set `APP_ENV` [environment variable](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) to `prod` ;
 - Set [environment variables](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) for database connection (`DATABASE_...`) ;
