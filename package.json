@@ -35,7 +35,7 @@
     "lint-staged": "~16.1",
     "sass-loader": "~16.0",
     "normalize.css": "~8.0",
-    "sass-embedded": "~1.89",
+    "sass-embedded": "~1.88",
     "bootstrap-icons": "~1.13",
     "webpack-notifier": "~1.15",
     "typescript-eslint": "~8.33",
