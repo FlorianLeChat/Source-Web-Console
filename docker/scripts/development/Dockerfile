@@ -25,7 +25,7 @@ RUN echo "* * * * * /usr/local/bin/php /var/www/html/bin/console app:tasks-execu
 	echo "0 * * * * /usr/local/bin/php /var/www/html/bin/console app:statistics-collector > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data
 
 # Install Symfony CLI
-RUN curl -1sLf https://dl.cloudsmith.io/public/symfony/stable/setup.alpine.sh | bash && apk add --no-cache symfony-cli
+COPY --from=ghcr.io/symfony-cli/symfony-cli:latest /usr/local/bin/symfony /usr/local/bin/symfony
 
 # Copy all files to the working directory
 COPY --chown=www-data:www-data . .
