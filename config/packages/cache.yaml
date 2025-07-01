@@ -1,15 +1,11 @@
-framework:
-    cache:
-        app: cache_pool
-        system: cache.adapter.system
-        pools:
-            cache_pool:
-                adapters:
-                  - {name: cache.adapter.redis, provider: "Redis"}
-                  - {name: cache.adapter.doctrine_dbal}
-                  - {name: cache.adapter.filesystem}
-
-when@test:
+when@prod:
     framework:
         cache:
-            app: cache.adapter.filesystem
+            app: cache_pool
+            pools:
+                cache_pool:
+                    adapters:
+                    - {name: cache.adapter.redis, provider: "Redis"}
+                    - {name: cache.adapter.doctrine_dbal}
+                    - {name: cache.adapter.filesystem}
+            system: cache.adapter.system

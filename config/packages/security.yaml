@@ -22,7 +22,6 @@ security:
                 lifetime: 86400
                 check_route: user_onetime
                 failure_path: index_page
-                used_link_cache: "cache_pool"
                 signature_properties: ["username"]
             login_throttling:
                 max_attempts: 3
@@ -42,3 +41,9 @@ when@test:
                 time_cost: 3
                 algorithm: auto
                 memory_cost: 10
+
+when@prod:
+    firewalls:
+        main:
+            login_link:
+                used_link_cache: "cache_pool"
