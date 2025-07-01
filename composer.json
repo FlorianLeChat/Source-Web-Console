@@ -41,7 +41,7 @@
         "symfony/lock": "7.3.*",
         "symfony/form": "7.2.*",
         "symfony/intl": "7.2.*",
-        "symfony/mime": "7.2.*",
+        "symfony/mime": "7.3.*",
         "symfony/yaml": "7.3.*",
         "symfony/cache": "7.2.*",
         "symfony/asset": "7.3.*",
@@ -65,7 +65,7 @@
         "symfony/property-access": "7.2.*",
         "symfony/security-bundle": "7.2.*",
         "symfony/framework-bundle": "7.2.*",
-        "symfony/ux-twig-component": "2.25.*",
+        "symfony/ux-twig-component": "2.27.*",
         "symfony/expression-language": "7.3.*",
         "symfony/webpack-encore-bundle": "*"
     },
