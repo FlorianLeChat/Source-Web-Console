@@ -5,7 +5,7 @@ framework:
         pools:
             cache_pool:
                 adapters:
-                  - {name: cache.adapter.redis, provider: "redis://%env(REDIS_USERNAME)%:%env(REDIS_PASSWORD)%@%env(REDIS_HOST)%:%env(REDIS_PORT)%/"}
+                  - {name: cache.adapter.redis, provider: "Redis"}
                   - {name: cache.adapter.doctrine_dbal}
                   - {name: cache.adapter.filesystem}
 
