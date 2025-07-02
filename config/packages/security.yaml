@@ -43,7 +43,8 @@ when@test:
                 memory_cost: 10
 
 when@prod:
-    firewalls:
-        main:
-            login_link:
-                used_link_cache: "cache_pool"
+    security:
+        firewalls:
+            main:
+                login_link:
+                    used_link_cache: "cache_pool"

@@ -5,7 +5,7 @@ when@prod:
             pools:
                 cache_pool:
                     adapters:
-                    - {name: cache.adapter.redis, provider: "Redis"}
-                    - {name: cache.adapter.doctrine_dbal}
-                    - {name: cache.adapter.filesystem}
+                      - {name: cache.adapter.redis, provider: "Redis"}
+                      - {name: cache.adapter.doctrine_dbal}
+                      - {name: cache.adapter.filesystem}
             system: cache.adapter.system
