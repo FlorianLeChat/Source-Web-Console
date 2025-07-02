@@ -58,6 +58,7 @@
         "symfony/filesystem": "7.3.*",
         "symfony/translation": "7.3.*",
         "symfony/twig-bundle": "7.3.*",
+        "symfony/dom-crawler": "7.3.*",
         "symfony/http-client": "7.3.*",
         "symfony/rate-limiter": "7.3.*",
         "symfony/property-info": "7.3.*",
