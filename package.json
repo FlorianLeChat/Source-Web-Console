@@ -28,7 +28,7 @@
     "chart.js": "~4.5",
     "prettier": "~3.6",
     "ts-loader": "~9.5",
-    "typescript": "~5.9",
+    "typescript": "~5.8",
     "flag-icons": "~7.5",
     "file-loader": "~6.2",
     "webpack-cli": "~5.1",
