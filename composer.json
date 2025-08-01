@@ -25,8 +25,8 @@
         "phpseclib/phpseclib": "3.0.*",
         "league/oauth2-google": "4.0.*",
         "league/oauth2-github": "3.1.*",
-        "phpstan/phpdoc-parser": "2.1.*",
-        "easycorp/easyadmin-bundle": "4.23.*",
+        "phpstan/phpdoc-parser": "2.2.*",
+        "easycorp/easyadmin-bundle": "4.24.*",
         "xpaw/php-source-query-class": "dev-master",
         "knpuniversity/oauth2-client-bundle": "2.18.*",
 
@@ -34,10 +34,10 @@
         "ext-iconv": "*",
 
         "doctrine/annotations": "2.0.*",
-        "doctrine/doctrine-bundle": "2.14.*",
+        "doctrine/doctrine-bundle": "2.15.*",
         "doctrine/doctrine-migrations-bundle": "3.4.*",
 
-        "symfony/flex": "2.7.*",
+        "symfony/flex": "2.8.*",
         "symfony/lock": "7.3.*",
         "symfony/form": "7.3.*",
         "symfony/intl": "7.3.*",
@@ -66,7 +66,7 @@
         "symfony/property-access": "7.3.*",
         "symfony/security-bundle": "7.3.*",
         "symfony/framework-bundle": "7.3.*",
-        "symfony/ux-twig-component": "2.27.*",
+        "symfony/ux-twig-component": "2.28.*",
         "symfony/expression-language": "7.3.*",
         "symfony/webpack-encore-bundle": "*"
     },
