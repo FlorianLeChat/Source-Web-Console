@@ -1,6 +1,3 @@
-// Importation du normalisateur TypeScript.
-import "@total-typescript/ts-reset";
-
 // Importation des fonctions et constantes communes.
 import "./cookies";
 import "./analytics";
