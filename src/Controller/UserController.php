@@ -14,7 +14,6 @@ use Symfony\Component\Process\Process;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\IpUtils;
-use Symfony\Component\Mime\Crypto\DkimSigner;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -368,23 +367,10 @@ final class UserController extends AbstractController
 			->text($this->translator->trans("form.contact.mailing", [$content]))
 			->subject($subject);
 
-		// On tente de signer également le courriel en utilisant DKIM.
-		//  Source : https://symfony.com/doc/current/mailer.html#signing-messages
-		if (is_file($path = $this->getParameter("app.dkim_private_key")))
-		{
-			$signer = new DkimSigner(
-				$path,
-				$this->getParameter("app.dkim_domain"),
-				$this->getParameter("app.dkim_selector")
-			);
-
-			$signedEmail = $signer->sign($email);
-		}
-
 		try
 		{
 			// On envoie le courriel à l'utilisateur.
-			$mailer->send($signedEmail ?? $email);
+			$mailer->send($email);
 		}
 		catch (\Exception $error)
 		{

@@ -3,7 +3,7 @@
 ## Installation
 
 > [!WARNING]
-> L'installation **sans** Docker nécessite d'avoir une base de données [compatible avec Doctrine](https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/introduction.html#introduction) pour la gestion des données du site Internet. Vous devez également être en possession d'un serveur SMTP (si possible avec le protocole DKIM configuré) pour l'envoi des courriels de création/connexion des comptes utilisateurs. Enfin, le site Internet traite un grand volume de données et utilise [Redis](https://redis.io/downloads/) comme solution de mise en cache pour enregistrer temporairement les données les plus fréquemment consultées.
+> L'installation **sans** Docker nécessite d'avoir une base de données [compatible avec Doctrine](https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/introduction.html#introduction) pour la gestion des données du site Internet. Vous devez également être en possession d'un serveur SMTP pour l'envoi des courriels de création/connexion des comptes utilisateurs. Enfin, le site Internet traite un grand volume de données et utilise [Redis](https://redis.io/downloads/) comme solution de mise en cache pour enregistrer temporairement les données les plus fréquemment consultées.
 >
 > Le déploiement en environnement de production (**avec ou sans Docker**) nécessite un serveur Web déjà configuré comme [Nginx](https://nginx.org/en/), [Apache](https://httpd.apache.org/) ou [Caddy](https://caddyserver.com/) pour servir les scripts PHP.
 
@@ -17,7 +17,6 @@
 - Modifier les [variables d'environnement](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) pour la connexion à la base de données (`DATABASE_...`) ;
 - Modifier les [variables d'environnement](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) pour la connexion au serveur de cache (`REDIS_...`) ;
 - Modifier les [variables d'environnement](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) pour configurer le serveur de messagerie (`SMTP_...`) ;
-- *(Facultatif)* Modifier les [variables d'environnement](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) pour activer l'authentification DKIM (`DKIM_...`) ;
 - Générer une phrase de passe avec la commande `tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 30; echo` (nécessite [bash](https://www.gnu.org/software/bash/)) ;
 - Modifier la [variable d'environnement](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) `SSL_PHRASE` avec la valeur générée à l'étape précédente ;
 - Générer un *hash* en base64 avec la commande `openssl rand -base64 32` (nécessite [OpenSSL](https://openssl-library.org/source/)) ;
@@ -40,7 +39,6 @@
 - Modifier les [variables d'environnement](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) pour la connexion à la base de données (`DATABASE_...`) ;
 - Modifier les [variables d'environnement](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) pour la connexion au serveur de cache (`REDIS_...`) ;
 - Modifier les [variables d'environnement](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) pour configurer le serveur de messagerie (`SMTP_...`) ;
-- *(Facultatif)* Modifier les [variables d'environnement](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) pour activer l'authentification DKIM (`DKIM_...`) ;
 - Générer une phrase de passe avec la commande `tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 30; echo` (nécessite [bash](https://www.gnu.org/software/bash/)) ;
 - Modifier la [variable d'environnement](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) `SSL_PHRASE` avec la valeur générée à l'étape précédente ;
 - Générer un *hash* en base64 avec la commande `openssl rand -base64 32` (nécessite [OpenSSL](https://openssl-library.org/source/)) ;
@@ -67,7 +65,7 @@
 ## Setup
 
 > [!WARNING]
-> Installation **without** Docker requires having a [Doctrine-compatible database](https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/introduction.html#introduction) for managing website data. You must also have access to an SMTP server (preferably with the DKIM protocol configured) for sending emails related to user account creation/login. Finally, the website processes a large volume of data and uses [Redis](https://redis.io/downloads/) as a caching solution to temporarily store the most frequently accessed data.
+> Installation **without** Docker requires having a [Doctrine-compatible database](https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/introduction.html#introduction) for managing website data. You must also have access to an SMTP server for sending emails related to user account creation/login. Finally, the website processes a large volume of data and uses [Redis](https://redis.io/downloads/) as a caching solution to temporarily store the most frequently accessed data.
 >
 > Deployment in a production environment (**with or without Docker**) requires a pre-configured web server such as [Nginx](https://nginx.org/en/), [Apache](https://httpd.apache.org/), or [Caddy](https://caddyserver.com/) to serve PHP scripts.
 
@@ -81,7 +79,6 @@
 - Set [environment variables](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) for database connection (`DATABASE_...`) ;
 - Set [environment variables](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) for cache server connection (`REDIS_...`) ;
 - Set [environment variables](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) to configure mail server (`SMTP_...`) ;
-- *(Optional)* Set [environment variables](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) to enable DKIM authentication (`DKIM_...`) ;
 - Generate a passphrase using `tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 30; echo` (requires [bash](https://www.gnu.org/software/bash/)) ;
 - Set `SSL_PHRASE` [environment variable](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) with value generated in the previous step ;
 - Generate a base64 hash using `openssl rand -base64 32` (requires [OpenSSL](https://openssl-library.org/source/)) ;
@@ -104,7 +101,6 @@
 - Set [environment variables](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) for database connection (`DATABASE_...`) ;
 - Set [environment variables](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) for cache server connection (`REDIS_...`) ;
 - Set [environment variables](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) to configure mail server (`SMTP_...`) ;
-- *(Optional)* Set [environment variables](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) to enable DKIM authentication (`DKIM_...`) ;
 - Generate a passphrase using `tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 30; echo` (requires [bash](https://www.gnu.org/software/bash/)) ;
 - Set `SSL_PHRASE` [environment variable](https://github.com/FlorianLeChat/Source-Web-Console/blob/master/.env) with value generated in the previous step ;
 - Generate a base64 hash using `openssl rand -base64 32` (requires [OpenSSL](https://openssl-library.org/source/)) ;
