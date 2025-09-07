@@ -1,36 +1,9 @@
 //
-// Permet d'ajouter le mécanisme de fonctionnement de Google Analytics.
-//  Source : https://analytics.google.com/analytics/web/
-//
-const head = $( "head" );
-
-export function sendAnalytics()
-{
-	// On vérifie d'abord si le service est activé ou non.
-	if ( process.env.ANALYTICS_ENABLED === "false" )
-	{
-		return;
-	}
-
-	// On ajoute ensuite le script de Google Analytics.
-	const url = `https://www.googletagmanager.com/gtag/js?id=${ window.analytics_identifier }`;
-	head.append( `<script src="${ url }" async></script>` );
-
-	// On ajoute enfin le script de configuration de Google Analytics.
-	function gtag( ...args: ( string | Date )[] )
-	{
-		window.dataLayer = window.dataLayer ?? [];
-		window.dataLayer.push( ...args );
-	}
-
-	gtag( "js", new Date() );
-	gtag( "config", window.analytics_identifier );
-}
-
-//
 // Permet d'ajouter le mécanisme de fonctionnement de Google reCAPTCHA.
 //  Source : https://www.google.com/recaptcha/about/
 //
+const head = $( "head" );
+
 export function setupRecaptcha()
 {
 	// On vérifie d'abord si le service est activé ou non.

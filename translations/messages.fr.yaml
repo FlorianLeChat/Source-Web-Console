@@ -298,20 +298,6 @@ preferencesModal:
               domain: "Cookie Consent"
               description: "Cookie mis en place par <a href=\"https://cookieconsent.orestbida.com/\" target=\"blank\">Cookie Consent</a>."
               expiration: "Expire après 6 mois."
-    - title: "Cookies de performance et d'analyse"
-      description: "Ces cookies permettent au site Internet de se souvenir des choix que vous avez faits dans le passé."
-      linkedCategory: "analytics"
-      cookieTable:
-        headers:
-            name: "Nom"
-            domain: "Service"
-            description: "Description"
-            expiration: "Expiration"
-        body:
-            - name: "_ga"
-              domain: "Google Analytics"
-              description: "Cookie mis en place par <a href=\"https://analytics.google.com/analytics/web/\" target=\"blank\">Google Analytics</a>."
-              expiration: "Expire après 2 ans."
     - title: "Cookies de sécurité"
       description: "Ces cookies permettent d'authentifier les utilisateurs, d'empêcher l'utilisation frauduleuse des informations de connexion et de protéger les internautes qui interagissent avec le site Internet."
       linkedCategory: "security"

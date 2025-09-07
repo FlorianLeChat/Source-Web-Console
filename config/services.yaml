@@ -1,8 +1,6 @@
 parameters:
     app.timezone: "%env(APP_TIMEZONE)%"
     app.ssl_phrase: "%env(SSL_PHRASE)%"
-    app.analytics_tag: "%env(ANALYTICS_TAG)%"
-    app.analytics_enabled: "%env(ANALYTICS_ENABLED)%"
     app.recaptcha_enabled: "%env(RECAPTCHA_ENABLED)%"
     app.recaptcha_private_key: "%env(RECAPTCHA_PRIVATE_KEY)%"
     app.google_client_enabled: "%env(GOOGLE_CLIENT_ENABLED)%"

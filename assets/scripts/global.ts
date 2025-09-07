@@ -28,7 +28,6 @@ declare global
 		execute_value: string;
 		usage_percent: string;
 		capslock_enabled: string;
-		analytics_identifier: string;
 
 		recover_password_username: string;
 		recover_password_password: string;
@@ -44,9 +43,6 @@ declare global
 		cpu_usage_data: number[];
 		tick_rate_data: number[];
 		player_count_data: number[];
-
-		// Déclaration des données de l'API Google Analytics.
-		dataLayer?: ( string | Date )[];
 	}
 }
 

@@ -13,7 +13,6 @@ if ( !Encore.isRuntimeEnvironmentConfigured() )
 Encore.configureDefinePlugin( ( options ) =>
 {
 	// Définition des variables d'environnement personnalisées.
-	options[ "process.env.ANALYTICS_ENABLED" ] = JSON.stringify( process.env.ANALYTICS_ENABLED );
 	options[ "process.env.RECAPTCHA_ENABLED" ] = JSON.stringify( process.env.RECAPTCHA_ENABLED );
 } );
 

@@ -44,9 +44,6 @@
 
 			// Clé de sécurité publique pour le service de Google reCAPTCHA.
 			window.recaptcha_public_key = "{{ global_recaptcha|escape("js") }}"
-
-			// Identifiant unique pour les mesures de Google Analytics.
-			window.analytics_identifier = "{{ global_analytics|escape("js") }}"
 		</script>
 
 		{# Injection de code JavaScript #}

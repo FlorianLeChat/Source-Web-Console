@@ -4,7 +4,7 @@
 //  Source : https://cookieconsent.orestbida.com/reference/configuration-reference.html
 //
 import { run } from "vanilla-cookieconsent";
-import { sendAnalytics, setupRecaptcha } from "./analytics";
+import { setupRecaptcha } from "./analytics";
 
 if ( window.location.search !== "legal" )
 {
@@ -41,15 +41,6 @@ if ( window.location.search !== "legal" )
 				enabled: true,
 				readOnly: true
 			},
-			analytics: {
-				autoClear: {
-					cookies: [
-						{
-							name: /^(_ga|_gid)/
-						}
-					]
-				}
-			},
 			security: {
 				autoClear: {
 					cookies: [
@@ -82,10 +73,6 @@ if ( window.location.search !== "legal" )
 		{
 			switch ( category )
 			{
-				case "analytics":
-					sendAnalytics();
-					break;
-
 				case "security":
 					setupRecaptcha();
 					break;

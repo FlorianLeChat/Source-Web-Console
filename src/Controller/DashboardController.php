@@ -59,27 +59,19 @@ final class DashboardController extends AbstractController
 		//  pour le convertir en tableau associatif.
 		$translations = Yaml::parseFile(sprintf("%s/translations/messages.%s.yaml", $this->kernel->getProjectDir(), $language));
 
-		// On détermine si les services Google reCAPTCHA et Google Analytics
-		//  sont activés pour afficher les sections correspondantes dans les
-		//  consentements des cookies.
-		$isAnalyticsEnabled = $this->getParameter("app.analytics_enabled") === "true";
+		// On détermine si les services Google reCAPTCHA sont activés
+		//  pour afficher les sections correspondantes dans les consentements des cookies.
 		$isRecaptchaEnabled = $this->getParameter("app.recaptcha_enabled") === "true";
 
 		// On filtre ensuite les sections des préférences des cookies en fonction
-		//  de l'activation des services Google reCAPTCHA et Google Analytics.
+		//  de l'activation du service Google reCAPTCHA.
 		$translations["preferencesModal"]["sections"] = array_filter(
 			$translations["preferencesModal"]["sections"],
-			function ($section) use ($isAnalyticsEnabled, $isRecaptchaEnabled)
+			function ($section) use ($isRecaptchaEnabled)
 			{
-				// Google Analytics.
+				// Google reCAPTCHA.
 				$category = $section["linkedCategory"] ?? "";
 
-				if ($category === "analytics" && !$isAnalyticsEnabled)
-				{
-					return false;
-				}
-
-				// Google reCAPTCHA.
 				if ($category === "security" && !$isRecaptchaEnabled)
 				{
 					return false;
