@@ -2,7 +2,7 @@
 
 # Use an customized image of PHP
 # https://hub.docker.com/_/php
-FROM php:alpine
+FROM php:8.4-alpine
 
 # Install system and PHP extensions
 # https://xdebug.org/docs/all_settings#mode
