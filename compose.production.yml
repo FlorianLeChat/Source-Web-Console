@@ -29,8 +29,9 @@ services:
             MARIADB_PORT: ${DATABASE_PORT}
             MARIADB_USER: ${DATABASE_USERNAME}
             MARIADB_PASSWORD: ${DATABASE_PASSWORD}
+            MARIADB_AUTO_UPGRADE: true
             MARIADB_INITDB_SKIP_TZINFO: true
-            MARIADB_RANDOM_ROOT_PASSWORD: 1
+            MARIADB_RANDOM_ROOT_PASSWORD: true
         healthcheck:
             test: healthcheck.sh --su-mysql --connect --innodb_initialized
             retries: 3
