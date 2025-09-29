@@ -2,7 +2,7 @@
 
 # Use an customized image of Node.js
 # https://hub.docker.com/_/node
-FROM node:lts-alpine
+FROM node:24-slim
 
 # Set the working directory to the website files
 WORKDIR /usr/src/app
@@ -24,7 +24,7 @@ RUN npm run build && npm prune --production
 
 # Use an customized image of PHP
 # https://hub.docker.com/_/php
-FROM php:fpm-alpine
+FROM php:8.4-fpm-alpine
 
 # Install system dependencies
 RUN apk add --no-cache supercronic tzdata
