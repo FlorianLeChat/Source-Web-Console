@@ -27,7 +27,7 @@
         "league/oauth2-github": "3.1.*",
         "phpstan/phpdoc-parser": "2.3.*",
         "easycorp/easyadmin-bundle": "4.23.*",
-        "xpaw/php-source-query-class": "4.0.*",
+        "xpaw/php-source-query-class": "5.0.*",
         "knpuniversity/oauth2-client-bundle": "2.18.*",
 
         "ext-ctype": "*",
