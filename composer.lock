@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c5e2091e769d003515d1e8d7f06dab38",
+    "content-hash": "6deb829c0f3eb0e31e04a67035d0858d",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -9364,16 +9364,16 @@
         },
         {
             "name": "xpaw/php-source-query-class",
-            "version": "dev-master",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xPaw/PHP-Source-Query.git",
-                "reference": "18423a4efd80cb9786741d1308e0b392e8059a56"
+                "reference": "02839815b3281c45b111c8dfdb37d6004d886fe9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xPaw/PHP-Source-Query/zipball/18423a4efd80cb9786741d1308e0b392e8059a56",
-                "reference": "18423a4efd80cb9786741d1308e0b392e8059a56",
+                "url": "https://api.github.com/repos/xPaw/PHP-Source-Query/zipball/02839815b3281c45b111c8dfdb37d6004d886fe9",
+                "reference": "02839815b3281c45b111c8dfdb37d6004d886fe9",
                 "shasum": ""
             },
             "require": {
@@ -9381,10 +9381,9 @@
             },
             "require-dev": {
                 "phpstan/phpstan": "^1.10",
-                "phpstan/phpstan-strict-rules": "^1.6",
-                "phpunit/phpunit": "^10.3"
+                "phpunit/phpunit": "^10.3",
+                "vimeo/psalm": "^5.15"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -9409,9 +9408,9 @@
                 "team fortress"
             ],
             "support": {
-                "source": "https://github.com/xPaw/PHP-Source-Query/tree/master"
+                "source": "https://github.com/xPaw/PHP-Source-Query/tree/4.0.0"
             },
-            "time": "2024-09-24T20:06:19+00:00"
+            "time": "2024-08-04T08:10:16+00:00"
         }
     ],
     "packages-dev": [
@@ -12318,9 +12317,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "xpaw/php-source-query-class": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
