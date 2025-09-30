@@ -27,7 +27,7 @@ RUN npm run build && npm prune --production
 FROM php:8.4-fpm
 
 # Install system dependencies
-RUN apt update && apt install -y tzdata && apt clean
+RUN apt update && apt install -y cron tzdata && apt clean
 
 # Install some PHP extensions
 ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
@@ -38,7 +38,6 @@ RUN install-php-extensions zip pdo_mysql pdo_pgsql pdo_oci redis opcache intl bc
 WORKDIR /var/www/html
 
 # Add some cronjobs for Symfony custom commands
-# https://github.com/webdevops/Dockerfile/issues/280#issuecomment-1311681838
 RUN echo "* * * * * /usr/local/bin/php /var/www/html/bin/console app:tasks-executor > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data && \
 	echo "0 * * * * /usr/local/bin/php /var/www/html/bin/console app:statistics-collector > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data
 
