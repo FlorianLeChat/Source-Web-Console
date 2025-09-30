@@ -20,8 +20,5 @@ composer dump-env prod
 # Start UDP server for incoming logs
 /usr/local/bin/php bin/console app:udp-server 127.0.0.1:8443 &
 
-# Run cron service in background
-supercronic /etc/crontabs/www-data &
-
 # Start PHP-FPM daemon
 php-fpm
