@@ -9,6 +9,9 @@ use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
+/**
+ * @extends AbstractCrudController<User>
+ */
 final class UserCrudController extends AbstractCrudController
 {
 	public static function getEntityFqcn(): string
