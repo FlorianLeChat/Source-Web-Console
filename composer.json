@@ -26,9 +26,9 @@
         "league/oauth2-google": "4.0.*",
         "league/oauth2-github": "3.1.*",
         "phpstan/phpdoc-parser": "2.3.*",
-        "easycorp/easyadmin-bundle": "4.23.*",
+        "easycorp/easyadmin-bundle": "4.25.*",
         "xpaw/php-source-query-class": "5.0.*",
-        "knpuniversity/oauth2-client-bundle": "2.18.*",
+        "knpuniversity/oauth2-client-bundle": "2.19.*",
 
         "ext-ctype": "*",
         "ext-iconv": "*",
@@ -124,7 +124,7 @@
         "symfony/phpunit-bridge": "7.3.*",
         "symfony/web-profiler-bundle": "7.3.*",
 
-        "squizlabs/php_codesniffer": "3.13.*",
+        "squizlabs/php_codesniffer": "4.0.*",
         "doctrine/doctrine-fixtures-bundle": "4.1.*"
     }
 }
