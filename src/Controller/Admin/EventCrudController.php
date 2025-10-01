@@ -9,6 +9,9 @@ use App\Entity\Event;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
+/**
+ * @extends AbstractCrudController<Event>
+ */
 final class EventCrudController extends AbstractCrudController
 {
 	public static function getEntityFqcn(): string

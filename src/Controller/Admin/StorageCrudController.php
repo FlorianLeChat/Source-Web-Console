@@ -9,6 +9,9 @@ use App\Entity\Storage;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
+/**
+ * @extends AbstractCrudController<Storage>
+ */
 final class StorageCrudController extends AbstractCrudController
 {
 	public static function getEntityFqcn(): string
