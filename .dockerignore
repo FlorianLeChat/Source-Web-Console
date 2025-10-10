@@ -9,6 +9,7 @@
 **/vendor
 **/*.md
 **/*.neon
+**/*.xml
 **/*.xml.dist
 **/.dockerignore
 **/.editorconfig
