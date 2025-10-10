@@ -2,8 +2,9 @@ import eslint from "@eslint/js";
 import tslint from "typescript-eslint";
 import globals from "globals";
 import stylistic from "@stylistic/eslint-plugin";
+import { defineConfig } from "eslint/config";
 
-export default tslint.config(
+export default defineConfig(
 	eslint.configs.recommended,
 	tslint.configs.strict,
 	tslint.configs.stylistic,
