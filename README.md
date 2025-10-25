@@ -2,6 +2,24 @@
 
 ![image](https://user-images.githubusercontent.com/26360935/165751507-f0c82948-3a4f-4220-9817-fc04769480ad.svg)
 
+![HTML](https://img.shields.io/badge/HTML-E34F26?logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS-639?logo=css&logoColor=white)
+![Sass](https://img.shields.io/badge/Sass-CC6699?logo=sass&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-777BB4?logo=php&logoColor=white)
+
+![Symfony](https://img.shields.io/badge/Symfony-black?logo=symfony)
+![Doctrine](https://img.shields.io/badge/Doctrine-FF8700?logo=doctrine&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-%23DD0031.svg?logo=redis&logoColor=white)
+![jQuery](https://img.shields.io/badge/jQuery-0769AD?logo=jquery&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?logo=bootstrap&logoColor=white)
+![Webpack](https://img.shields.io/badge/Webpack-8DD6F9?logo=webpack&logoColor=black)
+![Chart.js](https://img.shields.io/badge/Chart.js-FF6384?logo=chartdotjs&logoColor=white)
+![i18n](https://img.shields.io/badge/i18n-26A69A?logo=googletranslate&logoColor=white)
+![Prettier](https://img.shields.io/badge/Prettier-F7B93E?logo=prettier&logoColor=black)
+![ESLint](https://img.shields.io/badge/ESLint-4B32C3?logo=eslint&logoColor=white)
+
 ## In French
 
 C'est un projet réalisé durant mes études afin de permettre de gérer les serveurs dédiés de jeu utilisant le protocole **[Source RCON](https://developer.valvesoftware.com/wiki/Source_RCON_Protocol)** à travers une interface graphique. La réalisation de ce projet est intervenue après celui de mon **[portfolio](https://github.com/FlorianLeChat/Portfolio)**, qui lui aussi a reçu une refonte graphique et technologique.
