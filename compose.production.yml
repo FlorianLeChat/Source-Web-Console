@@ -50,13 +50,14 @@ services:
             PMA_HOST: ${DATABASE_HOST}
             PMA_PORT: ${DATABASE_PORT}
             PMA_USER: ${DATABASE_USERNAME}
+            APACHE_PORT: 8080
             PMA_PASSWORD: ${DATABASE_PASSWORD}
         healthcheck:
             test: curl -f http://localhost
             retries: 3
             timeout: 5s
-        ports:
-            - "8080:80"
+        expose:
+            - "8080"
 
     # https://github.com/FlorianLeChat/Source-Web-Console
     php:
@@ -79,6 +80,6 @@ services:
         build:
             context: .
             dockerfile: ./docker/scripts/production/Dockerfile
-        ports:
-            - "9000:9000"
-            - "8443:8443/udp"
+        expose:
+            - "9000"
+            - "8443/udp"
