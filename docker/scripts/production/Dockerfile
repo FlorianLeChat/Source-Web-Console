@@ -20,7 +20,7 @@ RUN --mount=type=cache,target=.npm \
 COPY --chown=node:node . .
 
 # Build all static assets and remove development dependencies
-RUN npm run build && npm prune --production
+RUN npm run build && npm prune --omit=dev
 
 # Use an customized image of PHP
 # https://hub.docker.com/_/php
