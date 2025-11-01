@@ -53,7 +53,7 @@ services:
             APACHE_PORT: 8080
             PMA_PASSWORD: ${DATABASE_PASSWORD}
         healthcheck:
-            test: curl -f http://localhost
+            test: curl -f http://localhost:8080/
             retries: 3
             timeout: 5s
         expose:
@@ -81,5 +81,4 @@ services:
             context: .
             dockerfile: ./docker/scripts/production/Dockerfile
         expose:
-            - "9000"
             - "8443/udp"
