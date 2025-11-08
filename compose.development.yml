@@ -20,7 +20,7 @@ services:
         image: mariadb:12
         volumes:
             - ./docker/services/database:/var/lib/mysql
-        command: [ "--collation-server=utf8mb4_unicode_ci" ]
+        command: --collation-server=utf8mb4_unicode_ci
         environment:
             TZ: ${APP_TIMEZONE}
             MARIADB_DATABASE: ${DATABASE_NAME}
