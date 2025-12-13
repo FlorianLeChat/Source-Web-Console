@@ -15,6 +15,7 @@ services:
         exclude:
             - "../src/Entity"
             - "../src/Kernel.php"
+            - "../src/DataFixtures"
             - "../src/DependencyInjection"
         resource: "../src/"
     App\Twig\AppRuntime:
@@ -36,7 +37,14 @@ services:
             - auth:
                 - ["%env(REDIS_USERNAME)%", "%env(REDIS_PASSWORD)%"]
 
-when@prod:
-    App\:
-        exclude:
-            - "../src/DataFixtures"
+when@test:
+    services:
+        _defaults:
+            autowire: true
+            autoconfigure: true
+        App\:
+            exclude:
+                - "../src/Entity"
+                - "../src/Kernel.php"
+                - "../src/DependencyInjection"
+            resource: "../src/"
