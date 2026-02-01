@@ -17,8 +17,8 @@
     "require": {
         "php": ">=8.2",
 
-        "twig/twig": "3.22.*",
-        "twig/extra-bundle": "3.22.*",
+        "twig/twig": "3.23.*",
+        "twig/extra-bundle": "3.23.*",
 
         "react/datagram": "1.10.*",
         "nelmio/cors-bundle": "2.6.*",
@@ -26,8 +26,8 @@
         "league/oauth2-google": "4.1.*",
         "league/oauth2-github": "3.1.*",
         "phpstan/phpdoc-parser": "2.3.*",
-        "easycorp/easyadmin-bundle": "4.27.*",
-        "xpaw/php-source-query-class": "5.0.*",
+        "easycorp/easyadmin-bundle": "4.28.*",
+        "xpaw/php-source-query-class": "6.0.*",
         "knpuniversity/oauth2-client-bundle": "2.20.*",
 
         "ext-ctype": "*",
@@ -66,7 +66,7 @@
         "symfony/property-access": "7.3.*",
         "symfony/security-bundle": "7.3.*",
         "symfony/framework-bundle": "7.3.*",
-        "symfony/ux-twig-component": "2.31.*",
+        "symfony/ux-twig-component": "2.32.*",
         "symfony/expression-language": "7.3.*",
         "symfony/webpack-encore-bundle": "*"
     },
