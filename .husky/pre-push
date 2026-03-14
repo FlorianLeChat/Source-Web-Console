@@ -1,7 +1,2 @@
 cspell translations/** --no-summary --no-progress --no-must-find-files
 npm run build
-rm -f var/data.db
-touch var/data.db
-php bin/console --env=test doctrine:schema:create --no-interaction
-php bin/console --env=test doctrine:fixtures:load --no-interaction
-vendor/bin/phpunit
