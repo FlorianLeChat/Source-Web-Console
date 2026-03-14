@@ -105,7 +105,7 @@
     },
     "extra": {
         "symfony": {
-            "require": "7.4.*",
+            "require": "<8.0",
             "allow-contrib": false
         }
     },
