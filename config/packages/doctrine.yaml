@@ -2,7 +2,6 @@ doctrine:
     dbal:
         url: "%env(DATABASE_TYPE)%://%env(DATABASE_USERNAME)%:%env(DATABASE_PASSWORD)%@%env(DATABASE_HOST)%:%env(DATABASE_PORT)%/%env(DATABASE_NAME)%"
         server_version: mariadb-12.1.1
-        use_savepoints: true
         profiling_collect_backtrace: "%kernel.debug%"
     orm:
         mappings:
@@ -13,9 +12,6 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         controller_resolver:
         validate_xml_mapping: true
-        enable_lazy_ghost_objects: true
-        auto_generate_proxy_classes: true
-        report_fields_where_declared: true
 
 when@test:
     doctrine:
