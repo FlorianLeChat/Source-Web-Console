@@ -11,11 +11,6 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Storage>
- *
- * @method Storage|null find($id, $lockMode = null, $lockVersion = null)
- * @method Storage|null findOneBy(array $criteria, array $orderBy = null)
- * @method Storage[]    findAll()
- * @method Storage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 final class StorageRepository extends ServiceEntityRepository
 {

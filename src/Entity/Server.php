@@ -21,20 +21,20 @@ class Server
 
 	#[ORM\ManyToOne(inversedBy: "servers")]
 	#[ORM\JoinColumn(nullable: false)]
-	private ?User $user = null;
+	private User $user;
 
 	#[ORM\Column(length: 15)]
 	#[Assert\Ip]
 	#[Assert\Length(min: 7, max: 15)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
-	private ?string $address = null;
+	private string $address;
 
 	#[ORM\Column]
 	#[Assert\Range(min: 1, max: 99999)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
-	private ?int $port = null;
+	private int $port;
 
 	#[ORM\Column(length: 255, nullable: true)]
 	#[Assert\Length(max: 255)]

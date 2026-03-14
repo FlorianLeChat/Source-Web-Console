@@ -21,27 +21,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 	#[ORM\Id]
 	#[ORM\Column]
 	#[ORM\GeneratedValue]
-	private ?int $id = null;
+	private int $id;
 
 	#[ORM\Column(length: 30, unique: true)]
 	#[Assert\Length(min: 10, max: 30)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
 	#[Assert\NoSuspiciousCharacters]
-	private ?string $username = null;
+	private string $username;
 
 	#[ORM\Column]
 	#[Assert\Length(min: 10, max: 50)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
 	#[Assert\NotCompromisedPassword]
-	private ?string $password = null;
+	private string $password;
 
 	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
-	private ?\DateTimeInterface $createdAt = null;
+	private \DateTimeInterface $createdAt;
 
 	#[ORM\Column(length: 45)]
-	private ?string $address = null;
+	private string $address;
 
 	#[ORM\Column(length: 255, nullable: true)]
 	private ?string $token = null;

@@ -126,13 +126,9 @@ final class DashboardController extends AbstractController
 				// Connexion à un serveur.
 				case "connect":
 				{
-					// On vérifie que l'utilisateur a bien sélectionné un serveur.
-					if ($serverId !== 0)
-					{
-						// Si c'est le cas, on enregistre l'identifiant du serveur dans la
-						//  session de l'utilisateur.
-						$request->getSession()->set("serverId", $serverId);
-					}
+					// On enregistre l'identifiant du serveur dans la
+					//  session de l'utilisateur.
+					$request->getSession()->set("serverId", $serverId);
 
 					break;
 				}

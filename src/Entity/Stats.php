@@ -15,23 +15,23 @@ class Stats
 	#[ORM\Id]
 	#[ORM\Column]
 	#[ORM\GeneratedValue]
-	private ?int $id = null;
+	private int $id;
 
 	#[ORM\ManyToOne(inversedBy: "stats")]
 	#[ORM\JoinColumn(nullable: false)]
-	private ?Server $server = null;
+	private Server $server;
 
 	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
-	private ?\DateTimeInterface $date = null;
+	private \DateTimeInterface $date;
 
 	#[ORM\Column(type: Types::SMALLINT)]
-	private ?int $playerCount = null;
+	private int $playerCount;
 
 	#[ORM\Column(type: Types::FLOAT)]
-	private ?float $cpuUsage = null;
+	private float $cpuUsage;
 
 	#[ORM\Column(type: Types::FLOAT)]
-	private ?float $tickRate = null;
+	private float $tickRate;
 
 	public function getId(): ?int
 	{

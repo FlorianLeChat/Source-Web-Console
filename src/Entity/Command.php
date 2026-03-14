@@ -15,23 +15,23 @@ class Command
 	#[ORM\Id]
 	#[ORM\Column]
 	#[ORM\GeneratedValue]
-	private ?int $id = null;
+	private int $id;
 
 	#[ORM\ManyToOne(inversedBy: "commands")]
 	#[ORM\JoinColumn(nullable: false)]
-	private ?User $user = null;
+	private User $user;
 
 	#[ORM\Column(length: 255)]
 	#[Assert\Length(min: 1, max: 255)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
-	private ?string $title = null;
+	private string $title;
 
 	#[ORM\Column(length: 255)]
 	#[Assert\Length(min: 1, max: 255)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
-	private ?string $content = null;
+	private string $content;
 
 	public function getId(): ?int
 	{

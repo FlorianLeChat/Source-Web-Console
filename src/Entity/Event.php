@@ -15,17 +15,17 @@ class Event
 	#[ORM\Id]
 	#[ORM\Column]
 	#[ORM\GeneratedValue]
-	private ?int $id = null;
+	private int $id;
 
 	#[ORM\ManyToOne(inversedBy: "events")]
 	#[ORM\JoinColumn(nullable: false)]
-	private ?Server $server = null;
+	private Server $server;
 
 	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
-	private ?\DateTimeInterface $date = null;
+	private \DateTimeInterface $date;
 
 	#[ORM\Column(length: 255)]
-	private ?string $action = null;
+	private string $action;
 
 	public function getId(): ?int
 	{

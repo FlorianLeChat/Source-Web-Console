@@ -60,7 +60,10 @@
 		</properties>
 	</rule>
 
-	<!-- Répertoire à analyser -->
+	<!-- Fichier à exclure -->
+	<exclude-pattern>config/reference.php</exclude-pattern>
+
+	<!-- Répertoires à analyser -->
 	<file>bin/</file>
 	<file>config/</file>
 	<file>public/</file>

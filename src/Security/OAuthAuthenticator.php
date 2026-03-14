@@ -36,7 +36,7 @@ final class OAuthAuthenticator extends OAuth2Authenticator
 	//
 	// Définition de la route à utiliser pour l'authentification.
 	//
-	public function supports(Request $request): ?bool
+	public function supports(Request $request): bool
 	{
 		return $request->attributes->get("_route") === "user_oauth_check";
 	}
@@ -92,7 +92,7 @@ final class OAuthAuthenticator extends OAuth2Authenticator
 	//
 	// Redirection de l'utilisateur après authentification.
 	//
-	public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
+	public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): Response
 	{
 		return new RedirectResponse($this->router->generate("user_page", ["oauth" => true]));
 	}
@@ -100,7 +100,7 @@ final class OAuthAuthenticator extends OAuth2Authenticator
 	//
 	// Réponse d'échec d'authentification.
 	//
-	public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
+	public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
 	{
 		return new Response(
 			strtr($exception->getMessageKey(), $exception->getMessageData()),

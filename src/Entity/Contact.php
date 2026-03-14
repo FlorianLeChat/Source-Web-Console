@@ -19,7 +19,7 @@ class Contact
 	private ?int $id = null;
 
 	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
-	private ?\DateTimeInterface $date = null;
+	private \DateTimeInterface $date;
 
 	#[ORM\Column(length: 100)]
 	#[Assert\Email]
@@ -27,20 +27,20 @@ class Contact
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
 	#[Assert\NoSuspiciousCharacters]
-	private ?string $email = null;
+	private string $email;
 
 	#[ORM\Column(length: 255)]
 	#[Assert\Length(min: 10, max: 255)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
-	private ?string $subject = null;
+	private string $subject;
 
 	#[ORM\Column(length: 5000)]
 	#[Assert\Length(min: 50, max: 5000)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
 	#[Assert\NoSuspiciousCharacters]
-	private ?string $content = null;
+	private string $content;
 
 	public function getId(): ?int
 	{

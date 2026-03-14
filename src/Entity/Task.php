@@ -16,30 +16,30 @@ class Task
 	#[ORM\Id]
 	#[ORM\Column]
 	#[ORM\GeneratedValue]
-	private ?int $id = null;
+	private int $id;
 
 	#[ORM\ManyToOne(inversedBy: "tasks")]
 	#[ORM\JoinColumn(nullable: false)]
-	private ?Server $server = null;
+	private Server $server;
 
 	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
 	#[Assert\Type("\DateTimeInterface")]
 	#[Assert\Range(min: "-1 day", max: "+1 year")]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
-	private ?\DateTimeInterface $date = null;
+	private \DateTimeInterface $date;
 
 	#[ORM\Column(length: 10)]
 	#[Assert\Choice([Server::ACTION_SHUTDOWN, Server::ACTION_RESTART, Server::ACTION_UPDATE, Server::ACTION_SERVICE])]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
-	private ?string $action = null;
+	private string $action;
 
 	#[ORM\Column(length: 10)]
 	#[Assert\Choice([Task::STATE_ERROR, Task::STATE_WAITING, Task::STATE_RUNNING, Task::STATE_FINISHED])]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
-	private ?string $state = null;
+	private string $state;
 
 	public const STATE_ERROR = "error";
 	public const STATE_WAITING = "waiting";

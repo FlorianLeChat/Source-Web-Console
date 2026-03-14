@@ -15,37 +15,37 @@ class Storage
 	#[ORM\Id]
 	#[ORM\Column]
 	#[ORM\GeneratedValue]
-	private ?int $id = null;
+	private int $id;
 
 	#[ORM\OneToOne(inversedBy: "storage", cascade: ["persist", "remove"])]
 	#[ORM\JoinColumn(nullable: false)]
-	private ?Server $server = null;
+	private Server $server;
 
 	#[ORM\Column(length: 15)]
 	#[Assert\Ip]
 	#[Assert\Length(min: 7, max: 15)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
-	private ?string $address = null;
+	private string $address;
 
 	#[ORM\Column]
 	#[Assert\Range(min: 1, max: 99999)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
-	private ?int $port = null;
+	private int $port;
 
 	#[ORM\Column(length: 4)]
 	#[Assert\Choice(["ftp", "sftp"])]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
-	private ?string $protocol = null;
+	private string $protocol;
 
 	#[ORM\Column(length: 255)]
 	#[Assert\Length(max: 255)]
 	#[Assert\NotNull]
 	#[Assert\NotBlank]
 	#[Assert\NoSuspiciousCharacters]
-	private ?string $username = null;
+	private string $username;
 
 	#[ORM\Column(length: 255, nullable: true)]
 	#[Assert\Length(max: 255)]
