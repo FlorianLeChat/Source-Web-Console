@@ -1,15 +1,11 @@
 # syntax=docker/dockerfile:1
 
-FROM php:8.2-apache AS base
+FROM dunglas/frankenphp:1-php8.2 AS base
 
 RUN apt update && \
     apt install -y cron tzdata && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
-
-ADD --chmod=0755 \
-    https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions \
-    /usr/local/bin/
 
 WORKDIR /var/www/html
 
@@ -43,18 +39,17 @@ COPY --from=ghcr.io/symfony-cli/symfony-cli:latest /usr/local/bin/symfony /usr/l
 
 FROM base AS production
 
-RUN a2enmod rewrite cache cache_disk && \
-    a2dissite 000-default.conf && \
-    sed -i 's/Listen 80/Listen 8080/g' /etc/apache2/ports.conf && \
-    install-php-extensions \
-        zip \
+RUN install-php-extensions \
         pdo_mysql \
         redis \
-        opcache \
         intl \
         bcmath \
         excimer \
-        @composer
+        opcache \
+        zip \
+        @composer \
+    && setcap -r /usr/local/bin/frankenphp \
+    && chown -R www-data:www-data /config/caddy /data/caddy
 
 COPY --chown=www-data:www-data composer.json composer.lock symfony.lock* ./
 
@@ -66,13 +61,12 @@ RUN composer install \
     --optimize-autoloader \
     --no-scripts
 
-COPY docker/configuration/vhost-default.conf /etc/apache2/sites-available/
+COPY docker/configuration/Caddyfile /etc/frankenphp/Caddyfile
 COPY --chown=www-data:www-data docker/scripts/production/entrypoint.sh /var/www/html/entrypoint.sh
 COPY --from=assets --chown=www-data:www-data /usr/src/app/public/build ./public/build
 COPY --chown=www-data:www-data . .
 
 RUN composer dump-env prod && \
-    a2ensite vhost-default.conf && \
     echo "* * * * * /usr/local/bin/php /var/www/html/bin/console app:tasks-executor > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data && \
     echo "0 * * * * /usr/local/bin/php /var/www/html/bin/console app:statistics-collector > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data && \
     mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \

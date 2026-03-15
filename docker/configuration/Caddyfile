@@ -1,0 +1,37 @@
+{
+    admin off
+    auto_https off
+
+    servers {
+        enable_full_duplex
+    }
+}
+
+:8080 {
+    encode zstd br gzip
+    file_server
+
+    log {
+        output stdout
+        format console
+    }
+
+    header {
+        -Server
+        -X-Powered-By
+    }
+
+    php_server {
+        resolve_root_symlink
+
+        try_files {path} index.php
+
+        root /var/www/html/public
+    }
+
+    @phpFile {
+        path *.php*
+    }
+
+    error @phpFile "Not found" 404
+}
