@@ -8,18 +8,18 @@ namespace App\EventSubscriber;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
-use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\RateLimiter\RateLimiterFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-final class LimiterSubscriber implements EventSubscriberInterface
+final readonly class LimiterSubscriber implements EventSubscriberInterface
 {
 	//
 	// Initialisation de certaines variables de l'écouteur.
 	//
 	public function __construct(
-		private readonly RateLimiterFactory $apiLimiter,
-		private readonly TranslatorInterface $translator,
+		private RateLimiterFactoryInterface $apiLimiter,
+		private TranslatorInterface $translator,
 	) {}
 
 	//
