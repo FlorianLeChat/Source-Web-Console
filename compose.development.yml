@@ -1,30 +1,31 @@
 name: source-web-console
 
 services:
-    # https://hub.docker.com/_/redis
-    redis:
-        image: redis:8
+    cache:
+        image: valkey/valkey:8
         command: >
-            --requirepass ${REDIS_PASSWORD} --maxmemory 128mb --maxmemory-policy allkeys-lru
+            --requirepass ${CACHE_PASSWORD}
+            --maxmemory 128mb
+            --maxmemory-policy allkeys-lru
         volumes:
-            - ./docker/services/cache:/data
+            - valkey_data:/data
+        env_file:
+            - .env
         healthcheck:
-            test: redis-cli --raw incr ping
+            test: valkey-cli --raw incr ping
             retries: 3
             timeout: 5s
-        ports:
-            - "${REDIS_PORT}:${REDIS_PORT}"
 
-    # https://hub.docker.com/_/mariadb
-    mariadb:
+    database:
         image: mariadb:12
-        volumes:
-            - ./docker/services/database:/var/lib/mysql
         command: --collation-server=utf8mb4_unicode_ci
+        volumes:
+            - mariadb_data:/var/lib/mysql
+        env_file:
+            - .env
         environment:
             TZ: ${APP_TIMEZONE}
             MARIADB_DATABASE: ${DATABASE_NAME}
-            MARIADB_PORT: ${DATABASE_PORT}
             MARIADB_USER: ${DATABASE_USERNAME}
             MARIADB_PASSWORD: ${DATABASE_PASSWORD}
             MARIADB_AUTO_UPGRADE: true
@@ -34,21 +35,20 @@ services:
             test: healthcheck.sh --su-mysql --connect --innodb_initialized
             retries: 3
             timeout: 5s
-        ports:
-            - "${DATABASE_PORT}:${DATABASE_PORT}"
+            start_period: 30s
 
-    # https://hub.docker.com/_/phpmyadmin
     phpmyadmin:
         image: phpmyadmin:5-apache
-        depends_on:
-            mariadb:
-                condition: service_healthy
+        env_file:
+            - .env
         environment:
             PMA_HOST: ${DATABASE_HOST}
-            PMA_PORT: ${DATABASE_PORT}
             PMA_USER: ${DATABASE_USERNAME}
             APACHE_PORT: 8080
             PMA_PASSWORD: ${DATABASE_PASSWORD}
+        depends_on:
+            database:
+                condition: service_healthy
         healthcheck:
             test: curl -f http://localhost:8080/
             retries: 3
@@ -56,38 +56,36 @@ services:
         ports:
             - "8080:8080"
 
-    # https://github.com/FlorianLeChat/Source-Web-Console
-    php:
+    server:
         image: source-web-console
-        command: ./docker/scripts/development/entrypoint.sh
-        develop:
-            watch:
-                - path: .
-                  action: sync
-                  target: /var/www/html
-                  ignore:
-                    - vendor/
-                    - node_modules/
-                - path: composer.lock
-                  action: rebuild
-                - path: package-lock.json
-                  action: rebuild
+        command: docker/scripts/development/entrypoint.sh
         volumes:
-            - ./logs:/var/www/html/logs
+            - .:/var/www/html:cached
+            - /var/www/html/.git
+            - /var/www/html/vendor
+            - /var/www/html/var
+            - /var/www/html/node_modules
+        env_file:
+            - .env
         depends_on:
-            redis:
+            cache:
                 condition: service_healthy
-            mariadb:
+            database:
                 condition: service_healthy
-        environment:
-            TZ: ${APP_TIMEZONE}
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
         healthcheck:
             test: curl -f http://localhost:8000/
             retries: 3
             timeout: 5s
         build:
+            target: development
             context: .
-            dockerfile: ./docker/scripts/development/Dockerfile
+            dockerfile: ./docker/Dockerfile
         ports:
             - "8000:8000"
             - "8443:8443/udp"
+
+volumes:
+    valkey_data:
+    mariadb_data:

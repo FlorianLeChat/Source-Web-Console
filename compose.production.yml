@@ -1,84 +1,95 @@
 name: source-web-console
 
 services:
-    # https://hub.docker.com/_/redis
-    redis:
-        image: redis:8
-        restart: always
+    cache:
+        image: valkey/valkey:8
+        restart: unless-stopped
         command: >
-            --requirepass ${REDIS_PASSWORD} --maxmemory 128mb --maxmemory-policy allkeys-lru
+            --requirepass ${CACHE_PASSWORD}
+            --maxmemory 128mb
+            --maxmemory-policy allkeys-lru
         volumes:
-            - ./docker/services/cache:/data
+            - valkey_data:/data
+        env_file:
+            - .env
+        security_opt:
+            - no-new-privileges=true
         healthcheck:
-            test: redis-cli --raw incr ping
+            test: valkey-cli --raw incr ping
             retries: 3
             timeout: 5s
-        expose:
-            - "${REDIS_PORT}"
+        deploy:
+            resources:
+                limits:
+                    pids: 16
+                    cpus: "0.5"
+                    memory: 128M
 
-    # https://hub.docker.com/_/mariadb
-    mariadb:
+    database:
         image: mariadb:12
-        restart: always
-        volumes:
-            - ./docker/services/database:/var/lib/mysql
+        restart: unless-stopped
         command: --collation-server=utf8mb4_unicode_ci
+        volumes:
+            - mariadb_data:/var/lib/mysql
+        env_file:
+            - .env
         environment:
             TZ: ${APP_TIMEZONE}
             MARIADB_DATABASE: ${DATABASE_NAME}
-            MARIADB_PORT: ${DATABASE_PORT}
             MARIADB_USER: ${DATABASE_USERNAME}
             MARIADB_PASSWORD: ${DATABASE_PASSWORD}
             MARIADB_AUTO_UPGRADE: true
             MARIADB_INITDB_SKIP_TZINFO: true
             MARIADB_RANDOM_ROOT_PASSWORD: true
+        security_opt:
+            - no-new-privileges=true
         healthcheck:
             test: healthcheck.sh --su-mysql --connect --innodb_initialized
             retries: 3
             timeout: 5s
-        expose:
-            - "${DATABASE_PORT}"
+            start_period: 30s
+        deploy:
+            resources:
+                limits:
+                    pids: 64
+                    cpus: "0.5"
+                    memory: 256M
 
-    # https://hub.docker.com/_/phpmyadmin
-    phpmyadmin:
-        image: phpmyadmin:5-apache
-        restart: always
+    server:
+        user: "${UID:-1000}:${GID:-1000}"
+        image: source-web-console
+        restart: unless-stopped
+        command: /var/www/html/entrypoint.sh
+        volumes:
+            - ./logs:/var/www/html/logs
+        env_file:
+            - .env
         depends_on:
-            mariadb:
+            cache:
                 condition: service_healthy
-        environment:
-            PMA_HOST: ${DATABASE_HOST}
-            PMA_PORT: ${DATABASE_PORT}
-            PMA_USER: ${DATABASE_USERNAME}
-            APACHE_PORT: 8080
-            PMA_PASSWORD: ${DATABASE_PASSWORD}
+            database:
+                condition: service_healthy
+        security_opt:
+            - no-new-privileges=true
         healthcheck:
             test: curl -f http://localhost:8080/
             retries: 3
             timeout: 5s
-        expose:
-            - "8080"
-
-    # https://github.com/FlorianLeChat/Source-Web-Console
-    php:
-        image: source-web-console
-        restart: always
-        command: ./docker/scripts/production/entrypoint.sh
-        volumes:
-            - ./logs:/var/www/html/logs
-        depends_on:
-            redis:
-                condition: service_healthy
-            mariadb:
-                condition: service_healthy
-        environment:
-            TZ: ${APP_TIMEZONE}
-        healthcheck:
-            test: curl -f http://127.0.0.1:9000/ 2>&1 | grep "Connection reset by peer"
-            retries: 3
-            timeout: 5s
+            start_period: 30s
+        deploy:
+            resources:
+                limits:
+                    pids: 16
+                    cpus: "1"
+                    memory: 128M
         build:
+            target: production
             context: .
-            dockerfile: ./docker/scripts/production/Dockerfile
-        expose:
-            - "8443/udp"
+            dockerfile: ./docker/Dockerfile
+        ports:
+            - "8443:8443/udp"
+            - "${PORT:-8080}:8080"
+
+volumes:
+    valkey_data:
+    mariadb_data:

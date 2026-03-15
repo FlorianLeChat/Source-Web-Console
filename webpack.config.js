@@ -1,9 +1,6 @@
-const path = require( "path" );
-const local = path.resolve( process.cwd(), ".env.local" );
 const Encore = require( "@symfony/webpack-encore" );
-const fileSystem = require( "fs" );
 
-require( "dotenv" ).config( { path: fileSystem.existsSync( local ) ? local : undefined } );
+require( "dotenv" ).config();
 
 if ( !Encore.isRuntimeEnvironmentConfigured() )
 {

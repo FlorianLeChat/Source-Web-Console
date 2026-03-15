@@ -1,6 +1,6 @@
 doctrine:
     dbal:
-        url: "%env(DATABASE_TYPE)%://%env(DATABASE_USERNAME)%:%env(DATABASE_PASSWORD)%@%env(DATABASE_HOST)%:%env(DATABASE_PORT)%/%env(DATABASE_NAME)%"
+        url: "%env(DATABASE_TYPE)%://%env(DATABASE_USERNAME)%:%env(DATABASE_PASSWORD)%@%env(DATABASE_HOST)%/%env(DATABASE_NAME)%"
         server_version: mariadb-12.1.1
         profiling_collect_backtrace: "%kernel.debug%"
     orm:

@@ -1,7 +1,5 @@
 **/.git*
 **/.husky
-**/.vscode
-**/docker/services
 **/logs
 **/node_modules
 **/tests
@@ -11,11 +9,12 @@
 **/*.neon
 **/*.xml
 **/*.xml.dist
+**/*.config.*
 **/.dockerignore
 **/.editorconfig
 **/.gitattributes
 **/.gitignore
 **/Dockerfile
 **/compose.*
-**/CODEOWNERS
 **/LICENSE
+!webpack.config.js
