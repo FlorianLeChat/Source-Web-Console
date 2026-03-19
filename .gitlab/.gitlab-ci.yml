@@ -130,6 +130,7 @@ build:project:
         - echo "" >> .env
         - echo "VERSION=${CI_COMMIT_TAG:-$CI_COMMIT_SHORT_SHA}" >> .env
     script:
+        - mv compose.production.yml compose.yml
         - zip -r project.zip .env compose.yml
     artifacts:
         paths:
