@@ -1,4 +1,5 @@
 stages:
+    - cache
     - lint
     - test
     - build
@@ -70,7 +71,7 @@ lint:phpmd:
         expire_in: 1 hour
 
 test:phpunit:
-    image: php:8.2-cli-alpine
+    image: composer:2
     stage: test
     variables:
         XDEBUG_MODE: coverage
@@ -78,8 +79,9 @@ test:phpunit:
         - apk add --no-cache unzip
         - curl -sSLf -o /usr/local/bin/install-php-extensions https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions
         - chmod +x /usr/local/bin/install-php-extensions
-        - install-php-extensions zip bcmath intl xdebug @composer
+        - install-php-extensions zip bcmath intl xdebug
         - composer install --prefer-dist --no-progress --no-interaction --no-scripts
+        - mkdir var
         - touch var/data.db
         - php bin/console --env=test doctrine:schema:create --no-interaction
         - php bin/console --env=test doctrine:fixtures:load --no-interaction
