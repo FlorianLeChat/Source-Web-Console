@@ -1,6 +1,7 @@
 stages:
     - cache
     - lint
+    - bundle
     - test
     - build
 
@@ -16,6 +17,12 @@ cache:
 
 variables:
     COMPOSER_CACHE_DIR: "$CI_PROJECT_DIR/.composer/cache"
+
+cache:npm:
+    image: node:20-alpine
+    stage: cache
+    script:
+        - npm ci --cache .npm --prefer-offline --no-audit
 
 cache:composer:
     image: composer:2
@@ -70,6 +77,18 @@ lint:phpmd:
             codequality: phpmd-report.json
         expire_in: 1 hour
 
+bundle:assets:
+    stage: bundle
+    image: node:20-alpine
+    before_script:
+        - npm ci --cache .npm --prefer-offline --no-audit
+    script:
+        - npm run build
+    artifacts:
+        paths:
+            - public/build/
+        expire_in: 1 hour
+
 test:phpunit:
     image: composer:2
     stage: test
@@ -91,10 +110,10 @@ test:phpunit:
     artifacts:
         when: always
         paths:
-            - services/neodes/coverage.xml
-            - services/neodes/phpunit-report.xml
+            - coverage.xml
+            - phpunit-report.xml
         reports:
-            junit: services/neodes/phpunit-report.xml
+            junit: phpunit-report.xml
         expire_in: 1 hour
 
 build:project:
@@ -135,3 +154,5 @@ build:docker:
         - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
         - docker compose build
         - docker compose push
+    dependencies:
+        - build:project
