@@ -112,7 +112,7 @@ final class UserController extends AbstractController
 		$user = new User();
 		$server = new Server();
 
-		$user->setUsername($username = $request->request->get("username"));
+		$user->setUsername($username = $request->request->get("username", ""));
 		$user->setPassword($password = $request->request->get("password", ""));
 		$user->setCreatedAt(new \DateTime());
 		$user->setAddress($request->getClientIp());
