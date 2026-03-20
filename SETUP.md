@@ -4,18 +4,16 @@
 
 > [!WARNING]
 > L'installation **sans** Docker nécessite d'avoir une base de données [compatible avec Doctrine](https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/introduction.html#introduction) pour la gestion des données du site Internet. Vous devez également être en possession d'un serveur SMTP pour l'envoi des courriels de création/connexion des comptes utilisateurs. Enfin, le site Internet traite un grand volume de données et utilise [Redis](https://redis.io/downloads/) comme solution de mise en cache pour enregistrer temporairement les données les plus fréquemment consultées.
->
-> Le déploiement en environnement de production (**avec ou sans Docker**) nécessite un serveur Web déjà configuré comme [Nginx](https://nginx.org/en/), [Apache](https://httpd.apache.org/) ou [Caddy](https://caddyserver.com/) pour servir les scripts PHP.
 
 ### Développement local
 
 - Installer [PHP LTS](https://www.php.net/downloads.php) (>8.2 ou plus) ;
 - Installer [NodeJS LTS](https://nodejs.org/) (>20 ou plus) ;
 - Installer [Symfony CLI](https://symfony.com/download) ;
-- Installer les extensions PHP additionnelles suivantes : `zip`, `pdo_mysql`, `pdo_pgsql`, `pdo_oci`, `redis`, `opcache`, `intl`, `xdebug`, `bcmath`, `excimer` ;
+- Installer les extensions PHP additionnelles suivantes : `zip`, `pdo_mysql`, `redis`, `opcache`, `intl`, `xdebug`, `bcmath`, `excimer` ;
 - Installer les dépendances du projet avec les commandes `composer install` et `npm install` ;
 - Modifier les [variables d'environnement](.env) pour la connexion à la base de données (`DATABASE_...`) ;
-- Modifier les [variables d'environnement](.env) pour la connexion au serveur de cache (`REDIS_...`) ;
+- Modifier les [variables d'environnement](.env) pour la connexion au serveur de cache (`CACHE_...`) ;
 - Modifier les [variables d'environnement](.env) pour configurer le serveur de messagerie (`SMTP_...`) ;
 - Générer une phrase de passe avec la commande `tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 30; echo` (nécessite [bash](https://www.gnu.org/software/bash/)) ;
 - Modifier la [variable d'environnement](.env) `SSL_PHRASE` avec la valeur générée à l'étape précédente ;
@@ -29,15 +27,18 @@
 - *(Facultatif)* Configurer une tâche planifiée pour exécuter la commande `php bin/console app:tasks-executor` pour l'[exécution des tâches planifiées des serveurs distants](src/Command/ScheduledTasksExecutor.php) ;
 - *(Facultatif)* Configurer une tâche planifiée pour exécuter la commande `php bin/console app:statistics-collector` pour la [collecte périodique des statistiques d'utilisation](src/Command/ServerStatisticsCollector.php).
 
+> [!TIP]
+> Pour tester le projet, vous pouvez utiliser [Docker](https://www.docker.com/). Une fois installé, il suffit de lancer l'image Docker de développement à l'aide de la commande `docker compose -f compose.development.yml up --detach --build`. Lorsque le conteneur Docker est prêt, utilisez la commande `npm run watch` pour compiler automatiquement les fichiers *TypeScript* et *SASS* lors de chacune de vos modifications. Le site devrait être accessible à l'adresse suivante : http://localhost:8000/. 🐳
+
 ### Déploiement en production
 
 - Installer [PHP LTS](https://www.php.net/downloads.php) (>8.2 ou plus) ;
 - Installer [NodeJS LTS](https://nodejs.org/) (>20 ou plus) ;
-- Installer les extensions PHP additionnelles suivantes : `zip`, `pdo_mysql`, `pdo_pgsql`, `pdo_oci`, `redis`, `opcache`, `intl`, `bcmath`, `excimer` ;
+- Installer les extensions PHP additionnelles suivantes : `zip`, `pdo_mysql`, `redis`, `opcache`, `intl`, `bcmath`, `excimer` ;
 - Installer les dépendances du projet avec les commandes `composer install --no-dev --optimize-autoloader` et `npm install` ;
 - Modifier la [variable d'environnement](.env) `APP_ENV` sur `prod` ;
 - Modifier les [variables d'environnement](.env) pour la connexion à la base de données (`DATABASE_...`) ;
-- Modifier les [variables d'environnement](.env) pour la connexion au serveur de cache (`REDIS_...`) ;
+- Modifier les [variables d'environnement](.env) pour la connexion au serveur de cache (`CACHE_...`) ;
 - Modifier les [variables d'environnement](.env) pour configurer le serveur de messagerie (`SMTP_...`) ;
 - Générer une phrase de passe avec la commande `tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 30; echo` (nécessite [bash](https://www.gnu.org/software/bash/)) ;
 - Modifier la [variable d'environnement](.env) `SSL_PHRASE` avec la valeur générée à l'étape précédente ;
@@ -54,11 +55,8 @@
 - Configurer une tâche planifiée pour exécuter la commande `php bin/console app:tasks-executor` pour l'[exécution des tâches planifiées des serveurs distants](src/Command/ScheduledTasksExecutor.php) ;
 - Configurer une tâche planifiée pour exécuter la commande `php bin/console app:statistics-collector` pour la [collecte périodique des statistiques d'utilisation](src/Command/ServerStatisticsCollector.php).
 
-> [!TIP]
-> Pour tester le projet, vous *pouvez* également utiliser [Docker](https://www.docker.com/). Une fois installé, il suffit de lancer l'image Docker de développement à l'aide de la commande `docker compose -f compose.development.yml up --detach --build`. Lorsque le conteneur Docker est prêt, utilisez la commande `npm run watch` pour compiler automatiquement les fichiers *TypeScript* et *SASS* lors de chacune de vos modifications. Le site devrait être accessible à l'adresse suivante : http://localhost:8000/. Si vous souhaitez travailler sur le projet avec Docker, vous devez utiliser la commande `docker compose watch --no-up` pour que vos changements locaux soient automatiquement synchronisés avec le conteneur. 🐳
-
 > [!CAUTION]
-> L'image Docker *peut* également être déployée en production, mais cela **nécessite des connaissances approfondies pour déployer, optimiser et sécuriser correctement votre installation**, afin d'éviter toute conséquence indésirable. ⚠️
+> Le déploiement en environnement de production (**avec ou sans Docker**) **nécessite des connaissances approfondies pour déployer, optimiser et sécuriser correctement votre installation** afin d'éviter toute conséquence indésirable. ⚠️
 
 # In English
 
@@ -66,18 +64,16 @@
 
 > [!WARNING]
 > Installation **without** Docker requires having a [Doctrine-compatible database](https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/introduction.html#introduction) for managing website data. You must also have access to an SMTP server for sending emails related to user account creation/login. Finally, the website processes a large volume of data and uses [Redis](https://redis.io/downloads/) as a caching solution to temporarily store the most frequently accessed data.
->
-> Deployment in a production environment (**with or without Docker**) requires a pre-configured web server such as [Nginx](https://nginx.org/en/), [Apache](https://httpd.apache.org/), or [Caddy](https://caddyserver.com/) to serve PHP scripts.
 
 ### Local Development
 
 - Install [PHP LTS](https://www.php.net/downloads.php) (>8.2 or higher) ;
 - Install [NodeJS LTS](https://nodejs.org/) (>20 or higher) ;
 - Install [Symfony CLI](https://symfony.com/download) ;
-- Install the following additional PHP extensions: `zip`, `pdo_mysql`, `pdo_pgsql`, `pdo_oci`, `redis`, `opcache`, `intl`, `xdebug`, `bcmath`, `excimer` ;
+- Install the following additional PHP extensions: `zip`, `pdo_mysql`, `redis`, `opcache`, `intl`, `xdebug`, `bcmath`, `excimer` ;
 - Install project dependencies using `composer install` and `npm install` ;
 - Set [environment variables](.env) for database connection (`DATABASE_...`) ;
-- Set [environment variables](.env) for cache server connection (`REDIS_...`) ;
+- Set [environment variables](.env) for cache server connection (`CACHE_...`) ;
 - Set [environment variables](.env) to configure mail server (`SMTP_...`) ;
 - Generate a passphrase using `tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 30; echo` (requires [bash](https://www.gnu.org/software/bash/)) ;
 - Set `SSL_PHRASE` [environment variable](.env) with value generated in the previous step ;
@@ -91,15 +87,18 @@
 - *(Optional)* Configure a scheduled task to run `php bin/console app:tasks-executor` for [executing scheduled tasks on remote servers](src/Command/ScheduledTasksExecutor.php) ;
 - *(Optional)* Configure a scheduled task to run `php bin/console app:statistics-collector` for [periodic collection of usage statistics](src/Command/ServerStatisticsCollector.php).
 
+> [!TIP]
+> To test the project, you can use [Docker](https://www.docker.com/). Once installed, simply start the development Docker image using the command `docker compose -f compose.development.yml up --detach --build`. When the Docker container is ready, run the `npm run watch` command to automatically compile all *TypeScript* and *SASS* files each time you make changes. The website should then be accessible at the following address: http://localhost:8000/. 🐳
+
 ### Production Deployment
 
 - Install [PHP LTS](https://www.php.net/downloads.php) (>8.2 or higher) ;
 - Install [NodeJS LTS](https://nodejs.org/) (>20 or higher) ;
-- Install the following additional PHP extensions: `zip`, `pdo_mysql`, `pdo_pgsql`, `pdo_oci`, `redis`, `opcache`, `intl`, `bcmath`, `excimer` ;
+- Install the following additional PHP extensions: `zip`, `pdo_mysql`, `redis`, `opcache`, `intl`, `bcmath`, `excimer` ;
 - Install project dependencies with `composer install --no-dev --optimize-autoloader` and `npm install` ;
 - Set `APP_ENV` [environment variable](.env) to `prod` ;
 - Set [environment variables](.env) for database connection (`DATABASE_...`) ;
-- Set [environment variables](.env) for cache server connection (`REDIS_...`) ;
+- Set [environment variables](.env) for cache server connection (`CACHE_...`) ;
 - Set [environment variables](.env) to configure mail server (`SMTP_...`) ;
 - Generate a passphrase using `tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 30; echo` (requires [bash](https://www.gnu.org/software/bash/)) ;
 - Set `SSL_PHRASE` [environment variable](.env) with value generated in the previous step ;
@@ -116,8 +115,5 @@
 - Configure a scheduled task to run `php bin/console app:tasks-executor` for [executing scheduled tasks on remote servers](src/Command/ScheduledTasksExecutor.php) ;
 - Configure a scheduled task to run `php bin/console app:statistics-collector` for [periodic collection of usage statistics](src/Command/ServerStatisticsCollector.php).
 
-> [!TIP]
-> To try the project, you *can* also use [Docker](https://www.docker.com/) installed. Once installed, simply start the development Docker image with `docker compose -f compose.development.yml up --detach --build` command. When the Docker container is ready, run the `npm run watch` command to automatically compile all *TypeScript* and *SASS* files each time you make changes. The website should be available at http://localhost:8000/. If you want to work on the project with Docker, you need to use `docker compose watch --no-up` to automatically synchronize your local changes with the container. 🐳
-
 > [!CAUTION]
-> The Docker image *can* also be deployed in production, but **this requires advanced knowledge to properly deploy, optimize, and secure your installation**, in order to avoid any unwanted consequences. ⚠️
+> Deploying in a production environment (**with or without Docker**) **requires advanced knowledge to properly deploy, optimize, and secure your installation** in order to avoid any unwanted consequences. ⚠️
