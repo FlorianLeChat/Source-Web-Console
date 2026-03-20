@@ -57,7 +57,7 @@ services:
 
     server:
         user: "${UID:-1000}:${GID:-1000}"
-        image: source-web-console
+        image: registry.florian-dev.fr:443/floriantrayon/source-web-console:${VERSION:-latest}
         restart: unless-stopped
         command: /var/www/html/entrypoint.sh
         volumes:
