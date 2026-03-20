@@ -3,6 +3,8 @@ framework:
     session:
         handler_id: Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler
         cookie_samesite: lax
+    property_info:
+        with_constructor_extractor: true
     csrf_protection: true
 
 when@test:
