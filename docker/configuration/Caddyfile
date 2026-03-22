@@ -28,10 +28,4 @@
 
         root /var/www/html/public
     }
-
-    @phpFile {
-        path *.php*
-    }
-
-    error @phpFile "Not found" 404
 }
