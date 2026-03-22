@@ -2,6 +2,7 @@ name: source-web-console
 
 services:
     cache:
+        init: true
         image: valkey/valkey:8
         restart: unless-stopped
         command: >
@@ -26,6 +27,7 @@ services:
                     memory: 128M
 
     database:
+        init: true
         image: mariadb:12
         restart: unless-stopped
         command: --collation-server=utf8mb4_unicode_ci
@@ -56,6 +58,7 @@ services:
                     memory: 256M
 
     server:
+        init: true
         user: "${UID:-1000}:${GID:-1000}"
         image: registry.florian-dev.fr:443/floriantrayon/source-web-console:${VERSION:-latest}
         restart: unless-stopped
