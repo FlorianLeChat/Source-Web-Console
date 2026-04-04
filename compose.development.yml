@@ -9,20 +9,17 @@ services:
             --maxmemory-policy allkeys-lru
         volumes:
             - valkey_data:/data
-        env_file:
-            - .env
         healthcheck:
             test: valkey-cli --raw incr ping
             retries: 3
             timeout: 5s
+            start_period: 30s
 
     database:
         image: mariadb:12
         command: --collation-server=utf8mb4_unicode_ci
         volumes:
             - mariadb_data:/var/lib/mysql
-        env_file:
-            - .env
         environment:
             TZ: ${APP_TIMEZONE}
             MARIADB_DATABASE: ${DATABASE_NAME}
@@ -37,25 +34,6 @@ services:
             timeout: 5s
             start_period: 30s
 
-    phpmyadmin:
-        image: phpmyadmin:5-apache
-        env_file:
-            - .env
-        environment:
-            PMA_HOST: ${DATABASE_HOST}
-            PMA_USER: ${DATABASE_USERNAME}
-            APACHE_PORT: 8080
-            PMA_PASSWORD: ${DATABASE_PASSWORD}
-        depends_on:
-            database:
-                condition: service_healthy
-        healthcheck:
-            test: curl -f http://localhost:8080/
-            retries: 3
-            timeout: 5s
-        ports:
-            - "8080:8080"
-
     server:
         image: source-web-console
         command: docker/scripts/development/entrypoint.sh
@@ -65,8 +43,6 @@ services:
             - /var/www/html/vendor
             - /var/www/html/var
             - /var/www/html/node_modules
-        env_file:
-            - .env
         depends_on:
             cache:
                 condition: service_healthy
@@ -78,6 +54,7 @@ services:
             test: curl -f http://localhost:8000/
             retries: 3
             timeout: 5s
+            start_period: 30s
         build:
             target: development
             context: .

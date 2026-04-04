@@ -11,8 +11,6 @@ services:
             --maxmemory-policy allkeys-lru
         volumes:
             - valkey_data:/data
-        env_file:
-            - .env
         security_opt:
             - no-new-privileges=true
         healthcheck:
@@ -33,8 +31,6 @@ services:
         command: --collation-server=utf8mb4_unicode_ci
         volumes:
             - mariadb_data:/var/lib/mysql
-        env_file:
-            - .env
         environment:
             TZ: ${APP_TIMEZONE}
             MARIADB_DATABASE: ${DATABASE_NAME}
@@ -65,8 +61,8 @@ services:
         command: /var/www/html/entrypoint.sh
         volumes:
             - ./logs:/var/www/html/logs
-        env_file:
-            - .env
+        cap_drop:
+            - ALL
         depends_on:
             cache:
                 condition: service_healthy
