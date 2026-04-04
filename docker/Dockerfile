@@ -51,7 +51,7 @@ RUN install-php-extensions \
     && setcap -r /usr/local/bin/frankenphp \
     && chown -R www-data:www-data /config/caddy /data/caddy
 
-COPY --chown=www-data:www-data composer.json composer.lock symfony.lock* ./
+COPY --chown=www-data:www-data composer.json composer.lock ./
 
 RUN composer install \
     --no-dev \
@@ -66,7 +66,7 @@ COPY --chown=www-data:www-data docker/scripts/production/entrypoint.sh /var/www/
 COPY --from=assets --chown=www-data:www-data /usr/src/app/public/build ./public/build
 COPY --chown=www-data:www-data . .
 
-RUN composer dump-env prod && \
+RUN php bin/console dump-env prod && \
     echo "* * * * * /usr/local/bin/php /var/www/html/bin/console app:tasks-executor > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data && \
     echo "0 * * * * /usr/local/bin/php /var/www/html/bin/console app:statistics-collector > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data && \
     mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \

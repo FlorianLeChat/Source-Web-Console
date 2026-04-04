@@ -46,8 +46,7 @@
 - Modifier la [variable d'environnement](.env) `APP_SECRET` avec la valeur générée à l'étape précédente ;
 - Compiler les fichiers statiques du site Internet avec la commande `npm run build` ;
 - Supprimer les dépendances de développement avec la commande `npm prune --omit=dev` ;
-- Exécuter la commande `php bin/console cache:clear` pour vider le cache de fichiers utilisé par Symfony ;
-- Exécuter la commande `composer dump-env prod` pour transformer les variables d'environnement en variables statiques utilisables par PHP ;
+- Exécuter la commande `php bin/console dump-env prod` pour transformer les variables d'environnement en variables statiques utilisables par PHP ;
 - *(Facultatif)* Exécuter la commande `php bin/console doctrine:database:create --no-interaction --if-not-exists` pour créer une base de données ;
 - Exécuter la commande `php doctrine:schema:update --force` pour créer les tables dans la base de données ;
 - Utiliser un serveur Web pour servir les scripts PHP et les fichiers statiques générés dans les étapes précédentes ;
@@ -106,8 +105,7 @@
 - Set `APP_SECRET` [environment variable](.env) with value generated in the previous step ;
 - Compile static website files with `npm run build` ;
 - Remove development dependencies with `npm prune --omit=dev` ;
-- Run `php bin/console cache:clear` to clear Symfony's file cache ;
-- Run `composer dump-env prod` to convert environment variables into static variables usable by PHP ;
+- Run `php bin/console dump-env prod` to convert environment variables into static variables usable by PHP ;
 - *(Optional)* Run `php bin/console doctrine:database:create --no-interaction --if-not-exists` to create a database ;
 - Run `php doctrine:schema:update --force` to create tables in the database ;
 - Use a web server to serve PHP scripts and static files generated in previous steps ;
