@@ -31,6 +31,7 @@
         "ext-iconv": "*",
         "doctrine/doctrine-bundle": "2.18.*",
         "doctrine/doctrine-migrations-bundle": "3.7.*",
+        "symfony/flex": "2.10.*",
         "symfony/lock": "7.4.*",
         "symfony/form": "7.4.*",
         "symfony/intl": "7.4.*",
@@ -69,6 +70,7 @@
         },
         "sort-packages": true,
         "allow-plugins": {
+            "symfony/flex": true,
             "symfony/runtime": true,
             "php-http/discovery": true,
             "phpstan/extension-installer": true
@@ -83,6 +85,17 @@
         "psr-4": {
             "App\\Tests\\": "tests/"
         }
+    },
+    "scripts": {
+        "auto-scripts": {
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ]
     },
     "conflict": {
         "symfony/symfony": "*"
