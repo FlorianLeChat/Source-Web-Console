@@ -3,12 +3,12 @@
 ## Installation
 
 > [!WARNING]
-> L'installation **sans** Docker nécessite d'avoir une base de données [compatible avec Doctrine](https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/introduction.html#introduction) pour la gestion des données du site Internet. Vous devez également être en possession d'un serveur SMTP pour l'envoi des courriels de création/connexion des comptes utilisateurs. Enfin, le site Internet traite un grand volume de données et utilise [Redis](https://redis.io/downloads/) comme solution de mise en cache pour enregistrer temporairement les données les plus fréquemment consultées.
+> L'installation **sans** Docker nécessite d'avoir une base de données [compatible avec Doctrine](https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/introduction.html#introduction) pour la gestion des données du site Internet. Vous devez également être en possession d'un serveur SMTP pour l'envoi des courriels de création/connexion des comptes utilisateurs. Enfin, le site Internet traite un grand volume de données et utilise [Valkey](https://valkey.io/download/) comme solution de mise en cache pour enregistrer temporairement les données les plus fréquemment consultées.
 
 ### Développement local
 
 - Installer [PHP LTS](https://www.php.net/downloads.php) (>8.2 ou plus) ;
-- Installer [NodeJS LTS](https://nodejs.org/) (>20 ou plus) ;
+- Installer [Node.js LTS](https://nodejs.org/) (>20 ou plus) ;
 - Installer [Symfony CLI](https://symfony.com/download) ;
 - Installer les extensions PHP additionnelles suivantes : `zip`, `pdo_mysql`, `redis`, `opcache`, `intl`, `xdebug`, `bcmath`, `excimer` ;
 - Installer les dépendances du projet avec les commandes `composer install` et `npm install` ;
@@ -33,9 +33,9 @@
 ### Déploiement en production
 
 - Installer [PHP LTS](https://www.php.net/downloads.php) (>8.2 ou plus) ;
-- Installer [NodeJS LTS](https://nodejs.org/) (>20 ou plus) ;
+- Installer [Node.js LTS](https://nodejs.org/) (>20 ou plus) ;
 - Installer les extensions PHP additionnelles suivantes : `zip`, `pdo_mysql`, `redis`, `opcache`, `intl`, `bcmath`, `excimer` ;
-- Installer les dépendances du projet avec les commandes `composer install --no-dev --optimize-autoloader` et `npm install` ;
+- Installer les dépendances du projet avec les commandes `composer install --no-dev --prefer-dist --no-interaction --no-progress --optimize-autoloader --no-scripts` et `npm install` ;
 - Modifier la [variable d'environnement](.env) `APP_ENV` sur `prod` ;
 - Modifier les [variables d'environnement](.env) pour la connexion à la base de données (`DATABASE_...`) ;
 - Modifier les [variables d'environnement](.env) pour la connexion au serveur de cache (`CACHE_...`) ;
@@ -62,12 +62,12 @@
 ## Setup
 
 > [!WARNING]
-> Installation **without** Docker requires having a [Doctrine-compatible database](https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/introduction.html#introduction) for managing website data. You must also have access to an SMTP server for sending emails related to user account creation/login. Finally, the website processes a large volume of data and uses [Redis](https://redis.io/downloads/) as a caching solution to temporarily store the most frequently accessed data.
+> Installation **without** Docker requires having a [Doctrine-compatible database](https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/introduction.html#introduction) for managing website data. You must also have access to an SMTP server for sending emails related to user account creation/login. Finally, the website processes a large volume of data and uses [Valkey](https://valkey.io/download/) as a caching solution to temporarily store the most frequently accessed data.
 
 ### Local Development
 
 - Install [PHP LTS](https://www.php.net/downloads.php) (>8.2 or higher) ;
-- Install [NodeJS LTS](https://nodejs.org/) (>20 or higher) ;
+- Install [Node.js LTS](https://nodejs.org/) (>20 or higher) ;
 - Install [Symfony CLI](https://symfony.com/download) ;
 - Install the following additional PHP extensions: `zip`, `pdo_mysql`, `redis`, `opcache`, `intl`, `xdebug`, `bcmath`, `excimer` ;
 - Install project dependencies using `composer install` and `npm install` ;
@@ -92,7 +92,7 @@
 ### Production Deployment
 
 - Install [PHP LTS](https://www.php.net/downloads.php) (>8.2 or higher) ;
-- Install [NodeJS LTS](https://nodejs.org/) (>20 or higher) ;
+- Install [Node.js LTS](https://nodejs.org/) (>20 or higher) ;
 - Install the following additional PHP extensions: `zip`, `pdo_mysql`, `redis`, `opcache`, `intl`, `bcmath`, `excimer` ;
 - Install project dependencies with `composer install --no-dev --optimize-autoloader` and `npm install` ;
 - Set `APP_ENV` [environment variable](.env) to `prod` ;

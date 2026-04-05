@@ -1,5 +1,5 @@
 parameters:
-    app.timezone: "%env(APP_TIMEZONE)%"
+    app.timezone: "%env(TZ)%"
     app.ssl_phrase: "%env(SSL_PHRASE)%"
     app.recaptcha_enabled: "%env(RECAPTCHA_ENABLED)%"
     app.recaptcha_private_key: "%env(RECAPTCHA_PRIVATE_KEY)%"

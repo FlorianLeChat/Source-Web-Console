@@ -32,7 +32,7 @@ services:
         volumes:
             - mariadb_data:/var/lib/mysql
         environment:
-            TZ: ${APP_TIMEZONE}
+            TZ: ${TZ}
             MARIADB_DATABASE: ${DATABASE_NAME}
             MARIADB_USER: ${DATABASE_USERNAME}
             MARIADB_PASSWORD: ${DATABASE_PASSWORD}
