@@ -8,7 +8,7 @@
 ### Développement local
 
 - Installer [PHP LTS](https://www.php.net/downloads.php) (>8.2 ou plus) ;
-- Installer [Node.js LTS](https://nodejs.org/) (>20 ou plus) ;
+- Installer [Node.js LTS](https://nodejs.org/) (>22 ou plus) ;
 - Installer [Symfony CLI](https://symfony.com/download) ;
 - Installer les extensions PHP additionnelles suivantes : `zip`, `pdo_mysql`, `redis`, `opcache`, `intl`, `xdebug`, `bcmath`, `excimer` ;
 - Installer les dépendances du projet avec les commandes `composer install` et `npm install` ;
@@ -33,7 +33,7 @@
 ### Déploiement en production
 
 - Installer [PHP LTS](https://www.php.net/downloads.php) (>8.2 ou plus) ;
-- Installer [Node.js LTS](https://nodejs.org/) (>20 ou plus) ;
+- Installer [Node.js LTS](https://nodejs.org/) (>22 ou plus) ;
 - Installer les extensions PHP additionnelles suivantes : `zip`, `pdo_mysql`, `redis`, `opcache`, `intl`, `bcmath`, `excimer` ;
 - Installer les dépendances du projet avec les commandes `composer install --no-dev --prefer-dist --no-interaction --no-progress --optimize-autoloader --no-scripts` et `npm install` ;
 - Modifier la [variable d'environnement](.env) `APP_ENV` sur `prod` ;
@@ -67,7 +67,7 @@
 ### Local Development
 
 - Install [PHP LTS](https://www.php.net/downloads.php) (>8.2 or higher) ;
-- Install [Node.js LTS](https://nodejs.org/) (>20 or higher) ;
+- Install [Node.js LTS](https://nodejs.org/) (>22 or higher) ;
 - Install [Symfony CLI](https://symfony.com/download) ;
 - Install the following additional PHP extensions: `zip`, `pdo_mysql`, `redis`, `opcache`, `intl`, `xdebug`, `bcmath`, `excimer` ;
 - Install project dependencies using `composer install` and `npm install` ;
@@ -92,7 +92,7 @@
 ### Production Deployment
 
 - Install [PHP LTS](https://www.php.net/downloads.php) (>8.2 or higher) ;
-- Install [Node.js LTS](https://nodejs.org/) (>20 or higher) ;
+- Install [Node.js LTS](https://nodejs.org/) (>22 or higher) ;
 - Install the following additional PHP extensions: `zip`, `pdo_mysql`, `redis`, `opcache`, `intl`, `bcmath`, `excimer` ;
 - Install project dependencies with `composer install --no-dev --optimize-autoloader` and `npm install` ;
 - Set `APP_ENV` [environment variable](.env) to `prod` ;

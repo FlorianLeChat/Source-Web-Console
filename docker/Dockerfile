@@ -9,7 +9,7 @@ RUN apt update && \
 
 WORKDIR /var/www/html
 
-FROM node:20-slim AS assets
+FROM node:22-slim AS assets
 
 WORKDIR /usr/src/app
 

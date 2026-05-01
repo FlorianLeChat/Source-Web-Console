@@ -21,7 +21,7 @@ variables:
     COMPOSER_CACHE_DIR: "$CI_PROJECT_DIR/.composer/cache"
 
 cache:npm:
-    image: node:20-alpine
+    image: node:22-alpine
     stage: cache
     script:
         - npm ci --cache .npm --prefer-offline --no-audit
@@ -34,7 +34,7 @@ cache:composer:
 
 lint:eslint:
     stage: lint
-    image: node:20-alpine
+    image: node:22-alpine
     before_script:
         - npm ci --cache .npm --prefer-offline --no-audit
     script:
@@ -81,7 +81,7 @@ lint:phpmd:
 
 bundle:assets:
     stage: bundle
-    image: node:20-alpine
+    image: node:22-alpine
     before_script:
         - npm ci --cache .npm --prefer-offline --no-audit
     script:
