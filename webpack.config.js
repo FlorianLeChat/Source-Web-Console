@@ -31,7 +31,6 @@ Encore
 	.enableTypeScriptLoader()
 	.enableSingleRuntimeChunk()
 	.cleanupOutputBeforeBuild()
-	.enableBuildNotifications()
 	.enableForkedTypeScriptTypesChecking()
 	.enableSourceMaps( !Encore.isProduction() )
 	.enableVersioning( Encore.isProduction() )
