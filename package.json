@@ -51,7 +51,7 @@
 	"scripts": {
 		"dev": "encore dev",
 		"lint": "eslint ./assets/scripts --fix --ext .ts",
-		"pretty": "prettier --write \"assets/scripts/pages/**\"",
+		"format": "prettier --write \"assets/scripts/pages/**\"",
 		"watch": "encore dev --watch",
 		"build": "encore production --progress",
 		"prepare": "husky",
