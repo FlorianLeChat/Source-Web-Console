@@ -46,13 +46,13 @@ RUN install-php-extensions \
         excimer \
         opcache \
         zip \
-        @composer \
     && setcap -r /usr/local/bin/frankenphp \
     && chown -R www-data:www-data /config/caddy /data/caddy
 
 COPY --chown=www-data:www-data composer.json composer.lock ./
 
-RUN --mount=type=cache,target=/tmp/composer-cache \
+RUN --mount=type=bind,from=composer:2,source=/usr/bin/composer,target=/usr/local/bin/composer \
+    --mount=type=cache,target=/tmp/composer-cache \
     COMPOSER_CACHE_DIR=/tmp/composer-cache composer install \
     --no-dev \
     --prefer-dist \
@@ -66,7 +66,8 @@ COPY --chown=www-data:www-data docker/scripts/production/entrypoint.sh /var/www/
 COPY --from=assets --chown=www-data:www-data /usr/src/app/public/build ./public/build
 COPY --chown=www-data:www-data . .
 
-RUN composer dump-autoload --no-dev --classmap-authoritative && \
+RUN --mount=type=bind,from=composer:2,source=/usr/bin/composer,target=/usr/local/bin/composer \
+    composer dump-autoload --no-dev --classmap-authoritative && \
     composer dump-env prod && \
     composer run-script --no-dev post-install-cmd && \
     rm -rf var && \
