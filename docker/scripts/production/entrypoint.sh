@@ -4,4 +4,4 @@
 /usr/local/bin/php bin/console doctrine:schema:update --force
 /usr/local/bin/php bin/console app:udp-server 127.0.0.1:8443 &
 
-frankenphp run --config /etc/frankenphp/Caddyfile
+exec frankenphp run --config /etc/frankenphp/Caddyfile
