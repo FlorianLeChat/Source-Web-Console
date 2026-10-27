@@ -30,12 +30,10 @@ services:
             - { "prefix": "swc_sessions_" }
     Redis:
         class: Redis
-        calls:
-            - connect:
-                - "%env(CACHE_HOST)%"
-                - "6379"
-            - auth:
-                - ["%env(CACHE_USERNAME)%", "%env(CACHE_PASSWORD)%"]
+        factory: ["Symfony\\Component\\Cache\\Adapter\\RedisAdapter", "createConnection"]
+        arguments:
+            - "redis://%env(CACHE_HOST)%:6379"
+            - { lazy: true, auth: ["%env(CACHE_USERNAME)%", "%env(CACHE_PASSWORD)%"] }
 
 when@test:
     services:
