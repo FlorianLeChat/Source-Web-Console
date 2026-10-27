@@ -2,9 +2,8 @@
 
 FROM dunglas/frankenphp:1-php8.2 AS base
 
-RUN apt update && \
-    apt install -y cron tzdata && \
-    apt clean && \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends cron tzdata && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www/html
