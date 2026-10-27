@@ -23,8 +23,6 @@ RUN npm run build
 
 FROM base AS development
 
-COPY --chown=www-data:www-data . .
-
 RUN install-php-extensions zip pdo_mysql redis intl xdebug bcmath excimer @composer && \
     mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini" && \
     echo "xdebug.mode=develop,debug" >> "$PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini" && \
@@ -36,6 +34,7 @@ RUN install-php-extensions zip pdo_mysql redis intl xdebug bcmath excimer @compo
     echo "0 * * * * /usr/local/bin/php /var/www/html/bin/console app:statistics-collector > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data
 
 COPY --from=ghcr.io/symfony-cli/symfony-cli:latest /usr/local/bin/symfony /usr/local/bin/symfony
+COPY --chown=www-data:www-data . .
 
 FROM base AS production
 
