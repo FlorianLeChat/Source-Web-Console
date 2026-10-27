@@ -14,7 +14,8 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm ci
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci
 
 COPY . .
 
@@ -52,7 +53,8 @@ RUN install-php-extensions \
 
 COPY --chown=www-data:www-data composer.json composer.lock ./
 
-RUN composer install \
+RUN --mount=type=cache,target=/tmp/composer-cache \
+    COMPOSER_CACHE_DIR=/tmp/composer-cache composer install \
     --no-dev \
     --prefer-dist \
     --no-interaction \
