@@ -9,3 +9,4 @@ when@prod:
                       - {name: cache.adapter.doctrine_dbal}
                       - {name: cache.adapter.filesystem}
             system: cache.adapter.system
+            default_redis_provider: Redis
