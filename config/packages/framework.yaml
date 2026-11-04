@@ -17,3 +17,5 @@ when@test:
 when@prod:
     framework:
         http_cache: true
+        trusted_proxies: "private_ranges"
+        trusted_headers: ["x-forwarded-for", "x-forwarded-host", "x-forwarded-proto", "x-forwarded-port"]
