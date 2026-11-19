@@ -28,9 +28,12 @@ cache:npm:
         - npm ci --cache .npm --prefer-offline --no-audit
 
 cache:composer:
-    image: composer:2
+    image: php:8.2-cli-alpine
     stage: cache
     script:
+        - curl -sSLf -o /usr/local/bin/install-php-extensions https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions
+        - chmod +x /usr/local/bin/install-php-extensions
+        - install-php-extensions zip @composer
         - composer install --prefer-dist --no-progress --no-interaction --no-scripts
 
 lint:eslint:
@@ -47,17 +50,23 @@ lint:eslint:
         expire_in: 1 hour
 
 lint:phpcs:
-    image: composer:2
+    image: php:8.2-cli-alpine
     stage: lint
     before_script:
+        - curl -sSLf -o /usr/local/bin/install-php-extensions https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions
+        - chmod +x /usr/local/bin/install-php-extensions
+        - install-php-extensions zip @composer
         - composer install --prefer-dist --no-progress --no-interaction --no-scripts
     script:
         - vendor/bin/phpcs -s
 
 lint:phpstan:
-    image: composer:2
+    image: php:8.2-cli-alpine
     stage: lint
     before_script:
+        - curl -sSLf -o /usr/local/bin/install-php-extensions https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions
+        - chmod +x /usr/local/bin/install-php-extensions
+        - install-php-extensions zip @composer
         - composer install --prefer-dist --no-progress --no-interaction --no-scripts
     script:
         - vendor/bin/phpstan analyse --memory-limit=-1 --error-format=gitlab | tee phpstan-report.json
@@ -68,9 +77,12 @@ lint:phpstan:
         expire_in: 1 hour
 
 lint:phpmd:
-    image: composer:2
+    image: php:8.2-cli-alpine
     stage: lint
     before_script:
+        - curl -sSLf -o /usr/local/bin/install-php-extensions https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions
+        - chmod +x /usr/local/bin/install-php-extensions
+        - install-php-extensions zip @composer
         - composer install --prefer-dist --no-progress --no-interaction --no-scripts
     script:
         - vendor/bin/phpmd src gitlab phpmd.xml | tee phpmd-report.json
@@ -93,7 +105,7 @@ bundle:assets:
         expire_in: 1 hour
 
 test:phpunit:
-    image: composer:2
+    image: php:8.2-cli-alpine
     stage: test
     variables:
         XDEBUG_MODE: coverage
@@ -101,7 +113,7 @@ test:phpunit:
         - apk add --no-cache unzip
         - curl -sSLf -o /usr/local/bin/install-php-extensions https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions
         - chmod +x /usr/local/bin/install-php-extensions
-        - install-php-extensions zip bcmath intl xdebug
+        - install-php-extensions zip bcmath intl xdebug @composer
         - composer install --prefer-dist --no-progress --no-interaction --no-scripts
         - mkdir var
         - touch var/data.db
@@ -147,11 +159,11 @@ build:project:
 
 build:docker:
     stage: build
-    image: docker:29.5
+    image: docker:29
     needs:
         - build:project
     services:
-        - docker:29.5.0-dind-rootless
+        - docker:29-dind-rootless
     variables:
         DOCKER_TLS_CERTDIR: "/certs"
     script:
