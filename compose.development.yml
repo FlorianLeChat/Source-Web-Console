@@ -34,20 +34,47 @@ services:
             timeout: 5s
             start_period: 30s
 
-    server:
+    migration:
         image: source-web-console
-        command: docker/scripts/development/entrypoint.sh
-        volumes:
+        command: >
+            sh -c "composer install --no-interaction
+            && /usr/local/bin/php bin/console doctrine:database:create --no-interaction --if-not-exists
+            && /usr/local/bin/php bin/console doctrine:schema:update --force"
+        volumes: &app_volumes
             - .:/var/www/html:cached
             - /var/www/html/.git
-            - /var/www/html/vendor
-            - /var/www/html/var
             - /var/www/html/node_modules
+            - cache_data:/var/www/html/var
+            - vendor_data:/var/www/html/vendor
         depends_on:
             cache:
                 condition: service_healthy
             database:
                 condition: service_healthy
+        build:
+            target: development
+            context: .
+            dockerfile: ./docker/Dockerfile
+
+    udp:
+        image: source-web-console
+        command: /usr/local/bin/php bin/console app:udp-server 0.0.0.0:8443
+        volumes: *app_volumes
+        depends_on:
+            migration:
+                condition: service_completed_successfully
+        ports:
+            - "${UDP_PORT:-8443}:8443/udp"
+
+    server:
+        image: source-web-console
+        command: symfony server:start --allow-all-ip
+        volumes: *app_volumes
+        depends_on:
+            cache:
+                condition: service_healthy
+            migration:
+                condition: service_completed_successfully
         extra_hosts:
             - "host.docker.internal:host-gateway"
         healthcheck:
@@ -61,8 +88,9 @@ services:
             dockerfile: ./docker/Dockerfile
         ports:
             - "8000:8000"
-            - "8443:8443/udp"
 
 volumes:
+    cache_data:
+    vendor_data:
     valkey_data:
     mariadb_data:

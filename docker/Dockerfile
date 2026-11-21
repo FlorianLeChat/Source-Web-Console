@@ -62,7 +62,6 @@ RUN --mount=type=bind,from=composer:2,source=/usr/bin/composer,target=/usr/local
     --no-scripts
 
 COPY docker/configuration/Caddyfile /etc/frankenphp/Caddyfile
-COPY --chown=www-data:www-data docker/scripts/production/entrypoint.sh /var/www/html/entrypoint.sh
 COPY --from=assets --chown=www-data:www-data /usr/src/app/public/build ./public/build
 COPY --chown=www-data:www-data . .
 
@@ -73,7 +72,6 @@ RUN --mount=type=bind,from=composer:2,source=/usr/bin/composer,target=/usr/local
     rm -rf var && \
     echo "* * * * * /usr/local/bin/php /var/www/html/bin/console app:tasks-executor > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data && \
     echo "0 * * * * /usr/local/bin/php /var/www/html/bin/console app:statistics-collector > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data && \
-    chmod +x /var/www/html/entrypoint.sh && \
     mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
     printf '%s\n' \
       'expose_php = Off' \

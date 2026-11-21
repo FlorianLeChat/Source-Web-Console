@@ -45,9 +45,13 @@ final class ConsoleController extends AbstractController
 			return $this->redirectToRoute("index_page");
 		}
 
+		// On récupère l'adresse publique du serveur UDP définie dans les variables
+		//  d'environnement, avec l'adresse du serveur Web comme repli.
+		$address = $this->getParameter("app.udp_host") ?: $request->server->get("SERVER_ADDR", "127.0.0.1");
+		$port = $this->getParameter("app.udp_port");
+
 		// On récupère ensuite les informations du serveur sélectionné précédemment
 		//  par l'utilisateur.
-		$address = $request->server->get("SERVER_ADDR", "127.0.0.1");
 		$server = $this->entityManager->getRepository(Server::class)->findOneBy([
 			"id" => intval($request->getSession()->get("serverId", 0)), "user" => $this->getUser()
 		]);
@@ -62,7 +66,7 @@ final class ConsoleController extends AbstractController
 				// En cas de réussite, on définit le serveur comme étant
 				//  capable d'envoyer ses journaux d'événements au site.
 				$this->serverManager->query->Rcon("log on");
-				$this->serverManager->query->Rcon("logaddress_add $address:8443");
+				$this->serverManager->query->Rcon("logaddress_add $address:$port");
 			}
 			catch (\Exception) {}
 			finally
@@ -133,7 +137,7 @@ final class ConsoleController extends AbstractController
 		// On récupère après le chemin du fichier des journaux d'événements
 		//  du serveur et on le normalise pour éviter les problèmes de chemin.
 		$address = str_replace(".", "-", $server->getAddress() . "-" . $server->getPort());
-		$path = Path::normalize(sprintf("%s/var/log/%s/%s.log", $this->kernel->getProjectDir(), $address, date("Y-m-d")));
+		$path = Path::normalize(sprintf("%s/%s/%s.log", $this->kernel->getLogDir(), $address, date("Y-m-d")));
 
 		if (!$this->filesystem->exists($path))
 		{

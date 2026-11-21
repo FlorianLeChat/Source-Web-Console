@@ -90,7 +90,7 @@ final class UdpServerCreator extends Command
 					{
 						// On enregistre également ce même message dans un fichier texte.
 						$address = str_replace([".", ":"], "-", $address);
-						$path = Path::normalize(sprintf("%s/var/log/%s/", $this->kernel->getProjectDir(), $address));
+						$path = Path::normalize(sprintf("%s/%s/", $this->kernel->getLogDir(), $address));
 
 						$filesystem = new Filesystem();
 						$filesystem->mkdir($path);

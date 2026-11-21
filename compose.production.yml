@@ -53,22 +53,72 @@ services:
                     cpus: "0.5"
                     memory: 256M
 
+    migration:
+        init: true
+        user: "${UID:-1000}:${GID:-1000}"
+        image: registry.florian-dev.fr:443/floriantrayon/source-web-console:${VERSION:-latest}-${ENV_NAME}
+        restart: "no"
+        command: >
+            sh -c "/usr/local/bin/php bin/console doctrine:database:create --no-interaction --if-not-exists
+            && /usr/local/bin/php bin/console doctrine:schema:update --force"
+        volumes:
+            - ./logs:/var/www/html/logs
+        env_file: .env
+        cap_drop:
+            - ALL
+        depends_on:
+            database:
+                condition: service_healthy
+        security_opt:
+            - no-new-privileges=true
+        deploy:
+            resources:
+                limits:
+                    pids: 16
+                    cpus: "0.5"
+                    memory: 128M
+
+    udp:
+        init: true
+        user: "${UID:-1000}:${GID:-1000}"
+        image: registry.florian-dev.fr:443/floriantrayon/source-web-console:${VERSION:-latest}-${ENV_NAME}
+        restart: unless-stopped
+        command: /usr/local/bin/php bin/console app:udp-server 0.0.0.0:8443
+        volumes:
+            - ./logs:/var/www/html/logs
+        env_file: .env
+        cap_drop:
+            - ALL
+        depends_on:
+            migration:
+                condition: service_completed_successfully
+        security_opt:
+            - no-new-privileges=true
+        deploy:
+            resources:
+                limits:
+                    pids: 16
+                    cpus: "0.5"
+                    memory: 128M
+        ports:
+            - "${UDP_PORT:-8443}:8443/udp"
+
     server:
         init: true
         user: "${UID:-1000}:${GID:-1000}"
         image: registry.florian-dev.fr:443/floriantrayon/source-web-console:${VERSION:-latest}-${ENV_NAME}
         restart: unless-stopped
-        command: /var/www/html/entrypoint.sh
-        env_file: .env
+        command: frankenphp run --config /etc/frankenphp/Caddyfile
         volumes:
             - ./logs:/var/www/html/logs
+        env_file: .env
         cap_drop:
             - ALL
         depends_on:
             cache:
                 condition: service_healthy
-            database:
-                condition: service_healthy
+            migration:
+                condition: service_completed_successfully
         security_opt:
             - no-new-privileges=true
         healthcheck:
@@ -87,7 +137,6 @@ services:
             context: .
             dockerfile: ./docker/Dockerfile
         ports:
-            - "${UDP_PORT:-8443}:8443/udp"
             - "${SERVER_PORT:-8080}:8080"
 
 volumes:

@@ -14,6 +14,7 @@
 - Installer les dépendances du projet avec les commandes `composer install` et `npm install` ;
 - Modifier les [variables d'environnement](.env) pour la connexion à la base de données (`DATABASE_...`) ;
 - Modifier les [variables d'environnement](.env) pour la connexion au serveur de cache (`CACHE_...`) ;
+- Modifier les [variables d'environnement](.env) pour la réception des journaux d'événements des serveurs de jeu (`UDP_...`) ;
 - Modifier les [variables d'environnement](.env) pour configurer le serveur de messagerie (`SMTP_...`) ;
 - Générer une phrase de passe avec la commande `tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 30; echo` (nécessite [bash](https://www.gnu.org/software/bash/)) ;
 - Modifier la [variable d'environnement](.env) `SSL_PHRASE` avec la valeur générée à l'étape précédente ;
@@ -39,6 +40,7 @@
 - Modifier la [variable d'environnement](.env) `APP_ENV` sur `prod` ;
 - Modifier les [variables d'environnement](.env) pour la connexion à la base de données (`DATABASE_...`) ;
 - Modifier les [variables d'environnement](.env) pour la connexion au serveur de cache (`CACHE_...`) ;
+- Modifier les [variables d'environnement](.env) pour la réception des journaux d'événements des serveurs de jeu (`UDP_...`) ;
 - Modifier les [variables d'environnement](.env) pour configurer le serveur de messagerie (`SMTP_...`) ;
 - Générer une phrase de passe avec la commande `tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 30; echo` (nécessite [bash](https://www.gnu.org/software/bash/)) ;
 - Modifier la [variable d'environnement](.env) `SSL_PHRASE` avec la valeur générée à l'étape précédente ;
@@ -50,7 +52,7 @@
 - *(Facultatif)* Exécuter la commande `php bin/console doctrine:database:create --no-interaction --if-not-exists` pour créer une base de données ;
 - Exécuter la commande `php doctrine:schema:update --force` pour créer les tables dans la base de données ;
 - Utiliser un serveur Web pour servir les scripts PHP et les fichiers statiques générés dans les étapes précédentes ;
-- Exécuter la commande `php bin/console app:udp-server 127.0.0.1:8443` pour enregistrer les journaux d'événements des serveurs distants (**votre pare-feu et/ou votre routeur doivent être correctement configurés**) ;
+- Exécuter la commande `php bin/console app:udp-server 0.0.0.0:8443` pour enregistrer les journaux d'événements des serveurs distants ;
 - Configurer une tâche planifiée pour exécuter la commande `php bin/console app:tasks-executor` pour l'[exécution des tâches planifiées des serveurs distants](src/Command/ScheduledTasksExecutor.php) ;
 - Configurer une tâche planifiée pour exécuter la commande `php bin/console app:statistics-collector` pour la [collecte périodique des statistiques d'utilisation](src/Command/ServerStatisticsCollector.php).
 
@@ -73,6 +75,7 @@
 - Install project dependencies using `composer install` and `npm install` ;
 - Set [environment variables](.env) for database connection (`DATABASE_...`) ;
 - Set [environment variables](.env) for cache server connection (`CACHE_...`) ;
+- Set [environment variables](.env) for receiving game servers event logs (`UDP_...`) ;
 - Set [environment variables](.env) to configure mail server (`SMTP_...`) ;
 - Generate a passphrase using `tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 30; echo` (requires [bash](https://www.gnu.org/software/bash/)) ;
 - Set `SSL_PHRASE` [environment variable](.env) with value generated in the previous step ;
@@ -98,6 +101,7 @@
 - Set `APP_ENV` [environment variable](.env) to `prod` ;
 - Set [environment variables](.env) for database connection (`DATABASE_...`) ;
 - Set [environment variables](.env) for cache server connection (`CACHE_...`) ;
+- Set [environment variables](.env) for receiving game servers event logs (`UDP_...`) ;
 - Set [environment variables](.env) to configure mail server (`SMTP_...`) ;
 - Generate a passphrase using `tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 30; echo` (requires [bash](https://www.gnu.org/software/bash/)) ;
 - Set `SSL_PHRASE` [environment variable](.env) with value generated in the previous step ;
@@ -109,7 +113,7 @@
 - *(Optional)* Run `php bin/console doctrine:database:create --no-interaction --if-not-exists` to create a database ;
 - Run `php doctrine:schema:update --force` to create tables in the database ;
 - Use a web server to serve PHP scripts and static files generated in previous steps ;
-- Run `php bin/console app:udp-server 127.0.0.1:8443` to log event data from remote servers (**firewall and/or router must be properly configured**) ;
+- Run `php bin/console app:udp-server 0.0.0.0:8443` to log event data from remote servers ;
 - Configure a scheduled task to run `php bin/console app:tasks-executor` for [executing scheduled tasks on remote servers](src/Command/ScheduledTasksExecutor.php) ;
 - Configure a scheduled task to run `php bin/console app:statistics-collector` for [periodic collection of usage statistics](src/Command/ServerStatisticsCollector.php).
 
