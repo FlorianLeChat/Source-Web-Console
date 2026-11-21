@@ -140,7 +140,7 @@ test:phpunit:
         - echo "" >> .env
         - echo "VERSION=${CI_COMMIT_TAG:-$CI_COMMIT_SHORT_SHA}" >> .env
         - echo "ENV_NAME=${CI_ENVIRONMENT_NAME}" >> .env
-        - echo "SESSION_COOKIE_PATH=${SESSION_COOKIE_PATH:-/}" >> .env
+        - echo "SESSION_COOKIE_PATH=${SESSION_COOKIE_PATH}" >> .env
     script:
         - mv compose.production.yml compose.yml
         - zip -r project.zip .env compose.yml
@@ -155,26 +155,30 @@ test:phpunit:
     dependencies: []
 
 build:project:test:
+    rules:
+        - if: $CI_COMMIT_TAG
+          when: on_success
+        - if: $CI_COMMIT_BRANCH
+          when: manual
     extends: .build:project
     variables:
         SESSION_COOKIE_PATH: "/swc/"
     environment:
         name: test
         action: prepare
+
+build:project:production:
     rules:
         - if: $CI_COMMIT_TAG
           when: on_success
-        - if: $CI_COMMIT_BRANCH
+        - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
           when: manual
-
-build:project:production:
     extends: .build:project
+    variables:
+        SESSION_COOKIE_PATH: "/"
     environment:
         name: production
         action: prepare
-    rules:
-        - if: $CI_COMMIT_TAG
-          when: on_success
 
 .build:docker:
     stage: build
@@ -189,17 +193,19 @@ build:project:production:
         - docker compose push
 
 build:docker:test:
-    extends: .build:docker
     needs:
         - build:project:test
+    extends: .build:docker
 
 build:docker:production:
-    extends: .build:docker
-    needs:
-        - build:project:production
     rules:
         - if: $CI_COMMIT_TAG
           when: on_success
+        - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+          when: on_success
+    needs:
+        - build:project:production
+    extends: .build:docker
 
 analyze:sast:
     stage: analyze
@@ -292,14 +298,16 @@ deploy:test:
         - build:project:test
 
 deploy:production:
+    rules:
+        - if: $CI_COMMIT_TAG
+          when: on_success
+        - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+          when: on_success
     extends: .deploy:ansible
     variables:
         APPLICATION_PATH: "/var/www/console.florian-dev.fr"
     environment:
         name: production
         url: https://console.florian-dev.fr
-    rules:
-        - if: $CI_COMMIT_TAG
-          when: on_success
     dependencies:
         - build:project:production

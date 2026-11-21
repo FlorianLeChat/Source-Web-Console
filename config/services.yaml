@@ -23,6 +23,7 @@ services:
         tags: ["twig.runtime"]
         arguments: ["@translator"]
     xPaw\SourceQuery\SourceQuery:
+        tags: [{ name: "kernel.reset", method: "Disconnect" }]
     App\EventSubscriber\LocaleSubscriber:
         arguments: ["%kernel.default_locale%"]
     Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler:

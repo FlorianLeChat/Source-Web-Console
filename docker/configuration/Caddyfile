@@ -2,6 +2,10 @@
     admin off
     auto_https off
 
+    frankenphp {
+        num_threads 4
+    }
+
     servers {
         enable_full_duplex
     }
@@ -27,5 +31,11 @@
         try_files {path} index.php
 
         root /var/www/html/public
+
+        worker {
+            env FRANKENPHP_LOOP_MAX 500
+            num 2
+            file /var/www/html/public/index.php
+        }
     }
 }

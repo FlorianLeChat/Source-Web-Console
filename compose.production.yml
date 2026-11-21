@@ -7,7 +7,7 @@ services:
         restart: unless-stopped
         command: >
             --requirepass ${CACHE_PASSWORD}
-            --maxmemory 128mb
+            --maxmemory 96mb
             --maxmemory-policy allkeys-lru
         volumes:
             - valkey_data:/data
@@ -81,7 +81,7 @@ services:
                 limits:
                     pids: 64
                     cpus: "1"
-                    memory: 128M
+                    memory: 256M
         build:
             target: production
             context: .
