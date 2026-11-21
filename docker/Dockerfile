@@ -3,7 +3,7 @@
 FROM dunglas/frankenphp:1-php8.2 AS base
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends cron tzdata && \
+    apt-get install -y --no-install-recommends tzdata && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www/html
@@ -29,9 +29,7 @@ RUN install-php-extensions zip pdo_mysql redis intl xdebug bcmath excimer @compo
     echo "xdebug.client_port=9003" >> "$PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini" && \
     echo "xdebug.log=/tmp/xdebug.log" >> "$PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini" && \
     echo "xdebug.start_with_request=yes" >> "$PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini" && \
-    echo "xdebug.client_host=host.docker.internal" >> "$PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini" && \
-    echo "* * * * * /usr/local/bin/php /var/www/html/bin/console app:tasks-executor > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data && \
-    echo "0 * * * * /usr/local/bin/php /var/www/html/bin/console app:statistics-collector > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data
+    echo "xdebug.client_host=host.docker.internal" >> "$PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini"
 
 COPY --from=ghcr.io/symfony-cli/symfony-cli:latest /usr/local/bin/symfony /usr/local/bin/symfony
 COPY --chown=www-data:www-data . .
@@ -70,8 +68,6 @@ RUN --mount=type=bind,from=composer:2,source=/usr/bin/composer,target=/usr/local
     composer dump-env prod && \
     composer run-script --no-dev post-install-cmd && \
     rm -rf var && \
-    echo "* * * * * /usr/local/bin/php /var/www/html/bin/console app:tasks-executor > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data && \
-    echo "0 * * * * /usr/local/bin/php /var/www/html/bin/console app:statistics-collector > /dev/null 2>&1" >> /var/spool/cron/crontabs/www-data && \
     mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
     printf '%s\n' \
       'expose_php = Off' \

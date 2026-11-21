@@ -56,6 +56,16 @@ services:
             context: .
             dockerfile: ./docker/Dockerfile
 
+    scheduler:
+        image: source-web-console
+        command: /usr/local/bin/php bin/console messenger:consume scheduler_default --time-limit=3600 --memory-limit=96M
+        volumes: *app_volumes
+        depends_on:
+            cache:
+                condition: service_healthy
+            migration:
+                condition: service_completed_successfully
+
     udp:
         image: source-web-console
         command: /usr/local/bin/php bin/console app:udp-server 0.0.0.0:8443

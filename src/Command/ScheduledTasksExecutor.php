@@ -14,7 +14,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Scheduler\Attribute\AsPeriodicTask;
 
+#[AsPeriodicTask("1 minute", from: "midnight")]
 #[AsCommand("app:tasks-executor", "Runs scheduled tasks waiting to be executed")]
 final class ScheduledTasksExecutor extends Command
 {

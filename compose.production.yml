@@ -78,6 +78,31 @@ services:
                     cpus: "0.5"
                     memory: 128M
 
+    scheduler:
+        init: true
+        user: "${UID:-1000}:${GID:-1000}"
+        image: registry.florian-dev.fr:443/floriantrayon/source-web-console:${VERSION:-latest}-${ENV_NAME}
+        restart: unless-stopped
+        command: /usr/local/bin/php bin/console messenger:consume scheduler_default --time-limit=3600 --memory-limit=96M
+        volumes:
+            - ./logs:/var/www/html/logs
+        env_file: .env
+        cap_drop:
+            - ALL
+        depends_on:
+            cache:
+                condition: service_healthy
+            migration:
+                condition: service_completed_successfully
+        security_opt:
+            - no-new-privileges=true
+        deploy:
+            resources:
+                limits:
+                    pids: 32
+                    cpus: "0.5"
+                    memory: 128M
+
     udp:
         init: true
         user: "${UID:-1000}:${GID:-1000}"
