@@ -13,12 +13,14 @@ header
 	width: inherit;
 	height: 0;
 	padding: 0;
+	min-height: 0;
 
 	ul
 	{
 		// Présentation des boutons.
 		right: 0;
 		margin: 1rem;
+		z-index: 1;
 		position: absolute;
 
 		li
@@ -103,11 +105,48 @@ header
 	}
 }
 
+// ---------------- //
+// Corps de la page //
+// ---------------- //
+body
+{
+	// La page occupe au moins toute la hauteur de l'écran.
+	display: flex;
+	min-height: 100vh;
+	min-height: 100dvh;
+	box-sizing: border-box;
+	flex-direction: column;
+}
+
+main
+{
+	// Centrage du contenu dans la hauteur disponible au-dessus
+	//  du pied de page, tout en permettant le défilement si le
+	//  contenu dépasse (écrans peu élevés, mode paysage).
+	flex: 1 0 auto;
+	display: flex;
+	padding: 2rem 1rem 6rem;
+	position: relative;
+	box-sizing: border-box;
+	align-items: center;
+	margin-bottom: calc(#{$footer-height} + 2rem);
+	flex-direction: column;
+	justify-content: center;
+
+	> section:empty, > #register
+	{
+		// Conteneurs des formulaires affichés en surimpression.
+		box-shadow: none;
+	}
+}
+
 // ----------------------------------- //
 // Lien vers le dépôt GitHub du projet //
 // ----------------------------------- //
 main > a
 {
+	top: 0;
+	left: 0;
 	position: fixed;
 	clip-path: polygon(0 0, 100% 0, 0 100%);
 
@@ -174,14 +213,9 @@ main > a
 // -------------------------------- //
 #informations
 {
-	top: calc(50% - $footer-height);
 	gap: 10vw;
-	left: 50%;
-	width: clamp($html-min-width, 80%, 1440px);
-	margin: auto;
+	width: clamp(#{$html-min-width - 32px}, 80%, 1440px);
 	display: flex;
-	position: absolute;
-	transform: translate(-50%, -50%);
 	box-shadow: none;
 	align-items: center;
 	justify-content: center;
@@ -233,6 +267,7 @@ main > a
 		{
 			// Logo du site.
 			width: 26rem;
+			max-width: 100%;
 		}
 
 		button
@@ -263,7 +298,7 @@ main > a
 			h2
 			{
 				// Titre de présentation.
-				font-size: 3rem;
+				font-size: clamp(1.75rem, 1rem + 3vw, 3rem);
 				text-shadow: 1px 1px 1px $text-color;
 				text-transform: uppercase;
 			}
@@ -293,7 +328,7 @@ small
 {
 	left: 0.25rem;
 	width: max(75%, $html-min-width / 2);
-	bottom: $footer-height + 2rem;
+	bottom: 1rem;
 	position: absolute;
 
 	a
@@ -316,7 +351,7 @@ small
 // ---------------- //
 // Version tablette //
 // ---------------- //
-@media screen and (min-width: 769px) and (max-width: 1023px)
+@media screen and (min-width: $phone-max-width + 1) and (max-width: $tablet-max-width)
 {
 	@import "../tablet/index";
 }
@@ -324,7 +359,7 @@ small
 // -------------- //
 // Version mobile //
 // -------------- //
-@media screen and (max-width: 768px)
+@media screen and (max-width: $phone-max-width)
 {
 	@import "../phone/index";
 }

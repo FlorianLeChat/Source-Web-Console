@@ -16,6 +16,7 @@ declare global
 		edit_remove: string;
 		edit_address: string;
 		edit_password: string;
+		monitor_interrupted: string;
 
 		utc_time: string;
 		cpu_usage: string;
@@ -27,6 +28,7 @@ declare global
 		oauth_success: string;
 		execute_value: string;
 		usage_percent: string;
+		confirm_action: string;
 		capslock_enabled: string;
 
 		recover_password_username: string;
@@ -106,6 +108,70 @@ $( "footer" ).on( "click", "a[href = \"#\"]", ( event ) =>
 } );
 
 //
+// Permet d'afficher les astuces et le sélecteur des langues au toucher
+//  ou au clavier (le survol n'existe pas sur les écrans tactiles).
+//
+const tips = $( "#tips" );
+const languages = $( "footer [aria-haspopup]" );
+
+const closeMenus = () =>
+{
+	// Fermeture de l'ensemble des menus ouverts.
+	tips.removeClass( "open" ).find( "button" ).attr( "aria-expanded", "false" );
+	languages.attr( "aria-expanded", "false" ).parent().removeClass( "open" );
+};
+
+tips.on( "click", "button", ( event ) =>
+{
+	// Ouverture ou fermeture de l'astuce.
+	event.stopPropagation();
+
+	const opened = !tips.hasClass( "open" );
+
+	closeMenus();
+	tips.toggleClass( "open", opened );
+	$( event.currentTarget ).attr( "aria-expanded", String( opened ) );
+} );
+
+languages.on( "click", ( event ) =>
+{
+	// Ouverture ou fermeture du sélecteur des langues.
+	event.stopPropagation();
+
+	const element = $( event.currentTarget );
+	const opened = !element.parent().hasClass( "open" );
+
+	closeMenus();
+	element.attr( "aria-expanded", String( opened ) ).parent().toggleClass( "open", opened );
+} );
+
+languages.parent().on( "click", "form", ( event ) =>
+{
+	// Le choix d'une langue ne doit pas refermer le menu avant l'envoi.
+	event.stopPropagation();
+} );
+
+$( "footer [role = button]" ).on( "keydown", ( event ) =>
+{
+	// Activation des boutons non natifs via les touches Entrée et Espace.
+	if ( event.key === "Enter" || event.key === " " )
+	{
+		event.preventDefault();
+		$( event.currentTarget ).trigger( "click" );
+	}
+} );
+
+$( document ).on( "click", closeMenus );
+$( document ).on( "keydown", ( event ) =>
+{
+	// Fermeture des menus via la touche Échap.
+	if ( event.key === "Escape" )
+	{
+		closeMenus();
+	}
+} );
+
+//
 // Permet de générer un jeton d'authentification pour les services
 //  de Google reCAPTCHA lors de l'envoi d'un formulaire au travers
 //  de l'API Fetch ou via une soumission classique.
@@ -152,7 +218,7 @@ if ( process.env.RECAPTCHA_ENABLED === "true" )
 		return fetch( url, options );
 	};
 
-	$( "form[method = POST]" ).on( "submit", ( event ) =>
+	$( "form[method = POST]:not([novalidate])" ).on( "submit", ( event ) =>
 	{
 		// On cesse d'abord le comportement par défaut du formulaire.
 		event.preventDefault();
@@ -166,7 +232,7 @@ if ( process.env.RECAPTCHA_ENABLED === "true" )
 
 		// On supprime l'événement pour éviter de recommencer une nouvelle
 		//  fois ce processus.
-		$( "form[method = POST]" ).off();
+		$( "form[method = POST]:not([novalidate])" ).off();
 
 		// On attend ensuite que les services de reCAPTCHA soient chargés.
 		window.grecaptcha.ready( async () =>

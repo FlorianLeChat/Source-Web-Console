@@ -122,13 +122,13 @@ function processNotification( text: string, type: number )
 	return true;
 }
 
-notifications.on( "mouseenter", () =>
+notifications.on( "mouseenter focusin", () =>
 {
 	// Entrée de la souris dans la zone de la notification.
 	isInBounds = true;
 } );
 
-notifications.on( "mouseleave", () =>
+notifications.on( "mouseleave focusout", () =>
 {
 	// Sortie de la souris de la zone de la notification.
 	isInBounds = false;
@@ -157,6 +157,107 @@ setInterval( () =>
 		}
 	}
 }, 500 );
+
+//
+// Permet d'ouvrir la boîte de dialogue commune afin de demander
+//  une confirmation ou une ou plusieurs valeurs à l'utilisateur.
+//  Note : la valeur « null » signifie une annulation de la demande.
+//
+export interface DialogField {
+	name: string;
+	label: string;
+	type?: string;
+	value?: string;
+}
+
+export function openDialog( message: string, fields: DialogField[] = [] )
+{
+	// On récupère d'abord les éléments de la boîte de dialogue.
+	const dialog = $( "#dialog" );
+	const element = dialog[ 0 ] as HTMLDialogElement;
+	const container = dialog.find( "div" ).empty();
+
+	// On définit ensuite le message de la demande.
+	dialog.find( "p" ).text( message ).prop( "hidden", !message );
+	dialog.attr( "aria-labelledby", message ? "dialog-message" : "dialog-label-0" );
+
+	// On génère après les champs de saisie demandés.
+	fields.forEach( ( field, index ) =>
+	{
+		$( "<label>", { for: `dialog-field-${ index }`, id: `dialog-label-${ index }` } )
+			.text( field.label )
+			.appendTo( container );
+
+		$( "<input>", {
+			id: `dialog-field-${ index }`,
+			name: field.name,
+			type: field.type ?? "text",
+			value: field.value ?? "",
+			spellcheck: false,
+			autocomplete: field.type === "password" ? "new-password" : "off",
+			autocapitalize: "off"
+		} ).appendTo( container );
+	} );
+
+	// On place enfin le focus sur l'annulation pour les simples
+	//  confirmations afin d'éviter une validation accidentelle.
+	dialog.find( "[value = cancel]" ).prop( "autofocus", fields.length === 0 );
+
+	return new Promise<Record<string, string> | null>( ( resolve ) =>
+	{
+		dialog.off( "close keydown" );
+
+		dialog.on( "keydown", "input", ( event ) =>
+		{
+			// La touche « Entrée » valide la saisie (et non l'annulation).
+			if ( event.key === "Enter" )
+			{
+				event.preventDefault();
+				element.close( "confirm" );
+			}
+		} );
+
+		dialog.on( "close", () =>
+		{
+			// Récupération des valeurs saisies en cas de validation.
+			if ( element.returnValue !== "confirm" )
+			{
+				resolve( null );
+				return;
+			}
+
+			const values: Record<string, string> = {};
+
+			container.find( "input" ).each( ( _index, input ) =>
+			{
+				const target = input as HTMLInputElement;
+				values[ target.name ] = target.value;
+			} );
+
+			resolve( values );
+		} );
+
+		element.returnValue = "";
+		element.showModal();
+	} );
+}
+
+//
+// Permet de demander une confirmation à l'utilisateur avant
+//  la réalisation d'une action sensible.
+//
+export async function askConfirmation( message: string )
+{
+	return ( await openDialog( message ) ) !== null;
+}
+
+//
+// Permet de demander une valeur à l'utilisateur.
+//
+export async function askValue( label: string, value = "" )
+{
+	return ( await openDialog( "", [ { name: "value", label, value } ] ) )?.value ?? null;
+}
 
 //
 // Permet d'envoyer les commandes et actions vers un serveur distant.
@@ -192,4 +293,39 @@ export async function sendRemoteAction( token: string, route: string, action: st
 
 	// On retourne enfin le résultat de la requête.
 	return response.ok;
+}
+
+//
+// Permet d'exécuter une action rapide (arrêt, redémarrage, etc.)
+//  après confirmation de l'utilisateur si nécessaire.
+//
+export async function executeQuickAction( button: JQuery<HTMLElement> )
+{
+	// On demande d'abord une confirmation pour les actions sensibles.
+	const message = window.confirm_action.replace( "%s", button.text().trim() );
+
+	if ( button.is( "[data-confirm]" ) && !( await askConfirmation( message ) ) )
+	{
+		return;
+	}
+
+	// Blocage du bouton pour éviter les abus.
+	const parent = button.closest( "li" );
+
+	parent.addClass( "disabled" );
+	button.prop( "disabled", true );
+
+	// Exécution de la requête d'action.
+	const state = await sendRemoteAction(
+		button.data( "token" ),
+		button.data( "route" ),
+		button.data( "action" )
+	);
+
+	if ( !state )
+	{
+		// Libération du bouton en cas d'erreur.
+		parent.removeClass( "disabled" );
+		button.prop( "disabled", false );
+	}
 }

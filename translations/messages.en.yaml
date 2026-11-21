@@ -1,18 +1,20 @@
 global:
-    force: "Double-click to force shutdown"
+    force: "Force shutdown"
     update: "Update"
     remove: "Remove"
     restart: "Restart"
     service: "Service"
     shutdown: "Shutdown"
     too_many: "Please wait a few moments before performing a new action."
-    fatal_error: "An internal error occurred while retrieving information from the server. Please refresh the page to restart the monitoring. Message: \"%error%\"."
+    fatal_error: "Retrieving information from the server failed (\"%error%\"). Check the server's IP address, port and administration password, then refresh the page to restart the monitoring."
+    confirm_action: "Confirm the \"%s\" action on the server? Connected players may be disconnected."
     action_success: "The desired request has been successfully sent to the remote server. In some cases, there may be side effects depending on your server configuration."
     recaptcha_error: "Google reCAPTCHA verification services are currently disabled or unavailable. If security cookies have been disabled, some website features may not work properly."
 
 header:
     title: "Administration"
     search:
+        label: "Search a page"
         title: "Quick actions"
         placeholder: "Search..."
     subtitle:
@@ -28,6 +30,7 @@ header:
         dashboard: "Dashboard"
         statistics: "Statistics"
         configuration: "Configuration"
+    navigation: "Navigation"
     user_status: "Connected as<br />%s"
 
 footer:
@@ -36,6 +39,8 @@ footer:
     contact: "Contact"
     support: "Support"
     version: "Version"
+    language: "Language"
+    cookies: "Cookie preferences"
 
 form:
     register:
@@ -105,6 +110,11 @@ admin:
 legal:
     tips: "You are on the legal notice page of the website. You can find all the legal information available by using this website. They are only available in French."
 
+error:
+    back: "Back to the home page"
+    title: "Error %s"
+    description: "The requested page is unavailable: it does not exist or you do not have the required permissions to view it."
+
 index:
     tips: "You are on the website's home page. You can find a list of features here, along with the ability to register and connect to a user account."
     login: "Login"
@@ -116,7 +126,7 @@ index:
             4: "Secure"
         previous: "Previous"
         description:
-            1: "Welcome to the online administration interface for multiplayer servers running Valve Corporation's Source engine. The website offers several powerful and easy-to-use tools to easily manage your servers. It is compatible with popular games like <strong>Garry's Mod</strong>, <strong>Minecraft</strong> et <strong>Counter-Strike : Global Offensive</strong>!"
+            1: "Welcome to the online administration interface for multiplayer servers running Valve Corporation's Source engine. The website offers several powerful and easy-to-use tools to easily manage your servers. It is compatible with popular games like <strong>Garry's Mod</strong>, <strong>Minecraft</strong> and <strong>Counter-Strike: Global Offensive</strong>!"
             2: "Unlike other competing solutions, this website allows you to use the RCON communication protocol without interruption and in a fast and easy way. Additionally, the website has several optimizations to reduce access and loading times, which are traditionally long with the most famous hosts."
             3: "The RCON communication protocol is subject to several modifications and updates every year to improve the performance of interactions between third parties (us) and the remote API used on game servers. As a result, all current solutions are sometimes rendered obsolete or out of service for months or even years as creators need to revise their communication tools. This website uses new ways to be practically independent from updates and to be able to continue to work despite major changes made by Valve."
             4: "Thanks to the use of modern, high-performance RCON communications tools, end-to-end security and encryption of data transmitted and received by the website is now possible. Any sensitive information you may enter will be automatically encrypted using a military-grade algorithm. We never store passwords in clear text, never."
@@ -178,7 +188,9 @@ actions:
 console:
     tips: "You are on the interactive console page. Here you can see in real time what is happening on your server. Moreover, you have some freedom to send any request to your server."
     no_logs: "No output logs have been received for this server. Please wait a few moments for the server to perform its first actions and make sure the administrator password is correctly specified."
+    waiting: "Waiting for server logs..."
     controller:
+        send: "Send the command"
         title: "Main controller"
         placeholder: "Write something..."
     description: "The interactive console is a page that allows you to view the server's output information in real time. This information comes directly from the execution program and is independent of the website. In addition, the page allows you to enter free commands to the server."
@@ -186,6 +198,7 @@ console:
 
 tasks:
     tips: "You are on the scheduled tasks page. Here you can find the list of all scheduled or completed tasks. The tasks are automatically managed by the website infrastructure as long as your credentials are valid."
+    empty: "No scheduled tasks yet. Use the form below to create one."
     label:
         date: "Trigger date"
         server: "Related server"
@@ -198,6 +211,7 @@ tasks:
 
 statistics:
     tips: "You are on the statistics page. Here you can find all available statistics about your server during the last 24 hours. These statistics are automated and anonymous."
+    empty: "No data collected over the last 24 hours."
     axis:
         utc: "UTC time"
         cpu: "CPU (in %)"
@@ -210,6 +224,7 @@ statistics:
 user:
     tips: "You are on the user account page. You will find the possibility to modify your personal login credentials and the way to add a new server to your account."
     insert: "Your new server has been added to the database. It is now available for selection on the dashboard."
+    remove: "Delete account"
     account: "Account details"
     actions: "Account actions"
     updated: "Your personal account information has been updated in the database."
@@ -218,7 +233,7 @@ user:
     reconnect: "Reconnect"
     disconnect: "Disconnect"
     edit_remove: "You want to delete your user account? Please note that the deletion is final and irreversible."
-    description: "The user account page is a page where authenticated users can change their username and password to access their account. In addition, the user can upload a profile picture in order to be recognizable on the website's internal messaging services."
+    description: "The user account page is a page where authenticated users can change their username and password to access their account."
     reconnected: "You have been reconnected to your user account. You will be redirected automatically in a few seconds."
     disconnected: "You are now disconnected from your user account. You will be redirected automatically in a few seconds."
     oauth_success: "You have been successfully authenticated. If this is your first connection, please add a new server to your account before continuing."
@@ -230,20 +245,25 @@ dashboard:
         map: "Current map"
         info: "Information"
         title: "General state"
+        retry: "Restart monitoring"
         nodata: "No signal<br />(Unknown)"
         players: "Player count"
         service: "In servicing<br />(%gamemode%)"
         running: "Operating<br />(%gamemode%)"
+        interrupted: "Monitoring stopped"
     edit:
-        port: "Enter the new server port.\nLeave blank for no change."
+        port: "Server port"
         remove: "Do you want to delete this server?"
-        address: "Enter the new server's IP address.\nLeave blank for no change."
-        password: "Enter the new password for the administration module.\nLeave blank for no change."
+        address: "Server IP address"
+        password: "New administration password\nLeave blank to keep the current password."
+    connect: "Connect to the server"
     actions: "Last actions"
     players: "Players list"
     servers: "Servers list"
     edit_remove: "Do you want to delete this server?"
     description: "The page table is the main page of the website. It gives you an immediate and real-time overview of what is happening on the server and the actions you have performed lately. In addition, the dashboard allows for quick command execution and dynamic switching between each of your registered servers."
+    actions_empty: "No recent actions."
+    players_empty: "No players online."
 
 help:
     faq: "Frequently asked questions"

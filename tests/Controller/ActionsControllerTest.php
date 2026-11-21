@@ -83,7 +83,7 @@ final class ActionsControllerTest extends WebTestCase
 		// Test de redémarrage du serveur (échec).
 		//  Note : le serveur ne possède pas de mot de passe administrateur.
 		$this->client->xmlHttpRequest("POST", $this->router->generate("server_action"), [
-			"token" => $crawler->filter("li[data-action = restart]")->attr("data-token"),
+			"token" => $crawler->filter("button[data-action = restart]")->attr("data-token"),
 			"action" => "restart"
 		]);
 

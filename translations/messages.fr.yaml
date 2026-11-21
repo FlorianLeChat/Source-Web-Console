@@ -1,18 +1,20 @@
 global:
-    force: "Double-cliquez pour forcer l'arrêt"
+    force: "Forcer l'arrêt"
     update: "Mettre à jour"
     remove: "Supprimer"
     restart: "Redémarrer"
     service: "Maintenance"
     shutdown: "Arrêter"
     too_many: "Veuillez patienter quelques instants avant de réaliser une nouvelle action."
-    fatal_error: "Une erreur interne s'est produite lors de la récupération des informations du serveur. Veuillez rafraîchir la page pour relancer la surveillance. Message : « %error% »."
+    fatal_error: "La récupération des informations du serveur a échoué (« %error% »). Vérifiez l'adresse IP, le port et le mot de passe d'administration du serveur, puis rafraîchissez la page pour relancer la surveillance."
+    confirm_action: "Confirmer l'action « %s » sur le serveur ? Les joueurs connectés risquent d'être déconnectés."
     action_success: "La requête demandée a été envoyée avec succès avec le serveur distant. Dans certains cas, il peut se produire des effets secondaires en fonction de la configuration de votre serveur."
     recaptcha_error: "Les services de vérification de Google reCAPTCHA sont actuellement désactivés ou indisponibles. Si les cookies de sécurité ont été désactivés, certaines fonctionnalités du site peuvent ne pas fonctionner correctement."
 
 header:
     title: "Administration"
     search:
+        label: "Rechercher une page"
         title: "Actions rapides"
         placeholder: "Recherche..."
     subtitle:
@@ -28,6 +30,7 @@ header:
         dashboard: "Tableau de bord"
         statistics: "Statistiques"
         configuration: "Configuration"
+    navigation: "Navigation"
     user_status: "Connecté sous<br />%s"
 
 footer:
@@ -36,6 +39,8 @@ footer:
     contact: "Contact"
     support: "Assistance"
     version: "Version"
+    language: "Langue"
+    cookies: "Préférences des cookies"
 
 form:
     register:
@@ -105,6 +110,11 @@ admin:
 legal:
     tips: "Vous êtes sur la page des mentions légales du site. Vous pouvez retrouver toutes les informations juridiques disponibles en utilisant ce site Internet. Elles sont uniquement disponibles en français."
 
+error:
+    back: "Retourner à l'accueil"
+    title: "Erreur %s"
+    description: "La page demandée est inaccessible : elle n'existe pas ou vous n'avez pas les droits nécessaires pour la consulter."
+
 index:
     tips: "Vous êtes sur la page d'accueil du site. Vous pourrez retrouver la liste des fonctionnalités ainsi que la possibilité de vous inscrire et que de vous connecter à un compte utilisateur."
     login: "Connexion"
@@ -118,7 +128,7 @@ index:
         description:
             1: "Bienvenue sur l'interface d'administration en ligne pour serveurs multi-joueurs exécutant le moteur Source de Valve Corporation. Le site propose plusieurs outils performants et simples d'utilisation pour gérer facilement ses serveurs. Il est compatible avec les jeux populaires du moment comme <strong>Garry's Mod</strong>, <strong>Minecraft</strong> et <strong>Counter-Strike : Global Offensive</strong> !"
             2: "À la place des solutions actuelles et concurrences, le site vous permettra d'exploiter le protocole de communication RCON sans aucun interruption ainsi que de façon rapide et facile d'accès. De plus, le site possède plusieurs optimisations pour réduire les temps d'accès et de chargement traditionnellement longs chez les hébergeurs les plus connus."
-            3: "Le protocole de communication RCON subit plusieurs modifications et mises à jour chaque année pour rendre plus performant les interactions entre les tiers (nous) et l'API distant utilisé sur les serveurs de jeux. De ce fait, toutes les solutions actuelles sont parfois rendues obsolètes ou hors-service pendant des mois voir des années car les créateurs doivent réviser leurs outils de communication. Le site utilise de nouveaux moyens afin d'être presque indépendant aux mises à jour et de pouvoir continuer de fonctionner malgré des modifications importantes réalisées par Valve."
+            3: "Le protocole de communication RCON subit plusieurs modifications et mises à jour chaque année pour rendre plus performant les interactions entre les tiers (nous) et l'API distant utilisé sur les serveurs de jeux. De ce fait, toutes les solutions actuelles sont parfois rendues obsolètes ou hors-service pendant des mois voire des années car les créateurs doivent réviser leurs outils de communication. Le site utilise de nouveaux moyens afin d'être presque indépendant aux mises à jour et de pouvoir continuer de fonctionner malgré des modifications importantes réalisées par Valve."
             4: "Grâce à l'utilisation de moyens modernes et performances des outils de communications RCON, la sécurisation et le chiffrement de bout en bout des données transmises et reçues par le site est maintenant possible. Toutes les informations sensibles que vous pourriez peut-être renseignées seront automatiquement chiffré au travers d'algorithme de type de militaire. Nous ne stockons jamais en clair les mots de passes, jamais."
     register: "Inscription"
     recaptcha: "Ce site est protégé par reCAPTCHA sur lequel s'appliquent les <a href=\"https://policies.google.com/privacy\" target=\"blank\">politiques de confidentialité</a> et les <a href=\"https://policies.google.com/terms\" target=\"blank\">conditions d'utilisation</a> de Google."
@@ -176,16 +186,19 @@ actions:
     execute_command: "Exécuter"
 
 console:
-    tips: "Vous êtes sur la page de la console interactive. Vous pourrez retrouver ici la visualisation en temps réel de ce qu'il se passe sur votre serveur. De plus, vous avez un certain libre arbitre pour envoyer des requêtes quelconque à votre serveur."
+    tips: "Vous êtes sur la page de la console interactive. Vous pourrez retrouver ici la visualisation en temps réel de ce qu'il se passe sur votre serveur. De plus, vous avez un certain libre arbitre pour envoyer des requêtes quelconques à votre serveur."
     no_logs: "Aucun journal de sortie n'a été reçu pour ce serveur. Veuillez patienter quelques instants que le serveur fasse ses premières actions et assurez que le mot de passe administrateur est correctement renseigné."
+    waiting: "En attente des journaux du serveur..."
     controller:
+        send: "Envoyer la commande"
         title: "Contrôleur principal"
         placeholder: "Écrivez quelque chose..."
     description: "La console interactive est une page qui permet de visualiser les informations de sortie du serveur en temps réel. Ces informations sont directement issues du programme d'exécution et sont indépendantes du site. De plus, la page permet de saisir des commandes libres vers le serveur."
     terminal_title: "Terminal d'observation"
 
 tasks:
-    tips: "Vous êtes sur la page des tâches planifiées. Vous pourrez retrouver ici la liste de toutes les tâches planifiées prévues ou terminées. Les tâches sont automatiquement gérer par l'infrastructure du site tant que vos informations de connexion sont valides."
+    tips: "Vous êtes sur la page des tâches planifiées. Vous pourrez retrouver ici la liste de toutes les tâches planifiées prévues ou terminées. Les tâches sont automatiquement gérées par l'infrastructure du site tant que vos informations de connexion sont valides."
+    empty: "Aucune tâche planifiée pour le moment. Utilisez le formulaire ci-dessous pour en créer une."
     label:
         date: "Date de déclenchement"
         server: "Serveur concerné"
@@ -198,6 +211,7 @@ tasks:
 
 statistics:
     tips: "Vous êtes sur la page des statistiques. Vous pouvez retrouver ici même toutes les statistiques disponibles à propos de votre serveur durant les dernières 24 heures. Ces statistiques sont automatisées et anonymes."
+    empty: "Aucune donnée collectée durant les dernières 24 heures."
     axis:
         utc: "Heure UTC"
         cpu: "Processeur (en %)"
@@ -210,6 +224,7 @@ statistics:
 user:
     tips: "Vous êtes sur la page du compte utilisateur. Vous pourrez retrouver la possibilité de modifier vos informations de connexion personnelles ainsi que le moyen d'ajouter un nouveau serveur à votre compte."
     insert: "Votre nouveau serveur a bien été ajouté dans la base de données. Il est désormais disponible à la sélection sur le tableau de bord."
+    remove: "Supprimer le compte"
     account: "Informations du compte"
     actions: "Actions du compte"
     updated: "Les informations personnelles de votre compte ont bien été mises à jour dans la base de données."
@@ -217,8 +232,8 @@ user:
     too_much: "Vous avez atteint le nombre maximal de serveurs autorisés par compte utilisateur. Veuillez en supprimer un avant d'en ajouter un nouveau ou considérer l'achat d'un compte donateur."
     reconnect: "Se reconnecter"
     disconnect: "Se déconnecter"
-    edit_remove: "Vous voulez supprimer votre compte utilisateur ? Attention, la suppression est définitive et irréversible."
-    description: "La page du compte utilisateur est une page où les utilisateurs authentifiés peuvent modifier leur nom d'utilisateur ainsi que leur mot de passe afin d'accéder à leur compte. De plus, l'utilisateur peut téléverser une photo de profil afin d'être reconnaissable sur les services de messageries internes au site."
+    edit_remove: "Voulez-vous supprimer votre compte utilisateur ? Attention, la suppression est définitive et irréversible."
+    description: "La page du compte utilisateur est une page où les utilisateurs authentifiés peuvent modifier leur nom d'utilisateur ainsi que leur mot de passe afin d'accéder à leur compte."
     reconnected: "Vous avez été reconnecté à votre compte utilisateur. Vous allez être redirigé automatiquement dans quelques secondes."
     disconnected: "Vous êtes désormais déconnecté de votre compte utilisateur. Vous allez être redirigé automatiquement dans quelques secondes."
     oauth_success: "Vous avez été authentifié avec succès. S'il s'agit de votre première connexion, veuillez ajouter un nouveau serveur à votre compte avant de continuer."
@@ -230,20 +245,25 @@ dashboard:
         map: "Carte actuelle"
         info: "Information"
         title: "État général"
+        retry: "Relancer la surveillance"
         nodata: "Aucun signal<br/>(Inconnu)"
         players: "Nombre de joueurs"
         service: "En maintenance<br />(%gamemode%)"
         running: "En fonctionnement<br />(%gamemode%)"
+        interrupted: "Surveillance interrompue"
     edit:
-        port: "Saisissez le nouveau port du serveur.\nLaissez vide pour aucun changement."
+        port: "Port du serveur"
         remove: "Voulez-vous supprimer ce serveur ?"
-        address: "Saisissez la nouvelle adresse IP du serveur.\nLaissez vide pour aucun changement."
-        password: "Saisissez le nouveau mot de passe du module d'administration.\nLaissez vide pour aucun changement."
+        address: "Adresse IP du serveur"
+        password: "Nouveau mot de passe d'administration\nLaissez vide pour conserver le mot de passe actuel."
+    connect: "Se connecter au serveur"
     actions: "Dernières actions"
     players: "Liste des joueurs"
     servers: "Liste des serveurs"
     edit_remove: "Voulez-vous supprimer ce serveur ?"
-    description: "Le tableau de page est la page principale du site. Il permet de vous donner un aperçu immédiat et en temps réel de ce qu'il se passe sur le serveur et les actions que vous avez réalisé dernièrement. De plus, le tableau de bord permet l'exécution de commandes rapides et le changement dynamique entre chacun de vos serveurs enregistrés."
+    description: "Le tableau de bord est la page principale du site. Il permet de vous donner un aperçu immédiat et en temps réel de ce qu'il se passe sur le serveur et les actions que vous avez réalisées dernièrement. De plus, le tableau de bord permet l'exécution de commandes rapides et le changement dynamique entre chacun de vos serveurs enregistrés."
+    actions_empty: "Aucune action récente."
+    players_empty: "Aucun joueur connecté."
 
 help:
     faq: "Foire aux questions"
@@ -256,7 +276,7 @@ help:
     answer:
         1: "L'inscription sur le site se fait sur la page d'accueil du site. Sur cette page, vous retrouverez la présentation des fonctionnalités ainsi qu'un moyen afin de procéder à votre inscription et à votre connexion. L'inscription se fait en deux étapes : d'abord vous devez renseigner vos informations personnelles afin de créer un compte utilisateur, dans un second temps vous serez invité à remplir des informations sur l'un de vos serveurs de jeux. Ces informations seront ensuite traités pour l'affichage des données sur le tableau de bord."
         2: "Lors de votre inscription au site, votre compte est automatiquement défini en tant qu'utilisateur classique et vous possédez d'or et déjà d'un grands nombres de fonctionnalités disponibles. Cependant, si vous réalisez une donation unique d'un montant que vous voulez, vous aurez la possibilité de débloquer des avantages et des fonctionnalités supplémentaires pour améliorer votre expérience utilisateur."
-        3: "Le site actuel et les sites concurrents sont possèdent plusieurs différences. D'abord, les sites concurrents ne peuvent pas être accessibles sans compte utilisateur et sans avoir déjà acheté un service chez leurs infrastructures. Cela signifie que l'accès à leur panneau d'administration dépend d'une souscription à leurs services, notre site est alors totalement gratuit d'utilisateur. La seconde est que notre site utilise les dernières versions de communication entre nos serveurs et vos infrastructures afin de faciliter la rapidité d'exécution de toutes vos actions."
+        3: "Le site actuel et les sites concurrents possèdent plusieurs différences. D'abord, les sites concurrents ne peuvent pas être accessibles sans compte utilisateur et sans avoir déjà acheté un service chez leurs infrastructures. Cela signifie que l'accès à leur panneau d'administration dépend d'une souscription à leurs services, notre site est alors totalement gratuit d'utilisation. La seconde est que notre site utilise les dernières versions de communication entre nos serveurs et vos infrastructures afin de faciliter la rapidité d'exécution de toutes vos actions."
     question:
         1: "Comment s'inscrire sur le site ?"
         2: "Quels sont les avantages des utilisateurs donateurs ?"

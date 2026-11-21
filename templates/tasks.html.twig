@@ -53,17 +53,22 @@
 						</td>
 
 						{# Date de déclenchement #}
-						<td><time datetime="{{task.date|date("Y-m-d\\TH:i:sP")}}">{{ task.date|date("H:m | d/m/Y") }}</time></td>
+						<td><time datetime="{{task.date|date("Y-m-d\\TH:i:sP")}}">{{ task.date|date("H:i | d/m/Y") }}</time></td>
 
 						{# Action de déclenchement #}
 						<td>{{ t("global." ~ task.action)|trans }}</td>
+					</tr>
+				{% else %}
+					{# Aucune tâche enregistrée #}
+					<tr class="empty">
+						<td colspan="3">{{ t("tasks.empty")|trans }}</td>
 					</tr>
 				{% endfor %}
 			</tbody>
 		</table>
 
 		{# Gestion des tâches planifiées #}
-		<form novalidate>
+		<form method="POST" novalidate>
 			{# Serveur concerné #}
 			<div>
 				<label for="server">{{ t("tasks.label.server")|trans }}</label>

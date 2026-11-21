@@ -11,6 +11,9 @@
 		window.edit_address = "{{ t("dashboard.edit.address")|trans|escape("js") }}";
 		window.edit_port = "{{ t("dashboard.edit.port")|trans|escape("js") }}";
 		window.edit_password = "{{ t("dashboard.edit.password")|trans|escape("js") }}";
+
+		// Libellé indiquant l'interruption de la surveillance du serveur.
+		window.monitor_interrupted = "{{ t("dashboard.state.interrupted")|trans|escape("js") }}";
 	</script>
 {% endblock %}
 
@@ -42,10 +45,21 @@
 					<form method="POST">
 						<input type="hidden" name="id" value="{{ server.id }}" />
 						<input type="hidden" name="token" value="{{ csrf_token("server_edit") }}">
-						<input type="hidden" name="token" value="{{ csrf_token("server_delete") }}">
+						<input type="hidden" name="action" value="edit" />
 
-						<button type="submit" name="server_edit" title="{{ t("global.update")|trans }}" aria-label="{{ t("global.update")|trans }}">
+						<button type="submit" name="server_edit" title="{{ t("global.update")|trans }}" aria-label="{{ t("global.update")|trans }}" data-address="{{ server.address }}" data-port="{{ server.port }}">
 							<i class="bi bi-pencil-square"></i>
+						</button>
+					</form>
+
+					{# Suppression du serveur #}
+					<form method="POST">
+						<input type="hidden" name="id" value="{{ server.id }}" />
+						<input type="hidden" name="token" value="{{ csrf_token("server_delete") }}">
+						<input type="hidden" name="action" value="delete" />
+
+						<button type="submit" name="server_delete" title="{{ t("global.remove")|trans }}" aria-label="{{ t("global.remove")|trans }}">
+							<i class="bi bi-trash3"></i>
 						</button>
 					</form>
 
@@ -55,7 +69,7 @@
 						<input type="hidden" name="token" value="{{ csrf_token("server_connect") }}">
 						<input type="hidden" name="action" value="connect" />
 
-						<button type="submit" name="server_connect" title="{{ t("global.update")|trans }}" aria-label="{{ t("global.update")|trans }}">
+						<button type="submit" name="server_connect" title="{{ t("dashboard.connect")|trans }}" aria-label="{{ t("dashboard.connect")|trans }}">
 							<i class="bi bi-plug"></i>
 						</button>
 					</form>
@@ -63,14 +77,17 @@
 			{% endfor %}
 		</ul>
 
-		<button type="button" title="{{ t("index.feature.previous")|trans }}" aria-label="{{ t("index.feature.previous")|trans }}">
+		{# Nombre de pages de serveurs #}
+		{% set pages = max(dashboard_servers|length / 4, 1)|round(0, "ceil") %}
+
+		<button type="button" {{ pages <= 1 ? "disabled" : "" }} title="{{ t("index.feature.previous")|trans }}" aria-label="{{ t("index.feature.previous")|trans }}">
 			{# Serveurs précédents #}
 			<i class="bi bi-chevron-left"></i>
 		</button>
 
-		<span>1 / {{ max(dashboard_servers|length / 4, 1)|round(0, "ceil") }}</span>
+		<span>1 / {{ pages }}</span>
 
-		<button type="button" title="{{ t("index.feature.next")|trans }}" aria-label="{{ t("index.feature.next")|trans }}">
+		<button type="button" {{ pages <= 1 ? "disabled" : "" }} title="{{ t("index.feature.next")|trans }}" aria-label="{{ t("index.feature.next")|trans }}">
 			{# Serveurs suivants #}
 			<i class="bi bi-chevron-right"></i>
 		</button>
@@ -103,6 +120,9 @@
 				<em data-field="players">0 / 0 [0]</em>
 			</li>
 		</ul>
+
+		{# Relance de la surveillance après une erreur #}
+		<button type="button" data-action="retry" hidden>{{ t("dashboard.state.retry")|trans }}</button>
 	</section>
 
 	{# Liste des joueurs #}
@@ -111,7 +131,7 @@
 		<h3>{{ t("dashboard.players")|trans }}</h3>
 
 		{# Détails des joueurs #}
-		<ul></ul>
+		<ul data-empty="{{ t("dashboard.players_empty")|trans }}"></ul>
 	</section>
 
 	{# Actions rapides #}
@@ -120,28 +140,25 @@
 		<h3>{{ t("header.search.title")|trans }}</h3>
 
 		<ul>
-			<li data-action="shutdown" data-token="{{ csrf_token("server_shutdown") }}" data-route="{{ path("server_action") }}">
+			<li>
 				{# Arrêter le serveur #}
-				{{ t("global.shutdown")|trans }}
-
-				<em data-action="force" data-token="{{ csrf_token("server_force") }}" data-route="{{ path("server_action") }}">
-					{{ t("global.force")|trans }}
-				</em>
+				<button type="button" data-action="shutdown" data-confirm data-token="{{ csrf_token("server_shutdown") }}" data-route="{{ path("server_action") }}">{{ t("global.shutdown")|trans }}</button>
+				<button type="button" data-action="force" data-confirm data-token="{{ csrf_token("server_force") }}" data-route="{{ path("server_action") }}">{{ t("global.force")|trans }}</button>
 			</li>
 
-			<li data-action="restart" data-token="{{ csrf_token("server_restart") }}" data-route="{{ path("server_action") }}">
+			<li>
 				{# Redémarrer le serveur #}
-				{{ t("global.restart")|trans }}
+				<button type="button" data-action="restart" data-confirm data-token="{{ csrf_token("server_restart") }}" data-route="{{ path("server_action") }}">{{ t("global.restart")|trans }}</button>
 			</li>
 
-			<li data-action="update" data-token="{{ csrf_token("server_update") }}" data-route="{{ path("server_action") }}">
+			<li>
 				{# Mettre à jour le serveur #}
-				{{ t("global.update")|trans }}
+				<button type="button" data-action="update" data-confirm data-token="{{ csrf_token("server_update") }}" data-route="{{ path("server_action") }}">{{ t("global.update")|trans }}</button>
 			</li>
 
-			<li data-action="service" data-token="{{ csrf_token("server_service") }}" data-route="{{ path("server_action") }}">
+			<li>
 				{# Passer en mode de maintenance #}
-				{{ t("global.service")|trans }}
+				<button type="button" data-action="service" data-token="{{ csrf_token("server_service") }}" data-route="{{ path("server_action") }}">{{ t("global.service")|trans }}</button>
 			</li>
 		</ul>
 	</section>
@@ -152,20 +169,20 @@
 		<h3>{{ t("dashboard.actions")|trans }}</h3>
 
 		{# Nom des dernières tâches (descendantes) #}
-		<ul>
-			{% for logs in dashboard_logs %}
+		<ul data-empty="{{ t("dashboard.actions_empty")|trans }}">
+			{%- for logs in dashboard_logs -%}
 				<li>
 					{# Icône représentative de la tâche #}
 					<i class="bi bi-check-square-fill" data-type="{{ logs.action }}"></i>
 
 					{# Heure de l'actionnement #}
-					<span>{{ logs.date|date("H:m:s (d/m)") }}</span>
+					<span>{{ logs.date|date("H:i:s (d/m)") }}</span>
 
 					{# Titre de l'action #}
 					{% set console = t("header.subtitle.console")|trans %}
 					<em>{{ logs.action == "console" ? console : t("global." ~ logs.action)|trans|default(logs.action|capitalize) }}</em>
 				</li>
-			{% endfor %}
+			{%- endfor -%}
 		</ul>
 	</section>
 {% endblock %}

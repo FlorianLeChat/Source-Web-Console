@@ -3,7 +3,7 @@ import "../../styles/desktop/dashboard.scss";
 
 // Importation des fonctions et constantes communes.
 import "../global";
-import { addQueuedNotification, sendRemoteAction } from "../functions";
+import { openDialog, askConfirmation, executeQuickAction, addQueuedNotification } from "../functions";
 
 //
 // Permet d'appliquer les images en arrière-plan des serveurs
@@ -31,68 +31,54 @@ $( "li[data-image]" ).each( ( indice, server ) =>
 //  sur le tableau de bord.
 //  Note : ce système peut largement être améliorable dans le futur.
 //
-$( "[name = server_edit]" ).on( "click", ( event ) =>
+$( "[name = server_edit]" ).on( "click", async ( event ) =>
 {
 	// On cesse d'abord le comportement par défaut.
 	event.preventDefault();
 
-	// On récupère après le formulaire parent de l'élément.
-	const parent = $( event.target ).parent().parent();
+	// On récupère après le bouton et le formulaire parent de l'élément.
+	const button = $( event.currentTarget );
+	const parent = button.closest( "form" );
 
-	// On demande ensuite à l'utilisateur s'il veut supprimer ou non
-	//  le serveur.
-	if ( confirm( window.edit_remove ) )
+	// On demande ensuite les nouvelles informations du serveur en
+	//  proposant les valeurs actuelles (l'annulation arrête l'édition).
+	const values = await openDialog( "", [
+		{ name: "address", label: window.edit_address, value: String( button.data( "address" ) ) },
+		{ name: "port", label: window.edit_port, type: "number", value: String( button.data( "port" ) ) },
+		{ name: "password", label: window.edit_password, type: "password" }
+	] );
+
+	if ( values === null )
 	{
-		// Ajout de l'action de suppression.
-		parent.append( "<input type=\"hidden\" name=\"action\" value=\"delete\" />" );
-
-		// Suppression du premier jeton CSRF (pour l'édition).
-		parent.find( "[name = token]" ).first().remove();
+		return;
 	}
-	else
+
+	// On ajoute alors les champs renseignés au formulaire.
+	const fields = { address: values.address.trim(), port: values.port.trim(), password: values.password };
+
+	Object.entries( fields ).forEach( ( [ name, value ] ) =>
 	{
-		// Adresse IP, port et mot de passe du serveur.
-		const address = prompt( window.edit_address );
-		const port = prompt( window.edit_port );
-		const password = prompt( window.edit_password );
-
-		if ( !address && !port && !password )
+		if ( value )
 		{
-			return;
+			$( "<input>", { type: "hidden", name, value } ).appendTo( parent );
 		}
-
-		parent.append( "<input type=\"hidden\" name=\"action\" value=\"edit\" />" );
-
-		if ( address )
-		{
-			// Adresse IP valide.
-			parent.append(
-				`<input type="hidden" name="address" value="${ address }" />`
-			);
-		}
-
-		if ( port )
-		{
-			// Port valide.
-			parent.append(
-				`<input type="hidden" name="port" value="${ port }" />`
-			);
-		}
-
-		if ( password )
-		{
-			// Mot de passe valide.
-			parent.append(
-				`<input type="hidden" name="password" value="${ password }" />`
-			);
-		}
-
-		// Suppression du dernier jeton CSRF (pour la suppression).
-		parent.find( "[name = token]" ).last().remove();
-	}
+	} );
 
 	// On force enfin la soumission du formulaire.
 	parent.trigger( "submit" );
+} );
+
+$( "[name = server_delete]" ).on( "click", async ( event ) =>
+{
+	// On cesse d'abord le comportement par défaut.
+	event.preventDefault();
+
+	// On demande ensuite une confirmation explicite avant la
+	//  suppression définitive du serveur.
+	if ( await askConfirmation( window.edit_remove ) )
+	{
+		$( event.currentTarget ).closest( "form" ).trigger( "submit" );
+	}
 } );
 
 //
@@ -171,81 +157,50 @@ async function retrieveRemoteData()
 
 			if ( name )
 			{
-				players.append( `<li>${ name }</li>` );
+				players.append( $( "<li>" ).text( name ) );
 			}
 		} );
 	}
 	else
 	{
 		// Dans le cas contraire, on affiche enfin un message d'erreur
-		//  avant de supprimer le minuteur.
+		//  avant de supprimer le minuteur et de proposer une relance.
 		addQueuedNotification( await response.text(), 1 );
 
 		clearInterval( timer );
 		timer = undefined;
+
+		$( "[data-field = state]" ).text( window.monitor_interrupted );
+		$( "#state [data-action = retry]" ).prop( "hidden", false );
 	}
 }
 
-// Récupération des informations au démarrage.
-retrieveRemoteData();
-
-// Récupération des informations toutes les 3 secondes.
-timer = setInterval( () =>
+function startMonitoring()
 {
+	// Récupération des informations au démarrage.
 	retrieveRemoteData();
-}, 3000 );
+
+	// Récupération des informations toutes les 3 secondes.
+	timer = setInterval( () =>
+	{
+		retrieveRemoteData();
+	}, 3000 );
+}
+
+startMonitoring();
+
+$( "#state" ).on( "click", "[data-action = retry]", ( event ) =>
+{
+	// Relance de la surveillance à la demande de l'utilisateur.
+	$( event.currentTarget ).prop( "hidden", true );
+	startMonitoring();
+} );
 
 //
 // Permet d'envoyer des requêtes d'action lors du clic sur l'un des
 //  boutons du tableau de bord.
 //
-const actions = $( "#actions" );
-
-actions.on( "click", "li", async ( event ) =>
+$( "#actions" ).on( "click", "button[data-action]", ( event ) =>
 {
-	// Requête classique d'action en fonction du bouton.
-	const target = $( event.target );
-	const action = target.data( "action" );
-
-	if ( action )
-	{
-		// Blocage du bouton pour éviter les abus.
-		target.addClass( "disabled" );
-
-		// Exécution de la requête d'action.
-		const state = await sendRemoteAction(
-			target.data( "token" ),
-			target.data( "route" ),
-			target.data( "action" )
-		);
-
-		if ( !state )
-		{
-			// Libération du bouton en cas d'erreur.
-			target.removeClass( "disabled" );
-		}
-	}
-} );
-
-actions.on( "dblclick", "li:first-of-type", async ( event ) =>
-{
-	// Requête d'arrêt forcée
-	const target = $( event.target );
-	const parent = target.parent();
-
-	// Blocage du bouton pour éviter les abus.
-	parent.addClass( "disabled" );
-
-	// Exécution de la requête d'action.
-	const state = await sendRemoteAction(
-		target.data( "token" ),
-		target.data( "route" ),
-		target.data( "action" )
-	);
-
-	if ( !state )
-	{
-		// Libération du bouton en cas d'erreur.
-		parent.removeClass( "disabled" );
-	}
+	executeQuickAction( $( event.currentTarget ) );
 } );

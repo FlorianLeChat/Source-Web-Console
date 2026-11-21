@@ -141,9 +141,18 @@ main
 		ul
 		{
 			// Liste des événements.
+			flex: 1;
 			padding: 0.25rem;
 			overflow: auto;
 			background-color: black;
+
+			&:empty::before
+			{
+				// Message affiché en attendant les premiers journaux.
+				padding: 0.25rem;
+				text-align: left;
+				@extend %empty-list-message;
+			}
 
 			li
 			{
@@ -167,7 +176,7 @@ main
 // ---------------- //
 // Version tablette //
 // ---------------- //
-@media screen and (min-width: 769px) and (max-width: 1023px)
+@media screen and (min-width: $phone-max-width + 1) and (max-width: $tablet-max-width)
 {
 	@import "../tablet/console";
 }
@@ -175,7 +184,7 @@ main
 // -------------- //
 // Version mobile //
 // -------------- //
-@media screen and (max-width: 768px)
+@media screen and (max-width: $phone-max-width)
 {
 	@import "../phone/console";
 }

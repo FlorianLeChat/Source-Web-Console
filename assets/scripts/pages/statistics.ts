@@ -9,6 +9,19 @@ import Chart from "chart.js/auto";
 import "chartjs-adapter-date-fns";
 
 //
+// Polices des axes réduites sur les graphiques étroits (téléphones)
+//  pour éviter que les titres des axes soient tronqués.
+//
+const isPhone = window.matchMedia( "(max-width: 768px)" ).matches;
+const isNarrowChart = ( context: { chart: Chart } ) => context.chart.width < 500;
+const tickFont = ( context: { chart: Chart } ) => ( { size: isNarrowChart( context ) ? 12 : 16 } );
+const titleFont = {
+	size: isPhone ? 14 : 20,
+	family: "Roboto",
+	weight: "bold" as const
+};
+
+//
 // Permet de créer un graphique pour illustrer le nombre total
 //  de joueurs en fonction du temps.
 //
@@ -32,6 +45,7 @@ document.fonts.ready.then( () =>
 		},
 		options: {
 			responsive: true,
+			aspectRatio: isPhone ? 1 : 2,
 			interaction: {
 				// Mode d'interaction avec l'axe X (sélection du point le plus proche).
 				mode: "nearest",
@@ -58,45 +72,34 @@ document.fonts.ready.then( () =>
 					},
 					ticks: {
 						color: "#f59a23",
-						font: {
-							size: 16
-						},
+						font: tickFont,
 						stepSize: 1
 					},
 					title: {
 						display: true,
 						text: window.utc_time,
 						color: "#f59a23",
-						font: {
-							size: 20,
-							family: "Roboto",
-							weight: "bold"
-						},
+						font: titleFont,
 						padding: { top: 15, bottom: 0 }
 					}
 				},
 				y: {
 					// Axe Y : nombre de joueurs compris entre 0 et 128 (limitation des serveurs).
+					min: 0,
 					max: 128,
 					grid: {
 						color: "#797979"
 					},
 					ticks: {
 						color: "#f59a23",
-						font: {
-							size: 16
-						},
-						stepSize: 2
+						font: tickFont,
+						stepSize: 16
 					},
 					title: {
 						display: true,
 						text: window.player_count,
 						color: "#f59a23",
-						font: {
-							size: 20,
-							family: "Roboto",
-							weight: "bold"
-						},
+						font: titleFont,
 						padding: { top: 0, bottom: 10 }
 					}
 				}
@@ -138,6 +141,7 @@ document.fonts.ready.then( () =>
 		},
 		options: {
 			responsive: true,
+			aspectRatio: isPhone ? 1 : 2,
 			interaction: {
 				// Mode d'interaction avec l'axe X (sélection du point le plus proche).
 				mode: "nearest",
@@ -173,44 +177,33 @@ document.fonts.ready.then( () =>
 					},
 					ticks: {
 						color: "#f59a23",
-						font: {
-							size: 16
-						},
+						font: tickFont,
 						stepSize: 1
 					},
 					title: {
 						display: true,
 						text: window.utc_time,
 						color: "#f59a23",
-						font: {
-							size: 20,
-							family: "Roboto",
-							weight: "bold"
-						},
+						font: titleFont,
 						padding: { top: 15, bottom: 0 }
 					}
 				},
 				y: {
 					// Axe Y : taux de rafraîchissement (tickrate)
+					min: 0,
 					max: 128,
 					grid: {
 						color: "#797979"
 					},
 					ticks: {
 						color: "#f59a23",
-						font: {
-							size: 16
-						}
+						font: tickFont
 					},
 					title: {
 						display: true,
 						text: window.fps_usage,
 						color: "#f59a23",
-						font: {
-							size: 20,
-							family: "Roboto",
-							weight: "bold"
-						},
+						font: titleFont,
 						padding: { top: 0, bottom: 10 }
 					}
 				}

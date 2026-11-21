@@ -3,8 +3,22 @@
 %reset-button-style
 {
 	border: none;
-	outline: none;
 	position: relative;
+}
+
+// Permet de masquer visuellement un élément tout en le laissant
+//  accessible aux technologies d'assistance (lecteurs d'écran).
+@mixin visually-hidden
+{
+	clip: rect(0 0 0 0);
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	position: absolute;
+	clip-path: inset(50%);
+	white-space: nowrap;
 }
 
 // Permet de réinitialiser les règles initiales d'une
@@ -17,10 +31,10 @@
 }
 
 // Permet d'élargir la zone de détection lors d'un clic
-//  de l'utilisateur (uniquement sur les terminaux mobiles).
+//  de l'utilisateur (uniquement sur les écrans tactiles).
 %larger-touch-zone
 {
-	@media screen and (max-width: 1024px)
+	@media (pointer: coarse)
 	{
 		top: -0.5rem;
 		left: -0.5rem;
@@ -29,6 +43,62 @@
 		content: "";
 		position: absolute;
 	}
+}
+
+// Permet de rendre l'intégralité d'un bloc d'action rapide
+//  cliquable par l'intermédiaire de son bouton principal.
+%quick-action-buttons
+{
+	button
+	{
+		font: inherit;
+		color: inherit;
+		border: none;
+		cursor: pointer;
+		padding: 0;
+		background: none;
+		box-shadow: none;
+		text-transform: inherit;
+
+		&:first-of-type
+		{
+			&::before
+			{
+				// Extension de la zone de sélection à tout le bloc.
+				inset: 0;
+				content: "";
+				position: absolute;
+			}
+
+			&:focus-visible
+			{
+				// L'indicateur de focus est porté par le bloc parent.
+				outline: none;
+			}
+		}
+
+		&:disabled
+		{
+			cursor: not-allowed;
+		}
+	}
+
+	&:has(> button:first-of-type:focus-visible)
+	{
+		// Indicateur de focus du bouton principal.
+		outline: 3px solid $text-color;
+		outline-offset: 2px;
+	}
+}
+
+// Permet d'afficher le message d'une liste vide, lu depuis
+//  l'attribut « data-empty » de la liste.
+%empty-list-message
+{
+	color: $background-color;
+	content: attr(data-empty);
+	display: block;
+	font-style: italic;
 }
 
 // Permet d'appliquer automatiquement les modifications
@@ -153,9 +223,16 @@
 				// Amélioration de la zone de sélection.
 				@extend %larger-touch-zone;
 			}
+
+			&:focus-visible
+			{
+				// Contour contrasté sur le fond de sélection.
+				outline-color: $box;
+				outline-offset: 0.25rem;
+			}
 		}
 
-		&.active, &:hover
+		&.active, &:hover, &:focus-within
 		{
 			// Effet de sélection.
 			background-color: $text;
@@ -173,6 +250,10 @@
 @mixin responsive-header-adaptation($text: $text-color, $box: $box-color)
 {
 	// Ajustement de la disposition de l'en-tête.
+	height: auto;
+	row-gap: 0.75rem;
+	flex-wrap: wrap;
+	min-height: 0;
 	justify-content: space-evenly;
 
 	img
@@ -201,13 +282,157 @@
 
 	div:last-of-type
 	{
-		// Disparition de la barre de recherche.
-		display: none;
+		// Barre de recherche placée sur sa propre ligne.
+		gap: 0.5rem;
+		order: 1;
+		flex-basis: 100%;
+		align-items: center;
+		flex-direction: row;
+
+		label
+		{
+			// Seule l'icône reste visible, le libellé reste
+			//  lisible par les technologies d'assistance.
+			font-size: 0;
+		}
+
+		input
+		{
+			// Le champ occupe toute la largeur restante.
+			flex: 1;
+			min-width: 0;
+		}
 	}
 
 	a span
 	{
 		// Disparition de l'identifiant de l'utilisateur.
 		display: none;
+	}
+}
+
+// Permet de générer la disposition commune des pages du tableau
+//  de bord sur les tablettes (titre et navigation sur toute la largeur).
+@mixin tablet-page-layout($columns: 2, $rows: auto auto)
+{
+	main
+	{
+		// Grille principale.
+		padding: 1.5rem;
+		grid-template-rows: $rows;
+		grid-template-columns: repeat($columns, 1fr);
+
+		p
+		{
+			// Paragraphe d'introduction.
+			margin: 0 5% 0 5%;
+			grid-area: 1 / 1 / 2 / #{$columns + 1};
+		}
+
+		nav
+		{
+			// Barre de navigation sur toute la largeur.
+			grid-area: 2 / 1 / 3 / #{$columns + 1};
+
+			@include inline-navigation-list;
+		}
+	}
+}
+
+// Permet d'afficher les catégories de la barre de navigation
+//  sur une ou plusieurs lignes (tablettes et téléphones).
+@mixin inline-navigation-list
+{
+	ul
+	{
+		// Retour à la ligne des catégories si nécessaire.
+		gap: 0.5rem;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+
+		li
+		{
+			// Catégories affichées en ligne.
+			display: inline-block;
+			margin-bottom: 0;
+		}
+	}
+}
+
+// Permet de générer la disposition commune des pages du tableau
+//  de bord sur les téléphones (une seule colonne).
+@mixin phone-page-layout($block-max-width: $content-max-width)
+{
+	header
+	{
+		// Adaptation de l'en-tête.
+		@include responsive-header-adaptation;
+	}
+
+	main
+	{
+		// Grille principale sur une seule colonne.
+		padding: 1rem;
+		row-gap: 1.5rem;
+		justify-items: center;
+		grid-template-rows: auto;
+		grid-template-columns: 1fr;
+
+		section, article, nav
+		{
+			// Largeur des blocs.
+			width: 100%;
+			max-width: $block-max-width;
+			box-sizing: border-box;
+		}
+
+		p
+		{
+			// Paragraphe d'introduction.
+			margin: 0 5% 0 5%;
+			grid-area: 1 / 1 / 2 / 2;
+		}
+
+		nav
+		{
+			// Barre de navigation réduite aux icônes.
+			grid-area: 2 / 1 / 3 / 2;
+
+			@include inline-navigation-list;
+
+			h2
+			{
+				// Titre de la barre plus compact.
+				margin: 0.5rem 0.5rem 1rem;
+			}
+
+			ul li
+			{
+				a
+				{
+					// Zone de sélection de la catégorie.
+					position: relative;
+
+					i
+					{
+						// Icône sans espacement.
+						margin-right: 0;
+
+						+ span
+						{
+							// Disparition visuelle du titre de la catégorie.
+							@include visually-hidden;
+						}
+					}
+
+					&::after
+					{
+						// Amélioration de la zone de sélection.
+						@extend %larger-touch-zone;
+					}
+				}
+			}
+		}
 	}
 }

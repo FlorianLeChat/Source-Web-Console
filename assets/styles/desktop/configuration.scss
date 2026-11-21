@@ -86,7 +86,7 @@ main
 				> span
 				{
 					// Champs requis.
-					color: $error-color;
+					color: $error-light-color;
 				}
 			}
 
@@ -222,7 +222,7 @@ main
 // ---------------- //
 // Version tablette //
 // ---------------- //
-@media screen and (min-width: 769px) and (max-width: 1023px)
+@media screen and (min-width: $phone-max-width + 1) and (max-width: $tablet-max-width)
 {
 	@import "../tablet/configuration";
 }
@@ -230,7 +230,7 @@ main
 // -------------- //
 // Version mobile //
 // -------------- //
-@media screen and (max-width: 768px)
+@media screen and (max-width: $phone-max-width)
 {
 	@import "../phone/configuration";
 }
