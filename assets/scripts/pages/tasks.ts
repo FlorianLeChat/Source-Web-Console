@@ -3,7 +3,7 @@ import "../../styles/desktop/tasks.scss";
 
 // Importation des fonctions et constantes communes.
 import "../global";
-import { addQueuedNotification } from "../functions";
+import { askConfirmation, addQueuedNotification } from "../functions";
 
 //
 // Permet d'envoyer les demandes de création de tâches planifiées
@@ -64,10 +64,10 @@ $( "form" ).on( "submit", async ( event ) =>
 // Permet de gérer les demandes de suppression de tâches planifiées
 //  dans la base de données.
 //
-$( "tbody tr:not([class = finished])" ).on( "click", async ( event ) =>
+$( "tbody tr:not(.finished, .empty)" ).on( "click", async ( event ) =>
 {
 	// On vérifie si l'utilisateur demande a supprimer la tâche.
-	if ( confirm( window.edit_remove ) )
+	if ( await askConfirmation( window.edit_remove ) )
 	{
 		// On réalise ensuite la requête AJAX.
 		const target = $( event.target ).parent();

@@ -61,8 +61,10 @@ main
 				// En-tête du tableau.
 				color: $background-color;
 				height: 2rem;
+				hyphens: auto;
 				font-size: 1.25rem;
-				word-break: break-all;
+				overflow-wrap: break-word;
+				text-shadow: 0 0 0.25rem $box-color, 0 0 0.5rem $box-color;
 				background-size: 100px 100px;
 				background-image: linear-gradient(45deg, $text-color 12.5%, $box-color 12.5%, $box-color 37.5%, $text-color 37.5%, $text-color 62.5%, $box-color 62.5%, $box-color 87.5%, $text-color 87.5%);
 				background-position: 50px 50px;
@@ -95,7 +97,22 @@ main
 						background-color: $error-color;
 					}
 
-					&:not(.finished):hover
+					&.empty
+					{
+						// Aucune tâche enregistrée.
+						color: $background-color;
+						cursor: default;
+						font-style: italic;
+						word-break: normal;
+
+						td
+						{
+							padding: 1rem;
+							text-transform: none;
+						}
+					}
+
+					&:not(.finished, .empty):hover
 					{
 						// Effet de sélection.
 						color: $box-color;
@@ -127,7 +144,6 @@ main
 			flex-wrap: wrap;
 			column-gap: 2rem;
 			margin-top: 1rem;
-			max-height: 6.5rem;
 			align-items: center;
 			margin-bottom: 1rem;
 			justify-content: center;
@@ -161,7 +177,7 @@ main
 // ---------------- //
 // Version tablette //
 // ---------------- //
-@media screen and (min-width: 769px) and (max-width: 1023px)
+@media screen and (min-width: $phone-max-width + 1) and (max-width: $tablet-max-width)
 {
 	@import "../tablet/tasks";
 }
@@ -169,7 +185,7 @@ main
 // -------------- //
 // Version mobile //
 // -------------- //
-@media screen and (max-width: 768px)
+@media screen and (max-width: $phone-max-width)
 {
 	@import "../phone/tasks";
 }

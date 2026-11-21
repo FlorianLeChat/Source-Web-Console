@@ -13,7 +13,7 @@
 	</div>
 
 	{# Champs du formulaire #}
-	<form novalidate>
+	<form method="POST" novalidate>
 		{# Message d'erreur #}
 		<output class="error"></output>
 
@@ -66,14 +66,14 @@
 	</div>
 
 	{# Champs du formulaire #}
-	<form novalidate>
+	<form method="POST" novalidate>
 		{# Message d'erreur #}
 		<output class="error"></output>
 
 		{# Informations client (adresse IP & port) #}
 		<label for="address">{{ t("form.register.client.title")|trans }}<span>*</span></label>
 
-		<input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" id="address" name="address" placeholder="51.75.125.244" minlength="7" maxlength="15" pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$" required>
+		<input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" id="address" name="address" placeholder="203.0.113.10" minlength="7" maxlength="15" pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$" required>
 		<span></span>
 
 		<input type="number" name="port" placeholder="27015" min="1" max="99999" required />
@@ -86,7 +86,7 @@
 		{# Informations administrateur (mot de passe) #}
 		<label for="password">{{ t("form.register.admin.title")|trans }}</label>
 
-		<input type="text" id="password" name="password" placeholder="a2D2ea4NE6e9As" />
+		<input type="password" autocomplete="new-password" id="password" name="password" placeholder="a2D2ea4NE6e9As" />
 
 		<em>{{ t("form.register.admin.description")|trans }}</em>
 

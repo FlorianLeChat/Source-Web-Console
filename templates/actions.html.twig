@@ -28,28 +28,25 @@
 
 		{# Actions de la section #}
 		<ul>
-			<li data-action="shutdown" data-token="{{ csrf_token("server_shutdown") }}" data-route="{{ path("server_action") }}">
+			<li>
 				{# Arrêter le serveur #}
-				{{ t("global.shutdown")|trans }}
-
-				<em data-action="force" data-token="{{ csrf_token("server_force") }}" data-route="{{ path("server_action") }}">
-					{{ t("global.force")|trans }}
-				</em>
+				<button type="button" data-action="shutdown" data-confirm data-token="{{ csrf_token("server_shutdown") }}" data-route="{{ path("server_action") }}">{{ t("global.shutdown")|trans }}</button>
+				<button type="button" data-action="force" data-confirm data-token="{{ csrf_token("server_force") }}" data-route="{{ path("server_action") }}">{{ t("global.force")|trans }}</button>
 			</li>
 
-			<li data-action="restart" data-token="{{ csrf_token("server_restart") }}" data-route="{{ path("server_action") }}">
+			<li>
 				{# Redémarrer le serveur #}
-				{{ t("global.restart")|trans }}
+				<button type="button" data-action="restart" data-confirm data-token="{{ csrf_token("server_restart") }}" data-route="{{ path("server_action") }}">{{ t("global.restart")|trans }}</button>
 			</li>
 
-			<li data-action="update" data-token="{{ csrf_token("server_update") }}" data-route="{{ path("server_action") }}">
+			<li>
 				{# Mettre à jour le serveur #}
-				{{ t("global.update")|trans }}
+				<button type="button" data-action="update" data-confirm data-token="{{ csrf_token("server_update") }}" data-route="{{ path("server_action") }}">{{ t("global.update")|trans }}</button>
 			</li>
 
-			<li data-action="service" data-token="{{ csrf_token("server_service") }}" data-route="{{ path("server_action") }}">
+			<li>
 				{# Passer en mode de maintenance #}
-				{{ t("global.service")|trans }}
+				<button type="button" data-action="service" data-token="{{ csrf_token("server_service") }}" data-route="{{ path("server_action") }}">{{ t("global.service")|trans }}</button>
 			</li>
 		</ul>
 
@@ -62,7 +59,7 @@
 				<span>{{ t("actions.switch.flashlight")|trans }}</span>
 
 				<label class="switch">
-					<input type="checkbox" {{ actions_value_flashlight == "1" ? "checked" : "" }} name="flashlight" />
+					<input type="checkbox" {{ actions_value_flashlight == "1" ? "checked" : "" }} name="flashlight" aria-label="{{ t("actions.switch.flashlight")|trans }}" />
 					<span></span>
 				</label>
 			</li>
@@ -72,7 +69,7 @@
 				<span>{{ t("actions.switch.cheats")|trans }}</span>
 
 				<label class="switch">
-					<input type="checkbox" {{ actions_value_cheats == "1" ? "checked" : "" }} name="cheats" />
+					<input type="checkbox" {{ actions_value_cheats == "1" ? "checked" : "" }} name="cheats" aria-label="{{ t("actions.switch.cheats")|trans }}" />
 					<span></span>
 				</label>
 			</li>
@@ -82,7 +79,7 @@
 				<span>{{ t("actions.switch.voice")|trans }}</span>
 
 				<label class="switch">
-					<input type="checkbox" {{ actions_value_voice == "1" ? "checked" : "" }} name="voice" />
+					<input type="checkbox" {{ actions_value_voice == "1" ? "checked" : "" }} name="voice" aria-label="{{ t("actions.switch.voice")|trans }}" />
 					<span></span>
 				</label>
 			</li>
@@ -137,7 +134,7 @@
 					{# Ajout d'une commande personnalisée #}
 					<span>{{ t("actions.add_command")|trans }}</span>
 
-					<em>{{ t("actions.remaining")|trans|format(2 - actions_custom_commands|length) }}</em>
+					<em>{{ t("actions.remaining")|trans|format((is_granted("ROLE_DONOR") ? 2 : 1) - actions_custom_commands|length) }}</em>
 				</li>
 			{% endif %}
 		</ul>

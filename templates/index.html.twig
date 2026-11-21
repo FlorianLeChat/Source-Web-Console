@@ -48,6 +48,9 @@
 
 {# Contenu de la page demandé #}
 {% block content %}
+	{# Titre principal (lecteurs d'écran) #}
+	<h1 class="visually-hidden">{{ meta.title }}</h1>
+
 	{# Vidéo en arrière-plan #}
 	<video muted loop>
 		<source data-src="{{ asset("build/videos/landing.mp4") }}" type="video/mp4" />
@@ -68,15 +71,15 @@
 		{# Carrousel des images #}
 		<ul>
 			{% for i in range(1, 4) %}
-				<li><img src="{{ asset("build/images/landing/" ~ i ~ ".webp") }}" alt="Image {{ i }}" loading="lazy" decoding="async" /></li>
+				<li><img src="{{ asset("build/images/landing/" ~ i ~ ".webp") }}" alt="" loading="lazy" decoding="async" /></li>
 			{% endfor %}
 		</ul>
 
 		{# Présentation des fonctionnalités #}
 		<article>
 			{# Logo du site #}
-			<a href="{{ meta.source }}" title="Logo" aria-label="Logo">
-				<img src="{{ asset("build/images/logo.svg") }}" alt="Logo" loading="lazy" decoding="async" />
+			<a href="{{ meta.source }}" title="GitHub" aria-label="GitHub">
+				<img src="{{ asset("build/images/logo.svg") }}" alt="" loading="lazy" decoding="async" />
 			</a>
 
 			{# Bouton de défilement (précédent) #}

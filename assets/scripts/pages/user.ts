@@ -3,7 +3,7 @@ import "../../styles/desktop/user.scss";
 
 // Importation des fonctions et constantes globales.
 import "../global";
-import { addQueuedNotification } from "../functions";
+import { askConfirmation, addQueuedNotification } from "../functions";
 
 //
 // Permet d'ajouter un message de succès après une connexion
@@ -30,7 +30,7 @@ account.on( "click", "[data-action]", async ( event ) =>
 	const target = $( event.target );
 	const action = target.data( "action" );
 
-	if ( action === "remove" && !confirm( window.edit_remove ) )
+	if ( action === "remove" && !( await askConfirmation( window.edit_remove ) ) )
 	{
 		return;
 	}

@@ -15,7 +15,7 @@ Encore.configureDefinePlugin( ( options ) =>
 
 Encore
 	.setOutputPath( "public/build/" )
-	.setPublicPath( "build" )
+	.setPublicPath( "/build" )
 	.setManifestKeyPrefix( "build/" )
 	.addEntry( "actions", "./assets/scripts/pages/actions.ts" )
 	.addEntry( "configuration", "./assets/scripts/pages/configuration.ts" )
@@ -67,5 +67,11 @@ Encore
 
 const config = Encore.getWebpackConfig();
 config.output.publicPath = "auto";
+config.plugins
+	.filter( ( plugin ) => plugin.constructor.name === "EntryPointsPlugin" )
+	.forEach( ( plugin ) =>
+	{
+		plugin.publicPath = "build/";
+	} );
 
 module.exports = config;

@@ -16,28 +16,28 @@
 			<li>
 				{# Nombre de donateurs #}
 				<i class="bi bi-cash"></i>
-				<h3>{{ help_donators_count }}+</h3>
+				<h3>{{ help_donators_count }}{{ help_donators_count > 0 ? "+" : "" }}</h3>
 				<h4>{{ t("help.count.donators")|trans }}</h4>
 			</li>
 
 			<li>
 				{# Nombre de serveurs #}
 				<i class="bi bi-hdd-stack-fill"></i>
-				<h3>{{ help_servers_count }}+</h3>
+				<h3>{{ help_servers_count }}{{ help_servers_count > 0 ? "+" : "" }}</h3>
 				<h4>{{ t("help.count.servers")|trans }}</h4>
 			</li>
 
 			<li>
 				{# Nombre d'utilisateurs #}
 				<i class="bi bi-person-fill"></i>
-				<h3>{{ help_users_count }}+</h3>
+				<h3>{{ help_users_count }}{{ help_users_count > 0 ? "+" : "" }}</h3>
 				<h4>{{ t("help.count.users")|trans }}</h4>
 			</li>
 
 			<li>
 				{# Nombre d'actionnements #}
 				<i class="bi bi-lightning-fill"></i>
-				<h3>{{ help_requests_count }}+</h3>
+				<h3>{{ help_requests_count }}{{ help_requests_count > 0 ? "+" : "" }}</h3>
 				<h4>{{ t("help.count.requests")|trans }}</h4>
 			</li>
 		</ul>
@@ -50,8 +50,8 @@
 
 		{% for i in range(1, 3) %}
 			{# Question/réponse #}
-			<button type="button">{{ t("help.question." ~ i)|trans }}</button>
-			<p>{{ t("help.answer." ~ i)|trans }}</p>
+			<button type="button" aria-expanded="false" aria-controls="answer-{{ i }}">{{ t("help.question." ~ i)|trans }}</button>
+			<p id="answer-{{ i }}">{{ t("help.answer." ~ i)|trans }}</p>
 		{% endfor %}
 	</section>
 {% endblock %}

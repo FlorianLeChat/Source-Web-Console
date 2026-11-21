@@ -71,7 +71,7 @@ async function retrieveRemoteLogs()
 
 		data.forEach( ( line ) =>
 		{
-			list.append( `<li>${ line }</li>` );
+			list.append( $( "<li>" ).text( line ) );
 		} );
 
 		list.scrollTop( list.prop( "scrollHeight" ) );

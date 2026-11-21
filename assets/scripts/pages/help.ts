@@ -14,6 +14,7 @@ $( "#faq" ).on( "click", "button", ( event ) =>
 	// On bascule d'abord l'état d'activation du bouton.
 	const target = $( event.target );
 	target.toggleClass( "active" );
+	target.attr( "aria-expanded", String( target.hasClass( "active" ) ) );
 
 	// On récupère alors l'élément suivant le bouton.
 	//  Note : on doit récupérer ici un élément <p>.

@@ -68,7 +68,7 @@ main
 				> span
 				{
 					// Champs requis.
-					color: $error-color;
+					color: $error-light-color;
 				}
 			}
 
@@ -79,16 +79,9 @@ main
 
 				&[data-action = remove]
 				{
-					// Bouton d'annulation.
+					// Suppression définitive du compte.
 					margin-bottom: 0.5rem;
 					@extend %cancel-button-layout;
-					background-color: $border-color;
-
-					&:hover
-					{
-						// Effet de sélection.
-						color: $border-color;
-					}
 				}
 
 				&[data-action = update]
@@ -203,7 +196,7 @@ main
 // ---------------- //
 // Version tablette //
 // ---------------- //
-@media screen and (min-width: 769px) and (max-width: 1023px)
+@media screen and (min-width: $phone-max-width + 1) and (max-width: $tablet-max-width)
 {
 	@import "../tablet/user";
 }
@@ -211,7 +204,7 @@ main
 // -------------- //
 // Version mobile //
 // -------------- //
-@media screen and (max-width: 768px)
+@media screen and (max-width: $phone-max-width)
 {
 	@import "../phone/user";
 }

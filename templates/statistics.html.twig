@@ -43,11 +43,16 @@
 		{# Titre de la section #}
 		<h2>{{ t("header.subtitle.statistics")|trans }}</h2>
 
+		{# Absence de données collectées #}
+		{% if time_data is empty %}
+			<em>{{ t("statistics.empty")|trans }}</em>
+		{% endif %}
+
 		{# Graphique du nombre de joueurs #}
-		<canvas id="player_count"></canvas>
+		<canvas id="player_count" role="img" aria-label="{{ t("statistics.axis.players")|trans }}"></canvas>
 
 		{# Graphique d'utilisation des performances #}
-		<canvas id="server_usage"></canvas>
+		<canvas id="server_usage" role="img" aria-label="{{ t("statistics.axis.cpu")|trans }}, {{ t("statistics.axis.usage")|trans }}"></canvas>
 	</section>
 
 	{# Overlay d'orientation de l'appareil #}

@@ -3,7 +3,7 @@ import "../../styles/desktop/index.scss";
 
 // Importation des fonctions et constantes communes.
 import "../global";
-import { addQueuedNotification } from "../functions";
+import { openDialog, addQueuedNotification } from "../functions";
 
 //
 // Permet de lancer la vidéo en arrière-plan seulement sur les
@@ -281,8 +281,12 @@ links.last().on( "click", async ( event ) =>
 	event.preventDefault();
 
 	// On récupère après les nouvelles informations de connexion.
-	const username = prompt( window.recover_password_username );
-	const password = prompt( window.recover_password_password );
+	const values = await openDialog( "", [
+		{ name: "username", label: window.recover_password_username },
+		{ name: "password", label: window.recover_password_password, type: "password" }
+	] );
+	const username = values?.username.trim();
+	const password = values?.password;
 
 	if ( !username || !password )
 	{

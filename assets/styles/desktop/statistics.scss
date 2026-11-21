@@ -37,9 +37,9 @@ main
 	{
 		// Statistiques graphiques.
 		color: $text-color;
-		width: 96%; // Correctif stupide pour supporter le responsive de ChartJS.
 		padding: 1rem;
 		grid-area: 2 / 2 / 3 / 3;
+		min-width: 0; // Permet aux graphiques de ChartJS de rétrécir dans la grille.
 		border-radius: 0.5rem;
 		background-color: $box-color;
 
@@ -48,6 +48,14 @@ main
 			// Titre de la catégorie.
 			margin: 1rem 0.5rem 2rem 0.5rem;
 			font-size: 1.75rem;
+		}
+
+		> em
+		{
+			// Message affiché sans données collectées.
+			color: $background-color;
+			display: block;
+			margin-bottom: 1.5rem;
 		}
 
 		canvas
@@ -74,7 +82,7 @@ main
 // ---------------- //
 // Version tablette //
 // ---------------- //
-@media screen and (min-width: 769px) and (max-width: 1023px)
+@media screen and (min-width: $phone-max-width + 1) and (max-width: $tablet-max-width)
 {
 	@import "../tablet/statistics";
 }
@@ -82,7 +90,7 @@ main
 // -------------- //
 // Version mobile //
 // -------------- //
-@media screen and (max-width: 768px)
+@media screen and (max-width: $phone-max-width)
 {
 	@import "../phone/statistics";
 }

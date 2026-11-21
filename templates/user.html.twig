@@ -23,7 +23,7 @@
 		<h2>{{ t("user.account")|trans }}</h2>
 
 		{# Champs du formulaire #}
-		<form novalidate>
+		<form method="POST" novalidate>
 			{# Nom d'utilisateur #}
 			<div>
 				<label for="username">{{ t("form.register.username")|trans }}<span>*</span></label>
@@ -38,7 +38,7 @@
 
 			{# Suppression/mise à jour #}
 			<div>
-				<input type="submit" data-action="remove" data-route="{{ path("user_remove") }}" data-token="{{ csrf_token("user_remove") }}" value="{{ t("global.remove")|trans }}" />
+				<input type="submit" data-action="remove" data-route="{{ path("user_remove") }}" data-token="{{ csrf_token("user_remove") }}" value="{{ t("user.remove")|trans }}" />
 				<input type="submit" data-action="update" data-route="{{ path("user_update") }}" data-token="{{ csrf_token("user_update") }}" value="{{ t("global.update")|trans }}" />
 			</div>
 		</form>

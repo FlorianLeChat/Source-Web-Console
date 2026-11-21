@@ -1,5 +1,6 @@
 {# Nom de la route utilisée par Symfony #}
-{% set route_name = app.current_route|split("_")[0] %}
+{#  Note : les pages d'erreur n'ont pas de route et définissent leur propre nom. #}
+{% set route_name = route_name ?? (app.current_route ?? "")|split("_")[0] %}
 
 <!DOCTYPE html>
 <html lang="{{ (app.request.locale ?? app.request.defaultLocale) }}">
@@ -42,6 +43,9 @@
 			// Message signalant à l'utilisateur que les majuscules sont activées.
 			window.capslock_enabled = "{{ t("form.capslock_warning")|trans|escape("js") }}";
 
+			// Message demandant de confirmer une action sensible sur le serveur.
+			window.confirm_action = "{{ t("global.confirm_action")|trans|escape("js") }}";
+
 			// Clé de sécurité publique pour le service de Google reCAPTCHA.
 			window.recaptcha_public_key = "{{ global_recaptcha|escape("js") }}"
 		</script>
@@ -68,7 +72,7 @@
 		<header>
 			{% block header %}
 				{# Logo du site #}
-				<img src="{{ asset("build/images/logo.svg") }}" alt="Logo" loading="lazy" decoding="async" />
+				<img src="{{ asset("build/images/logo.svg") }}" alt="" loading="lazy" decoding="async" />
 
 				{# Titres du site #}
 				<div>
@@ -81,7 +85,7 @@
 					{# Titre et icône de la barre #}
 					<label for="search">
 						<i class="bi bi-search"></i>
-						{{ t("header.search.title")|trans }}
+						{{ t("header.search.label")|trans }}
 					</label>
 
 					{# Champ de recherche #}
@@ -107,7 +111,7 @@
 			{% block navigation %}
 				<nav>
 					{# Titre de la barre #}
-					<h2>Navigation</h2>
+					<h2>{{ t("header.navigation")|trans }}</h2>
 
 					<ul>
 						{# Liste des pages #}
@@ -193,16 +197,31 @@
 			</section>
 
 			{# Notifications textuelles #}
-			<div id="notifications">
+			<div id="notifications" role="status" aria-live="polite">
 				<i class="bi"></i>
 				<span></span>
 			</div>
 
 			{# Conteneur du bouton des astuces #}
 			<div id="tips">
-				<button type="button">?</button>
-				<span>{{ t(route_name ~ ".tips")|trans }}</span>
+				<button type="button" aria-expanded="false" aria-controls="tips-content" aria-label="{{ t("footer.support")|trans }}">?</button>
+				<span id="tips-content">{{ t(route_name ~ ".tips")|trans }}</span>
 			</div>
+
+			{# Boîte de dialogue des confirmations et des saisies #}
+			<dialog id="dialog">
+				<form method="dialog" novalidate>
+					{# Message de la demande #}
+					<p id="dialog-message"></p>
+
+					{# Champs de saisie (générés depuis le JavaScript) #}
+					<div></div>
+
+					{# Annulation/validation #}
+					<button type="submit" value="cancel">{{ t("form.cancel_button")|trans }}</button>
+					<button type="submit" value="confirm">{{ t("form.validate_button")|trans }}</button>
+				</form>
+			</dialog>
 		</main>
 
 		{# Pied de page du site #}
@@ -250,7 +269,7 @@
 
 				<li>
 					{# Sélecteur des langues #}
-					<i class="bi bi-translate"></i>
+					<i class="bi bi-translate" tabindex="0" role="button" aria-label="{{ t("footer.language")|trans }}" aria-haspopup="true" aria-expanded="false"></i>
 					<form method="POST">
 						<ul>
 							{% for code in get_languages() %}
@@ -274,7 +293,7 @@
 					</form>
 				</li>
 
-				<li data-cc="show-preferencesModal">
+				<li data-cc="show-preferencesModal" tabindex="0" role="button" aria-label="{{ t("footer.cookies")|trans }}">
 					{# Consentement des cookies #}
 					<i class="bi bi-sliders2"></i>
 				</li>

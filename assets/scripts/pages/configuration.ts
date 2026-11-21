@@ -3,7 +3,7 @@ import "../../styles/desktop/configuration.scss";
 
 // Importation des fonctions et constantes communes.
 import "../global";
-import { addQueuedNotification } from "../functions";
+import { askValue, addQueuedNotification } from "../functions";
 
 //
 // Permet d'enregistrer ou de mettre à jour les données du
@@ -79,7 +79,7 @@ $( "[data-type]" ).on( "click", async ( event ) =>
 
 	// On récupère le chemin d'accès vers le fichier de
 	//  configuration du serveur distant.
-	const path = prompt( window.storage_path );
+	const path = await askValue( window.storage_path );
 
 	if ( !path )
 	{

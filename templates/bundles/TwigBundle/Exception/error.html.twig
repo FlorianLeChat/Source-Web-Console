@@ -1,0 +1,25 @@
+{# Modèle de base #}
+{% extends "base.html.twig" %}
+
+{# Les pages d'erreur réutilisent l'apparence des mentions légales #}
+{% set route_name = "legal" %}
+
+{# En-tête de la page #}
+{% block header %} {% endblock %}
+
+{# Barre de navigation #}
+{% block navigation %} {% endblock %}
+
+{# Contenu de la page demandé #}
+{% block content %}
+	{# Titre de l'erreur #}
+	<h1>{{ t("error.title")|trans|format(status_code) }}</h1>
+
+	{# Description de l'erreur #}
+	<p>{{ t("error.description")|trans }}</p>
+
+	{# Retour à l'accueil #}
+	<p>
+		<a href="{{ path("index_page") }}">{{ t("error.back")|trans }}</a>
+	</p>
+{% endblock %}

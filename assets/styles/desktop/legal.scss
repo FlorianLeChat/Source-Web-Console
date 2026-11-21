@@ -17,9 +17,31 @@ header
 // ---------------- //
 main
 {
-	// Ajout des espacements classiques.
-	padding: 1rem;
-	margin-bottom: 4rem;
+	// Ajout des espacements classiques et limitation de la
+	//  longueur des lignes pour faciliter la lecture.
+	margin: 0 auto 4rem;
+	padding: 1.5rem 1rem;
+	max-width: 60ch;
+	overflow-wrap: break-word;
+
+	h1
+	{
+		// Titre principal adapté à la largeur de l'écran.
+		font-size: clamp(1.75rem, 1.25rem + 2vw, 2.5rem);
+	}
+
+	h2
+	{
+		// Titres des sections.
+		margin-top: 2.5rem;
+	}
+
+	strong
+	{
+		// Mots en gras à la taille du texte courant pour ne pas
+		//  casser l'interligne des paragraphes.
+		font-size: inherit;
+	}
 
 	a
 	{

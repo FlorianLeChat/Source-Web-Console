@@ -107,6 +107,13 @@ main
 					bottom: 0.25rem;
 				}
 
+				&[name = server_delete]
+				{
+					// Suppression du serveur.
+					left: 2.25rem;
+					bottom: 0.25rem;
+				}
+
 				&[name = server_connect]
 				{
 					// Connexion directe au serveur.
@@ -175,6 +182,14 @@ main
 				// Effet de sélection.
 				color: $background-color;
 			}
+
+			&:disabled
+			{
+				// Une seule page disponible.
+				cursor: not-allowed;
+				opacity: 0.4;
+				pointer-events: none;
+			}
 		}
 
 		> span
@@ -203,6 +218,15 @@ main
 			// Titre de l'article.
 			margin: 1rem 0.5rem 2rem 0.5rem;
 			font-size: 1.5rem;
+		}
+
+		button[data-action = retry]
+		{
+			// Relance de la surveillance après une erreur.
+			font-size: 1rem;
+			box-shadow: none;
+			margin-top: 1rem;
+			@extend %submit-button-layout;
 		}
 
 		ul li
@@ -262,6 +286,12 @@ main
 			overflow: auto;
 			max-height: 13rem;
 
+			&:empty::before
+			{
+				// Message affiché lorsqu'aucun joueur n'est connecté.
+				@extend %empty-list-message;
+			}
+
 			li
 			{
 				// Nom du joueur.
@@ -312,12 +342,26 @@ main
 			margin-bottom: 0.5rem;
 			text-transform: uppercase;
 
-			em
+			@extend %quick-action-buttons;
+
+			button
 			{
-				// Intitulé de l'action.
+				// Bouton principal de l'action.
+				width: 100%;
+				text-align: left;
+			}
+
+			button + button
+			{
+				// Arrêt forcé du serveur.
+				width: auto;
 				display: block;
+				z-index: 1;
+				position: relative;
 				font-size: 0.75rem;
 				font-weight: normal;
+				text-decoration: underline;
+				text-underline-offset: 0.2em;
 			}
 
 			&:first-of-type
@@ -329,9 +373,9 @@ main
 				{
 					color: $error-color;
 
-					em
+					button + button
 					{
-						// Intitulé de l'action.
+						// Arrêt forcé du serveur.
 						font-weight: bold;
 					}
 				}
@@ -409,6 +453,12 @@ main
 			font-size: 1.5rem;
 		}
 
+		ul:empty::before
+		{
+			// Message affiché lorsqu'aucune action n'a été réalisée.
+			@extend %empty-list-message;
+		}
+
 		ul li
 		{
 			// Liste des dernières actions.
@@ -420,22 +470,22 @@ main
 				//  Note : par défaut, on considère qu'il s'agit d'un actionneur personnalisé.
 				color: $text-color;
 
-				&[type = restart]
+				&[data-type = restart]
 				{
 					// Action de redémarrage.
-					color: $validate-color;
+					color: $validate-light-color;
 				}
 
-				&[type = update]
+				&[data-type = update]
 				{
 					// Action de mise à jour.
 					color: $info-color;
 				}
 
-				&[type = force], &[type = shutdown]
+				&[data-type = force], &[data-type = shutdown]
 				{
 					// Action d'arrêt standard/forcé.
-					color: $error-color;
+					color: $error-light-color;
 				}
 			}
 
@@ -458,10 +508,53 @@ main
 	}
 }
 
+// ---------------------------------- //
+// Version ordinateur (petits écrans) //
+// ---------------------------------- //
+@media screen and (min-width: $tablet-max-width + 1) and (max-width: 1279px)
+{
+	// La navigation passe au-dessus des blocs pour laisser
+	//  suffisamment de place aux trois colonnes restantes.
+	@include tablet-page-layout(3, auto auto auto auto);
+
+	main
+	{
+		#servers
+		{
+			// Modification de la grille.
+			grid-area: 3 / 1 / 5 / 2;
+		}
+
+		#state
+		{
+			// Modification de la grille.
+			grid-area: 3 / 2 / 4 / 3;
+		}
+
+		#players
+		{
+			// Modification de la grille.
+			grid-area: 4 / 2 / 5 / 3;
+		}
+
+		#actions
+		{
+			// Modification de la grille.
+			grid-area: 3 / 3 / 4 / 4;
+		}
+
+		#last
+		{
+			// Modification de la grille.
+			grid-area: 4 / 3 / 5 / 4;
+		}
+	}
+}
+
 // ---------------- //
 // Version tablette //
 // ---------------- //
-@media screen and (min-width: 769px) and (max-width: 1023px)
+@media screen and (min-width: $phone-max-width + 1) and (max-width: $tablet-max-width)
 {
 	@import "../tablet/dashboard";
 }
@@ -469,7 +562,7 @@ main
 // -------------- //
 // Version mobile //
 // -------------- //
-@media screen and (max-width: 768px)
+@media screen and (max-width: $phone-max-width)
 {
 	@import "../phone/dashboard";
 }

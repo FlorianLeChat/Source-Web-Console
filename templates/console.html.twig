@@ -13,9 +13,9 @@
 
 		{# Champ de saisie #}
 		<div>
-			<input type="text" name="command" placeholder="{{ t("console.controller.placeholder")|trans }}" required />
+			<input type="text" name="command" placeholder="{{ t("console.controller.placeholder")|trans }}" aria-label="{{ t("console.controller.title")|trans }}" autocomplete="off" autocapitalize="off" spellcheck="false" required />
 
-			<button type="button" title="{{ t("global.update")|trans }}" aria-label="{{ t("global.update")|trans }}" data-command="0" data-action="execute" data-token="{{ csrf_token("server_0") }}" data-route="{{ path("server_action") }}">
+			<button type="button" title="{{ t("console.controller.send")|trans }}" aria-label="{{ t("console.controller.send")|trans }}" data-command="0" data-action="execute" data-token="{{ csrf_token("server_0") }}" data-route="{{ path("server_action") }}">
 				<i class="bi bi-send-fill"></i>
 			</button>
 		</div>
@@ -30,6 +30,6 @@
 		<h2>{{ t("console.terminal_title")|trans }}</h2>
 
 		{# Liste des événements #}
-		<ul></ul>
+		<ul data-empty="{{ t("console.waiting")|trans }}"></ul>
 	</section>
 {% endblock %}

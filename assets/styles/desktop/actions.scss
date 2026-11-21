@@ -43,7 +43,7 @@ main
 		min-height: 500px;
 		border-radius: 0.5rem;
 		flex-direction: column;
-		justify-content: space-evenly;
+		justify-content: flex-start;
 		background-color: $box-color;
 
 		h2
@@ -56,7 +56,6 @@ main
 		ul:first-of-type
 		{
 			// Corps de la liste.
-			hyphens: auto;
 			display: flex;
 			flex-wrap: wrap;
 			box-sizing: border-box;
@@ -68,13 +67,13 @@ main
 				color: $background-color;
 				margin: 0 0.25rem 0.5rem;
 				border: 1px solid $background-color;
-				height: 2.75rem;
 				display: flex;
-				padding: 0.5rem 1.5rem;
+				padding: 0.5rem 0.75rem;
 				position: relative;
 				flex-grow: 1;
+				min-height: 2.75rem;
 				transition: background-color 250ms;
-				word-break: break-word;
+				text-align: center;
 				font-weight: bold;
 				align-items: center;
 				border-radius: 0.5rem;
@@ -82,11 +81,17 @@ main
 				flex-direction: column;
 				justify-content: center;
 
-				em
+				@extend %quick-action-buttons;
+
+				button + button
 				{
-					// Intitulé de l'action.
+					// Arrêt forcé du serveur.
 					display: block;
+					z-index: 1;
+					position: relative;
 					font-size: 0.75rem;
+					text-decoration: underline;
+					text-underline-offset: 0.2em;
 				}
 
 				&:first-of-type
@@ -211,10 +216,11 @@ main
 						background-color: $text-color;
 					}
 
-					&:focus + span
+					&:focus-visible + span
 					{
-						// Couleur du fond.
-						box-shadow: 0 0 1px $text-color;
+						// Indicateur de focus visible au clavier.
+						outline: 3px solid $text-color;
+						outline-offset: 2px;
 					}
 
 					&:checked + span:before
@@ -279,7 +285,7 @@ main
 		min-height: 500px;
 		border-radius: 0.5rem;
 		flex-direction: column;
-		justify-content: space-evenly;
+		justify-content: flex-start;
 		background-color: $box-color;
 
 		h2
@@ -302,10 +308,10 @@ main
 				width: 12rem;
 				margin: 0 0.25rem 0.5rem;
 				border: 1px solid $background-color;
-				height: 3rem;
 				padding: 0.5rem 1rem;
 				position: relative;
 				flex-grow: 1;
+				min-height: 3rem;
 				word-break: break-word;
 				font-weight: bold;
 				border-radius: 0.5rem;
@@ -413,7 +419,7 @@ main
 // ---------------- //
 // Version tablette //
 // ---------------- //
-@media screen and (min-width: 769px) and (max-width: 1023px)
+@media screen and (min-width: $phone-max-width + 1) and (max-width: $tablet-max-width)
 {
 	@import "../tablet/actions";
 }
@@ -421,7 +427,7 @@ main
 // -------------- //
 // Version mobile //
 // -------------- //
-@media screen and (max-width: 768px)
+@media screen and (max-width: $phone-max-width)
 {
 	@import "../phone/actions";
 }
