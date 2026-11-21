@@ -241,6 +241,13 @@
 					</a>
 				</li>
 
+				{% if global_version %}
+					<li class="version" title="{{ t("footer.version")|trans }} {{ global_version }}">
+						{# Version actuelle (injectée par le CI/CD) #}
+						{{ global_version }}
+					</li>
+				{% endif %}
+
 				<li>
 					{# Sélecteur des langues #}
 					<i class="bi bi-translate"></i>

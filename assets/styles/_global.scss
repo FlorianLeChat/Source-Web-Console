@@ -1110,6 +1110,23 @@ footer
 			margin-right: 0.25rem;
 		}
 
+		&.version
+		{
+			// Version actuelle du site.
+			color: rgba($background-color, 0.65);
+			cursor: default;
+			font-size: 0.875rem;
+			font-variant-numeric: tabular-nums;
+			letter-spacing: 0.02em;
+
+			@media screen and (max-width: 480px)
+			{
+				// Masquage sur les petits écrans pour éviter un
+				//  retour à la ligne des options du pied de page.
+				display: none;
+			}
+		}
+
 		&:nth-last-of-type(2)
 		{
 			// Bouton de sélection de la langue.
