@@ -25,8 +25,7 @@
 - Démarrer le serveur local Symfony avec la commande `symfony server:start` ;
 - Dans un deuxième terminal, exécuter la commande `npm run watch` pour lancer la compilation automatique des fichiers *TypeScript* et *SASS* ;
 - Dans un troisième terminal, exécuter la commande `php bin/console app:udp-server 127.0.0.1:8443` pour enregistrer les journaux d'événements des serveurs distants (**votre pare-feu et/ou votre routeur doivent être correctement configurés**) ;
-- *(Facultatif)* Configurer une tâche planifiée pour exécuter la commande `php bin/console app:tasks-executor` pour l'[exécution des tâches planifiées des serveurs distants](src/Command/ScheduledTasksExecutor.php) ;
-- *(Facultatif)* Configurer une tâche planifiée pour exécuter la commande `php bin/console app:statistics-collector` pour la [collecte périodique des statistiques d'utilisation](src/Command/ServerStatisticsCollector.php).
+- *(Facultatif)* Exécuter la commande `php bin/console messenger:consume scheduler_default` pour l'[exécution des tâches planifiées des serveurs distants](src/Command/ScheduledTasksExecutor.php) et la [collecte périodique des statistiques d'utilisation](src/Command/ServerStatisticsCollector.php) (ce processus doit rester actif en permanence).
 
 > [!TIP]
 > Pour tester le projet, vous pouvez utiliser [Docker](https://www.docker.com/). Une fois installé, il suffit de lancer l'image Docker de développement à l'aide de la commande `docker compose -f compose.development.yml up --detach --build`. Lorsque le conteneur Docker est prêt, utilisez la commande `npm run watch` pour compiler automatiquement les fichiers *TypeScript* et *SASS* lors de chacune de vos modifications. Le site devrait être accessible à l'adresse suivante : http://localhost:8000/. 🐳
@@ -53,8 +52,7 @@
 - Exécuter la commande `php doctrine:schema:update --force` pour créer les tables dans la base de données ;
 - Utiliser un serveur Web pour servir les scripts PHP et les fichiers statiques générés dans les étapes précédentes ;
 - Exécuter la commande `php bin/console app:udp-server 0.0.0.0:8443` pour enregistrer les journaux d'événements des serveurs distants ;
-- Configurer une tâche planifiée pour exécuter la commande `php bin/console app:tasks-executor` pour l'[exécution des tâches planifiées des serveurs distants](src/Command/ScheduledTasksExecutor.php) ;
-- Configurer une tâche planifiée pour exécuter la commande `php bin/console app:statistics-collector` pour la [collecte périodique des statistiques d'utilisation](src/Command/ServerStatisticsCollector.php).
+- Exécuter la commande `php bin/console messenger:consume scheduler_default` pour l'[exécution des tâches planifiées des serveurs distants](src/Command/ScheduledTasksExecutor.php) et la [collecte périodique des statistiques d'utilisation](src/Command/ServerStatisticsCollector.php) (ce processus doit rester actif en permanence).
 
 > [!CAUTION]
 > Le déploiement en environnement de production (**avec ou sans Docker**) **nécessite des connaissances approfondies pour déployer, optimiser et sécuriser correctement votre installation** afin d'éviter toute conséquence indésirable. ⚠️
@@ -86,8 +84,7 @@
 - Start local Symfony server with `symfony server:start` ;
 - In a second terminal, run `npm run watch` to start automatic compilation of *TypeScript* and *SASS* files ;
 - In a third terminal, run `php bin/console app:udp-server 127.0.0.1:8443` to log event data from remote servers (**firewall and/or router must be properly configured**) ;
-- *(Optional)* Configure a scheduled task to run `php bin/console app:tasks-executor` for [executing scheduled tasks on remote servers](src/Command/ScheduledTasksExecutor.php) ;
-- *(Optional)* Configure a scheduled task to run `php bin/console app:statistics-collector` for [periodic collection of usage statistics](src/Command/ServerStatisticsCollector.php).
+- *(Optional)* Run `php bin/console messenger:consume scheduler_default` for [executing scheduled tasks on remote servers](src/Command/ScheduledTasksExecutor.php) and [periodic collection of usage statistics](src/Command/ServerStatisticsCollector.php) (this process must keep running).
 
 > [!TIP]
 > To test the project, you can use [Docker](https://www.docker.com/). Once installed, simply start the development Docker image using the command `docker compose -f compose.development.yml up --detach --build`. When the Docker container is ready, run the `npm run watch` command to automatically compile all *TypeScript* and *SASS* files each time you make changes. The website should then be accessible at the following address: http://localhost:8000/. 🐳
@@ -114,8 +111,7 @@
 - Run `php doctrine:schema:update --force` to create tables in the database ;
 - Use a web server to serve PHP scripts and static files generated in previous steps ;
 - Run `php bin/console app:udp-server 0.0.0.0:8443` to log event data from remote servers ;
-- Configure a scheduled task to run `php bin/console app:tasks-executor` for [executing scheduled tasks on remote servers](src/Command/ScheduledTasksExecutor.php) ;
-- Configure a scheduled task to run `php bin/console app:statistics-collector` for [periodic collection of usage statistics](src/Command/ServerStatisticsCollector.php).
+- Run `php bin/console messenger:consume scheduler_default` for [executing scheduled tasks on remote servers](src/Command/ScheduledTasksExecutor.php) and [periodic collection of usage statistics](src/Command/ServerStatisticsCollector.php) (this process must keep running).
 
 > [!CAUTION]
 > Deploying in a production environment (**with or without Docker**) **requires advanced knowledge to properly deploy, optimize, and secure your installation** in order to avoid any unwanted consequences. ⚠️
