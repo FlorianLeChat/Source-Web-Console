@@ -15,7 +15,8 @@ Encore.configureDefinePlugin( ( options ) =>
 
 Encore
 	.setOutputPath( "public/build/" )
-	.setPublicPath( "/build" )
+	.setPublicPath( "build" )
+	.setManifestKeyPrefix( "build/" )
 	.addEntry( "actions", "./assets/scripts/pages/actions.ts" )
 	.addEntry( "configuration", "./assets/scripts/pages/configuration.ts" )
 	.addEntry( "console", "./assets/scripts/pages/console.ts" )
@@ -41,6 +42,7 @@ Encore
 	.configureManifestPlugin( ( options ) =>
 	{
 		options.fileName = "webpack-manifest.json";
+		options.publicPath = "build/";
 	} )
 	.configureBabelPresetEnv( ( config ) =>
 	{
@@ -63,4 +65,7 @@ Encore
 	.enableSassLoader()
 	.enableIntegrityHashes( Encore.isProduction() );
 
-module.exports = Encore.getWebpackConfig();
+const config = Encore.getWebpackConfig();
+config.output.publicPath = "auto";
+
+module.exports = config;

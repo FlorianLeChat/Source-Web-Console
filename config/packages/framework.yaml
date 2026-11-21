@@ -2,6 +2,7 @@ framework:
     secret: "%env(APP_SECRET)%"
     session:
         handler_id: Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler
+        cookie_path: "%env(SESSION_COOKIE_PATH)%"
         cookie_samesite: lax
     property_info:
         with_constructor_extractor: true
@@ -18,4 +19,4 @@ when@prod:
     framework:
         http_cache: true
         trusted_proxies: "private_ranges"
-        trusted_headers: ["x-forwarded-for", "x-forwarded-host", "x-forwarded-proto", "x-forwarded-port"]
+        trusted_headers: ["x-forwarded-for", "x-forwarded-host", "x-forwarded-proto", "x-forwarded-port", "x-forwarded-prefix"]
