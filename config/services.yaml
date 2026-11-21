@@ -1,10 +1,12 @@
 parameters:
+    app.version: "%env(VERSION)%"
     app.timezone: "%env(TZ)%"
     app.ssl_phrase: "%env(SSL_PHRASE)%"
     app.recaptcha_enabled: "%env(RECAPTCHA_ENABLED)%"
     app.recaptcha_private_key: "%env(RECAPTCHA_PRIVATE_KEY)%"
     app.google_client_enabled: "%env(GOOGLE_CLIENT_ENABLED)%"
     app.github_client_enabled: "%env(GITHUB_CLIENT_ENABLED)%"
+    env(VERSION): "0.0.1"
     env(SESSION_COOKIE_PATH): "/"
     .container.dumper.inline_factories: true
 

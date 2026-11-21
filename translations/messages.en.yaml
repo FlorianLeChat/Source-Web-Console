@@ -35,6 +35,7 @@ footer:
     legal: "Legal notice"
     contact: "Contact"
     support: "Support"
+    version: "Version"
 
 form:
     register:

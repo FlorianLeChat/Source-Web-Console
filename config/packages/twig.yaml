@@ -1,4 +1,5 @@
 twig:
     globals:
+        global_version: "%app.version%"
         global_recaptcha: "%env(RECAPTCHA_PUBLIC_KEY)%"
     file_name_pattern: "*.twig"
