@@ -13,27 +13,27 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 final class EventFixture extends Fixture implements DependentFixtureInterface
 {
-	public function load(ObjectManager $manager): void
-	{
-		// Création de 100 événements journalisés.
-		for ($i = 0; $i < 100; $i++)
-		{
-			$event = new Event();
-			$event->setServer($this->getReference("server" . rand(0, 2), Server::class));
-			$event->setDate(new \DateTime());
-			$event->setAction("Event #$i");
+    public function load(ObjectManager $manager): void
+    {
+        // Création de 100 événements journalisés.
+        for ($i = 0; $i < 100; $i++)
+        {
+            $event = new Event();
+            $event->setServer($this->getReference("server" . random_int(0, 2), Server::class));
+            $event->setDate(new \DateTime());
+            $event->setAction("Event #$i");
 
-			$manager->persist($event);
-		}
+            $manager->persist($event);
+        }
 
-		// Sauvegarde des événements journalisés.
-		$manager->flush();
-	}
+        // Sauvegarde des événements journalisés.
+        $manager->flush();
+    }
 
-	public function getDependencies(): array
-	{
-		return [
-			ServerFixture::class
-		];
-	}
+    public function getDependencies(): array
+    {
+        return [
+            ServerFixture::class
+        ];
+    }
 }

@@ -14,28 +14,28 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 final class CommandRepository extends ServiceEntityRepository
 {
-	public function __construct(ManagerRegistry $registry)
-	{
-		parent::__construct($registry, Command::class);
-	}
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Command::class);
+    }
 
-	public function save(Command $entity, bool $flush = false): void
-	{
-		$this->getEntityManager()->persist($entity);
+    public function save(Command $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
 
-		if ($flush)
-		{
-			$this->getEntityManager()->flush();
-		}
-	}
+        if ($flush)
+        {
+            $this->getEntityManager()->flush();
+        }
+    }
 
-	public function remove(Command $entity, bool $flush = false): void
-	{
-		$this->getEntityManager()->remove($entity);
+    public function remove(Command $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
 
-		if ($flush)
-		{
-			$this->getEntityManager()->flush();
-		}
-	}
+        if ($flush)
+        {
+            $this->getEntityManager()->flush();
+        }
+    }
 }

@@ -1,39 +1,45 @@
-// ----------------------------- //
-// Disposition commune des pages //
-// ----------------------------- //
-@include phone-page-layout;
-
-// ---------------- //
-// Corps de la page //
-// ---------------- //
-main
+// --------------------------- //
+// Styles de la version mobile //
+// --------------------------- //
+@mixin phone-console
 {
-	#controller
-	{
-		// Modification de la grille.
-		height: auto;
-		display: revert;
-		grid-area: 3 / 1 / 4 / 2;
+	// ----------------------------- //
+	// Disposition commune des pages //
+	// ----------------------------- //
+	@include phone-page-layout;
 
-		ul
+	// ---------------- //
+	// Corps de la page //
+	// ---------------- //
+	main
+	{
+		#controller
 		{
-			// Historique limité pour ne pas allonger la page.
-			max-height: 40vh;
+			// Modification de la grille.
+			height: auto;
+			display: revert;
+			grid-area: 3 / 1 / 4 / 2;
+
+			ul
+			{
+				// Historique limité pour ne pas allonger la page.
+				max-height: 40vh;
+			}
 		}
-	}
 
-	#terminal
-	{
-		// Modification de la grille.
-		height: auto;
-		display: revert;
-		grid-area: 4 / 1 / 5 / 2;
-
-		ul
+		#terminal
 		{
-			// Sortie de la console défilante.
-			max-height: 60vh;
-			min-height: 12rem;
+			// Modification de la grille.
+			height: auto;
+			display: revert;
+			grid-area: 4 / 1 / 5 / 2;
+
+			ul
+			{
+				// Sortie de la console défilante.
+				max-height: 60vh;
+				min-height: 12rem;
+			}
 		}
 	}
 }

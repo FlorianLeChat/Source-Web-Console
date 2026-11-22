@@ -244,7 +244,7 @@ final class CommandsTest extends KernelTestCase
         $io = new SymfonyStyle(new ArrayInput([]), $output);
 
         $logDir = self::$kernel->getLogDir();
-        $path = sprintf("%s/145-239-211-147-27015", $logDir);
+        $path = sprintf("%s/203-0-113-10-27015", $logDir);
         $this->createdPaths[] = $path;
 
         // Message provenant d'un serveur inconnu.
@@ -253,15 +253,15 @@ final class CommandsTest extends KernelTestCase
         self::assertStringContainsString("New message from unknown remote server \"1.2.3.4:27015\"", $output->fetch());
 
         // Message provenant d'un serveur connu.
-        $command->handleMessage("\xFF\xFF\xFF\xFFRL Hello World\0\r", "145.239.211.147:27015", $io);
+        $command->handleMessage("\xFF\xFF\xFF\xFFRL Hello World\0\r", "203.0.113.10:27015", $io);
 
-        self::assertStringContainsString("New message from remote server \"145.239.211.147:27015\"", $output->fetch());
+        self::assertStringContainsString("New message from remote server \"203.0.113.10:27015\"", $output->fetch());
         self::assertSame("Hello World", file_get_contents(sprintf("%s/%s.log", $path, date("Y-m-d"))));
 
         // Suppression des anciens fichiers de journalisation.
         file_put_contents(sprintf("%s/2000-01-01.log", $path), "Old");
 
-        $command->handleMessage("\xFF\xFF\xFF\xFFRL Hello", "145.239.211.147:27015", $io);
+        $command->handleMessage("\xFF\xFF\xFF\xFFRL Hello", "203.0.113.10:27015", $io);
 
         self::assertCount(0, glob(sprintf("%s/*.log", $path)));
     }

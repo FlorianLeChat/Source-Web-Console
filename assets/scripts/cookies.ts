@@ -12,7 +12,7 @@ if ( window.location.search !== "legal" )
 	$( "html" ).addClass( "cc--darkmode" );
 
 	// On lance le mécanisme de consentement des cookies.
-	run( {
+	void run( {
 		// Activation automatique de la fenêtre de consentement.
 		autoShow: process.env.NODE_ENV === "production",
 
@@ -71,14 +71,9 @@ if ( window.location.search !== "legal" )
 		// Exécution des actions de consentement.
 		onConsent: ( { cookie } ) => cookie.categories.forEach( ( category ) =>
 		{
-			switch ( category )
+			if ( category === "security" )
 			{
-				case "security":
-					setupRecaptcha();
-					break;
-
-				default:
-					break;
+				setupRecaptcha();
 			}
 		} )
 	} );

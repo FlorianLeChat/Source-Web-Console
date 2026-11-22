@@ -2,176 +2,182 @@
 // Base de travail //
 // --------------- //
 @import "../global";
+@import "../tablet/tasks";
+@import "../phone/tasks";
 
 // ---------------- //
 // Corps de la page //
 // ---------------- //
 main
 {
-	margin: 0 auto 4rem auto;
-	display: grid;
-	padding: 2rem;
-	max-width: 1440px;
-	text-align: center;
-	align-items: start;
-	grid-row-gap: 2rem;
-	justify-items: stretch;
-	grid-column-gap: 5%;
-	grid-template-columns: clamp(15rem, 17.5vw, 25rem) 1fr;
+    margin: 0 auto 4rem auto;
+    display: grid;
+    padding: 2rem;
+    max-width: 1440px;
+    text-align: center;
+    align-items: start;
+    grid-row-gap: 2rem;
+    justify-items: stretch;
+    grid-column-gap: 5%;
+    grid-template-columns: clamp(15rem, 17.5vw, 25rem) 1fr;
 
-	p
-	{
-		// Description de la page.
-		grid-area: 1 / 1 / 2 / 3;
-		@include header-paragraph;
-	}
+    p
+    {
+        // Description de la page.
+        grid-area: 1 / 1 / 2 / 3;
+        @include header-paragraph;
+    }
 
-	nav
-	{
-		// Barre de navigation.
-		grid-area: 2 / 1 / 3 / 2;
-		@include navigation-bar;
-	}
+    nav
+    {
+        // Barre de navigation.
+        grid-area: 2 / 1 / 3 / 2;
+        @include navigation-bar;
+    }
 
-	#tasks
-	{
-		// Tâches planifiées.
-		color: $text-color;
-		padding: 1rem;
-		grid-area: 2 / 2 / 3 / 3;
-		border-radius: 0.5rem;
-		background-color: $box-color;
+    #tasks
+    {
+        // Tâches planifiées.
+        color: $text-color;
+        padding: 1rem;
+        grid-area: 2 / 2 / 3 / 3;
+        border-radius: 0.5rem;
+        background-color: $box-color;
 
-		h2
-		{
-			// Titre de la catégorie.
-			margin: 1rem 0.5rem 2rem 0.5rem;
-			font-size: 1.75rem;
-		}
+        h2
+        {
+            // Titre de la catégorie.
+            margin: 1rem 0.5rem 2rem 0.5rem;
+            font-size: 1.75rem;
+        }
 
-		table
-		{
-			// Conteneur du tableau.
-			width: 100%;
-			border: 1px solid $border-color;
-			table-layout: fixed;
+        table
+        {
+            // Conteneur du tableau.
+            width: 100%;
+            border: 1px solid $border-color;
+            table-layout: fixed;
 
-			thead
-			{
-				// En-tête du tableau.
-				color: $background-color;
-				height: 2rem;
-				hyphens: auto;
-				font-size: 1.25rem;
-				overflow-wrap: break-word;
-				text-shadow: 0 0 0.25rem $box-color, 0 0 0.5rem $box-color;
-				background-size: 100px 100px;
-				background-image: linear-gradient(45deg, $text-color 12.5%, $box-color 12.5%, $box-color 37.5%, $text-color 37.5%, $text-color 62.5%, $box-color 62.5%, $box-color 87.5%, $text-color 87.5%);
-				background-position: 50px 50px;
-			}
+            thead
+            {
+                // En-tête du tableau.
+                color: $background-color;
+                height: 2rem;
+                hyphens: auto;
+                font-size: 1.25rem;
+                overflow-wrap: break-word;
+                text-shadow: 0 0 0.25rem $box-color, 0 0 0.5rem $box-color;
+                background-size: 100px 100px;
+                background-image: linear-gradient(45deg, $text-color 12.5%, $box-color 12.5%, $box-color 37.5%, $text-color 37.5%, $text-color 62.5%, $box-color 62.5%, $box-color 87.5%, $text-color 87.5%);
+                background-position: 50px 50px;
+            }
 
-			tbody
-			{
-				// Corps du tableau.
-				word-break: break-all;
+            tbody
+            {
+                // Corps du tableau.
+                word-break: break-all;
 
-				tr
-				{
-					// En-tête de la cellule.
-					height: 3rem;
-					cursor: pointer;
-					transition: color 250ms, background-color 250ms;
+                tr
+                {
+                    // En-tête de la cellule.
+                    height: 3rem;
+                    cursor: pointer;
 
-					em
-					{
-						// Adresse IP du serveur.
-						display: block;
-					}
+                    @include motion
+                    {
+                        transition: color 250ms, background-color 250ms;
+                    }
 
-					&.finished
-					{
-						// Date de déclenchement passée.
-						color: $background-color;
-						cursor: not-allowed;
-						text-decoration: line-through $background-color;
-						background-color: $error-color;
-					}
+                    em
+                    {
+                        // Adresse IP du serveur.
+                        display: block;
+                    }
 
-					&.empty
-					{
-						// Aucune tâche enregistrée.
-						color: $background-color;
-						cursor: default;
-						font-style: italic;
-						word-break: normal;
+                    &.finished
+                    {
+                        // Date de déclenchement passée.
+                        color: $background-color;
+                        cursor: not-allowed;
+                        text-decoration: line-through $background-color;
+                        background-color: $error-color;
+                    }
 
-						td
-						{
-							padding: 1rem;
-							text-transform: none;
-						}
-					}
+                    &.empty
+                    {
+                        // Aucune tâche enregistrée.
+                        color: $background-color;
+                        cursor: default;
+                        font-style: italic;
+                        word-break: normal;
 
-					&:not(.finished, .empty):hover
-					{
-						// Effet de sélection.
-						color: $box-color;
-						font-weight: bold;
-						background-color: $text-color;
-					}
-				}
+                        td
+                        {
+                            padding: 1rem;
+                            text-transform: none;
+                        }
+                    }
 
-				td
-				{
-					// Corps de la cellule.
-					border: 1px solid $border-color;
-					padding: 0.25rem;
+                    &:not(.finished, .empty):hover
+                    {
+                        // Effet de sélection.
+                        color: $box-color;
+                        font-weight: bold;
+                        background-color: $text-color;
+                    }
+                }
 
-					&:last-of-type
-					{
-						// Action effectuée.
-						text-transform: uppercase;
-					}
-				}
-			}
-		}
+                td
+                {
+                    // Corps de la cellule.
+                    border: 1px solid $border-color;
+                    padding: 0.25rem;
 
-		form
-		{
-			// Formulaire d'ajout d'une tâche.
-			display: flex;
-			row-gap: 1.5rem;
-			flex-wrap: wrap;
-			column-gap: 2rem;
-			margin-top: 1rem;
-			align-items: center;
-			margin-bottom: 1rem;
-			justify-content: center;
+                    &:last-of-type
+                    {
+                        // Action effectuée.
+                        text-transform: uppercase;
+                    }
+                }
+            }
+        }
 
-			label
-			{
-				// Intitulé des champs de saisies.
-				display: block;
-				margin-bottom: 0.5rem;
-			}
+        form
+        {
+            // Formulaire d'ajout d'une tâche.
+            display: flex;
+            row-gap: 1.5rem;
+            flex-wrap: wrap;
+            column-gap: 2rem;
+            margin-top: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+            justify-content: center;
 
-			select, input
-			{
-				// Champs de saisies et sélecteurs.
-				padding: 0.5rem;
+            label
+            {
+                // Intitulé des champs de saisies.
+                display: block;
+                margin-bottom: 0.5rem;
+            }
 
-				&[type = submit]
-				{
-					// Bouton de validation.
-					margin: 0;
-					bottom: 0.5rem;
-					position: relative;
-					align-self: end;
-					@extend %submit-button-layout;
-				}
-			}
-		}
-	}
+            select, input
+            {
+                // Champs de saisies et sélecteurs.
+                padding: 0.5rem;
+
+                &[type = submit]
+                {
+                    // Bouton de validation.
+                    margin: 0;
+                    bottom: 0.5rem;
+                    position: relative;
+                    align-self: end;
+                    @extend %submit-button-layout;
+                }
+            }
+        }
+    }
 }
 
 // ---------------- //
@@ -179,7 +185,7 @@ main
 // ---------------- //
 @media screen and (min-width: $phone-max-width + 1) and (max-width: $tablet-max-width)
 {
-	@import "../tablet/tasks";
+    @include tablet-tasks;
 }
 
 // -------------- //
@@ -187,5 +193,5 @@ main
 // -------------- //
 @media screen and (max-width: $phone-max-width)
 {
-	@import "../phone/tasks";
+    @include phone-tasks;
 }

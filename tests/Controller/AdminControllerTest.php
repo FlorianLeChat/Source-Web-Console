@@ -62,6 +62,35 @@ final class AdminControllerTest extends WebTestCase
     }
 
     //
+    // Déconnexion depuis le menu utilisateur de l'administration.
+    //
+    public function testLogout(): void
+    {
+        $crawler = $this->client->request("GET", "/admin");
+        $link = $crawler->filter("a[href *= '/admin/logout?_csrf_token=']");
+
+        self::assertNotCount(0, $link);
+
+        $this->client->click($link->first()->link());
+
+        self::assertResponseRedirects("/");
+
+        $this->client->request("GET", "/admin");
+
+        self::assertResponseStatusCodeSame(Response::HTTP_UNAUTHORIZED);
+    }
+
+    //
+    // Refus de la déconnexion sans jeton CSRF valide.
+    //
+    public function testLogoutInvalidToken(): void
+    {
+        $this->client->request("GET", "/admin/logout?_csrf_token=invalid");
+
+        self::assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
+    }
+
+    //
     // Accès refusé aux utilisateurs standards.
     //
     public function testAccessDenied(): void

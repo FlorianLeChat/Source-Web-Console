@@ -14,28 +14,28 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 final class StatsRepository extends ServiceEntityRepository
 {
-	public function __construct(ManagerRegistry $registry)
-	{
-		parent::__construct($registry, Stats::class);
-	}
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Stats::class);
+    }
 
-	public function save(Stats $entity, bool $flush = false): void
-	{
-		$this->getEntityManager()->persist($entity);
+    public function save(Stats $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
 
-		if ($flush)
-		{
-			$this->getEntityManager()->flush();
-		}
-	}
+        if ($flush)
+        {
+            $this->getEntityManager()->flush();
+        }
+    }
 
-	public function remove(Stats $entity, bool $flush = false): void
-	{
-		$this->getEntityManager()->remove($entity);
+    public function remove(Stats $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
 
-		if ($flush)
-		{
-			$this->getEntityManager()->flush();
-		}
-	}
+        if ($flush)
+        {
+            $this->getEntityManager()->flush();
+        }
+    }
 }

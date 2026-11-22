@@ -13,8 +13,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
  */
 final class ContactCrudController extends AbstractCrudController
 {
-	public static function getEntityFqcn(): string
-	{
-		return Contact::class;
-	}
+    public static function getEntityFqcn(): string
+    {
+        return Contact::class;
+    }
 }

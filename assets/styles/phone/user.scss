@@ -1,28 +1,34 @@
-// ----------------------------- //
-// Disposition commune des pages //
-// ----------------------------- //
-@include phone-page-layout;
-
-// ---------------- //
-// Corps de la page //
-// ---------------- //
-main
+// --------------------------- //
+// Styles de la version mobile //
+// --------------------------- //
+@mixin phone-user
 {
-	#account
-	{
-		// Modification de la grille.
-		grid-area: 4 / 1 / 5 / 2;
-	}
+	// ----------------------------- //
+	// Disposition commune des pages //
+	// ----------------------------- //
+	@include phone-page-layout;
 
-	#actions
+	// ---------------- //
+	// Corps de la page //
+	// ---------------- //
+	main
 	{
-		// Modification de la grille.
-		grid-area: 3 / 1 / 4 / 2;
-	}
+		#account
+		{
+			// Modification de la grille.
+			grid-area: 4 / 1 / 5 / 2;
+		}
 
-	#register
-	{
-		// Modification de la grille.
-		grid-area: 5 / 1 / 6 / 2;
+		#actions
+		{
+			// Modification de la grille.
+			grid-area: 3 / 1 / 4 / 2;
+		}
+
+		#register
+		{
+			// Modification de la grille.
+			grid-area: 5 / 1 / 6 / 2;
+		}
 	}
 }

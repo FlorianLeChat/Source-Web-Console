@@ -14,28 +14,28 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 final class EventRepository extends ServiceEntityRepository
 {
-	public function __construct(ManagerRegistry $registry)
-	{
-		parent::__construct($registry, Event::class);
-	}
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Event::class);
+    }
 
-	public function save(Event $entity, bool $flush = false): void
-	{
-		$this->getEntityManager()->persist($entity);
+    public function save(Event $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
 
-		if ($flush)
-		{
-			$this->getEntityManager()->flush();
-		}
-	}
+        if ($flush)
+        {
+            $this->getEntityManager()->flush();
+        }
+    }
 
-	public function remove(Event $entity, bool $flush = false): void
-	{
-		$this->getEntityManager()->remove($entity);
+    public function remove(Event $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
 
-		if ($flush)
-		{
-			$this->getEntityManager()->flush();
-		}
-	}
+        if ($flush)
+        {
+            $this->getEntityManager()->flush();
+        }
+    }
 }

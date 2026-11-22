@@ -1,43 +1,49 @@
-// ----------------------------- //
-// Disposition commune des pages //
-// ----------------------------- //
-@include phone-page-layout;
-
-// ---------------- //
-// Corps de la page //
-// ---------------- //
-main
+// --------------------------- //
+// Styles de la version mobile //
+// --------------------------- //
+@mixin phone-help
 {
-	#counter
+	// ----------------------------- //
+	// Disposition commune des pages //
+	// ----------------------------- //
+	@include phone-page-layout;
+
+	// ---------------- //
+	// Corps de la page //
+	// ---------------- //
+	main
 	{
-		// Modification de la grille.
-		grid-area: 3 / 1 / 4 / 2;
-
-		ul li
+		#counter
 		{
-			// Modification de la longueur minimale.
-			width: 100%;
-			min-width: auto;
-			max-width: 100%;
-			box-sizing: border-box;
+			// Modification de la grille.
+			grid-area: 3 / 1 / 4 / 2;
 
-			i
+			ul li
 			{
-				// Modification de la taille de l'icône.
-				font-size: 2rem;
-			}
+				// Modification de la longueur minimale.
+				width: 100%;
+				min-width: auto;
+				max-width: 100%;
+				box-sizing: border-box;
 
-			h3
-			{
-				// Modification de la taille de l'intitulé.
-				font-size: 1.5rem;
+				i
+				{
+					// Modification de la taille de l'icône.
+					font-size: 2rem;
+				}
+
+				h3
+				{
+					// Modification de la taille de l'intitulé.
+					font-size: 1.5rem;
+				}
 			}
 		}
-	}
 
-	#faq
-	{
-		// Modification de la grille.
-		grid-area: 4 / 1 / 5 / 2;
+		#faq
+		{
+			// Modification de la grille.
+			grid-area: 4 / 1 / 5 / 2;
+		}
 	}
 }

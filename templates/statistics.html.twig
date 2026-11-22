@@ -3,64 +3,74 @@
 
 {# Injection de code JavaScript #}
 {% block javascript %}
-	<script>
-		// Texte d'affichage pour la tranche d'heures entre 0 et 24.
-		window.utc_time = "{{ t("statistics.axis.utc")|trans|escape("js") }}";
+    <script>
+        // Texte d'affichage pour la tranche d'heures entre 0 et 24.
+        window.utc_time = "{{ t("statistics.axis.utc")|trans|escape("js") }}";
 
-		// Texte pour l'affichage du nombre de joueurs/clients.
-		window.player_count = "{{ t("statistics.axis.players")|trans|escape("js") }}";
+        // Texte pour l'affichage du nombre de joueurs/clients.
+        window.player_count = "{{ t("statistics.axis.players")|trans|escape("js") }}";
 
-		// Texte pour le pourcentage d'utilisation du processeur.
-		window.cpu_usage = "{{ t("statistics.axis.cpu")|trans|escape("js") }}";
+        // Texte pour le pourcentage d'utilisation du processeur.
+        window.cpu_usage = "{{ t("statistics.axis.cpu")|trans|escape("js") }}";
 
-		// Texte pour le taux de rafraîchissement du serveur (tickrate).
-		window.tick_rate = "{{ t("statistics.axis.tick")|trans|escape("js") }}";
+        // Texte pour le taux de rafraîchissement du serveur (tickrate).
+        window.tick_rate = "{{ t("statistics.axis.tick")|trans|escape("js") }}";
 
-		// Texte pour le pourcentage d'utilisation des ressources matérielles.
-		window.fps_usage = "{{ t("statistics.axis.usage")|trans|escape("js") }}";
+        // Texte pour le pourcentage d'utilisation des ressources matérielles.
+        window.fps_usage = "{{ t("statistics.axis.usage")|trans|escape("js") }}";
 
-		// Heures de récupération des données.
-		window.time_data = {{ time_data|json_encode|raw }};
+        // Heures de récupération des données.
+        window.time_data = {{ time_data|json_encode|raw }};
 
-		// Données du nombre de joueurs connectés.
-		window.player_count_data = {{ player_count_data|json_encode|raw }};
+        // Données du nombre de joueurs connectés.
+        window.player_count_data = {{ player_count_data|json_encode|raw }};
 
-		// Données d'utilisation du processeur du serveur (en %).
-		window.cpu_usage_data = {{ cpu_usage_data|json_encode|raw }};
+        // Données d'utilisation du processeur du serveur (en %).
+        window.cpu_usage_data = {{ cpu_usage_data|json_encode|raw }};
 
-		// Données du taux de rafraîchissement du serveur (tickrate).
-		window.tick_rate_data = {{ tick_rate_data|json_encode|raw }};
-	</script>
+        // Données du taux de rafraîchissement du serveur (tickrate).
+        window.tick_rate_data = {{ tick_rate_data|json_encode|raw }};
+    </script>
 {% endblock %}
 
 {# Contenu de la page demandé #}
 {% block content %}
-	{# Description de la page #}
-	<p>{{ t("statistics.description")|trans }}</p>
+    {# Description de la page #}
+    <p>{{ t("statistics.description")|trans }}</p>
 
-	{# Liste des graphiques #}
-	<section id="charts">
-		{# Titre de la section #}
-		<h2>{{ t("header.subtitle.statistics")|trans }}</h2>
+    {# Liste des graphiques #}
+    <section id="charts">
+        {# Titre de la section #}
+        <h2>{{ t("header.subtitle.statistics")|trans }}</h2>
 
-		{# Absence de données collectées #}
-		{% if time_data is empty %}
-			<em>{{ t("statistics.empty")|trans }}</em>
-		{% endif %}
+        {# Absence de données collectées #}
+        {% if time_data is empty %}
+            <em>{{ t("statistics.empty")|trans }}</em>
+        {% endif %}
 
-		{# Graphique du nombre de joueurs #}
-		<canvas id="player_count" role="img" aria-label="{{ t("statistics.axis.players")|trans }}"></canvas>
+        {# Graphique du nombre de joueurs #}
+        <figure>
+            <canvas id="player_count"></canvas>
+            <figcaption class="visually-hidden">
+                {{ t("statistics.axis.players")|trans }}
+            </figcaption>
+        </figure>
 
-		{# Graphique d'utilisation des performances #}
-		<canvas id="server_usage" role="img" aria-label="{{ t("statistics.axis.cpu")|trans }}, {{ t("statistics.axis.usage")|trans }}"></canvas>
-	</section>
+        {# Graphique d'utilisation des performances #}
+        <figure>
+            <canvas id="server_usage"></canvas>
+            <figcaption class="visually-hidden">
+                {{ t("statistics.axis.cpu")|trans }}, {{ t("statistics.axis.usage")|trans }}
+            </figcaption>
+        </figure>
+    </section>
 
-	{# Overlay d'orientation de l'appareil #}
-	<section id="orientation">
-		{# Animation du téléphone #}
-		<article></article>
+    {# Overlay d'orientation de l'appareil #}
+    <section id="orientation">
+        {# Animation du téléphone #}
+        <article></article>
 
-		{# Message d'information à l'utilisateur #}
-		<p>{{ t("statistics.orientation")|trans }}</p>
-	</section>
+        {# Message d'information à l'utilisateur #}
+        <p>{{ t("statistics.orientation")|trans }}</p>
+    </section>
 {% endblock %}

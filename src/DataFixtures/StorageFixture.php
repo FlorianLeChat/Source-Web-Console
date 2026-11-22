@@ -14,28 +14,28 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 final class StorageFixture extends Fixture implements DependentFixtureInterface
 {
-	public function __construct(private readonly ServerManager $serverManager) {}
+    public function __construct(private readonly ServerManager $serverManager) {}
 
-	public function load(ObjectManager $manager): void
-	{
-		// Création des informations de stockage.
-		$storage = new Storage();
-		$storage->setServer($this->getReference("server0", Server::class));
-		$storage->setAddress("123.123.123.123");
-		$storage->setPort(22);
-		$storage->setProtocol(Storage::PROTOCOL_SFTP);
-		$storage->setUsername("florian4016");
-		$storage->setPassword($this->serverManager->encryptPassword("florian4016"));
+    public function load(ObjectManager $manager): void
+    {
+        // Création des informations de stockage.
+        $storage = new Storage();
+        $storage->setServer($this->getReference("server0", Server::class));
+        $storage->setAddress("198.51.100.10");
+        $storage->setPort(22);
+        $storage->setProtocol(Storage::PROTOCOL_SFTP);
+        $storage->setUsername("florian4016");
+        $storage->setPassword($this->serverManager->encryptPassword("florian4016"));
 
-		// Sauvegarde des informations de stockage.
-		$manager->persist($storage);
-		$manager->flush();
-	}
+        // Sauvegarde des informations de stockage.
+        $manager->persist($storage);
+        $manager->flush();
+    }
 
-	public function getDependencies(): array
-	{
-		return [
-			ServerFixture::class
-		];
-	}
+    public function getDependencies(): array
+    {
+        return [
+            ServerFixture::class
+        ];
+    }
 }

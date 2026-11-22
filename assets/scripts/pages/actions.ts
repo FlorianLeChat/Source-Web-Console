@@ -11,7 +11,7 @@ import { askValue, openDialog, askConfirmation, sendRemoteAction, executeQuickAc
 //
 $( "#actions ul:first-of-type" ).on( "click", "button[data-action]", ( event ) =>
 {
-	executeQuickAction( $( event.currentTarget ) );
+	void executeQuickAction( $( event.currentTarget ) );
 } );
 
 $( ".switch input" ).on( "change", async ( event ) =>

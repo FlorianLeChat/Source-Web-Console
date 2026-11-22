@@ -13,85 +13,85 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact
 {
-	#[ORM\Id]
-	#[ORM\Column]
-	#[ORM\GeneratedValue]
-	private ?int $id = null;
+    #[ORM\Id]
+    #[ORM\Column]
+    #[ORM\GeneratedValue]
+    private ?int $id = null;
 
-	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
-	private \DateTimeInterface $date;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private \DateTimeInterface $date;
 
-	#[ORM\Column(length: 100)]
-	#[Assert\Email]
-	#[Assert\Length(min: 10, max: 100)]
-	#[Assert\NotNull]
-	#[Assert\NotBlank]
-	#[Assert\NoSuspiciousCharacters]
-	private string $email;
+    #[ORM\Column(length: 100)]
+    #[Assert\Email]
+    #[Assert\Length(min: 10, max: 100)]
+    #[Assert\NotNull]
+    #[Assert\NotBlank]
+    #[Assert\NoSuspiciousCharacters]
+    private string $email;
 
-	#[ORM\Column(length: 255)]
-	#[Assert\Length(min: 10, max: 255)]
-	#[Assert\NotNull]
-	#[Assert\NotBlank]
-	private string $subject;
+    #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 10, max: 255)]
+    #[Assert\NotNull]
+    #[Assert\NotBlank]
+    private string $subject;
 
-	#[ORM\Column(length: 5000)]
-	#[Assert\Length(min: 50, max: 5000)]
-	#[Assert\NotNull]
-	#[Assert\NotBlank]
-	#[Assert\NoSuspiciousCharacters]
-	private string $content;
+    #[ORM\Column(length: 5000)]
+    #[Assert\Length(min: 50, max: 5000)]
+    #[Assert\NotNull]
+    #[Assert\NotBlank]
+    #[Assert\NoSuspiciousCharacters]
+    private string $content;
 
-	public function getId(): ?int
-	{
-		return $this->id;
-	}
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-	public function getDate(): ?\DateTimeInterface
-	{
-		return $this->date;
-	}
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
 
-	public function setDate(\DateTimeInterface $date): self
-	{
-		$this->date = $date;
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getEmail(): ?string
-	{
-		return $this->email;
-	}
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
 
-	public function setEmail(?string $email): self
-	{
-		$this->email = $email;
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getSubject(): ?string
-	{
-		return $this->subject;
-	}
+    public function getSubject(): ?string
+    {
+        return $this->subject;
+    }
 
-	public function setSubject(?string $subject): self
-	{
-		$this->subject = $subject;
+    public function setSubject(?string $subject): self
+    {
+        $this->subject = $subject;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getContent(): ?string
-	{
-		return $this->content;
-	}
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
 
-	public function setContent(?string $content): self
-	{
-		$this->content = $content;
+    public function setContent(?string $content): self
+    {
+        $this->content = $content;
 
-		return $this;
-	}
+        return $this;
+    }
 }

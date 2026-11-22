@@ -25,263 +25,285 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class DashboardController extends AbstractController
 {
-	// Durée du cache pour les données en temps réel du serveur.
-	private const CACHE_LIFETIME = 10;
+    // Durée du cache pour les données en temps réel du serveur.
+    private const CACHE_LIFETIME = 10;
 
-	//
-	// Initialisation de certaines dépendances du contrôleur.
-	//
-	public function __construct(
-		private readonly ServerManager $serverManager,
-		private readonly CacheInterface $cache,
-		private readonly KernelInterface $kernel,
-		private readonly ValidatorInterface $validator,
-		private readonly TranslatorInterface $translator,
-		private readonly EntityManagerInterface $entityManager,
-	) {}
+    //
+    // Initialisation de certaines dépendances du contrôleur.
+    //
+    public function __construct(
+        private readonly ServerManager $serverManager,
+        private readonly CacheInterface $cache,
+        private readonly KernelInterface $kernel,
+        private readonly ValidatorInterface $validator,
+        private readonly TranslatorInterface $translator,
+        private readonly EntityManagerInterface $entityManager,
+    ) {}
 
-	//
-	// Route vers la représentation JSON des traductions Symfony.
-	//
-	#[Route("/translations/{language}", name: "translations_page")]
-	public function translations(string $language): Response|JsonResponse
-	{
-		// On vérifie d'abord que le fichier de traduction existe bien.
-		$finder = new Finder();
-		$finder->files()->in($this->kernel->getProjectDir() . "/translations/")->name("messages.$language.yaml");
+    //
+    // Route vers la représentation JSON des traductions Symfony.
+    //
+    #[Route("/translations/{language}", name: "translations_page")]
+    public function translations(string $language): Response|JsonResponse
+    {
+        // On vérifie d'abord que le fichier de traduction existe bien.
+        $finder = new Finder();
+        $finder->files()->in($this->kernel->getProjectDir() . "/translations/")->name("messages.$language.yaml");
 
-		if ($finder->count() === 0)
-		{
-			return new Response(status: Response::HTTP_NOT_FOUND);
-		}
+        if ($finder->count() === 0)
+        {
+            return new Response(status: Response::HTTP_NOT_FOUND);
+        }
 
-		// On charge ensuite le contenu du fichier YAML de traduction
-		//  pour le convertir en tableau associatif.
-		$translations = Yaml::parseFile(sprintf("%s/translations/messages.%s.yaml", $this->kernel->getProjectDir(), $language));
+        // On charge ensuite le contenu du fichier YAML de traduction
+        //  pour le convertir en tableau associatif.
+        $translations = Yaml::parseFile(
+            sprintf("%s/translations/messages.%s.yaml", $this->kernel->getProjectDir(), $language)
+        );
 
-		// On détermine si les services Google reCAPTCHA sont activés
-		//  pour afficher les sections correspondantes dans les consentements des cookies.
-		$isRecaptchaEnabled = $this->getParameter("app.recaptcha_enabled") === "true";
+        // On détermine si les services Google reCAPTCHA sont activés
+        //  pour afficher les sections correspondantes dans les consentements des cookies.
+        $isRecaptchaEnabled = $this->getParameter("app.recaptcha_enabled") === "true";
 
-		// On filtre ensuite les sections des préférences des cookies en fonction
-		//  de l'activation du service Google reCAPTCHA.
-		$translations["preferencesModal"]["sections"] = array_filter(
-			$translations["preferencesModal"]["sections"],
-			function ($section) use ($isRecaptchaEnabled)
-			{
-				// Google reCAPTCHA.
-				$category = $section["linkedCategory"] ?? "";
+        // On filtre ensuite les sections des préférences des cookies en fonction
+        //  de l'activation du service Google reCAPTCHA.
+        $translations["preferencesModal"]["sections"] = array_filter(
+            $translations["preferencesModal"]["sections"],
+            function ($section) use ($isRecaptchaEnabled)
+            {
+                // Google reCAPTCHA.
+                $category = $section["linkedCategory"] ?? "";
 
-				if ($category === "security" && !$isRecaptchaEnabled)
-				{
-					return false;
-				}
+                if ($category === "security" && !$isRecaptchaEnabled)
+                {
+                    return false;
+                }
 
-				// Autres sections.
-				return true;
-			}
-		);
+                // Autres sections.
+                return true;
+            }
+        );
 
-		// On effectue par la même occasion une nouvelle indexation des sections
-		//  pour éviter les clés manquantes dans le tableau associatif.
-		$translations["preferencesModal"]["sections"] = array_values($translations["preferencesModal"]["sections"]);
+        // On effectue par la même occasion une nouvelle indexation des sections
+        //  pour éviter les clés manquantes dans le tableau associatif.
+        $translations["preferencesModal"]["sections"] = array_values($translations["preferencesModal"]["sections"]);
 
-		// On retourne enfin le contenu des traductions au format JSON.
-		return new JsonResponse($translations, JsonResponse::HTTP_OK);
-	}
+        // On retourne enfin le contenu des traductions au format JSON.
+        return new JsonResponse($translations, JsonResponse::HTTP_OK);
+    }
 
-	//
-	// Route vers la page du tableau de bord.
-	//
-	#[Route("/dashboard", name: "dashboard_page")]
-	public function index(Request $request): Response
-	{
-		// On vérifie d'abord que l'utilisateur est bien connecté avant d'accéder
-		//  à la page, sinon on le redirige vers la page d'accueil.
-		if (!$this->isGranted("IS_AUTHENTICATED"))
-		{
-			return $this->redirectToRoute("index_page");
-		}
+    //
+    // Route vers la page du tableau de bord.
+    //
+    #[Route("/dashboard", name: "dashboard_page")]
+    public function index(Request $request): Response
+    {
+        // On vérifie d'abord que l'utilisateur est bien connecté avant d'accéder
+        //  à la page, sinon on le redirige vers la page d'accueil.
+        if (!$this->isGranted("IS_AUTHENTICATED"))
+        {
+            return $this->redirectToRoute("index_page");
+        }
 
-		// On récupère ensuite l'identifiant unique du serveur sélectionné par
-		//  l'action de l'utilisateur.
-		$user = $this->getUser();
-		$cacheId = intval($request->getSession()->get("serverId", 0));
-		$serverId = intval($request->request->get("id", 0));
-		$repository = $this->entityManager->getRepository(Server::class);
+        // On récupère ensuite l'identifiant unique du serveur sélectionné
+        //  précédemment par l'utilisateur.
+        $user = $this->getUser();
+        $cacheId = (int) $request->getSession()->get("serverId", 0);
+        $repository = $this->entityManager->getRepository(Server::class);
 
-		if ($serverId !== 0 && $request->isMethod("POST"))
-		{
-			// On vérifie également la validité du jeton CSRF.
-			$action = $request->request->get("action", "none");
+        // On réalise après l'action demandée par l'utilisateur sur un serveur.
+        $error = $request->isMethod("POST") ? $this->handleServerAction($request) : null;
 
-			if (!$this->isCsrfTokenValid("server_$action", $request->request->get("token")))
-			{
-				return new Response(status: Response::HTTP_BAD_REQUEST);
-			}
+        if ($error)
+        {
+            return $error;
+        }
 
-			// On détermine après l'action doit être réalisée sur le serveur.
-			switch ($action)
-			{
-				// Connexion à un serveur.
-				case "connect":
-				{
-					// On enregistre l'identifiant du serveur dans la
-					//  session de l'utilisateur.
-					$request->getSession()->set("serverId", $serverId);
+        // On inclut enfin les paramètres du moteur TWIG pour la création de la page.
+        return $this->render("dashboard.html.twig", [
+            // Récupération de l'historique des actions et commandes.
+            "dashboard_logs" => $this->entityManager->getRepository(Event::class)->findBy(
+                ["server" => $cacheId],
+                ["id" => "DESC"],
+            3),
 
-					break;
-				}
+            // Liste des serveurs depuis la base de données.
+            "dashboard_servers" => $repository->findBy(["user" => $user])
+        ]);
+    }
 
-				// Édition d'un serveur.
-				case "edit":
-				{
-					// Vérification de l'existence et de l'appartenance du serveur à l'utilisateur.
-					if (!$server = $repository->findOneBy(["id" => $serverId, "user" => $user]))
-					{
-						return new Response(status: Response::HTTP_UNAUTHORIZED);
-					}
+    //
+    // API vers la surveillance des constantes du serveur.
+    //
+    #[Route("/api/server/monitor", name: "server_monitor", methods: ["GET"])]
+    #[IsGranted("IS_AUTHENTICATED")]
+    public function monitor(Request $request): Response|JsonResponse
+    {
+        // On récupère d'abord le premier serveur lié au compte de l'utilisateur
+        //  ou celui sélectionné par l'utilisateur.
+        $user = $this->getUser();
+        $serverId = (int) $request->getSession()->get("serverId", 0);
+        $repository = $this->entityManager->getRepository(Server::class);
 
-					// Enregistrement des modifications du serveur.
-					$server->setAddress($address = $request->request->get("address", $server->getAddress()));
-					$server->setPort($port = $request->request->get("port", $server->getPort()));
-					$server->setGame($this->serverManager->getGameIDByAddress($address, $port));
+        $server = $repository->findOneBy(
+            $serverId !== 0 ? ["id" => $serverId, "user" => $user] : ["user" => $user],
+            ["id" => "ASC"]
+        );
 
-					// Chiffrement du nouveau mot de passe administrateur.
-					if (!empty($password = $request->request->get("password")))
-					{
-						$server->setPassword($this->serverManager->encryptPassword($password));
-					}
+        // On vérifie dans ce cas qu'un serveur a bien été récupéré.
+        if (!$server)
+        {
+            return new Response(
+                $this->translator->trans("form.no_selected_server"),
+                Response::HTTP_BAD_REQUEST
+            );
+        }
 
-					// Vérification de la validité des nouvelles informations.
-					if (count($this->validator->validate($server)) > 0)
-					{
-						return new Response(status: Response::HTTP_BAD_REQUEST);
-					}
+        // On enregistre ensuite l'identifiant du serveur dans la session
+        //  de l'utilisateur pour l'utiliser dans les autres pages.
+        $serverId = $server->getId();
+        $request->getSession()->set("serverId", $serverId);
 
-					// Sauvegarde dans la base de données.
-					$repository->save($server, true);
+        // On vérifie également si les données en temps réel du serveur
+        //  sont déjà dans le cache de données.
+        return $this->cache->get("svc_data_$serverId", function (ItemInterface $item) use ($server): Response
+        {
+            // Si ce n'est pas le cas, on définit une durée de vie
+            //  de persistance pour le cache.
+            $item->expiresAfter(self::CACHE_LIFETIME);
 
-					break;
-				}
+            try
+            {
+                // On tente après d'établir une connexion avec le serveur.
+                $this->serverManager->connect($server);
 
-				// Suppression définitive d'un serveur.
-				case "delete":
-				{
-					// Vérification de l'existence et de l'appartenance du serveur à l'utilisateur.
-					if (!$server = $repository->findOneBy(["id" => $serverId, "user" => $user]))
-					{
-						return new Response(status: Response::HTTP_UNAUTHORIZED);
-					}
+                // En cas de réussite, on récupère toutes les informations
+                //  disponibles et fournies par le module d'administration.
+                $details = $this->serverManager->query->GetInfo();
 
-					// Suppression dans la base de données.
-					$repository->remove($server, true);
+                // On encode alors certaines de ces informations pour les
+                //  transmettre au client à travers le JavaScript.
+                return new JsonResponse([
 
-					break;
-				}
-			}
-		}
+                    // État du serveur.
+                    "state" => $this->translator->trans(
+                        sprintf("dashboard.state.%s", $details["Password"] ? "service" : "running"),
+                        ["%gamemode%" => $details["ModDesc"]]
+                    ),
 
-		// On inclut enfin les paramètres du moteur TWIG pour la création de la page.
-		return $this->render("dashboard.html.twig", [
-			// Récupération de l'historique des actions et commandes.
-			"dashboard_logs" => $this->entityManager->getRepository(Event::class)->findBy(
-				["server" => $cacheId],
-				["id" => "DESC"],
-			3),
+                    // Carte/environnement.
+                    "map" => $details["Map"],
 
-			// Liste des serveurs depuis la base de données.
-			"dashboard_servers" => $repository->findBy(["user" => $user])
-		]);
-	}
+                    // Nombre de joueurs humains et robots.
+                    "count" => sprintf("%d/%d [%d]", $details["Players"], $details["MaxPlayers"], $details["Bots"]),
 
-	//
-	// API vers la surveillance des constantes du serveur.
-	//
-	#[Route("/api/server/monitor", name: "server_monitor", methods: ["GET"])]
-	#[IsGranted("IS_AUTHENTICATED")]
-	public function monitor(Request $request): Response|JsonResponse
-	{
-		// On récupère d'abord le premier serveur lié au compte de l'utilisateur
-		//  ou celui sélectionné par l'utilisateur.
-		$user = $this->getUser();
-		$serverId = intval($request->getSession()->get("serverId", 0));
-		$repository = $this->entityManager->getRepository(Server::class);
+                    // Liste des joueurs
+                    "players" => $this->serverManager->query->GetPlayers()
 
-		$server = $repository->findOneBy(
-			$serverId !== 0 ? ["id" => $serverId, "user" => $user] : ["user" => $user],
-			["id" => "ASC"]
-		);
+                ], JsonResponse::HTTP_OK);
+            }
+            catch (\Exception $error)
+            {
+                // En cas d'erreur, on force l'expiration du cache avant
+                //  de renvoyer le message d'erreur à l'utilisateur.
+                $item->expiresAfter(1);
 
-		// On vérifie dans ce cas qu'un serveur a bien été récupéré.
-		if (!$server)
-		{
-			return new Response(
-				$this->translator->trans("form.no_selected_server"),
-				Response::HTTP_BAD_REQUEST
-			);
-		}
+                return new Response(
+                    $this->translator->trans("global.fatal_error", ["%error%" => $error->getMessage()]),
+                    Response::HTTP_INTERNAL_SERVER_ERROR
+                );
+            }
+            finally
+            {
+                // Si tout se passe bien, on libère enfin le socket réseau
+                //  pour d'autres scripts du site.
+                $this->serverManager->query->Disconnect();
+            }
+        });
+    }
 
-		// On enregistre ensuite l'identifiant du serveur dans la session
-		//  de l'utilisateur pour l'utiliser dans les autres pages.
-		$serverId = $server->getId();
-		$request->getSession()->set("serverId", $serverId);
+    //
+    // Réalisation d'une action (connexion, édition ou suppression) sur un serveur
+    //  depuis le tableau de bord, avec la réponse d'erreur éventuelle à renvoyer.
+    //
+    private function handleServerAction(Request $request): ?Response
+    {
+        // On vérifie d'abord qu'un serveur est ciblé et la validité du jeton CSRF.
+        $serverId = (int) $request->request->get("id", 0);
+        $action = $request->request->get("action", "none");
 
-		// On vérifie également si les données en temps réel du serveur
-		// 	sont déjà dans le cache de données.
-		return $this->cache->get("svc_data_$serverId", function (ItemInterface $item) use ($server): Response|JsonResponse
-		{
-			// Si ce n'est pas le cas, on définit une durée de vie
-			// 	de persistance pour le cache.
-			$item->expiresAfter(self::CACHE_LIFETIME);
+        if ($serverId === 0 || !$this->isCsrfTokenValid("server_$action", $request->request->get("token")))
+        {
+            return $serverId === 0 ? null : new Response(status: Response::HTTP_BAD_REQUEST);
+        }
 
-			try
-			{
-				// On tente après d'établir une connexion avec le serveur.
-				$this->serverManager->connect($server);
+        // On vérifie ensuite l'existence et l'appartenance du serveur à l'utilisateur
+        //  avant de réaliser l'action demandée.
+        $server = $this->entityManager->getRepository(Server::class)->findOneBy([
+            "id" => $serverId, "user" => $this->getUser()
+        ]);
 
-				// En cas de réussite, on récupère toutes les informations
-				//  disponibles et fournies par le module d'administration.
-				$details = $this->serverManager->query->GetInfo();
+        $unauthorized = new Response(status: Response::HTTP_UNAUTHORIZED);
 
-				// On encode alors certaines de ces informations pour les
-				//  transmettre au client à travers le JavaScript.
-				return new JsonResponse([
+        return match ($action)
+        {
+            "connect" => $this->connectServer($request, $serverId),
+            "edit" => $server ? $this->editServer($request, $server) : $unauthorized,
+            "delete" => $server ? $this->deleteServer($server) : $unauthorized,
+            default => null
+        };
+    }
 
-					// État du serveur.
-					"state" => $this->translator->trans(
-						sprintf("dashboard.state.%s", $details["Password"] ? "service" : "running"),
-						["%gamemode%" => $details["ModDesc"]]
-					),
+    //
+    // Enregistrement de l'identifiant du serveur dans la session de l'utilisateur.
+    //
+    private function connectServer(Request $request, int $serverId): null
+    {
+        $request->getSession()->set("serverId", $serverId);
 
-					// Carte/environnement.
-					"map" => $details["Map"],
+        return null;
+    }
 
-					// Nombre de joueurs humains et robots.
-					"count" => sprintf("%d/%d [%d]", $details["Players"], $details["MaxPlayers"], $details["Bots"]),
+    //
+    // Enregistrement des modifications d'un serveur, avec la réponse d'erreur
+    //  éventuelle si les nouvelles informations sont invalides.
+    //
+    private function editServer(Request $request, Server $server): ?Response
+    {
+        $address = $request->request->get("address", $server->getAddress());
+        $port = $request->request->get("port", $server->getPort());
 
-					// Liste des joueurs
-					"players" => $this->serverManager->query->GetPlayers()
+        $server->setAddress($address);
+        $server->setPort($port);
+        $server->setGame($this->serverManager->getGameIDByAddress($address, $port));
 
-				], JsonResponse::HTTP_OK);
-			}
-			catch (\Exception $error)
-			{
-				// En cas d'erreur, on force l'expiration du cache avant
-				//  de renvoyer le message d'erreur à l'utilisateur.
-				$item->expiresAfter(1);
+        // Chiffrement du nouveau mot de passe administrateur.
+        $password = $request->request->get("password");
 
-				return new Response(
-					$this->translator->trans("global.fatal_error", ["%error%" => $error->getMessage()]),
-					Response::HTTP_INTERNAL_SERVER_ERROR
-				);
-			}
-			finally
-			{
-				// Si tout se passe bien, on libère enfin le socket réseau
-				//  pour d'autres scripts du site.
-				$this->serverManager->query->Disconnect();
-			}
-		});
-	}
+        if (!empty($password))
+        {
+            $server->setPassword($this->serverManager->encryptPassword($password));
+        }
+
+        // Vérification de la validité des nouvelles informations avant
+        //  la sauvegarde dans la base de données.
+        if (count($this->validator->validate($server)) > 0)
+        {
+            return new Response(status: Response::HTTP_BAD_REQUEST);
+        }
+
+        $this->entityManager->getRepository(Server::class)->save($server, true);
+
+        return null;
+    }
+
+    //
+    // Suppression définitive d'un serveur dans la base de données.
+    //
+    private function deleteServer(Server $server): null
+    {
+        $this->entityManager->getRepository(Server::class)->remove($server, true);
+
+        return null;
+    }
 }

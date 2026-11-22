@@ -4,6 +4,8 @@
 **/node_modules
 **/tests
 **/var
+**/public/build
+**/public/bundles
 **/vendor
 **/*.md
 **/*.neon
@@ -18,3 +20,7 @@
 **/compose.*
 **/LICENSE
 !webpack.config.js
+**/.env.local
+**/.env.*.local
+**/.idea
+**/.impeccable

@@ -13,26 +13,26 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 final class CommandFixture extends Fixture implements DependentFixtureInterface
 {
-	public function load(ObjectManager $manager): void
-	{
-		// Récupération d'une référence à l'utilisateur.
-		$user = $this->getReference("user", User::class);
+    public function load(ObjectManager $manager): void
+    {
+        // Récupération d'une référence à l'utilisateur.
+        $user = $this->getReference("user", User::class);
 
-		// Création d'une commande personnalisée.
-		$command = new Command();
-		$command->setUser($user);
-		$command->setTitle("Command #1");
-		$command->setContent("say Hello World!");
+        // Création d'une commande personnalisée.
+        $command = new Command();
+        $command->setUser($user);
+        $command->setTitle("Command #1");
+        $command->setContent("say Hello World!");
 
-		// Sauvegarde de la commande personnalisée.
-		$manager->persist($command);
-		$manager->flush();
-	}
+        // Sauvegarde de la commande personnalisée.
+        $manager->persist($command);
+        $manager->flush();
+    }
 
-	public function getDependencies(): array
-	{
-		return [
-			UserFixture::class
-		];
-	}
+    public function getDependencies(): array
+    {
+        return [
+            UserFixture::class
+        ];
+    }
 }

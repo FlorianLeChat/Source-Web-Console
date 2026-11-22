@@ -1,43 +1,49 @@
-// ----------------------------- //
-// Disposition commune des pages //
-// ----------------------------- //
-@include phone-page-layout;
-
-// ---------------- //
-// Corps de la page //
-// ---------------- //
-main
+// --------------------------- //
+// Styles de la version mobile //
+// --------------------------- //
+@mixin phone-tasks
 {
-	#tasks
+	// ----------------------------- //
+	// Disposition commune des pages //
+	// ----------------------------- //
+	@include phone-page-layout;
+
+	// ---------------- //
+	// Corps de la page //
+	// ---------------- //
+	main
 	{
-		// Modification de la grille.
-		grid-area: 3 / 1 / 4 / 2;
-
-		form
+		#tasks
 		{
-			// Modification de l'apparence du formulaire.
-			gap: 0.75rem;
-			max-height: 100%;
-			flex-direction: column;
+			// Modification de la grille.
+			grid-area: 3 / 1 / 4 / 2;
 
-			div
+			form
 			{
-				// Modification de la taille du conteneur.
-				width: calc(100% - 2rem);
-			}
+				// Modification de l'apparence du formulaire.
+				gap: 0.75rem;
+				max-height: 100%;
+				flex-direction: column;
 
-			select, input
-			{
-				// Modification de la taille des champs de saisies.
-				width: calc(100% - 2rem);
-
-				&[type = submit]
+				div
 				{
-					// Modification du positionnement du bouton.
-					top: 0.5rem;
-					width: auto;
-					bottom: 0;
-					align-self: initial;
+					// Modification de la taille du conteneur.
+					width: calc(100% - 2rem);
+				}
+
+				select, input
+				{
+					// Modification de la taille des champs de saisies.
+					width: calc(100% - 2rem);
+
+					&[type = submit]
+					{
+						// Modification du positionnement du bouton.
+						top: 0.5rem;
+						width: auto;
+						bottom: 0;
+						align-self: initial;
+					}
 				}
 			}
 		}

@@ -18,533 +18,534 @@
 // --------------- //
 html
 {
-	// Traitement des textes.
-	color: $box-color;
-	font-family: "Roboto", sans-serif;
+    // Traitement des textes.
+    color: $box-color;
+    font-family: "Roboto", sans-serif;
 
-	// Disposition et affichage.
-	min-width: $html-min-width;
-	color-scheme: light;
-	scroll-behavior: smooth;
-	background-color: white;
+    // Disposition et affichage.
+    min-width: $html-min-width;
+    color-scheme: light;
+    scroll-behavior: smooth;
+    background-color: white;
 
-	// Badge de Google reCAPTCHA.
-	//  Source : https://developers.google.com/recaptcha/docs/faq#id-like-to-hide-the-recaptcha-badge.-what-is-allowed
-	.grecaptcha-badge
-	{
-		display: none;
-	}
+    // Badge de Google reCAPTCHA.
+    //  Source : https://developers.google.com/recaptcha/docs/faq#id-like-to-hide-the-recaptcha-badge.-what-is-allowed
+    .grecaptcha-badge
+    {
+        display: none;
+    }
 }
 
 h1
 {
-	// Titres principaux.
-	font-family: "Source Sans 3", sans-serif;
+    // Titres principaux.
+    font-family: "Source Sans 3", sans-serif;
 }
 
 h2, h3, h4, h5, h6
 {
-	// Sous-titres.
-	font-family: "Source Code Pro", monospace;
+    // Sous-titres.
+    font-family: "Source Code Pro", monospace;
 }
 
 ul, ol
 {
-	// Listes ordonnées/non-ordonnées.
-	@extend %reset-list-style;
+    // Listes ordonnées/non-ordonnées.
+    @extend %reset-list-style;
 }
 
 p, em, output
 {
-	// Paragraphes et textes.
-	text-wrap: pretty;
-	line-height: 1.375;
+    // Paragraphes et textes.
+    text-wrap: pretty;
+    line-height: 1.375;
 }
 
 strong
 {
-	// Textes avec graisse.
-	font-size: 120%;
+    // Textes avec graisse.
+    font-size: 120%;
 }
 
 a
 {
-	// Liens d'ancrage.
-	color: currentColor;
-	text-decoration: none;
+    // Liens d'ancrage.
+    color: currentColor;
+    text-decoration: none;
 }
 
 body
 {
-	// Espace réservé à la barre système des téléphones.
-	padding-bottom: env(safe-area-inset-bottom);
+    // Espace réservé à la barre système des téléphones.
+    padding-bottom: env(safe-area-inset-bottom);
 }
 
 video
 {
-	// Vidéos en arrière-plan.
-	inset: 0;
-	width: 100%;
-	height: 100%;
-	z-index: -1;
-	opacity: 0.15;
-	position: fixed;
-	object-fit: cover;
+    // Vidéos en arrière-plan.
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.15;
+    position: fixed;
+    object-fit: cover;
 }
 
 button
 {
-	// Boutons de sélection.
-	@extend %reset-button-style;
-	cursor: pointer;
-	box-shadow: 0.25rem 0.25rem 0.25rem $border-color;
+    // Boutons de sélection.
+    @extend %reset-button-style;
+    cursor: pointer;
+    box-shadow: 0.25rem 0.25rem 0.25rem $border-color;
 }
 
 nav, section, article
 {
-	// Sections, articles et barre de navigation.
-	box-shadow: 0.5rem 0.5rem 0.5rem $border-color;
+    // Sections, articles et barre de navigation.
+    box-shadow: 0.5rem 0.5rem 0.5rem $border-color;
 }
 
 main > nav, main > section, main > article
 {
-	// Les blocs de la grille peuvent rétrécir et les textes
-	//  longs (adresses, noms de serveurs) passent à la ligne.
-	min-width: 0;
-	overflow-wrap: break-word;
+    // Les blocs de la grille peuvent rétrécir et les textes
+    //  longs (adresses, noms de serveurs) passent à la ligne.
+    min-width: 0;
+    overflow-wrap: break-word;
 }
 
 input, textarea, select
 {
-	// Interrupteurs, champs de saisies et listes déroulantes.
-	@extend %reset-button-style;
-	resize: vertical;
-	line-height: 1;
-	border-radius: 0.5rem;
+    // Interrupteurs, champs de saisies et listes déroulantes.
+    @extend %reset-button-style;
+    resize: vertical;
+    line-height: 1;
+    border-radius: 0.5rem;
 
-	&[required]:invalid ~ input[type = submit]
-	{
-		// Désactivation conditionnelle des boutons de soumission.
-		filter: opacity(0.5);
-		pointer-events: none;
-	}
+    &[required]:invalid ~ input[type = submit]
+    {
+        // Désactivation conditionnelle des boutons de soumission.
+        filter: opacity(0.5);
+        pointer-events: none;
+    }
 
-	&[type = number]
-	{
-		// Suppression des boutons de sélection des nombres.
-		&::-webkit-outer-spin-button, &::-webkit-inner-spin-button
-		{
-			// Navigateurs WebKit.
-			margin: 0;
-			-webkit-appearance: none;
-		}
+    &[type = number]
+    {
+        // Suppression des boutons de sélection des nombres.
+        &::-webkit-outer-spin-button, &::-webkit-inner-spin-button
+        {
+            // Navigateurs WebKit.
+            margin: 0;
+            -webkit-appearance: none;
+        }
 
-		@-moz-document url-prefix()
-		{
-			// Navigateurs Gecko.
-			-moz-appearance: textfield;
-		}
-	}
+        @supports (-moz-appearance: none)
+        {
+            // Navigateurs Gecko.
+            -moz-appearance: textfield;
+        }
+    }
 }
 
 .visually-hidden
 {
-	// Élément uniquement destiné aux lecteurs d'écran.
-	@include visually-hidden;
+    // Élément uniquement destiné aux lecteurs d'écran.
+    @include visually-hidden;
 }
 
 :focus-visible
 {
-	// Indicateur de focus visible lors de la navigation au clavier.
-	outline: 3px solid $text-color;
-	outline-offset: 2px;
+    // Indicateur de focus visible lors de la navigation au clavier.
+    outline: 3px solid $text-color;
+    outline-offset: 2px;
 }
 
 @media (prefers-reduced-motion: reduce)
 {
-	// Réduction des animations pour les utilisateurs sensibles
-	//  aux mouvements (préférence du système d'exploitation).
-	html
-	{
-		scroll-behavior: auto;
-	}
-
-	*, *::before, *::after
-	{
-		animation-duration: 0.01ms !important;
-		transition-duration: 0.01ms !important;
-		animation-iteration-count: 1 !important;
-	}
+    // Désactivation du défilement fluide pour les utilisateurs sensibles
+    //  aux mouvements (préférence du système d'exploitation).
+    html
+    {
+        scroll-behavior: auto;
+    }
 }
 
 ::selection
 {
-	// Sélection des textes.
-	color: $text-color;
-	background-color: $box-color;
+    // Sélection des textes.
+    color: $text-color;
+    background-color: $box-color;
 }
 
 // Personnalisation de la barre de défilement.
 //  (Navigateurs WebKit uniquement : https://caniuse.com/css-scrollbar).
 ::-webkit-scrollbar
 {
-	// Taille de la barre.
-	width: 0.75rem;
+    // Taille de la barre.
+    width: 0.75rem;
 }
 
 ::-webkit-scrollbar-track
 {
-	// Fond de la barre.
-	background-color: $background-color;
+    // Fond de la barre.
+    background-color: $background-color;
 }
 
 ::-webkit-scrollbar-thumb
 {
-	// Couleur classique de la barre.
-	background-color: $box-color;
+    // Couleur classique de la barre.
+    background-color: $box-color;
 }
 
 ::-webkit-scrollbar-thumb:hover
 {
-	// Couleur de la barre lors d'une sélection.
-	background-color: $text-color;
+    // Couleur de la barre lors d'une sélection.
+    background-color: $text-color;
 }
 
 // Personnalisation de la bannière de consentement.
 //  Source : https://cookieconsent.orestbida.com/advanced/ui-customization.html#color-schemes
 #cc-main
 {
-	// Conteneur principal des éléments enfants.
-	font-family: inherit;
+    // Conteneur principal des éléments enfants.
+    font-family: inherit;
 
-	.cm
-	{
-		// Conteneur de la bannière de consentement.
-		background-color: $box-color;
-	}
+    .cm
+    {
+        // Conteneur de la bannière de consentement.
+        background-color: $box-color;
+    }
 
-	.pm
-	{
-		// Conteneur du gestionnaire des préférences.
-		background-color: $box-color;
-	}
+    .pm
+    {
+        // Conteneur du gestionnaire des préférences.
+        background-color: $box-color;
+    }
 
-	.pm__header, .pm__footer
-	{
-		// En-tête et pied de page du gestionnaire des préférences.
-		border-color: rgba($background-color, 0.25);
-	}
+    .pm__header, .pm__footer
+    {
+        // En-tête et pied de page du gestionnaire des préférences.
+        border-color: rgba($background-color, 0.25);
+    }
 
-	.pm__body
-	{
-		// Corps du gestionnaire des préférences.
-		&::-webkit-scrollbar
-		{
-			@extend ::-webkit-scrollbar;
-		}
+    .pm__body
+    {
+        // Corps du gestionnaire des préférences.
+        &::-webkit-scrollbar
+        {
+            @extend ::-webkit-scrollbar;
+        }
 
-		&::-webkit-scrollbar-track
-		{
-			@extend ::-webkit-scrollbar-track;
-			background-color: $box-color;
-		}
+        &::-webkit-scrollbar-track
+        {
+            @extend ::-webkit-scrollbar-track;
+            background-color: $box-color;
+        }
 
-		&::-webkit-scrollbar-thumb
-		{
-			@extend ::-webkit-scrollbar-thumb;
-		}
-	}
+        &::-webkit-scrollbar-thumb
+        {
+            @extend ::-webkit-scrollbar-thumb;
+        }
+    }
 
-	.cm__title, .pm__title
-	{
-		// Titres de la bannière de consentement et
-		//  du gestionnaire des préférences.
-		@extend h3;
-		color: $text-color;
-		font-size: 1.5rem;
-	}
+    .cm__title, .pm__title
+    {
+        // Titres de la bannière de consentement et
+        //  du gestionnaire des préférences.
+        @extend h3;
+        color: $text-color;
+        font-size: 1.5rem;
+    }
 
-	.cm__desc, .pm__section-desc
-	{
-		// Descriptions de la bannière de consentement et
-		//  du gestionnaire des préférences.
-		@extend p;
-		color: $background-color;
-	}
+    .cm__desc, .pm__section-desc
+    {
+        // Descriptions de la bannière de consentement et
+        //  du gestionnaire des préférences.
+        @extend p;
+        color: $background-color;
+    }
 
-	.pm__section:not(:first-child)
-	{
-		// Section pour plus d'informations.
-		color: $text-color;
-		border-color: rgba($background-color, 0.25);
+    .pm__section:not(:first-child)
+    {
+        // Section pour plus d'informations.
+        color: $text-color;
+        border-color: rgba($background-color, 0.25);
 
-		&:hover
-		{
-			// Effet de survol.
-			color: $box-color;
-			background-color: $text-color;
+        &:hover
+        {
+            // Effet de survol.
+            color: $box-color;
+            background-color: $text-color;
 
-			.pm__section-desc
-			{
-				// Description de la section.
-				color: $box-color;
-			}
-		}
-	}
+            .pm__section-desc
+            {
+                // Description de la section.
+                color: $box-color;
+            }
+        }
+    }
 
-	.pm__section--toggle
-	{
-		// Conteneurs généraux du gestionnaire des préférences.
-		color: $background-color;
-		background-color: $box-color;
+    .pm__section--toggle
+    {
+        // Conteneurs généraux du gestionnaire des préférences.
+        color: $background-color;
+        background-color: $box-color;
 
-		.pm__section-desc-wrapper
-		{
-			// Conteneur contenant les descriptions des cookies.
-			border-color: rgba($background-color, 0.25);
-			background-color: $box-color;
-		}
+        .pm__section-desc-wrapper
+        {
+            // Conteneur contenant les descriptions des cookies.
+            border-color: rgba($background-color, 0.25);
+            background-color: $box-color;
+        }
 
-		.pm__section-arrow
-		{
-			// Flèches de chaque section.
-			background-color: $text-color;
+        .pm__section-arrow
+        {
+            // Flèches de chaque section.
+            background-color: $text-color;
 
-			svg
-			{
-				// Icône de la flèche.
-				stroke: $box-color;
-			}
-		}
+            svg
+            {
+                // Icône de la flèche.
+                stroke: $box-color;
+            }
+        }
 
-		button.pm__section-title
-		{
-			// Boutons de la bannière de consentement.
-			border-color: rgba($background-color, 0.25);
-			background-color: $box-color;
+        button.pm__section-title
+        {
+            // Boutons de la bannière de consentement.
+            border-color: rgba($background-color, 0.25);
+            background-color: $box-color;
 
-			&:hover
-			{
-				// Effet de survol.
-				color: $box-color;
-				border-color: rgba($text-color, 0.25);
-				background-color: $text-color;
+            &:hover
+            {
+                // Effet de survol.
+                color: $box-color;
+                border-color: rgba($text-color, 0.25);
+                background-color: $text-color;
 
-				~ .pm__section-arrow
-				{
-					// Flèches de chaque section.
-					background-color: $box-color;
+                ~ .pm__section-arrow
+                {
+                    // Flèches de chaque section.
+                    background-color: $box-color;
 
-					svg
-					{
-						// Icône de la flèche.
-						stroke: $text-color;
-					}
-				}
-			}
-		}
-	}
+                    svg
+                    {
+                        // Icône de la flèche.
+                        stroke: $text-color;
+                    }
+                }
+            }
+        }
+    }
 
-	.pm__table-th, .pm__table-tr
-	{
-		// Textes du tableau de la liste des cookies.
-		color: $text-color;
-		font-weight: bold;
+    .pm__table-th, .pm__table-tr
+    {
+        // Textes du tableau de la liste des cookies.
+        color: $text-color;
+        font-weight: bold;
 
-		td
-		{
-			// Cellules du tableau de la liste des cookies.
-			color: $background-color;
-			font-weight: normal;
-		}
+        td
+        {
+            // Cellules du tableau de la liste des cookies.
+            color: $background-color;
+            font-weight: normal;
+        }
 
-		&:hover
-		{
-			// Effet de survol.
-			color: $box-color;
-			background-color: $text-color;
+        &:hover
+        {
+            // Effet de survol.
+            color: $box-color;
+            background-color: $text-color;
 
-			td
-			{
-				// Cellules du tableau.
-				color: $box-color;
-			}
-		}
-	}
+            td
+            {
+                // Cellules du tableau.
+                color: $box-color;
+            }
+        }
+    }
 
-	.cm__btn, .pm__btn, .pm__close-btn
-	{
-		// Boutons d'acception, de refus ou de fermeture
-		//  de la bannière de consentement.
-		color: $background-color;
-		transition: color 250ms, background-color 250ms;
-		border-color: $background-color;
-		text-transform: uppercase;
-		background-color: $box-color;
+    .cm__btn, .pm__btn, .pm__close-btn
+    {
+        // Boutons d'acception, de refus ou de fermeture
+        //  de la bannière de consentement.
+        color: $background-color;
+        border-color: $background-color;
+        text-transform: uppercase;
+        background-color: $box-color;
 
-		&[aria-label]
-		{
-			// Bouton de fermeture de la fenêtre modale.
-			margin: inherit;
-			background-color: $error-color;
-		}
+        @include motion
+        {
+            transition: color 250ms, background-color 250ms;
+        }
 
-		&[data-role = necessary]
-		{
-			// Bouton d'acception des cookies nécessaires.
-			background-color: $error-color;
-		}
+        &[aria-label]
+        {
+            // Bouton de fermeture de la fenêtre modale.
+            margin: inherit;
+            background-color: $error-color;
+        }
 
-		&[data-role = show], &[data-role = save]
-		{
-			// Boutons de sauvegarde ou d'ouverture du
-			//  gestionnaire de préférences.
-			background-color: $info-color;
-		}
+        &[data-role = necessary]
+        {
+            // Bouton d'acception des cookies nécessaires.
+            background-color: $error-color;
+        }
 
-		&[data-role = all]
-		{
-			// Bouton d'acception de l'ensemble des cookies.
-			background-color: $validate-color;
-		}
+        &[data-role = show], &[data-role = save]
+        {
+            // Boutons de sauvegarde ou d'ouverture du
+            //  gestionnaire de préférences.
+            background-color: $info-color;
+        }
 
-		&:hover
-		{
-			// Effet de survol.
-			border-color: $background-color;
-			background-color: $background-color;
+        &[data-role = all]
+        {
+            // Bouton d'acception de l'ensemble des cookies.
+            background-color: $validate-color;
+        }
 
-			&[aria-label] svg
-			{
-				// Icône du bouton de fermeture de la
-				//  fenêtre modale.
-				stroke: $error-color;
-			}
+        &:hover
+        {
+            // Effet de survol.
+            border-color: $background-color;
+            background-color: $background-color;
 
-			&[data-role = necessary]
-			{
-				// Bouton d'acception des cookies nécessaires.
-				color: $error-color;
-			}
+            &[aria-label] svg
+            {
+                // Icône du bouton de fermeture de la
+                //  fenêtre modale.
+                stroke: $error-color;
+            }
 
-			&[data-role = show], &[data-role = save]
-			{
-				// Boutons de sauvegarde ou d'ouverture du
-				//  gestionnaire de préférences.
-				color: $info-color;
-			}
+            &[data-role = necessary]
+            {
+                // Bouton d'acception des cookies nécessaires.
+                color: $error-color;
+            }
 
-			&[data-role = all]
-			{
-				// Bouton d'acception de l'ensemble des cookies.
-				color: $validate-color;
-			}
-		}
-	}
+            &[data-role = show], &[data-role = save]
+            {
+                // Boutons de sauvegarde ou d'ouverture du
+                //  gestionnaire de préférences.
+                color: $info-color;
+            }
 
-	.cc__link, a:hover
-	{
-		// Effet de survol des liens du gestionnaire
-		//  des préférences.
-		color: $box-color;
-	}
+            &[data-role = all]
+            {
+                // Bouton d'acception de l'ensemble des cookies.
+                color: $validate-color;
+            }
+        }
+    }
 
-	.cm--cloud .cm__btns
-	{
-		// Boutons de la bannière de consentement.
-		border-left: transparent;
-	}
+    .cc__link, a:hover
+    {
+        // Effet de survol des liens du gestionnaire
+        //  des préférences.
+        color: $box-color;
+    }
 
-	.cm__footer
-	{
-		// Pied de page de la bannière de consentement.
-		color: $background-color;
-		position: relative;
-		border-color: rgba($background-color, 0.25);
-		background-color: $box-color;
+    .cm--cloud .cm__btns
+    {
+        // Boutons de la bannière de consentement.
+        border-left: transparent;
+    }
 
-		a
-		{
-			// Lien vers les pages légales.
-			color: $background-color;
-			transition: color 150ms, background-color 150ms;
+    .cm__footer
+    {
+        // Pied de page de la bannière de consentement.
+        color: $background-color;
+        position: relative;
+        border-color: rgba($background-color, 0.25);
+        background-color: $box-color;
 
-			&:hover
-			{
-				// Effet de sélection.
-				color: $box-color;
-				font-weight: bold;
-				background-color: $text-color;
-			}
+        a
+        {
+            // Lien vers les pages légales.
+            color: $background-color;
 
-			&::after
-			{
-				// Amélioration de la zone de sélection.
-				@extend %larger-touch-zone;
-			}
-		}
-	}
+            @include motion
+            {
+                transition: color 150ms, background-color 150ms;
+            }
 
-	.section__toggle
-	{
-		// Bascules du gestionnaire des préférences.
-		~ .toggle__icon
-		{
-			// Bascules inactives.
-			box-shadow: 0 0 0 1px rgba($background-color, 0.25);
-			background-color: $box-color;
+            &:hover
+            {
+                // Effet de sélection.
+                color: $box-color;
+                font-weight: bold;
+                background-color: $text-color;
+            }
 
-			.toggle__icon-circle
-			{
-				// Cercle de la bascule.
-				background-color: $background-color;
+            &::after
+            {
+                // Amélioration de la zone de sélection.
+                @extend %larger-touch-zone;
+            }
+        }
+    }
 
-				.toggle__icon-off svg
-				{
-					// Icône de la bascule.
-					stroke: $box-color;
-				}
-			}
-		}
+    .section__toggle
+    {
+        // Bascules du gestionnaire des préférences.
+        ~ .toggle__icon
+        {
+            // Bascules inactives.
+            box-shadow: 0 0 0 1px rgba($background-color, 0.25);
+            background-color: $box-color;
 
-		&:checked ~ .toggle__icon
-		{
-			// Bascules actives.
-			box-shadow: 0 0 0 1px $text-color, 0 0 0 2px $box-color;
-			background-color: $text-color;
+            .toggle__icon-circle
+            {
+                // Cercle de la bascule.
+                background-color: $background-color;
 
-			.toggle__icon-circle
-			{
-				// Cercle de la bascule.
-				background-color: $box-color;
+                .toggle__icon-off svg
+                {
+                    // Icône de la bascule.
+                    stroke: $box-color;
+                }
+            }
+        }
 
-				.toggle__icon-on svg
-				{
-					// Icône de la bascule.
-					stroke: $text-color;
-				}
-			}
-		}
+        &:checked ~ .toggle__icon
+        {
+            // Bascules actives.
+            box-shadow: 0 0 0 1px $text-color, 0 0 0 2px $box-color;
+            background-color: $text-color;
 
-		&:checked:disabled ~ .toggle__icon
-		{
-			// Bascules désactivées mais actives.
-			box-shadow: 0 0 0 1px rgba($text-color, 0.25), 0 0 0 2px rgba($box-color, 0.25);
-			background-color: rgba($text-color, 0.25);
+            .toggle__icon-circle
+            {
+                // Cercle de la bascule.
+                background-color: $box-color;
 
-			.toggle__icon-circle
-			{
-				// Cercle de la bascule.
-				background-color: $box-color;
+                .toggle__icon-on svg
+                {
+                    // Icône de la bascule.
+                    stroke: $text-color;
+                }
+            }
+        }
 
-				.toggle__icon-on svg
-				{
-					// Icône de la bascule.
-					stroke: rgba($text-color, 0.25);
-				}
-			}
-		}
-	}
+        &:checked:disabled ~ .toggle__icon
+        {
+            // Bascules désactivées mais actives.
+            box-shadow: 0 0 0 1px rgba($text-color, 0.25), 0 0 0 2px rgba($box-color, 0.25);
+            background-color: rgba($text-color, 0.25);
+
+            .toggle__icon-circle
+            {
+                // Cercle de la bascule.
+                background-color: $box-color;
+
+                .toggle__icon-on svg
+                {
+                    // Icône de la bascule.
+                    stroke: rgba($text-color, 0.25);
+                }
+            }
+        }
+    }
 }
 
 // ------- //
@@ -552,117 +553,125 @@ input, textarea, select
 // ------- //
 header
 {
-	gap: 1rem;
-	color: $text-color;
-	padding: 0.5rem;
-	display: flex;
-	min-height: 6rem;
-	background-color: $box-color;
+    gap: 1rem;
+    color: $text-color;
+    padding: 0.5rem;
+    display: flex;
+    min-height: 6rem;
+    background-color: $box-color;
 
-	img
-	{
-		// Logo du site.
-		height: 6rem;
-	}
+    img
+    {
+        // Logo du site.
+        height: 6rem;
+    }
 
-	div:first-of-type
-	{
-		// Conteneur des titres.
-		display: flex;
-		margin-right: auto;
-		flex-direction: column;
-		justify-content: space-evenly;
+    div:first-of-type
+    {
+        // Conteneur des titres.
+        display: flex;
+        margin-right: auto;
+        flex-direction: column;
+        justify-content: space-evenly;
 
-		h1
-		{
-			// Titre du site.
-			margin: 0;
-			font-size: clamp(1.75rem, 1.25rem + 1.5vw, 2.5rem);
-		}
+        h1
+        {
+            // Titre du site.
+            margin: 0;
+            font-size: clamp(1.75rem, 1.25rem + 1.5vw, 2.5rem);
+        }
 
-		h2
-		{
-			// Sous-titre du site.
-			margin: 0;
-			font-size: clamp(1.125rem, 1rem + 0.5vw, 1.5rem);
-			font-style: italic;
-		}
-	}
+        h2
+        {
+            // Sous-titre du site.
+            margin: 0;
+            font-size: clamp(1.125rem, 1rem + 0.5vw, 1.5rem);
+            font-style: italic;
+        }
+    }
 
-	div:last-of-type
-	{
-		// Conteneur de la barre de recherche.
-		display: flex;
-		flex-direction: column;
-		justify-content: space-evenly;
+    div:last-of-type
+    {
+        // Conteneur de la barre de recherche.
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
 
-		label
-		{
-			// Intitulé du champ de saisie.
-			color: $background-color;
-			text-align: center;
+        label
+        {
+            // Intitulé du champ de saisie.
+            color: $background-color;
+            text-align: center;
 
-			i
-			{
-				// Icône de la barre de recherche.
-				color: $text-color;
-				font-size: 1.25rem;
-				margin-right: 0.5rem;
-			}
-		}
+            i
+            {
+                // Icône de la barre de recherche.
+                color: $text-color;
+                font-size: 1.25rem;
+                margin-right: 0.5rem;
+            }
+        }
 
-		input
-		{
-			// Champ de saisie de la barre de recherche.
-			height: 1.5rem;
-			padding: 0.25rem;
-			font-size: 1rem;
-			transition: box-shadow 250ms;
+        input
+        {
+            // Champ de saisie de la barre de recherche.
+            height: 1.5rem;
+            padding: 0.25rem;
+            font-size: 1rem;
 
-			&::placeholder
-			{
-				// Texte de remplissage par défaut.
-				left: 0.25rem;
-			}
+            @include motion
+            {
+                transition: box-shadow 250ms;
+            }
 
-			&:focus
-			{
-				// Effet de sélection du champ.
-				outline: none;
-				box-shadow: inset 0 0 0 3px $text-color;
-			}
-		}
-	}
+            &::placeholder
+            {
+                // Texte de remplissage par défaut.
+                left: 0.25rem;
+            }
 
-	a
-	{
-		// Conteneur des informations du compte utilisateur.
-		gap: 0.25rem;
-		display: flex;
-		align-items: center;
-		flex-direction: column;
-		justify-content: center;
+            &:focus
+            {
+                // Effet de sélection du champ.
+                outline: none;
+                box-shadow: inset 0 0 0 3px $text-color;
+            }
+        }
+    }
 
-		i
-		{
-			// Icône de l'état de connexion.
-			font-size: 2rem;
-			transition: color 250ms;
-		}
+    a
+    {
+        // Conteneur des informations du compte utilisateur.
+        gap: 0.25rem;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
 
-		span
-		{
-			// Identifiants du compte actuellement connecté.
-			color: $background-color;
-			text-align: center;
-		}
+        i
+        {
+            // Icône de l'état de connexion.
+            font-size: 2rem;
 
-		&:hover i
-		{
-			// Effet de sélection.
-			color: $background-color;
-		}
-	}
+            @include motion
+            {
+                transition: color 250ms;
+            }
+        }
+
+        span
+        {
+            // Identifiants du compte actuellement connecté.
+            color: $background-color;
+            text-align: center;
+        }
+
+        &:hover i
+        {
+            // Effet de sélection.
+            color: $background-color;
+        }
+    }
 }
 
 // -------------------------------------------- //
@@ -670,283 +679,289 @@ header
 // -------------------------------------------- //
 #register article, #login, #contact
 {
-	// Disposition et affichage.
-	top: calc(50% - $footer-height);
-	left: 50%;
-	width: 50%;
-	border: 1px solid $text-color;
-	z-index: 1;
-	padding: 2rem;
-	display: none;
-	position: fixed;
-	transform: translate(-50%, -50%);
-	max-width: 600px;
-	overflow-y: auto;
-	max-height: 75vh;
-	max-height: 75dvh;
-	text-align: center;
-	background-color: $background-color;
-	overscroll-behavior: contain;
+    // Disposition et affichage.
+    top: calc(50% - $footer-height);
+    left: 50%;
+    width: 50%;
+    border: 1px solid $text-color;
+    z-index: 1;
+    padding: 2rem;
+    display: none;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    max-width: 600px;
+    overflow-y: auto;
+    max-height: 75vh;
+    max-height: 75dvh;
+    text-align: center;
+    background-color: $background-color;
+    overscroll-behavior: contain;
 
-	@media screen and (max-width: $tablet-max-width)
-	{
-		// Modification de la taille sur tablettes.
-		width: 75%;
-	}
+    @media screen and (max-width: $tablet-max-width)
+    {
+        // Modification de la taille sur tablettes.
+        width: 75%;
+    }
 
-	@media screen and (max-width: $phone-max-width)
-	{
-		// Occupation de toute la largeur sur téléphones.
-		width: calc(100% - 2rem);
-		padding: 1.5rem 1rem;
-		box-sizing: border-box;
-		max-height: calc(100vh - 2 * $footer-height - 4rem);
-		max-height: calc(100dvh - 2 * $footer-height - 4rem);
-	}
+    @media screen and (max-width: $phone-max-width)
+    {
+        // Occupation de toute la largeur sur téléphones.
+        width: calc(100% - 2rem);
+        padding: 1.5rem 1rem;
+        box-sizing: border-box;
+        max-height: calc(100vh - 2 * $footer-height - 4rem);
+        max-height: calc(100dvh - 2 * $footer-height - 4rem);
+    }
 
-	h2
-	{
-		// Titre du formulaire.
-		font-size: 2rem;
-		margin-top: 0;
-	}
+    h2
+    {
+        // Titre du formulaire.
+        font-size: 2rem;
+        margin-top: 0;
+    }
 
-	div
-	{
-		// Spécifications juridiques.
-		gap: 0.5rem;
-		display: flex;
-		align-items: center;
-		margin-left: 1rem;
-		margin-right: 1rem;
+    div
+    {
+        // Spécifications juridiques.
+        gap: 0.5rem;
+        display: flex;
+        align-items: center;
+        margin-left: 1rem;
+        margin-right: 1rem;
 
-		i
-		{
-			// Icône d'avertissement.
-			color: $error-color;
-			font-size: 2rem;
-		}
-	}
+        i
+        {
+            // Icône d'avertissement.
+            color: $error-color;
+            font-size: 2rem;
+        }
+    }
 
-	em, output
-	{
-		// Descriptions du formulaire.
-		margin: 0 5% 1rem 5%;
-	}
+    em, output
+    {
+        // Descriptions du formulaire.
+        margin: 0 5% 1rem 5%;
+    }
 
-	form
-	{
-		// Formulaire.
-		padding: 1rem;
-		margin-top: 1.5rem;
-		border-radius: 0.5rem;
-		background-color: $box-color;
+    form
+    {
+        // Formulaire.
+        padding: 1rem;
+        margin-top: 1.5rem;
+        border-radius: 0.5rem;
+        background-color: $box-color;
 
-		output.error, output.success
-		{
-			// Message d'erreur.
-			color: $error-light-color;
-			border: 2px solid $error-light-color;
-			padding: 0.5rem;
-			display: none;
-			font-style: normal;
-			text-align: center;
-			font-weight: bold;
-			text-transform: uppercase;
-		}
+        output.error, output.success
+        {
+            // Message d'erreur.
+            color: $error-light-color;
+            border: 2px solid $error-light-color;
+            padding: 0.5rem;
+            display: none;
+            font-style: normal;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
 
-		output.success
-		{
-			// Message de succès.
-			color: $validate-light-color;
-			border: 2px solid $validate-light-color;
-			text-transform: none;
-		}
+        output.success
+        {
+            // Message de succès.
+            color: $validate-light-color;
+            border: 2px solid $validate-light-color;
+            text-transform: none;
+        }
 
-		p.capslock
-		{
-			// Message d'avertissement des majuscules.
-			//  Note : se contrôle via une action JavaScript.
-			color: $error-light-color;
-			font-size: 110%;
-			font-weight: bold;
-			text-transform: uppercase;
-		}
+        p.capslock
+        {
+            // Message d'avertissement des majuscules.
+            //  Note : se contrôle via une action JavaScript.
+            color: $error-light-color;
+            font-size: 110%;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
 
-		em
-		{
-			// Description brève des informations demandées.
-			color: $background-color;
-			display: block;
-			font-style: normal;
-			text-align: justify;
-			margin-bottom: 1.5rem;
-		}
+        em
+        {
+            // Description brève des informations demandées.
+            color: $background-color;
+            display: block;
+            font-style: normal;
+            text-align: justify;
+            margin-bottom: 1.5rem;
+        }
 
-		a
-		{
-			// Liens vers l'inscription, connexion unique ou
-			//  la récupération de mot de passe.
-			color: $text-color;
-			transition: color 250ms, background-color 250ms;
-			text-decoration: underline;
+        a
+        {
+            // Liens vers l'inscription, connexion unique ou
+            //  la récupération de mot de passe.
+            color: $text-color;
+            text-decoration: underline;
 
-			&:hover
-			{
-				// Effet de sélection.
-				color: $box-color;
-				font-weight: bold;
-				background-color: $text-color;
-			}
-		}
+            @include motion
+            {
+                transition: color 250ms, background-color 250ms;
+            }
 
-		hr
-		{
-			// Séparateur entre les articles.
-			margin: 1.5rem 0 2rem;
-			border-color: $background-color;
-		}
+            &:hover
+            {
+                // Effet de sélection.
+                color: $box-color;
+                font-weight: bold;
+                background-color: $text-color;
+            }
+        }
 
-		label
-		{
-			// Libellé du champ.
-			color: $text-color;
-			display: inline-block;
+        hr
+        {
+            // Séparateur entre les articles.
+            margin: 1.5rem 0 2rem;
+            border-color: $background-color;
+        }
 
-			> span
-			{
-				// Champs requis.
-				color: $error-light-color;
-			}
-		}
+        label
+        {
+            // Libellé du champ.
+            color: $text-color;
+            display: inline-block;
 
-		input[type = text], input[type = number], input[type = email], input[type = password], textarea, select
-		{
-			// Champs et zones de saisies.
-			width: calc(100% - 2rem);
-			margin: 0.5rem 0 1rem 0;
-			padding: 1rem;
-			box-sizing: border-box;
+            > span
+            {
+                // Champs requis.
+                color: $error-light-color;
+            }
+        }
 
-			+ span
-			{
-				// Icône d'état des vérifications.
-				position: relative;
+        input[type = text], input[type = number], input[type = email], input[type = password], textarea, select
+        {
+            // Champs et zones de saisies.
+            width: calc(100% - 2rem);
+            margin: 0.5rem 0 1rem 0;
+            padding: 1rem;
+            box-sizing: border-box;
 
-				&::before
-				{
-					top: -2.5px;
-					left: -1.75rem;
-					position: absolute;
+            + span
+            {
+                // Icône d'état des vérifications.
+                position: relative;
 
-					// Correction du positionnement de l'icône
-					//  sur les navigateurs Firefox.
-					@-moz-document url-prefix()
-					{
-						top: -1rem;
-					}
-				}
-			}
-		}
+                &::before
+                {
+                    top: -2.5px;
+                    left: -1.75rem;
+                    position: absolute;
 
-		input[type = checkbox]
-		{
-			// Boites à cocher.
-			margin-left: 0.5rem;
-			accent-color: $text-color;
-		}
+                    // Correction du positionnement de l'icône
+                    //  sur les navigateurs Firefox.
+                    @supports (-moz-appearance: none)
+                    {
+                        top: -1rem;
+                    }
+                }
+            }
+        }
 
-		select
-		{
-			// Sélection des sujets.
-			cursor: pointer;
-		}
+        input[type = checkbox]
+        {
+            // Boites à cocher.
+            margin-left: 0.5rem;
+            accent-color: $text-color;
+        }
 
-		textarea
-		{
-			// Zone de saisie principale.
-			height: 200px;
-			line-height: 1.5rem;
-			margin-bottom: 0;
+        select
+        {
+            // Sélection des sujets.
+            cursor: pointer;
+        }
 
-			+ span::before
-			{
-				// Positionnement de l'icône des vérifications.
-				top: -1.25rem;
-				left: -2rem;
+        textarea
+        {
+            // Zone de saisie principale.
+            height: 200px;
+            line-height: 1.5rem;
+            margin-bottom: 0;
 
-				// Correction du positionnement de l'icône sur les
-				//  navigateurs Firefox.
-				@-moz-document url-prefix()
-				{
-					top: -2rem;
-				}
-			}
-		}
+            + span::before
+            {
+                // Positionnement de l'icône des vérifications.
+                top: -1.25rem;
+                left: -2rem;
 
-		input[type = reset]
-		{
-			// Application de l'apparence personnalisée.
-			margin-top: 0.75rem;
-			@extend %cancel-button-layout;
-		}
+                // Correction du positionnement de l'icône sur les
+                //  navigateurs Firefox.
+                @supports (-moz-appearance: none)
+                {
+                    top: -2rem;
+                }
+            }
+        }
 
-		input[type = submit]
-		{
-			// Application de l'apparence personnalisée.
-			margin-top: 0.75rem;
-			@extend %submit-button-layout;
-		}
+        button[type = reset]
+        {
+            // Application de l'apparence personnalisée.
+            box-shadow: none;
+            margin-top: 0.75rem;
+            line-height: 1;
+            @extend %cancel-button-layout;
+        }
 
-		input:valid + span::before, textarea:valid + span::before
-		{
-			// Champ considéré comme valide.
-			color: $validate-light-color;
-			content: "✓";
-			font-size: 1.5rem;
-		}
+        input[type = submit]
+        {
+            // Application de l'apparence personnalisée.
+            margin-top: 0.75rem;
+            @extend %submit-button-layout;
+        }
 
-		input:user-invalid + span::before, textarea:user-invalid + span::before
-		{
-			// Champ considéré comme invalide.
-			color: $error-light-color;
-			content: "✖";
-			font-size: 1.5rem;
-		}
+        input:valid + span::before, textarea:valid + span::before
+        {
+            // Champ considéré comme valide.
+            color: $validate-light-color;
+            content: "✓";
+            font-size: 1.5rem;
+        }
 
-		input:focus:user-invalid, textarea:focus:user-invalid
-		{
-			// Contour d'un champ/zone invalide.
-			outline: none;
-			box-shadow: inset 0 0 0 3px $error-color;
-		}
-	}
+        input:user-invalid + span::before, textarea:user-invalid + span::before
+        {
+            // Champ considéré comme invalide.
+            color: $error-light-color;
+            content: "✖";
+            font-size: 1.5rem;
+        }
 
-	ul
-	{
-		// Liste des étapes actuelles.
-		float: right;
-		margin: 0.75rem 0 -0.5rem 0;
-		font-size: 1.25rem;
-		font-weight: bold;
+        input:focus:user-invalid, textarea:focus:user-invalid
+        {
+            // Contour d'un champ/zone invalide.
+            outline: none;
+            box-shadow: inset 0 0 0 3px $error-color;
+        }
+    }
 
-		li
-		{
-			// Étape actuelle.
-			color: $text-color;
-			display: inline;
-			padding: 0.25rem 0.5rem;
-			margin-right: 0.25rem;
-			background-color: $box-color;
+    ul
+    {
+        // Liste des étapes actuelles.
+        float: right;
+        margin: 0.75rem 0 -0.5rem 0;
+        font-size: 1.25rem;
+        font-weight: bold;
 
-			&.active
-			{
-				// Étape active.
-				color: $box-color;
-				background-color: $text-color;
-			}
-		}
-	}
+        li
+        {
+            // Étape actuelle.
+            color: $text-color;
+            display: inline;
+            padding: 0.25rem 0.5rem;
+            margin-right: 0.25rem;
+            background-color: $box-color;
+
+            &.active
+            {
+                // Étape active.
+                color: $box-color;
+                background-color: $text-color;
+            }
+        }
+    }
 }
 
 // ------------------------------------ //
@@ -954,87 +969,94 @@ header
 // ------------------------------------ //
 #notifications
 {
-	// Calcul de la position Y du conteneur.
-	$positionY: $footer-height * 2.5;
+    // Calcul de la position Y du conteneur.
+    $positionY: $footer-height * 2.5;
 
-	// Personnalisation du conteneur.
-	left: 50%;
-	color: $background-color;
-	bottom: $positionY;
-	border: 3px solid $border-color;
-	display: none;
-	padding: 1rem;
-	z-index: 2;
-	position: fixed;
-	min-width: 100px;
-	max-width: 360px;
-	transform: translateX(-50%);
-	visibility: hidden;
-	font-weight: bold;
-	border-radius: 0.5rem;
+    // Personnalisation du conteneur.
+    left: 50%;
+    color: $background-color;
+    bottom: $positionY;
+    border: 3px solid $border-color;
+    display: none;
+    padding: 1rem;
+    z-index: 2;
+    position: fixed;
+    min-width: 100px;
+    max-width: 360px;
+    transform: translateX(-50%);
+    visibility: hidden;
+    font-weight: bold;
+    border-radius: 0.5rem;
 
-	@media screen and (max-width: $phone-max-width)
-	{
-		// Modification des dimensions sur les téléphones.
-		left: 1rem;
-		right: 1rem;
-		transform: none;
-		max-width: none;
-	}
+    @media screen and (max-width: $phone-max-width)
+    {
+        // Modification des dimensions sur les téléphones.
+        left: 1rem;
+        right: 1rem;
+        transform: none;
+        max-width: none;
+    }
 
-	i
-	{
-		// Icône de notification.
-		font-size: 1.5rem;
-	}
+    i
+    {
+        // Icône de notification.
+        font-size: 1.5rem;
+    }
 
-	&.error
-	{
-		// Couleur de fond lors des erreurs.
-		background-color: $error-color;
-	}
+    &.error
+    {
+        // Couleur de fond lors des erreurs.
+        background-color: $error-color;
+    }
 
-	&.success
-	{
-		// Couleur de fond lors d'une validation.
-		background-color: $validate-color;
-	}
+    &.success
+    {
+        // Couleur de fond lors d'une validation.
+        background-color: $validate-color;
+    }
 
-	&.info
-	{
-		// Couleur de fond pour une information.
-		background-color: $info-color;
-	}
+    &.info
+    {
+        // Couleur de fond pour une information.
+        background-color: $info-color;
+    }
 
-	&.show
-	{
-		// Apparition de l'élément avec une transition.
-		gap: 0.75rem;
-		display: flex;
-		animation: fadeIn 500ms;
-		visibility: visible;
-		align-items: center;
-	}
+    &.show
+    {
+        // Apparition de l'élément avec une transition.
+        gap: 0.75rem;
+        display: flex;
+        visibility: visible;
+        align-items: center;
 
-	&.hide
-	{
-		// Disparition de l'élément avec une transition.
-		animation: fadeOut 500ms;
-	}
+        @include motion
+        {
+            animation: fadeIn 500ms;
+        }
+    }
 
-	@keyframes fadeIn
-	{
-		// Apparition du bas vers le haut.
-		from { bottom: 0; opacity: 0 }
-		to { bottom: $positionY; opacity: 1; }
-	}
+    &.hide
+    {
+        // Disparition de l'élément avec une transition.
+        @include motion
+        {
+            animation: fadeOut 500ms;
+        }
+    }
 
-	@keyframes fadeOut
-	{
-		// Disparition du haut vers le bas.
-		from { bottom: $positionY; opacity: 1; }
-		to { bottom: 0; opacity: 0; }
-	}
+    @keyframes fadeIn
+    {
+        // Apparition du bas vers le haut.
+        from { bottom: 0; opacity: 0 }
+        to { bottom: $positionY; opacity: 1; }
+    }
+
+    @keyframes fadeOut
+    {
+        // Disparition du haut vers le bas.
+        from { bottom: $positionY; opacity: 1; }
+        to { bottom: 0; opacity: 0; }
+    }
 }
 
 // ------------------------------ //
@@ -1042,74 +1064,78 @@ header
 // ------------------------------ //
 #tips
 {
-	position: fixed;
+    position: fixed;
 
-	span
-	{
-		// Texte de l'astuce caché par défaut.
-		width: 40%;
-		display: none;
+    > span
+    {
+        // Texte de l'astuce caché par défaut.
+        width: 40%;
+        display: none;
 
-		@media screen and (max-width: $phone-max-width)
-		{
-			// Dimensionnement pour les téléphones.
-			width: calc(100% - 5.5rem);
-		}
-	}
+        @media screen and (max-width: $phone-max-width)
+        {
+            // Dimensionnement pour les téléphones.
+            width: calc(100% - 5.5rem);
+        }
+    }
 
-	&.open span, button:hover + span
-	{
-		// Affichage du texte de l'astuce lorsque l'icône est
-		//  survolé ou sélectionné par l'utilisateur.
-		color: $text-color;
-		right: 4rem;
-		bottom: calc(4.1rem + env(safe-area-inset-bottom));
-		border: 1px solid $border-color;
-		padding: 0.5rem;
-		display: inline-block;
-		position: fixed;
-		max-height: calc(100vh - 12rem);
-		max-height: calc(100dvh - 12rem);
-		overflow-y: auto;
-		background-color: $box-color;
-	}
+    &.open > span, button:hover + span
+    {
+        // Affichage du texte de l'astuce lorsque l'icône est
+        //  survolé ou sélectionné par l'utilisateur.
+        color: $text-color;
+        right: 4rem;
+        bottom: calc(4.1rem + env(safe-area-inset-bottom));
+        border: 1px solid $border-color;
+        padding: 0.5rem;
+        display: inline-block;
+        position: fixed;
+        max-height: calc(100vh - 12rem);
+        max-height: calc(100dvh - 12rem);
+        overflow-y: auto;
+        background-color: $box-color;
+    }
 
-	&.open button
-	{
-		// Bouton actif.
-		color: $box-color;
-		background-color: $text-color;
-	}
+    &.open button
+    {
+        // Bouton actif.
+        color: $box-color;
+        background-color: $text-color;
+    }
 
-	button
-	{
-		// Disposition et affichage.
-		color: $text-color;
-		width: 3rem;
-		right: 0.5rem;
-		height: 3rem;
-		bottom: calc(4.25rem + env(safe-area-inset-bottom));
-		border: 1px solid $border-color;
-		position: fixed;
-		font-size: 1.5rem;
-		transition: color 250ms, background-color 250ms;
-		font-weight: bold;
-		border-radius: 50%;
-		background-color: $box-color;
+    button
+    {
+        // Disposition et affichage.
+        color: $text-color;
+        width: 3rem;
+        right: 0.5rem;
+        height: 3rem;
+        bottom: calc(4.25rem + env(safe-area-inset-bottom));
+        border: 1px solid $border-color;
+        position: fixed;
+        font-size: 1.5rem;
+        font-weight: bold;
+        border-radius: 50%;
+        background-color: $box-color;
 
-		&:hover
-		{
-			// Effet de sélection.
-			color: $box-color;
-			background-color: $text-color;
-		}
+        @include motion
+        {
+            transition: color 250ms, background-color 250ms;
+        }
 
-		&::after
-		{
-			// Amélioration de la zone de sélection.
-			@extend %larger-touch-zone;
-		}
-	}
+        &:hover
+        {
+            // Effet de sélection.
+            color: $box-color;
+            background-color: $text-color;
+        }
+
+        &::after
+        {
+            // Amélioration de la zone de sélection.
+            @extend %larger-touch-zone;
+        }
+    }
 }
 
 // ------------------------------------------- //
@@ -1117,95 +1143,98 @@ header
 // ------------------------------------------- //
 #dialog
 {
-	// Disposition et affichage.
-	width: calc(100% - 2rem);
-	color: $box-color;
-	border: 1px solid $text-color;
-	padding: 1.5rem;
-	max-width: 32rem;
-	box-sizing: border-box;
-	background-color: $background-color;
+    // Disposition et affichage.
+    width: calc(100% - 2rem);
+    color: $box-color;
+    border: 1px solid $text-color;
+    padding: 1.5rem;
+    max-width: 32rem;
+    box-sizing: border-box;
+    background-color: $background-color;
 
-	&::backdrop
-	{
-		// Arrière-plan assombri.
-		background-color: rgba($box-color, 0.75);
-	}
+    &::backdrop
+    {
+        // Arrière-plan assombri.
+        background-color: rgba($box-color, 0.75);
+    }
 
-	&[open]
-	{
-		// Animation d'apparition.
-		animation: dialog-appear 200ms cubic-bezier(0.16, 1, 0.3, 1);
-	}
+    &[open]
+    {
+        // Animation d'apparition.
+        @include motion
+        {
+            animation: dialog-appear 200ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+    }
 
-	p
-	{
-		// Message de la demande.
-		margin: 0 0 1.5rem;
-		font-size: 1.125rem;
-		font-weight: bold;
-	}
+    p
+    {
+        // Message de la demande.
+        margin: 0 0 1.5rem;
+        font-size: 1.125rem;
+        font-weight: bold;
+    }
 
-	div
-	{
-		// Champs de saisie.
-		display: flex;
-		flex-direction: column;
+    div
+    {
+        // Champs de saisie.
+        display: flex;
+        flex-direction: column;
 
-		label
-		{
-			// Libellé du champ.
-			white-space: pre-line;
-			margin-bottom: 0.5rem;
-		}
+        label
+        {
+            // Libellé du champ.
+            white-space: pre-line;
+            margin-bottom: 0.5rem;
+        }
 
-		input
-		{
-			// Champ de saisie.
-			color: $background-color;
-			padding: 0.75rem 1rem;
-			font-size: 1rem;
-			margin-bottom: 1.25rem;
-			background-color: $box-color;
-		}
-	}
+        input
+        {
+            // Champ de saisie.
+            color: $background-color;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            margin-bottom: 1.25rem;
+            background-color: $box-color;
+        }
+    }
 
-	button
-	{
-		// Boutons d'annulation et de validation.
-		box-shadow: none;
+    button
+    {
+        // Boutons d'annulation et de validation.
+        box-shadow: none;
 
-		&[value = cancel]
-		{
-			@extend %cancel-button-layout;
-		}
+        &[value = cancel]
+        {
+            @extend %cancel-button-layout;
+        }
 
-		&[value = confirm]
-		{
-			@extend %submit-button-layout;
-		}
-	}
+        &[value = confirm]
+        {
+            @extend %submit-button-layout;
+        }
+    }
 
-	form
-	{
-		// Alignement des boutons à droite.
-		text-align: right;
-	}
+    form
+    {
+        // Alignement des boutons à droite.
+        text-align: right;
+    }
 
-	div, p
-	{
-		// Contenu aligné à gauche.
-		text-align: left;
-	}
+    div, p
+    {
+        // Contenu aligné à gauche.
+        text-align: left;
+    }
 }
 
 @keyframes dialog-appear
 {
-	from
-	{
-		opacity: 0;
-		transform: translateY(0.5rem);
-	}
+    from
+    {
+        opacity: 0;
+        transform: translateY(0.5rem);
+    }
 }
 
 // ------------ //
@@ -1213,276 +1242,306 @@ header
 // ------------ //
 footer
 {
-	// Disposition et apparence.
-	left: 0;
-	color: $text-color;
-	right: 0;
-	height: $footer-height;
-	bottom: -1px;
-	padding: 1rem max(1rem, env(safe-area-inset-right)) calc(1rem + env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
-	z-index: 5;
-	position: fixed;
-	background-color: $box-color;
+    // Disposition et apparence.
+    left: 0;
+    color: $text-color;
+    right: 0;
+    height: $footer-height;
+    bottom: -1px;
+    padding: 1rem max(1rem, env(safe-area-inset-right)) calc(1rem + env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+    z-index: 5;
+    position: fixed;
+    background-color: $box-color;
 
-	ul li
-	{
-		// Liste des options.
-		display: inline-block;
-		position: relative;
-		font-size: 1.5rem;
-		margin-right: 2rem;
+    ul li
+    {
+        // Liste des options.
+        display: inline-block;
+        position: relative;
+        font-size: 1.5rem;
+        margin-right: 2rem;
 
-		a
-		{
-			@media screen and (max-width: $phone-max-width)
-			{
-				// Effet de sélection des icônes sur les téléphones.
-				i:hover
-				{
-					color: $background-color;
-					transition: color 250ms;
-				}
-			}
+        a
+        {
+            @media screen and (max-width: $phone-max-width)
+            {
+                // Effet de sélection des icônes sur les téléphones.
+                i:hover
+                {
+                    color: $background-color;
 
-			span
-			{
-				// Lien vers les pages.
-				color: $background-color;
-				transition: color 150ms, background-color 150ms;
+                    @include motion
+                    {
+                        transition: color 250ms;
+                    }
+                }
+            }
 
-				@media screen and (max-width: $phone-max-width)
-				{
-					// Disparition visuelle des libellés sur les téléphones.
-					@include visually-hidden;
-				}
+            span
+            {
+                // Lien vers les pages.
+                color: $background-color;
 
-				&:hover
-				{
-					// Effet de sélection.
-					color: $box-color;
-					font-weight: bold;
-					background-color: $text-color;
-				}
+                @include motion
+                {
+                    transition: color 150ms, background-color 150ms;
+                }
 
-				&::after
-				{
-					// Amélioration de la zone de sélection.
-					@extend %larger-touch-zone;
-				}
-			}
-		}
+                @media screen and (max-width: $phone-max-width)
+                {
+                    // Disparition visuelle des libellés sur les téléphones.
+                    @include visually-hidden;
+                }
 
-		img
-		{
-			// Espacement des images.
-			margin-right: 0.25rem;
-		}
+                &:hover
+                {
+                    // Effet de sélection.
+                    color: $box-color;
+                    font-weight: bold;
+                    background-color: $text-color;
+                }
 
-		&.version
-		{
-			// Version actuelle du site.
-			color: rgba($background-color, 0.65);
-			cursor: default;
-			font-size: 0.875rem;
-			font-variant-numeric: tabular-nums;
-			letter-spacing: 0.02em;
+                &::after
+                {
+                    // Amélioration de la zone de sélection.
+                    @extend %larger-touch-zone;
+                }
+            }
+        }
 
-			@media screen and (max-width: 480px)
-			{
-				// Masquage sur les petits écrans pour éviter un
-				//  retour à la ligne des options du pied de page.
-				display: none;
-			}
-		}
+        img
+        {
+            // Espacement des images.
+            margin-right: 0.25rem;
+        }
 
-		&:nth-last-of-type(2)
-		{
-			// Bouton de sélection de la langue.
-			float: right;
-			margin-right: 0;
+        > button
+        {
+            // Bouton natif présenté comme une simple icône.
+            color: inherit;
+            font: inherit;
+            padding: 0;
+            box-shadow: none;
+            background: none;
+        }
 
-			ul
-			{
-				// Liste des langues disponibles.
-				left: -3.5rem;
-				bottom: 3rem;
-				display: none;
-				position: absolute;
+        &.version
+        {
+            // Version actuelle du site.
+            color: rgba($background-color, 0.65);
+            cursor: default;
+            font-size: 0.875rem;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 0.02em;
 
-				// Correction du positionnement à gauche sur
-				//  les navigateurs Firefox.
-				@-moz-document url-prefix()
-				{
-					left: -3.75rem;
-				}
+            @media screen and (max-width: 480px)
+            {
+                // Masquage sur les petits écrans pour éviter un
+                //  retour à la ligne des options du pied de page.
+                display: none;
+            }
+        }
 
-				li
-				{
-					margin: 0.5rem 0 0;
+        &:nth-last-of-type(2)
+        {
+            // Bouton de sélection de la langue.
+            float: right;
+            margin-right: 0;
 
-					button
-					{
-						// Bouton pour changer vers la langue sélectionnée.
-						color: $box-color;
-						padding: 0.5rem;
-						transition: color 250ms, background-color 250ms;
-						border-radius: 0.5rem;
-						background-color: $text-color;
+            ul
+            {
+                // Liste des langues disponibles.
+                left: -3.5rem;
+                bottom: 3rem;
+                display: none;
+                position: absolute;
 
-						i
-						{
-							// Drapeau représentant la langue.
-							width: 2rem;
-							margin: 0 0 -0.25rem;
-						}
+                // Correction du positionnement à gauche sur
+                //  les navigateurs Firefox.
+                @supports (-moz-appearance: none)
+                {
+                    left: -3.75rem;
+                }
 
-						span
-						{
-							// Nom de la langue.
-							font-size: 1.25rem;
-							font-weight: bold;
-						}
+                li
+                {
+                    margin: 0.5rem 0 0;
 
-						&:hover
-						{
-							// Effet de sélection.
-							color: $text-color;
-							background-color: $box-color;
-						}
-					}
+                    button
+                    {
+                        // Bouton pour changer vers la langue sélectionnée.
+                        color: $box-color;
+                        padding: 0.5rem;
+                        border-radius: 0.5rem;
+                        background-color: $text-color;
 
-					&:last-of-type::after
-					{
-						// Petite astuce pour pouvoir garder le menu ouvert
-						//  lorsque l'utilisateur déplace sa souris vers un
-						//  des boutons du menu.
-						bottom: -4rem;
-						content: "";
-						z-index: -1;
-						position: absolute;
-					}
-				}
-			}
+                        @include motion
+                        {
+                            transition: color 250ms, background-color 250ms;
+                        }
 
-			&::after
-			{
-				// Astuce pour faire afficher le menu sans utiliser de
-				//  de code JavaScript (voir commentaire précédent).
-				top: -0.5rem;
-				left: -0.5rem;
-				right: -0.5rem;
-				bottom: -0.5rem;
-				content: "";
-				z-index: -1;
-				position: absolute;
-			}
+                        i
+                        {
+                            // Drapeau représentant la langue.
+                            width: 2rem;
+                            margin: 0 0 -0.25rem;
+                        }
 
-			&:hover, &:focus-within, &.open
-			{
-				// Sélection de l'icône des langues.
-				cursor: pointer;
+                        span
+                        {
+                            // Nom de la langue.
+                            font-size: 1.25rem;
+                            font-weight: bold;
+                        }
 
-				ul
-				{
-					// Affichage des langues disponibles.
-					display: block;
-				}
+                        &:hover
+                        {
+                            // Effet de sélection.
+                            color: $text-color;
+                            background-color: $box-color;
+                        }
+                    }
 
-				i
-				{
-					// Changement de la couleur de l'icône.
-					color: $background-color;
-					transition: color 250ms;
-				}
-			}
-		}
+                    &:last-of-type::after
+                    {
+                        // Petite astuce pour pouvoir garder le menu ouvert
+                        //  lorsque l'utilisateur déplace sa souris vers un
+                        //  des boutons du menu.
+                        bottom: -4rem;
+                        content: "";
+                        z-index: -1;
+                        position: absolute;
+                    }
+                }
+            }
 
-		&:last-of-type
-		{
-			// Bouton de consentement des cookies.
-			float: right;
-			margin-right: 1rem;
+            &::after
+            {
+                // Astuce pour faire afficher le menu sans utiliser de
+                //  de code JavaScript (voir commentaire précédent).
+                top: -0.5rem;
+                left: -0.5rem;
+                right: -0.5rem;
+                bottom: -0.5rem;
+                content: "";
+                z-index: -1;
+                position: absolute;
+            }
 
-			&::after
-			{
-				// Astuce pour faire afficher le menu sans utiliser de
-				//  de code JavaScript (voir commentaire précédent).
-				top: -0.5rem;
-				left: -0.5rem;
-				right: -0.5rem;
-				bottom: -0.5rem;
-				content: "";
-				position: absolute;
-			}
+            &:hover, &:focus-within, &.open
+            {
+                // Sélection de l'icône des langues.
+                cursor: pointer;
 
-			&:hover
-			{
-				// Sélection de l'icône du consentement des cookies.
-				cursor: pointer;
+                ul
+                {
+                    // Affichage des langues disponibles.
+                    display: block;
+                }
 
-				i
-				{
-					// Changement de la couleur de l'icône.
-					color: $background-color;
-					transition: color 250ms;
-				}
-			}
-		}
-	}
+                i
+                {
+                    // Changement de la couleur de l'icône.
+                    color: $background-color;
 
-	> ul
-	{
-		// Disposition des options sur une seule ligne.
-		display: flex;
-		column-gap: 2rem;
-		align-items: center;
+                    @include motion
+                    {
+                        transition: color 250ms;
+                    }
+                }
+            }
+        }
 
-		> li
-		{
-			// Espacement géré par la disposition.
-			margin-right: 0;
+        &:last-of-type
+        {
+            // Bouton de consentement des cookies.
+            float: right;
+            margin-right: 1rem;
 
-			&:nth-last-of-type(2)
-			{
-				// Sélecteur des langues placé à l'extrémité droite.
-				order: 2;
-				float: none;
-				margin-left: -1rem;
-			}
+            &::after
+            {
+                // Astuce pour faire afficher le menu sans utiliser de
+                //  de code JavaScript (voir commentaire précédent).
+                top: -0.5rem;
+                left: -0.5rem;
+                right: -0.5rem;
+                bottom: -0.5rem;
+                content: "";
+                position: absolute;
+            }
 
-			&:last-of-type
-			{
-				// Consentement des cookies placé à gauche des langues.
-				order: 1;
-				float: none;
-				margin-left: auto;
-				margin-right: 0;
-			}
-		}
-	}
+            &:hover
+            {
+                // Sélection de l'icône du consentement des cookies.
+                cursor: pointer;
 
-	> div
-	{
-		// Indicateur de défilement.
-		//  Source : https://www.w3schools.com/howto/howto_js_scroll_indicator.asp
-		top: 0.5rem;
-		height: 0.25rem;
-		position: relative;
-		background: $border-color;
-		box-shadow: none;
+                i
+                {
+                    // Changement de la couleur de l'icône.
+                    color: $background-color;
 
-		@media screen and (min-width: 1024px)
-		{
-			// Disparition de l'indicateur sur ordinateurs.
-			display: none;
-		}
+                    @include motion
+                    {
+                        transition: color 250ms;
+                    }
+                }
+            }
+        }
+    }
 
-		div
-		{
-			// Défilement depuis le JavaScript.
-			width: 0;
-			height: 0.25rem;
-			background: $text-color;
-		}
-	}
+    > ul
+    {
+        // Disposition des options sur une seule ligne.
+        display: flex;
+        column-gap: 2rem;
+        align-items: center;
+
+        > li
+        {
+            // Espacement géré par la disposition.
+            margin-right: 0;
+
+            &:nth-last-of-type(2)
+            {
+                // Sélecteur des langues placé à l'extrémité droite.
+                order: 2;
+                float: none;
+                margin-left: -1rem;
+            }
+
+            &:last-of-type
+            {
+                // Consentement des cookies placé à gauche des langues.
+                order: 1;
+                float: none;
+                margin-left: auto;
+                margin-right: 0;
+            }
+        }
+    }
+
+    > div
+    {
+        // Indicateur de défilement.
+        //  Source : https://www.w3schools.com/howto/howto_js_scroll_indicator.asp
+        top: 0.5rem;
+        height: 0.25rem;
+        position: relative;
+        background: $border-color;
+        box-shadow: none;
+
+        @media screen and (min-width: 1024px)
+        {
+            // Disparition de l'indicateur sur ordinateurs.
+            display: none;
+        }
+
+        div
+        {
+            // Défilement depuis le JavaScript.
+            width: 0;
+            height: 0.25rem;
+            background: $text-color;
+        }
+    }
 }

@@ -18,153 +18,157 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class TasksController extends AbstractController
 {
-	//
-	// Initialisation de certaines dépendances du contrôleur.
-	//
-	public function __construct(
-		private readonly ValidatorInterface $validator,
-		private readonly TranslatorInterface $translator,
-		private readonly EntityManagerInterface $entityManager,
-	) {}
+    //
+    // Initialisation de certaines dépendances du contrôleur.
+    //
+    public function __construct(
+        private readonly ValidatorInterface $validator,
+        private readonly TranslatorInterface $translator,
+        private readonly EntityManagerInterface $entityManager,
+    ) {}
 
-	//
-	// Route vers la page des tâches planifiées.
-	//
-	#[Route("/tasks", name: "tasks_page")]
-	public function index(): Response
-	{
-		// On vérifie d'abord que l'utilisateur est bien connecté avant d'accéder
-		//  à la page, sinon on le redirige vers la page d'accueil.
-		if (!$this->isGranted("IS_AUTHENTICATED"))
-		{
-			return $this->redirectToRoute("index_page");
-		}
+    //
+    // Route vers la page des tâches planifiées.
+    //
+    #[Route("/tasks", name: "tasks_page")]
+    public function index(): Response
+    {
+        // On vérifie d'abord que l'utilisateur est bien connecté avant d'accéder
+        //  à la page, sinon on le redirige vers la page d'accueil.
+        if (!$this->isGranted("IS_AUTHENTICATED"))
+        {
+            return $this->redirectToRoute("index_page");
+        }
 
-		// On inclut enfin les paramètres du moteur TWIG pour la création de la page.
-		$servers = $this->entityManager->getRepository(Server::class)->findBy([
-			"user" => $this->getUser()
-		]);
+        // On inclut enfin les paramètres du moteur TWIG pour la création de la page.
+        $servers = $this->entityManager->getRepository(Server::class)->findBy([
+            "user" => $this->getUser()
+        ]);
 
-		return $this->render("tasks.html.twig", [
-			// Liste des tâches planifiées prévues.
-			"tasks_list" => $this->entityManager->getRepository(Task::class)->findBy(
-				["server" => $servers],
-				["date" => "DESC"],
-			10),
+        return $this->render("tasks.html.twig", [
+            // Liste des tâches planifiées prévues.
+            "tasks_list" => $this->entityManager->getRepository(Task::class)->findBy(
+                ["server" => $servers],
+                ["date" => "DESC"],
+            10),
 
-			// Liste des serveurs depuis la base de données.
-			"tasks_servers" => $servers
-		]);
-	}
+            // Liste des serveurs depuis la base de données.
+            "tasks_servers" => $servers
+        ]);
+    }
 
-	//
-	// API vers l'ajout d'une nouvelle tâche planifiée.
-	//
-	#[Route("/api/task/add", name: "tasks_add", methods: ["POST"])]
-	#[IsGranted("IS_AUTHENTICATED")]
-	public function add(Request $request): Response
-	{
-		// On vérifie tout d'abord la validité du jeton CSRF.
-		if (!$this->isCsrfTokenValid("server_tasks", $request->request->get("token")))
-		{
-			return new Response(
-				$this->translator->trans("form.csrf_token"),
-				Response::HTTP_BAD_REQUEST
-			);
-		}
+    //
+    // API vers l'ajout d'une nouvelle tâche planifiée.
+    //
+    #[Route("/api/task/add", name: "tasks_add", methods: ["POST"])]
+    #[IsGranted("IS_AUTHENTICATED")]
+    public function add(Request $request): Response
+    {
+        // On vérifie tout d'abord la validité du jeton CSRF, que le serveur existe bien,
+        //  qu'il appartient à l'utilisateur et que ce dernier n'a pas trop de tâches.
+        $server = $this->getTaskServer($request);
 
-		// On vérifie alors que le serveur existe bien et qu'il appartient à l'utilisateur.
-		$user = $this->getUser();
-		$serverId = intval($request->request->get("server", 0));
-		$serverRepository = $this->entityManager->getRepository(Server::class);
+        if ($server instanceof Response)
+        {
+            return $server;
+        }
 
-		if (!$server = $serverRepository->findOneBy(["id" => $serverId, "user" => $user]))
-		{
-			return new Response(
-				$this->translator->trans("form.server_check_failed"),
-				Response::HTTP_BAD_REQUEST
-			);
-		}
+        // On vérifie après que les informations de la tâche planifiée sont valides.
+        $task = new Task();
+        $task->setServer($server);
+        $task->setDate(new \DateTime($request->request->get("date")));
+        $task->setAction($request->request->get("action"));
+        $task->setState(Task::STATE_WAITING);
 
-		// On vérifie que l'utilisateur n'a pas déjà trop de tâches planifiées (non terminées).
-		$tasksRepository = $this->entityManager->getRepository(Task::class);
-		$servers = $serverRepository->findBy(["user" => $user]);
+        $violations = $this->validator->validate($task);
 
-		if ($tasksRepository->count(["server" => $servers, "state" => Task::STATE_WAITING]) >= 10)
-		{
-			return new Response(
-				$this->translator->trans("tasks.too_much"),
-				Response::HTTP_TOO_MANY_REQUESTS
-			);
-		}
+        if (count($violations) > 0)
+        {
+            return new Response($violations->get(0)->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
 
-		// On vérifie après que les informations de la tâche planifiée sont valides.
-		$task = new Task();
-		$task->setServer($server);
-		$task->setDate(new \DateTime($request->request->get("date")));
-		$task->setAction($request->request->get("action"));
-		$task->setState(Task::STATE_WAITING);
+        // On sauvegarde enfin la tâche planifiée dans la base de données
+        //  et on retourne une réponse de succès.
+        $this->entityManager->getRepository(Task::class)->save($task, true);
 
-		if (count($violations = $this->validator->validate($task)) > 0)
-		{
-			return new Response(
-				$violations->get(0)->getMessage(),
-				Response::HTTP_BAD_REQUEST
-			);
-		}
+        return new Response(
+            $this->translator->trans("tasks.added"),
+            Response::HTTP_CREATED
+        );
+    }
 
-		// On sauvegarde enfin la tâche planifiée dans la base de données
-		//  et on retourne une réponse de succès.
-		$tasksRepository->save($task, true);
+    //
+    // API vers la suppression d'une tâche planifiée existante.
+    //
+    #[Route("/api/task/remove", name: "tasks_remove", methods: ["DELETE"])]
+    #[IsGranted("IS_AUTHENTICATED")]
+    public function remove(Request $request): Response
+    {
+        // On vérifie tout d'abord la validité du jeton CSRF.
+        if (!$this->isCsrfTokenValid("server_tasks", $request->request->get("token")))
+        {
+            return new Response(
+                $this->translator->trans("form.csrf_token"),
+                Response::HTTP_BAD_REQUEST
+            );
+        }
 
-		return new Response(
-			$this->translator->trans("tasks.added"),
-			Response::HTTP_CREATED
-		);
-	}
+        // On vérifie alors que la tâche ainsi que le serveur existent bien
+        //  et qu'ils appartiennent à l'utilisateur.
+        $taskId = (int) $request->request->get("task", 0);
+        $serverId = (int) $request->request->get("server", 0);
+        $repository = $this->entityManager->getRepository(Task::class);
 
-	//
-	// API vers la suppression d'une tâche planifiée existante.
-	//
-	#[Route("/api/task/remove", name: "tasks_remove", methods: ["DELETE"])]
-	#[IsGranted("IS_AUTHENTICATED")]
-	public function remove(Request $request): Response
-	{
-		// On vérifie tout d'abord la validité du jeton CSRF.
-		if (!$this->isCsrfTokenValid("server_tasks", $request->request->get("token")))
-		{
-			return new Response(
-				$this->translator->trans("form.csrf_token"),
-				Response::HTTP_BAD_REQUEST
-			);
-		}
+        $task = $repository->findOneBy(["id" => $taskId, "server" => $serverId]);
+        $server = $this->entityManager->getRepository(Server::class)->findOneBy([
+            "id" => $serverId, "user" => $this->getUser()
+        ]);
 
-		// On vérifie alors que la tâche ainsi que le serveur existent bien
-		//  et qu'ils appartiennent à l'utilisateur.
-		$taskId = intval($request->request->get("task", 0));
-		$serverId = intval($request->request->get("server", 0));
-		$repository = $this->entityManager->getRepository(Task::class);
+        if (!$task || !$server)
+        {
+            return new Response(
+                $this->translator->trans("form.server_check_failed"),
+                Response::HTTP_BAD_REQUEST
+            );
+        }
 
-		$task = $repository->findOneBy(["id" => $taskId, "server" => $serverId]);
-		$server = $this->entityManager->getRepository(Server::class)->findOneBy([
-			"id" => $serverId, "user" => $this->getUser()
-		]);
+        // On supprime enfin la tâche planifiée dans la base de données
+        //  et on retourne une réponse de succès.
+        $repository->remove($task, true);
 
-		if (!$task || !$server)
-		{
-			return new Response(
-				$this->translator->trans("form.server_check_failed"),
-				Response::HTTP_BAD_REQUEST
-			);
-		}
+        return new Response(
+            $this->translator->trans("tasks.removed"),
+            Response::HTTP_OK
+        );
+    }
 
-		// On supprime enfin la tâche planifiée dans la base de données
-		//  et on retourne une réponse de succès.
-		$repository->remove($task, true);
+    //
+    // Récupération du serveur ciblé par une nouvelle tâche planifiée après la
+    //  vérification du jeton CSRF et du nombre de tâches en attente de l'utilisateur,
+    //  ou de la réponse d'erreur à renvoyer.
+    //
+    private function getTaskServer(Request $request): Server|Response
+    {
+        if (!$this->isCsrfTokenValid("server_tasks", $request->request->get("token")))
+        {
+            return new Response($this->translator->trans("form.csrf_token"), Response::HTTP_BAD_REQUEST);
+        }
 
-		return new Response(
-			$this->translator->trans("tasks.removed"),
-			Response::HTTP_OK
-		);
-	}
+        $user = $this->getUser();
+        $repository = $this->entityManager->getRepository(Server::class);
+        $server = $repository->findOneBy(["id" => (int) $request->request->get("server", 0), "user" => $user]);
+        $tooMany = $server && $this->entityManager->getRepository(Task::class)->count([
+            "server" => $repository->findBy(["user" => $user]), "state" => Task::STATE_WAITING
+        ]) >= 10;
+
+        if (!$server || $tooMany)
+        {
+            return new Response(
+                $this->translator->trans($server ? "tasks.too_much" : "form.server_check_failed"),
+                $server ? Response::HTTP_TOO_MANY_REQUESTS : Response::HTTP_BAD_REQUEST
+            );
+        }
+
+        return $server;
+    }
 }

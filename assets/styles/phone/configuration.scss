@@ -1,43 +1,49 @@
-// ----------------------------- //
-// Disposition commune des pages //
-// ----------------------------- //
-@include phone-page-layout;
-
-// ---------------- //
-// Corps de la page //
-// ---------------- //
-main
+// --------------------------- //
+// Styles de la version mobile //
+// --------------------------- //
+@mixin phone-configuration
 {
-	#storage
-	{
-		// Modification de la grille.
-		height: auto;
-		display: revert;
-		grid-area: 3 / 1 / 4 / 2;
-		min-height: 0;
+	// ----------------------------- //
+	// Disposition commune des pages //
+	// ----------------------------- //
+	@include phone-page-layout;
 
-		form
+	// ---------------- //
+	// Corps de la page //
+	// ---------------- //
+	main
+	{
+		#storage
 		{
-			input#address, input#port
+			// Modification de la grille.
+			height: auto;
+			display: revert;
+			grid-area: 3 / 1 / 4 / 2;
+			min-height: 0;
+
+			form
 			{
-				// Adresse IP et port sur des lignes distinctes.
-				width: calc(100% - 2rem);
+				input#address, input#port
+				{
+					// Adresse IP et port sur des lignes distinctes.
+					width: calc(100% - 2rem);
+				}
 			}
 		}
-	}
 
-	#parameters
-	{
-		// Modification de la grille.
-		height: auto;
-		display: revert;
-		grid-area: 4 / 1 / 5 / 2;
-		min-height: 0;
-
-		ul li input
+		#parameters
 		{
-			// Champ de saisie élargi à côté du bouton.
-			width: calc(100% - 4rem);
+			// Modification de la grille.
+			height: auto;
+			display: revert;
+			grid-area: 4 / 1 / 5 / 2;
+			min-height: 0;
+
+			ul li input
+			{
+				// Champ de saisie élargi à côté du bouton.
+				width: calc(100% - 4rem);
+			}
 		}
 	}
 }

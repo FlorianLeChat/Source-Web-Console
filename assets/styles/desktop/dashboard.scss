@@ -2,510 +2,532 @@
 // Base de travail //
 // --------------- //
 @import "../global";
+@import "../tablet/dashboard";
+@import "../phone/dashboard";
 
 // ---------------- //
 // Corps de la page //
 // ---------------- //
 main
 {
-	margin: 0 auto 4rem auto;
-	display: grid;
-	padding: 2rem;
-	max-width: 1440px;
-	text-align: center;
-	align-items: start;
-	grid-row-gap: 2rem;
-	justify-items: stretch;
-	grid-column-gap: 5%;
-	grid-template-rows: 0.2fr 1fr 1fr;
-	grid-template-columns: clamp(15rem, 17.5vw, 25rem) 1fr 0.9fr 0.9fr;
+    margin: 0 auto 4rem auto;
+    display: grid;
+    padding: 2rem;
+    max-width: 1440px;
+    text-align: center;
+    align-items: start;
+    grid-row-gap: 2rem;
+    justify-items: stretch;
+    grid-column-gap: 5%;
+    grid-template-rows: 0.2fr 1fr 1fr;
+    grid-template-columns: clamp(15rem, 17.5vw, 25rem) 1fr 0.9fr 0.9fr;
 
-	p
-	{
-		// Description de la page.
-		grid-area: 1 / 1 / 2 / 5;
-		text-align: center;
-		@include header-paragraph;
-	}
+    p
+    {
+        // Description de la page.
+        grid-area: 1 / 1 / 2 / 5;
+        text-align: center;
+        @include header-paragraph;
+    }
 
-	nav
-	{
-		// Barre de navigation.
-		grid-area: 2 / 1 / 4 / 2;
-		align-self: start;
-		@include navigation-bar;
-	}
+    nav
+    {
+        // Barre de navigation.
+        grid-area: 2 / 1 / 4 / 2;
+        align-self: start;
+        @include navigation-bar;
+    }
 
-	#servers
-	{
-		// Liste des serveurs.
-		color: $text-color;
-		padding: 1rem;
-		grid-area: 2 / 2 / 4 / 3;
-		border-radius: 0.5rem;
-		background-color: $box-color;
+    #servers
+    {
+        // Liste des serveurs.
+        color: $text-color;
+        padding: 1rem;
+        grid-area: 2 / 2 / 4 / 3;
+        border-radius: 0.5rem;
+        background-color: $box-color;
 
-		h2
-		{
-			// Titre de la catégorie.
-			margin: 1rem 0.5rem 2rem 0.5rem;
-		}
+        h2
+        {
+            // Titre de la catégorie.
+            margin: 1rem 0.5rem 2rem 0.5rem;
+        }
 
-		ul li
-		{
-			// Liste des serveurs.
-			border: 1px solid $text-color;
-			height: 5rem;
-			padding: 1rem;
-			position: relative;
-			text-align: center;
-			margin-bottom: 0.5rem;
+        ul li
+        {
+            // Liste des serveurs.
+            border: 1px solid $text-color;
+            height: 5rem;
+            padding: 1rem;
+            position: relative;
+            text-align: center;
+            margin-bottom: 0.5rem;
 
-			&.hidden
-			{
-				// Serveur masqué.
-				display: none;
-			}
+            &.hidden
+            {
+                // Serveur masqué.
+                display: none;
+            }
 
-			span
-			{
-				// Intitulés des serveurs.
-				display: inline-block;
-				position: relative;
-				font-weight: bold;
+            span
+            {
+                // Intitulés des serveurs.
+                display: inline-block;
+                position: relative;
+                font-weight: bold;
 
-				&:first-of-type
-				{
-					// Nom du serveur.
-					display: block;
-					font-size: 1.25rem;
-					word-break: break-word;
-					margin-bottom: 0.25rem;
-				}
+                &:first-of-type
+                {
+                    // Nom du serveur.
+                    display: block;
+                    font-size: 1.25rem;
+                    overflow-wrap: anywhere;
+                    margin-bottom: 0.25rem;
+                }
 
-				&:last-of-type
-				{
-					// Adresse IP & port de communication.
-					font-size: 0.75rem;
-				}
-			}
+                &:last-of-type
+                {
+                    // Adresse IP & port de communication.
+                    font-size: 0.75rem;
+                }
+            }
 
-			button
-			{
-				// Bouton d'actions.
-				color: $text-color;
-				position: absolute;
-				font-size: 1.75rem;
-				background: none;
-				box-shadow: none;
-				transition: color 250ms;
+            button
+            {
+                // Bouton d'actions.
+                color: $text-color;
+                position: absolute;
+                font-size: 1.75rem;
+                background: none;
+                box-shadow: none;
 
-				&[name = server_edit]
-				{
-					// Édition des propriétés du serveur.
-					left: 0;
-					bottom: 0.25rem;
-				}
+                @include motion
+                {
+                    transition: color 250ms;
+                }
 
-				&[name = server_delete]
-				{
-					// Suppression du serveur.
-					left: 2.25rem;
-					bottom: 0.25rem;
-				}
+                &[name = server_edit]
+                {
+                    // Édition des propriétés du serveur.
+                    left: 0;
+                    bottom: 0.25rem;
+                }
 
-				&[name = server_connect]
-				{
-					// Connexion directe au serveur.
-					right: -0.25rem;
-					bottom: 0.25rem;
-				}
+                &[name = server_delete]
+                {
+                    // Suppression du serveur.
+                    left: 2.25rem;
+                    bottom: 0.25rem;
+                }
 
-				&:hover
-				{
-					// Effet de sélection.
-					color: $background-color;
-				}
+                &[name = server_connect]
+                {
+                    // Connexion directe au serveur.
+                    right: -0.25rem;
+                    bottom: 0.25rem;
+                }
 
-				&::after
-				{
-					// Amélioration de la zone de sélection.
-					@extend %larger-touch-zone;
-				}
-			}
+                &:hover
+                {
+                    // Effet de sélection.
+                    color: $background-color;
+                }
 
-			&::before
-			{
-				// Image d'arrière plan.
-				// Note : on place cette image dans le sélecteur "before"
-				//  afin de pouvoir appliquer un filtre uniquement à l'image
-				//  et non pas conteneur entier.
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				filter: blur(5px) grayscale(1);
-				content: "";
-				position: absolute;
-				transition: color 250ms, filter 300ms ease-in-out;;
-				background-size: cover;
-				background-color: $box-color;
-				background-image: url("../../images/games/0_background.webp");
-				background-repeat: no-repeat;
-				background-position: center;
-			}
+                &::after
+                {
+                    // Amélioration de la zone de sélection.
+                    @extend %larger-touch-zone;
+                }
+            }
 
-			&:hover
-			{
-				// Effet de sélection.
-				color: transparent;
-				border: 1px solid $background-color;
+            &::before
+            {
+                // Image d'arrière plan.
+                // Note : on place cette image dans le sélecteur "before"
+                //  afin de pouvoir appliquer un filtre uniquement à l'image
+                //  et non pas conteneur entier.
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                filter: blur(5px) grayscale(1);
+                content: "";
+                position: absolute;
+                background-size: cover;
+                background-color: $box-color;
+                background-image: url("../../images/games/0_background.webp");
+                background-repeat: no-repeat;
+                background-position: center;
 
-				&::before
-				{
-					filter: blur(0) grayscale(0);
-				}
-			}
-		}
+                @include motion
+                {
+                    transition: color 250ms, filter 300ms ease-in-out;
+                }
+            }
 
-		> button[type=button]
-		{
-			// Bouton de page précédente/suivante.
-			color: $text-color;
-			font-size: 1.25rem;
-			transition: color 250ms;
-			background: none;
-			box-shadow: none;
+            &:hover
+            {
+                // Effet de sélection.
+                color: transparent;
+                border: 1px solid $background-color;
 
-			&:hover
-			{
-				// Effet de sélection.
-				color: $background-color;
-			}
+                &::before
+                {
+                    filter: blur(0) grayscale(0);
+                }
+            }
+        }
 
-			&:disabled
-			{
-				// Une seule page disponible.
-				cursor: not-allowed;
-				opacity: 0.4;
-				pointer-events: none;
-			}
-		}
+        > button[type=button]
+        {
+            // Bouton de page précédente/suivante.
+            color: $text-color;
+            font-size: 1.25rem;
+            background: none;
+            box-shadow: none;
 
-		> span
-		{
-			// Indicateur du nombre de pages.
-			margin: 0.5rem 0 0.5rem;
-			display: inline-block;
-			font-size: 1.25rem;
-			font-weight: bold;
-		}
-	}
+            @include motion
+            {
+                transition: color 250ms;
+            }
 
-	#state
-	{
-		// Aperçu de l'état.
-		color: $text-color;
-		height: 100%;
-		padding: 1rem;
-		grid-area: 2 / 3 / 3 / 4;
-		box-sizing: border-box;
-		border-radius: 0.5rem;
-		background-color: $box-color;
+            &:hover
+            {
+                // Effet de sélection.
+                color: $background-color;
+            }
 
-		h3
-		{
-			// Titre de l'article.
-			margin: 1rem 0.5rem 2rem 0.5rem;
-			font-size: 1.5rem;
-		}
+            &:disabled
+            {
+                // Une seule page disponible.
+                cursor: not-allowed;
+                opacity: 0.4;
+                pointer-events: none;
+            }
+        }
 
-		button[data-action = retry]
-		{
-			// Relance de la surveillance après une erreur.
-			font-size: 1rem;
-			box-shadow: none;
-			margin-top: 1rem;
-			@extend %submit-button-layout;
-		}
+        > span
+        {
+            // Indicateur du nombre de pages.
+            margin: 0.5rem 0 0.5rem;
+            display: inline-block;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+    }
 
-		ul li
-		{
-			// Liste des indicateurs.
-			.circle
-			{
-				// Couleur de l'état.
-				top: 2px;
-				width: 1rem;
-				height: 1rem;
-				display: inline-block;
-				position: relative;
-				border-radius: 50%;
-				background-color: currentColor;
-			}
+    #state
+    {
+        // Aperçu de l'état.
+        color: $text-color;
+        height: 100%;
+        padding: 1rem;
+        grid-area: 2 / 3 / 3 / 4;
+        box-sizing: border-box;
+        border-radius: 0.5rem;
+        background-color: $box-color;
 
-			h4
-			{
-				// Titre de l'indicateur.
-				margin: 0 0 0.5rem 0.5rem;
-				display: inline-block;
-				text-transform: uppercase;
-			}
+        h3
+        {
+            // Titre de l'article.
+            margin: 1rem 0.5rem 2rem 0.5rem;
+            font-size: 1.5rem;
+        }
 
-			em
-			{
-				// Information de l'état.
-				color: $background-color;
-				display: block;
-				margin-bottom: 1.5rem;
-			}
-		}
-	}
+        button[data-action = retry]
+        {
+            // Relance de la surveillance après une erreur.
+            font-size: 1rem;
+            box-shadow: none;
+            margin-top: 1rem;
+            @extend %submit-button-layout;
+        }
 
-	#players
-	{
-		// Liste des joueurs.
-		color: $text-color;
-		padding: 1rem;
-		grid-area: 3 / 3 / 4 / 4;
-		border-radius: 0.5rem;
-		background-color: $box-color;
+        ul li
+        {
+            // Liste des indicateurs.
+            .circle
+            {
+                // Couleur de l'état.
+                top: 2px;
+                width: 1rem;
+                height: 1rem;
+                display: inline-block;
+                position: relative;
+                border-radius: 50%;
+                background-color: currentColor;
+            }
 
-		h3
-		{
-			// Titre de l'article.
-			color: $text-color;
-			margin: 1rem 0.5rem 2rem 0.5rem;
-			font-size: 1.5rem;
-		}
+            h4
+            {
+                // Titre de l'indicateur.
+                margin: 0 0 0.5rem 0.5rem;
+                display: inline-block;
+                text-transform: uppercase;
+            }
 
-		ul
-		{
-			// Liste détaillée.
-			padding: 0.25rem;
-			overflow: auto;
-			max-height: 13rem;
+            em
+            {
+                // Information de l'état.
+                color: $background-color;
+                display: block;
+                margin-bottom: 1.5rem;
+            }
+        }
+    }
 
-			&:empty::before
-			{
-				// Message affiché lorsqu'aucun joueur n'est connecté.
-				@extend %empty-list-message;
-			}
+    #players
+    {
+        // Liste des joueurs.
+        color: $text-color;
+        padding: 1rem;
+        grid-area: 3 / 3 / 4 / 4;
+        border-radius: 0.5rem;
+        background-color: $box-color;
 
-			li
-			{
-				// Nom du joueur.
-				color: $background-color;
-				padding: 0.25rem;
-				transition: color 250ms, background-color 250ms;
-				margin-bottom: 0.25rem;
-				background-color: black;
+        h3
+        {
+            // Titre de l'article.
+            color: $text-color;
+            margin: 1rem 0.5rem 2rem 0.5rem;
+            font-size: 1.5rem;
+        }
 
-				&:hover
-				{
-					// Effet de sélection.
-					color: black;
-					background-color: $background-color;
-				}
-			}
-		}
-	}
+        ul
+        {
+            // Liste détaillée.
+            padding: 0.25rem;
+            overflow: auto;
+            max-height: 13rem;
 
-	#actions
-	{
-		// Actions rapides.
-		height: 100%;
-		padding: 1rem;
-		grid-area: 2 / 4 / 3 / 5;
-		box-sizing: border-box;
-		border-radius: 0.5rem;
-		background-color: $box-color;
+            &:empty::before
+            {
+                // Message affiché lorsqu'aucun joueur n'est connecté.
+                @extend %empty-list-message;
+            }
 
-		h3
-		{
-			// Titre de l'article.
-			color: $text-color;
-			margin: 1rem 0.5rem 2rem 0.5rem;
-			font-size: 1.5rem;
-		}
+            li
+            {
+                // Nom du joueur.
+                color: $background-color;
+                padding: 0.25rem;
+                margin-bottom: 0.25rem;
+                background-color: black;
 
-		ul li
-		{
-			// Liste des actions.
-			color: $background-color;
-			border: 1px solid $background-color;
-			padding: 0.5rem 1.5rem;
-			position: relative;
-			transition: color 250ms, background-color 250ms;
-			font-weight: bold;
-			border-radius: 0.5rem;
-			margin-bottom: 0.5rem;
-			text-transform: uppercase;
+                @include motion
+                {
+                    transition: color 250ms, background-color 250ms;
+                }
 
-			@extend %quick-action-buttons;
+                &:hover
+                {
+                    // Effet de sélection.
+                    color: black;
+                    background-color: $background-color;
+                }
+            }
+        }
+    }
 
-			button
-			{
-				// Bouton principal de l'action.
-				width: 100%;
-				text-align: left;
-			}
+    #actions
+    {
+        // Actions rapides.
+        height: 100%;
+        padding: 1rem;
+        grid-area: 2 / 4 / 3 / 5;
+        box-sizing: border-box;
+        border-radius: 0.5rem;
+        background-color: $box-color;
 
-			button + button
-			{
-				// Arrêt forcé du serveur.
-				width: auto;
-				display: block;
-				z-index: 1;
-				position: relative;
-				font-size: 0.75rem;
-				font-weight: normal;
-				text-decoration: underline;
-				text-underline-offset: 0.2em;
-			}
+        h3
+        {
+            // Titre de l'article.
+            color: $text-color;
+            margin: 1rem 0.5rem 2rem 0.5rem;
+            font-size: 1.5rem;
+        }
 
-			&:first-of-type
-			{
-				// Arrêt du serveur.
-				background-color: $error-color;
+        ul li
+        {
+            // Liste des actions.
+            color: $background-color;
+            border: 1px solid $background-color;
+            padding: 0.5rem 1.5rem;
+            position: relative;
+            font-weight: bold;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
 
-				&:hover
-				{
-					color: $error-color;
+            @include motion
+            {
+                transition: color 250ms, background-color 250ms;
+            }
 
-					button + button
-					{
-						// Arrêt forcé du serveur.
-						font-weight: bold;
-					}
-				}
-			}
+            @extend %quick-action-buttons;
 
-			&:nth-of-type(2)
-			{
-				// Redémarrage du serveur.
-				background-color: $validate-color;
+            button
+            {
+                // Bouton principal de l'action.
+                width: 100%;
+                text-align: left;
+            }
 
-				&:hover
-				{
-					color: $validate-color;
-				}
-			}
+            button + button
+            {
+                // Arrêt forcé du serveur.
+                width: auto;
+                display: block;
+                z-index: 1;
+                position: relative;
+                font-size: 0.75rem;
+                font-weight: normal;
+                text-decoration: underline;
+                text-underline-offset: 0.2em;
+            }
 
-			&:nth-of-type(3)
-			{
-				// Mise à jour du serveur.
-				background-color: $info-color;
+            &:first-of-type
+            {
+                // Arrêt du serveur.
+                background-color: $error-color;
 
-				&:hover
-				{
-					color: $info-color;
-				}
-			}
+                &:hover
+                {
+                    color: $error-color;
 
-			&:last-of-type
-			{
-				// Maintenance du serveur.
-				background-color: $special-color;
+                    button + button
+                    {
+                        // Arrêt forcé du serveur.
+                        font-weight: bold;
+                    }
+                }
+            }
 
-				&:hover
-				{
-					color: $special-color;
-				}
-			}
+            &:nth-of-type(2)
+            {
+                // Redémarrage du serveur.
+                background-color: $validate-color;
 
-			&:hover
-			{
-				// Effet de sélection.
-				cursor: pointer;
-				background-color: $background-color;
-			}
+                &:hover
+                {
+                    color: $validate-color;
+                }
+            }
 
-			&.disabled
-			{
-				// Désactivation conditionnelle du bouton.
-				filter: opacity(0.5);
-				pointer-events: none;
-			}
+            &:nth-of-type(3)
+            {
+                // Mise à jour du serveur.
+                background-color: $info-color;
 
-			&::after
-			{
-				// Amélioration de la zone de sélection.
-				@extend %larger-touch-zone;
-			}
-		}
-	}
+                &:hover
+                {
+                    color: $info-color;
+                }
+            }
 
-	#last
-	{
-		// Dernière action réalisée.
-		color: $text-color;
-		padding: 1rem;
-		grid-area: 3 / 4 / 4 / 5;
-		border-radius: 0.5rem;
-		background-color: $box-color;
+            &:last-of-type
+            {
+                // Maintenance du serveur.
+                background-color: $special-color;
 
-		h3
-		{
-			// Titre de la section.
-			color: $text-color;
-			margin: 1rem 0.5rem 2rem 0.5rem;
-			font-size: 1.5rem;
-		}
+                &:hover
+                {
+                    color: $special-color;
+                }
+            }
 
-		ul:empty::before
-		{
-			// Message affiché lorsqu'aucune action n'a été réalisée.
-			@extend %empty-list-message;
-		}
+            &:hover
+            {
+                // Effet de sélection.
+                cursor: pointer;
+                background-color: $background-color;
+            }
 
-		ul li
-		{
-			// Liste des dernières actions.
-			font-size: 1.25rem;
+            &.disabled
+            {
+                // Désactivation conditionnelle du bouton.
+                filter: opacity(0.5);
+                pointer-events: none;
+            }
 
-			i
-			{
-				// Icône d'état de la dernière action.
-				//  Note : par défaut, on considère qu'il s'agit d'un actionneur personnalisé.
-				color: $text-color;
+            &::after
+            {
+                // Amélioration de la zone de sélection.
+                @extend %larger-touch-zone;
+            }
+        }
+    }
 
-				&[data-type = restart]
-				{
-					// Action de redémarrage.
-					color: $validate-light-color;
-				}
+    #last
+    {
+        // Dernière action réalisée.
+        color: $text-color;
+        padding: 1rem;
+        grid-area: 3 / 4 / 4 / 5;
+        border-radius: 0.5rem;
+        background-color: $box-color;
 
-				&[data-type = update]
-				{
-					// Action de mise à jour.
-					color: $info-color;
-				}
+        h3
+        {
+            // Titre de la section.
+            color: $text-color;
+            margin: 1rem 0.5rem 2rem 0.5rem;
+            font-size: 1.5rem;
+        }
 
-				&[data-type = force], &[data-type = shutdown]
-				{
-					// Action d'arrêt standard/forcé.
-					color: $error-light-color;
-				}
-			}
+        ul:empty::before
+        {
+            // Message affiché lorsqu'aucune action n'a été réalisée.
+            @extend %empty-list-message;
+        }
 
-			span
-			{
-				// Heure de déclenchement de l'action.
-				margin: 0 0 0.25rem 0.25rem;
-				display: inline-block;
-			}
+        ul li
+        {
+            // Liste des dernières actions.
+            font-size: 1.25rem;
 
-			em
-			{
-				// Intitulé de l'action.
-				color: $background-color;
-				display: block;
-				font-size: initial;
-				margin-bottom: 1.5rem;
-			}
-		}
-	}
+            i
+            {
+                // Icône d'état de la dernière action.
+                //  Note : par défaut, on considère qu'il s'agit d'un actionneur personnalisé.
+                color: $text-color;
+
+                &[data-type = restart]
+                {
+                    // Action de redémarrage.
+                    color: $validate-light-color;
+                }
+
+                &[data-type = update]
+                {
+                    // Action de mise à jour.
+                    color: $info-color;
+                }
+
+                &[data-type = force], &[data-type = shutdown]
+                {
+                    // Action d'arrêt standard/forcé.
+                    color: $error-light-color;
+                }
+            }
+
+            span
+            {
+                // Heure de déclenchement de l'action.
+                margin: 0 0 0.25rem 0.25rem;
+                display: inline-block;
+            }
+
+            em
+            {
+                // Intitulé de l'action.
+                color: $background-color;
+                display: block;
+                font-size: initial;
+                margin-bottom: 1.5rem;
+            }
+        }
+    }
 }
 
 // ---------------------------------- //
@@ -513,42 +535,42 @@ main
 // ---------------------------------- //
 @media screen and (min-width: $tablet-max-width + 1) and (max-width: 1279px)
 {
-	// La navigation passe au-dessus des blocs pour laisser
-	//  suffisamment de place aux trois colonnes restantes.
-	@include tablet-page-layout(3, auto auto auto auto);
+    // La navigation passe au-dessus des blocs pour laisser
+    //  suffisamment de place aux trois colonnes restantes.
+    @include tablet-page-layout(3, auto auto auto auto);
 
-	main
-	{
-		#servers
-		{
-			// Modification de la grille.
-			grid-area: 3 / 1 / 5 / 2;
-		}
+    main
+    {
+        #servers
+        {
+            // Modification de la grille.
+            grid-area: 3 / 1 / 5 / 2;
+        }
 
-		#state
-		{
-			// Modification de la grille.
-			grid-area: 3 / 2 / 4 / 3;
-		}
+        #state
+        {
+            // Modification de la grille.
+            grid-area: 3 / 2 / 4 / 3;
+        }
 
-		#players
-		{
-			// Modification de la grille.
-			grid-area: 4 / 2 / 5 / 3;
-		}
+        #players
+        {
+            // Modification de la grille.
+            grid-area: 4 / 2 / 5 / 3;
+        }
 
-		#actions
-		{
-			// Modification de la grille.
-			grid-area: 3 / 3 / 4 / 4;
-		}
+        #actions
+        {
+            // Modification de la grille.
+            grid-area: 3 / 3 / 4 / 4;
+        }
 
-		#last
-		{
-			// Modification de la grille.
-			grid-area: 4 / 3 / 5 / 4;
-		}
-	}
+        #last
+        {
+            // Modification de la grille.
+            grid-area: 4 / 3 / 5 / 4;
+        }
+    }
 }
 
 // ---------------- //
@@ -556,7 +578,7 @@ main
 // ---------------- //
 @media screen and (min-width: $phone-max-width + 1) and (max-width: $tablet-max-width)
 {
-	@import "../tablet/dashboard";
+    @include tablet-dashboard;
 }
 
 // -------------- //
@@ -564,5 +586,5 @@ main
 // -------------- //
 @media screen and (max-width: $phone-max-width)
 {
-	@import "../phone/dashboard";
+    @include phone-dashboard;
 }

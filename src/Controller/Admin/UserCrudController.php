@@ -14,18 +14,18 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
  */
 final class UserCrudController extends AbstractCrudController
 {
-	public static function getEntityFqcn(): string
-	{
-		return User::class;
-	}
+    public static function getEntityFqcn(): string
+    {
+        return User::class;
+    }
 
-	public function configureFields(string $pageName): iterable
-	{
-		// Ajout du champ « roles » dans le formulaire de création
-		//  et de modification des utilisateurs.
-		$fields = parent::configureFields($pageName);
-		$fields[] = ArrayField::new("roles");
+    public function configureFields(string $pageName): iterable
+    {
+        // Ajout du champ « roles » dans le formulaire de création
+        //  et de modification des utilisateurs.
+        $fields = parent::configureFields($pageName);
+        $fields[] = ArrayField::new("roles");
 
-		return $fields;
-	}
+        return $fields;
+    }
 }
