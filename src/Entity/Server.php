@@ -14,237 +14,216 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ServerRepository::class)]
 class Server
 {
-	#[ORM\Id]
-	#[ORM\Column]
-	#[ORM\GeneratedValue]
-	private ?int $id = null;
+    #[ORM\Id]
+    #[ORM\Column]
+    #[ORM\GeneratedValue]
+    private ?int $id = null;
 
-	#[ORM\ManyToOne(inversedBy: "servers")]
-	#[ORM\JoinColumn(nullable: false)]
-	private User $user;
+    #[ORM\ManyToOne(inversedBy: "servers")]
+    #[ORM\JoinColumn(nullable: false)]
+    private User $user;
 
-	#[ORM\Column(length: 15)]
-	#[Assert\Ip]
-	#[Assert\Length(min: 7, max: 15)]
-	#[Assert\NotNull]
-	#[Assert\NotBlank]
-	private string $address;
+    #[ORM\Column(length: 15)]
+    #[Assert\Ip]
+    #[Assert\Length(min: 7, max: 15)]
+    #[Assert\NotNull]
+    #[Assert\NotBlank]
+    private string $address;
 
-	#[ORM\Column]
-	#[Assert\Range(min: 1, max: 99999)]
-	#[Assert\NotNull]
-	#[Assert\NotBlank]
-	private int $port;
+    #[ORM\Column]
+    #[Assert\Range(min: 1, max: 99999)]
+    #[Assert\NotNull]
+    #[Assert\NotBlank]
+    private int $port;
 
-	#[ORM\Column(length: 255, nullable: true)]
-	#[Assert\Length(max: 255)]
-	private ?string $password = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Length(max: 255)]
+    private ?string $password = null;
 
-	#[ORM\Column(nullable: true)]
-	private ?int $game = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $game = null;
 
-	/** @var Collection<int, Task> */
-	#[ORM\OneToMany(mappedBy: "server", targetEntity: Task::class, orphanRemoval: true)]
-	private Collection $tasks;
+    /** @var Collection<int, Task> */
+    #[ORM\OneToMany(mappedBy: "server", targetEntity: Task::class, orphanRemoval: true)]
+    private Collection $tasks;
 
-	/** @var Collection<int, Event> */
-	#[ORM\OneToMany(mappedBy: "server", targetEntity: Event::class, orphanRemoval: true)]
-	private Collection $events;
+    /** @var Collection<int, Event> */
+    #[ORM\OneToMany(mappedBy: "server", targetEntity: Event::class, orphanRemoval: true)]
+    private Collection $events;
 
-	/** @var Collection<int, Stats> */
-	#[ORM\OneToMany(mappedBy: "server", targetEntity: Stats::class, orphanRemoval: true)]
-	private Collection $stats;
+    /** @var Collection<int, Stats> */
+    #[ORM\OneToMany(mappedBy: "server", targetEntity: Stats::class, orphanRemoval: true)]
+    private Collection $stats;
 
-	#[ORM\OneToOne(mappedBy: "server", cascade: ["persist", "remove"])]
-	private ?Storage $storage = null;
+    #[ORM\OneToOne(mappedBy: "server", cascade: ["persist", "remove"])]
+    private ?Storage $storage = null;
 
-	public const ACTION_SHUTDOWN = "shutdown";
-	public const ACTION_SHUTDOWN_FORCE = "force";
-	public const ACTION_RESTART = "restart";
-	public const ACTION_UPDATE = "update";
-	public const ACTION_SERVICE = "service";
+    public const ACTION_SHUTDOWN = "shutdown";
+    public const ACTION_SHUTDOWN_FORCE = "force";
+    public const ACTION_RESTART = "restart";
+    public const ACTION_UPDATE = "update";
+    public const ACTION_SERVICE = "service";
 
-	public function __construct()
-	{
-		$this->tasks = new ArrayCollection();
-		$this->stats = new ArrayCollection();
-		$this->events = new ArrayCollection();
-	}
+    public function __construct()
+    {
+        $this->tasks = new ArrayCollection();
+        $this->stats = new ArrayCollection();
+        $this->events = new ArrayCollection();
+    }
 
-	public function __toString(): string
-	{
-		return "[#{$this->id}] {$this->address}:{$this->port}";
-	}
+    public function __toString(): string
+    {
+        return "[#{$this->id}] {$this->address}:{$this->port}";
+    }
 
-	public function getId(): ?int
-	{
-		return $this->id;
-	}
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-	public function getUser(): ?User
-	{
-		return $this->user;
-	}
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
 
-	public function setUser(?User $user): self
-	{
-		$this->user = $user;
+    public function setUser(User $user): self
+    {
+        $this->user = $user;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getAddress(): ?string
-	{
-		return $this->address;
-	}
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
 
-	public function setAddress(?string $address): self
-	{
-		$this->address = $address;
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getPort(): ?int
-	{
-		return $this->port;
-	}
+    public function getPort(): ?int
+    {
+        return $this->port;
+    }
 
-	public function setPort(?int $port): self
-	{
-		$this->port = $port;
+    public function setPort(?int $port): self
+    {
+        $this->port = $port;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getPassword(): ?string
-	{
-		return $this->password;
-	}
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
 
-	public function setPassword(?string $password): self
-	{
-		$this->password = $password;
+    public function setPassword(?string $password): self
+    {
+        $this->password = $password;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getGame(): ?int
-	{
-		return $this->game;
-	}
+    public function getGame(): ?int
+    {
+        return $this->game;
+    }
 
-	public function setGame(int $game): self
-	{
-		$this->game = $game;
+    public function setGame(int $game): self
+    {
+        $this->game = $game;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/** @return Collection<int, Task> */
-	public function getTasks()
-	{
-		return $this->tasks;
-	}
+    /** @return Collection<int, Task> */
+    public function getTasks()
+    {
+        return $this->tasks;
+    }
 
-	public function addTask(Task $task): self
-	{
-		if (!$this->tasks->contains($task))
-		{
-			$this->tasks->add($task);
-			$task->setServer($this);
-		}
+    public function addTask(Task $task): self
+    {
+        if (!$this->tasks->contains($task))
+        {
+            $this->tasks->add($task);
+            $task->setServer($this);
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function removeTask(Task $task): self
-	{
-		if ($this->tasks->removeElement($task))
-		{
-			if ($task->getServer() === $this)
-			{
-				$task->setServer(null);
-			}
-		}
+    public function removeTask(Task $task): self
+    {
+        $this->tasks->removeElement($task);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/** @return Collection<int, Event> */
-	public function getEvents()
-	{
-		return $this->events;
-	}
+    /** @return Collection<int, Event> */
+    public function getEvents()
+    {
+        return $this->events;
+    }
 
-	public function addEvent(Event $event): self
-	{
-		if (!$this->events->contains($event))
-		{
-			$this->events->add($event);
-			$event->setServer($this);
-		}
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event))
+        {
+            $this->events->add($event);
+            $event->setServer($this);
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function removeEvent(Event $event): self
-	{
-		if ($this->events->removeElement($event))
-		{
-			if ($event->getServer() === $this)
-			{
-				$event->setServer(null);
-			}
-		}
+    public function removeEvent(Event $event): self
+    {
+        $this->events->removeElement($event);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/** @return Collection<int, Stats> */
-	public function getStats()
-	{
-		return $this->stats;
-	}
+    /** @return Collection<int, Stats> */
+    public function getStats()
+    {
+        return $this->stats;
+    }
 
-	public function addStat(Stats $stat): static
-	{
-		if (!$this->stats->contains($stat))
-		{
-			$this->stats->add($stat);
-			$stat->setServer($this);
-		}
+    public function addStat(Stats $stat): static
+    {
+        if (!$this->stats->contains($stat))
+        {
+            $this->stats->add($stat);
+            $stat->setServer($this);
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function removeStat(Stats $stat): static
-	{
-		if ($this->stats->removeElement($stat))
-		{
-			if ($stat->getServer() === $this)
-			{
-				$stat->setServer(null);
-			}
-		}
+    public function removeStat(Stats $stat): static
+    {
+        $this->stats->removeElement($stat);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getStorage(): ?Storage
-	{
-		return $this->storage;
-	}
+    public function getStorage(): ?Storage
+    {
+        return $this->storage;
+    }
 
-	public function setStorage(Storage $storage): static
-	{
-		if ($storage->getServer() !== $this)
-		{
-			$storage->setServer($this);
-		}
+    public function setStorage(Storage $storage): static
+    {
+        $storage->setServer($this);
 
-		$this->storage = $storage;
+        $this->storage = $storage;
 
-		return $this;
-	}
+        return $this;
+    }
 }

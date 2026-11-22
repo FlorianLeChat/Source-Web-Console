@@ -12,65 +12,65 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: CommandRepository::class)]
 class Command
 {
-	#[ORM\Id]
-	#[ORM\Column]
-	#[ORM\GeneratedValue]
-	private int $id;
+    #[ORM\Id]
+    #[ORM\Column]
+    #[ORM\GeneratedValue]
+    private ?int $id = null;
 
-	#[ORM\ManyToOne(inversedBy: "commands")]
-	#[ORM\JoinColumn(nullable: false)]
-	private User $user;
+    #[ORM\ManyToOne(inversedBy: "commands")]
+    #[ORM\JoinColumn(nullable: false)]
+    private User $user;
 
-	#[ORM\Column(length: 255)]
-	#[Assert\Length(min: 1, max: 255)]
-	#[Assert\NotNull]
-	#[Assert\NotBlank]
-	private string $title;
+    #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 1, max: 255)]
+    #[Assert\NotNull]
+    #[Assert\NotBlank]
+    private string $title;
 
-	#[ORM\Column(length: 255)]
-	#[Assert\Length(min: 1, max: 255)]
-	#[Assert\NotNull]
-	#[Assert\NotBlank]
-	private string $content;
+    #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 1, max: 255)]
+    #[Assert\NotNull]
+    #[Assert\NotBlank]
+    private string $content;
 
-	public function getId(): ?int
-	{
-		return $this->id;
-	}
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-	public function getUser(): ?User
-	{
-		return $this->user;
-	}
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
 
-	public function setUser(?User $user): static
-	{
-		$this->user = $user;
+    public function setUser(User $user): static
+    {
+        $this->user = $user;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getTitle(): ?string
-	{
-		return $this->title;
-	}
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
 
-	public function setTitle(string $title): static
-	{
-		$this->title = $title;
+    public function setTitle(string $title): static
+    {
+        $this->title = $title;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getContent(): ?string
-	{
-		return $this->content;
-	}
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
 
-	public function setContent(string $content): static
-	{
-		$this->content = $content;
+    public function setContent(string $content): static
+    {
+        $this->content = $content;
 
-		return $this;
-	}
+        return $this;
+    }
 }

@@ -13,38 +13,38 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 class ScheduledTasksExecutorTest extends KernelTestCase
 {
-	public function testExecute(): void
-	{
-		// Démarrage du noyau de l'application.
-		$kernel = self::bootKernel();
-		$application = new Application($kernel);
+    public function testExecute(): void
+    {
+        // Démarrage du noyau de l'application.
+        $kernel = self::bootKernel();
+        $application = new Application($kernel);
 
-		// Réinitialisation de la base de données.
-		$php = new PhpExecutableFinder();
-		$process = new Process([
-			$php->find(),
-			sprintf("%s/bin/console", $kernel->getProjectDir()),
-			"doctrine:fixtures:load",
-			"--env=test",
-			"--no-interaction"
-		]);
+        // Réinitialisation de la base de données.
+        $php = new PhpExecutableFinder();
+        $process = new Process([
+            $php->find(),
+            sprintf("%s/bin/console", $kernel->getProjectDir()),
+            "doctrine:fixtures:load",
+            "--env=test",
+            "--no-interaction"
+        ]);
 
-		$process->disableOutput();
-		$process->run();
+        $process->disableOutput();
+        $process->run();
 
-		// Exécution de la commande.
-		$command = $application->find("app:tasks-executor");
-		$tester = new CommandTester($command);
-		$tester->execute([]);
+        // Exécution de la commande.
+        $command = $application->find("app:tasks-executor");
+        $tester = new CommandTester($command);
+        $tester->execute([]);
 
-		// Vérification de l'état de la commande.
-		$tester->assertCommandIsSuccessful();
+        // Vérification de l'état de la commande.
+        $tester->assertCommandIsSuccessful();
 
-		// Vérification de la sortie de la commande.
-		//  Note : les serveurs des tâches planifiées n'existent pas.
-		$output = $tester->getDisplay();
+        // Vérification de la sortie de la commande.
+        //  Note : les serveurs des tâches planifiées n'existent pas.
+        $output = $tester->getDisplay();
 
-		$this->assertStringContainsString("Can't connect to", $output);
-		$this->assertStringContainsString("[OK] Executed 0 task(s).", $output);
-	}
+        self::assertStringContainsString("Can't connect to", $output);
+        self::assertStringContainsString("[OK] Executed 0 task(s).", $output);
+    }
 }
