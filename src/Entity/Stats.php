@@ -12,89 +12,89 @@ use App\Repository\StatsRepository;
 #[ORM\Entity(repositoryClass: StatsRepository::class)]
 class Stats
 {
-	#[ORM\Id]
-	#[ORM\Column]
-	#[ORM\GeneratedValue]
-	private int $id;
+    #[ORM\Id]
+    #[ORM\Column]
+    #[ORM\GeneratedValue]
+    private ?int $id = null;
 
-	#[ORM\ManyToOne(inversedBy: "stats")]
-	#[ORM\JoinColumn(nullable: false)]
-	private Server $server;
+    #[ORM\ManyToOne(inversedBy: "stats")]
+    #[ORM\JoinColumn(nullable: false)]
+    private Server $server;
 
-	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
-	private \DateTimeInterface $date;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private \DateTimeInterface $date;
 
-	#[ORM\Column(type: Types::SMALLINT)]
-	private int $playerCount;
+    #[ORM\Column(type: Types::SMALLINT)]
+    private int $playerCount;
 
-	#[ORM\Column(type: Types::FLOAT)]
-	private float $cpuUsage;
+    #[ORM\Column(type: Types::FLOAT)]
+    private float $cpuUsage;
 
-	#[ORM\Column(type: Types::FLOAT)]
-	private float $tickRate;
+    #[ORM\Column(type: Types::FLOAT)]
+    private float $tickRate;
 
-	public function getId(): ?int
-	{
-		return $this->id;
-	}
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-	public function getServer(): ?Server
-	{
-		return $this->server;
-	}
+    public function getServer(): ?Server
+    {
+        return $this->server;
+    }
 
-	public function setServer(?Server $server): static
-	{
-		$this->server = $server;
+    public function setServer(Server $server): static
+    {
+        $this->server = $server;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getDate(): ?\DateTimeInterface
-	{
-		return $this->date;
-	}
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
 
-	public function setDate(\DateTimeInterface $date): static
-	{
-		$this->date = $date;
+    public function setDate(\DateTimeInterface $date): static
+    {
+        $this->date = $date;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getPlayerCount(): ?int
-	{
-		return $this->playerCount;
-	}
+    public function getPlayerCount(): ?int
+    {
+        return $this->playerCount;
+    }
 
-	public function setPlayerCount(int $playerCount): static
-	{
-		$this->playerCount = $playerCount;
+    public function setPlayerCount(int $playerCount): static
+    {
+        $this->playerCount = $playerCount;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getCpuUsage(): ?float
-	{
-		return $this->cpuUsage;
-	}
+    public function getCpuUsage(): ?float
+    {
+        return $this->cpuUsage;
+    }
 
-	public function setCpuUsage(float $cpuUsage): static
-	{
-		$this->cpuUsage = $cpuUsage;
+    public function setCpuUsage(float $cpuUsage): static
+    {
+        $this->cpuUsage = $cpuUsage;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getTickRate(): ?float
-	{
-		return $this->tickRate;
-	}
+    public function getTickRate(): ?float
+    {
+        return $this->tickRate;
+    }
 
-	public function setTickRate(float $tickRate): static
-	{
-		$this->tickRate = $tickRate;
+    public function setTickRate(float $tickRate): static
+    {
+        $this->tickRate = $tickRate;
 
-		return $this;
-	}
+        return $this;
+    }
 }

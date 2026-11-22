@@ -12,59 +12,59 @@ use App\Repository\EventRepository;
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
 {
-	#[ORM\Id]
-	#[ORM\Column]
-	#[ORM\GeneratedValue]
-	private int $id;
+    #[ORM\Id]
+    #[ORM\Column]
+    #[ORM\GeneratedValue]
+    private ?int $id = null;
 
-	#[ORM\ManyToOne(inversedBy: "events")]
-	#[ORM\JoinColumn(nullable: false)]
-	private Server $server;
+    #[ORM\ManyToOne(inversedBy: "events")]
+    #[ORM\JoinColumn(nullable: false)]
+    private Server $server;
 
-	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
-	private \DateTimeInterface $date;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private \DateTimeInterface $date;
 
-	#[ORM\Column(length: 255)]
-	private string $action;
+    #[ORM\Column(length: 255)]
+    private string $action;
 
-	public function getId(): ?int
-	{
-		return $this->id;
-	}
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-	public function getServer(): ?Server
-	{
-		return $this->server;
-	}
+    public function getServer(): ?Server
+    {
+        return $this->server;
+    }
 
-	public function setServer(?Server $server): self
-	{
-		$this->server = $server;
+    public function setServer(Server $server): self
+    {
+        $this->server = $server;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getDate(): ?\DateTimeInterface
-	{
-		return $this->date;
-	}
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
 
-	public function setDate(\DateTimeInterface $date): self
-	{
-		$this->date = $date;
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getAction(): ?string
-	{
-		return $this->action;
-	}
+    public function getAction(): ?string
+    {
+        return $this->action;
+    }
 
-	public function setAction(string $action): self
-	{
-		$this->action = $action;
+    public function setAction(string $action): self
+    {
+        $this->action = $action;
 
-		return $this;
-	}
+        return $this;
+    }
 }

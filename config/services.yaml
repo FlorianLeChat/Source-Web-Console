@@ -54,3 +54,11 @@ when@test:
                 - "../src/Kernel.php"
                 - "../src/DependencyInjection"
             resource: "../src/"
+        App\Service\StorageManager:
+            class: App\Tests\Mock\FakeStorageManager
+        xPaw\SourceQuery\SourceQuery:
+            class: App\Tests\Mock\FakeSourceQuery
+            tags: [{ name: "kernel.reset", method: "Disconnect" }]
+        Symfony\Component\Mailer\MailerInterface:
+            class: App\Tests\Mock\FakeMailer
+        App\Tests\Mock\HttpClientResponseFactory: ~

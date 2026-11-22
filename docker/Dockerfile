@@ -23,7 +23,7 @@ RUN npm run build
 
 FROM base AS development
 
-RUN install-php-extensions zip pdo_mysql redis intl xdebug bcmath excimer @composer && \
+RUN install-php-extensions zip ftp pdo_mysql redis intl xdebug bcmath excimer @composer && \
     mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini" && \
     echo "xdebug.mode=develop,debug" >> "$PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini" && \
     echo "xdebug.client_port=9003" >> "$PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini" && \
@@ -44,6 +44,7 @@ RUN install-php-extensions \
         excimer \
         opcache \
         zip \
+        ftp \
     && setcap -r /usr/local/bin/frankenphp \
     && chown -R www-data:www-data /config/caddy /data/caddy
 

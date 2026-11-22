@@ -1,8 +1,8 @@
 parameters:
-	level: 6
-	paths:
-		- bin/
-		- config/
-		- public/
-		- src/
-		- tests/
+    level: 6
+    paths:
+        - bin/
+        - config/
+        - public/
+        - src/
+        - tests/

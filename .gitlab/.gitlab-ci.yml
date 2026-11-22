@@ -34,7 +34,7 @@ cache:composer:
         - curl -sSLf -o /usr/local/bin/install-php-extensions https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions
         - chmod +x /usr/local/bin/install-php-extensions
         - install-php-extensions zip @composer
-        - composer install --prefer-dist --no-progress --no-interaction --no-scripts
+        - composer install --prefer-dist --no-progress --no-interaction --no-scripts --ignore-platform-req=ext-ftp
 
 lint:eslint:
     stage: lint
@@ -56,7 +56,7 @@ lint:phpcs:
         - curl -sSLf -o /usr/local/bin/install-php-extensions https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions
         - chmod +x /usr/local/bin/install-php-extensions
         - install-php-extensions zip @composer
-        - composer install --prefer-dist --no-progress --no-interaction --no-scripts
+        - composer install --prefer-dist --no-progress --no-interaction --no-scripts --ignore-platform-req=ext-ftp
     script:
         - vendor/bin/phpcs -s
 
@@ -67,7 +67,7 @@ lint:phpstan:
         - curl -sSLf -o /usr/local/bin/install-php-extensions https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions
         - chmod +x /usr/local/bin/install-php-extensions
         - install-php-extensions zip @composer
-        - composer install --prefer-dist --no-progress --no-interaction --no-scripts
+        - composer install --prefer-dist --no-progress --no-interaction --no-scripts --ignore-platform-req=ext-ftp
     script:
         - vendor/bin/phpstan analyse --memory-limit=-1 --error-format=gitlab | tee phpstan-report.json
     artifacts:
@@ -83,7 +83,7 @@ lint:phpmd:
         - curl -sSLf -o /usr/local/bin/install-php-extensions https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions
         - chmod +x /usr/local/bin/install-php-extensions
         - install-php-extensions zip @composer
-        - composer install --prefer-dist --no-progress --no-interaction --no-scripts
+        - composer install --prefer-dist --no-progress --no-interaction --no-scripts --ignore-platform-req=ext-ftp
     script:
         - vendor/bin/phpmd src gitlab phpmd.xml | tee phpmd-report.json
     artifacts:
@@ -114,7 +114,7 @@ test:phpunit:
         - curl -sSLf -o /usr/local/bin/install-php-extensions https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions
         - chmod +x /usr/local/bin/install-php-extensions
         - install-php-extensions zip bcmath intl xdebug @composer
-        - composer install --prefer-dist --no-progress --no-interaction --no-scripts
+        - composer install --prefer-dist --no-progress --no-interaction --no-scripts --ignore-platform-req=ext-ftp
         - mkdir var
         - touch var/data.db
         - php bin/console --env=test doctrine:schema:create --no-interaction

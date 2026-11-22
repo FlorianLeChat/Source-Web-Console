@@ -18,201 +18,189 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-	#[ORM\Id]
-	#[ORM\Column]
-	#[ORM\GeneratedValue]
-	private int $id;
+    #[ORM\Id]
+    #[ORM\Column]
+    #[ORM\GeneratedValue]
+    private ?int $id = null;
 
-	#[ORM\Column(length: 30, unique: true)]
-	#[Assert\Length(min: 10, max: 30)]
-	#[Assert\NotNull]
-	#[Assert\NotBlank]
-	#[Assert\NoSuspiciousCharacters]
-	private string $username;
+    #[ORM\Column(length: 30, unique: true)]
+    #[Assert\Length(min: 10, max: 30)]
+    #[Assert\NotNull]
+    #[Assert\NotBlank]
+    #[Assert\NoSuspiciousCharacters]
+    private string $username;
 
-	#[ORM\Column]
-	#[Assert\Length(min: 10, max: 50)]
-	#[Assert\NotNull]
-	#[Assert\NotBlank]
-	#[Assert\NotCompromisedPassword]
-	private string $password;
+    #[ORM\Column]
+    #[Assert\Length(min: 10, max: 50)]
+    #[Assert\NotNull]
+    #[Assert\NotBlank]
+    #[Assert\NotCompromisedPassword]
+    private string $password;
 
-	#[ORM\Column(type: Types::DATETIME_MUTABLE)]
-	private \DateTimeInterface $createdAt;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private \DateTimeInterface $createdAt;
 
-	#[ORM\Column(length: 45)]
-	private string $address;
+    #[ORM\Column(length: 45)]
+    private string $address;
 
-	#[ORM\Column(length: 255, nullable: true)]
-	private ?string $token = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $token = null;
 
-	/** @var array<mixed> */
-	#[ORM\Column]
-	private array $roles = [];
+    /** @var array<mixed> */
+    #[ORM\Column]
+    private array $roles = [];
 
-	/** @var Collection<int, Server> */
-	#[ORM\OneToMany(mappedBy: "user", targetEntity: Server::class, orphanRemoval: true)]
-	private Collection $servers;
+    /** @var Collection<int, Server> */
+    #[ORM\OneToMany(mappedBy: "user", targetEntity: Server::class, orphanRemoval: true)]
+    private Collection $servers;
 
-	/** @var Collection<int, Command> */
-	#[ORM\OneToMany(mappedBy: "user", targetEntity: Command::class, orphanRemoval: true)]
-	private Collection $commands;
+    /** @var Collection<int, Command> */
+    #[ORM\OneToMany(mappedBy: "user", targetEntity: Command::class, orphanRemoval: true)]
+    private Collection $commands;
 
-	public function __construct()
-	{
-		$this->servers = new ArrayCollection();
-		$this->commands = new ArrayCollection();
-	}
+    public function __construct()
+    {
+        $this->servers = new ArrayCollection();
+        $this->commands = new ArrayCollection();
+    }
 
-	public function __toString(): string
-	{
-		return "[#{$this->id}] {$this->username}";
-	}
+    public function __toString(): string
+    {
+        return "[#{$this->id}] {$this->username}";
+    }
 
-	public function getId(): ?int
-	{
-		return $this->id;
-	}
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-	public function getUsername(): ?string
-	{
-		return $this->username;
-	}
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
 
-	public function setUsername(?string $username): self
-	{
-		$this->username = $username;
+    public function setUsername(?string $username): self
+    {
+        $this->username = $username;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getUserIdentifier(): string
-	{
-		return (string) $this->username;
-	}
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->username;
+    }
 
-	public function getPassword(): ?string
-	{
-		return $this->password;
-	}
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
 
-	public function setPassword(?string $password): self
-	{
-		$this->password = $password;
+    public function setPassword(?string $password): self
+    {
+        $this->password = $password;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getCreatedAt(): ?\DateTimeInterface
-	{
-		return $this->createdAt;
-	}
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
 
-	public function setCreatedAt(\DateTimeInterface $createdAt): static
-	{
-		$this->createdAt = $createdAt;
+    public function setCreatedAt(\DateTimeInterface $createdAt): static
+    {
+        $this->createdAt = $createdAt;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getAddress(): ?string
-	{
-		return $this->address;
-	}
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
 
-	public function setAddress(string $address): self
-	{
-		$this->address = IpUtils::anonymize($address);
+    public function setAddress(string $address): self
+    {
+        $this->address = IpUtils::anonymize($address);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getToken(): ?string
-	{
-		return $this->token;
-	}
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
 
-	public function setToken(?string $token): static
-	{
-		$this->token = $token;
+    public function setToken(?string $token): static
+    {
+        $this->token = $token;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getRoles(): array
-	{
-		return array_unique($this->roles);
-	}
+    public function getRoles(): array
+    {
+        return array_unique($this->roles);
+    }
 
-	public function setRoles(mixed $roles): self
-	{
-		$this->roles = $roles;
+    public function setRoles(mixed $roles): self
+    {
+        $this->roles = $roles;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function eraseCredentials(): void
-	{
-		// $this->plainPassword = null;
-	}
+    public function eraseCredentials(): void
+    {
+        // Aucune donnée sensible temporaire n'est conservée sur l'utilisateur.
+    }
 
-	/** @return Collection<int, Server> */
-	public function getServers()
-	{
-		return $this->servers;
-	}
+    /** @return Collection<int, Server> */
+    public function getServers()
+    {
+        return $this->servers;
+    }
 
-	public function addServer(Server $server): self
-	{
-		if (!$this->servers->contains($server))
-		{
-			$this->servers->add($server);
-			$server->setUser($this);
-		}
+    public function addServer(Server $server): self
+    {
+        if (!$this->servers->contains($server))
+        {
+            $this->servers->add($server);
+            $server->setUser($this);
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function removeServer(Server $server): self
-	{
-		if ($this->servers->removeElement($server))
-		{
-			if ($server->getUser() === $this)
-			{
-				$server->setUser(null);
-			}
-		}
+    public function removeServer(Server $server): self
+    {
+        $this->servers->removeElement($server);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/** @return Collection<int, Command> */
-	public function getCommands()
-	{
-		return $this->commands;
-	}
+    /** @return Collection<int, Command> */
+    public function getCommands()
+    {
+        return $this->commands;
+    }
 
-	public function addCommand(Command $command): static
-	{
-		if (!$this->commands->contains($command))
-		{
-			$this->commands->add($command);
-			$command->setUser($this);
-		}
+    public function addCommand(Command $command): static
+    {
+        if (!$this->commands->contains($command))
+        {
+            $this->commands->add($command);
+            $command->setUser($this);
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function removeCommand(Command $command): static
-	{
-		if ($this->commands->removeElement($command))
-		{
-			if ($command->getUser() === $this)
-			{
-				$command->setUser(null);
-			}
-		}
+    public function removeCommand(Command $command): static
+    {
+        $this->commands->removeElement($command);
 
-		return $this;
-	}
+        return $this;
+    }
 }
