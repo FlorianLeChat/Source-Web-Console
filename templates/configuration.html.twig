@@ -32,6 +32,7 @@
 			<input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" id="address" name="address" placeholder="203.0.113.10" minlength="7" maxlength="15" value="{{ configuration_credentials.address|default() }}" required />
 
 			{# Port de communication #}
+			<label for="port" class="visually-hidden">{{ t("dashboard.edit.port")|trans }}</label>
 			<input type="number" id="port" name="port" placeholder="22" min="1" max="99999" value="{{ configuration_credentials.port|default() }}" required />
 
 			{# Type de protocole #}
@@ -69,7 +70,8 @@
 				<p>{{ t("configuration.hostname.description")|trans }}</p>
 
 				{# Champ de saisie du premier paramètre #}
-				<input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" name="hostname" placeholder="Garry's Mod Sandbox #1" />
+				<label for="hostname" class="visually-hidden">{{ t("configuration.hostname.title")|trans }}</label>
+				<input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" id="hostname" name="hostname" placeholder="Garry's Mod Sandbox #1" />
 
 				{# Bouton de mise à jour #}
 				<button type="button" title="{{ t("global.update")|trans }}" aria-label="{{ t("global.update")|trans }}" data-type="hostname" data-token="{{ csrf_token("configuration_hostname") }}">
@@ -85,7 +87,8 @@
 				<p>{{ t("configuration.loading.description")|trans }}</p>
 
 				{# Champ de saisie du deuxième paramètre #}
-				<input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" name="loading" placeholder="https://example.com/loading.html" />
+				<label for="loading" class="visually-hidden">{{ t("configuration.loading.title")|trans }}</label>
+				<input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" id="loading" name="loading" placeholder="https://example.com/loading.html" />
 
 				{# Bouton de mise à jour #}
 				<button type="button" title="{{ t("global.update")|trans }}" aria-label="{{ t("global.update")|trans }}" data-type="loading" data-token="{{ csrf_token("configuration_loading") }}">
@@ -101,7 +104,8 @@
 				<p>{{ t("configuration.rcon.description")|trans }}</p>
 
 				{# Champ de saisie du troisième paramètre #}
-				<input type="password" autocomplete="new-password" autocapitalize="off" spellcheck="false" name="rcon" placeholder="a2D2ea4NE6e9As" />
+				<label for="rcon" class="visually-hidden">{{ t("configuration.rcon.title")|trans }}</label>
+				<input type="password" autocomplete="new-password" autocapitalize="off" spellcheck="false" id="rcon" name="rcon" placeholder="a2D2ea4NE6e9As" />
 
 				{# Bouton de mise à jour #}
 				<button type="button" title="{{ t("global.update")|trans }}" aria-label="{{ t("global.update")|trans }}" data-type="password" data-token="{{ csrf_token("configuration_password") }}">

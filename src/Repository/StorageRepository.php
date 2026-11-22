@@ -14,28 +14,28 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 final class StorageRepository extends ServiceEntityRepository
 {
-	public function __construct(ManagerRegistry $registry)
-	{
-		parent::__construct($registry, Storage::class);
-	}
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Storage::class);
+    }
 
-	public function save(Storage $entity, bool $flush = false): void
-	{
-		$this->getEntityManager()->persist($entity);
+    public function save(Storage $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
 
-		if ($flush)
-		{
-			$this->getEntityManager()->flush();
-		}
-	}
+        if ($flush)
+        {
+            $this->getEntityManager()->flush();
+        }
+    }
 
-	public function remove(Storage $entity, bool $flush = false): void
-	{
-		$this->getEntityManager()->remove($entity);
+    public function remove(Storage $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
 
-		if ($flush)
-		{
-			$this->getEntityManager()->flush();
-		}
-	}
+        if ($flush)
+        {
+            $this->getEntityManager()->flush();
+        }
+    }
 }

@@ -2,221 +2,227 @@
 // Base de travail //
 // --------------- //
 @import "../global";
+@import "../tablet/configuration";
+@import "../phone/configuration";
 
 // ---------------- //
 // Corps de la page //
 // ---------------- //
 main
 {
-	margin: 0 auto 4rem auto;
-	display: grid;
-	padding: 2rem;
-	max-width: 1440px;
-	text-align: center;
-	align-items: start;
-	grid-row-gap: 2rem;
-	justify-items: stretch;
-	grid-column-gap: 5%;
-	grid-template-columns: clamp(15rem, 17.5vw, 25rem) 1fr 1fr;
+    margin: 0 auto 4rem auto;
+    display: grid;
+    padding: 2rem;
+    max-width: 1440px;
+    text-align: center;
+    align-items: start;
+    grid-row-gap: 2rem;
+    justify-items: stretch;
+    grid-column-gap: 5%;
+    grid-template-columns: clamp(15rem, 17.5vw, 25rem) 1fr 1fr;
 
-	p
-	{
-		// Description de la page.
-		grid-area: 1 / 1 / 2 / 4;
-		@include header-paragraph;
-	}
+    p
+    {
+        // Description de la page.
+        grid-area: 1 / 1 / 2 / 4;
+        @include header-paragraph;
+    }
 
-	nav
-	{
-		// Barre de navigation.
-		grid-area: 2 / 1 / 3 / 2;
-		@include navigation-bar;
-	}
+    nav
+    {
+        // Barre de navigation.
+        grid-area: 2 / 1 / 3 / 2;
+        @include navigation-bar;
+    }
 
-	#storage
-	{
-		// Informations de connexion FTP.
-		color: $text-color;
-		padding: 1rem;
-		display: flex;
-		grid-area: 2 / 2 / 3 / 3;
-		min-height: 600px;
-		border-radius: 0.5rem;
-		flex-direction: column;
-		justify-content: space-evenly;
-		background-color: $box-color;
+    #storage
+    {
+        // Informations de connexion FTP.
+        color: $text-color;
+        padding: 1rem;
+        display: flex;
+        grid-area: 2 / 2 / 3 / 3;
+        min-height: 600px;
+        border-radius: 0.5rem;
+        flex-direction: column;
+        justify-content: space-evenly;
+        background-color: $box-color;
 
-		h2
-		{
-			// Titre de la catégorie.
-			margin: 1rem 0.5rem 2rem 0.5rem;
-			font-size: 1.75rem;
-		}
+        h2
+        {
+            // Titre de la catégorie.
+            margin: 1rem 0.5rem 2rem 0.5rem;
+            font-size: 1.75rem;
+        }
 
-		div
-		{
-			// Spécifications juridiques.
-			gap: 0.75rem;
-			margin: 0 1rem 0 1rem;
-			display: flex;
-			align-items: center;
+        div
+        {
+            // Spécifications juridiques.
+            gap: 0.75rem;
+            margin: 0 1rem 0 1rem;
+            display: flex;
+            align-items: center;
 
-			i
-			{
-				// Icône d'avertissement.
-				color: $error-color;
-				font-size: 2rem;
-			}
-		}
+            i
+            {
+                // Icône d'avertissement.
+                color: $error-color;
+                font-size: 2rem;
+            }
+        }
 
-		form
-		{
-			// Formulaire.
-			padding: 1rem;
-			margin-top: 0.5rem;
-			border-radius: 0.5rem;
-			background-color: $box-color;
+        form
+        {
+            // Formulaire.
+            padding: 1rem;
+            margin-top: 0.5rem;
+            border-radius: 0.5rem;
+            background-color: $box-color;
 
-			label
-			{
-				// Libellé du champ.
-				color: $text-color;
-				display: block;
+            label
+            {
+                // Libellé du champ.
+                color: $text-color;
+                display: block;
 
-				> span
-				{
-					// Champs requis.
-					color: $error-light-color;
-				}
-			}
+                > span
+                {
+                    // Champs requis.
+                    color: $error-light-color;
+                }
+            }
 
-			input[type = text], input[type = number], input[type = password], select
-			{
-				// Champs et zones de saisies.
-				width: calc(100% - 2rem);
-				margin: 0.5rem 0 1rem 0;
-				padding: 1rem;
-				box-sizing: border-box;
+            input[type = text], input[type = number], input[type = password], select
+            {
+                // Champs et zones de saisies.
+                width: calc(100% - 2rem);
+                margin: 0.5rem 0 1rem 0;
+                padding: 1rem;
+                box-sizing: border-box;
 
-				&[name = address]
-				{
-					// Champ de l'adresse IP.
-					width: calc(70% - 1rem);
-				}
+                &[name = address]
+                {
+                    // Champ de l'adresse IP.
+                    width: calc(70% - 1rem);
+                }
 
-				&[name = port]
-				{
-					// Champ du port de communication.
-					width: calc(30% - 1rem);
-				}
+                &[name = port]
+                {
+                    // Champ du port de communication.
+                    width: calc(30% - 1rem);
+                }
 
-				+ span
-				{
-					// Icône d'état des vérifications.
-					position: relative;
+                + span
+                {
+                    // Icône d'état des vérifications.
+                    position: relative;
 
-					&::before
-					{
-						top: -2.5px;
-						left: -1.75rem;
-						position: absolute;
-					}
-				}
-			}
+                    &::before
+                    {
+                        top: -2.5px;
+                        left: -1.75rem;
+                        position: absolute;
+                    }
+                }
+            }
 
-			select
-			{
-				// Sélection du type de protocole.
-				cursor: pointer;
-			}
+            select
+            {
+                // Sélection du type de protocole.
+                cursor: pointer;
+            }
 
-			input[type = submit]
-			{
-				// Application de l'apparence personnalisée.
-				@extend %submit-button-layout;
-			}
-		}
-	}
+            input[type = submit]
+            {
+                // Application de l'apparence personnalisée.
+                @extend %submit-button-layout;
+            }
+        }
+    }
 
-	#parameters
-	{
-		// Paramètres disponibles pour modification.
-		color: $text-color;
-		padding: 1rem;
-		display: flex;
-		grid-area: 2 / 3 / 3 / 4;
-		min-height: 600px;
-		border-radius: 0.5rem;
-		flex-direction: column;
-		background-color: $box-color;
+    #parameters
+    {
+        // Paramètres disponibles pour modification.
+        color: $text-color;
+        padding: 1rem;
+        display: flex;
+        grid-area: 2 / 3 / 3 / 4;
+        min-height: 600px;
+        border-radius: 0.5rem;
+        flex-direction: column;
+        background-color: $box-color;
 
-		h2
-		{
-			// Titre de la catégorie.
-			font-size: 1.75rem;
-		}
+        h2
+        {
+            // Titre de la catégorie.
+            font-size: 1.75rem;
+        }
 
-		ul li
-		{
-			// Liste des paramètres.
-			&:last-of-type
-			{
-				margin-bottom: 1rem;
-			}
+        ul li
+        {
+            // Liste des paramètres.
+            &:last-of-type
+            {
+                margin-bottom: 1rem;
+            }
 
-			h3
-			{
-				// Nom du paramètre.
-				margin: 2rem 0 0.25rem;
-				font-size: 1.25rem;
-			}
+            h3
+            {
+                // Nom du paramètre.
+                margin: 2rem 0 0.25rem;
+                font-size: 1.25rem;
+            }
 
-			p
-			{
-				// Description du paramètre.
-				color: $background-color;
-				margin: 0 0 0.25rem 0;
-			}
+            p
+            {
+                // Description du paramètre.
+                color: $background-color;
+                margin: 0 0 0.25rem 0;
+            }
 
-			input
-			{
-				// Champ de saisie du paramètre.
-				width: 50%;
-				padding: 0.5rem;
-			}
+            input
+            {
+                // Champ de saisie du paramètre.
+                width: 50%;
+                padding: 0.5rem;
+            }
 
-			button
-			{
-				// Bouton de mise à jour.
-				top: 0.5rem;
-				color: $text-color;
-				position: relative;
-				font-size: 1.75rem;
-				background: none;
-				box-shadow: none;
-				transition: color 250ms;
+            button
+            {
+                // Bouton de mise à jour.
+                top: 0.5rem;
+                color: $text-color;
+                position: relative;
+                font-size: 1.75rem;
+                background: none;
+                box-shadow: none;
 
-				&:hover
-				{
-					// Effet de sélection.
-					color: $background-color;
-				}
+                @include motion
+                {
+                    transition: color 250ms;
+                }
 
-				&:disabled
-				{
-					// Désactivation conditionnelle du bouton.
-					filter: opacity(0.5);
-					pointer-events: none;
-				}
+                &:hover
+                {
+                    // Effet de sélection.
+                    color: $background-color;
+                }
 
-				&::after
-				{
-					// Amélioration de la zone de sélection.
-					@extend %larger-touch-zone;
-				}
-			}
-		}
-	}
+                &:disabled
+                {
+                    // Désactivation conditionnelle du bouton.
+                    filter: opacity(0.5);
+                    pointer-events: none;
+                }
+
+                &::after
+                {
+                    // Amélioration de la zone de sélection.
+                    @extend %larger-touch-zone;
+                }
+            }
+        }
+    }
 }
 
 // ---------------- //
@@ -224,7 +230,7 @@ main
 // ---------------- //
 @media screen and (min-width: $phone-max-width + 1) and (max-width: $tablet-max-width)
 {
-	@import "../tablet/configuration";
+    @include tablet-configuration;
 }
 
 // -------------- //
@@ -232,5 +238,5 @@ main
 // -------------- //
 @media screen and (max-width: $phone-max-width)
 {
-	@import "../phone/configuration";
+    @include phone-configuration;
 }

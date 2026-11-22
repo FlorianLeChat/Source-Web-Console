@@ -16,47 +16,47 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand("app:account-cleanup", "Deletes expired temporary accounts from the database")]
 final class OneTimeAccountCleanup extends Command
 {
-	//
-	// Initialisation de certaines dépendances de la commande.
-	//
-	public function __construct(private readonly EntityManagerInterface $entityManager)
-	{
-		parent::__construct();
-	}
+    //
+    // Initialisation de certaines dépendances de la commande.
+    //
+    public function __construct(private readonly EntityManagerInterface $entityManager)
+    {
+        parent::__construct();
+    }
 
-	//
-	// Exécution de la commande.
-	//
-	protected function execute(InputInterface $input, OutputInterface $output): int
-	{
-		// On récupère d'abord tous les comptes utilisateurs temporaires expirés.
-		$repository = $this->entityManager->getRepository(User::class);
-		$query = $repository->createQueryBuilder("u");
-		$query->where($query->expr()->like("u.username", ":name"))
-			->setParameter("name", "temp_%");
-		$query->andWhere($query->expr()->lte("u.createdAt", ":past"))
-			->setParameter("past", new \DateTime("-1 day"), \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE);
+    //
+    // Exécution de la commande.
+    //
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        // On récupère d'abord tous les comptes utilisateurs temporaires expirés.
+        $repository = $this->entityManager->getRepository(User::class);
+        $query = $repository->createQueryBuilder("u");
+        $query->where($query->expr()->like("u.username", ":name"))
+            ->setParameter("name", "temp_%");
+        $query->andWhere($query->expr()->lte("u.createdAt", ":past"))
+            ->setParameter("past", new \DateTime("-1 day"), \Doctrine\DBAL\Types\Types::DATETIME_MUTABLE);
 
-		// On itère ensuite sur chaque compte utilisateur.
-		$io = new SymfonyStyle($input, $output);
-		$count = 0;
+        // On itère ensuite sur chaque compte utilisateur.
+        $io = new SymfonyStyle($input, $output);
+        $count = 0;
 
-		foreach ($query->getQuery()->getResult() as $account)
-		{
-			// On supprime le compte utilisateur via Doctrine.
-			$io->text(sprintf("Deleting account \"%s (%d)\"...", $account->getUsername(), $account->getId()));
-			$repository->remove($account);
+        foreach ($query->getQuery()->getResult() as $account)
+        {
+            // On supprime le compte utilisateur via Doctrine.
+            $io->text(sprintf("Deleting account \"%s (%d)\"...", $account->getUsername(), $account->getId()));
+            $repository->remove($account);
 
-			// On incrémente alors le compteur de comptes supprimés.
-			$count++;
-		}
+            // On incrémente alors le compteur de comptes supprimés.
+            $count++;
+        }
 
-		// On sauvegarde après les changements dans la base de données.
-		$this->entityManager->flush();
+        // On sauvegarde après les changements dans la base de données.
+        $this->entityManager->flush();
 
-		$io->success("Deleted $count expired temporary account(s).");
+        $io->success("Deleted $count expired temporary account(s).");
 
-		// On retourne enfin le code de succès de la commande.
-		return Command::SUCCESS;
-	}
+        // On retourne enfin le code de succès de la commande.
+        return Command::SUCCESS;
+    }
 }

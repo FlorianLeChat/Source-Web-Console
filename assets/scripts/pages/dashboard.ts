@@ -98,7 +98,7 @@ servers.on( "click", "button[type=button]", ( event ) =>
 	let [ current, maximum ] = label
 		.text()
 		.split( "/" )
-		.map( ( num ) => parseInt( num, 10 ) );
+		.map( ( num ) => Number.parseInt( num, 10 ) );
 	maximum = maximum || 1;
 
 	// On modifie enfin le nombre de pages actuel en fonction
@@ -178,12 +178,12 @@ async function retrieveRemoteData()
 function startMonitoring()
 {
 	// Récupération des informations au démarrage.
-	retrieveRemoteData();
+	void retrieveRemoteData();
 
 	// Récupération des informations toutes les 3 secondes.
 	timer = setInterval( () =>
 	{
-		retrieveRemoteData();
+		void retrieveRemoteData();
 	}, 3000 );
 }
 
@@ -202,5 +202,5 @@ $( "#state" ).on( "click", "[data-action = retry]", ( event ) =>
 //
 $( "#actions" ).on( "click", "button[data-action]", ( event ) =>
 {
-	executeQuickAction( $( event.currentTarget ) );
+	void executeQuickAction( $( event.currentTarget ) );
 } );

@@ -1,82 +1,88 @@
-// ------- //
-// En-tête //
-// ------- //
-header
+// --------------------------- //
+// Styles de la version mobile //
+// --------------------------- //
+@mixin phone-index
 {
-	// L'en-tête reprend sa place dans le flux pour que les
-	//  boutons ne recouvrent plus la présentation du site.
-	height: auto;
-	padding: 1rem 1rem 0;
-	background-color: transparent;
-
-	ul
+	// ------- //
+	// En-tête //
+	// ------- //
+	header
 	{
-		// Centrage des boutons.
-		gap: 0 1rem;
-		margin: 0;
-		display: flex;
-		position: static;
-		flex-wrap: wrap;
-		align-items: center;
-		justify-content: center;
-	}
-}
+		// L'en-tête reprend sa place dans le flux pour que les
+		//  boutons ne recouvrent plus la présentation du site.
+		height: auto;
+		padding: 1rem 1rem 0;
+		background-color: transparent;
 
-// ---------------- //
-// Corps de la page //
-// ---------------- //
-main
-{
-	// Réduction des espacements sur les petits écrans.
-	padding: 1.5rem 1rem 2rem;
-	justify-content: flex-start;
-}
-
-// ----------------------------------- //
-// Lien vers le dépôt GitHub du projet //
-// ----------------------------------- //
-main > a
-{
-	// Suppression du lien et de l'icône.
-	display: none
-}
-
-// -------------------------------- //
-// Section : informations générales //
-// -------------------------------- //
-#informations
-{
-	// Modification de la disposition flex.
-	gap: 0;
-	flex-direction: column;
-
-	ul img
-	{
-		// Suppression de l'image de présentation.
-		display: none;
-	}
-
-	article
-	{
-		// Agrandissement du texte de présentation.
-		width: auto;
-
-		ul li p
+		ul
 		{
-			// Espacement réduit autour de la description.
-			margin: 1.25rem 0;
+			// Centrage des boutons.
+			gap: 0 1rem;
+			margin: 0;
+			display: flex;
+			position: static;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: center;
 		}
 	}
-}
 
-// ------------------------------ //
-// Avertissement Google reCAPTCHA //
-// ------------------------------ //
-small
-{
-	// Affichage sous la présentation plutôt qu'en surimpression.
-	width: auto;
-	position: static;
-	margin-top: 1.5rem;
-	text-align: center;
+	// ---------------- //
+	// Corps de la page //
+	// ---------------- //
+	main
+	{
+		// Réduction des espacements sur les petits écrans.
+		padding: 1.5rem 1rem 2rem;
+		justify-content: flex-start;
+	}
+
+	// ----------------------------------- //
+	// Lien vers le dépôt GitHub du projet //
+	// ----------------------------------- //
+	main > a
+	{
+		// Suppression du lien et de l'icône.
+		display: none
+	}
+
+	// -------------------------------- //
+	// Section : informations générales //
+	// -------------------------------- //
+	#informations
+	{
+		// Modification de la disposition flex.
+		gap: 0;
+		flex-direction: column;
+
+		ul img
+		{
+			// Suppression de l'image de présentation.
+			display: none;
+		}
+
+		article
+		{
+			// Agrandissement du texte de présentation.
+			width: auto;
+
+			ul li p
+			{
+				// Espacement réduit autour de la description.
+				margin: 1.25rem 0;
+			}
+		}
+	}
+
+	// ------------------------------ //
+	// Avertissement Google reCAPTCHA //
+	// ------------------------------ //
+	small
+	{
+		// Affichage sous la présentation plutôt qu'en surimpression.
+		width: auto;
+		position: static;
+		margin-top: 1.5rem;
+		text-align: center;
+	}
 }

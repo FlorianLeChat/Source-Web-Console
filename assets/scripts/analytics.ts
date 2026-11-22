@@ -20,9 +20,9 @@ export function setupRecaptcha()
 	//  le trafic du site par la console de Google reCAPTCHA.
 	const timer = setInterval( () =>
 	{
-		if ( typeof window.grecaptcha !== "undefined" )
+		if ( window.grecaptcha !== undefined )
 		{
-			window.proxyFetch( "", { method: "POST" } );
+			void window.proxyFetch( "", { method: "POST" } );
 			clearInterval( timer );
 		}
 	}, 1000 );

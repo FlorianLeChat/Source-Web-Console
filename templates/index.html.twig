@@ -3,44 +3,44 @@
 
 {# Injection de code JavaScript #}
 {% block javascript %}
-	<script>
-		// Libellé informant l'utilisateur des modalités de l'accès à usage unique.
-		window.onetime_info = "{{ t("form.register.onetime.info")|trans|escape("js") }}";
+    <script>
+        // Libellé informant l'utilisateur des modalités de l'accès à usage unique.
+        window.onetime_info = "{{ t("form.register.onetime.info")|trans|escape("js") }}";
 
-		// Libellé demandant le nom d'utilisateur pour une récupération de compte.
-		window.recover_password_username = "{{ t("form.login.username")|trans|escape("js") }}";
+        // Libellé demandant le nom d'utilisateur pour une récupération de compte.
+        window.recover_password_username = "{{ t("form.login.username")|trans|escape("js") }}";
 
-		// Libellé demandant le nouveau mot de passe pour une récupération de compte.
-		window.recover_password_password = "{{ t("form.login.password")|trans|escape("js") }}";
-	</script>
+        // Libellé demandant le nouveau mot de passe pour une récupération de compte.
+        window.recover_password_password = "{{ t("form.login.password")|trans|escape("js") }}";
+    </script>
 {% endblock %}
 
 {# En-tête de la page #}
 {% block header %}
-	<ul>
-		{# Les boutons présents dans l'en-tête peuvent variés si
-			un utilisateur est déjà connecté à son compte. #}
-		{% if app.user %}
-			{# Accès au tableau de bord #}
-			<li><a href="{{ path("dashboard_page") }}">{{ t("header.subtitle.dashboard")|trans }}</a></li>
-		{% else %}
-			{# Formulaire d'inscription #}
-			<li><button type="button">{{ t("index.register")|trans }}</button></li>
+    <ul>
+        {# Les boutons présents dans l'en-tête peuvent variés si
+            un utilisateur est déjà connecté à son compte. #}
+        {% if app.user %}
+            {# Accès au tableau de bord #}
+            <li><a href="{{ path("dashboard_page") }}">{{ t("header.subtitle.dashboard")|trans }}</a></li>
+        {% else %}
+            {# Formulaire d'inscription #}
+            <li><button type="button">{{ t("index.register")|trans }}</button></li>
 
-			{# Formulaire de connexion #}
-			<li><button type="button">{{ t("index.login")|trans }}</button></li>
+            {# Formulaire de connexion #}
+            <li><button type="button">{{ t("index.login")|trans }}</button></li>
 
-			<li>
-				<a href="{{ path("user_oauth_connect", {name: "google"}) }}" title="Google" aria-label="Google" {{ index_google_client_enabled ? "" : "class=\"disabled\"" }}>
-					<i class="bi bi-google"></i>
-				</a>
+            <li>
+                <a href="{{ path("user_oauth_connect", {name: "google"}) }}" title="Google" aria-label="Google" {{ index_google_client_enabled ? "" : "class=\"disabled\"" }}>
+                    <i class="bi bi-google"></i>
+                </a>
 
-				<a href="{{ path("user_oauth_connect", {name: "github"}) }}" title="GitHub" aria-label="GitHub" {{ index_github_client_enabled ? "" : "class=\"disabled\"" }}>
-					<i class="bi bi-github"></i>
-				</a>
-			</li>
-		{% endif %}
-	</ul>
+                <a href="{{ path("user_oauth_connect", {name: "github"}) }}" title="GitHub" aria-label="GitHub" {{ index_github_client_enabled ? "" : "class=\"disabled\"" }}>
+                    <i class="bi bi-github"></i>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
 {% endblock %}
 
 {# Barre de navigation #}
@@ -48,81 +48,84 @@
 
 {# Contenu de la page demandé #}
 {% block content %}
-	{# Titre principal (lecteurs d'écran) #}
-	<h1 class="visually-hidden">{{ meta.title }}</h1>
+    {# Titre principal (lecteurs d'écran) #}
+    <h1 class="visually-hidden">{{ meta.title }}</h1>
 
-	{# Vidéo en arrière-plan #}
-	<video muted loop>
-		<source data-src="{{ asset("build/videos/landing.mp4") }}" type="video/mp4" />
-	</video>
+    {# Vidéo en arrière-plan #}
+    {% set video_track = asset("build/videos/landing." ~ app.request.locale ~ ".vtt") %}
+    <video muted loop>
+        <source data-src="{{ asset("build/videos/landing.mp4") }}" type="video/mp4" />
+        <track kind="captions" src="{{ video_track }}" srclang="{{ app.request.locale }}" />
+        <track kind="descriptions" src="{{ video_track }}" srclang="{{ app.request.locale }}" />
+    </video>
 
-	{# Affichage de l'animation du logo vers le dépôt GitHub #}
-	{# Source : https://tholman.com/github-corners/ #}
-	<a href="{{ meta.source }}" title="GitHub" aria-label="GitHub" target="_blank">
-		<svg width="80" height="80" viewBox="0 0 250 250">
-			<path d="M250 0L135 115h-15l-12 27L0 250V0z" />
-			<path d="M122 109c15-9 9-19 9-19-3-7-2-11-2-11 1-7-3-2-3-2-4 5-2 11-2 11 3 10-5 15-9 16" />
-			<path d="M135 115s-4 2-5 0l-14-14c-3-2-6-3-8-3 8-11 15-24-2-41-5-5-10-7-16-7-1-2-3-7-12-11 0 0-5 3-7 16-4 2-8 5-12 9s-7 8-9 12c-14 4-17 9-17 9 4 8 9 11 11 11 0 6 2 11 7 16 16 16 30 10 41 2 0 3 1 7 5 11l12 11c1 2-1 6-1 6z" />
-		</svg>
-	</a>
+    {# Affichage de l'animation du logo vers le dépôt GitHub #}
+    {# Source : https://tholman.com/github-corners/ #}
+    <a href="{{ meta.source }}" title="GitHub" aria-label="GitHub" target="_blank">
+        <svg width="80" height="80" viewBox="0 0 250 250">
+            <path d="M250 0L135 115h-15l-12 27L0 250V0z" />
+            <path d="M122 109c15-9 9-19 9-19-3-7-2-11-2-11 1-7-3-2-3-2-4 5-2 11-2 11 3 10-5 15-9 16" />
+            <path d="M135 115s-4 2-5 0l-14-14c-3-2-6-3-8-3 8-11 15-24-2-41-5-5-10-7-16-7-1-2-3-7-12-11 0 0-5 3-7 16-4 2-8 5-12 9s-7 8-9 12c-14 4-17 9-17 9 4 8 9 11 11 11 0 6 2 11 7 16 16 16 30 10 41 2 0 3 1 7 5 11l12 11c1 2-1 6-1 6z" />
+        </svg>
+    </a>
 
-	{# Informations générales du site #}
-	<section id="informations">
-		{# Carrousel des images #}
-		<ul>
-			{% for i in range(1, 4) %}
-				<li><img src="{{ asset("build/images/landing/" ~ i ~ ".webp") }}" alt="" loading="lazy" decoding="async" /></li>
-			{% endfor %}
-		</ul>
+    {# Informations générales du site #}
+    <section id="informations">
+        {# Carrousel des images #}
+        <ul>
+            {% for i in range(1, 4) %}
+                <li><img src="{{ asset("build/images/landing/" ~ i ~ ".webp") }}" alt="" loading="lazy" decoding="async" /></li>
+            {% endfor %}
+        </ul>
 
-		{# Présentation des fonctionnalités #}
-		<article>
-			{# Logo du site #}
-			<a href="{{ meta.source }}" title="GitHub" aria-label="GitHub">
-				<img src="{{ asset("build/images/logo.svg") }}" alt="" loading="lazy" decoding="async" />
-			</a>
+        {# Présentation des fonctionnalités #}
+        <article>
+            {# Logo du site #}
+            <a href="{{ meta.source }}" title="GitHub" aria-label="GitHub">
+                <img src="{{ asset("build/images/logo.svg") }}" alt="" loading="lazy" decoding="async" />
+            </a>
 
-			{# Bouton de défilement (précédent) #}
-			<button type="button" title="{{ t("index.feature.previous")|trans }}" aria-label="{{ t("index.feature.previous")|trans }}">
-				<i class="bi bi-caret-up-fill"></i>
-			</button>
+            {# Bouton de défilement (précédent) #}
+            <button type="button" title="{{ t("index.feature.previous")|trans }}" aria-label="{{ t("index.feature.previous")|trans }}">
+                <i class="bi bi-caret-up-fill"></i>
+            </button>
 
-			{# Détails de chaque image #}
-			<ul>
-				{% for i in range(1, 4) %}
-					<li>
-						{# Titre #}
-						{% if i > 1 %}
-							<h2>{{ t("index.feature.title." ~ i)|trans }}.</h2>
-						{% endif %}
+            {# Détails de chaque image #}
+            <ul>
+                {% for i in range(1, 4) %}
+                    <li>
+                        {# Titre #}
+                        {% if i > 1 %}
+                            <h2>{{ t("index.feature.title." ~ i)|trans }}.</h2>
+                        {% endif %}
 
-						{# Description #}
-						<p>{{ t("index.feature.description." ~ i)|trans|raw }}</p>
-					</li>
-				{% endfor %}
-			</ul>
+                        {# Description #}
+                        <p>{{ t("index.feature.description." ~ i)|trans|raw }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
 
-			{# Bouton de défilement (suivant) #}
-			<button type="button" title="{{ t("index.feature.next")|trans }}" aria-label="{{ t("index.feature.next")|trans }}">
-				<i class="bi bi-caret-down-fill"></i>
-			</button>
-		</article>
-	</section>
+            {# Bouton de défilement (suivant) #}
+            <button type="button" title="{{ t("index.feature.next")|trans }}" aria-label="{{ t("index.feature.next")|trans }}">
+                <i class="bi bi-caret-down-fill"></i>
+            </button>
+        </article>
+    </section>
 
-	{# Formulaire d'inscription #}
-	<section id="register" data-route="{{ path("user_register") }}" data-redirect="{{ path("dashboard_page") }}" data-token="{{ csrf_token("user_register") }}">
-		{% include("form_register.html.twig") %}
-	</section>
+    {# Formulaire d'inscription #}
+    <section id="register" data-route="{{ path("user_register") }}" data-redirect="{{ path("dashboard_page") }}" data-token="{{ csrf_token("user_register") }}">
+        {% include("form_register.html.twig") %}
+    </section>
 
-	{# Formulaire de connexion #}
-	<section id="login" data-route="{{ path("user_login") }}" data-redirect="{{ path("dashboard_page") }}" data-token="{{ csrf_token("user_login") }}">
-		{% include("form_login.html.twig") %}
-	</section>
+    {# Formulaire de connexion #}
+    <section id="login" data-route="{{ path("user_login") }}" data-redirect="{{ path("dashboard_page") }}" data-token="{{ csrf_token("user_login") }}">
+        {% include("form_login.html.twig") %}
+    </section>
 
-	{% if index_recaptcha_enabled %}
-		{# Avertissement de Google reCAPTCHA #}
-		<small>
-			{{ t("index.recaptcha")|trans|raw }}
-		</small>
-	{% endif %}
+    {% if index_recaptcha_enabled %}
+        {# Avertissement de Google reCAPTCHA #}
+        <small>
+            {{ t("index.recaptcha")|trans|raw }}
+        </small>
+    {% endif %}
 {% endblock %}

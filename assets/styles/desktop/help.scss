@@ -2,180 +2,194 @@
 // Base de travail //
 // --------------- //
 @import "../global";
+@import "../tablet/help";
+@import "../phone/help";
 
 // ---------------- //
 // Corps de la page //
 // ---------------- //
 main
 {
-	margin: 0 auto 4rem auto;
-	display: grid;
-	padding: 2rem;
-	max-width: 1440px;
-	text-align: center;
-	align-items: start;
-	grid-row-gap: 2rem;
-	justify-items: stretch;
-	grid-column-gap: 5%;
-	grid-template-rows: auto 0.75fr auto auto;
-	grid-template-columns: clamp(15rem, 17.5vw, 25rem) 1fr;
+    margin: 0 auto 4rem auto;
+    display: grid;
+    padding: 2rem;
+    max-width: 1440px;
+    text-align: center;
+    align-items: start;
+    grid-row-gap: 2rem;
+    justify-items: stretch;
+    grid-column-gap: 5%;
+    grid-template-rows: auto 0.75fr auto auto;
+    grid-template-columns: clamp(15rem, 17.5vw, 25rem) 1fr;
 
-	p
-	{
-		// Description de la page.
-		grid-area: 1 / 1 / 2 / 3;
-		@include header-paragraph;
-	}
+    p
+    {
+        // Description de la page.
+        grid-area: 1 / 1 / 2 / 3;
+        @include header-paragraph;
+    }
 
-	nav
-	{
-		// Barre de navigation.
-		grid-area: 2 / 1 / 4 / 2;
-		@include navigation-bar;
-	}
+    nav
+    {
+        // Barre de navigation.
+        grid-area: 2 / 1 / 4 / 2;
+        @include navigation-bar;
+    }
 
-	#counter
-	{
-		// Statistiques de comptage.
-		//  Source : https://www.w3schools.com/howto/howto_css_section_counter.asp
-		color: $text-color;
-		padding: 1rem;
-		grid-area: 2 / 2 / 3 / 3;
-		border-radius: 0.5rem;
-		background-color: $box-color;
+    #counter
+    {
+        // Statistiques de comptage.
+        //  Source : https://www.w3schools.com/howto/howto_css_section_counter.asp
+        color: $text-color;
+        padding: 1rem;
+        grid-area: 2 / 2 / 3 / 3;
+        border-radius: 0.5rem;
+        background-color: $box-color;
 
-		h2
-		{
-			// Titre de la catégorie.
-			margin: 1rem 0.5rem 1.5rem 0.5rem;
-			font-size: 1.75rem;
-		}
+        h2
+        {
+            // Titre de la catégorie.
+            margin: 1rem 0.5rem 1.5rem 0.5rem;
+            font-size: 1.75rem;
+        }
 
-		ul li
-		{
-			// Compteur quelconque.
-			color: $text-color;
-			cursor: help;
-			border: 3px solid $border-color;
-			margin: 0.5rem 0.5rem 0 0;
-			padding: 1rem;
-			display: inline-block;
-			transition: color 250ms, background-color 250ms;
-			min-width: 8rem;
-			max-width: 12rem;
-			box-shadow: none;
+        ul li
+        {
+            // Compteur quelconque.
+            color: $text-color;
+            cursor: help;
+            border: 3px solid $border-color;
+            margin: 0.5rem 0.5rem 0 0;
+            padding: 1rem;
+            display: inline-block;
+            min-width: 8rem;
+            max-width: 12rem;
+            box-shadow: none;
 
-			i
-			{
-				// Icône du compteur.
-				font-size: 3rem;
-			}
+            @include motion
+            {
+                transition: color 250ms, background-color 250ms;
+            }
 
-			h3
-			{
-				// Statut du compteur.
-				margin: 0.5rem 0 0;
-				font-size: 2rem;
-			}
+            i
+            {
+                // Icône du compteur.
+                font-size: 3rem;
+            }
 
-			h4
-			{
-				// Nom du compteur.
-				font-weight: bold;
-				margin-bottom: 0;
-				text-transform: uppercase;
-			}
+            h3
+            {
+                // Statut du compteur.
+                margin: 0.5rem 0 0;
+                font-size: 2rem;
+            }
 
-			&:hover
-			{
-				// Effet de sélection.
-				color: $box-color;
-				background-color: $text-color;
-			}
-		}
-	}
+            h4
+            {
+                // Nom du compteur.
+                font-weight: bold;
+                margin-bottom: 0;
+                text-transform: uppercase;
+            }
 
-	#faq
-	{
-		// Foire aux questions.
-		//  Source : https://www.w3schools.com/howto/howto_js_collapsible.asp
-		color: $text-color;
-		padding: 1rem;
-		grid-area: 3 / 2 / 4 / 3;
-		border-radius: 0.5rem;
-		background-color: $box-color;
+            &:hover
+            {
+                // Effet de sélection.
+                color: $box-color;
+                background-color: $text-color;
+            }
+        }
+    }
 
-		h2
-		{
-			// Titre de la catégorie.
-			margin: 1rem 0.5rem 1.5rem 0.5rem;
-			font-size: 1.75rem;
-		}
+    #faq
+    {
+        // Foire aux questions.
+        //  Source : https://www.w3schools.com/howto/howto_js_collapsible.asp
+        color: $text-color;
+        padding: 1rem;
+        grid-area: 3 / 2 / 4 / 3;
+        border-radius: 0.5rem;
+        background-color: $box-color;
 
-		button
-		{
-			// Bouton déroulant.
-			color: $text-color;
-			width: 100%;
-			border: 1px solid $border-color;
-			padding: 1rem;
-			transition: color 250ms, background-color 250ms;
-			box-shadow: none;
-			text-align: left;
-			font-weight: bold;
-			background-color: $box-color;
+        h2
+        {
+            // Titre de la catégorie.
+            margin: 1rem 0.5rem 1.5rem 0.5rem;
+            font-size: 1.75rem;
+        }
 
-			&::after
-			{
-				// Icône de statut.
-				float: right;
-				color: $text-color;
-				content: "\002B"; // Signe "+".
-			}
+        button
+        {
+            // Bouton déroulant.
+            color: $text-color;
+            width: 100%;
+            border: 1px solid $border-color;
+            padding: 1rem;
+            box-shadow: none;
+            text-align: left;
+            font-weight: bold;
+            background-color: $box-color;
 
-			&:hover
-			{
-				// Effet de sélection.
-				color: $box-color;
-				background-color: $text-color;
+            @include motion
+            {
+                transition: color 250ms, background-color 250ms;
+            }
 
-				&::after
-				{
-					color: $box-color;
-				}
-			}
-		}
+            &::after
+            {
+                // Icône de statut.
+                float: right;
+                color: $text-color;
+                content: "\002B"; // Signe "+".
+            }
 
-		.active
-		{
-			// Question déroulante.
-			color: $box-color;
-			background-color: $text-color;
+            &:hover
+            {
+                // Effet de sélection.
+                color: $box-color;
+                background-color: $text-color;
 
-			&::after
-			{
-				// Signe "-".
-				color: $box-color;
-				content: "\2212";
-			}
-		}
+                &::after
+                {
+                    color: $box-color;
+                }
+            }
+        }
 
-		p
-		{
-			// Réponse à la question.
-			color: $box-color;
-			margin: 0;
-			padding: 0 1rem;
-			overflow: hidden;
-			max-height: 0;
-			text-align: justify;
-			transition: max-height 200ms ease-out;
-			border-width: 0 1px 0 1px;
-			border-style: solid;
-			border-color: $border-color;
-			background-color: $background-color;
-		}
-	}
+        .active
+        {
+            // Question déroulante.
+            color: $box-color;
+            background-color: $text-color;
+
+            &::after
+            {
+                // Signe "-".
+                color: $box-color;
+                content: "\2212";
+            }
+        }
+
+        p
+        {
+            // Réponse à la question.
+            color: $box-color;
+            margin: 0;
+            padding: 0 1rem;
+            overflow: hidden;
+            max-height: 0;
+            text-align: justify;
+            border-width: 0 1px 0 1px;
+            border-style: solid;
+            border-color: $border-color;
+            background-color: $background-color;
+
+            @include motion
+            {
+                transition: max-height 200ms ease-out;
+            }
+        }
+    }
 }
 
 // ---------------- //
@@ -183,7 +197,7 @@ main
 // ---------------- //
 @media screen and (min-width: $phone-max-width + 1) and (max-width: $tablet-max-width)
 {
-	@import "../tablet/help";
+    @include tablet-help;
 }
 
 // -------------- //
@@ -191,5 +205,5 @@ main
 // -------------- //
 @media screen and (max-width: $phone-max-width)
 {
-	@import "../phone/help";
+    @include phone-help;
 }

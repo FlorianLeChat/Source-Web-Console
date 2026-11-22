@@ -1,40 +1,46 @@
 // ----------------------------- //
-// Disposition commune des pages //
+// Styles de la version tablette //
 // ----------------------------- //
-@include tablet-page-layout;
-
-// ---------------- //
-// Corps de la page //
-// ---------------- //
-main
+@mixin tablet-help
 {
-	#counter
+	// ----------------------------- //
+	// Disposition commune des pages //
+	// ----------------------------- //
+	@include tablet-page-layout;
+
+	// ---------------- //
+	// Corps de la page //
+	// ---------------- //
+	main
 	{
-		// Modification de la grille.
-		grid-area: 3 / 1 / 4 / 2;
-
-		ul li
+		#counter
 		{
-			// Modification de la longueur minimale.
-			min-width: 7rem;
+			// Modification de la grille.
+			grid-area: 3 / 1 / 4 / 2;
 
-			i
+			ul li
 			{
-				// Modification de la taille de l'icône.
-				font-size: 2rem;
-			}
+				// Modification de la longueur minimale.
+				min-width: 7rem;
 
-			h3
-			{
-				// Modification de la taille de l'intitulé.
-				font-size: 1.5rem;
+				i
+				{
+					// Modification de la taille de l'icône.
+					font-size: 2rem;
+				}
+
+				h3
+				{
+					// Modification de la taille de l'intitulé.
+					font-size: 1.5rem;
+				}
 			}
 		}
-	}
 
-	#faq
-	{
-		// Modification de la grille.
-		grid-area: 3 / 2 / 4 / 3;
+		#faq
+		{
+			// Modification de la grille.
+			grid-area: 3 / 2 / 4 / 3;
+		}
 	}
 }

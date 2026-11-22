@@ -2,107 +2,113 @@
 // Base de travail //
 // --------------- //
 @import "../global";
+@import "../tablet/index";
+@import "../phone/index";
 
 // ------- //
 // En-tête //
 // ------- //
 header
 {
-	// Réinitialisation de certaines règles
-	//  de l'en-tête par défaut du site.
-	width: inherit;
-	height: 0;
-	padding: 0;
-	min-height: 0;
+    // Réinitialisation de certaines règles
+    //  de l'en-tête par défaut du site.
+    width: inherit;
+    height: 0;
+    padding: 0;
+    min-height: 0;
 
-	ul
-	{
-		// Présentation des boutons.
-		right: 0;
-		margin: 1rem;
-		z-index: 1;
-		position: absolute;
+    ul
+    {
+        // Présentation des boutons.
+        right: 0;
+        margin: 1rem;
+        z-index: 1;
+        position: absolute;
 
-		li
-		{
-			button
-			{
-				// Disposition et affichage.
-				color: $text-color;
-				width: 150px;
-				height: 44px;
-				padding: 0.5rem 1.5rem;
-				transition: color 250ms, background-color 250ms;
-				font-weight: bold;
-				border-radius: 0.5rem;
-				margin-bottom: 0.5rem;
-				text-transform: uppercase;
-				background-color: $box-color;
+        li
+        {
+            button
+            {
+                // Disposition et affichage.
+                color: $text-color;
+                width: 150px;
+                height: 44px;
+                padding: 0.5rem 1.5rem;
+                font-weight: bold;
+                border-radius: 0.5rem;
+                margin-bottom: 0.5rem;
+                text-transform: uppercase;
+                background-color: $box-color;
 
-				&:hover
-				{
-					// Effet de sélection.
-					color: $box-color;
-					background-color: $text-color;
-				}
+                @include motion
+                {
+                    transition: color 250ms, background-color 250ms;
+                }
 
-				&::before
-				{
-					// Amélioration de la zone de sélection.
-					@extend %larger-touch-zone;
-				}
-			}
+                &:hover
+                {
+                    // Effet de sélection.
+                    color: $box-color;
+                    background-color: $text-color;
+                }
 
-			a
-			{
-				// Utilisation des règles originales.
-				@extend button;
+                &::before
+                {
+                    // Amélioration de la zone de sélection.
+                    @extend %larger-touch-zone;
+                }
+            }
 
-				// Modification de l'apparence par défaut.
-				width: auto;
-				height: 1.75rem;
-				display: flex;
-				text-align: center;
-				align-items: center;
-				justify-content: center;
-			}
+            a
+            {
+                // Utilisation des règles originales.
+                @extend button;
 
-			&:last-of-type
-			{
-				// Affichage des boutons de connexion vers
-				//  des plate-formes externes.
-				gap: 1rem;
-				display: flex;
-				justify-content: space-between;
+                // Modification de l'apparence par défaut.
+                width: auto;
+                height: 1.75rem;
+                display: flex;
+                text-align: center;
+                align-items: center;
+                justify-content: center;
+            }
 
-				a
-				{
-					// Lien de connexion vers chaque plate-forme.
-					display: inline-flex;
+            &:last-of-type
+            {
+                // Affichage des boutons de connexion vers
+                //  des plate-formes externes.
+                gap: 1rem;
+                display: flex;
+                justify-content: space-between;
 
-					i
-					{
-						// Icône des plate-formes.
-						position: revert;
-						font-size: 1.25rem;
-					}
+                a
+                {
+                    // Lien de connexion vers chaque plate-forme.
+                    display: inline-flex;
 
-					&.disabled
-					{
-						// Désactivation conditionnelle du bouton.
-						filter: opacity(0.5);
-						pointer-events: none;
-					}
+                    i
+                    {
+                        // Icône des plate-formes.
+                        position: revert;
+                        font-size: 1.25rem;
+                    }
 
-					&:hover i
-					{
-						// Effet de sélection.
-						color: $box-color;
-					}
-				}
-			}
-		}
-	}
+                    &.disabled
+                    {
+                        // Désactivation conditionnelle du bouton.
+                        filter: opacity(0.5);
+                        pointer-events: none;
+                    }
+
+                    &:hover i
+                    {
+                        // Effet de sélection.
+                        color: $box-color;
+                    }
+                }
+            }
+        }
+    }
 }
 
 // ---------------- //
@@ -110,34 +116,34 @@ header
 // ---------------- //
 body
 {
-	// La page occupe au moins toute la hauteur de l'écran.
-	display: flex;
-	min-height: 100vh;
-	min-height: 100dvh;
-	box-sizing: border-box;
-	flex-direction: column;
+    // La page occupe au moins toute la hauteur de l'écran.
+    display: flex;
+    min-height: 100vh;
+    min-height: 100dvh;
+    box-sizing: border-box;
+    flex-direction: column;
 }
 
 main
 {
-	// Centrage du contenu dans la hauteur disponible au-dessus
-	//  du pied de page, tout en permettant le défilement si le
-	//  contenu dépasse (écrans peu élevés, mode paysage).
-	flex: 1 0 auto;
-	display: flex;
-	padding: 2rem 1rem 6rem;
-	position: relative;
-	box-sizing: border-box;
-	align-items: center;
-	margin-bottom: calc(#{$footer-height} + 2rem);
-	flex-direction: column;
-	justify-content: center;
+    // Centrage du contenu dans la hauteur disponible au-dessus
+    //  du pied de page, tout en permettant le défilement si le
+    //  contenu dépasse (écrans peu élevés, mode paysage).
+    flex: 1 0 auto;
+    display: flex;
+    padding: 2rem 1rem 6rem;
+    position: relative;
+    box-sizing: border-box;
+    align-items: center;
+    margin-bottom: calc(#{$footer-height} + 2rem);
+    flex-direction: column;
+    justify-content: center;
 
-	> section:empty, > #register
-	{
-		// Conteneurs des formulaires affichés en surimpression.
-		box-shadow: none;
-	}
+    > section:empty, > #register
+    {
+        // Conteneurs des formulaires affichés en surimpression.
+        box-shadow: none;
+    }
 }
 
 // ----------------------------------- //
@@ -145,67 +151,73 @@ main
 // ----------------------------------- //
 main > a
 {
-	top: 0;
-	left: 0;
-	position: fixed;
-	clip-path: polygon(0 0, 100% 0, 0 100%);
+    top: 0;
+    left: 0;
+    position: fixed;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
 
-	@media screen and (max-width: 320px)
-	{
-		// Suppression du logo GitHub sur les écrans
-		//  de petite taille.
-		display: none;
-	}
+    @media screen and (max-width: 320px)
+    {
+        // Suppression du logo GitHub sur les écrans
+        //  de petite taille.
+        display: none;
+    }
 
-	&:hover path:nth-of-type(2)
-	{
-		// Animation au survol du logo GitHub.
-		animation: octocat-wave 560ms ease-in-out;
+    &:hover path:nth-of-type(2)
+    {
+        // Animation au survol du logo GitHub.
+        @include motion
+        {
+            animation: octocat-wave 560ms ease-in-out;
+        }
 
-		@media (max-width: 768px)
-		{
-			// Désactivation de l'animation sur les
-			//  écrans de petite taille.
-			animation: none;
-		}
-	}
+        @media (max-width: 768px)
+        {
+            // Désactivation de l'animation sur les
+            //  écrans de petite taille.
+            animation: none;
+        }
+    }
 
-	path:nth-of-type(2)
-	{
-		// Orientation du bras du logo GitHub.
-		fill: currentColor;
-		transform-origin: 130px 106px;
-	}
+    path:nth-of-type(2)
+    {
+        // Orientation du bras du logo GitHub.
+        fill: currentColor;
+        transform-origin: 130px 106px;
+    }
 
-	path:last-of-type
-	{
-		// Apparence du corps du logo GitHub.
-		fill: currentColor;
-	}
+    path:last-of-type
+    {
+        // Apparence du corps du logo GitHub.
+        fill: currentColor;
+    }
 
-	svg
-	{
-		// Délimitation de la zone cliquable.
-		fill: $box-color;
-		color: $text-color;
-	}
+    svg
+    {
+        // Délimitation de la zone cliquable.
+        fill: $box-color;
+        color: $text-color;
+    }
 
-	@media (max-width: 768px)
-	{
-		path:nth-of-type(2)
-		{
-			// Animation du logo GitHub au chargement
-			//  de la page sur les écrans de petite taille.
-			animation: octocat-wave 560ms ease-in-out;
-		}
-	}
+    @media (max-width: 768px)
+    {
+        path:nth-of-type(2)
+        {
+            // Animation du logo GitHub au chargement
+            //  de la page sur les écrans de petite taille.
+            @include motion
+            {
+                animation: octocat-wave 560ms ease-in-out;
+            }
+        }
+    }
 
-	@keyframes octocat-wave
-	{
-		0%, 100% { transform:rotate(0); }
-		20%, 60% { transform:rotate(-25deg); }
-		40%, 80% { transform:rotate(10deg); }
-	}
+    @keyframes octocat-wave
+    {
+        0%, 100% { transform:rotate(0); }
+        20%, 60% { transform:rotate(-25deg); }
+        40%, 80% { transform:rotate(10deg); }
+    }
 }
 
 // -------------------------------- //
@@ -213,112 +225,120 @@ main > a
 // -------------------------------- //
 #informations
 {
-	gap: 10vw;
-	width: clamp(#{$html-min-width - 32px}, 80%, 1440px);
-	display: flex;
-	box-shadow: none;
-	align-items: center;
-	justify-content: center;
+    gap: 10vw;
+    width: clamp(#{$html-min-width - 32px}, 80%, 1440px);
+    display: flex;
+    box-shadow: none;
+    align-items: center;
+    justify-content: center;
 
-	> ul
-	{
-		// Carrousel d'images.
-		width: 50%;
+    > ul
+    {
+        // Carrousel d'images.
+        width: 50%;
 
-		li
-		{
-			// Image du carrousel.
-			display: none;
+        li
+        {
+            // Image du carrousel.
+            display: none;
 
-			img
-			{
-				// Image du projet.
-				filter: blur(0.75px) grayscale(1);
-				max-width: 100%;
-				max-height: 100%;
-				transition: filter 300ms ease-in-out;
-				border-radius: 1rem;
+            img
+            {
+                // Image du projet.
+                filter: blur(0.75px) grayscale(1);
+                max-width: 100%;
+                max-height: 100%;
+                border-radius: 1rem;
 
-				&:hover
-				{
-					// Effet de sélection.
-					filter: blur(0) grayscale(0);
-				}
-			}
+                @include motion
+                {
+                    transition: filter 300ms ease-in-out;
+                }
 
-			&:first-of-type
-			{
-				// Affichage de la première image.
-				display: block;
-			}
-		}
-	}
+                &:hover
+                {
+                    // Effet de sélection.
+                    filter: blur(0) grayscale(0);
+                }
+            }
 
-	article
-	{
-		// Présentation des fonctionnalités.
-		color: $box-color;
-		width: 50%;
-		text-align: center;
-		box-shadow: none;
-		border-radius: 0.5rem;
+            &:first-of-type
+            {
+                // Affichage de la première image.
+                display: block;
+            }
+        }
+    }
 
-		img
-		{
-			// Logo du site.
-			width: 26rem;
-			max-width: 100%;
-		}
+    article
+    {
+        // Présentation des fonctionnalités.
+        color: $box-color;
+        width: 50%;
+        text-align: center;
+        box-shadow: none;
+        border-radius: 0.5rem;
 
-		button
-		{
-			// Disposition et affichage.
-			color: $box-color;
-			font-size: 2rem;
-			transition: color 250ms;
-			box-shadow: none;
-			background-color: transparent;
+        img
+        {
+            // Logo du site.
+            width: 26rem;
+            max-width: 100%;
+        }
 
-			&:first-of-type
-			{
-				// Disparition du bouton précédent.
-				//  Note : il sera affiché par le JavaScript.
-				display: none;
-			}
+        button
+        {
+            // Disposition et affichage.
+            color: $box-color;
+            font-size: 2rem;
+            box-shadow: none;
+            background-color: transparent;
 
-			&:hover
-			{
-				// Effet de sélection.
-				color: $text-color;
-			}
-		}
+            @include motion
+            {
+                transition: color 250ms;
+            }
 
-		ul li
-		{
-			h2
-			{
-				// Titre de présentation.
-				font-size: clamp(1.75rem, 1rem + 3vw, 3rem);
-				text-shadow: 1px 1px 1px $text-color;
-				text-transform: uppercase;
-			}
+            &:first-of-type
+            {
+                // Disparition du bouton précédent.
+                //  Note : il sera affiché par le JavaScript.
+                display: none;
+            }
 
-			p
-			{
-				// Paragraphe de présentation.
-				margin: 2rem 0 2rem;
-				line-height: 1.5;
-				font-weight: bold;
-			}
+            &:hover
+            {
+                // Effet de sélection.
+                color: $text-color;
+            }
+        }
 
-			&:not(:first-of-type)
-			{
-				// Disparition de toutes les parties sauf la première.
-				//  Note : elles seront affichées par le JavaScript.
-				display: none;
-			}
-		}
-	}
+        ul li
+        {
+            h2
+            {
+                // Titre de présentation.
+                font-size: clamp(1.75rem, 1rem + 3vw, 3rem);
+                text-shadow: 1px 1px 1px $text-color;
+                text-transform: uppercase;
+            }
+
+            p
+            {
+                // Paragraphe de présentation.
+                margin: 2rem 0 2rem;
+                line-height: 1.5;
+                font-weight: bold;
+            }
+
+            &:not(:first-of-type)
+            {
+                // Disparition de toutes les parties sauf la première.
+                //  Note : elles seront affichées par le JavaScript.
+                display: none;
+            }
+        }
+    }
 }
 
 // ------------------------------ //
@@ -326,26 +346,30 @@ main > a
 // ------------------------------ //
 small
 {
-	left: 0.25rem;
-	width: max(75%, $html-min-width / 2);
-	bottom: 1rem;
-	position: absolute;
+    left: 0.25rem;
+    width: max(75%, $html-min-width / 2);
+    bottom: 1rem;
+    position: absolute;
 
-	a
-	{
-		// Liens vers les politiques de confidentialité
-		//  et les conditions d'utilisation de Google.
-		transition: color 250ms, background-color 250ms;
-		text-decoration: underline;
+    a
+    {
+        // Liens vers les politiques de confidentialité
+        //  et les conditions d'utilisation de Google.
+        text-decoration: underline;
 
-		&:hover
-		{
-			// Effet de sélection.
-			color: $box-color;
-			font-weight: bold;
-			background-color: $text-color;
-		}
-	}
+        @include motion
+        {
+            transition: color 250ms, background-color 250ms;
+        }
+
+        &:hover
+        {
+            // Effet de sélection.
+            color: $box-color;
+            font-weight: bold;
+            background-color: $text-color;
+        }
+    }
 }
 
 // ---------------- //
@@ -353,7 +377,7 @@ small
 // ---------------- //
 @media screen and (min-width: $phone-max-width + 1) and (max-width: $tablet-max-width)
 {
-	@import "../tablet/index";
+    @include tablet-index;
 }
 
 // -------------- //
@@ -361,5 +385,5 @@ small
 // -------------- //
 @media screen and (max-width: $phone-max-width)
 {
-	@import "../phone/index";
+    @include phone-index;
 }

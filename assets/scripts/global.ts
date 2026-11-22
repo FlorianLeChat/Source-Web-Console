@@ -151,16 +151,6 @@ languages.parent().on( "click", "form", ( event ) =>
 	event.stopPropagation();
 } );
 
-$( "footer [role = button]" ).on( "keydown", ( event ) =>
-{
-	// Activation des boutons non natifs via les touches Entrée et Espace.
-	if ( event.key === "Enter" || event.key === " " )
-	{
-		event.preventDefault();
-		$( event.currentTarget ).trigger( "click" );
-	}
-} );
-
 $( document ).on( "click", closeMenus );
 $( document ).on( "keydown", ( event ) =>
 {
@@ -185,10 +175,10 @@ if ( process.env.RECAPTCHA_ENABLED === "true" )
 		if ( options && options.method !== "GET" )
 		{
 			// On vérifie si les services de reCAPTCHA sont disponibles.
-			if ( typeof window.grecaptcha === "undefined" )
+			if ( window.grecaptcha === undefined )
 			{
 				addQueuedNotification( window.recaptcha_error, 1 );
-				return Promise.reject( new Error( window.recaptcha_error ) );
+				throw new Error( window.recaptcha_error );
 			}
 
 			// On génère alors une nouvelle promesse qui attendra
@@ -224,7 +214,7 @@ if ( process.env.RECAPTCHA_ENABLED === "true" )
 		event.preventDefault();
 
 		// On vérifie si les services de reCAPTCHA sont disponibles.
-		if ( typeof window.grecaptcha === "undefined" )
+		if ( window.grecaptcha === undefined )
 		{
 			addQueuedNotification( window.recaptcha_error, 1 );
 			return;
@@ -347,7 +337,7 @@ contact.on( "submit", "form", async ( event ) =>
 	}
 } );
 
-contact.find( "input[type = reset]" ).on( "click", () =>
+contact.find( "[type = reset]" ).on( "click", () =>
 {
 	// On cache le formulaire à la demande de l'utilisateur.
 	contact.fadeOut( 150 );

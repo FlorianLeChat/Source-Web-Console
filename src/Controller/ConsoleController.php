@@ -21,137 +21,150 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class ConsoleController extends AbstractController
 {
-	//
-	// Initialisation de certaines dépendances du contrôleur.
-	//
-	public function __construct(
-		private readonly Filesystem $filesystem,
-		private readonly ServerManager $serverManager,
-		private readonly KernelInterface $kernel,
-		private readonly TranslatorInterface $translator,
-		private readonly EntityManagerInterface $entityManager,
-	) {}
+    //
+    // Initialisation de certaines dépendances du contrôleur.
+    //
+    public function __construct(
+        private readonly Filesystem $filesystem,
+        private readonly ServerManager $serverManager,
+        private readonly KernelInterface $kernel,
+        private readonly TranslatorInterface $translator,
+        private readonly EntityManagerInterface $entityManager,
+    ) {}
 
-	//
-	// Route vers la page de configuration de la console interactive.
-	//
-	#[Route("/console", name: "console_page")]
-	public function index(Request $request): Response
-	{
-		// On vérifie d'abord que l'utilisateur est bien connecté avant d'accéder
-		//  à la page, sinon on le redirige vers la page d'accueil.
-		if (!$this->isGranted("IS_AUTHENTICATED"))
-		{
-			return $this->redirectToRoute("index_page");
-		}
+    //
+    // Route vers la page de configuration de la console interactive.
+    //
+    #[Route("/console", name: "console_page")]
+    public function index(Request $request): Response
+    {
+        // On vérifie d'abord que l'utilisateur est bien connecté avant d'accéder
+        //  à la page, sinon on le redirige vers la page d'accueil.
+        if (!$this->isGranted("IS_AUTHENTICATED"))
+        {
+            return $this->redirectToRoute("index_page");
+        }
 
-		// On récupère l'adresse publique du serveur UDP définie dans les variables
-		//  d'environnement, avec l'adresse du serveur Web comme repli.
-		$address = $this->getParameter("app.udp_host") ?: $request->server->get("SERVER_ADDR", "127.0.0.1");
-		$port = $this->getParameter("app.udp_port");
+        // On récupère l'adresse publique du serveur UDP définie dans les variables
+        //  d'environnement, avec l'adresse du serveur Web comme repli.
+        $address = $this->getParameter("app.udp_host") ?: $request->server->get("SERVER_ADDR", "127.0.0.1");
+        $port = $this->getParameter("app.udp_port");
 
-		// On récupère ensuite les informations du serveur sélectionné précédemment
-		//  par l'utilisateur.
-		$server = $this->entityManager->getRepository(Server::class)->findOneBy([
-			"id" => intval($request->getSession()->get("serverId", 0)), "user" => $this->getUser()
-		]);
+        // On récupère ensuite les informations du serveur sélectionné précédemment
+        //  par l'utilisateur.
+        $server = $this->entityManager->getRepository(Server::class)->findOneBy([
+            "id" => (int) $request->getSession()->get("serverId", 0), "user" => $this->getUser()
+        ]);
 
-		if ($server)
-		{
-			try
-			{
-				// On tente après d'établir une connexion avec le serveur.
-				$this->serverManager->connect($server);
+        if ($server)
+        {
+            try
+            {
+                // On tente après d'établir une connexion avec le serveur.
+                $this->serverManager->connect($server);
 
-				// En cas de réussite, on définit le serveur comme étant
-				//  capable d'envoyer ses journaux d'événements au site.
-				$this->serverManager->query->Rcon("log on");
-				$this->serverManager->query->Rcon("logaddress_add $address:$port");
-			}
-			catch (\Exception) {}
-			finally
-			{
-				// Si tout se passe bien, on libère le socket réseau pour
-				//  d'autres scripts du site.
-				$this->serverManager->query->Disconnect();
-			}
-		}
+                // En cas de réussite, on définit le serveur comme étant
+                //  capable d'envoyer ses journaux d'événements au site.
+                $this->serverManager->query->Rcon("log on");
+                $this->serverManager->query->Rcon("logaddress_add $address:$port");
+            }
+            catch (\Exception)
+            {
+                // La console reste accessible même si le serveur n'est pas joignable.
+            }
+            finally
+            {
+                // Si tout se passe bien, on libère le socket réseau pour
+                //  d'autres scripts du site.
+                $this->serverManager->query->Disconnect();
+            }
+        }
 
-		// On affiche enfin la page de la console interactive.
-		return $this->render("console.html.twig");
-	}
+        // On affiche enfin la page de la console interactive.
+        return $this->render("console.html.twig");
+    }
 
-	//
-	// API vers la récupération de la sortie en temps réel de la console interactive.
-	//
-	#[Route("/api/server/console", name: "console_live", methods: ["GET"])]
-	#[IsGranted("IS_AUTHENTICATED")]
-	public function storage(Request $request): Response|JsonResponse
-	{
-		// On récupère d'abord le serveur sélectionné par l'utilisateur.
-		$serverId = intval($request->getSession()->get("serverId", 0));
+    //
+    // API vers la récupération de la sortie en temps réel de la console interactive.
+    //
+    #[Route("/api/server/console", name: "console_live", methods: ["GET"])]
+    #[IsGranted("IS_AUTHENTICATED")]
+    public function storage(Request $request): Response|JsonResponse
+    {
+        // On récupère d'abord le serveur sélectionné par l'utilisateur et on vérifie
+        //  qu'il existe bien et qu'il appartient à l'utilisateur.
+        $server = $this->getSelectedServer($request);
 
-		if ($serverId === 0)
-		{
-			return new Response(
-				$this->translator->trans("form.no_selected_server"),
-				Response::HTTP_BAD_REQUEST
-			);
-		}
+        if ($server instanceof Response)
+        {
+            return $server;
+        }
 
-		// On vérifie alors que le serveur existe bien et qu'il appartient à l'utilisateur.
-		$server = $this->entityManager->getRepository(Server::class)->findOneBy([
-			"id" => $serverId, "user" => $this->getUser()
-		]);
+        // On récupère ensuite le chemin du fichier des journaux d'événements
+        //  si le serveur est capable de communiquer avec le site.
+        $path = $this->getLogPath($server);
 
-		if (!$server)
-		{
-			return new Response(
-				$this->translator->trans("form.server_check_failed"),
-				Response::HTTP_BAD_REQUEST
-			);
-		}
+        if ($path === null)
+        {
+            return new Response(
+                $this->translator->trans("console.no_logs"),
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
 
-		// On tente ensuite de vérifier si le site est capable de communiquer
-		//  avec le serveur au travers du protocole RCON.
-		try
-		{
-			// Tentative de connexion au serveur.
-			$this->serverManager->connect($server);
-		}
-		catch (\Exception)
-		{
-			// En cas d'erreur quelconque, on indique à l'utilisateur que
-			//  le serveur n'est pas en mesure de communiquer avec le site.
-			return new Response(
-				$this->translator->trans("console.no_logs"),
-				Response::HTTP_INTERNAL_SERVER_ERROR
-			);
-		}
-		finally
-		{
-			// On libère le socket réseau pour d'autres scripts du site.
-			$this->serverManager->query->Disconnect();
-		}
+        // On récupère enfin les 100 dernières lignes du fichier des journaux d'événements
+        //  avant de les envoyer au client sous forme de réponse JSON.
+        return new JsonResponse(
+            array_slice(explode("\n", file_get_contents($path)), $this->isGranted("ROLE_DONOR") ? -100 : -50),
+            Response::HTTP_OK
+        );
+    }
 
-		// On récupère après le chemin du fichier des journaux d'événements
-		//  du serveur et on le normalise pour éviter les problèmes de chemin.
-		$address = str_replace(".", "-", $server->getAddress() . "-" . $server->getPort());
-		$path = Path::normalize(sprintf("%s/%s/%s.log", $this->kernel->getLogDir(), $address, date("Y-m-d")));
+    //
+    // Récupération du serveur sélectionné par l'utilisateur, ou de la réponse
+    //  d'erreur à renvoyer.
+    //
+    private function getSelectedServer(Request $request): Server|Response
+    {
+        $serverId = (int) $request->getSession()->get("serverId", 0);
+        $server = $serverId === 0 ? null : $this->entityManager->getRepository(Server::class)->findOneBy([
+            "id" => $serverId, "user" => $this->getUser()
+        ]);
 
-		if (!$this->filesystem->exists($path))
-		{
-			return new Response(
-				$this->translator->trans("console.no_logs"),
-				Response::HTTP_INTERNAL_SERVER_ERROR
-			);
-		}
+        return $server ?? new Response(
+            $this->translator->trans($serverId === 0 ? "form.no_selected_server" : "form.server_check_failed"),
+            Response::HTTP_BAD_REQUEST
+        );
+    }
 
-		// On récupère enfin les 100 dernières lignes du fichier des journaux d'événements
-		//  avant de les envoyer au client sous forme de réponse JSON.
-		return new JsonResponse(
-			array_slice(explode("\n", file_get_contents($path)), $this->isGranted("ROLE_DONOR") ? -100 : -50),
-			Response::HTTP_OK
-		);
-	}
+    //
+    // Récupération du chemin du fichier des journaux d'événements du jour,
+    //  ou d'une valeur nulle si le serveur est injoignable ou si le fichier
+    //  n'existe pas.
+    //
+    private function getLogPath(Server $server): ?string
+    {
+        try
+        {
+            // On vérifie si le site est capable de communiquer avec le serveur
+            //  au travers du protocole RCON.
+            $this->serverManager->connect($server);
+            $connected = true;
+        }
+        catch (\Exception)
+        {
+            $connected = false;
+        }
+        finally
+        {
+            // On libère le socket réseau pour d'autres scripts du site.
+            $this->serverManager->query->Disconnect();
+        }
+
+        // On normalise le chemin du fichier pour éviter les problèmes de chemin.
+        $address = str_replace(".", "-", $server->getAddress() . "-" . $server->getPort());
+        $path = Path::normalize(sprintf("%s/%s/%s.log", $this->kernel->getLogDir(), $address, date("Y-m-d")));
+
+        return $connected && $this->filesystem->exists($path) ? $path : null;
+    }
 }

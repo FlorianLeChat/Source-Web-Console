@@ -1,71 +1,81 @@
-// ----------------------------- //
-// Disposition commune des pages //
-// ----------------------------- //
-@include phone-page-layout;
-
-// ---------------- //
-// Corps de la page //
-// ---------------- //
-main
+// --------------------------- //
+// Styles de la version mobile //
+// --------------------------- //
+@mixin phone-statistics
 {
-	#charts
-	{
-		// Modification de la grille.
-		grid-area: 4 / 1 / 5 / 2;
+    // ----------------------------- //
+    // Disposition commune des pages //
+    // ----------------------------- //
+    @include phone-page-layout;
 
-		canvas
-		{
-			// Réduction des marges internes des graphiques.
-			padding: 0.5rem;
-		}
-	}
+    // ---------------- //
+    // Corps de la page //
+    // ---------------- //
+    main
+    {
+        #charts
+        {
+            // Modification de la grille.
+            grid-area: 4 / 1 / 5 / 2;
 
-	#orientation
-	{
-		// Suggestion d'orientation de l'appareil (sans bloquer la page).
-		//  Source : https://codepen.io/fabiowallner/pen/YOyJbJ
-		gap: 1.25rem;
-		color: $text-color;
-		padding: 0.75rem 1rem;
-		display: flex;
-		grid-area: 3 / 1 / 4 / 2;
-		box-shadow: none;
-		align-items: center;
-		border-radius: 0.5rem;
-		background-color: $box-color;
+            canvas
+            {
+                // Réduction des marges internes des graphiques.
+                padding: 0.5rem;
+            }
+        }
 
-		@media screen and (orientation: landscape)
-		{
-			// Disparition de la suggestion en mode paysage.
-			display: none;
-		}
+        #orientation
+        {
+            // Suggestion d'orientation de l'appareil (sans bloquer la page).
+            //  Source : https://codepen.io/fabiowallner/pen/YOyJbJ
+            gap: 1.25rem;
+            color: $text-color;
+            padding: 0.75rem 1rem;
+            display: flex;
+            grid-area: 3 / 1 / 4 / 2;
+            box-shadow: none;
+            align-items: center;
+            border-radius: 0.5rem;
+            background-color: $box-color;
 
-		article
-		{
-			// Animation du téléphone.
-			width: 2.5rem;
-			height: 1.25rem;
-			border: 2px solid $text-color;
-			animation: rotate 1.5s ease-in-out infinite alternate;
-			box-shadow: none;
-			flex-shrink: 0;
-			border-radius: 0.25rem;
-		}
+            @media screen and (orientation: landscape)
+            {
+                // Disparition de la suggestion en mode paysage.
+                display: none;
+            }
 
-		p
-		{
-			// Message d'information à l'utilisateur.
-			margin: 0;
-			font-size: 1rem;
-			text-align: left;
-			font-weight: bold;
-		}
+            article
+            {
+                // Animation du téléphone.
+                width: 2.5rem;
+                height: 1.25rem;
+                border: 2px solid $text-color;
+                box-shadow: none;
+                flex-shrink: 0;
+                border-radius: 0.25rem;
 
-		@keyframes rotate
-		{
-			0% { transform: rotate(0) }
-			50% { transform: rotate(-90deg) }
-			100% { transform: rotate(-90deg) }
-		}
-	}
+                @include motion
+                {
+                    animation: rotate 1.5s ease-in-out infinite alternate;
+                }
+            }
+
+            p
+            {
+                // Message d'information à l'utilisateur.
+                margin: 0;
+                font-size: 1rem;
+                text-align: left;
+                font-weight: bold;
+            }
+
+            @keyframes rotate
+            {
+                0% { transform: rotate(0) }
+                50% { transform: rotate(-90deg) }
+                100% { transform: rotate(-90deg) }
+            }
+        }
+    }
 }

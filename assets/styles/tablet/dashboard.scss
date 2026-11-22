@@ -1,40 +1,46 @@
 // ----------------------------- //
-// Disposition commune des pages //
+// Styles de la version tablette //
 // ----------------------------- //
-@include tablet-page-layout(2, auto auto auto auto auto);
-
-// ---------------- //
-// Corps de la page //
-// ---------------- //
-main
+@mixin tablet-dashboard
 {
-	#servers
-	{
-		// Modification de la grille.
-		grid-area: 3 / 1 / 5 / 2;
-	}
+	// ----------------------------- //
+	// Disposition commune des pages //
+	// ----------------------------- //
+	@include tablet-page-layout(2, auto auto auto auto auto);
 
-	#state
+	// ---------------- //
+	// Corps de la page //
+	// ---------------- //
+	main
 	{
-		// Modification de la grille.
-		grid-area: 3 / 2 / 4 / 3;
-	}
+		#servers
+		{
+			// Modification de la grille.
+			grid-area: 3 / 1 / 5 / 2;
+		}
 
-	#actions
-	{
-		// Modification de la grille.
-		grid-area: 4 / 2 / 5 / 3;
-	}
+		#state
+		{
+			// Modification de la grille.
+			grid-area: 3 / 2 / 4 / 3;
+		}
 
-	#last
-	{
-		// Modification de la grille.
-		grid-area: 5 / 1 / 6 / 2;
-	}
+		#actions
+		{
+			// Modification de la grille.
+			grid-area: 4 / 2 / 5 / 3;
+		}
 
-	#players
-	{
-		// Modification de la grille.
-		grid-area: 5 / 2 / 6 / 3;
+		#last
+		{
+			// Modification de la grille.
+			grid-area: 5 / 1 / 6 / 2;
+		}
+
+		#players
+		{
+			// Modification de la grille.
+			grid-area: 5 / 2 / 6 / 3;
+		}
 	}
 }

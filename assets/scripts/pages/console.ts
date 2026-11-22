@@ -88,10 +88,10 @@ async function retrieveRemoteLogs()
 }
 
 // Récupération des journaux au démarrage.
-retrieveRemoteLogs();
+void retrieveRemoteLogs();
 
 // Récupération des journaux toutes les 3 secondes.
 timer = setInterval( () =>
 {
-	retrieveRemoteLogs();
+	void retrieveRemoteLogs();
 }, 3000 );

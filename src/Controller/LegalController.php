@@ -11,9 +11,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class LegalController extends AbstractController
 {
-	#[Route("/legal", name: "legal_page")]
-	public function index(): Response
-	{
-		return $this->render("legal.html.twig");
-	}
+    #[Route("/legal", name: "legal_page")]
+    public function index(): Response
+    {
+        return $this->render("legal.html.twig");
+    }
 }

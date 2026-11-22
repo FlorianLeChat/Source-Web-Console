@@ -119,7 +119,7 @@ register.on( "submit", "form", async ( event ) =>
 				message: string;
 			};
 
-			navigator.clipboard.writeText( data.link ).then( () =>
+			void navigator.clipboard.writeText( data.link ).then( () =>
 			{
 				addQueuedNotification( data.message, 3 );
 			} );

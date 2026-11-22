@@ -14,19 +14,19 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
  */
 final class CommandCrudController extends AbstractCrudController
 {
-	public static function getEntityFqcn(): string
-	{
-		return Command::class;
-	}
+    public static function getEntityFqcn(): string
+    {
+        return Command::class;
+    }
 
-	public function configureFields(string $pageName): iterable
-	{
-		// Ajout de la relation avec l'utilisateur concerné dans le
-		//  formulaire de création et de modification des commandes.
-		$fields = parent::configureFields($pageName);
+    public function configureFields(string $pageName): iterable
+    {
+        // Ajout de la relation avec l'utilisateur concerné dans le
+        //  formulaire de création et de modification des commandes.
+        $fields = parent::configureFields($pageName);
 
-		array_splice($fields, 1, 0, [AssociationField::new("user")]);
+        array_splice($fields, 1, 0, [AssociationField::new("user")]);
 
-		return $fields;
-	}
+        return $fields;
+    }
 }

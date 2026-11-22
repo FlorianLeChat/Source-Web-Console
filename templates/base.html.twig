@@ -197,14 +197,14 @@
 			</section>
 
 			{# Notifications textuelles #}
-			<div id="notifications" role="status" aria-live="polite">
+			<output id="notifications" aria-live="polite">
 				<i class="bi"></i>
 				<span></span>
-			</div>
+			</output>
 
 			{# Conteneur du bouton des astuces #}
 			<div id="tips">
-				<button type="button" aria-expanded="false" aria-controls="tips-content" aria-label="{{ t("footer.support")|trans }}">?</button>
+				<button type="button" aria-expanded="false" aria-controls="tips-content">?<span class="visually-hidden">{{ t("footer.support")|trans }}</span></button>
 				<span id="tips-content">{{ t(route_name ~ ".tips")|trans }}</span>
 			</div>
 
@@ -269,7 +269,9 @@
 
 				<li>
 					{# Sélecteur des langues #}
-					<i class="bi bi-translate" tabindex="0" role="button" aria-label="{{ t("footer.language")|trans }}" aria-haspopup="true" aria-expanded="false"></i>
+					<button type="button" aria-label="{{ t("footer.language")|trans }}" aria-haspopup="true" aria-expanded="false">
+						<i class="bi bi-translate"></i>
+					</button>
 					<form method="POST">
 						<ul>
 							{% for code in get_languages() %}
@@ -293,9 +295,11 @@
 					</form>
 				</li>
 
-				<li data-cc="show-preferencesModal" tabindex="0" role="button" aria-label="{{ t("footer.cookies")|trans }}">
+				<li data-cc="show-preferencesModal">
 					{# Consentement des cookies #}
-					<i class="bi bi-sliders2"></i>
+					<button type="button" aria-label="{{ t("footer.cookies")|trans }}">
+						<i class="bi bi-sliders2"></i>
+					</button>
 				</li>
 			</ul>
 

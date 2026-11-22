@@ -6,31 +6,31 @@
 
 {# Champs du formulaire #}
 <form method="POST" novalidate>
-	{# Message d'erreur #}
-	<output class="error"></output>
+    {# Message d'erreur #}
+    <output class="error"></output>
 
-	{# Nom d'utilisateur #}
-	<label for="login_username">{{ t("form.login.username")|trans }}<span>*</span></label>
-	<input type="text" autocomplete="username" autocapitalize="off" spellcheck="false" id="login_username" name="username" placeholder="johndoe" minlength="10" maxlength="30" required />
-	<span></span>
+    {# Nom d'utilisateur #}
+    <label for="login_username">{{ t("form.login.username")|trans }}<span>*</span></label>
+    <input type="text" autocomplete="username" autocapitalize="off" spellcheck="false" id="login_username" name="username" placeholder="johndoe" minlength="10" maxlength="30" required />
+    <span></span>
 
-	{# Mot de passe #}
-	<label for="login_password">{{ t("form.login.password")|trans }}<span>*</span></label>
-	<input type="password" autocomplete="current-password" autocapitalize="off" spellcheck="false" id="login_password" name="password" placeholder="?JohnDoe2022!" minlength="10" maxlength="50" required />
-	<span></span>
+    {# Mot de passe #}
+    <label for="login_password">{{ t("form.login.password")|trans }}<span>*</span></label>
+    <input type="password" autocomplete="current-password" autocapitalize="off" spellcheck="false" id="login_password" name="password" placeholder="?JohnDoe2022!" minlength="10" maxlength="50" required />
+    <span></span>
 
-	{# Liens vers l'inscription, connexion unique ou la récupération de mot de passe. #}
-	<em data-token="{{ csrf_token("user_recover") }}" data-route="{{ path("user_recover") }}">{{ t("form.login.links")|trans|raw }}</em>
+    {# Liens vers l'inscription, connexion unique ou la récupération de mot de passe. #}
+    <em data-token="{{ csrf_token("user_recover") }}" data-route="{{ path("user_recover") }}">{{ t("form.login.links")|trans|raw }}</em>
 
-	{# Bouton d'affichage du mot de passe #}
-	<label for="login_clear">{{ t("form.clear_password")|trans }}</label>
-	<input type="checkbox" id="login_clear" /><br /><br />
+    {# Bouton d'affichage du mot de passe #}
+    <label for="login_clear">{{ t("form.clear_password")|trans }}</label>
+    <input type="checkbox" id="login_clear" /><br /><br />
 
-	{# Se souvenir de la connexion #}
-	<label for="login_remember">{{ t("form.remember_me")|trans }}</label>
-	<input type="checkbox" id="login_remember" name="remember_me" /><br /><br />
+    {# Se souvenir de la connexion #}
+    <label for="login_remember">{{ t("form.remember_me")|trans }}</label>
+    <input type="checkbox" id="login_remember" name="remember_me" /><br /><br />
 
-	{# Validation/annulation #}
-	<input type="reset" value="{{ t("form.cancel_button")|trans }}" />
-	<input type="submit" value="{{ t("form.validate_button")|trans }}" />
+    {# Validation/annulation #}
+    <button type="reset" id="login_reset">{{ t("form.cancel_button")|trans }}</button>
+    <input type="submit" value="{{ t("form.validate_button")|trans }}" />
 </form>

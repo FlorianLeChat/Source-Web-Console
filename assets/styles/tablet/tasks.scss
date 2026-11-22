@@ -1,22 +1,28 @@
 // ----------------------------- //
-// Disposition commune des pages //
+// Styles de la version tablette //
 // ----------------------------- //
-@include tablet-page-layout;
-
-// ---------------- //
-// Corps de la page //
-// ---------------- //
-main
+@mixin tablet-tasks
 {
-	#tasks
-	{
-		// Modification de la grille.
-		grid-area: 3 / 1 / 4 / 3;
+	// ----------------------------- //
+	// Disposition commune des pages //
+	// ----------------------------- //
+	@include tablet-page-layout;
 
-		form
+	// ---------------- //
+	// Corps de la page //
+	// ---------------- //
+	main
+	{
+		#tasks
 		{
-			// Suppression de la hauteur imposée.
-			max-height: 100%;
+			// Modification de la grille.
+			grid-area: 3 / 1 / 4 / 3;
+
+			form
+			{
+				// Suppression de la hauteur imposée.
+				max-height: 100%;
+			}
 		}
 	}
 }

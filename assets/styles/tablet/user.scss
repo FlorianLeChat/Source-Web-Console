@@ -1,28 +1,34 @@
 // ----------------------------- //
-// Disposition commune des pages //
+// Styles de la version tablette //
 // ----------------------------- //
-@include tablet-page-layout(2, auto auto auto auto);
-
-// ---------------- //
-// Corps de la page //
-// ---------------- //
-main
+@mixin tablet-user
 {
-	#account
-	{
-		// Modification de la grille.
-		grid-area: 3 / 1 / 4 / 2;
-	}
+	// ----------------------------- //
+	// Disposition commune des pages //
+	// ----------------------------- //
+	@include tablet-page-layout(2, auto auto auto auto);
 
-	#actions
+	// ---------------- //
+	// Corps de la page //
+	// ---------------- //
+	main
 	{
-		// Modification de la grille.
-		grid-area: 4 / 1 / 5 / 2;
-	}
+		#account
+		{
+			// Modification de la grille.
+			grid-area: 3 / 1 / 4 / 2;
+		}
 
-	#register
-	{
-		// Modification de la grille.
-		grid-area: 3 / 2 / 5 / 3;
+		#actions
+		{
+			// Modification de la grille.
+			grid-area: 4 / 1 / 5 / 2;
+		}
+
+		#register
+		{
+			// Modification de la grille.
+			grid-area: 3 / 2 / 5 / 3;
+		}
 	}
 }

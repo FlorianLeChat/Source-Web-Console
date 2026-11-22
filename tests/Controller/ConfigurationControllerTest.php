@@ -203,7 +203,8 @@ final class ConfigurationControllerTest extends WebTestCase
         return [
             "hostname" => ["hostname", "hostname \"New\""],
             "loading" => ["loading", "sv_loadingurl \"New\""],
-            "password" => ["password", "rcon_password \"New\""]
+            "password" => ["password", "rcon_password \"New\""],
+            "unknown" => ["unknown", "hostname \"Old\"\nsv_loadingurl \"Old\"\nrcon_password \"Old\""]
         ];
     }
 

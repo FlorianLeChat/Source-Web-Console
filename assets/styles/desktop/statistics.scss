@@ -2,6 +2,8 @@
 // Base de travail //
 // --------------- //
 @import "../global";
+@import "../tablet/statistics";
+@import "../phone/statistics";
 
 // ---------------- //
 // Corps de la page //
@@ -58,17 +60,23 @@ main
 			margin-bottom: 1.5rem;
 		}
 
-		canvas
+		figure
 		{
-			// Graphique.
-			border: 1px solid $text-color;
-			padding: 1rem;
+			// Conteneur du graphique.
+			margin: 0;
 
 			&:first-of-type
 			{
 				// Marge appliquée seulement au premier.
 				margin-bottom: 1.5rem;
 			}
+		}
+
+		canvas
+		{
+			// Graphique.
+			border: 1px solid $text-color;
+			padding: 1rem;
 		}
 	}
 
@@ -84,7 +92,7 @@ main
 // ---------------- //
 @media screen and (min-width: $phone-max-width + 1) and (max-width: $tablet-max-width)
 {
-	@import "../tablet/statistics";
+	@include tablet-statistics;
 }
 
 // -------------- //
@@ -92,5 +100,5 @@ main
 // -------------- //
 @media screen and (max-width: $phone-max-width)
 {
-	@import "../phone/statistics";
+	@include phone-statistics;
 }

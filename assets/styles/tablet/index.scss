@@ -1,45 +1,51 @@
-// ------- //
-// En-tête //
-// ------- //
-header
+// ----------------------------- //
+// Styles de la version tablette //
+// ----------------------------- //
+@mixin tablet-index
 {
-	// L'en-tête reprend sa place dans le flux pour que les
-	//  boutons ne recouvrent plus la présentation du site.
-	height: auto;
-	padding: 1rem 1rem 0;
-	background-color: transparent;
-
-	ul
+	// ------- //
+	// En-tête //
+	// ------- //
+	header
 	{
-		// Centrage des boutons.
-		gap: 0 1rem;
-		margin: 0;
-		display: flex;
-		position: static;
-		flex-wrap: wrap;
-		align-items: center;
-		justify-content: center;
-	}
-}
+		// L'en-tête reprend sa place dans le flux pour que les
+		//  boutons ne recouvrent plus la présentation du site.
+		height: auto;
+		padding: 1rem 1rem 0;
+		background-color: transparent;
 
-// -------------------------------- //
-// Section : informations générales //
-// -------------------------------- //
-#informations
-{
-	// Modification de la disposition flex.
-	gap: 0;
-	flex-direction: column;
-
-	ul img
-	{
-		// Suppression de l'image de présentation.
-		display: none;
+		ul
+		{
+			// Centrage des boutons.
+			gap: 0 1rem;
+			margin: 0;
+			display: flex;
+			position: static;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: center;
+		}
 	}
 
-	article
+	// -------------------------------- //
+	// Section : informations générales //
+	// -------------------------------- //
+	#informations
 	{
-		// Agrandissement du texte de présentation.
-		width: auto;
+		// Modification de la disposition flex.
+		gap: 0;
+		flex-direction: column;
+
+		ul img
+		{
+			// Suppression de l'image de présentation.
+			display: none;
+		}
+
+		article
+		{
+			// Agrandissement du texte de présentation.
+			width: auto;
+		}
 	}
 }

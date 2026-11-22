@@ -17,7 +17,8 @@ COPY package*.json ./
 RUN --mount=type=cache,target=/root/.npm \
     npm ci
 
-COPY . .
+COPY assets ./assets
+COPY .env tsconfig.json webpack.config.js ./
 
 RUN npm run build
 
@@ -32,7 +33,6 @@ RUN install-php-extensions zip ftp pdo_mysql redis intl xdebug bcmath excimer @c
     echo "xdebug.client_host=host.docker.internal" >> "$PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini"
 
 COPY --from=ghcr.io/symfony-cli/symfony-cli:latest /usr/local/bin/symfony /usr/local/bin/symfony
-COPY --chown=www-data:www-data . .
 
 FROM base AS production
 
@@ -61,8 +61,15 @@ RUN --mount=type=bind,from=composer:2,source=/usr/bin/composer,target=/usr/local
     --no-scripts
 
 COPY docker/configuration/Caddyfile /etc/frankenphp/Caddyfile
+COPY --chown=www-data:www-data public ./public
 COPY --from=assets --chown=www-data:www-data /usr/src/app/public/build ./public/build
-COPY --chown=www-data:www-data . .
+COPY --chown=www-data:www-data .env ./
+COPY --chown=www-data:www-data bin ./bin
+COPY --chown=www-data:www-data config ./config
+COPY --chown=www-data:www-data migrations ./migrations
+COPY --chown=www-data:www-data src ./src
+COPY --chown=www-data:www-data templates ./templates
+COPY --chown=www-data:www-data translations ./translations
 
 RUN --mount=type=bind,from=composer:2,source=/usr/bin/composer,target=/usr/local/bin/composer \
     composer dump-autoload --no-dev --classmap-authoritative && \
@@ -87,3 +94,5 @@ RUN --mount=type=bind,from=composer:2,source=/usr/bin/composer,target=/usr/local
       'opcache.interned_strings_buffer = 16' \
       'opcache.max_accelerated_files = 20000' \
     > "$PHP_INI_DIR/conf.d/zz-custom.ini"
+
+USER www-data

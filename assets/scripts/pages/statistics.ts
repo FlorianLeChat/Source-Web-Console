@@ -25,7 +25,7 @@ const titleFont = {
 // Permet de créer un graphique pour illustrer le nombre total
 //  de joueurs en fonction du temps.
 //
-document.fonts.ready.then( () =>
+void document.fonts.ready.then( () =>
 {
 	const playerChart = new Chart( "player_count", {
 		type: "line",

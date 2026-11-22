@@ -2,6 +2,8 @@
 // Base de travail //
 // --------------- //
 @import "../global";
+@import "../tablet/user";
+@import "../phone/user";
 
 // ---------------- //
 // Corps de la page //
@@ -198,7 +200,7 @@ main
 // ---------------- //
 @media screen and (min-width: $phone-max-width + 1) and (max-width: $tablet-max-width)
 {
-	@import "../tablet/user";
+	@include tablet-user;
 }
 
 // -------------- //
@@ -206,5 +208,5 @@ main
 // -------------- //
 @media screen and (max-width: $phone-max-width)
 {
-	@import "../phone/user";
+	@include phone-user;
 }

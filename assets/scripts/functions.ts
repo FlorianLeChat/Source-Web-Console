@@ -138,7 +138,7 @@ setInterval( () =>
 {
 	// On récupère d'abord toutes les clés disponibles dans
 	//  la file d'attente des notifications.
-	const keys: number[] = Object.keys( messageQueue ).map( ( key ) => parseInt( key, 10 ) );
+	const keys: number[] = Object.keys( messageQueue ).map( ( key ) => Number.parseInt( key, 10 ) );
 
 	// On vérifie alors si la file n'est pas vide avant de
 	//  continuer son traitement.
