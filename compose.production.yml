@@ -96,6 +96,11 @@ services:
                 condition: service_completed_successfully
         security_opt:
             - no-new-privileges=true
+        healthcheck:
+            test: ["CMD-SHELL", "find /tmp/scheduler.heartbeat -mmin -2 | grep -q ."]
+            retries: 3
+            timeout: 5s
+            start_period: 30s
         deploy:
             resources:
                 limits:
@@ -119,6 +124,11 @@ services:
                 condition: service_completed_successfully
         security_opt:
             - no-new-privileges=true
+        healthcheck:
+            test: ["CMD-SHELL", "grep -q ':20FB ' /proc/net/udp"]
+            retries: 3
+            timeout: 5s
+            start_period: 10s
         deploy:
             resources:
                 limits:

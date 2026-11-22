@@ -65,6 +65,11 @@ services:
                 condition: service_healthy
             migration:
                 condition: service_completed_successfully
+        healthcheck:
+            test: ["CMD-SHELL", "find /tmp/scheduler.heartbeat -mmin -2 | grep -q ."]
+            retries: 3
+            timeout: 5s
+            start_period: 30s
 
     udp:
         image: source-web-console
@@ -73,6 +78,11 @@ services:
         depends_on:
             migration:
                 condition: service_completed_successfully
+        healthcheck:
+            test: ["CMD-SHELL", "grep -q ':20FB ' /proc/net/udp"]
+            retries: 3
+            timeout: 5s
+            start_period: 10s
         ports:
             - "${UDP_PORT:-8443}:8443/udp"
 
